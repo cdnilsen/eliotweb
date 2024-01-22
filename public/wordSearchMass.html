@@ -5,10 +5,25 @@
     <script src="wordSearchMass.js"></script>
 </head>
 <body>
-    <div id="search-container"></div>
-    <div id="new-word-container"></div>
+    <div style="display: flex; flex-direction: row; justify-content: center; align-items: center">
+        <label for="searchWordDropdown" style="padding-right:5px">Word</label>
+        <select id="searchWordDropdown" name="searchWordDropdown" style="padding-right:5px">
+            <option id="contains" value="contains">contains: </option>
+            <option id="isExactly" value="exact">is exactly: </option> 
+            <option id="beginsWith" value="starts">begins with: </option>
+            <option id="endsWith" value="ends">ends with: </option>
+        </select>
+
+        <input style="padding-left:5px" type="text" id="search_bar" name="search_query" placeholder="Search...">
+    </div>
+    <div id="results-container"></div>
     <script type="text/javascript">
-        seeAllWords(document.getElementById('new-word-container'))
+        document.getElementById("submit").addEventListener("click", function () {
+            var searchType = document.getElementById("searchWordDropdown").value;
+            var query = document.getElementById("search_bar").value;
+
+            seeAllWords(document.getElementById("results-container"), query);
+        })
     </script>
 </body>
 </html>

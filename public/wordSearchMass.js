@@ -1,7 +1,7 @@
 // Allows the user to search for matching words in the Massachusett texts and outputs a list of all their cites
 
 function getAllWordTokens(searchString, word, totalCount, citeList, tokenList) {
-    const it = document.createElement('div');
+    const wordDiv = document.createElement('div');
 
     const headword = document.createElement('span');
     
@@ -18,8 +18,7 @@ function getAllWordTokens(searchString, word, totalCount, citeList, tokenList) {
         let book = splitCite[1];
         let chapter = splitCite[2];
         let verse = splitCite[3];
-        console.log(book);
-        console.log(book, chapter, verse);
+        
         let address = chapter + '.' + verse;
 
         if (! bookToCiteDict.hasOwnProperty(book)) {
@@ -43,17 +42,17 @@ function getAllWordTokens(searchString, word, totalCount, citeList, tokenList) {
         }
     }
     
-    it.appendChild(headword);
-    return it;
+    wordDiv.appendChild(headword);
+    return wordDiv;
 }
 
-function seeAllWords(el) {
-    el.innerText = "Loading words..."
+function seeAllWords(resultDiv, searchString) {
+    resultDiv.innerText = "Loading words..."
 
     fetch("/words").then(res => res.json()).then(res => {
-        el.innerText = ""
+        resultDiv.innerText = ""
         for (let item of res) {
-            el.appendChild(getAllWordTokens("k", item.word, item.total_count, item.verse_addresses, item.verse_tokens));
+            resultDiv.appendChild(getAllWordTokens(searchString, item.word, item.total_count, item.verse_addresses, item.verse_tokens));
         }
     }).catch(err => console.error(err))
 }
