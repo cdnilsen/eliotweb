@@ -2,10 +2,18 @@
 
 function checkWord(word, searchString, searchSetting) {
     let returnWord = false;
+    let finalWord = ""
     if (searchSetting == "contains" && word.includes(searchString)) {
         returnWord = true;
+        finalWord = word.split(searchString).join('<u><span style="color: red">' + searchString + '</u>');
+
     } else if (searchSetting == "starts" && word.startsWith(searchString)) {
         returnWord = true;
+        finalWord = word.split(searchString).join('Ž' + searchString + 'ž')
+        finalWord = finalWord.replace("Ž", "<u><span style='color: red'>");
+        finalWord = finalWord.replace("ž", "</span></u>");
+        finalWord = finalWord.split("Ž").join("");
+        finalWord = finalWord.split("ž").join("");
     } else if (searchSetting == "ends" && word.endsWith(searchString)) {
         returnWord = true;
     } else if (searchSetting == "exact" && word == searchString) {
