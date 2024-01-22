@@ -84,6 +84,8 @@ bookDropdown.addEventListener("change", function() {
     let editionDropdownContainer = document.getElementById("edition-dropdown-container");
 
     let editionDropdown = document.createElement('select');
+    editionDropdown.id = "searchEditionDropdown";
+    editionDropdownContainer.appendChild(editionDropdown);
     let blankOption = document.createElement('option');
     blankOption.text = "";
     editionDropdown.add(blankOption);
@@ -103,4 +105,5 @@ bookDropdown.addEventListener("change", function() {
         editionOption.text = edition;
         editionDropdown.add(editionOption);
     }
+    editionDropdownContainer.hidden = false;
 });
