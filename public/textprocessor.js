@@ -83,10 +83,10 @@ for (let i = 0; i < allBookList.length; i++) {
 }
 
 bookDropdown.addEventListener("change", function() {
-    editionDropdownContainer.innerHTML = "";
     let editionDropdownContainer = document.getElementById("edition-dropdown-container");
 
     let editionDropdownLegend = document.createElement('span');
+    editionDropdownLegend.innerHTML = "";
     editionDropdownLegend.innerHTML = "Edition: ";
     editionDropdownContainer.appendChild(editionDropdownLegend);
 
