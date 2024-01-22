@@ -18,6 +18,7 @@ function getAllWordTokens(searchString, word, totalCount, citeList, tokenList) {
         let book = splitCite[1];
         let chapter = splitCite[2];
         let verse = splitCite[3];
+        console.log(book);
         console.log(book, chapter, verse);
         let address = chapter + '.' + verse;
 
