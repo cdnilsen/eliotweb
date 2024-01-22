@@ -68,7 +68,7 @@ const allBookList = [
     "Revelation"
 ];
 
-const bookDropdown = document.getElementById("searchBookDropdown");
+let bookDropdown = document.getElementById("searchBookDropdown");
 let blankOption = document.createElement('option');
 blankOption.text = "";
 bookDropdown.add(blankOption);
