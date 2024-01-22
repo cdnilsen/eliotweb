@@ -21,8 +21,8 @@ function getAllWordTokens(searchString, word, totalCount, citeList, tokenList) {
         console.log(book);
         console.log(book, chapter, verse);
         let address = chapter + '.' + verse;
-
         if (! book in bookToCiteDict) {
+            console.log("Hello, you should be seeing this")
             bookToCiteDict[book] = "";
             allBookList.push(book);
         }
