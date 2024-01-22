@@ -48,7 +48,7 @@ function seeAllWords(el) {
     fetch("/words").then(res => res.json()).then(res => {
         el.innerText = ""
         for (let item of res) {
-            el.appendChild(getAllWordTokens(item.word, item.total_count, item.verse_addresses, item.verse_tokens));
+            el.appendChild(getAllWordTokens("k", item.word, item.total_count, item.verse_addresses, item.verse_tokens));
         }
     }).catch(err => console.error(err))
 }
