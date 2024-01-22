@@ -70,15 +70,13 @@ const allBookList = [
 
 const bookDropdown = document.getElementById("searchBookDropdown");
 let blankOption = document.createElement('option');
-blankOption.value = "";
-blankOption.innerHTML = "";
+blankOption.text = "";
 bookDropdown.add(blankOption);
 
 for (let i = 0; i < allBookList; i++) {
     let book = allBookList[i];
     let bookOption = document.createElement('option');
-    bookOption.value = book;
-    bookOption.innerHTML = book;
+    bookOption.text = book;
     bookDropdown.add(bookOption);
 }
 
@@ -87,24 +85,22 @@ bookDropdown.addEventListener("change", function() {
 
     let editionDropdown = document.createElement('select');
     let blankOption = document.createElement('option');
-    blankOption.value = "";
-    blankOption.innerHTML = "";
+    blankOption.text = "";
     editionDropdown.add(blankOption);
 
     let editionList = ["First Edition", "Second Edition"];
 
-    if (bookDropdown.value == "Genesis") {
+    if (bookDropdown.text == "Genesis") {
         editionList.push("Zeroth Edition");
     }
-    if (bookDropdown.value == "Psalms" || bookDropdown.value == "John") {
+    if (bookDropdown.text == "Psalms (prose)" || bookDropdown.text == "John") {
         editionList.push("Mayhew");
     }
 
     for (let i = 0; i < editionList.length; i++) {
         let edition = editionList[i];
         let editionOption = document.createElement('option');
-        editionOption.value = edition;
-        editionOption.innerHTML = edition;
+        editionOption.text = edition;
         editionDropdown.add(editionOption);
     }
 });
