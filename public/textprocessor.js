@@ -68,14 +68,14 @@ const allBookList = [
     "Revelation"
 ];
 
-var bookDropdown = document.getElementById("searchBookDropdown");
-var blankOption = document.createElement('option');
+let bookDropdown = document.getElementById("searchBookDropdown");
+let blankOption = document.createElement('option');
 blankOption.text = "";
 bookDropdown.add(blankOption);
 
 for (let i = 0; i < allBookList.length; i++) {
     let book = allBookList[i];
-    var bookOption = document.createElement('option');
+    let bookOption = document.createElement('option');
     bookOption.text = book;
     bookDropdown.add(bookOption);
 }
@@ -83,10 +83,14 @@ for (let i = 0; i < allBookList.length; i++) {
 bookDropdown.addEventListener("change", function() {
     let editionDropdownContainer = document.getElementById("edition-dropdown-container");
 
-    var editionDropdown = document.createElement('select');
+    let editionDropdownLegend = document.createElement('span');
+    editionDropdownLegend.innerHTML = "Edition: ";
+    editionDropdownContainer.appendChild(editionDropdownLegend);
+
+    let editionDropdown = document.createElement('select');
     editionDropdown.id = "searchEditionDropdown";
     editionDropdownContainer.appendChild(editionDropdown);
-    var blankOption = document.createElement('option');
+    let blankOption = document.createElement('option');
     blankOption.text = "";
     editionDropdown.add(blankOption);
 
@@ -101,7 +105,7 @@ bookDropdown.addEventListener("change", function() {
 
     for (let i = 0; i < editionList.length; i++) {
         let edition = editionList[i];
-        var editionOption = document.createElement('option');
+        let editionOption = document.createElement('option');
         editionOption.text = edition;
         editionDropdown.add(editionOption);
     }
