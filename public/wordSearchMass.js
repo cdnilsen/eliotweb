@@ -16,8 +16,11 @@ function checkWord(word, searchString, searchSetting) {
         finalWord = finalWord.split("ž").join("");
     } else if (searchSetting == "ends" && word.endsWith(searchString)) {
         returnWord = true;
+        let lastStringIndex = word.lastIndexOf(searchString);
+        finalWord = word.slice(0, lastStringIndex) + "<u><span style='color: red'></span>" + searchString + '</span></u>';
     } else if (searchSetting == "exact" && word == searchString) {
         returnWord = true;
+        finalWord = word;
     }
     return [returnWord, finalWord];
 }
