@@ -4,7 +4,7 @@ function wordToElement(word, count=0) {
     const it = document.createElement('div')
 
     const wordEl = document.createElement('span')
-    wordEl.innerText = word
+    wordEl.innerText = word + ": "
     it.appendChild(wordEl)
 
     const countEl = document.createElement('span')
