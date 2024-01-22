@@ -33,6 +33,7 @@ function getAllWordTokens(searchString, word, totalCount, citeList, tokenList) {
 
     for (let j = 0; j < allBookList.length; j++) {
         let book = allBookList[j];
+        console.log(book);
         headword.innerText += "<i>" + book + "</i>: " + bookToCiteDict[book] + "\n\t";
     }
     it.appendChild(headword);
