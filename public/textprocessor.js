@@ -68,10 +68,43 @@ const allBookList = [
     "Revelation"
 ];
 
+const bookDropdown = document.getElementById("searchBookDropdown");
+let blankOption = document.createElement('option');
+blankOption.value = "";
+blankOption.innerHTML = "";
+bookDropdown.add(blankOption);
+
 for (let i = 0; i < allBookList; i++) {
     let book = allBookList[i];
     let bookOption = document.createElement('option');
     bookOption.value = book;
     bookOption.innerHTML = book;
-    document.getElementById("book-dropdown-container").appendChild(bookOption);
+    bookDropdown.add(bookOption);
 }
+
+bookDropdown.addEventListener("change", function() {
+    let editionDropdownContainer = document.getElementById("edition-dropdown-container");
+
+    let editionDropdown = document.createElement('select');
+    let blankOption = document.createElement('option');
+    blankOption.value = "";
+    blankOption.innerHTML = "";
+    editionDropdown.add(blankOption);
+
+    let editionList = ["First Edition", "Second Edition"];
+
+    if (bookDropdown.value == "Genesis") {
+        editionList.push("Zeroth Edition");
+    }
+    if (bookDropdown.value == "Psalms" || bookDropdown.value == "John") {
+        editionList.push("Mayhew");
+    }
+
+    for (let i = 0; i < editionList.length; i++) {
+        let edition = editionList[i];
+        let editionOption = document.createElement('option');
+        editionOption.value = edition;
+        editionOption.innerHTML = edition;
+        editionDropdown.add(editionOption);
+    }
+});
