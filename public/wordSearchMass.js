@@ -20,7 +20,7 @@ function getAllWordTokens(searchString, word, totalCount, citeList, tokenList) {
 
         let address = chapter + '.' + verse;
 
-        if (! bookToCiteDict.includes(book)) {
+        if (! book in bookToCiteDict) {
             bookToCiteDict[book] = "";
             allBookList.push(book);
         }
