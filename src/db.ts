@@ -8,7 +8,6 @@ const client = new Client({
     host: process.env.PGHOST,
     database: process.env.PGDATABASE,
     password: process.env.PGPASSWORD,
-    port: parseInt(process.env.PGPORT || '5432'),
 });
 
 export default client;
