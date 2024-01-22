@@ -68,14 +68,14 @@ const allBookList = [
     "Revelation"
 ];
 
-let bookDropdown = document.getElementById("searchBookDropdown");
-let blankOption = document.createElement('option');
+var bookDropdown = document.getElementById("searchBookDropdown");
+var blankOption = document.createElement('option');
 blankOption.text = "";
 bookDropdown.add(blankOption);
 
 for (let i = 0; i < allBookList; i++) {
     let book = allBookList[i];
-    let bookOption = document.createElement('option');
+    var bookOption = document.createElement('option');
     bookOption.text = book;
     bookDropdown.add(bookOption);
 }
@@ -83,10 +83,10 @@ for (let i = 0; i < allBookList; i++) {
 bookDropdown.addEventListener("change", function() {
     let editionDropdownContainer = document.getElementById("edition-dropdown-container");
 
-    let editionDropdown = document.createElement('select');
+    var editionDropdown = document.createElement('select');
     editionDropdown.id = "searchEditionDropdown";
     editionDropdownContainer.appendChild(editionDropdown);
-    let blankOption = document.createElement('option');
+    var blankOption = document.createElement('option');
     blankOption.text = "";
     editionDropdown.add(blankOption);
 
@@ -101,7 +101,7 @@ bookDropdown.addEventListener("change", function() {
 
     for (let i = 0; i < editionList.length; i++) {
         let edition = editionList[i];
-        let editionOption = document.createElement('option');
+        var editionOption = document.createElement('option');
         editionOption.text = edition;
         editionDropdown.add(editionOption);
     }
