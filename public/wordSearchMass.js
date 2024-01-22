@@ -37,7 +37,7 @@ function getAllWordTokens(searchString, word, totalCount, citeList, tokenList) {
 
     for (let j = 0; j < allBookList.length; j++) {
         let book = allBookList[j];
-        headword.innerHTML += "<i>" + book + "</i>: " + bookToCiteDict[book].split(0, -2) + "<br>";
+        headword.innerHTML += "<i>" + book + "</i>: " + bookToCiteDict[book].slice(0, -2) + "<br>";
         if (j < allBookList.length - 1) {
             headword.innerHTML += "&emsp;";
         }
