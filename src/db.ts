@@ -1,11 +1,14 @@
-import { Client } from 'pg'
+import { Client } from 'pg';
+import { config } from 'dotenv';
 
-// Definitely change these. Your deployment environment should tell you what to do here.
-const CLIENT_PROPS = {
-    user: 'postgres',
-    password: 'postgres',
-    database: 'eliotweb',
-    port: 5432
-}
+config({ path: '.env' });
 
-export const client = new Client(CLIENT_PROPS)
+const client = new Client({
+    user: process.env.PGUSER,
+    host: process.env.PGHOST,
+    database: process.env.PGDATABASE,
+    password: process.env.PGPASSWORD,
+    port: parseInt(process.env.DB_PORT || '5432'),
+});
+
+export default client;
