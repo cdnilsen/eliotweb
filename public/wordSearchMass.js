@@ -19,7 +19,7 @@ function checkWord(word, searchString, searchSetting) {
     } else if (searchSetting == "exact" && word == searchString) {
         returnWord = true;
     }
-    return returnWord;
+    return [returnWord, finalWord];
 }
 
 function getAllWordTokens(searchString, word, totalCount, citeList, tokenList) {
@@ -27,7 +27,7 @@ function getAllWordTokens(searchString, word, totalCount, citeList, tokenList) {
 
     const headword = document.createElement('span');
     
-    headword.innerHTML = "<b>" + word.split(searchString).join("<u>" + searchString + "</u>") + "</b> (" + totalCount + "):<br>&emsp;"
+    headword.innerHTML = "<b>" + word + "</b> (" + totalCount + "):<br>&emsp;"
     const bookList = document.createElement('div');
     bookList.innerHTML = citeList.join(", ");
     let allBookList = [];
@@ -76,8 +76,9 @@ function seeAllWords(resultDiv, searchString, searchSetting) {
     fetch("/words").then(res => res.json()).then(res => {
         resultDiv.innerText = ""
         for (let item of res) {
-            if (checkWord(item.word, searchString, searchSetting)) {
-                resultDiv.appendChild(getAllWordTokens(searchString, item.word, item.total_count, item.verse_addresses, item.verse_tokens));
+            let wordCheck = checkWord(item.word, searchString, searchSetting);
+            if (wordCheck[0]) {
+                resultDiv.appendChild(getAllWordTokens(searchString, checkWord[1], item.total_count, item.verse_addresses, item.verse_tokens));
             }
         }
     }).catch(err => console.error(err))
