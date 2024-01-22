@@ -31,16 +31,19 @@ function getAllWordTokens(searchString, word, totalCount, citeList, tokenList) {
         if (tokenCount > 1) {
             tokenString = " (" + tokenCount + ")";
         }
-        bookToCiteDict[book] += address + tokenString + ", " 
+
+        if (i < citeList.length - 1) {
+            bookToCiteDict[book] += address + tokenString + ", "
+        } else {
+            bookToCiteDict[book] += address + tokenString
+        } 
     }
 
     for (let j = 0; j < allBookList.length; j++) {
         let book = allBookList[j];
-        console.log(book);
+        headword.innerHTML += "<i>" + book + "</i>: " + bookToCiteDict[book] + "<br>";
         if (j < allBookList.length - 1) {
-            headword.innerHTML += "<i>" + book + "</i>: " + bookToCiteDict[book] + "<br>&emsp;";
-        } else {
-            headword.innerHTML += "<i>" + book + "</i>: " + bookToCiteDict[book].slice(0, -2) + "<br>";
+            headword.innerHTML += "&emsp;";
         }
     }
     console.log(headword.innerHTML);
