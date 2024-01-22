@@ -73,7 +73,7 @@ var blankOption = document.createElement('option');
 blankOption.text = "";
 bookDropdown.add(blankOption);
 
-for (let i = 0; i < allBookList; i++) {
+for (let i = 0; i < allBookList.length; i++) {
     let book = allBookList[i];
     var bookOption = document.createElement('option');
     bookOption.text = book;
