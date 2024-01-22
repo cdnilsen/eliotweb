@@ -1,7 +1,7 @@
 import express from "express"
 import path from "path"
 
-import { default as client } from './db'
+import { default as pool } from './db'
 import { wrapAsync } from './utils'
 
 const app = express()
@@ -12,18 +12,18 @@ app.get('/dynamicContent', (req, res) => {
 })
 
 app.get('/words', wrapAsync(async (req, res) => {
-    const words = await client.query('SELECT * FROM words_diacritics')
+    const words = await pool.query('SELECT * FROM words_diacritics')
     res.json(words.rows)
 }))
 
 app.put('/words/:word/increment', wrapAsync(async (req, res) => {
-    const update = await client.query('UPDATE words_diacritics SET total_count = total_count + 1 WHERE word = $1::text', [req.params.word])
+    const update = await pool.query('UPDATE words_diacritics SET total_count = total_count + 1 WHERE word = $1::text', [req.params.word])
     res.json(update)
 }))
 
 app.post('/words/:word', wrapAsync(async (req, res) => {
     // TODO: check if the word already exists and return a good error
-    const insert = await client.query("INSERT INTO words_diacritics VALUES ($1::text, 0)", [req.params.word])
+    const insert = await pool.query("INSERT INTO words_diacritics VALUES ($1::text, 0)", [req.params.word])
     res.json(insert)
 }))
 
@@ -34,7 +34,7 @@ app.use(express.static('public'))
 
 // Async init - have to wait for the client to connect
 ;(async function () {
-    await client.connect()
+    await pool.connect()
     app.listen(port, () => {
         console.log(`Example app listening on port ${port}`)
     })    
