@@ -32,15 +32,12 @@ function getAllWordTokens(searchString, word, totalCount, citeList, tokenList) {
             tokenString = " (" + tokenCount + ")";
         }
 
-        bookToCiteDict[book] += address + tokenString
-        if (i < citeList.length - 1) {
-            bookToCiteDict[book] += ", "
-        }
+        bookToCiteDict[book] += address + tokenString + ", ";
     }
 
     for (let j = 0; j < allBookList.length; j++) {
         let book = allBookList[j];
-        headword.innerHTML += "<i>" + book + "</i>: " + bookToCiteDict[book] + "<br>";
+        headword.innerHTML += "<i>" + book + "</i>: " + bookToCiteDict[book].split(0, -2) + "<br>";
         if (j < allBookList.length - 1) {
             headword.innerHTML += "&emsp;";
         }
