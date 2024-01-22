@@ -15,7 +15,7 @@ app.get('/words', wrapAsync(async (req, res) => {
     const words = await pool.query('SELECT * FROM test_table')
     res.json(words.rows)
 }))
-
+/*
 app.put('/words/:word/increment', wrapAsync(async (req, res) => {
     const update = await pool.query('UPDATE words_diacritics SET total_count = total_count + 1 WHERE word = $1::text', [req.params.word])
     res.json(update)
@@ -26,7 +26,7 @@ app.post('/words/:word', wrapAsync(async (req, res) => {
     const insert = await pool.query("INSERT INTO words_diacritics VALUES ($1::text, 0)", [req.params.word])
     res.json(insert)
 }))
-
+*/
 // Default error handling middleware is fine for now
 
 // https://expressjs.com/en/starter/static-files.html
