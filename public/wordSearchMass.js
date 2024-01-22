@@ -22,19 +22,10 @@ function getAllWordTokens(searchString, word, totalCount, citeList, tokenList) {
         console.log(book, chapter, verse);
         let address = chapter + '.' + verse;
 
-        if (! book in bookToCiteDict) {
-            console.log("Hello, you should be seeing this");
-            bookToCiteDict[book] = "";
-            allBookList.push(book);
-        }
-
         if (! bookToCiteDict.hasOwnProperty(book)) {
-            console.log("Or maybe this works instead");
             bookToCiteDict[book] = "";
             allBookList.push(book);
         }
-
-        console.log(bookToCiteDict[book])
 
         let tokenString = ""
         if (tokenCount > 1) {
@@ -48,6 +39,8 @@ function getAllWordTokens(searchString, word, totalCount, citeList, tokenList) {
         console.log(book);
         headword.innerHTML += "<i>" + book + "</i>: " + bookToCiteDict[book] + "\n\t";
     }
+    headword.innerHTML = headword.innerHTML.slice(0, -2);
+    console.log(headword.innerHTML);
 
     it.appendChild(headword);
     return it;
