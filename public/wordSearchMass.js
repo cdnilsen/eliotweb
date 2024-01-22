@@ -1,5 +1,19 @@
 // Allows the user to search for matching words in the Massachusett texts and outputs a list of all their cites
 
+function checkWord(word, searchString, searchSetting) {
+    let returnWord = false;
+    if (searchSetting == "contains" && word.includes(searchString)) {
+        returnWord = true;
+    } else if (searchSetting == "starts" && word.startsWith(searchString)) {
+        returnWord = true;
+    } else if (searchSetting == "ends" && word.endsWith(searchString)) {
+        returnWord = true;
+    } else if (searchSetting == "exact" && word == searchString) {
+        returnWord = true;
+    }
+    return returnWord;
+}
+
 function getAllWordTokens(searchString, word, totalCount, citeList, tokenList) {
     const wordDiv = document.createElement('div');
 
@@ -48,13 +62,15 @@ function getAllWordTokens(searchString, word, totalCount, citeList, tokenList) {
     return wordDiv;
 }
 
-function seeAllWords(resultDiv, searchString) {
+function seeAllWords(resultDiv, searchString, searchSetting) {
     resultDiv.innerText = "Loading words..."
 
     fetch("/words").then(res => res.json()).then(res => {
         resultDiv.innerText = ""
         for (let item of res) {
-            resultDiv.appendChild(getAllWordTokens(searchString, item.word, item.total_count, item.verse_addresses, item.verse_tokens));
+            if (checkWord(item.word, searchString, searchSetting)) {
+                resultDiv.appendChild(getAllWordTokens(searchString, item.word, item.total_count, item.verse_addresses, item.verse_tokens));
+            }
         }
     }).catch(err => console.error(err))
 }
