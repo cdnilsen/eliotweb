@@ -73,5 +73,5 @@ for (let i = 0; i < allBookList; i++) {
     let bookOption = document.createElement('option');
     bookOption.value = book;
     bookOption.innerHTML = book;
-    document.getElementById("searchBookDropdown").appendChild(bookOption);
+    document.getElementById("book-dropdown-container").appendChild(bookOption);
 }
