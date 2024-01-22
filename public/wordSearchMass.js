@@ -41,6 +41,8 @@ function getAllWordTokens(searchString, word, totalCount, citeList, tokenList) {
             headword.innerHTML += "<br>&emsp;";
         }
     }
+
+    headword.innerHTML = headword.split("8").join("ꝏ̄");
     
     wordDiv.appendChild(headword);
     return wordDiv;
