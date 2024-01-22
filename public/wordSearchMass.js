@@ -5,7 +5,7 @@ function getAllWordTokens(searchString, word, totalCount, citeList, tokenList) {
 
     const headword = document.createElement('span');
     
-    headword.innerHTML = "<b>" + word.split(searchString).join("<u>" + searchString + "</u>") + "</b> (" + totalCount + "):\n\t"
+    headword.innerHTML = "<b>" + word.split(searchString).join("<u>" + searchString + "</u>") + "</b> (" + totalCount + "):<br>&emsp;"
     const bookList = document.createElement('div');
     bookList.innerHTML = citeList.join(", ");
     let allBookList = [];
@@ -31,14 +31,19 @@ function getAllWordTokens(searchString, word, totalCount, citeList, tokenList) {
         if (tokenCount > 1) {
             tokenString = " (" + tokenCount + ")";
         }
-        bookToCiteDict[book] += address + tokenString + "," 
+        bookToCiteDict[book] += address + tokenString + ", " 
     }
 
     for (let j = 0; j < allBookList.length; j++) {
         let book = allBookList[j];
         console.log(book);
-        headword.innerHTML += "<i>" + book + "</i>: " + bookToCiteDict[book] + "\n\t";
+        if (j < allBookList.length - 1) {
+            headword.innerHTML += "<i>" + book + "</i>: " + bookToCiteDict[book] + "<br>&emsp;";
+        } else {
+            headword.innerHTML += "<i>" + book + "</i>: " + bookToCiteDict[book].slice(0, -2) + "<br>";
+        }
     }
+    console.log(headword.innerHTML);
     headword.innerHTML = headword.innerHTML.slice(0, -2);
     console.log(headword.innerHTML);
 
