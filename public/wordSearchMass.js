@@ -5,7 +5,6 @@ function getAllWordTokens(searchString, word, totalCount, citeList, tokenList) {
 
     const headword = document.createElement('span');
     headword.innerText = "<b>" + word.split(searchString).join("<u>" + searchString + "</u>") + "</b> (" + totalCount + "):\n\t"
-    it.appendChild(headword)
 
     let allBookList = [];
     let bookToCiteDict = {};
@@ -34,11 +33,9 @@ function getAllWordTokens(searchString, word, totalCount, citeList, tokenList) {
 
     for (let j = 0; j < allBookList.length; j++) {
         let book = allBookList[j];
-        let bookEl = document.createElement('span');
-        bookEl.innerText = book + ": " + bookToCiteDict[book] + "\n\t";
-        it.appendChild(bookEl);
+        headword.innerText += "<i>" + book + "</i>: " + bookToCiteDict[book] + "\n\t";
     }
-
+    it.appendChild(headword);
     return it;
 }
 
