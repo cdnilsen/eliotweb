@@ -21,11 +21,20 @@ function getAllWordTokens(searchString, word, totalCount, citeList, tokenList) {
         console.log(book);
         console.log(book, chapter, verse);
         let address = chapter + '.' + verse;
+
         if (! book in bookToCiteDict) {
-            console.log("Hello, you should be seeing this")
+            console.log("Hello, you should be seeing this");
             bookToCiteDict[book] = "";
             allBookList.push(book);
         }
+
+        if (! bookToCiteDict.hasOwnProperty(book)) {
+            console.log("Or maybe this works instead");
+            bookToCiteDict[book] = "";
+            allBookList.push(book);
+        }
+
+        console.log(bookToCiteDict[book])
 
         let tokenString = ""
         if (tokenCount > 1) {
