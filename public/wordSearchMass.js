@@ -17,7 +17,7 @@ function checkWord(word, searchString, searchSetting) {
     } else if (searchSetting == "ends" && word.endsWith(searchString)) {
         returnWord = true;
         let lastStringIndex = word.lastIndexOf(searchString);
-        finalWord = word.slice(0, lastStringIndex) + "<u><span style='color: red'></span>" + searchString + '</span></u>';
+        finalWord = word.slice(0, lastStringIndex) + "<u><span style='color: red'>" + searchString + "</span></u>";
     } else if (searchSetting == "exact" && word == searchString) {
         returnWord = true;
         finalWord = word;
