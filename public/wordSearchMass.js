@@ -78,7 +78,7 @@ function seeAllWords(resultDiv, searchString, searchSetting) {
         for (let item of res) {
             let wordCheck = checkWord(item.word, searchString, searchSetting);
             if (wordCheck[0]) {
-                resultDiv.appendChild(getAllWordTokens(searchString, checkWord[1], item.total_count, item.verse_addresses, item.verse_tokens));
+                resultDiv.appendChild(getAllWordTokens(searchString, wordCheck[1], item.total_count, item.verse_addresses, item.verse_tokens));
             }
         }
     }).catch(err => console.error(err))
