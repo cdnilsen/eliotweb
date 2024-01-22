@@ -33,7 +33,7 @@ function launchApp(el, el2) {
     fetch("/words").then(res => res.json()).then(res => {
         el.innerText = ""
         for (let item of res) {
-            el.appendChild(wordToElement(item.word, item.total_count))
+            el.appendChild(wordToElement(item.word, ": ", item.total_count))
         }
 
         const newWordDiv = document.createElement('div')
