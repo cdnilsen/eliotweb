@@ -71,7 +71,7 @@ const allBookList = [
 let bookDropdown = document.getElementById("searchBookDropdown");
 let blankOption = document.createElement('option');
 blankOption.text = "";
-bookOption.value = "";
+blankOption.value = "";
 bookDropdown.add(blankOption);
 
 for (let i = 0; i < allBookList.length; i++) {
