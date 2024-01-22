@@ -5,7 +5,7 @@ import { default as pool } from './db'
 import { wrapAsync } from './utils'
 
 const app = express()
-const port = process.env.PGPORT
+const port = process.env.PORT || 3000;
 
 app.get('/dynamicContent', (req, res) => {
     res.send(`Hi! I'm some dynamic content! You loaded this page at millisecond ${new Date().getTime()} of the UNIX 年号.`)
