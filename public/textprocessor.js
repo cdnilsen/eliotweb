@@ -207,6 +207,7 @@ async function getRawVerseDict(book, edition) {
 
 async function sendRawJSON(book, edition) {
     let verseDict = await getRawVerseDict(book, edition);
+    console.log(verseDict);
     let data = JSON.stringify(verseDict);
     fetch('/addRaw/:' + data).then(res => res.json()).then(res => console.log(res)).catch(err => console.error(err));
 }
