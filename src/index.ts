@@ -14,7 +14,7 @@ app.get('/dynamicContent', (req, res) => {
 })
 
 app.post('/addRaw/:json', wrapAsync(async (req, res) => {
-    const myJSON = JSON.parse(req.params.json);
+    const myJSON = req.params.json;
 
     res.json(myJSON);
 }))
