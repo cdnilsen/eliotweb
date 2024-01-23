@@ -89,7 +89,6 @@ bookDropdown.addEventListener("change", function() {
     editionDropdownContainer.innerHTML = "";
 
     let editionDropdown = document.getElementById('searchEditionDropdown');
-    editionDropdownContainer.appendChild(editionDropdown);
     let blankOption = document.createElement('option');
     blankOption.text = "";
     editionDropdown.add(blankOption);
@@ -99,6 +98,7 @@ bookDropdown.addEventListener("change", function() {
     if (bookDropdown.value == "Genesis") {
         editionList.push("Zeroth Edition");
     }
+
     if (bookDropdown.value == "Psalms (prose)" || bookDropdown.value == "John") {
         editionList.push("Mayhew");
     }
