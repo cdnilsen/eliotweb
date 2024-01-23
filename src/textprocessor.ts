@@ -25,7 +25,7 @@ export async function processVerseJSON(rawJSON: any) {
     let book = rawJSON.book;
     let edition = rawJSON.edition;
     let columnString = editionToColumnDict[edition];
-
+    return(columnString);
     let chapter = idNumber.slice(4, 6);
     let verse = idNumber.slice(6);
 
