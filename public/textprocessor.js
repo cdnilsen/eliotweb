@@ -129,9 +129,11 @@ async function processText(whichBook, whichEdition) {
     let textAddress = "./texts/" + whichBook + "." + whichEdition + ".txt";
 
     let lineObject = await fetch(textAddress);
-    console.log(lineObject.split("\n"));
+    let lineObjectText = await lineObject.text();
+    console.log(lineObjectText);
     let allLines = [];
-    console.log(typeof lineObject);
+    console.log(typeof lineObjectText);
+    /*
     for (let i = 0; i < lineObject.length; i++) {
         allLines.push(lineObject[i]);
     }
@@ -139,7 +141,7 @@ async function processText(whichBook, whichEdition) {
     for (let j = 0; j < allLines.length; j++) {
         console.log(allLines[j]);
     }
-
+    */
     //Each verse's ID key should be a numerical string generated from its book. The metrical psalms are just weird and will need to be treated separately.
     //E.g., Exodus 12.13 will be 102012013: dummy 1, followed by 02 (Exodus), followed by 012 (chapter 12), followed by 013 (verse 13).
 
