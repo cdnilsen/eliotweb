@@ -89,8 +89,11 @@ bookDropdown.addEventListener("change", function() {
     editionDropdownContainer.innerHTML = "";
 
     let editionDropdown = document.getElementById('searchEditionDropdown');
+    editionDropdown.hidden = false;
+
     let blankOption = document.createElement('option');
     blankOption.text = "";
+    blankOption.value = "";
     editionDropdown.add(blankOption);
 
     let editionList = ["First Edition", "Second Edition"];
