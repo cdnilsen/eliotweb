@@ -18,10 +18,12 @@ app.post('/addRaw', wrapAsync(async (req, res) => {
 }))
 
 app.get('/fetchBook/:book/:edition', wrapAsync(async (req, res) => {
+
+    const outputString = "Got a request for " + req.params.book + " " + req.params.edition + ".";
     const textAddress = "./texts/" + req.params.book + "." + req.params.edition + ".txt";
 
     let bookObject = await fetch(textAddress);
-    res.json(bookObject);
+    res.json(outputString);
 }))
 
 app.get('/words', wrapAsync(async (req, res) => {
