@@ -20,13 +20,13 @@ const editionToColumnDict: editionToColumnDictType = {
 };
 
 export async function processVerseJSON(rawJSON: any) {
-    let idNumber = parseInt(rawJSON.id);
+    let idNumber = rawJSON.id;
     let rawText = rawJSON.text;
     let book = rawJSON.book;
     let edition = rawJSON.edition;
     let columnString = editionToColumnDict[edition];
     let kah = "kâh";
-    let myQuery = await pool.query('SELECT * from test_table WHERE id = $1::text', [idNumber]);
+    let myQuery = await pool.query('SELECT * from test_table WHERE id = $1::text', [parseInt(idNumber)]);
 
     return myQuery.rows;
     let chapter = idNumber.slice(4, 6);
