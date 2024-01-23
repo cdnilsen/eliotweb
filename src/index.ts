@@ -6,7 +6,8 @@ import { wrapAsync } from './utils'
 import { wordSearch } from './wordSearchMass'
 import { addRaw } from './textprocessor'
 
-const app = express()
+const app = express();
+app.use(express.json());
 const port = process.env.PORT
 
 app.get('/dynamicContent', (req, res) => {
@@ -14,10 +15,15 @@ app.get('/dynamicContent', (req, res) => {
 })
 
 app.post('/addRaw', wrapAsync(async (req, res) => {
-    const myJSON = JSON.parse(req.body);
+    try {
+        const myJSON = JSON.parse(req.body);
+        res.json(myJSON);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
+}));
 
-    res.json(myJSON);
-}))
 
 app.get('/fetchBook/:book/:edition', wrapAsync(async (req, res) => {
 
