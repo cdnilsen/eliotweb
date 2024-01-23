@@ -12,7 +12,7 @@ app.get('/dynamicContent', (req, res) => {
 })
 
 app.post('/addRaw', wrapAsync(async (req, res) => {
-    const allVerseIDs = await pool.query('SELECT id FROM all_verses')
+    const allVerseIDs = await pool.query('SELECT * FROM all_verses')
     const allVerseIDsArray = allVerseIDs.rows;
     res.json(allVerseIDsArray);
 }))
