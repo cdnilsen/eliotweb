@@ -125,15 +125,18 @@ document.getElementById('searchEditionDropdown').addEventListener("change", func
 });
 
 
-function processText(whichBook, whichEdition) {
+async function processText(whichBook, whichEdition) {
     let textAddress = "./" + whichBook + "." + whichEdition + ".txt";
 
     let allLines = [];
-    for await (const line of readLines(textAddress)) {
-        allLines.push(line);
+    let lineObject = await readLines(textAddress);
+    console.log(typeof lineObject);
+    for (let i = 0; i < lineObject.length; i++) {
+        allLines.push(lineObject[i]);
     }
-
-    console.log(allLines);
+    for (let j = 0; j < allLines.length; j++) {
+        console.log(allLines[j]);
+    }
 
     //Each verse's ID key should be a numerical string generated from its book. The metrical psalms are just weird and will need to be treated separately.
     //E.g., Exodus 12.13 will be 102012013: dummy 1, followed by 02 (Exodus), followed by 012 (chapter 12), followed by 013 (verse 13).
