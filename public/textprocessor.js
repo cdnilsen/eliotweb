@@ -218,8 +218,9 @@ async function sendADict(myDict, routeString) {
 async function sendRawJSON(book, edition) {
     let verseDict = await getRawVerseDict(book, edition);
     //let stringifiedDict = JSON.stringify(verseDict);
-    for (let verse in verseDict) {
-        let verseList = {"id": verse, "text": verseDict[verse]};
+    for (let i = 0; i < Object.keys(verseDict).length; i++) {
+        let verseNum = Object.keys(verseDict)[i];
+        let verseList = {"id": verseNum, "text": verseDict[verseNum]};
         fetch('/addRaw', {
             method: 'POST',
             body: JSON.stringify(verseList),
