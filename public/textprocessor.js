@@ -123,8 +123,7 @@ function verseString(verse) {
 }
 
 function getVerseIDNum(bookNum, chapterNum, verseNum) {
-    let finalString = bookNum.toString() + chapterNum.toString() + verseNum.toString();
-    return parseInt(finalString);
+    return bookNum.toString() + chapterNum.toString() + verseNum.toString();
 }
 
 let bookDropdown = document.getElementById("searchBookDropdown");
@@ -181,20 +180,37 @@ document.getElementById('searchEditionDropdown').addEventListener("change", func
     document.getElementById("submit").hidden = false;
 });
 
-async function sendJSON(book, edition) {
+async function getRawVerseDict(book, edition) {
     let fileAddress = './texts/' + book + "." + edition + ".txt";
 
     let file = await fetch(fileAddress);
     let fileText = await file.text();
     let textLines = fileText.split("\n");
+    let verseDict = {};
     for (let i = 0; i < textLines.length; i++) {
-        console.log(textLines[i]);
+        let line = textLines[i];
+        if (line == "") {
+            continue;
+        }
+        let splitLine = line.split(" ");
+        let splitAddress = splitLine[0].split(".");
+        let chapter = splitAddress[0];
+        let verse = splitAddress[1];
+        let lineText = splitLine.slice(1).join(" ");
+
+        let verseIDNum = getVerseIDNum(bookNum, chapterString(chapter), verseString(verse));
+        verseDict[verseIDNum] = lineText;
     }
+    return verseDict;
+}
+
+async function sendRawJSON(book, edition) {
+    let verseDict = await getRawVerseDict(book, edition);
 }
 
 
 async function processText(whichBook, whichEdition) {
-    sendJSON(whichBook, whichEdition)
+    getRawVerseDict(whichBook, whichEdition)
     /*
     let fileAddress = './texts/' + whichBook + "." + whichEdition + ".txt";
 
