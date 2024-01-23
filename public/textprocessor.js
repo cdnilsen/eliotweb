@@ -181,9 +181,20 @@ document.getElementById('searchEditionDropdown').addEventListener("change", func
     document.getElementById("submit").hidden = false;
 });
 
+async function sendJSON(book, edition) {
+    let fileAddress = './texts/' + book + "." + edition + ".txt";
+
+    let fileText = (await fetch(fileAddress)).text();
+    let textLines = fileText.split("\n");
+    for (let i = 0; i < textLines.length; i++) {
+        console.log(textLines[i]);
+    }
+}
+
 
 async function processText(whichBook, whichEdition) {
-    //const reader = new FileReader();
+    sendJSON(whichBook, whichEdition)
+    /*
     let fileAddress = './texts/' + whichBook + "." + whichEdition + ".txt";
 
     let backendAddress = '/fetchBook/' + whichBook + "/" + whichEdition;
@@ -219,7 +230,7 @@ async function processText(whichBook, whichEdition) {
     //E.g., Exodus 12.13 will be 102012013: dummy 1, followed by 02 (Exodus), followed by 012 (chapter 12), followed by 013 (verse 13).
 
     //TODO for other texts like Mayhew's translation of Cotton. Those'll probably be e.g. 201, 202...
-    /*
+    
     fetch('/processText').then(res => res.json()).then(res => {
 
     }).catch(err => console.error(err));
