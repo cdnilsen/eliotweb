@@ -26,7 +26,8 @@ app.post('/addRaw', wrapAsync(async (req, res) => {
     try {
         console.log("Hello!");
         //console.log(req.body);
-        res.json(req.body);
+        let verseBody = req.body;
+        res.json(processVerseJSON(verseBody));
         //processVerseJSON(req.body);
     } catch (error) {
         console.error(error);
