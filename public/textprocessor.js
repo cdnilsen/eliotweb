@@ -84,7 +84,7 @@ for (let i = 0; i < allBookList.length; i++) {
 
 bookDropdown.addEventListener("change", function() {
     let editionDropdownContainer = document.getElementById("edition-dropdown-container");
-    editionDropdownLegend.innerHTML = "";
+    editionDropdownContainer.innerHTML = "";
 
     let editionDropdownLegend = document.createElement('span');
     
