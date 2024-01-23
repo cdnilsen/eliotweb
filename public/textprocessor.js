@@ -1,4 +1,3 @@
-const fs = require('fs');
 
 const allBookList = [
     "Genesis",
@@ -126,14 +125,17 @@ document.getElementById('searchEditionDropdown').addEventListener("change", func
 
 
 async function processText(whichBook, whichEdition) {
-    let textAddress = "./" + whichBook + "." + whichEdition + ".txt";
+    const reader = new FileReader();
+    let textAddress = "./texts/" + whichBook + "." + whichEdition + ".txt";
 
+    let lineObject = await fetch(textAddress);
+    console.log(lineObject);
     let allLines = [];
-    let lineObject = await fs.readLines(textAddress);
     console.log(typeof lineObject);
     for (let i = 0; i < lineObject.length; i++) {
         allLines.push(lineObject[i]);
     }
+
     for (let j = 0; j < allLines.length; j++) {
         console.log(allLines[j]);
     }
