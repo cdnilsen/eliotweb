@@ -82,17 +82,13 @@ for (let i = 0; i < allBookList.length; i++) {
     bookDropdown.add(bookOption);
 }
 
+let editionDropdownContainer = document.getElementById("edition-dropdown-container");
+
 bookDropdown.addEventListener("change", function() {
-    let editionDropdownContainer = document.getElementById("edition-dropdown-container");
+
     editionDropdownContainer.innerHTML = "";
 
-    let editionDropdownLegend = document.createElement('span');
-    
-    editionDropdownLegend.innerHTML = "Edition: ";
-    editionDropdownContainer.appendChild(editionDropdownLegend);
-
-    let editionDropdown = document.createElement('select');
-    editionDropdown.id = "searchEditionDropdown";
+    let editionDropdown = document.getElementById('searchEditionDropdown');
     editionDropdownContainer.appendChild(editionDropdown);
     let blankOption = document.createElement('option');
     blankOption.text = "";
@@ -114,4 +110,8 @@ bookDropdown.addEventListener("change", function() {
         editionDropdown.add(editionOption);
     }
     editionDropdownContainer.hidden = false;
+});
+
+document.getElementById('searchEditionDropdown').addEventListener("change", function() {
+    document.getElementById("submit").hidden = false;
 });
