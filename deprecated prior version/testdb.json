@@ -1,0 +1,30 @@
+{
+    "verses": [
+        {
+            "fullverse": "1.1",
+            "chapter": "1",
+            "verse": "1",
+            "rawFirstEdition": "ONK yeush \ua74f\u0304wesuongan\u00fa\ua74f\u0304ash wunnaumonuh Israel pa\u00f3hpanneg ut Egypt, nish$noh wosketomp kah week weeche \u2039peyoma\u00f2g\u203a Jakoboh.",
+            "rawSecondEdition": "ONK yeush \ua74f\u0304wesuongan\u00fa\ua74f\u0304ash wunnaumonuh Israel pa\u00f3hpanneg ut Egypt, nishnoh wosketomp kah week weeche \u2039peyom\u00e1og\u203a Jakoboh.",
+            "comparedFirstEdition": "ONK yeush \ua74f\u0304wesuongan\u00fa\ua74f\u0304ash wunnaumonuh Israel pa\u00f3hpanneg ut Egypt, nish<span style=\"color: red\"><b>\u02d9</b></span>noh wosketomp kah week weeche \u2039peyom<span style=\"color: red\"><b>a\u00f2</b></span>g\u203a Jakoboh. ",
+            "comparedSecondEdition": "ONK yeush \ua74f\u0304wesuongan\u00fa\ua74f\u0304ash wunnaumonuh Israel pa\u00f3hpanneg ut Egypt, nishnoh wosketomp kah week weeche \u2039peyom<span style=\"color: red\"><b>\u00e1o</b></span>g\u203a Jakoboh. ",
+            "caseInsensitiveFirst": "ONK yeush \ua74f\u0304wesuongan\u00fa\ua74f\u0304ash wunnaumonuh Israel pa\u00f3hpanneg ut Egypt, nish<span style=\"color: red\"><b>\u02d9</b></span>noh wosketomp kah week weeche \u2039peyom<span style=\"color: red\"><b>a\u00f2</b></span>g\u203a Jakoboh. ",
+            "caseInsensitiveSecond": "ONK yeush \ua74f\u0304wesuongan\u00fa\ua74f\u0304ash wunnaumonuh Israel pa\u00f3hpanneg ut Egypt, nishnoh wosketomp kah week weeche \u2039peyom<span style=\"color: red\"><b>\u00e1o</b></span>g\u203a Jakoboh. ",
+            "rawKJV": "Now these are the names of the children of Israel, which came into Egypt; every man and his household came with Jacob.",
+            "grebrew": "\u05d5\u05b0\u05d0\u05b5\u05dc\u05bc\u05b6\u05d4 \u05e9\u05c1\u05b0\u05de\u05d5\u05b9\u05ea \u05d1\u05bc\u05b0\u05e0\u05b5\u05d9 \u05d9\u05b4\u05e9\u05c2\u05b0\u05e8\u05b8\u05d0\u05b5\u05dc \u05d4\u05b7\u05d1\u05bc\u05b8\u05d0\u05b4\u05d9\u05dd \u05de\u05b4\u05e6\u05b0\u05e8\u05b8\u05d9\u05b0\u05de\u05b8\u05d4 \u05d0\u05b5\u05ea \u05d9\u05b7\u05e2\u05b2\u05e7\u05b9\u05d1 \u05d0\u05b4\u05d9\u05e9\u05c1 \u05d5\u05bc\u05d1\u05b5\u05d9\u05ea\u05d5\u05b9 \u05d1\u05bc\u05b8\u05bd\u05d0\u05d5\u05bc\u05c3"
+    },
+    {
+            "fullverse": "1.2",
+            "chapter": "1",
+            "verse": "2",
+            "rawFirstEdition": "Reuben, Simeon, Levi, kah Judah.",
+            "rawSecondEdition": "Reuben, Si[m]eon, Levi, kah Judah.",
+            "comparedFirstEdition": "Reuben, Simeon, Levi, kah Judah. ",
+            "comparedSecondEdition": "Reuben, Si<span style=\"color: red\"><b>[</b></span>m<span style=\"color: red\"><b>]</b></span>eon, Levi, kah Judah. ",
+            "caseInsensitiveFirst": "Reuben, Simeon, Levi, kah Judah. ",
+            "caseInsensitiveSecond": "Reuben, Si<span style=\"color: red\"><b>[</b></span>m<span style=\"color: red\"><b>]</b></span>eon, Levi, kah Judah. ",
+            "rawKJV": "Reuben, Simeon, Levi, and Judah,",
+            "grebrew": "\u05e8\u05b0\u05d0\u05d5\u05bc\u05d1\u05b5\u05df \u05e9\u05c1\u05b4\u05de\u05b0\u05e2\u05d5\u05b9\u05df \u05dc\u05b5\u05d5\u05b4\u05d9 \u05d5\u05b4\u05d9\u05d4\u05d5\u05bc\u05d3\u05b8\u05bd\u05d4\u05c3"
+    }
+    ]
+}

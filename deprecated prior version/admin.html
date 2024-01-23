@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Webpage</title>
+    <link rel="stylesheet" type="text/css" href="./styles.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+
+    <a href="index.html">Back to index</a>
+
+    <input type="string" id="sampleString" placeholder="Enter a string to write...">
+    <button id="writeString">Write to file</button>
+    <div id="bookList">
+
+    </div>
+    
+</body>
+    <script src="admin.js" type="module"></script>
+    <script>
+        function closeIt(){
+            window.location.href = window.location.href.split("?")[0];
+        }
+        window.onbeforeunload = closeIt;
+        window.history.pushState({}, '', window.location.href.split("?")[0]);
+    </script>
+</html>
