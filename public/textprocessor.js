@@ -184,7 +184,8 @@ document.getElementById('searchEditionDropdown').addEventListener("change", func
 async function sendJSON(book, edition) {
     let fileAddress = './texts/' + book + "." + edition + ".txt";
 
-    let fileText = (await fetch(fileAddress)).text();
+    let file = await fetch(fileAddress);
+    let fileText = await file.text();
     let textLines = fileText.split("\n");
     for (let i = 0; i < textLines.length; i++) {
         console.log(textLines[i]);
