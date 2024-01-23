@@ -16,7 +16,8 @@ app.get('/dynamicContent', (req, res) => {
 
 app.post('/addRaw', wrapAsync(async (req, res) => {
     try {
-        console.log(req.body);
+        console.log("Hello!");
+        //console.log(req.body);
         //processVerseJSON(req.body);
     } catch (error) {
         console.error(error);
