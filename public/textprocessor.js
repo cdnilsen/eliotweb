@@ -215,6 +215,10 @@ async function sendADict(myDict, routeString) {
     }).then(res => res.json()).then(res => console.log(res)).catch(err => console.error(err));
 }
 
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 async function sendRawJSON(book, edition) {
     let verseDict = await getRawVerseDict(book, edition);
     //let stringifiedDict = JSON.stringify(verseDict);
@@ -223,14 +227,14 @@ async function sendRawJSON(book, edition) {
         let verseNum = allKeyList[i];
         let verseJSON = {"id": verseNum, "text": verseDict[verseNum], "edition": edition, "book": book};
         //console.log(verseJSON);
-        fetch('/test', {
+        /*fetch('/test', {
             method: 'POST',
             body: JSON.stringify(verseJSON),
             headers: {
             "Content-type": "application/json; charset=UTF-8"
             }
-        }).then(res => res.json()).then(res => console.log(res)).catch(err => console.error(err));
-
+        }).then(res => res.json()).then(res => console.log(res)).catch(err => console.error(err));*/
+        sleep(100);
         fetch('/addRaw', {
             method: 'POST',
             body: JSON.stringify(verseJSON),

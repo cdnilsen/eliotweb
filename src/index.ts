@@ -24,7 +24,6 @@ app.post('/test', wrapAsync(async (req, res) => {
 
 app.post('/addRaw', wrapAsync(async (req, res) => {
     try {
-        console.log("Hello!");
         //console.log(req.body);
         let verseBody = req.body;
         res.json(processVerseJSON(verseBody));

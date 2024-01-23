@@ -16,6 +16,7 @@ export async function processVerseJSON(rawJSON: any) {
     let verse = idNumber.slice(7);
     return chapter.toString() + ":" + verse.toString();
 }
+
 app.post('/addRaw', wrapAsync(async (req, res) => {
     const allVerseIDs = await pool.query('SELECT * FROM all_verses')
     const allVerseIDsArray = allVerseIDs.rows;
