@@ -214,7 +214,6 @@ async function processText(whichBook, whichEdition) {
             console.log(verseIDNum);
         }
     }).catch(err => console.error(err));
-    console.log(fileObject);
 
     //Each verse's ID key should be a numerical string generated from its book. The metrical psalms are just weird and will need to be treated separately.
     //E.g., Exodus 12.13 will be 102012013: dummy 1, followed by 02 (Exodus), followed by 012 (chapter 12), followed by 013 (verse 13).
