@@ -15,13 +15,18 @@ app.get('/dynamicContent', (req, res) => {
 })
 
 app.post('/test', wrapAsync(async (req, res) => {
-    console.log('hi!');
+    try {
+        res.json('hi!');
+    } catch (error) {
+        console.error(error);
+    }
 }))
 
 app.post('/addRaw', wrapAsync(async (req, res) => {
     try {
         console.log("Hello!");
-        console.log(req.body);
+        //console.log(req.body);
+        res.json(req.body);
         //processVerseJSON(req.body);
     } catch (error) {
         console.error(error);
