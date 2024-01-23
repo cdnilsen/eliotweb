@@ -10,7 +10,7 @@ const port = process.env.PORT
 app.get('', wrapAsync(async (req, res) => {
 }))
 
-app.post('/addRaw/:json', wrapAsync(async (req, res) => {
+app.post('/addRaw', wrapAsync(async (req, res) => {
     const allVerseIDs = await pool.query('SELECT id FROM all_verses')
     const allVerseIDsArray = allVerseIDs.rows;
     res.json(allVerseIDsArray);
