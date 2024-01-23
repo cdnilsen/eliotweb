@@ -218,10 +218,10 @@ async function sendADict(myDict, routeString) {
 
 async function sendRawJSON(book, edition) {
     let verseDict = await getRawVerseDict(book, edition);
-    let stringifiedDict = JSON.stringify(verseDict);
+    //let stringifiedDict = JSON.stringify(verseDict);
     fetch('/addRaw', {
         method: 'POST',
-        body: stringifiedDict,
+        body: JSON.stringify(verseDict),
         headers: {
         "Content-type": "application/json; charset=UTF-8"
         }
