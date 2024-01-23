@@ -12,10 +12,13 @@ app.get('/processText', wrapAsync(async (req, res) => {
     res.json(words.rows)
 }))
 
+app.put('/words/:word/increment', wrapAsync(async (req, res) => {
+    const update = await pool.query('UPDATE words_diacritics SET total_count = total_count + 1 WHERE word = $1::text', [req.params.word])
+    res.json(update)
+}))
+
 app.get('/fetchBook/:book/:edition', wrapAsync(async (req, res) => {
-    const book = req.query.book;
-    const edition = req.query.edition;
-    let textAddress = "./texts/" + book + "." + edition + ".txt";
+    const textAddress = "./texts/" + req.params.book + "." + req.params.edition + ".txt";
 
     let bookObject = await fetch(textAddress);
     res.json(bookObject);

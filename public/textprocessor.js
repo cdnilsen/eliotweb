@@ -186,8 +186,14 @@ async function processText(whichBook, whichEdition) {
     //const reader = new FileReader();
     let fileAddress = './texts/' + whichBook + "." + whichEdition + ".txt";
 
+    let backendAddress = '/fetchBook/' + whichBook + "/" + whichEdition;
+
+    fetch(backendAddress).then(res => res.json()).then(res => {
+        let fileObject = res;
+    }).catch(err => console.error(err));
+    console.log(fileObject);
+
     //Currently fetching all text from frontend. We probably want all this to occur in the backend ASAP
-    let fileObject = await fetch(fileAddress);
     let fileText = await textObject.text();
     let textLines = fileText.split("\n");
 
