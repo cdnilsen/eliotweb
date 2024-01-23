@@ -88,7 +88,7 @@ function bookNumberString(book) {
 }
 
 function editionNumberString(edition){
-    finalString = "";
+    let finalString = "";
     if (edition == "First Edition") {
         finalString = "1";
     } else if (edition == "Second Edition") {
