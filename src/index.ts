@@ -4,7 +4,7 @@ import path from "path"
 import { default as pool } from './db'
 import { wrapAsync } from './utils'
 import { wordSearch } from './wordSearchMass'
-import { addRaw } from './textprocessor'
+import { processVerseJSON } from './textprocessor'
 
 const app = express();
 app.use(express.json());
@@ -16,9 +16,7 @@ app.get('/dynamicContent', (req, res) => {
 
 app.post('/addRaw', wrapAsync(async (req, res) => {
     try {
-        console.log('Received data: ', req.body);
-
-        res.json(req.body);
+        processVerseJSON(req.body);
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error');

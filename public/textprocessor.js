@@ -221,14 +221,8 @@ async function sendRawJSON(book, edition) {
     let allKeyList = Object.keys(verseDict);
     for (let i = 0; i < allKeyList.length; i++) {
         let verseNum = allKeyList[i];
-        let verseList = {"id": verseNum, "text": verseDict[verseNum]};
-        fetch('/addRaw', {
-            method: 'POST',
-            body: JSON.stringify(verseList),
-            headers: {
-            "Content-type": "application/json; charset=UTF-8"
-            }
-        }).then(res => res.json()).then(res => console.log(res)).catch(err => console.error(err));
+        let verseJSON = {"id": verseNum, "text": verseDict[verseNum], "edition": edition, "book": book};
+        sendADict(verseJSON, '/addRaw');
     }
 }
 
