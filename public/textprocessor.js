@@ -19,7 +19,7 @@ const allBookList = [
     "Esther",
     "Job",
     "Psalms (prose)",
-    "Psalms (metrical)",
+    //"Psalms (metrical)", Will require a separate process
     "Proverbs",
     "Ecclesiastes",
     "Song of Songs",
@@ -68,6 +68,63 @@ const allBookList = [
     "Jude",
     "Revelation"
 ];
+
+function getBookToNumDict(bookList) {
+    let finalDict = {};
+    for (let i = 0; i < bookList.length; i++) {
+        let book = bookList[i];
+        finalDict[book] = i + 1;
+    }
+    return finalDict;
+}
+
+function bookNumberString(book) {
+    let finalString = "1";
+    let bookIDNum = getBookToNumDict(allBookList)[book].toString();
+    if (bookIDNum.length == 1) {
+        bookIDNum = "0" + bookIDNum;
+    }
+    return finalString + bookIDNum;
+}
+
+function editionNumberString(edition){
+    finalString = "";
+    if (edition == "First Edition") {
+        finalString = "1";
+    } else if (edition == "Second Edition") {
+        finalString = "2";
+    } else if (edition == "Zeroth Edition") {
+        finalString = "0";
+    } else if (edition == "Mayhew") {
+        finalString = "3";
+    }
+    return finalString;
+}
+
+function chapterString(chapter) {
+    let chapterIDNum = chapter;
+    if (chapterIDNum.length == 1) {
+        chapterIDNum = "00" + chapterIDNum;
+    } else if (chapterIDNum.length == 2) {
+        chapterIDNum = "0" + chapterIDNum;
+    }
+    return chapterIDNum;
+}
+
+function verseString(verse) {
+    let verseIDNum = verse;
+    if (verseIDNum.length == 1) {
+        verseIDNum = "00" + verseIDNum;
+    } else if (verseIDNum.length == 2) {
+        verseIDNum = "0" + verseIDNum;
+    }
+    return verseIDNum;
+}
+
+function getVerseIDNum(editionNum, bookNum, chapterNum, verseNum) {
+    let finalString = bookNum.toString() + chapterNum.toString() + verseNum.toString() + editionNum.toString();
+    return parseInt(finalString);
+}
 
 let bookDropdown = document.getElementById("searchBookDropdown");
 let blankOption = document.createElement('option');
@@ -132,19 +189,22 @@ async function processText(whichBook, whichEdition) {
     let lineObjectText = await lineObject.text();
     let lineList = lineObjectText.split("\n");
 
+    let bookNum = bookNumberString(whichBook);
+    let editionNum = editionNumberString(whichEdition);
+    console.log(whichBook + "is #" + bookNum);
+
     for (let i = 0; i < lineList.length; i++) {
         let line = lineList[i];
-        document.getElementById("text-container").innerHTML += line + "<br>";
-    }
-    /*
-    for (let i = 0; i < lineObject.length; i++) {
-        allLines.push(lineObject[i]);
+        let splitLine = line.split(" ");
+        let address = splitLine[0];
+        let splitAddress = address.split(".");
+        let chapter = splitAddress[0];
+        let verse = splitAddress[1];
+
+        let verseIDNum = getVerseIDNum(editionNum, bookNum, chapterString(chapter), verseString(verse));
+        console.log(verseIDNum);
     }
 
-    for (let j = 0; j < allLines.length; j++) {
-        console.log(allLines[j]);
-    }
-    */
     //Each verse's ID key should be a numerical string generated from its book. The metrical psalms are just weird and will need to be treated separately.
     //E.g., Exodus 12.13 will be 102012013: dummy 1, followed by 02 (Exodus), followed by 012 (chapter 12), followed by 013 (verse 13).
 
