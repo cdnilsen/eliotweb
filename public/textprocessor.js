@@ -89,6 +89,7 @@ bookDropdown.addEventListener("change", function() {
     //editionDropdownContainer.innerHTML = "";
 
     let editionDropdown = document.getElementById('searchEditionDropdown');
+    editionDropdown.innerHTML = "";
     document.getElementById("searchEditionLegend").hidden = false;
     editionDropdown.hidden = false;
 
@@ -111,6 +112,7 @@ bookDropdown.addEventListener("change", function() {
         let edition = editionList[i];
         let editionOption = document.createElement('option');
         editionOption.text = edition;
+        editionOption.value = edition;
         editionDropdown.add(editionOption);
     }
     editionDropdownContainer.hidden = false;
@@ -119,3 +121,16 @@ bookDropdown.addEventListener("change", function() {
 document.getElementById('searchEditionDropdown').addEventListener("change", function() {
     document.getElementById("submit").hidden = false;
 });
+
+
+function processText(whichBook, whichEdition) {
+    let textAddress = "./" + whichBook + "." + whichEdition + ".txt";
+}
+
+document.getElementById('submit').addEventListener("click", function() {
+    let whichBook = bookDropdown.value;
+    let whichEdition = editionDropdown.value;
+
+    processText(whichBook, whichEdition);
+});
+    
