@@ -16,7 +16,7 @@ app.get('/dynamicContent', (req, res) => {
 
 app.post('/addRaw', wrapAsync(async (req, res) => {
     try {
-        const myJSON = await JSON.parse(req.body);
+        const myJSON = JSON.parse(req.body);
         res.json(myJSON);
     } catch (error) {
         console.error(error);
