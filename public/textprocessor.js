@@ -129,7 +129,7 @@ async function processText(whichBook, whichEdition) {
     let textAddress = "./texts/" + whichBook + "." + whichEdition + ".txt";
 
     let lineObject = await fetch(textAddress);
-    console.log(lineObject);
+    console.log(lineObject.split("\n"));
     let allLines = [];
     console.log(typeof lineObject);
     for (let i = 0; i < lineObject.length; i++) {
