@@ -130,9 +130,12 @@ async function processText(whichBook, whichEdition) {
 
     let lineObject = await fetch(textAddress);
     let lineObjectText = await lineObject.text();
-    console.log(lineObjectText);
-    let allLines = [];
-    console.log(typeof lineObjectText);
+    let lineList = lineObjectText.split("\n");
+
+    for (let i = 0; i < lineList.length; i++) {
+        let line = lineList[i];
+        document.getElementById("text-container").innerHTML += line + "<br>";
+    }
     /*
     for (let i = 0; i < lineObject.length; i++) {
         allLines.push(lineObject[i]);
