@@ -12,8 +12,8 @@ export async function processVerseJSON(rawJSON: any) {
     let idNumber = rawJSON.id;
     let rawText = rawJSON.text;
     let book = rawJSON.book;
-    let chapter = idNumber.slice(4, 7);
-    let verse = idNumber.slice(7);
+    let chapter = idNumber.slice(4, 6);
+    let verse = idNumber.slice(6);
     return chapter.toString() + ":" + verse.toString();
 }
 
