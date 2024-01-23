@@ -184,7 +184,7 @@ document.getElementById('searchEditionDropdown').addEventListener("change", func
 
 async function processText(whichBook, whichEdition) {
     //const reader = new FileReader();
-    let textAddress = "./texts/" + whichBook + "." + whichEdition + ".txt";
+    let textAddress = "../src/texts/" + whichBook + "." + whichEdition + ".txt";
 
     let lineObject = await fetch(textAddress);
     let lineObjectText = await lineObject.text();
