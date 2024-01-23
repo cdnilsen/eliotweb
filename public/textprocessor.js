@@ -184,7 +184,7 @@ document.getElementById('searchEditionDropdown').addEventListener("change", func
 
 async function processText(whichBook, whichEdition) {
     //const reader = new FileReader();
-
+    console.log('/fetchBook/' + whichBook + "/" + whichEdition)
     let textLines = [];
     fetch('/fetchBook/' + whichBook + "/" + whichEdition).then(res => res.text()).then(res => {
         textLines = res.split("\n");
@@ -192,7 +192,6 @@ async function processText(whichBook, whichEdition) {
 
     let bookNum = bookNumberString(whichBook);
     //let editionNum = editionNumberString(whichEdition);
-    console.log(whichBook + " is #" + bookNum.slice(1));
 
     for (let i = 0; i < textLines.length; i++) {
         let line = textLines[i];
