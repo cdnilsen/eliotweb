@@ -194,7 +194,7 @@ async function processText(whichBook, whichEdition) {
     console.log(fileObject);
 
     //Currently fetching all text from frontend. We probably want all this to occur in the backend ASAP
-    let fileText = await textObject.text();
+    let fileText = await fileObject.text();
     let textLines = fileText.split("\n");
 
     let bookNum = bookNumberString(whichBook);
