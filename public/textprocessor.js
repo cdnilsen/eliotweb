@@ -211,7 +211,7 @@ async function sendRawJSON(book, edition) {
 
     for (let verse in verseDict) {
         let verseList = JSON.stringify([verse, verseDict[verse]]);
-        fetch('/addRaw/:' + verseList).then(res => res.json()).then(res => console.log(res)).catch(err => console.error(err));
+        fetch('/addRaw/' + verseList).then(res => res.json()).then(res => console.log(res)).catch(err => console.error(err));
     }
     let data = JSON.stringify(verseDict);
 
