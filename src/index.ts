@@ -3,6 +3,8 @@ import path from "path"
 
 import { default as pool } from './db'
 import { wrapAsync } from './utils'
+import { wordSearch } from './wordSearchMass'
+import { addRaw } from './textprocessor'
 
 const app = express()
 const port = process.env.PORT
@@ -11,10 +13,10 @@ app.get('/dynamicContent', (req, res) => {
     res.send(`Hi! I'm some dynamic content! You loaded this page at millisecond ${new Date().getTime()} of the UNIX 年号.`)
 })
 
-app.post('/addRaw', wrapAsync(async (req, res) => {
-    const allVerseIDs = await pool.query('SELECT * FROM all_verses')
-    const allVerseIDsArray = allVerseIDs.rows;
-    res.json(allVerseIDsArray);
+app.post('/addRaw/:json', wrapAsync(async (req, res) => {
+    const myJSON = JSON.parse(req.params.json);
+
+    res.json(myJSON);
 }))
 
 app.get('/fetchBook/:book/:edition', wrapAsync(async (req, res) => {
