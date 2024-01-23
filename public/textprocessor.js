@@ -206,10 +206,9 @@ async function getRawVerseDict(book, edition) {
 }
 
 async function sendADict(myDict, routeString) {
-    let stringifiedDict = JSON.stringify(myDict);
     fetch(routeString, {
         method: 'POST',
-        body: stringifiedDict,
+        body: JSON.stringify(myDict),
         headers: {
         "Content-type": "application/json; charset=UTF-8"
         }
