@@ -213,7 +213,9 @@ async function sendRawJSON(book, edition) {
 
 
 async function processText(whichBook, whichEdition) {
-    sendRawJSON(whichBook, whichEdition)
+    //sendRawJSON(whichBook, whichEdition)
+
+    fetch('/fetchBook/' + whichBook + "/" + whichEdition).then(res => res.json()).then(res => console.log(res)).catch(err => console.error(err));
     /*
     let fileAddress = './texts/' + whichBook + "." + whichEdition + ".txt";
 
