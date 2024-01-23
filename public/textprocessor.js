@@ -205,6 +205,17 @@ async function getRawVerseDict(book, edition) {
     return verseDict;
 }
 
+async function sendADict(myDict, routeString) {
+    let stringifiedDict = JSON.stringify(myDict);
+    fetch(routeString, {
+        method: 'POST',
+        body: stringifiedDict,
+        headers: {
+        "Content-type": "application/json; charset=UTF-8"
+        }
+    }).then(res => res.json()).then(res => console.log(res)).catch(err => console.error(err));
+}
+
 async function sendRawJSON(book, edition) {
     let verseDict = await getRawVerseDict(book, edition);
     let stringifiedDict = JSON.stringify(verseDict);
@@ -214,9 +225,7 @@ async function sendRawJSON(book, edition) {
         headers: {
         "Content-type": "application/json; charset=UTF-8"
         }
-    }).then(res => res.json())
-    .then(res => console.log(res))
-    .catch(err => console.error(err));
+    }).then(res => res.json()).then(res => console.log(res)).catch(err => console.error(err));
 }
 
 
