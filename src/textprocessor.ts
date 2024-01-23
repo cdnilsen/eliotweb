@@ -26,7 +26,7 @@ export async function processVerseJSON(rawJSON: any) {
     let edition = rawJSON.edition;
     let columnString = editionToColumnDict[edition];
     let kah = "kâh";
-    let myQuery = await pool.query('SELECT * from test_table WHERE id = $1::text', [parseInt(idNumber)]);
+    let myQuery = await pool.query('SELECT * from test_table WHERE id = $1', [parseInt(idNumber)]);
 
     return myQuery.rows;
     let chapter = idNumber.slice(4, 6);
