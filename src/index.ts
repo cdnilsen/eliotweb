@@ -11,6 +11,13 @@ app.get('/dynamicContent', (req, res) => {
     res.send(`Hi! I'm some dynamic content! You loaded this page at millisecond ${new Date().getTime()} of the UNIX 年号.`)
 })
 
+app.get('/fetchBook/:book/:edition', wrapAsync(async (req, res) => {
+    const textAddress = "./texts/" + req.params.book + "." + req.params.edition + ".txt";
+
+    let bookObject = await fetch(textAddress);
+    res.json(bookObject);
+}))
+
 app.get('/words', wrapAsync(async (req, res) => {
     const words = await pool.query('SELECT * FROM test_table')
     res.json(words.rows)
