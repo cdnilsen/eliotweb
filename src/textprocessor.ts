@@ -7,9 +7,13 @@ import { wrapAsync } from './utils'
 const app = express()
 const port = process.env.PORT
 
-app.get('/processText', wrapAsync(async (req, res) => {
-    const words = await pool.query('SELECT * FROM test_table')
-    res.json(words.rows)
+app.get('', wrapAsync(async (req, res) => {
+}))
+
+app.post('/addRaw/:json', wrapAsync(async (req, res) => {
+    const allVerseIDs = await pool.query('SELECT id FROM all_verses')
+    const allVerseIDsArray = allVerseIDs.rows;
+    res.json(allVerseIDsArray);
 }))
 
 app.put('/words/:word/increment', wrapAsync(async (req, res) => {

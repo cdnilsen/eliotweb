@@ -206,11 +206,13 @@ async function getRawVerseDict(book, edition) {
 
 async function sendRawJSON(book, edition) {
     let verseDict = await getRawVerseDict(book, edition);
+    let data = JSON.stringify(verseDict);
+    fetch('/addRaw/' + data, {method: 'POST'}).then(res => res.text()).then(res => console.log(res)).catch(err => console.error(err));
 }
 
 
 async function processText(whichBook, whichEdition) {
-    getRawVerseDict(whichBook, whichEdition)
+    sendRawJSON(whichBook, whichEdition)
     /*
     let fileAddress = './texts/' + whichBook + "." + whichEdition + ".txt";
 
