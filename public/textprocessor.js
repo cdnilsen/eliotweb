@@ -187,6 +187,7 @@ async function getRawVerseDict(book, edition) {
     let fileText = await file.text();
     let textLines = fileText.split("\n");
     let verseDict = {};
+    let bookNum = bookNumberString(book);
     for (let i = 0; i < textLines.length; i++) {
         let line = textLines[i];
         if (line == "") {
