@@ -11,6 +11,12 @@ app.get('/dynamicContent', (req, res) => {
     res.send(`Hi! I'm some dynamic content! You loaded this page at millisecond ${new Date().getTime()} of the UNIX 年号.`)
 })
 
+app.post('/addRaw', wrapAsync(async (req, res) => {
+    const allVerseIDs = await pool.query('SELECT id FROM all_verses')
+    const allVerseIDsArray = allVerseIDs.rows;
+    res.json(allVerseIDsArray);
+}))
+
 app.get('/fetchBook/:book/:edition', wrapAsync(async (req, res) => {
     const textAddress = "./texts/" + req.params.book + "." + req.params.edition + ".txt";
 
