@@ -22,11 +22,4 @@
     </div>
 </body>
 <script type="module" src="textprocessor.js"></script>
-<script>
-    function closeIt(){
-        window.location.href = window.location.href.split("?")[0];
-    }
-    window.onbeforeunload = closeIt;
-    window.history.pushState({}, '', window.location.href.split("?")[0]);
-</script>
 </html>
