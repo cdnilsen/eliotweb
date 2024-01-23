@@ -152,7 +152,8 @@ async function processText(whichBook, whichEdition) {
 
 document.getElementById('submit').addEventListener("click", function() {
     let whichBook = bookDropdown.value;
-    let whichEdition = editionDropdown.value;
+    //clean this up later
+    let whichEdition = document.getElementById('searchEditionDropdown').value;
 
     processText(whichBook, whichEdition);
 });
