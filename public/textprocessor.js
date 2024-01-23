@@ -86,7 +86,7 @@ let editionDropdownContainer = document.getElementById("edition-dropdown-contain
 
 bookDropdown.addEventListener("change", function() {
 
-    editionDropdownContainer.innerHTML = "";
+    //editionDropdownContainer.innerHTML = "";
 
     let editionDropdown = document.getElementById('searchEditionDropdown');
     document.getElementById("searchEditionLegend").hidden = false;
