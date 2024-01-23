@@ -184,18 +184,18 @@ document.getElementById('searchEditionDropdown').addEventListener("change", func
 
 async function processText(whichBook, whichEdition) {
     //const reader = new FileReader();
-    let textAddress = "./texts/" + whichBook + "." + whichEdition + ".txt";
 
-    let lineObject = await fetch(textAddress);
-    let lineObjectText = await lineObject.text();
-    let lineList = lineObjectText.split("\n");
+    let textLines = [];
+    fetch('/processText/:' + whichBook + "/:" + whichEdition).then(res => res.text()).then(res => {
+        textLines = res.text().split("\n");
+    }).catch(err => console.error(err));
 
     let bookNum = bookNumberString(whichBook);
     //let editionNum = editionNumberString(whichEdition);
     console.log(whichBook + " is #" + bookNum.slice(1));
 
-    for (let i = 0; i < lineList.length; i++) {
-        let line = lineList[i];
+    for (let i = 0; i < textLines.length; i++) {
+        let line = textLines[i];
         if (line == "") {
             continue;
         }
