@@ -7,6 +7,7 @@ import { wrapAsync } from './utils'
 const app = express()
 const port = process.env.PORT
 
-app.get('/processText', (req, res) => {
-    res.send(`Hi! I'm some dynamic content! You loaded this page at millisecond ${new Date().getTime()} of the UNIX 年号.`)
-})
+app.get('/processText', wrapAsync(async (req, res) => {
+    const words = await pool.query('SELECT * FROM test_table')
+    res.json(words.rows)
+}))

@@ -125,6 +125,13 @@ document.getElementById('searchEditionDropdown').addEventListener("change", func
 
 function processText(whichBook, whichEdition) {
     let textAddress = "./" + whichBook + "." + whichEdition + ".txt";
+
+    //Each verse's ID key should be a numerical string generated from its book. The metrical psalms are just weird and will need to be treated separately.
+    //E.g., Exodus 12.13 will be 102012013: dummy 1, followed by 02 (Exodus), followed by 012 (chapter 12), followed by 013 (verse 13).
+
+    //TODO for other texts like Mayhew's translation of Cotton. Those'll probably be e.g. 201, 202...
+
+    fetch('/processText').then(res => res.text()).then(res => console.log(res)).catch(err => console.log(err)); //fix later
 }
 
 document.getElementById('submit').addEventListener("click", function() {
