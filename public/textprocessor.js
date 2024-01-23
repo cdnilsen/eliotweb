@@ -1,4 +1,4 @@
-import { readLines } from 'fs';
+const fs = require('fs');
 
 const allBookList = [
     "Genesis",
@@ -129,7 +129,7 @@ async function processText(whichBook, whichEdition) {
     let textAddress = "./" + whichBook + "." + whichEdition + ".txt";
 
     let allLines = [];
-    let lineObject = await readLines(textAddress);
+    let lineObject = await fs.readLines(textAddress);
     console.log(typeof lineObject);
     for (let i = 0; i < lineObject.length; i++) {
         allLines.push(lineObject[i]);
