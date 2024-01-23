@@ -87,6 +87,7 @@ function bookNumberString(book) {
     return finalString + bookIDNum;
 }
 
+//This is probably not going to be needed, but here just in case
 function editionNumberString(edition){
     let finalString = "";
     if (edition == "First Edition") {
@@ -121,8 +122,8 @@ function verseString(verse) {
     return verseIDNum;
 }
 
-function getVerseIDNum(editionNum, bookNum, chapterNum, verseNum) {
-    let finalString = bookNum.toString() + chapterNum.toString() + verseNum.toString() + editionNum.toString();
+function getVerseIDNum(bookNum, chapterNum, verseNum) {
+    let finalString = bookNum.toString() + chapterNum.toString() + verseNum.toString();
     return parseInt(finalString);
 }
 
@@ -195,13 +196,16 @@ async function processText(whichBook, whichEdition) {
 
     for (let i = 0; i < lineList.length; i++) {
         let line = lineList[i];
+        if (line == "") {
+            continue;
+        }
         let splitLine = line.split(" ");
         let address = splitLine[0];
         let splitAddress = address.split(".");
         let chapter = splitAddress[0];
         let verse = splitAddress[1];
 
-        let verseIDNum = getVerseIDNum(editionNum, bookNum, chapterString(chapter), verseString(verse));
+        let verseIDNum = getVerseIDNum(bookNum, chapterString(chapter), verseString(verse));
         console.log(verseIDNum);
     }
 
