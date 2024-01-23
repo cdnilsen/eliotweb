@@ -187,7 +187,7 @@ async function processText(whichBook, whichEdition) {
 
     let textLines = [];
     fetch('/processText/:' + whichBook + "/:" + whichEdition).then(res => res.text()).then(res => {
-        textLines = res.text().split("\n");
+        textLines = res.split("\n");
     }).catch(err => console.error(err));
 
     let bookNum = bookNumberString(whichBook);
