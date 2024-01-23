@@ -207,16 +207,17 @@ async function getRawVerseDict(book, edition) {
 
 async function sendRawJSON(book, edition) {
     let verseDict = await getRawVerseDict(book, edition);
-    console.log(verseDict); //This works...
-
-    for (let verse in verseDict) {
-        console.log(verse + ": " + verseDict[verse]);
-        let verseList = JSON.stringify([verse, verseDict[verse]]);
-        fetch('/addRaw/' + verseList).then(res => res.json()).then(res => console.log(res)).catch(err => console.error(err));
-    }
-    let data = JSON.stringify(verseDict);
-
-    //
+    let stringifiedDict = JSON.stringify(verseDict);
+    fetch('/addRaw', {
+        method: 'POST',
+        body: stringifiedDict,
+        headers: {
+        "Content-type": "application/json; charset=UTF-8"
+        }
+    })
+    .then(res => res.json())
+    .then(res => console.log(res))
+    .catch(err => console.error(err));
 }
 
 

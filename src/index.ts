@@ -13,8 +13,8 @@ app.get('/dynamicContent', (req, res) => {
     res.send(`Hi! I'm some dynamic content! You loaded this page at millisecond ${new Date().getTime()} of the UNIX 年号.`)
 })
 
-app.post('/addRaw/:json', wrapAsync(async (req, res) => {
-    const myJSON = JSON.parse(req.params.json);
+app.post('/addRaw/', wrapAsync(async (req, res) => {
+    const myJSON = req.body;
 
     res.json(myJSON);
 }))
