@@ -16,7 +16,8 @@ app.get('/dynamicContent', (req, res) => {
 
 app.post('/addRaw', wrapAsync(async (req, res) => {
     try {
-        processVerseJSON(req.body);
+        console.log(req.body);
+        //processVerseJSON(req.body);
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error');

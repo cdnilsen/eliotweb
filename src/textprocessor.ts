@@ -9,7 +9,6 @@ const port = process.env.PORT
 
 
 export async function processVerseJSON(rawJSON: any) {
-
     let idNumber = rawJSON.id;
     let rawText = rawJSON.text;
     let book = rawJSON.book;
