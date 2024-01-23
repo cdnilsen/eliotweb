@@ -13,8 +13,8 @@ app.get('/processText', wrapAsync(async (req, res) => {
 }))
 
 app.get('/fetchBook/:book/:edition', wrapAsync(async (req, res) => {
-    const book = req.params["book"];
-    const edition = req.params["edition"];
+    const book = req.query.book;
+    const edition = req.query.edition;
     let textAddress = "./texts/" + book + "." + edition + ".txt";
 
     let bookObject = await fetch(textAddress);

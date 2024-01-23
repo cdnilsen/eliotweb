@@ -184,11 +184,12 @@ document.getElementById('searchEditionDropdown').addEventListener("change", func
 
 async function processText(whichBook, whichEdition) {
     //const reader = new FileReader();
-    console.log('/fetchBook/' + whichBook + "/" + whichEdition)
-    let textLines = [];
-    fetch('/fetchBook/' + whichBook + "/" + whichEdition).then(res => res.text()).then(res => {
-        textLines = res.split("\n");
-    }).catch(err => console.error(err));
+    let fileAddress = './texts/' + whichBook + "." + whichEdition + ".txt";
+
+    //Currently fetching all text from frontend. We probably want all this to occur in the backend ASAP
+    let fileObject = await fetch(fileAddress);
+    let fileText = await textObject.text();
+    let textLines = fileText.split("\n");
 
     let bookNum = bookNumberString(whichBook);
     //let editionNum = editionNumberString(whichEdition);
