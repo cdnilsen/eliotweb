@@ -144,10 +144,11 @@ async function processText(whichBook, whichEdition) {
     //E.g., Exodus 12.13 will be 102012013: dummy 1, followed by 02 (Exodus), followed by 012 (chapter 12), followed by 013 (verse 13).
 
     //TODO for other texts like Mayhew's translation of Cotton. Those'll probably be e.g. 201, 202...
-
+    /*
     fetch('/processText').then(res => res.json()).then(res => {
 
     }).catch(err => console.error(err));
+    */
 }
 
 document.getElementById('submit').addEventListener("click", function() {
