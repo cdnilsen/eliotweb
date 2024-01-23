@@ -186,7 +186,7 @@ async function processText(whichBook, whichEdition) {
     //const reader = new FileReader();
 
     let textLines = [];
-    fetch('/processText/:' + whichBook + "/:" + whichEdition).then(res => res.text()).then(res => {
+    fetch('/fetchBook/:' + whichBook + "/:" + whichEdition).then(res => res.text()).then(res => {
         textLines = res.split("\n");
     }).catch(err => console.error(err));
 
