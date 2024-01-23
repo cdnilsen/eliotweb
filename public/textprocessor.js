@@ -208,8 +208,13 @@ async function getRawVerseDict(book, edition) {
 async function sendRawJSON(book, edition) {
     let verseDict = await getRawVerseDict(book, edition);
     console.log(verseDict); //This works...
+
+    for (let verse in verseDict) {
+        console.log(verse);
+    }
     let data = JSON.stringify(verseDict);
-    fetch('/addRaw/:' + data).then(res => res.json()).then(res => console.log(res)).catch(err => console.error(err)); // but this doesn't.
+
+    //fetch('/addRaw/:' + data).then(res => res.json()).then(res => console.log(res)).catch(err => console.error(err)); // but this doesn't.
 }
 
 
