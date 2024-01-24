@@ -67,7 +67,7 @@ async function verseUpdate(verseExists: boolean, verseID: string, verseText: str
     let wordList = getWordsInText(verseText);
 
     if (verseExists) {
-        let queryText = "UPDATE all_verses SET " + editionColumn + " = $1, " + diacriticWordListColumn + "= $2 WHERE id = $3";
+        let queryText = "UPDATE all_verses SET " + editionColumn + " = $1, " + diacriticWordListColumn + " = $2 WHERE id = $3";
         await pool.query(queryText, [verseText, wordList, parseInt(verseID)])
         return (consoleAddress + " updated in database.")
     } else {
