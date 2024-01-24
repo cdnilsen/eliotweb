@@ -20,8 +20,8 @@ const editionToColumnDict: editionToColumnDictType = {
 };
 
 async function verseUpdate(verseExists: boolean, verseID: string, verseText: string, editionColumn: string, book: string) {   
-    let dummyQuery = await pool.query('SELECT * from test_table WHERE total_count = $1', [1]);
-    return dummyQuery.rows;
+    let dummyQuery = await pool.query('INSERT INTO test_table(word, total_count, verse_addresses, verse_tokens, id) VALUES($1, $2, $3, $4, $5) RETURNING *', ["nashpe", 3, ["α.Matthew.3.1"], [3], 10434]);
+    return dummyQuery;
     if (verseExists) {
         //return "verse exists in the db"
         let queryText = "UPDATE all_verses SET " + editionColumn + " = $1 WHERE id = $2";
