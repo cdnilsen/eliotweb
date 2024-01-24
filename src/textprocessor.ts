@@ -56,7 +56,7 @@ const editionToWordListDict: editionToColumnType = {
     "First Edition": "words_diacritics_first_ed",
     "Second Edition": "words_diacritics_second_ed",
     "Mayhew": "words_diacritics_mayhew",
-    "Zeroth Edition": "words_diacritics_zeroth_ed"
+    "Zero0th Edition": "words_diacritics_zeroth_ed"
 };
 
 function killDiacritics(word: string) {
@@ -106,6 +106,9 @@ function killDiacritics(word: string) {
     return cleanedWord;
 }
 
+async function removeVerseCiteFromWordTable(verseIDNum: number, editionNum: number, word: string, wordCount: number, useDiacritics: boolean) {
+}
+
 async function updateOneWordTable(verseIDNum: number, editionNum: number, word: string, wordCount: number, useDiacritics: boolean) {
 
     let whichTable = "";
@@ -120,11 +123,32 @@ async function updateOneWordTable(verseIDNum: number, editionNum: number, word: 
     let hasWord = (checkQuery.rows.length > 0);
 
     if (hasWord) {
-        //await pool.query('UPDATE ' + whichTable + ' SET total_count = total_count + $1 WHERE word = $2', [wordCount, word]);
-    } else {
-        await pool.query('INSERT INTO ' + whichTable + '(word) VALUES($1)', [word]);
-    }
+        let thisRow = checkQuery.rows[0];
+        let verseIDList = thisRow.addresses;
+        let verseCountList = thisRow.verse_counts;
+        let thisEditionList = thisRow.all_editions;
+        let thisEditionCountList = thisRow.edition_counts;
 
+        let thisEditionIndex = thisEditionList.indexOf(editionNum);
+
+        let updatedVerseIDList = verseIDList;
+        let updatedVerseCountList = verseCountList;
+
+        for (let i = 0; i < verseIDList.length; i++) {
+            if (verseIDList[i] != verseIDNum || wordCount == verseCountList[i]) {
+                updatedVerseIDList.push(verseIDList[i]);
+                updatedVerseCountList.push(verseCountList[i]);
+            } else {
+                updatedVerseIDList.push(verseIDNum);
+                updatedVerseCountList.push(wordCount);
+                thisEditionCountList[thisEditionIndex] -= verseCountList[i];
+                thisEditionCountList[thisEditionIndex] += wordCount;
+            }
+        }
+        await pool.query('UPDATE $1 SET addresses = $2, verse_counts = $4, all_editions = $5, editionCounts = $6, total_count = total_count + $1 WHERE word = $2', [whichTable, updatedVerseIDList, updatedVerseCountList, thisEditionList, thisEditionCountList, wordCount]);
+    } else {
+        await pool.query('INSERT INTO ' + whichTable + '(word, addresses, verse_counts, all_editions, edition_counts) VALUES($1, $2, $3, $4, $5, $6)', [word, [verseIDNum], [wordCount], [editionNum], [wordCount]]);
+    }
 }
 
 async function updateWordTables(verseID: string, edition: string, wordList: string[], wordCountList: number[]) {
