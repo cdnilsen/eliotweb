@@ -21,6 +21,8 @@ const editionToColumnDict: editionToColumnDictType = {
 
 async function verseUpdate(verseExists: boolean, verseID: string, verseText: string, editionColumn: string, book: string) {   
     await pool.query('INSERT INTO test_table(word, total_count, verse_addresses, verse_tokens, id) VALUES($1, $2, $3, $4, $5)', ["wosketomp", 2, ["M.John.3.1"], [2], 1053421]);
+    return('worked')
+    /*
     if (verseExists) {
         //return "verse exists in the db"
         let queryText = "UPDATE all_verses SET " + editionColumn + " = $1 WHERE id = $2";
@@ -30,6 +32,7 @@ async function verseUpdate(verseExists: boolean, verseID: string, verseText: str
         let queryText = "INSERT INTO all_verses (id, " + editionColumn + ", book) VALUES (" + verseID + "," + verseText + "," + book + ")"; //Ugly, but will it work?
         await pool.query(queryText);
     }
+    */
 }
 
 export async function processVerseJSON(rawJSON: any) {
