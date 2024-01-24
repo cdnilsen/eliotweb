@@ -7,10 +7,30 @@ import { wrapAsync } from './utils'
 const app = express()
 const port = process.env.PORT
 
-type editionToColumnDictType = {
+function cleanPunctuation(word: string) {
+    let cleanWord = word.replace(/[.,\/#!$%\^&\*?;:{}=\_`~()]/g, "");
+    cleanWord = cleanWord.replace('[', '').replace(']', '');
+    
+    return cleanWord;
+}
+
+function getWordsInText(verseText: string) {
+    let finalList: string[] = [];
+    let wordList = verseText.split(" ");
+    for (let i = 0; i < wordList.length; i++) {
+        let cleanWord = cleanPunctuation(wordList[i]);
+        if (cleanWord.length > 0 && !finalList.includes(cleanWord.toLowerCase())) {
+            finalList.push(cleanWord.toLowerCase());
+        }
+    }
+    return finalList.toSorted(Intl.Collator().compare);
+}
+
+
+type editionToColumnType = {
     [key: string]: string
 }
-const editionToColumnDict: editionToColumnDictType = {
+const editionToColumnDict: editionToColumnType = {
     "First Edition": "first_edition_raw",
     "Second Edition": "second_edition_raw",
     "Mayhew": "mayhew_raw",
@@ -19,8 +39,16 @@ const editionToColumnDict: editionToColumnDictType = {
     "Grebrew": "grebrew" // Are we even using this except in Greek?
 };
 
+const editionToWordListDict: editionToColumnType = {
+    "First Edition": "words_diacritics_first_ed",
+    "Second Edition": "words_diacritics_second_ed",
+    "Mayhew": "words_diacritics_mayhew",
+    "Zeroth Edition": "words_diacritics_zeroth_ed"
+}
+
 async function verseUpdate(verseExists: boolean, verseID: string, verseText: string, edition: string, book: string) {
     let editionColumn = editionToColumnDict[edition];
+    let diacriticWordListColumn = editionToWordListDict[edition];
     //Epilogues should probably be processed in some other fashion
     let consoleAddress = "";
     let chapter = 0;
@@ -35,16 +63,14 @@ async function verseUpdate(verseExists: boolean, verseID: string, verseText: str
         consoleAddress = edition + " " + book + " " + verseID.slice(4, 6) + ":" + verseID.slice(6);
     }
 
-    
-    
+    let wordList = getWordsInText(verseText);
+
     if (verseExists) {
-        //return "verse exists in the db"
-        let queryText = "UPDATE all_verses SET " + editionColumn + " = $1 WHERE id = $2";
-        await pool.query(queryText, [verseText, parseInt(verseID)])
-        return ( consoleAddress + " updated in database.")
+        let queryText = "UPDATE all_verses SET " + editionColumn + " = $1, " + diacriticWordListColumn + "= $2 WHERE id = $3";
+        await pool.query(queryText, [verseText, wordList, parseInt(verseID)])
+        return (consoleAddress + " updated in database.")
     } else {
-        //return "verse does not exist in the db"
-        await pool.query('INSERT INTO all_verses(id, book, ' + editionColumn + ', chapter, verse) VALUES($1, $2, $3, $4, $5)', [parseInt(verseID), book, verseText, chapter, verse]);
+        await pool.query('INSERT INTO all_verses(id, book, ' + editionColumn + ', ' + diacriticWordListColumn + ' chapter, verse) VALUES($1, $2, $3, $4, $5, $6)', [parseInt(verseID), book, verseText, wordList, chapter, verse]);
         return (consoleAddress + " inserted into database.")
     }
 }

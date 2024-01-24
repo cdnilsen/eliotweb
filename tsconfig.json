@@ -9,6 +9,7 @@
       "sourceMap": true,
       "outDir": "dist",
       "baseUrl": ".",
+      "lib": ["ESNext.Array", "ESNext.AsyncIterable", "ESNext.Promise", "ESNext.String"],
       "paths": {
           "*": [
               "node_modules/*",
