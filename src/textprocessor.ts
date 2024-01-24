@@ -40,6 +40,7 @@ export async function processVerseJSON(rawJSON: any) {
     let book = rawJSON.book;
     let edition = rawJSON.edition;
     let columnString = editionToColumnDict[edition];
+    return columnString;
     let myQuery = await pool.query('SELECT * from all_verses WHERE id = $1', [parseInt(idNumber)]);
 
     let hasVerse = (myQuery.rows.length > 0);
