@@ -19,7 +19,9 @@ const editionToColumnDict: editionToColumnDictType = {
     "Grebrew": "grebrew" // Are we even using this except in Greek?
 };
 
-async function verseUpdate(verseExists: boolean, verseID: string, verseText: string, editionColumn: string, book: string) {    
+async function verseUpdate(verseExists: boolean, verseID: string, verseText: string, editionColumn: string, book: string) {   
+    let dummyQuery = await pool.query('SELECT * from test_table WHERE total_count = $1', [1]);
+    return dummyQuery.rows;
     if (verseExists) {
         //return "verse exists in the db"
         let queryText = "UPDATE all_verses SET " + editionColumn + " = $1 WHERE id = $2";
