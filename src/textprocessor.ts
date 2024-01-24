@@ -19,19 +19,33 @@ const editionToColumnDict: editionToColumnDictType = {
     "Grebrew": "grebrew" // Are we even using this except in Greek?
 };
 
-async function verseUpdate(verseExists: boolean, verseID: string, verseText: string, editionColumn: string, book: string) {   
-    //await pool.query('INSERT INTO test_table(word, total_count, verse_addresses, verse_tokens, id) VALUES($1, $2, $3, $4, $5)', ["mittamwossis", 1, ["β.Acts.15.31"], [1], 6001]);
-    //return('worked');
+async function verseUpdate(verseExists: boolean, verseID: string, verseText: string, edition: string, book: string) {
+    let editionColumn = editionToColumnDict[edition];
+    //Epilogues should probably be processed in some other fashion
+    let consoleAddress = "";
+    let chapter = 0;
+    let verse = 0;
+    if (verseID.endsWith("Epilogue")) {
+        chapter = 999;
+        verse = 1;
+        consoleAddress = edition + " " + book + " epilogue";
+    } else {
+        chapter = parseInt(verseID.slice(4, 6));
+        verse = parseInt(verseID.slice(6));
+        consoleAddress = edition + " " + book + " " + verseID.slice(4, 6) + ":" + verseID.slice(6);
+    }
+
+    
     
     if (verseExists) {
         //return "verse exists in the db"
         let queryText = "UPDATE all_verses SET " + editionColumn + " = $1 WHERE id = $2";
         await pool.query(queryText, [verseText, parseInt(verseID)])
-        return (verseID + " updated in database.")
+        return ( consoleAddress + " updated in database.")
     } else {
         //return "verse does not exist in the db"
-        await pool.query('INSERT INTO all_verses(id, book, ' + editionColumn + ') VALUES($1, $2, $3)', [parseInt(verseID), book, verseText]);
-        return (verseID + " inserted into database.")
+        await pool.query('INSERT INTO all_verses(id, book, ' + editionColumn + ', chapter, verse) VALUES($1, $2, $3, $4, $5)', [parseInt(verseID), book, verseText, chapter, verse]);
+        return (consoleAddress + " inserted into database.")
     }
 }
 
@@ -41,13 +55,11 @@ export async function processVerseJSON(rawJSON: any) {
     let rawText = rawJSON.text;
     let book = rawJSON.book;
     let edition = rawJSON.edition;
-    let columnString = editionToColumnDict[edition];
-    //This works.
     let myQuery = await pool.query('SELECT * FROM all_verses WHERE id = $1', [parseInt(idNumber)]);
     let hasVerse = (myQuery.rows.length > 0);
     //if myQuery.rows.length > 0, then the verse already exists in the database and we want to pass `true` to 'verseExists' in verseUpdate
 
-    let returnValue = await verseUpdate(hasVerse, idNumber, rawText, columnString, book);
+    let returnValue = await verseUpdate(hasVerse, idNumber, rawText, edition, book);
 
     return returnValue;
 }
