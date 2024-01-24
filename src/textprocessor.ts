@@ -23,7 +23,7 @@ function getWordsInText(verseText: string) {
             finalList.push(cleanWord.toLowerCase());
         }
     }
-    //list.toSorted has no support (yet)
+    // return finalList.toSorted(Intl.Collator().compare);
     return finalList;
 }
 
