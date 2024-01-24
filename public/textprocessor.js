@@ -231,6 +231,7 @@ async function sendRawJSON(book, edition) {
     //let stringifiedDict = JSON.stringify(verseDict);
     let allKeyList = Object.keys(verseDict);
     for (let i = 0; i < allKeyList.length; i++) {
+        
         let verseNum = allKeyList[i];
         let verseJSON = {"id": verseNum, "text": verseDict[verseNum], "edition": edition, "book": book};
         //console.log(verseJSON);
@@ -248,6 +249,7 @@ async function sendRawJSON(book, edition) {
             "Content-type": "application/json; charset=UTF-8"
             }
         }).then(res => res.json()).then(res => console.log(res)).catch(err => console.error(err));
+        sleep(200);
     }
 }
 

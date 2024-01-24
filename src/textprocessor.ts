@@ -276,8 +276,8 @@ export async function processVerseJSON(rawJSON: any) {
     //if myQuery.rows.length > 0, then the verse already exists in the database and we want to pass `true` to 'verseExists' in verseUpdate
 
     let returnValue = await verseUpdate(hasVerse, idNumber, rawText, edition, book);
-
     return returnValue;
+    
 }
 /*
     let chapter = idNumber.slice(4, 6);
