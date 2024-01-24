@@ -25,11 +25,11 @@ async function verseUpdate(verseExists: boolean, verseID: string, verseText: str
     //return "verseUpdate has been called"
     
     if (verseExists) {
-        return "verse exists in the db"
+        //return "verse exists in the db"
         let queryText = "UPDATE all_verses SET " + editionColumn + " = $1 WHERE id = $2";
         await pool.query(queryText, [verseText, parseInt(verseID)])
     } else {
-        return "verse does not exist in the db"
+        //return "verse does not exist in the db"
         let queryText = "INSERT INTO all_verses (id, " + editionColumn + ", book) VALUES ?";
         await pool.query(queryText, [parseInt(verseID), verseText, book]);
     }
@@ -37,6 +37,7 @@ async function verseUpdate(verseExists: boolean, verseID: string, verseText: str
 
 export async function processVerseJSON(rawJSON: any) {
     let idNumber = rawJSON.id;
+    return typeof idNumber;
     let rawText = rawJSON.text;
     let book = rawJSON.book;
     let edition = rawJSON.edition;
