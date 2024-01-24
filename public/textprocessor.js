@@ -239,7 +239,7 @@ async function sendRawJSON(book, edition) {
             "Content-type": "application/json; charset=UTF-8"
             }
         }).then(res => res.json()).then(res => console.log(res)).catch(err => console.error(err));*/
-        sleep(200);
+        sleep(1000);
         fetch('/addRaw', {
             method: 'POST',
             body: JSON.stringify(verseJSON),
