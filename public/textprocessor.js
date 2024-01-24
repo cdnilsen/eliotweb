@@ -165,6 +165,8 @@ bookDropdown.addEventListener("change", function() {
     if (bookDropdown.value == "Psalms (prose)" || bookDropdown.value == "John") {
         editionList.push("Mayhew");
     }
+    
+    editionList.push("KJV");
 
     for (let i = 0; i < editionList.length; i++) {
         let edition = editionList[i];
