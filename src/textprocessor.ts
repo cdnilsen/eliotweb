@@ -246,9 +246,9 @@ async function verseUpdate(verseExists: boolean, verseID: string, verseText: str
         verse = 1;
         consoleAddress = edition + " " + book + " epilogue";
     } else {
-        chapter = parseInt(verseID.slice(4, 6));
+        chapter = parseInt(verseID.slice(3, 6));
         verse = parseInt(verseID.slice(6));
-        consoleAddress = edition + " " + book + " " + verseID.slice(4, 6) + ":" + verseID.slice(6);
+        consoleAddress = edition + " " + book + " " + verseID.slice(3, 6) + ":" + verseID.slice(6);
     }
     
     let wordList: string[] = [];
