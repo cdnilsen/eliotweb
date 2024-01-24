@@ -26,8 +26,8 @@ app.post('/addRaw', wrapAsync(async (req, res) => {
     try {
         //console.log(req.body);
         //res.json(req.body);
-        let endValue = await processVerseJSON(req.body);
-        res.json(endValue);
+        await processVerseJSON(req.body);
+        res.json('verse inserted');
         //processVerseJSON(req.body);
     } catch (error) {
         console.error(error);
