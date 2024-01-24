@@ -36,7 +36,7 @@ async function verseUpdate(verseExists: boolean, verseID: string, verseText: str
 }
 
 export async function processVerseJSON(rawJSON: any) {
-    let idNumber = rawJSON.id;
+    let idNumber = parseInt(rawJSON.id); //This is a string.
     return typeof idNumber;
     let rawText = rawJSON.text;
     let book = rawJSON.book;
