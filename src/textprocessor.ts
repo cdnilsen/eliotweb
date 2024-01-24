@@ -209,11 +209,11 @@ async function updateEdition(verseExists: boolean, verseID: string, verseText: s
         let queryText = "UPDATE all_verses SET " + editionColumn + " = $1, " + diacriticWordListColumn + " = $2 WHERE id = $3";
         await pool.query(queryText, [verseText, wordList, parseInt(verseID)])
 
-        await updateWordTables(verseID, edition, wordList, wordCountList);
+        //await updateWordTables(verseID, edition, wordList, wordCountList);
         return (consoleAddress + " updated in database.")
     } else if (isMassachusett && !verseExists) {
         await pool.query('INSERT INTO all_verses(id, book, ' + editionColumn + ', ' + diacriticWordListColumn + ' chapter, verse) VALUES($1, $2, $3, $4, $5, $6)', [parseInt(verseID), book, verseText, wordList, chapter, verse]);
-        await updateWordTables(verseID, edition, wordList, wordCountList);
+        //await updateWordTables(verseID, edition, wordList, wordCountList);
         return (consoleAddress + " inserted into database.")
     } else if (!isMassachusett && verseExists) {
         let queryText = "UPDATE all_verses SET " + editionColumn + " = $1 WHERE id = $2";
