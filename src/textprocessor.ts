@@ -25,7 +25,7 @@ async function verseUpdate(verseExists: boolean, verseID: string, verseText: str
         let queryText = "UPDATE all_verses SET " + editionColumn + " = $1 WHERE id = $2";
         await pool.query(queryText, [verseText, parseInt(verseID)])
     } else {
-        let queryText = "INSERT INTO all_verses (id, " + editionColumn + ", book) VALUES ($1, $2, $3)"
+        let queryText = "INSERT INTO all_verses (id, " + editionColumn + ", book) VALUES ?";
         await pool.query(queryText, [parseInt(verseID), verseText, book]);
     }
 }
