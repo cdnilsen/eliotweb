@@ -46,18 +46,25 @@ type editionToColumnType = {
 const editionToColumnDict: editionToColumnType = {
     "First Edition": "first_edition_raw",
     "Second Edition": "second_edition_raw",
-    "Mayhew": "mayhew_raw",
-    "Zeroth Edition": "zeroth_edition_raw",
+    "Mayhew": "other_edition_raw",
+    "Zeroth Edition": "other_edition_raw",
     "KJV": "kjv",
     "Grebrew": "grebrew" // Are we even using this except in Greek?
 };
 
 const editionToWordListDict: editionToColumnType = {
-    "First Edition": "words_diacritics_first_ed",
-    "Second Edition": "words_diacritics_second_ed",
-    "Mayhew": "words_diacritics_mayhew",
-    "Zero0th Edition": "words_diacritics_zeroth_ed"
+    "First Edition": "words_first_edition",
+    "Second Edition": "words_second_edition",
+    "Mayhew": "words_other_edition",
+    "Zeroth Edition": "words_other_edition"
 };
+
+const editionToCountListDict: editionToColumnType = {
+    "First Edition": "word_counts_first_edition",
+    "Second Edition": "word_counts_second_edition",
+    "Mayhew": "word_counts_other_edition",
+    "Zeroth Edition": "word_counts_other_edition"
+}
 
 function killDiacritics(word: string) {
     let charReplacementDict: editionToColumnType = {
@@ -200,6 +207,10 @@ async function updateWordTables(verseID: string, edition: string, wordList: stri
     }
 }
 
+async function updateOneEdition() {
+
+}
+
 
 async function updateEdition(verseExists: boolean, verseID: string, verseText: string, edition: string, book: string, consoleAddress: string, editionColumn: string, diacriticWordListColumn: string, wordList: string[], wordCountList: number[], chapter: number, verse: number) {
 
@@ -208,12 +219,9 @@ async function updateEdition(verseExists: boolean, verseID: string, verseText: s
     if (isMassachusett && verseExists) {
         let queryText = "UPDATE all_verses SET " + editionColumn + " = $1, " + diacriticWordListColumn + " = $2 WHERE id = $3";
         await pool.query(queryText, [verseText, wordList, parseInt(verseID)])
-
-        //await updateWordTables(verseID, edition, wordList, wordCountList);
         return (consoleAddress + " updated in database.")
     } else if (isMassachusett && !verseExists) {
         await pool.query('INSERT INTO all_verses(id, book, ' + editionColumn + ', ' + diacriticWordListColumn + ' chapter, verse) VALUES($1, $2, $3, $4, $5, $6)', [parseInt(verseID), book, verseText, wordList, chapter, verse]);
-        //await updateWordTables(verseID, edition, wordList, wordCountList);
         return (consoleAddress + " inserted into database.")
     } else if (!isMassachusett && verseExists) {
         let queryText = "UPDATE all_verses SET " + editionColumn + " = $1 WHERE id = $2";
