@@ -28,7 +28,6 @@ function getWordsInText(verseText: string) {
     return finalList;
 }
 
-
 type editionToColumnType = {
     [key: string]: string
 }
@@ -46,7 +45,8 @@ const editionToWordListDict: editionToColumnType = {
     "Second Edition": "words_diacritics_second_ed",
     "Mayhew": "words_diacritics_mayhew",
     "Zeroth Edition": "words_diacritics_zeroth_ed"
-}
+};
+
 
 async function updateEdition(verseExists: boolean, verseID: string, verseText: string, edition: string, book: string, consoleAddress: string, editionColumn: string, diacriticWordListColumn: string, wordList: string[], chapter: number, verse: number) {
 
@@ -67,7 +67,6 @@ async function updateEdition(verseExists: boolean, verseID: string, verseText: s
         await pool.query('INSERT INTO all_verses(id, book, ' + editionColumn + ', chapter, verse) VALUES($1, $2, $3, $4, $5)', [parseInt(verseID), book, verseText, chapter, verse]);
         return (consoleAddress + " inserted into database.")
     }
-
 }
 
 async function verseUpdate(verseExists: boolean, verseID: string, verseText: string, edition: string, book: string) {
