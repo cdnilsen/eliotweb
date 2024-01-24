@@ -124,6 +124,7 @@ async function updateOneWordTable(verseIDNum: number, editionNum: number, word: 
 
     if (hasWord) {
         let thisRow = checkQuery.rows[0];
+        return thisRow;
         let verseIDList = thisRow.addresses;
         let verseCountList = thisRow.verse_counts;
         let thisEditionList = thisRow.all_editions;
@@ -145,7 +146,7 @@ async function updateOneWordTable(verseIDNum: number, editionNum: number, word: 
                 thisEditionCountList[thisEditionIndex] += wordCount;
             }
         }
-        await pool.query('UPDATE $1 SET addresses = $2, verse_counts = $4, all_editions = $5, editionCounts = $6, total_count = total_count + $1 WHERE word = $2', [whichTable, updatedVerseIDList, updatedVerseCountList, thisEditionList, thisEditionCountList, wordCount]);
+        await pool.query('UPDATE ' + whichTable + ' SET addresses = $1, verse_counts = $2, all_editions = $3, editionCounts = $4 WHERE word = $5', [updatedVerseIDList, updatedVerseCountList, thisEditionList, thisEditionCountList, word]);
     } else {
         await pool.query('INSERT INTO ' + whichTable + '(word, addresses, verse_counts, all_editions, edition_counts) VALUES($1, $2, $3, $4, $5, $6)', [word, [verseIDNum], [wordCount], [editionNum], [wordCount]]);
     }
