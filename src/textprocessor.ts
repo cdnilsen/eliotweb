@@ -23,6 +23,7 @@ function getWordsInText(verseText: string) {
             finalList.push(cleanWord.toLowerCase());
         }
     }
+    // This probably doesn't work (yet)
     // return finalList.toSorted(Intl.Collator().compare);
     return finalList;
 }
@@ -47,6 +48,28 @@ const editionToWordListDict: editionToColumnType = {
     "Zeroth Edition": "words_diacritics_zeroth_ed"
 }
 
+async function updateEdition(verseExists: boolean, verseID: string, verseText: string, edition: string, book: string, consoleAddress: string, editionColumn: string, diacriticWordListColumn: string, wordList: string[], chapter: number, verse: number) {
+
+    let isMassachusett: boolean = (edition == "First Edition" || edition == "Second Edition" || edition == "Mayhew" || edition == "Zeroth Edition");
+
+    if (isMassachusett && verseExists) {
+        let queryText = "UPDATE all_verses SET " + editionColumn + " = $1, " + diacriticWordListColumn + " = $2 WHERE id = $3";
+        await pool.query(queryText, [verseText, wordList, parseInt(verseID)])
+        return (consoleAddress + " updated in database.")
+    } else if (isMassachusett && !verseExists) {
+        await pool.query('INSERT INTO all_verses(id, book, ' + editionColumn + ', ' + diacriticWordListColumn + ' chapter, verse) VALUES($1, $2, $3, $4, $5, $6)', [parseInt(verseID), book, verseText, wordList, chapter, verse]);
+        return (consoleAddress + " inserted into database.")
+    } else if (!isMassachusett && verseExists) {
+        let queryText = "UPDATE all_verses SET " + editionColumn + " = $1 WHERE id = $2";
+        await pool.query(queryText, [verseText, parseInt(verseID)])
+        return (consoleAddress + " updated in database.")
+    } else if (!isMassachusett && !verseExists) {
+        await pool.query('INSERT INTO all_verses(id, book, ' + editionColumn + ', chapter, verse) VALUES($1, $2, $3, $4, $5)', [parseInt(verseID), book, verseText, chapter, verse]);
+        return (consoleAddress + " inserted into database.")
+    }
+
+}
+
 async function verseUpdate(verseExists: boolean, verseID: string, verseText: string, edition: string, book: string) {
     let editionColumn = editionToColumnDict[edition];
     let diacriticWordListColumn = editionToWordListDict[edition];
@@ -63,17 +86,14 @@ async function verseUpdate(verseExists: boolean, verseID: string, verseText: str
         verse = parseInt(verseID.slice(6));
         consoleAddress = edition + " " + book + " " + verseID.slice(4, 6) + ":" + verseID.slice(6);
     }
+    let wordList: string[] = [];
 
-    let wordList = getWordsInText(verseText);
-
-    if (verseExists) {
-        let queryText = "UPDATE all_verses SET " + editionColumn + " = $1, " + diacriticWordListColumn + " = $2 WHERE id = $3";
-        await pool.query(queryText, [verseText, wordList, parseInt(verseID)])
-        return (consoleAddress + " updated in database.")
-    } else {
-        await pool.query('INSERT INTO all_verses(id, book, ' + editionColumn + ', ' + diacriticWordListColumn + ' chapter, verse) VALUES($1, $2, $3, $4, $5, $6)', [parseInt(verseID), book, verseText, wordList, chapter, verse]);
-        return (consoleAddress + " inserted into database.")
+    if (edition == "First Edition" || edition == "Second Edition" || edition == "Mayhew" || edition == "Zeroth Edition") {
+        wordList = getWordsInText(verseText);
     }
+
+    let outcome = await updateEdition(verseExists, verseID, verseText, edition, book, consoleAddress, editionColumn, diacriticWordListColumn, wordList, chapter, verse);
+    return outcome;
 }
 
 export async function processVerseJSON(rawJSON: any) {
