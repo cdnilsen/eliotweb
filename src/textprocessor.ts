@@ -35,12 +35,12 @@ async function verseUpdate(verseExists: boolean, verseID: string, verseText: str
 }
 
 export async function processVerseJSON(rawJSON: any) {
-    let idNumber = rawJSON.id; //This is a string.
-    let rawText = rawJSON.text;
+    let idNumber = rawJSON.id; //This is a string. Works.
+    let rawText = rawJSON.text; // Works.
     let book = rawJSON.book;
-    let edition = rawJSON.edition;
-    let columnString = editionToColumnDict[edition];
-    return rawText;
+    let edition = rawJSON.edition; // works
+    let columnString = editionToColumnDict[edition]; // Works.
+    return book;
     let myQuery = await pool.query('SELECT * from all_verses WHERE id = $1', [parseInt(idNumber)]);
 
     let hasVerse = (myQuery.rows.length > 0);
