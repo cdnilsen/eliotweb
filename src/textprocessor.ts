@@ -23,8 +23,8 @@ function getWordsInText(verseText: string) {
             finalList.push(cleanWord.toLowerCase());
         }
     }
-    console.log(finalList);
-    return finalList.toSorted(Intl.Collator().compare);
+    //list.toSorted has no support (yet)
+    return finalList;
 }
 
 
@@ -65,7 +65,6 @@ async function verseUpdate(verseExists: boolean, verseID: string, verseText: str
     }
 
     let wordList = getWordsInText(verseText);
-    return (wordList);
 
     if (verseExists) {
         let queryText = "UPDATE all_verses SET " + editionColumn + " = $1, " + diacriticWordListColumn + " = $2 WHERE id = $3";
