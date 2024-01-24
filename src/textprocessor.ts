@@ -19,14 +19,27 @@ const editionToColumnDict: editionToColumnDictType = {
     "Grebrew": "grebrew" // Are we even using this except in Greek?
 };
 
+async function verseUpdate(verseExists: boolean, verseID: string, verseText: string, editionColumn: string) {
+
+    if (verseExists) {
+        let queryText = "UPDATE all_verses SET " + editionColumn + " = $1 WHERE id = $2";
+        await pool.query(queryText, [verseText, parseInt(verseID)])
+    } else {
+        let queryText = "INSERT INTO all_verses (id, " + editionColumn + ") VALUES ($1, $2)"
+        await pool.query(queryText, [parseInt(verseID), verseText, editionColumn])
+    }
+}
+
 export async function processVerseJSON(rawJSON: any) {
     let idNumber = rawJSON.id;
     let rawText = rawJSON.text;
     let book = rawJSON.book;
     let edition = rawJSON.edition;
     let columnString = editionToColumnDict[edition];
-    let kah = "kâh";
     let myQuery = await pool.query('SELECT * from test_table WHERE id = $1', [parseInt(idNumber)]);
+
+    //if myQuery.rows.length > 0, then the verse already exists in the database and we want to pass `true` to 'verseExists' in verseUpdate
+    verseUpdate((myQuery.rows.length > 0), idNumber, rawText, columnString);
 
     return myQuery.rows;
     let chapter = idNumber.slice(4, 6);
