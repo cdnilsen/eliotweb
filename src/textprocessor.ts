@@ -147,11 +147,18 @@ async function updateOneWordTable(verseIDNum: number, editionNum: number, word: 
         }
         await pool.query('UPDATE ' + whichTable + ' SET addresses = $1, verse_counts = $2, all_editions = $3, editionCounts = $4 WHERE word = $5', [updatedVerseIDList, updatedVerseCountList, thisEditionList, thisEditionCountList, word]);
     } else {
-        let addressArray = [verseIDNum];
-        let verseCountArray = [wordCount];
-        let editionArray = [editionNum];
-        let editionCountArray = [wordCount];
-        
+        let addressArray: number[] = [];
+        addressArray.push(verseIDNum);
+
+        let verseCountArray: number[] = [];
+        verseCountArray.push(wordCount);
+
+        let editionArray: number[] = [];
+        editionArray.push(editionNum);
+
+        let editionCountArray: number[] = [];
+        editionCountArray.push(wordCount);
+
         await pool.query('INSERT INTO ' + whichTable + '(word, addresses, verse_counts, all_editions, edition_counts) VALUES($1, $2, $3, $4, $5)', [word, addressArray, verseCountArray, editionArray, editionCountArray]);
     }
 }
