@@ -165,7 +165,7 @@ bookDropdown.addEventListener("change", function() {
     if (bookDropdown.value == "Psalms (prose)" || bookDropdown.value == "John") {
         editionList.push("Mayhew");
     }
-    
+
     editionList.push("KJV");
 
     for (let i = 0; i < editionList.length; i++) {
@@ -200,9 +200,12 @@ async function getRawVerseDict(book, edition) {
         let chapter = splitAddress[0];
         let verse = splitAddress[1];
         let lineText = splitLine.slice(1).join(" ");
-
-        let verseIDNum = getVerseIDNum(bookNum, chapterString(chapter), verseString(verse));
-        verseDict[verseIDNum] = lineText;
+        try {
+            let verseIDNum = getVerseIDNum(bookNum, chapterString(chapter), verseString(verse));
+            verseDict[verseIDNum] = lineText;
+        } catch (err) {
+            console.log("Error: " + line);
+        }
     }
     return verseDict;
 }
