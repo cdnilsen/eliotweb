@@ -21,12 +21,15 @@ const editionToColumnDict: editionToColumnDictType = {
 
 async function verseUpdate(verseExists: boolean, verseID: string, verseText: string, editionColumn: string, book: string) {
 
-    return "verseUpdate has been called"
-
+    //So this does get printed to console successfully:
+    //return "verseUpdate has been called"
+    
     if (verseExists) {
+        return "verse exists in the db"
         let queryText = "UPDATE all_verses SET " + editionColumn + " = $1 WHERE id = $2";
         await pool.query(queryText, [verseText, parseInt(verseID)])
     } else {
+        return "verse does not exist in the db"
         let queryText = "INSERT INTO all_verses (id, " + editionColumn + ", book) VALUES ?";
         await pool.query(queryText, [parseInt(verseID), verseText, book]);
     }
