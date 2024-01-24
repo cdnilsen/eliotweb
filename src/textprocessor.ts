@@ -39,7 +39,7 @@ export async function processVerseJSON(rawJSON: any) {
     let myQuery = await pool.query('SELECT * from test_table WHERE id = $1', [parseInt(idNumber)]);
 
     //if myQuery.rows.length > 0, then the verse already exists in the database and we want to pass `true` to 'verseExists' in verseUpdate
-    verseUpdate((myQuery.rows.length > 0), idNumber, rawText, columnString);
+    await verseUpdate((myQuery.rows.length > 0), idNumber, rawText, columnString);
 
     return myQuery.rows;
     let chapter = idNumber.slice(4, 6);
