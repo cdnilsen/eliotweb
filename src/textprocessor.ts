@@ -20,19 +20,18 @@ const editionToColumnDict: editionToColumnDictType = {
 };
 
 async function verseUpdate(verseExists: boolean, verseID: string, verseText: string, editionColumn: string, book: string) {   
-    await pool.query('INSERT INTO test_table(word, total_count, verse_addresses, verse_tokens, id) VALUES($1, $2, $3, $4, $5)', ["mittamwossis", 1, ["β.Acts.15.31"], [1], 6001]);
-    return('worked');
-    /*
+    //await pool.query('INSERT INTO test_table(word, total_count, verse_addresses, verse_tokens, id) VALUES($1, $2, $3, $4, $5)', ["mittamwossis", 1, ["β.Acts.15.31"], [1], 6001]);
+    //return('worked');
+    
     if (verseExists) {
         //return "verse exists in the db"
         let queryText = "UPDATE all_verses SET " + editionColumn + " = $1 WHERE id = $2";
         await pool.query(queryText, [verseText, parseInt(verseID)])
     } else {
         //return "verse does not exist in the db"
-        let queryText = "INSERT INTO all_verses (id, " + editionColumn + ", book) VALUES (" + verseID + "," + verseText + "," + book + ")"; //Ugly, but will it work?
-        await pool.query(queryText);
+        await pool.query('INSERT INTO all_verses(id, book, ' + editionColumn + ') VALUES($1, $2, $3,)', [parseInt(verseID), book, verseText]);
+        return (verseID + " inserted into database.")
     }
-    */
 }
 
 export async function processVerseJSON(rawJSON: any) {
@@ -43,8 +42,9 @@ export async function processVerseJSON(rawJSON: any) {
     let columnString = editionToColumnDict[edition];
     let myQuery = await pool.query('SELECT * from all_verses WHERE id = $1', [parseInt(idNumber)]);
 
+    let hasVerse = (myQuery.rows.length > 0);
     //if myQuery.rows.length > 0, then the verse already exists in the database and we want to pass `true` to 'verseExists' in verseUpdate
-    let returnValue = await verseUpdate((myQuery.rows.length > 0), idNumber, rawText, columnString, book);
+    let returnValue = await verseUpdate(hasVerse, idNumber, rawText, columnString, book);
 
     return returnValue;
 }
