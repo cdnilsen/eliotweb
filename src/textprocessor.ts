@@ -124,7 +124,6 @@ async function updateOneWordTable(verseIDNum: number, editionNum: number, word: 
 
     if (hasWord) {
         let thisRow = checkQuery.rows[0];
-        return thisRow;
         let verseIDList = thisRow.addresses;
         let verseCountList = thisRow.verse_counts;
         let thisEditionList = thisRow.all_editions;
