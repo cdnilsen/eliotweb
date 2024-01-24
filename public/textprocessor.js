@@ -182,6 +182,10 @@ document.getElementById('searchEditionDropdown').addEventListener("change", func
     document.getElementById("submit").hidden = false;
 });
 
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 async function getRawVerseDict(book, edition) {
     let fileAddress = './texts/' + book + "." + edition + ".txt";
 
@@ -206,6 +210,7 @@ async function getRawVerseDict(book, edition) {
         } catch (err) {
             console.log("Error: " + line);
         }
+        sleep(200);
     }
     return verseDict;
 }
@@ -220,9 +225,6 @@ async function sendADict(myDict, routeString) {
     }).then(res => res.json()).then(res => console.log(res)).catch(err => console.error(err));
 }
 
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
 
 async function sendRawJSON(book, edition) {
     let verseDict = await getRawVerseDict(book, edition);
@@ -239,7 +241,6 @@ async function sendRawJSON(book, edition) {
             "Content-type": "application/json; charset=UTF-8"
             }
         }).then(res => res.json()).then(res => console.log(res)).catch(err => console.error(err));*/
-        sleep(1000);
         fetch('/addRaw', {
             method: 'POST',
             body: JSON.stringify(verseJSON),
