@@ -212,16 +212,16 @@ async function updateOneEdition() {
 }
 
 
-async function updateEdition(verseExists: boolean, verseID: string, verseText: string, edition: string, book: string, consoleAddress: string, editionColumn: string, diacriticWordListColumn: string, wordList: string[], wordCountList: number[], chapter: number, verse: number) {
+async function updateEdition(verseExists: boolean, verseID: string, verseText: string, edition: string, book: string, consoleAddress: string, editionColumn: string, wordListColumn: string, wordList: string[], wordCountColumn: string, wordCountList: number[], chapter: number, verse: number) {
 
     let isMassachusett: boolean = (edition == "First Edition" || edition == "Second Edition" || edition == "Mayhew" || edition == "Zeroth Edition");
 
     if (isMassachusett && verseExists) {
-        let queryText = "UPDATE all_verses SET " + editionColumn + " = $1, " + diacriticWordListColumn + " = $2 WHERE id = $3";
+        let queryText = "UPDATE all_verses SET " + editionColumn + " = $1, " + wordListColumn + " = $2 WHERE id = $3";
         await pool.query(queryText, [verseText, wordList, parseInt(verseID)])
         return (consoleAddress + " updated in database.")
     } else if (isMassachusett && !verseExists) {
-        await pool.query('INSERT INTO all_verses(id, book, ' + editionColumn + ', ' + diacriticWordListColumn + ' chapter, verse) VALUES($1, $2, $3, $4, $5, $6)', [parseInt(verseID), book, verseText, wordList, chapter, verse]);
+        await pool.query('INSERT INTO all_verses(id, book, ' + editionColumn + ', ' + wordListColumn + ', ' + wordCountColumn + ', chapter, verse) VALUES($1, $2, $3, $4, $5, $6, $7)', [parseInt(verseID), book, verseText, wordList, wordCountList, chapter, verse]);
         return (consoleAddress + " inserted into database.")
     } else if (!isMassachusett && verseExists) {
         let queryText = "UPDATE all_verses SET " + editionColumn + " = $1 WHERE id = $2";
@@ -235,7 +235,8 @@ async function updateEdition(verseExists: boolean, verseID: string, verseText: s
 
 async function verseUpdate(verseExists: boolean, verseID: string, verseText: string, edition: string, book: string) {
     let editionColumn = editionToColumnDict[edition];
-    let diacriticWordListColumn = editionToWordListDict[edition];
+    let wordListColumn = editionToWordListDict[edition];
+    let wordCountColumn = editionToCountListDict[edition];
 
     let consoleAddress = "";
     let chapter = 0;
@@ -260,7 +261,7 @@ async function verseUpdate(verseExists: boolean, verseID: string, verseText: str
         }
     }
 
-    let outcome = await updateEdition(verseExists, verseID, verseText, edition, book, consoleAddress, editionColumn, diacriticWordListColumn, wordList, wordCountList, chapter, verse);
+    let outcome = await updateEdition(verseExists, verseID, verseText, edition, book, consoleAddress, editionColumn, wordListColumn, wordList, wordCountColumn,wordCountList, chapter, verse);
     return outcome;
 }
 
