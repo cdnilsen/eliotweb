@@ -21,6 +21,8 @@ const editionToColumnDict: editionToColumnDictType = {
 
 async function verseUpdate(verseExists: boolean, verseID: string, verseText: string, editionColumn: string, book: string) {
 
+    return "verseUpdate has been called"
+
     if (verseExists) {
         let queryText = "UPDATE all_verses SET " + editionColumn + " = $1 WHERE id = $2";
         await pool.query(queryText, [verseText, parseInt(verseID)])
@@ -39,9 +41,11 @@ export async function processVerseJSON(rawJSON: any) {
     let myQuery = await pool.query('SELECT * from all_verses WHERE id = $1', [parseInt(idNumber)]);
 
     //if myQuery.rows.length > 0, then the verse already exists in the database and we want to pass `true` to 'verseExists' in verseUpdate
-    await verseUpdate((myQuery.rows.length > 0), idNumber, rawText, columnString, book);
+    let returnValue = await verseUpdate((myQuery.rows.length > 0), idNumber, rawText, columnString, book);
 
-    return myQuery.rows;
+    return returnValue;
+}
+/*
     let chapter = idNumber.slice(4, 6);
     let verse = idNumber.slice(6);
 
@@ -52,3 +56,4 @@ export async function processVerseJSON(rawJSON: any) {
         return "Verse not in database";
     }
 }
+*/
