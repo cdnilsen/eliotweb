@@ -148,7 +148,7 @@ async function updateOneWordTable(verseIDNum: number, editionNum: number, word: 
         }
         await pool.query('UPDATE ' + whichTable + ' SET addresses = $1, verse_counts = $2, all_editions = $3, editionCounts = $4 WHERE word = $5', [updatedVerseIDList, updatedVerseCountList, thisEditionList, thisEditionCountList, word]);
     } else {
-        await pool.query('INSERT INTO ' + whichTable + '(word, addresses, verse_counts, all_editions, edition_counts) VALUES($1, $2, $3, $4, $5, $6)', [word, [verseIDNum], [wordCount], [editionNum], [wordCount]]);
+        await pool.query('INSERT INTO ' + whichTable + '(word, addresses, verse_counts, all_editions, edition_counts) VALUES($1, $2, $3, $4, $5)', [word, [verseIDNum], [wordCount], [editionNum], [wordCount]]);
     }
 }
 
@@ -161,10 +161,12 @@ async function updateWordTables(verseID: string, edition: string, wordList: stri
         "Mayhew": "5",
         "Zeroth Edition": "7"
     };
+
     let editionNum = editionToNumDict[edition];
     let verseIDNum = parseInt(editionNum + verseID);
     let diacriticsDict: wordToIntDictType = {};
     let noDiacriticsDict: wordToIntDictType = {};
+    
     for (let i = 0; i < wordList.length; i++) {
         diacriticsDict[wordList[i]] = wordCountList[i];
         let wordCleaned = killDiacritics(wordList[i]);
@@ -181,6 +183,7 @@ async function updateWordTables(verseID: string, edition: string, wordList: stri
     for (let i = 0; i < diacriticsList.length; i++) {
         await updateOneWordTable(verseIDNum, parseInt(editionNum), diacriticsList[i], diacriticsDict[diacriticsList[i]], true);
     }
+
     for (let j = 0; j < noDiacriticsList.length; j++) {
         await updateOneWordTable(verseIDNum, parseInt(editionNum), noDiacriticsList[j], noDiacriticsDict[noDiacriticsList[j]], false);
     }
