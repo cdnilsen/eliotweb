@@ -50,7 +50,7 @@ const editionToWordListDict: editionToColumnType = {
 async function verseUpdate(verseExists: boolean, verseID: string, verseText: string, edition: string, book: string) {
     let editionColumn = editionToColumnDict[edition];
     let diacriticWordListColumn = editionToWordListDict[edition];
-    //Epilogues should probably be processed in some other fashion
+
     let consoleAddress = "";
     let chapter = 0;
     let verse = 0;
@@ -65,6 +65,7 @@ async function verseUpdate(verseExists: boolean, verseID: string, verseText: str
     }
 
     let wordList = getWordsInText(verseText);
+    return (wordList);
 
     if (verseExists) {
         let queryText = "UPDATE all_verses SET " + editionColumn + " = $1, " + diacriticWordListColumn + " = $2 WHERE id = $3";
