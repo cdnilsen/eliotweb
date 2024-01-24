@@ -217,8 +217,8 @@ async function updateEdition(verseExists: boolean, verseID: string, verseText: s
     let isMassachusett: boolean = (edition == "First Edition" || edition == "Second Edition" || edition == "Mayhew" || edition == "Zeroth Edition");
 
     if (isMassachusett && verseExists) {
-        let queryText = "UPDATE all_verses SET " + editionColumn + " = $1, " + wordListColumn + " = $2 WHERE id = $3";
-        await pool.query(queryText, [verseText, wordList, parseInt(verseID)])
+        let queryText = "UPDATE all_verses SET " + editionColumn + " = $1, " + wordListColumn + " = $2, " + wordCountColumn + " = $3 WHERE id = $4";
+        await pool.query(queryText, [verseText, wordList, wordCountList, parseInt(verseID)])
         return (consoleAddress + " updated in database.")
     } else if (isMassachusett && !verseExists) {
         await pool.query('INSERT INTO all_verses(id, book, ' + editionColumn + ', ' + wordListColumn + ', ' + wordCountColumn + ', chapter, verse) VALUES($1, $2, $3, $4, $5, $6, $7)', [parseInt(verseID), book, verseText, wordList, wordCountList, chapter, verse]);
