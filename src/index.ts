@@ -60,7 +60,7 @@ app.post('/processWords', wrapAsync(async (req, res) => {
     }
 }));
 
-app.post('/populateCorrespondences', wrapAsync(async (req, res) => {
+app.put('/populateCorrespondences', wrapAsync(async (req, res) => {
     try {
         let outcome = await populateCorrespondences();
         res.json(outcome);

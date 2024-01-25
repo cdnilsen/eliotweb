@@ -271,16 +271,6 @@ document.getElementById('submit').addEventListener("click", async function() {
     let processedTextSpan = document.createElement('span');
     processedTextSpan.innerHTML = processedTextString;
     document.getElementById("text-container").appendChild(processedTextSpan);
-
-    sleep(2000);
-
-    fetch('/populateCorrespondences', {
-        method: 'POST',
-        body: JSON.stringify({"dummy": 0}),
-        headers: {
-        "Content-type": "application/json; charset=UTF-8"
-        }
-    }).then(res => res.json()).then(res => console.log(res)).catch(err => console.error(err));
 });
 
 async function getAllVerseIDs() {
@@ -313,7 +303,18 @@ document.getElementById('process_words').addEventListener("click", async functio
         endingIndex += 50;
     }
     let newSpan = document.createElement('span');
-    newSpan.innerHTML = allIDLength.toString() + " verses processed.";
+    newSpan.innerHTML = allIDLength.toString() + " verses processed.\n";
+
+    sleep(2000);
+
+    fetch('/populateCorrespondences', {
+        method: 'PUT',
+        body: JSON.stringify({"dummy": 0}),
+        headers: {
+        "Content-type": "application/json; charset=UTF-8"
+        }
+    }).then(res => res.json()).then(res => console.log(res)).catch(err => console.error(err));
+
     document.getElementById("text-container").appendChild(newSpan);
 });
     

@@ -146,26 +146,22 @@ async function updateExistingWordInTable(word: string, verseID: number, count: n
         newVerseCountArray.push(count);
     }
 
-    let returnString = word + ": " + newAddressArray.toString() + ", " + newVerseCountArray.toString() + "; current verse is " + verseID.toString() + "\n\n";
+    
 
     await pool.query('UPDATE ' + tableName + ' SET addresses = $1::int[], verse_counts = $2::int[] WHERE word = $3::text', [newAddressArray, newVerseCountArray, word]);
-    return returnString;
 }
 
 async function processWordInTable(word: string, verseID: number, count: number, tableName: string) {
     let tableHasWord = await wordAlreadyInTable(word, tableName);
     
-    let returnString = "";
 
     if (tableHasWord) {
-        returnString += await updateExistingWordInTable(word, verseID, count, tableName);
+        await updateExistingWordInTable(word, verseID, count, tableName);
     } else {
         let verseIDArray = [verseID];
         let countArray = [count];
         await pool.query('INSERT INTO ' + tableName + "(word, addresses, verse_counts) VALUES ($1::text, $2::int[], $3::int[])", [word, verseIDArray, countArray]);
     }
-    returnString += "\n";
-    return returnString;
 
 }
 
@@ -175,17 +171,15 @@ async function appendWordDataOneTable(verseEditionID: number, countDict: stringT
     for (let i = 0; i < allWords.length; i++) {
         let thisWord = allWords[i];
         let thisCount = countDict[thisWord];
-        returnString = await processWordInTable(thisWord, verseEditionID, thisCount, tableName);
+        await processWordInTable(thisWord, verseEditionID, thisCount, tableName);
     }
-    return returnString;
 }
 
 
 async function appendWordData(verseEditionID: number, diacriticCountDict: stringToNumberDict, noDiacriticCountDict: stringToNumberDict) {
     let returnStringDiacritics = await appendWordDataOneTable(verseEditionID, diacriticCountDict, "words_diacritics");
     let returnStringNoDiacritics = await appendWordDataOneTable(verseEditionID, noDiacriticCountDict, "words_no_diacritics");
-    
-    return (returnStringDiacritics + "\n" + returnStringNoDiacritics);
+
 }
 
 async function processOneVerseWordData(verseID: number) {
@@ -235,9 +229,8 @@ async function processOneVerseWordData(verseID: number) {
         let thisDiacriticCountDict = diacriticCountDictList[j];
         let thisNoDiacriticCountDict = noDiacriticWordDictList[j];
 
-        returnString = await appendWordData(thisVerseID, thisDiacriticCountDict, thisNoDiacriticCountDict);
+        await appendWordData(thisVerseID, thisDiacriticCountDict, thisNoDiacriticCountDict);
     }
-    return returnString;
 }
 
 // This function populates the 'correspondence' columns in the word tables. In words_diacritics, this is the diacritic-less version of the word; in words_no_diacritics, it's an array of all words in words_diacritics that correspond to this word
@@ -274,6 +267,8 @@ export async function populateCorrespondences() {
         let word = allNoDiacriticsList[k];
         await pool.query("UPDATE words_no_diacritics SET correspondence = $1::text[] WHERE word = $2::text", [noneToDiacriticDict[word], word]);
     }
+
+    return "Processed correspondences for" + allDiacriticsList.length.toString() + "words.";
 }
 
 export async function processBatchWordData(rawJSON: any) {
