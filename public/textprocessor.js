@@ -288,8 +288,8 @@ document.getElementById('process_words').addEventListener("click", async functio
     
     
     let startingIndex = 0;
-    let endingIndex = 499;
-    while (startingIndex <= allIDLength && startingIndex < 1000) {
+    let endingIndex = 49;
+    while (startingIndex <= allIDLength && startingIndex < 50) {
         let myIDList = allIDList.slice(startingIndex, endingIndex);
     
         fetch('/processWords', {
@@ -300,8 +300,8 @@ document.getElementById('process_words').addEventListener("click", async functio
             }
         }).then(res => res.json()).then(res => console.log(res)).catch(err => console.error(err));
         
-        startingIndex += 500;
-        endingIndex += 500;
+        startingIndex += 50;
+        endingIndex += 50;
     }
 });
     

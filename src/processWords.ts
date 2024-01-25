@@ -201,16 +201,10 @@ async function processOneVerseWordData(verseID: number) {
 export async function processBatchWordData(rawJSON: any) {
     let idList: number[] = Object.values(rawJSON);
 
-
-    let returnString = await processOneVerseWordData(idList[0]);
-    return returnString;
-    
-    /*
     let returnString = ""
     for (let i = 0; i < idList.length; i++) {
         returnString += await processOneVerseWordData(idList[i]);
     }
     return returnString;
-    */
 
 }
