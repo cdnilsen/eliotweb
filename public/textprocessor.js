@@ -235,15 +235,6 @@ async function sendRawJSON(book, edition, startChapter, endChapter) {
     for (let i = 0; i < allKeyList.length; i++) {
         let verseNum = allKeyList[i];
         let verseJSON = {"id": verseNum, "text": verseDict[verseNum], "edition": edition, "book": book};
-        //console.log(verseJSON);
-        /*fetch('/test', {
-            method: 'POST',
-            body: JSON.stringify(verseJSON),
-            headers: {
-            "Content-type": "application/json; charset=UTF-8"
-            }
-        }).then(res => res.json()).then(res => console.log(res)).catch(err => console.error(err));*/
-        sleep(1000);
         fetch('/addRaw', {
             method: 'POST',
             body: JSON.stringify(verseJSON),
@@ -252,7 +243,7 @@ async function sendRawJSON(book, edition, startChapter, endChapter) {
             }
         }).then(res => res.json()).then(res => console.log(res)).catch(err => console.error(err));
     }
-
+    console.log(allKeyList.length);
     return allKeyList.length;
 }
 
@@ -316,7 +307,6 @@ document.getElementById('submit').addEventListener("click", function() {
         startChapter += 10;
         endChapter += 10;
         console.log(endChapter);
-        sleep(2000);
     }
 });
     
