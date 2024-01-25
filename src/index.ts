@@ -5,7 +5,7 @@ import { default as pool } from './db'
 import { wrapAsync } from './utils'
 import { wordSearch } from './wordSearchMass'
 import { processVerseJSON } from './textprocessor'
-import { processBatchWordData, populateCorrespondences } from './processWords'
+import { processBatchWordData, populateCorrespondences, getTotalWordCounts } from './processWords'
 
 const app = express();
 app.use(express.json());
@@ -61,15 +61,20 @@ app.post('/processWords', wrapAsync(async (req, res) => {
 
 app.put('/populateCorrespondences', wrapAsync(async (req, res) => {
     try {
-        let outcome = await populateCorrespondences();
-        res.json(outcome);
+        await populateCorrespondences();
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error in populateCorrespondences');
     }
 }));
 
-app.post('/runWordCounts', wrapAsync(async (req, res) => {
+app.put('/runWordCounts', wrapAsync(async (req, res) => {
+    try {
+        await getTotalWordCounts();
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error in populateCorrespondences');
+    }
 }));
 
 

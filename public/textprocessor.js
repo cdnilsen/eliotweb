@@ -317,4 +317,13 @@ document.getElementById('process_words').addEventListener("click", async functio
 
     document.getElementById("text-container").appendChild(newSpan);
 });
-    
+
+document.getElementById('run_word_counts').addEventListener("click", async function() {
+    fetch('/runWordCounts', {
+        method: 'PUT',
+        body: JSON.stringify({"dummy": 0}),
+        headers: {
+        "Content-type": "application/json; charset=UTF-8"
+        }
+    }).then(res => res.json()).then(res => console.log(res)).catch(err => console.error(err));
+});

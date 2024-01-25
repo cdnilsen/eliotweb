@@ -278,3 +278,12 @@ export async function processBatchWordData(rawJSON: any) {
         await processOneVerseWordData(idList[i]);
     }
 }
+
+async function getTotalCounts(tableName: string) {
+    await pool.query("UPDATE " + tableName + " SET total_count = SUM(verse_counts)");
+}
+
+export async function getTotalWordCounts(){
+    await getTotalCounts("words_diacritics");
+    await getTotalCounts("words_no_diacritics");
+}
