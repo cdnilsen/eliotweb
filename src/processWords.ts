@@ -260,12 +260,12 @@ export async function populateCorrespondences() {
 
     for (let j = 0; j < allDiacriticsList.length; j++) {
         let word = allDiacriticsList[j];
-        await pool.query("UPDATE words_diacritics SET correspondence = $1::text WHERE word = $2::text", [diacriticToNoneDict[word], word]);
+        await pool.query("UPDATE words_diacritics SET corresponding_word = $1::text WHERE word = $2::text", [diacriticToNoneDict[word], word]);
     }
 
     for (let k = 0; k < allNoDiacriticsList.length; k++) {
         let word = allNoDiacriticsList[k];
-        await pool.query("UPDATE words_no_diacritics SET correspondence = $1::text[] WHERE word = $2::text", [noneToDiacriticDict[word], word]);
+        await pool.query("UPDATE words_no_diacritics SET corresponding_words = $1::text[] WHERE word = $2::text", [noneToDiacriticDict[word], word]);
     }
 
     return "Processed correspondences for" + allDiacriticsList.length.toString() + "words.";
