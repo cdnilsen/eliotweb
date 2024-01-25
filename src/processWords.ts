@@ -113,13 +113,31 @@ async function wordAlreadyInTable(word: string, tableName: string){
 
 
 //Edition counts should probably be re-processed later on
-async function updateWordInTable(word: string, verseID: number, count: number, tableName: string) {
+async function updateExistingWordInTable(word: string, verseID: number, count: number, tableName: string) {
+    let query = await pool.query('SELECT * FROM ' + tableName + ' WHERE word = $1::text', [word]);
+    let queryRow = query.rows[0];
+
+    let addressArray: number[] = queryRow.addresses;
+    let verseCounts: number[] = queryRow.verse_counts;
+
+    if (addressArray.includes(verseID)) {
+        let index = addressArray.indexOf(verseID);
+        verseCounts[index] = count;
+    } else {
+        addressArray.push(verseID);
+        verseCounts.push(count);
+    }
+
+    await pool.query('UPDATE ' + tableName + ' SET addresses = $1::int[], verse_counts = $2::int[] WHERE word = $3::text', [addressArray, verseCounts, word]);
+}
+
+async function processWordInTable(word: string, verseID: number, count: number, tableName: string) {
     let verseIDArray = [verseID];
     let countArray = [count];
     let tableHasWord = await wordAlreadyInTable(word, tableName);
 
     if (tableHasWord) {
-        await pool.query('UPDATE ' + tableName + ' SET addresses = array_append(addresses, $1::int), verse_counts = array_append(verse_counts, $2::int) WHERE word = $3::text', [verseID, count, word]);
+        await updateExistingWordInTable(word, verseID, count, tableName);
 
     } else {
         await pool.query('INSERT INTO ' + tableName + "(word, addresses, verse_counts) VALUES ($1::text, $2::int[], $3::int[])", [word, verseIDArray, countArray]);
@@ -134,7 +152,7 @@ async function appendWordDataOneTable(verseEditionID: number, countDict: stringT
     for (let i = 0; i < allWords.length; i++) {
         let thisWord = allWords[i];
         let thisCount = countDict[thisWord];
-        returnString = await updateWordInTable(thisWord, verseEditionID, thisCount, tableName);
+        returnString = await processWordInTable(thisWord, verseEditionID, thisCount, tableName);
     }
     return returnString;
 }
