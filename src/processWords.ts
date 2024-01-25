@@ -268,16 +268,13 @@ export async function populateCorrespondences() {
         await pool.query("UPDATE words_no_diacritics SET corresponding_words = $1::text[] WHERE word = $2::text", [noneToDiacriticDict[word], word]);
     }
 
-    return "Processed correspondences for" + allDiacriticsList.length.toString() + "words.";
+    return "Processed correspondences for " + allDiacriticsList.length.toString() + " words.";
 }
 
 export async function processBatchWordData(rawJSON: any) {
     let idList: number[] = Object.values(rawJSON);
 
-    let returnString = ""
     for (let i = 0; i < idList.length; i++) {
-        returnString += await processOneVerseWordData(idList[i]);
+        await processOneVerseWordData(idList[i]);
     }
-    return returnString;
-
 }
