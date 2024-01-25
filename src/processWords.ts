@@ -124,17 +124,24 @@ async function updateExistingWordInTable(word: string, verseID: number, count: n
     let newVerseCountArray: number[] = [];
 
     
+    let addressFound: boolean = false;
 
     for (let i = 0; i < addressArray.length; i++) {
         if (addressArray[i] == verseID) {
-            //returnString = "Found " + verseID.toString() + " in " + word + " at index " + i.toString() + ".\n";
-            newAddressArray.push(verseID + 500000);
-            newVerseCountArray.push(count + 500);
+            addressFound = true;
+            newAddressArray.push(verseID);
+            newVerseCountArray.push(count);
         } else {
             newAddressArray.push(addressArray[i]);
             newVerseCountArray.push(verseCounts[i]);
         }
     }
+
+    if (!addressFound) {
+        newAddressArray.push(verseID);
+        newVerseCountArray.push(count);
+    }
+
     let returnString = word + ": " + newAddressArray.toString() + ", " + newVerseCountArray.toString() + "; current verse is " + verseID.toString() + "\n\n";
 
     await pool.query('UPDATE ' + tableName + ' SET addresses = $1::int[], verse_counts = $2::int[] WHERE word = $3::text', [newAddressArray, newVerseCountArray, word]);
