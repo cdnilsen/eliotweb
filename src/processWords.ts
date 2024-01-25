@@ -198,10 +198,13 @@ async function processOneVerseWordData(verseID: number) {
     return returnString;
 }
 
-export async function processBatchWordData(idList: number[]) {
+export async function processBatchWordData(rawJSON: any) {
+    return typeof(rawJSON);
+    /*
     let returnString = ""
     for (let i = 0; i < idList.length; i++) {
         returnString = await processOneVerseWordData(idList[i]);
     }
     return returnString;
+    */
 }
