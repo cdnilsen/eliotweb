@@ -148,7 +148,7 @@ async function appendWordData(verseEditionID: number, diacriticCountDict: string
 }
 
 async function processOneVerseWordData(verseID: number) {
-    let verseQuery = await pool.query("SELECT * FROM all_verses WHERE verse_id = $1::int", [verseID]);
+    let verseQuery = await pool.query("SELECT * FROM all_verses WHERE id = $1::int", [verseID]);
     let verseRow = verseQuery.rows[0];
     let verseBook = verseRow.book;
 
