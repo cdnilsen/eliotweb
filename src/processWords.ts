@@ -123,7 +123,8 @@ async function updateExistingWordInTable(word: string, verseID: number, count: n
     let newAddressArray: number[] = [];
     let newVerseCountArray: number[] = [];
 
-    let returnString = word + ": " + addressArray.toString() + ", " + verseCounts.toString() + "\n\n";
+    
+
     for (let i = 0; i < addressArray.length; i++) {
         if (addressArray[i] == verseID) {
             //returnString = "Found " + verseID.toString() + " in " + word + " at index " + i.toString() + ".\n";
@@ -134,6 +135,8 @@ async function updateExistingWordInTable(word: string, verseID: number, count: n
             newVerseCountArray.push(verseCounts[i]);
         }
     }
+    let returnString = word + ": " + newAddressArray.toString() + ", " + newVerseCountArray.toString() + "\n\n";
+    
     await pool.query('UPDATE ' + tableName + ' SET addresses = $1::int[], verse_counts = $2::int[] WHERE word = $3::text', [newAddressArray, newVerseCountArray, word]);
     return returnString;
 }
@@ -220,6 +223,7 @@ async function processOneVerseWordData(verseID: number) {
         let thisVerseID = activeVersesList[j];
         let thisDiacriticCountDict = diacriticCountDictList[j];
         let thisNoDiacriticCountDict = noDiacriticWordDictList[j];
+
         returnString = await appendWordData(thisVerseID, thisDiacriticCountDict, thisNoDiacriticCountDict);
     }
     return returnString;
