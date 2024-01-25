@@ -8,7 +8,7 @@ const app = express()
 const port = process.env.PORT;
 
 function cleanPunctuation(word: string): string {
-    let cleanWord = word.replace(/[.,\/#!$%\^&\*?;:{}=\_`~()]/g, "");
+    let cleanWord = word.replace(/[.,\/#!%\^&\*?;:{}=\_`~()]/g, "");
     cleanWord = cleanWord.replace('[', '').replace(']', '');
     return cleanWord;
 }

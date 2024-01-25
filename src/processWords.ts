@@ -223,7 +223,6 @@ async function processOneVerseWordData(verseID: number) {
         }
     }
 
-    let returnString = "";
     for (let j = 0; j < activeVersesList.length; j++) {
         let thisVerseID = activeVersesList[j];
         let thisDiacriticCountDict = diacriticCountDictList[j];
