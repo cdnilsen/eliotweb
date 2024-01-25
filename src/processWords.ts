@@ -135,7 +135,8 @@ async function processWordInTable(word: string, verseID: number, count: number, 
     let verseIDArray = [verseID];
     let countArray = [count];
     let tableHasWord = await wordAlreadyInTable(word, tableName);
-    console.log("tableHasWord: " + tableHasWord);
+    
+    let returnString = word + " in " + tableName + ": " + tableHasWord.toString() + "\n";
 
     if (tableHasWord) {
         await updateExistingWordInTable(word, verseID, count, tableName);
@@ -143,7 +144,7 @@ async function processWordInTable(word: string, verseID: number, count: number, 
     } else {
         await pool.query('INSERT INTO ' + tableName + "(word, addresses, verse_counts) VALUES ($1::text, $2::int[], $3::int[])", [word, verseIDArray, countArray]);
     }
-    return ("NEW TEST Updated " + word + " in " + tableName + ".\n");
+    return returnString;
 
 }
 
