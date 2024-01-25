@@ -61,6 +61,9 @@ app.post('/processWords', wrapAsync(async (req, res) => {
     }
 }));
 
+app.post('/runWordCounts', wrapAsync(async (req, res) => {
+}));
+
 
 app.get('/fetchBook/:book/:edition', wrapAsync(async (req, res) => {
 

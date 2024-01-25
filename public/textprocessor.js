@@ -281,15 +281,17 @@ async function getAllVerseIDs() {
 }
 
 document.getElementById('process_words').addEventListener("click", async function() {
+    //These two work
     let allIDList = await getAllVerseIDs();
     let allIDLength = allIDList.length;
     
-    console.log(allIDLength);
+    
     let startingIndex = 0;
     let endingIndex = 999;
     while (startingIndex <= allIDLength && startingIndex < 1000) {
         let myIDList = allIDList.slice(startingIndex, endingIndex);
-
+        console.log(myIDList);
+        /*
         await fetch('/processWords', {
             method: 'POST',
             body: JSON.stringify(myIDList),
@@ -297,7 +299,7 @@ document.getElementById('process_words').addEventListener("click", async functio
             "Content-type": "application/json; charset=UTF-8"
             }
         }).then(res => res.json()).then(res => console.log(res)).catch(err => console.error(err));
-
+        */
         startingIndex += 1000;
         endingIndex += 1000;
     }
