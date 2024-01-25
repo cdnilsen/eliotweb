@@ -233,7 +233,6 @@ async function sendRawJSON(book, edition, startChapter, endChapter) {
     //let stringifiedDict = JSON.stringify(verseDict);
     let allKeyList = Object.keys(verseDict);
     for (let i = 0; i < allKeyList.length; i++) {
-        
         let verseNum = allKeyList[i];
         let verseJSON = {"id": verseNum, "text": verseDict[verseNum], "edition": edition, "book": book};
         //console.log(verseJSON);
@@ -253,11 +252,13 @@ async function sendRawJSON(book, edition, startChapter, endChapter) {
             }
         }).then(res => res.json()).then(res => console.log(res)).catch(err => console.error(err));
     }
+
+    return allKeyList.length;
 }
 
 
 async function processText(whichBook, whichEdition, startChapter, endChapter) {
-    sendRawJSON(whichBook, whichEdition, startChapter, endChapter)
+    return sendRawJSON(whichBook, whichEdition, startChapter, endChapter)
 
     //fetch('/fetchBook/' + whichBook + "/" + whichEdition).then(res => res.json()).then(res => console.log(typeof res)).catch(err => console.error(err));
     /*
@@ -306,9 +307,16 @@ async function processText(whichBook, whichEdition, startChapter, endChapter) {
 document.getElementById('submit').addEventListener("click", function() {
     let whichBook = bookDropdown.value;
     let startChapter = 1;
-    let endChapter = 20;
+    let endChapter = 10;
     let whichEdition = document.getElementById('searchEditionDropdown').value;
-
-    processText(whichBook, whichEdition, startChapter, endChapter);
+    let numberOfVerses = 1;
+    // since no book has more than 150 chapters. this isn't terribly efficient, but since books are finite, it works well enough
+    while (numberOfVerses > 1 && endChapter < 150) {
+        numberOfVerses = processText(whichBook, whichEdition, startChapter, endChapter);
+        startChapter += 10;
+        endChapter += 10;
+        console.log(endChapter);
+        sleep(2000);
+    }
 });
     
