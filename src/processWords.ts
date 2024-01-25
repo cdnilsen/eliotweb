@@ -173,12 +173,15 @@ async function appendWordDataOneTable(verseEditionID: number, countDict: stringT
         let thisCount = countDict[thisWord];
         await processWordInTable(thisWord, verseEditionID, thisCount, tableName);
     }
+
 }
 
 
 async function appendWordData(verseEditionID: number, diacriticCountDict: stringToNumberDict, noDiacriticCountDict: stringToNumberDict) {
     await appendWordDataOneTable(verseEditionID, diacriticCountDict, "words_diacritics");
     await appendWordDataOneTable(verseEditionID, noDiacriticCountDict, "words_no_diacritics");
+
+    return("Done with verse " + verseEditionID.toString());
 
 }
 
@@ -228,7 +231,7 @@ async function processOneVerseWordData(verseID: number) {
         let thisDiacriticCountDict = diacriticCountDictList[j];
         let thisNoDiacriticCountDict = noDiacriticWordDictList[j];
 
-        await appendWordData(thisVerseID, thisDiacriticCountDict, thisNoDiacriticCountDict);
+        return await appendWordData(thisVerseID, thisDiacriticCountDict, thisNoDiacriticCountDict);
     }
 }
 
@@ -274,7 +277,7 @@ export async function processBatchWordData(rawJSON: any) {
     let idList: number[] = Object.values(rawJSON);
 
     for (let i = 0; i < idList.length; i++) {
-        await processOneVerseWordData(idList[i]);
+        console.log(await processOneVerseWordData(idList[i]));
     }
 }
 
@@ -285,11 +288,16 @@ async function getTotalCounts(tableName: string) {
 
     let query = await pool.query("SELECT * FROM " + tableName);
     let queryRows = query.rows;
+    let queryRowsLength = queryRows.length;
     for (let i = 0; i < queryRows.length; i++) {
         let word = queryRows[i].word;
         await pool.query("UPDATE " + tableName + " SET total_count = (SELECT SUM(x) FROM UNNEST(verse_counts) AS x) WHERE word = $1::text", [word]);
         if (i % 100 == 0) {
             sleep(100);
+        }
+        if (i % 500 == 0) {
+            console.log("Processed " + i.toString() + " words out of " + queryRowsLength.toString());
+        
         }
     }
 }
