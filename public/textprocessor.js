@@ -265,6 +265,7 @@ document.getElementById('submit').addEventListener("click", async function() {
         startChapter += 10;
         endChapter += 10;
     }
+    sleep(5000);
     console.log("Total verses processed: " + totalVersesProcessed);
 });
     
