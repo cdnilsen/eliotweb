@@ -290,16 +290,15 @@ document.getElementById('process_words').addEventListener("click", async functio
     let endingIndex = 999;
     while (startingIndex <= allIDLength && startingIndex < 1000) {
         let myIDList = allIDList.slice(startingIndex, endingIndex);
-        console.log(myIDList);
-        /*
-        await fetch('/processWords', {
+    
+        fetch('/processWords', {
             method: 'POST',
             body: JSON.stringify(myIDList),
             headers: {
             "Content-type": "application/json; charset=UTF-8"
             }
         }).then(res => res.json()).then(res => console.log(res)).catch(err => console.error(err));
-        */
+        
         startingIndex += 1000;
         endingIndex += 1000;
     }
