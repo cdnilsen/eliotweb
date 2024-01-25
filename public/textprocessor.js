@@ -282,9 +282,9 @@ async function getAllVerseIDs() {
 
 document.getElementById('process_words').addEventListener("click", async function() {
     let allIDList = await getAllVerseIDs();
-    console.log(allIDList);
-    /*let allIDLength = allIDList.length;
+    let allIDLength = allIDList.length;
     
+    console.log(allIDLength);
     let startingIndex = 0;
     let endingIndex = 999;
     while (startingIndex <= allIDLength && startingIndex < 1000) {
@@ -301,6 +301,5 @@ document.getElementById('process_words').addEventListener("click", async functio
         startingIndex += 1000;
         endingIndex += 1000;
     }
-    */
 });
     
