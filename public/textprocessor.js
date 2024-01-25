@@ -303,5 +303,8 @@ document.getElementById('process_words').addEventListener("click", async functio
         startingIndex += 50;
         endingIndex += 50;
     }
+    let newSpan = document.createElement('span');
+    newSpan.innerHTML = allIDLength.toString() + " verses processed.";
+    document.getElementById("text-container").appendChild(newSpan);
 });
     
