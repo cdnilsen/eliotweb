@@ -120,7 +120,6 @@ async function wordAlreadyInTable(word: string, tableName: string) {
 async function updateExistingWordInTable(word: string, verseID: number, count: number, tableName: string) {
     let query = await pool.query('SELECT * FROM ' + tableName + ' WHERE word = $1::text', [word]);
 
-    console.log("There are " + query.rows.length.toString() + " rows in the query for " + word + " in " + tableName);
     let queryRow = query.rows[0];
 
     let addressArray: number[] = queryRow.addresses;
