@@ -135,6 +135,7 @@ async function processWordInTable(word: string, verseID: number, count: number, 
     let verseIDArray = [verseID];
     let countArray = [count];
     let tableHasWord = await wordAlreadyInTable(word, tableName);
+    console.log("tableHasWord: " + tableHasWord);
 
     if (tableHasWord) {
         await updateExistingWordInTable(word, verseID, count, tableName);
