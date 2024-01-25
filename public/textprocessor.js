@@ -243,10 +243,8 @@ async function sendRawJSON(book, edition, startChapter, endChapter) {
             }
         }).then(res => res.json()).then(res => console.log(res)).catch(err => console.error(err));
     }
-    console.log(allKeyList.length);
     return allKeyList.length;
 }
-
 
 async function processText(whichBook, whichEdition, startChapter, endChapter) {
     let numberOfVerses = await sendRawJSON(whichBook, whichEdition, startChapter, endChapter);
@@ -258,13 +256,15 @@ document.getElementById('submit').addEventListener("click", async function() {
     let startChapter = 1;
     let endChapter = 10;
     let whichEdition = document.getElementById('searchEditionDropdown').value;
-    let numberOfVerses = 1;
-    // since no book has more than 150 chapters. this isn't terribly efficient, but since books are finite, it works well enough
+
+    let totalVersesProcessed = 0;
+    let numberOfVerses = 1; //dummy value
     while (numberOfVerses > 0) {
         numberOfVerses = await processText(whichBook, whichEdition, startChapter, endChapter);
+        totalVersesProcessed += numberOfVerses;
         startChapter += 10;
         endChapter += 10;
-        console.log(endChapter);
     }
+    console.log("Total verses processed: " + totalVersesProcessed);
 });
     
