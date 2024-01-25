@@ -126,7 +126,7 @@ async function updateExistingWordInTable(word: string, verseID: number, count: n
     let returnString = "";
     for (let i = 0; i < addressArray.length; i++) {
         if (addressArray[i] == verseID) {
-            returnString = "Found " + word + " in " + tableName + " at index " + i.toString() + ".\n";
+            returnString = "Found " + verseID.toString() + " in " + tableName + " at index " + i.toString() + ".\n";
             newAddressArray.push(verseID);
             newVerseCountArray.push(count);
         } else {
