@@ -290,12 +290,11 @@ async function getTotalCounts(tableName: string) {
     for (let i = 0; i < queryRows.length; i++) {
         let word = queryRows[i].word;
         await pool.query("UPDATE " + tableName + " SET total_count = (SELECT SUM(x) FROM UNNEST(verse_counts) AS x) WHERE word = $1::text", [word]);
-        if (i % 100 == 0) {
-            sleep(100);
+        if (i % 50 == 0) {
+            sleep(200);
         }
         if (i % 500 == 0) {
             console.log("Processed " + i.toString() + " words out of " + queryRowsLength.toString());
-        
         }
     }
 }
