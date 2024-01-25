@@ -275,7 +275,7 @@ document.getElementById('submit').addEventListener("click", async function() {
 });
 
 async function getAllVerseIDs() {
-    let allVerseIDs = await fetch("/allVerseIDs").then(res => res.json()).then(res => res).catch(err => console.error(err));
+    let allVerseIDs = await fetch("/getAllVerseIDs").then(res => res.json()).then(res => res).catch(err => console.error(err));
 
     return allVerseIDs;
 }
