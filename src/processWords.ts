@@ -181,8 +181,6 @@ async function appendWordData(verseEditionID: number, diacriticCountDict: string
     await appendWordDataOneTable(verseEditionID, diacriticCountDict, "words_diacritics");
     await appendWordDataOneTable(verseEditionID, noDiacriticCountDict, "words_no_diacritics");
 
-    return("Done with verse " + verseEditionID.toString());
-
 }
 
 async function processOneVerseWordData(verseID: number) {
@@ -231,7 +229,7 @@ async function processOneVerseWordData(verseID: number) {
         let thisDiacriticCountDict = diacriticCountDictList[j];
         let thisNoDiacriticCountDict = noDiacriticWordDictList[j];
 
-        return await appendWordData(thisVerseID, thisDiacriticCountDict, thisNoDiacriticCountDict);
+        await appendWordData(thisVerseID, thisDiacriticCountDict, thisNoDiacriticCountDict);
     }
 }
 
@@ -277,7 +275,7 @@ export async function processBatchWordData(rawJSON: any) {
     let idList: number[] = Object.values(rawJSON);
 
     for (let i = 0; i < idList.length; i++) {
-        console.log(await processOneVerseWordData(idList[i]));
+        await processOneVerseWordData(idList[i]);
     }
 }
 
