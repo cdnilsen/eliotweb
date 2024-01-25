@@ -283,6 +283,7 @@ async function getAllVerseIDs() {
 document.getElementById('process_words').addEventListener("click", async function() {
     //These two work
     let allIDList = await getAllVerseIDs();
+    allIDList = allIDList.sort();
     let allIDLength = allIDList.length;
     
     
