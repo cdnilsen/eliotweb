@@ -123,6 +123,10 @@ async function updateExistingWordInTable(word: string, verseID: number, count: n
     if (addressArray.includes(verseID)) {
         let index = addressArray.indexOf(verseID);
         verseCounts[index] = count;
+        
+        let newVerseCountList = verseCounts.slice(0, index).concat(count).concat(verseCounts.slice(index + 1));
+        verseCounts = newVerseCountList;
+
     } else {
         addressArray.push(verseID);
         verseCounts.push(count);
