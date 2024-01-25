@@ -279,7 +279,7 @@ export async function processBatchWordData(rawJSON: any) {
 }
 
 async function getTotalCounts(tableName: string) {
-    await pool.query("UPDATE " + tableName + " SET total_count = SUM(verse_counts)");
+    await pool.query("UPDATE " + tableName + " SET total_count = (SUM(x) FROM UNNEST(verse_counts) AS x");
 }
 
 export async function getTotalWordCounts(){
