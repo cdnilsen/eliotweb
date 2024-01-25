@@ -5,7 +5,7 @@ import { default as pool } from './db'
 import { wrapAsync } from './utils'
 import { wordSearch } from './wordSearchMass'
 import { processVerseJSON } from './textprocessor'
-import { processBatchWordData } from './processWords'
+import { processBatchWordData, populateCorrespondences } from './processWords'
 
 const app = express();
 app.use(express.json());
@@ -57,6 +57,16 @@ app.post('/processWords', wrapAsync(async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error in processWords');
+    }
+}));
+
+app.post('/populateCorrespondences', wrapAsync(async (req, res) => {
+    try {
+        let outcome = await populateCorrespondences();
+        res.json(outcome);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error in populateCorrespondences');
     }
 }));
 

@@ -15,6 +15,10 @@ type stringToNumberDict = {
     [key: string]: number
 };
 
+type stringToStringListDict = {
+    [key: string]: string[]
+};
+
 const editionToWordListDict: stringToStringDict = {
     "First Edition": "words_first_edition",
     "Second Edition": "words_second_edition",
@@ -234,6 +238,42 @@ async function processOneVerseWordData(verseID: number) {
         returnString = await appendWordData(thisVerseID, thisDiacriticCountDict, thisNoDiacriticCountDict);
     }
     return returnString;
+}
+
+// This function populates the 'correspondence' columns in the word tables. In words_diacritics, this is the diacritic-less version of the word; in words_no_diacritics, it's an array of all words in words_diacritics that correspond to this word
+export async function populateCorrespondences() {
+    let diacriticWordQuery = await pool.query("SELECT * FROM words_diacritics");
+    let diacriticWordRows = diacriticWordQuery.rows;
+    
+    let diacriticToNoneDict: stringToStringDict = {};
+    let noneToDiacriticDict: stringToStringListDict = {};
+    let allDiacriticsList: string[] = [];
+    let allNoDiacriticsList: string[] = [];
+    
+    for (let i = 0; i < diacriticWordRows.length; i++) {
+        let diacriticWord = diacriticWordRows[i].word;
+        allDiacriticsList.push(diacriticWord);
+
+        let noDiacriticWord = cleanDiacritics(diacriticWord);
+        diacriticToNoneDict[i] = noDiacriticWord;
+        
+        if (! allNoDiacriticsList.includes(noDiacriticWord)) {
+            allNoDiacriticsList.push(noDiacriticWord);
+            noneToDiacriticDict[noDiacriticWord] = [diacriticWord];
+        } else {
+            noneToDiacriticDict[noDiacriticWord].push(diacriticWord);
+        }
+    }
+
+    for (let j = 0; j < allDiacriticsList.length; j++) {
+        let word = allDiacriticsList[j];
+        await pool.query("UPDATE words_diacritics SET correspondence = $1::text WHERE word = $2::text", [diacriticToNoneDict[word], word]);
+    }
+
+    for (let k = 0; k < allNoDiacriticsList.length; k++) {
+        let word = allNoDiacriticsList[k];
+        await pool.query("UPDATE words_no_diacritics SET correspondence = $1::text[] WHERE word = $2::text", [noneToDiacriticDict[word], word]);
+    }
 }
 
 export async function processBatchWordData(rawJSON: any) {
