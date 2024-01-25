@@ -178,8 +178,8 @@ async function appendWordDataOneTable(verseEditionID: number, countDict: stringT
 
 
 async function appendWordData(verseEditionID: number, diacriticCountDict: stringToNumberDict, noDiacriticCountDict: stringToNumberDict) {
-    let returnStringDiacritics = await appendWordDataOneTable(verseEditionID, diacriticCountDict, "words_diacritics");
-    let returnStringNoDiacritics = await appendWordDataOneTable(verseEditionID, noDiacriticCountDict, "words_no_diacritics");
+    await appendWordDataOneTable(verseEditionID, diacriticCountDict, "words_diacritics");
+    await appendWordDataOneTable(verseEditionID, noDiacriticCountDict, "words_no_diacritics");
 
 }
 
@@ -279,8 +279,20 @@ export async function processBatchWordData(rawJSON: any) {
     }
 }
 
+function sleep(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
 async function getTotalCounts(tableName: string) {
-    await pool.query("UPDATE " + tableName + " SET total_count = (SELECT SUM(x) FROM UNNEST(verse_counts) AS x)");
+
+    let query = await pool.query("SELECT * FROM " + tableName);
+    let queryRows = query.rows;
+    for (let i = 0; i < queryRows.length; i++) {
+        let word = queryRows[i].word;
+        await pool.query("UPDATE " + tableName + " SET total_count = (SELECT SUM(x) FROM UNNEST(verse_counts) AS x) WHERE word = $1::text", [word]);
+        if (i % 100 == 0) {
+            sleep(100);
+        }
+    }
 }
 
 export async function getTotalWordCounts(){
