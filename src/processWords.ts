@@ -102,13 +102,13 @@ function getWordCountDict(wordList: string[], countList: number[], keepDiacritic
     return countDict;
 }
 
-async function wordAlreadyInTable(word: string, tableName: string){
+async function wordAlreadyInTable(word: string, tableName: string) {
+    let tableHasWordBool: boolean = false;
     let query = await pool.query("SELECT * FROM " + tableName + " WHERE word = $1::text", [word]);
     if (query.rows.length > 0) {
-        return true;
-    } else {
-        return false;
+        tableHasWordBool = true;
     }
+    return tableHasWordBool;
 }
 
 
