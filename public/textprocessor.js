@@ -311,7 +311,7 @@ document.getElementById('submit').addEventListener("click", function() {
     let whichEdition = document.getElementById('searchEditionDropdown').value;
     let numberOfVerses = 1;
     // since no book has more than 150 chapters. this isn't terribly efficient, but since books are finite, it works well enough
-    while (numberOfVerses > 1 && endChapter < 150) {
+    while (numberOfVerses > 0 && endChapter < 150) {
         numberOfVerses = processText(whichBook, whichEdition, startChapter, endChapter);
         startChapter += 10;
         endChapter += 10;
