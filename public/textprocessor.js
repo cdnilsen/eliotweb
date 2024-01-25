@@ -288,7 +288,7 @@ document.getElementById('process_words').addEventListener("click", async functio
     
     
     let startingIndex = 0;
-    let endingIndex = 49;
+    let endingIndex = 2;
     while (startingIndex <= allIDLength && startingIndex < 50) {
         let myIDList = allIDList.slice(startingIndex, endingIndex);
     

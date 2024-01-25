@@ -120,10 +120,24 @@ async function updateExistingWordInTable(word: string, verseID: number, count: n
     let addressArray: number[] = queryRow.addresses;
     let verseCounts: number[] = queryRow.verse_counts;
 
+    let newAddressArray: number[] = [];
+    let newVerseCountArray: number[] = [];
+
+    for (let i = 0; i < addressArray.length; i++) {
+        if (addressArray[i] == verseID) {
+            newAddressArray.push(addressArray[i]);
+            newVerseCountArray.push(count);
+        } else {
+            newAddressArray.push(addressArray[i]);
+            newVerseCountArray.push(verseCounts[i]);
+        }
+    }
+
+    /*
     if (addressArray.includes(verseID)) {
         let index = addressArray.indexOf(verseID);
         verseCounts[index] = count;
-        
+
         let newVerseCountList = verseCounts.slice(0, index).concat(count).concat(verseCounts.slice(index + 1));
         verseCounts = newVerseCountList;
 
@@ -131,8 +145,9 @@ async function updateExistingWordInTable(word: string, verseID: number, count: n
         addressArray.push(verseID);
         verseCounts.push(count);
     }
+    */
 
-    await pool.query('UPDATE ' + tableName + ' SET addresses = $1::int[], verse_counts = $2::int[] WHERE word = $3::text', [addressArray, verseCounts, word]);
+    await pool.query('UPDATE ' + tableName + ' SET addresses = $1::int[], verse_counts = $2::int[] WHERE word = $3::text', [newAddressArray, newVerseCountArray, word]);
 }
 
 async function processWordInTable(word: string, verseID: number, count: number, tableName: string) {
