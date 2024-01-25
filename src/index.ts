@@ -32,7 +32,7 @@ app.post('/addRaw', wrapAsync(async (req, res) => {
         //processVerseJSON(req.body);
     } catch (error) {
         console.error(error);
-        res.status(500).send('Internal Server Error');
+        res.status(500).send('Internal Server Error in addRaw');
     }
 }));
 
@@ -46,6 +46,7 @@ app.post('/getAllVerseIDs', wrapAsync(async (req, res) => {
         res.json(IDList);
     } catch (error) {
         console.error(error);
+        res.status(500).send('Internal Server Error in getAllVerseIDs');
     }
 }));
 
@@ -55,6 +56,7 @@ app.post('/processWords', wrapAsync(async (req, res) => {
         res.json(outcome);
     } catch (error) {
         console.error(error);
+        res.status(500).send('Internal Server Error in processWords');
     }
 }));
 
