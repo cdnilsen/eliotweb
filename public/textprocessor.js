@@ -186,7 +186,7 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-async function getRawVerseDict(book, edition) {
+async function getRawVerseDict(book, edition, startChapter, endChapter) {
     let fileAddress = './texts/' + book + "." + edition + ".txt";
 
     let file = await fetch(fileAddress);
@@ -202,15 +202,17 @@ async function getRawVerseDict(book, edition) {
         let splitLine = line.split(" ");
         let splitAddress = splitLine[0].split(".");
         let chapter = splitAddress[0];
-        let verse = splitAddress[1];
-        let lineText = splitLine.slice(1).join(" ");
-        try {
-            let verseIDNum = getVerseIDNum(bookNum, chapterString(chapter), verseString(verse));
-            verseDict[verseIDNum] = lineText;
-        } catch (err) {
-            console.log("Error: " + line);
+        if (parseInt(chapter) >= startChapter && parseInt(chapter) <= endChapter) {
+            let verse = splitAddress[1];
+            let lineText = splitLine.slice(1).join(" ");
+            try {
+                let verseIDNum = getVerseIDNum(bookNum, chapterString(chapter), verseString(verse));
+                verseDict[verseIDNum] = lineText;
+            } catch (err) {
+                console.log("Error: " + line);
+            }
+            sleep(200);
         }
-        sleep(200);
     }
     return verseDict;
 }
@@ -226,8 +228,8 @@ async function sendADict(myDict, routeString) {
 }
 
 
-async function sendRawJSON(book, edition) {
-    let verseDict = await getRawVerseDict(book, edition);
+async function sendRawJSON(book, edition, startChapter, endChapter) {
+    let verseDict = await getRawVerseDict(book, edition, startChapter, endChapter);
     //let stringifiedDict = JSON.stringify(verseDict);
     let allKeyList = Object.keys(verseDict);
     for (let i = 0; i < allKeyList.length; i++) {
@@ -254,8 +256,8 @@ async function sendRawJSON(book, edition) {
 }
 
 
-async function processText(whichBook, whichEdition) {
-    sendRawJSON(whichBook, whichEdition)
+async function processText(whichBook, whichEdition, startChapter, endChapter) {
+    sendRawJSON(whichBook, whichEdition, startChapter, endChapter)
 
     //fetch('/fetchBook/' + whichBook + "/" + whichEdition).then(res => res.json()).then(res => console.log(typeof res)).catch(err => console.error(err));
     /*
@@ -303,9 +305,10 @@ async function processText(whichBook, whichEdition) {
 
 document.getElementById('submit').addEventListener("click", function() {
     let whichBook = bookDropdown.value;
-    //clean this up later
+    let startChapter = 1;
+    let endChapter = 20;
     let whichEdition = document.getElementById('searchEditionDropdown').value;
 
-    processText(whichBook, whichEdition);
+    processText(whichBook, whichEdition, startChapter, endChapter);
 });
     
