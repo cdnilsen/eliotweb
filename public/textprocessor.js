@@ -253,7 +253,7 @@ async function processText(whichBook, whichEdition, startChapter, endChapter) {
     return numberOfVerses;
 }
 
-document.getElementById('submit').addEventListener("click", function() {
+document.getElementById('submit').addEventListener("click", async function() {
     let whichBook = bookDropdown.value;
     let startChapter = 1;
     let endChapter = 10;
@@ -261,7 +261,7 @@ document.getElementById('submit').addEventListener("click", function() {
     let numberOfVerses = 1;
     // since no book has more than 150 chapters. this isn't terribly efficient, but since books are finite, it works well enough
     while (numberOfVerses > 0 && endChapter < 150) {
-        numberOfVerses = processText(whichBook, whichEdition, startChapter, endChapter);
+        numberOfVerses = await processText(whichBook, whichEdition, startChapter, endChapter);
         startChapter += 10;
         endChapter += 10;
         console.log(endChapter);
