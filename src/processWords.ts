@@ -142,7 +142,7 @@ async function processWordInTable(word: string, verseID: number, count: number, 
     } else {
         await pool.query('INSERT INTO ' + tableName + "(word, addresses, verse_counts) VALUES ($1::text, $2::int[], $3::int[])", [word, verseIDArray, countArray]);
     }
-    return ("Updated " + word + " in " + tableName + ".");
+    return ("NEW TEST Updated " + word + " in " + tableName + ".\n");
 
 }
 
