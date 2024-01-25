@@ -123,9 +123,11 @@ async function updateExistingWordInTable(word: string, verseID: number, count: n
     let newAddressArray: number[] = [];
     let newVerseCountArray: number[] = [];
 
+    let returnString = "";
     for (let i = 0; i < addressArray.length; i++) {
         if (addressArray[i] == verseID) {
-            newAddressArray.push(addressArray[i]);
+            returnString = "Found " + word + " in " + tableName + " at index " + i.toString() + ".\n";
+            newAddressArray.push(verseID);
             newVerseCountArray.push(count);
         } else {
             newAddressArray.push(addressArray[i]);
@@ -148,6 +150,7 @@ async function updateExistingWordInTable(word: string, verseID: number, count: n
     */
 
     await pool.query('UPDATE ' + tableName + ' SET addresses = $1::int[], verse_counts = $2::int[] WHERE word = $3::text', [newAddressArray, newVerseCountArray, word]);
+    return returnString;
 }
 
 async function processWordInTable(word: string, verseID: number, count: number, tableName: string) {
@@ -155,14 +158,15 @@ async function processWordInTable(word: string, verseID: number, count: number, 
     let countArray = [count];
     let tableHasWord = await wordAlreadyInTable(word, tableName);
     
-    let returnString = word + " in " + tableName + ": " + tableHasWord.toString() + "\n";
+    let returnString = "";
 
     if (tableHasWord) {
-        await updateExistingWordInTable(word, verseID, count, tableName);
+        returnString += await updateExistingWordInTable(word, verseID, count, tableName);
 
     } else {
         await pool.query('INSERT INTO ' + tableName + "(word, addresses, verse_counts) VALUES ($1::text, $2::int[], $3::int[])", [word, verseIDArray, countArray]);
     }
+    returnString += "\n";
     return returnString;
 
 }
