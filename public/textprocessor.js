@@ -249,50 +249,8 @@ async function sendRawJSON(book, edition, startChapter, endChapter) {
 
 
 async function processText(whichBook, whichEdition, startChapter, endChapter) {
-    return sendRawJSON(whichBook, whichEdition, startChapter, endChapter)
-
-    //fetch('/fetchBook/' + whichBook + "/" + whichEdition).then(res => res.json()).then(res => console.log(typeof res)).catch(err => console.error(err));
-    /*
-    let fileAddress = './texts/' + whichBook + "." + whichEdition + ".txt";
-
-    let backendAddress = '/fetchBook/' + whichBook + "/" + whichEdition;
-
-    fetch(backendAddress).then(res => res.json()).then(res => {
-        let fileObject = res;
-    
-
-        //Currently fetching all text from frontend. We probably want all this to occur in the backend ASAP
-        let fileText = fileObject.text();
-        let textLines = fileText.split("\n");
-
-        let bookNum = bookNumberString(whichBook);
-        //let editionNum = editionNumberString(whichEdition);
-
-        for (let i = 0; i < textLines.length; i++) {
-            let line = textLines[i];
-            if (line == "") {
-                continue;
-            }
-            let splitLine = line.split(" ");
-            let address = splitLine[0];
-            let splitAddress = address.split(".");
-            let chapter = splitAddress[0];
-            let verse = splitAddress[1];
-
-            let verseIDNum = getVerseIDNum(bookNum, chapterString(chapter), verseString(verse));
-            console.log(verseIDNum);
-        }
-    }).catch(err => console.error(err));
-
-    //Each verse's ID key should be a numerical string generated from its book. The metrical psalms are just weird and will need to be treated separately.
-    //E.g., Exodus 12.13 will be 102012013: dummy 1, followed by 02 (Exodus), followed by 012 (chapter 12), followed by 013 (verse 13).
-
-    //TODO for other texts like Mayhew's translation of Cotton. Those'll probably be e.g. 201, 202...
-    
-    fetch('/processText').then(res => res.json()).then(res => {
-
-    }).catch(err => console.error(err));
-    */
+    let numberOfVerses = await sendRawJSON(whichBook, whichEdition, startChapter, endChapter);
+    return numberOfVerses;
 }
 
 document.getElementById('submit').addEventListener("click", function() {
