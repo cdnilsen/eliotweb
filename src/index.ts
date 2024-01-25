@@ -39,6 +39,7 @@ app.post('/addRaw', wrapAsync(async (req, res) => {
 app.post('/getAllVerseIDs', wrapAsync(async (req, res) => {
     try {
         let query = await pool.query('SELECT * FROM all_verses');
+        console.log(query.rows.length)
         let IDList: number[] = [];
         query.rows.forEach((row: any) => {
             IDList.push(row.id);
