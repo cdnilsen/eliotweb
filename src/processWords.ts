@@ -134,21 +134,6 @@ async function updateExistingWordInTable(word: string, verseID: number, count: n
             newVerseCountArray.push(verseCounts[i]);
         }
     }
-
-    /*
-    if (addressArray.includes(verseID)) {
-        let index = addressArray.indexOf(verseID);
-        verseCounts[index] = count;
-
-        let newVerseCountList = verseCounts.slice(0, index).concat(count).concat(verseCounts.slice(index + 1));
-        verseCounts = newVerseCountList;
-
-    } else {
-        addressArray.push(verseID);
-        verseCounts.push(count);
-    }
-    */
-
     await pool.query('UPDATE ' + tableName + ' SET addresses = $1::int[], verse_counts = $2::int[] WHERE word = $3::text', [newAddressArray, newVerseCountArray, word]);
     return returnString;
 }
