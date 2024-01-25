@@ -252,6 +252,7 @@ async function processText(whichBook, whichEdition, startChapter, endChapter) {
 }
 
 document.getElementById('submit').addEventListener("click", async function() {
+    document.getElementById("text-container").innerHTML = "";
     let whichBook = bookDropdown.value;
     let startChapter = 1;
     let endChapter = 10;
@@ -265,7 +266,11 @@ document.getElementById('submit').addEventListener("click", async function() {
         startChapter += 10;
         endChapter += 10;
     }
-    sleep(5000);
-    console.log("Total verses processed: " + totalVersesProcessed);
+
+    let processedTextString = "Total verses processed: " + totalVersesProcessed.toString();
+
+    let processedTextSpan = document.createElement('span');
+    processedTextSpan.innerHTML = processedTextString;
+    document.getElementById("text-container").appendChild(processedTextSpan);
 });
     
