@@ -199,7 +199,7 @@ async function processOneVerseWordData(verseID: number) {
 }
 
 export async function processBatchWordData(rawJSON: any) {
-    return rawJSON;
+    return Object.keys(rawJSON);
     /*
     let returnString = ""
     for (let i = 0; i < idList.length; i++) {
