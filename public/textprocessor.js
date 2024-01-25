@@ -288,7 +288,7 @@ document.getElementById('process_words').addEventListener("click", async functio
     
     let startingIndex = 0;
     let endingIndex = 49;
-    while (startingIndex <= allIDLength && startingIndex < 50) {
+    while (startingIndex <= allIDLength) {
         let myIDList = allIDList.slice(startingIndex, endingIndex);
     
         fetch('/processWords', {
@@ -305,7 +305,7 @@ document.getElementById('process_words').addEventListener("click", async functio
     let newSpan = document.createElement('span');
     newSpan.innerHTML = allIDLength.toString() + " verses processed.\n";
 
-    sleep(2000);
+    sleep(500);
 
     fetch('/populateCorrespondences', {
         method: 'PUT',
