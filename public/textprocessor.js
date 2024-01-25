@@ -273,4 +273,33 @@ document.getElementById('submit').addEventListener("click", async function() {
     processedTextSpan.innerHTML = processedTextString;
     document.getElementById("text-container").appendChild(processedTextSpan);
 });
+
+async function getAllVerseIDs() {
+    let allVerseIDs = await fetch("/allVerseIDs").then(res => res.json()).then(res => res).catch(err => console.error(err));
+
+    return allVerseIDs;
+}
+
+document.getElementById('process_words').addEventListener("click", async function() {
+    let allIDList = await getAllVerseIDs();
+    let allIDLength = allIDList.length;
+    
+    let startingIndex = 0;
+    let endingIndex = 999;
+    while (startingIndex <= allIDLength) {
+        let myIDList = allIDList.slice(startingIndex, endingIndex);
+
+        await fetch('/processWords', {
+            method: 'POST',
+            body: JSON.stringify(myIDList),
+            headers: {
+            "Content-type": "application/json; charset=UTF-8"
+            }
+        }).then(res => res.json()).then(res => console.log(res)).catch(err => console.error(err));
+        
+        startingIndex += 1000;
+        endingIndex += 1000;
+    }
+
+});
     

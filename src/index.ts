@@ -5,6 +5,7 @@ import { default as pool } from './db'
 import { wrapAsync } from './utils'
 import { wordSearch } from './wordSearchMass'
 import { processVerseJSON } from './textprocessor'
+import { processBatchWordData } from './processWords'
 
 const app = express();
 app.use(express.json());
@@ -32,6 +33,28 @@ app.post('/addRaw', wrapAsync(async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error');
+    }
+}));
+
+app.post('/getAllVerseIDs', wrapAsync(async (req, res) => {
+    try {
+        let query = await pool.query('SELECT * FROM all_verses');
+        let IDList: number[] = [];
+        query.rows.forEach((row: any) => {
+            IDList.push(row.id);
+        });
+        res.json(IDList);
+    } catch (error) {
+        console.error(error);
+    }
+}));
+
+app.post('/processWords', wrapAsync(async (req, res) => {
+    try {
+        let outcome = await processBatchWordData(req.body);
+        res.json(outcome);
+    } catch (error) {
+        console.error(error);
     }
 }));
 

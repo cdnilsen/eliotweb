@@ -33,10 +33,10 @@ function cleanDiacritics(word) {
         "ī": "in",
         "ō": "on",
         "ū": "un"
-    }
+    };
 
-    var cleanedWord = "";
-    for (var i = 0; i < word.length; i++) {
+    let cleanedWord = "";
+    for (let i = 0; i < word.length; i++) {
         if (word[i] in charReplacementDict) {
             cleanedWord += charReplacementDict[word[i]];
         } else {

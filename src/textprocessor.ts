@@ -5,22 +5,21 @@ import { default as pool } from './db'
 import { wrapAsync } from './utils'
 
 const app = express()
-const port = process.env.PORT
+const port = process.env.PORT;
 
-function cleanPunctuation(word: string) {
+function cleanPunctuation(word: string): string {
     let cleanWord = word.replace(/[.,\/#!$%\^&\*?;:{}=\_`~()]/g, "");
     cleanWord = cleanWord.replace('[', '').replace(']', '');
-    
     return cleanWord;
 }
 
-type wordToIntDictType = {
+type stringToIntDict = {
     [key: string]: number
 }
 
-function getWordsInText(verseText: string) {
+function getWordsInText(verseText: string): stringToIntDict {
     let finalWordList: string[] = [];
-    let finalCountDict: wordToIntDictType = {};
+    let finalCountDict: stringToIntDict = {};
     let finalCountList: number[] = [];
     let wordList = verseText.split(" ");
     for (let i = 0; i < wordList.length; i++) {
@@ -35,15 +34,14 @@ function getWordsInText(verseText: string) {
     for (let i = 0; i < finalWordList.length; i++) {
         finalCountList.push(finalCountDict[finalWordList[i]]);
     }
-    // This probably doesn't work (yet)
-    // return finalList.toSorted(Intl.Collator().compare);
     return finalCountDict;
 }
 //Rename this string to string type or something
-type editionToColumnType = {
+type stringToStringDict = {
     [key: string]: string
 }
-const editionToColumnDict: editionToColumnType = {
+
+const editionToColumnDict: stringToStringDict = {
     "First Edition": "first_edition_raw",
     "Second Edition": "second_edition_raw",
     "Mayhew": "other_edition_raw",
@@ -52,22 +50,22 @@ const editionToColumnDict: editionToColumnType = {
     "Grebrew": "grebrew" // Are we even using this except in Greek?
 };
 
-const editionToWordListDict: editionToColumnType = {
+const editionToWordListDict: stringToStringDict = {
     "First Edition": "words_first_edition",
     "Second Edition": "words_second_edition",
     "Mayhew": "words_other_edition",
     "Zeroth Edition": "words_other_edition"
 };
 
-const editionToCountListDict: editionToColumnType = {
+const editionToCountListDict: stringToStringDict = {
     "First Edition": "word_counts_first_edition",
     "Second Edition": "word_counts_second_edition",
     "Mayhew": "word_counts_other_edition",
     "Zeroth Edition": "word_counts_other_edition"
 }
 
-function killDiacritics(word: string) {
-    let charReplacementDict: editionToColumnType = {
+function killDiacritics(word: string): string {
+    let charReplacementDict: stringToStringDict = {
         "á": "a",
         "é": "e",
         "í": "i",
@@ -173,7 +171,7 @@ async function updateOneWordTable(verseIDNum: number, editionNum: number, word: 
 async function updateWordTables(verseID: string, edition: string, wordList: string[], wordCountList: number[]) {
 
     //Prime numbers make it easy to check which editions a word is in
-    const editionToNumDict: editionToColumnType = {
+    const editionToNumDict: stringToStringDict = {
         "First Edition": "2",
         "Second Edition": "3",
         "Mayhew": "5",
@@ -182,8 +180,8 @@ async function updateWordTables(verseID: string, edition: string, wordList: stri
 
     let editionNum = editionToNumDict[edition];
     let verseIDNum = parseInt(editionNum + verseID);
-    let diacriticsDict: wordToIntDictType = {};
-    let noDiacriticsDict: wordToIntDictType = {};
+    let diacriticsDict: stringToIntDict = {};
+    let noDiacriticsDict: stringToIntDict = {};
     
     for (let i = 0; i < wordList.length; i++) {
         diacriticsDict[wordList[i]] = wordCountList[i];
@@ -260,34 +258,18 @@ async function verseUpdate(verseExists: boolean, verseID: string, verseText: str
             wordCountList.push(wordTextsAndCountDict[wordList[i]]);
         }
     }
-
     let outcome = await updateEdition(verseExists, verseID, verseText, edition, book, consoleAddress, editionColumn, wordListColumn, wordList, wordCountColumn,wordCountList, chapter, verse);
     return outcome;
 }
 
 export async function processVerseJSON(rawJSON: any) {
-    //All these have been console'd and are known to work
     let idNumber = rawJSON.id;
     let rawText = rawJSON.text;
     let book = rawJSON.book;
     let edition = rawJSON.edition;
     let myQuery = await pool.query('SELECT * FROM all_verses WHERE id = $1', [parseInt(idNumber)]);
     let hasVerse = (myQuery.rows.length > 0);
-    //if myQuery.rows.length > 0, then the verse already exists in the database and we want to pass `true` to 'verseExists' in verseUpdate
-
     let returnValue = await verseUpdate(hasVerse, idNumber, rawText, edition, book);
     return returnValue;
     
 }
-/*
-    let chapter = idNumber.slice(4, 6);
-    let verse = idNumber.slice(6);
-
-    const verseEntry = await pool.query('SELECT * FROM all_verses WHERE id = $1::text', [idNumber]);
-    if (verseEntry.rows.length > 0) {
-        return "Verse already exists in database.";
-    } else {
-        return "Verse not in database";
-    }
-}
-*/
