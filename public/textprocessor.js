@@ -230,7 +230,6 @@ async function sendADict(myDict, routeString) {
 
 async function sendRawJSON(book, edition, startChapter, endChapter) {
     let verseDict = await getRawVerseDict(book, edition, startChapter, endChapter);
-    //let stringifiedDict = JSON.stringify(verseDict);
     let allKeyList = Object.keys(verseDict);
     for (let i = 0; i < allKeyList.length; i++) {
         let verseNum = allKeyList[i];
@@ -281,7 +280,7 @@ async function getAllVerseIDs() {
 }
 
 document.getElementById('process_words').addEventListener("click", async function() {
-    //These two work
+    document.getElementById("text-container").innerHTML = "";
     let allIDList = await getAllVerseIDs();
     allIDList = allIDList.sort();
     let allIDLength = allIDList.length;

@@ -123,10 +123,10 @@ async function updateExistingWordInTable(word: string, verseID: number, count: n
     let newAddressArray: number[] = [];
     let newVerseCountArray: number[] = [];
 
-    let returnString = "";
+    let returnString = word + ": " + addressArray.toString() + ", " + verseCounts.toString() + "\n\n";
     for (let i = 0; i < addressArray.length; i++) {
         if (addressArray[i] == verseID) {
-            returnString = "Found " + verseID.toString() + " in " + word + " at index " + i.toString() + ".\n";
+            //returnString = "Found " + verseID.toString() + " in " + word + " at index " + i.toString() + ".\n";
             newAddressArray.push(verseID);
             newVerseCountArray.push(count);
         } else {
@@ -139,16 +139,15 @@ async function updateExistingWordInTable(word: string, verseID: number, count: n
 }
 
 async function processWordInTable(word: string, verseID: number, count: number, tableName: string) {
-    let verseIDArray = [verseID];
-    let countArray = [count];
     let tableHasWord = await wordAlreadyInTable(word, tableName);
     
     let returnString = "";
 
     if (tableHasWord) {
         returnString += await updateExistingWordInTable(word, verseID, count, tableName);
-
     } else {
+        let verseIDArray = [verseID];
+        let countArray = [count];
         await pool.query('INSERT INTO ' + tableName + "(word, addresses, verse_counts) VALUES ($1::text, $2::int[], $3::int[])", [word, verseIDArray, countArray]);
     }
     returnString += "\n";
