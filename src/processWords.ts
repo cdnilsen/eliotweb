@@ -276,10 +276,10 @@ export async function populateCorrespondences() {
 }
 
 export async function processBatchWordData(rawJSON: any) {
-    let idList: number[] = Object.values(rawJSON);
+    let idList: string[] = Object.values(rawJSON);
 
     for (let i = 0; i < idList.length; i++) {
-        await processOneVerseWordData(idList[i]);
+        await processOneVerseWordData(parseInt(idList[i]));
     }
 }
 
