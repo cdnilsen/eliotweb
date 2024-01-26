@@ -4,9 +4,8 @@ import path from "path"
 import { default as pool } from './db'
 import { wrapAsync } from './utils'
 
-const app = express();
-app.use(express.json());
-const port = process.env.PORT;
+const app = express()
+const port = process.env.PORT
 
 type stringToStringDict = { 
     [key: string]: string 
