@@ -53,7 +53,7 @@ app.get('/getAllVerseIDs', wrapAsync(async (req, res) => {
 
 app.post('/processWords', wrapAsync(async (req, res) => {
     try {
-        //await processBatchWordData(req.body);
+        await processBatchWordData(req.body);
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error in processWords');
@@ -78,7 +78,7 @@ app.put('/runWordCounts', wrapAsync(async (req, res) => {
     }
 }));
 
-
+/*
 app.get('/fetchVerse/:verseID/:useRawText/:allEditions', wrapAsync(async (req, res) => {
     try {
         let verseID = parseInt(req.params.verseID);
@@ -93,6 +93,7 @@ app.get('/fetchVerse/:verseID/:useRawText/:allEditions', wrapAsync(async (req, r
         res.status(500).send('Internal Server Error in fetchVerse');
     }
 }));
+*/
 
 
 app.get('/fetchBook/:book/:edition', wrapAsync(async (req, res) => {
