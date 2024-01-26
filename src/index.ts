@@ -78,14 +78,14 @@ app.put('/runWordCounts', wrapAsync(async (req, res) => {
     }
 }));
 
-
+/*
 app.get('/fetchVerse', wrapAsync(async (req, res) => {
     try {
         let verseID: number = parseInt(req.body.verseID);
         let editionNumber: number = parseInt(req.body.editionNumber);
         let useRawText: boolean = (req.body.useRawText === 'true');
 
-        let verseTextDict = await getVerseText(verseID, useRawText, editionNumber);
+        let verseTextDict = await getOneVerseText(verseID, useRawText, editionNumber);
 
         res.json(verseTextDict);
     } catch (error) {
@@ -93,8 +93,7 @@ app.get('/fetchVerse', wrapAsync(async (req, res) => {
         res.status(500).send('Internal Server Error in fetchVerse');
     }
 }));
-
-
+*/
 
 app.get('/fetchBook/:book/:edition', wrapAsync(async (req, res) => {
 
