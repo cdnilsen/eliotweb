@@ -362,9 +362,8 @@ async function getOneVerseText(book, chapter, verse, useFirst, useSecond, useMay
         "useRawText": useRawString
     };
     
-    fetch('/fetchVerse', {
+    fetch('/fetchVerse/' + IDString + '/' + editionNumber + '/' + useRawString, {
         method: 'GET',
-        body: JSON.stringify(queryDict),
         headers: {
         "Content-type": "application/json; charset=UTF-8"
         }
