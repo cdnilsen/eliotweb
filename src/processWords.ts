@@ -309,13 +309,11 @@ async function getTotalCounts(tableName: string) {
         }
 
     }
-    console.log("Got total counts for " + allWords.length.toString() + " words");
-
 
     let startingIndex = 0;
     let endingIndex = 49;
     while (startingIndex <= allWords.length) {
-        let myWordList = allWords.slice(startingIndex, endingIndex);
+        let myWordList = allWords.slice(startingIndex, Math.max(endingIndex, allWords.length));
         for (let j = 0; j < myWordList.length; j++) {
             let word = allWords[j];
             await pool.query("UPDATE " + tableName + " SET total_count = $1::int WHERE word = $2::text", [wordToCountListDict[word], word]);
@@ -323,21 +321,6 @@ async function getTotalCounts(tableName: string) {
         startingIndex += 50;
         endingIndex += 50;
     }
-    /*This appears to go absurdly slowly
-    for (let i = 0; i < queryRows.length; i++) {
-        console.log(i.toString());
-        let word = queryRows[i].word;
-        let countList = queryRows[i].verse_counts;
-        let totalCount = countList.reduce((a: number, b: number) => a + b, 0);
-        await pool.query("UPDATE " + tableName + " SET total_count = (SELECT SUM(value) FROM UNNEST(verse_counts) AS value) WHERE word = $1::text", [word]);
-        if (i % 50 == 0) {
-            sleep(200);
-        }
-        if (i % 500 == 0) {
-            console.log("Processed " + i.toString() + " words out of " + queryRowsLength.toString());
-        }
-    }
-    */
 }
 
 export async function getTotalWordCounts() {
