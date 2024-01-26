@@ -289,6 +289,7 @@ async function getTotalCounts(tableName: string) {
     let queryRowsLength = queryRows.length;
     //This appears to go absurdly slowly
     for (let i = 0; i < queryRows.length; i++) {
+        console.log(i.toString());
         let word = queryRows[i].word;
         let countList = queryRows[i].verse_counts;
         let totalCount = countList.reduce((a: number, b: number) => a + b, 0);
