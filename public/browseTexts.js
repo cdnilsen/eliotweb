@@ -377,6 +377,25 @@ bookDropdown.addEventListener('change', async function() {
     updateChapterDropdown(book);
 });
 
+document.getElementById("submit").addEventListener('click', async function() {
+    let book = bookDropdown.value;
+    let chapter = chapterDropdown.value;
+    let verse = document.getElementById("verseSelection").value;
+
+    let useFirst = document.getElementById("useFirst").checked;
+    let useSecond = document.getElementById("useSecond").checked;
+    let useMayhew = document.getElementById("useMayhew").checked;
+    let useZeroth = document.getElementById("useZeroth").checked;
+    let useKJV = document.getElementById("useKJV").checked;
+    let useGrebrew = document.getElementById("useGrebrew").checked;
+    let useRawText = document.getElementById("useRawText").checked;
+
+    let textContainer = document.getElementById("textContainer");
+
+    await getOneVerseText(book, chapter, verse, useFirst, useSecond, useMayhew, useZeroth, useKJV, useGrebrew, useRawText, textContainer);
+
+});
+
 /*
 //This programs takes the raw text from the first and second edition, compares them, and returns them as HTML strings with the differences marked.
 
