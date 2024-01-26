@@ -375,20 +375,35 @@ async function getOneVerseText(book, chapter, verse, useFirst, useSecond, useMay
 bookDropdown.addEventListener('change', async function() {    
     let book = bookDropdown.value;
     updateChapterDropdown(book);
+    chapterDropdown.hidden = false;
+});
+
+chapterDropdown.addEventListener('change', async function() {
+    document.getElementById("verseSelectionDropdown").hidden = false;
+
+    for (let i = 0; i < bookToChapterVerseDict[bookDropdown.value][chapterDropdown.value - 1]; i++) {
+        let verseOption = document.createElement('option');
+        verseOption.text = i + 1;
+        verseOption.value = i + 1;
+        document.getElementById("verseSelectionDropdown").add(verseOption);
+    }
 });
 
 document.getElementById("submit").addEventListener('click', async function() {
     let book = bookDropdown.value;
     let chapter = chapterDropdown.value;
-    let verse = document.getElementById("verseSelection").value;
+    let verse = document.getElementById("verseSelectionDropdown").value;
 
     let useFirst = document.getElementById("useFirst").checked;
     let useSecond = document.getElementById("useSecond").checked;
     let useMayhew = document.getElementById("useMayhew").checked;
     let useZeroth = document.getElementById("useZeroth").checked;
-    let useKJV = document.getElementById("useKJV").checked;
-    let useGrebrew = document.getElementById("useGrebrew").checked;
-    let useRawText = document.getElementById("useRawText").checked;
+    let useKJV = true;
+    let useGrebrew = false;
+    let useRawText = false;
+    //let useKJV = document.getElementById("useKJV").checked;
+    //let useGrebrew = document.getElementById("useGrebrew").checked;
+    //let useRawText = document.getElementById("useRawText").checked;
 
     let textContainer = document.getElementById("textContainer");
 
