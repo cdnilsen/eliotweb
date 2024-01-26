@@ -307,7 +307,7 @@ function updateChapterDropdown(whichBook) {
 
 //Returns a unique integer for the combo of editions that the user wants to view; can be decomposed in the backend by modularity testing.
 function getEditionCompositeNumber(useFirst, useSecond, useMayhew, useZeroth, useKJV, useGrebrew) {
-    let editionQueryNumber = 1
+    let editionQueryNumber = 1;
 
     if (useFirst) {
         editionQueryNumber *= 2;

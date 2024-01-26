@@ -50,7 +50,7 @@ app.get('/getAllVerseIDs', wrapAsync(async (req, res) => {
         res.status(500).send('Internal Server Error in getAllVerseIDs');
     }
 }));
-/*
+
 app.post('/processWords', wrapAsync(async (req, res) => {
     try {
         await processBatchWordData(req.body);
@@ -59,7 +59,6 @@ app.post('/processWords', wrapAsync(async (req, res) => {
         res.status(500).send('Internal Server Error in processWords');
     }
 }));
-*/
 
 app.put('/populateCorrespondences', wrapAsync(async (req, res) => {
     try {
@@ -80,13 +79,13 @@ app.put('/runWordCounts', wrapAsync(async (req, res) => {
 }));
 
 
-app.get('/fetchVerse/:verseID/:editionNumber/:useRawText', wrapAsync(async (req, res) => {
+app.get('/fetchVerse/:verseID/:editionNumber/:useRawString', wrapAsync(async (req, res) => {
     try {
         let verseID: number = parseInt(req.params.verseID);
         let editionNumber: number = parseInt(req.params.editionNumber);
-        let useRawText: boolean = (req.params.useRawText === 'true');
+        let useRawString: boolean = (req.params.useRawString === 'true');
 
-        let verseTextDict = await getVerseText(verseID, useRawText, editionNumber);
+        let verseTextDict = await getVerseText(verseID, useRawString, editionNumber);
         res.json(verseTextDict);
 
         //res.json((verseID.toString() + ": " + editionNumber.toString() + ": " + useRawText.toString()));

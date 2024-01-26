@@ -278,7 +278,7 @@ async function getAllVerseIDs() {
 
     return allVerseIDs;
 }
-/*
+
 document.getElementById('process_words').addEventListener("click", async function() {
     document.getElementById("text-container").innerHTML = "";
     let allIDList = await getAllVerseIDs();
@@ -317,7 +317,7 @@ document.getElementById('process_words').addEventListener("click", async functio
 
     document.getElementById("text-container").appendChild(newSpan);
 });
-*/
+
 
 document.getElementById('run_word_counts').addEventListener("click", async function() {
     fetch('/runWordCounts', {
