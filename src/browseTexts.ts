@@ -5,7 +5,7 @@ import { default as pool } from './db'
 import { wrapAsync } from './utils'
 
 const app = express()
-const port = process.env.PORT
+const port = process.env.PORT;
 
 type stringToStringDict = { 
     [key: string]: string 
