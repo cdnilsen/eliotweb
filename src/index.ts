@@ -79,7 +79,7 @@ app.put('/runWordCounts', wrapAsync(async (req, res) => {
 }));
 
 
-app.get('/fetchVerse/:verseID/:editionNumber:/:useRaw', wrapAsync(async (req, res) => {
+app.get('/fetchVerse/:verseID/:editionNumber:/:useRawText', wrapAsync(async (req, res) => {
     try {
         let verseID: number = parseInt(req.params.verseID);
         let editionNumber: number = parseInt(req.params.editionNumber);
