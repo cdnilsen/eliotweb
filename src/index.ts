@@ -27,8 +27,8 @@ app.post('/addRaw', wrapAsync(async (req, res) => {
     try {
         //console.log(req.body);
         //res.json(req.body);
-        let outcome = await processVerseJSON(req.body);
-        res.json(outcome);
+        await processVerseJSON(req.body);
+
         //processVerseJSON(req.body);
     } catch (error) {
         console.error(error);
@@ -43,7 +43,6 @@ app.get('/getAllVerseIDs', wrapAsync(async (req, res) => {
         query.rows.forEach((row: any) => {
             IDList.push(row.id);
         });
-        res.json(IDList);
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error in getAllVerseIDs');
@@ -93,8 +92,8 @@ app.get('/words', wrapAsync(async (req, res) => {
 }))
 
 app.put('/words/:word/increment', wrapAsync(async (req, res) => {
-    const update = await pool.query('UPDATE words_diacritics SET total_count = total_count + 1 WHERE word = $1::text', [req.params.word])
-    res.json(update)
+    await pool.query('UPDATE words_diacritics SET total_count = total_count + 1 WHERE word = $1::text', [req.params.word])
+    
 }))
 
 app.post('/words/:word', wrapAsync(async (req, res) => {
