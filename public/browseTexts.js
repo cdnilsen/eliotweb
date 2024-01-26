@@ -355,10 +355,20 @@ async function getOneVerseText(book, chapter, verse, useFirst, useSecond, useMay
     } else {
         useRawString = 'false';
     }
+
+    let queryDict = {
+        "IDString": IDString,
+        "editionNumber": editionNumber,
+        "useRawText": useRawString
+    };
     
-    fetch("/fetchVerse/" + IDString + "/" + useRawString + "/" + editionNumber).then(res => res.json()).then(res => {
-        textContainer.innerHTML = res;
-    }).catch(err => console.error(err));
+    fetch('/fetchVerse', {
+        method: 'GET',
+        body: JSON.stringify(queryDict),
+        headers: {
+        "Content-type": "application/json; charset=UTF-8"
+        }
+    }).then(res => res.json()).then(res => console.log(res)).catch(err => console.error(err));
 }
 
 

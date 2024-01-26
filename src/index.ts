@@ -79,11 +79,11 @@ app.put('/runWordCounts', wrapAsync(async (req, res) => {
 }));
 
 
-app.get('/fetchVerse/:verseID/:useRawText/:allEditions', wrapAsync(async (req, res) => {
+app.get('/fetchVerse', wrapAsync(async (req, res) => {
     try {
-        let verseID = parseInt(req.params.verseID);
-        let editionNumber = parseInt(req.params.allEditions);
-        let useRawText: boolean = (req.params.useRawText === 'true');
+        let verseID: number = parseInt(req.body["verseID"]);
+        let editionNumber: number = parseInt(req.body["editionNumber"]);
+        let useRawText: boolean = (req.body["useRawText"] === 'true');
 
         let verseTextDict = await getVerseText(verseID, useRawText, editionNumber);
 
