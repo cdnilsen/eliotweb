@@ -391,13 +391,25 @@ chapterDropdown.addEventListener('change', async function() {
 
 document.getElementById("submit").addEventListener('click', async function() {
     let book = bookDropdown.value;
+
+    if (book == "John" || book == "Psalms (prose)") {
+        document.getElementById("useMayhew").checked = true;
+        document.getElementById("useMayhew").hidden = false;
+    }
+
+    if (book == "Genesis") {
+        document.getElementById("useZerothEdition").checked = true;
+        document.getElementById("useZerothEdition").hidden = false;
+    }
+
+
     let chapter = chapterDropdown.value;
     let verse = document.getElementById("verseSelectionDropdown").value;
 
-    let useFirst = document.getElementById("useFirst").checked;
-    let useSecond = document.getElementById("useSecond").checked;
+    let useFirst = document.getElementById("useFirstEdition").checked;
+    let useSecond = document.getElementById("useSecondEdition").checked;
     let useMayhew = document.getElementById("useMayhew").checked;
-    let useZeroth = document.getElementById("useZeroth").checked;
+    let useZeroth = document.getElementById("useZerothEdition").checked;
     let useKJV = true;
     let useGrebrew = false;
     let useRawText = false;
