@@ -79,15 +79,16 @@ app.put('/runWordCounts', wrapAsync(async (req, res) => {
 }));
 
 
-app.get('/fetchVerse/:verseID/:editionNumber:/:useRawText', wrapAsync(async (req, res) => {
+app.get('/fetchVerse/:verseID/:editionNumber/:useRawText', wrapAsync(async (req, res) => {
     try {
         let verseID: number = parseInt(req.params.verseID);
         let editionNumber: number = parseInt(req.params.editionNumber);
         let useRawText: boolean = (req.params.useRawText === 'true');
 
-        //let verseTextDict = await getVerseText(verseID, useRawText, editionNumber);
+        let verseTextDict = await getVerseText(verseID, useRawText, editionNumber);
+        res.json(verseTextDict);
 
-        res.json((verseID.toString() + ": " + editionNumber.toString() + ": " + useRawText.toString()));
+        //res.json((verseID.toString() + ": " + editionNumber.toString() + ": " + useRawText.toString()));
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error in fetchVerse');
