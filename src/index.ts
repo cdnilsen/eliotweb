@@ -53,7 +53,7 @@ app.get('/getAllVerseIDs', wrapAsync(async (req, res) => {
 
 app.post('/processWords', wrapAsync(async (req, res) => {
     try {
-        await processBatchWordData(req.body);
+        //await processBatchWordData(req.body);
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error in processWords');
