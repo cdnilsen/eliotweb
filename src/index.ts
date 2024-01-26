@@ -78,7 +78,7 @@ app.put('/runWordCounts', wrapAsync(async (req, res) => {
     }
 }));
 
-/*
+
 app.get('/fetchVerse/:verseID/:useRawText/:allEditions', wrapAsync(async (req, res) => {
     try {
         let verseID = parseInt(req.params.verseID);
@@ -93,7 +93,7 @@ app.get('/fetchVerse/:verseID/:useRawText/:allEditions', wrapAsync(async (req, r
         res.status(500).send('Internal Server Error in fetchVerse');
     }
 }));
-*/
+
 
 
 app.get('/fetchBook/:book/:edition', wrapAsync(async (req, res) => {

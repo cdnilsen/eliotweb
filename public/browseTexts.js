@@ -356,7 +356,7 @@ async function getOneVerseText(book, chapter, verse, useFirst, useSecond, useMay
         useRawString = 'false';
     }
     
-    fetch("/fetchVerse/" + IDString + "/" + IDString + "/" + useRawString + "/" + editionNumber).then(res => res.json()).then(res => {
+    fetch("/fetchVerse/" + IDString + "/" + useRawString + "/" + editionNumber).then(res => res.json()).then(res => {
         textContainer.innerHTML = res;
     }).catch(err => console.error(err));
 }
