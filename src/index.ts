@@ -50,7 +50,7 @@ app.get('/getAllVerseIDs', wrapAsync(async (req, res) => {
         res.status(500).send('Internal Server Error in getAllVerseIDs');
     }
 }));
-
+/*
 app.post('/processWords', wrapAsync(async (req, res) => {
     try {
         await processBatchWordData(req.body);
@@ -59,6 +59,7 @@ app.post('/processWords', wrapAsync(async (req, res) => {
         res.status(500).send('Internal Server Error in processWords');
     }
 }));
+*/
 
 app.put('/populateCorrespondences', wrapAsync(async (req, res) => {
     try {
