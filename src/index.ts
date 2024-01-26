@@ -7,6 +7,8 @@ import { wordSearch } from './wordSearchMass'
 import { processVerseJSON } from './textprocessor'
 import { processBatchWordData, populateCorrespondences, getTotalWordCounts } from './processWords'
 
+import { getVerseText } from './browseTexts'
+
 const app = express();
 app.use(express.json());
 const port = process.env.PORT
@@ -77,6 +79,22 @@ app.put('/runWordCounts', wrapAsync(async (req, res) => {
 }));
 
 
+app.get('/fetchVerse/:verseID/:useRawText/:allEditions', wrapAsync(async (req, res) => {
+    try {
+        let verseID = parseInt(req.params.verseID);
+        let editionNumber = parseInt(req.params.allEditions);
+        let useRawText: boolean = (req.params.useRawText === 'true');
+
+        let verseTextDict = await getVerseText(verseID, useRawText, editionNumber);
+
+        res.json(verseTextDict);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error in fetchVerse');
+    }
+}));
+
+
 app.get('/fetchBook/:book/:edition', wrapAsync(async (req, res) => {
 
     const outputString = "Got a request for " + req.params.book + " " + req.params.edition + ".";
@@ -84,12 +102,12 @@ app.get('/fetchBook/:book/:edition', wrapAsync(async (req, res) => {
 
     //let bookObject = await fetch(textAddress);
     res.json(outputString);
-}))
+}));
 
 app.get('/words', wrapAsync(async (req, res) => {
     const words = await pool.query('SELECT * FROM test_table')
     res.json(words.rows)
-}))
+}));
 
 app.put('/words/:word/increment', wrapAsync(async (req, res) => {
     await pool.query('UPDATE words_diacritics SET total_count = total_count + 1 WHERE word = $1::text', [req.params.word])

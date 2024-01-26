@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Webpage</title>
+    <link rel="stylesheet" type="text/css" href="./styles.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+    <a href="index.html">Back to index</a>
+    <br>
+    <div class="dropdown" id="book-dropdown-container">
+        Run this text:
+        <select id="searchBookDropdown" name="searchBookDropdown" style="padding-right:5px"></select>
+    </div>
+
+    <div class="dropdown" id="chapterSelectionDropdown">
+        <span id="searchChapterLegend" hidden>Select edition:</span>
+        <select id="chapterSelectionDropdown" name="chapterSelectionDropdown" style="padding-right:5px" hidden></select>
+    </div>
+
+    <div id="comparedVerses">
+
+
+
+    </div>
+</body>
+    <script src="browseTexts.js" type="module"></script>
+    <script>
+        function closeIt(){
+            window.location.href = window.location.href.split("?")[0];
+        }
+        window.onbeforeunload = closeIt;
+        window.history.pushState({}, '', window.location.href.split("?")[0]);
+    </script>
+</html>
