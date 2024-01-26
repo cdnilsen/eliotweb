@@ -287,11 +287,12 @@ async function getTotalCounts(tableName: string) {
     let query = await pool.query("SELECT * FROM " + tableName);
     let queryRows = query.rows;
     let queryRowsLength = queryRows.length;
+    //This appears to go absurdly slowly
     for (let i = 0; i < queryRows.length; i++) {
         let word = queryRows[i].word;
         let countList = queryRows[i].verse_counts;
         let totalCount = countList.reduce((a: number, b: number) => a + b, 0);
-        await pool.query("UPDATE " + tableName + " SET total_count = $1::int WHERE word = $2::text", [totalCount, word]);
+        await pool.query("UPDATE " + tableName + " SET total_count = SUM(ARRAY_LENGTH(ARRAY(verse_counts), 1))  WHERE word = $1::text", [word]);
         if (i % 50 == 0) {
             sleep(200);
         }
