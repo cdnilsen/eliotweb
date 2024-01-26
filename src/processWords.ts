@@ -289,7 +289,9 @@ async function getTotalCounts(tableName: string) {
     let queryRowsLength = queryRows.length;
     for (let i = 0; i < queryRows.length; i++) {
         let word = queryRows[i].word;
-        await pool.query("UPDATE " + tableName + " SET total_count = (SELECT SUM(x) FROM UNNEST(verse_counts) AS x) WHERE word = $1::text", [word]);
+        let countList = queryRows[i].verse_counts;
+        let totalCount = countList.reduce((a: number, b: number) => a + b, 0);
+        await pool.query("UPDATE " + tableName + " SET total_count = $1::int WHERE word = $2::text", [totalCount, word]);
         if (i % 50 == 0) {
             sleep(200);
         }
@@ -299,7 +301,7 @@ async function getTotalCounts(tableName: string) {
     }
 }
 
-export async function getTotalWordCounts(){
+export async function getTotalWordCounts() {
     await getTotalCounts("words_diacritics");
     await getTotalCounts("words_no_diacritics");
 }
