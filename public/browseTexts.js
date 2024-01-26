@@ -340,7 +340,7 @@ function appendNumberToIDString(IDString, number) {
     return finalString;
 }
 
-function getOneVerseText(book, chapter, verse, useFirst, useSecond, useMayhew, useZeroth, useKJV, useGrebrew, useRawText, textContainer) {
+async function getOneVerseText(book, chapter, verse, useFirst, useSecond, useMayhew, useZeroth, useKJV, useGrebrew, useRawText, textContainer) {
 
     let editionNumber = getEditionCompositeNumber(useFirst, useSecond, useMayhew, useZeroth, useKJV, useGrebrew);
 
@@ -362,7 +362,7 @@ function getOneVerseText(book, chapter, verse, useFirst, useSecond, useMayhew, u
 }
 
 
-bookDropdown.addEventListener('change', function() {    
+bookDropdown.addEventListener('change', async function() {    
     let book = bookDropdown.value;
     updateChapterDropdown(book);
 });
