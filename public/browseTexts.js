@@ -368,8 +368,10 @@ async function getOneVerseText(book, chapter, verse, useFirst, useSecond, useMay
         for (let i = 0; i < primeNumbers.length; i++) {
             let prime = primeNumbers[i];
             if (editionNumber % prime == 0) {
+
+                let verseText = res[prime].toString().replace('8', 'ꝏ̄');
                 let span = document.createElement('span');
-                span.innerHTML = (prime.toString() + ": " + ((res[prime])).toString()) + '<br>';
+                span.innerHTML = prime.toString() + ": " + verseText + '<br>';
                 textContainer.appendChild(span);
             }
         }
