@@ -155,10 +155,11 @@ export async function getVerseText(verseNumber: number, editionNumber: number, u
 
     let allTextNumbers: number[] = [2, 3, 5, 7, 11, 13];
     for (let i = 0; i < allTextNumbers.length; i++) {
-        if ((editionNumber % allTextNumbers[i]) == 0) {
-            finalDict[i] = useWhichDict[i]
+        let prime = allTextNumbers[i];
+        if ((editionNumber % prime) == 0) {
+            finalDict[prime] = useWhichDict[prime]
         } else {
-            finalDict[i] = "";
+            finalDict[prime] = "";
         }
     }
 
