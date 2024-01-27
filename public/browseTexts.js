@@ -363,6 +363,10 @@ async function getOneVerseText(book, chapter, verse, useFirst, useSecond, useMay
         "useRawText": useRawString
     };
     
+    let verseIDSpan = document.createElement('span');
+    verseIDSpan.innerHTML = IDString + '\n';
+    textContainer.appendChild(verseIDSpan);
+    
     fetch('/fetchVerse/' + IDString + '/' + editionNumber + '/' + useRawString, {
         method: 'GET',
         headers: {
