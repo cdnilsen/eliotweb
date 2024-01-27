@@ -417,7 +417,7 @@ document.getElementById("submit").addEventListener('click', async function() {
     let useZeroth = document.getElementById("useZerothEdition").checked;
     let useKJV = true;
     let useGrebrew = false;
-    let useRawText = false;
+    let useRawText = true;
     //let useKJV = document.getElementById("useKJV").checked;
     //let useGrebrew = document.getElementById("useGrebrew").checked;
     //let useRawText = document.getElementById("useRawText").checked;
