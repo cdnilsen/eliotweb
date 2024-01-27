@@ -102,9 +102,10 @@ type IntToAnyDict = {
 */
 export async function getVerseText(verseNumber: number, editionNumber: number, useRawText: boolean)  {
 
-    let verseQuery = await pool.query("SELECT * FROM all_verses WHERE id = $1::int", [101003009]);
+    let queryRows = await pool.query("SELECT * FROM all_verses WHERE id = $1::int", [101003009]);
+
+    return queryRows.rows[0].kjv;
     
-    return("This is a test.");
 }
 
     //let queryRows = await pool.query("SELECT * FROM all_verses WHERE id = $1::int", [verseNumber]);

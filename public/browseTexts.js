@@ -367,7 +367,9 @@ async function getOneVerseText(book, chapter, verse, useFirst, useSecond, useMay
         headers: {
         "Content-type": "application/json; charset=UTF-8"
         }
-    }).then(res => res.json()).then(res => console.log(res)).catch(err => console.error(err));
+    }).then(res => res.text()).then(res => {
+        textContainer.innerHTML = res;
+    }).catch(err => console.error(err));
 }
 
 
