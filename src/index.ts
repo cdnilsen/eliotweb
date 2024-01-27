@@ -89,13 +89,14 @@ app.get('/fetchVerse/:verseID/:editionNumber/:useRawString', wrapAsync(async (re
     try {
         
         let verseID: number = parseInt(req.params.verseID);
-        /*
+        
         let editionNumber: number = parseInt(req.params.editionNumber);
+        /*
         let useRawString: boolean = (req.params.useRawString === 'true');
 
         let verseTextDict = await getVerseText(verseID, useRawString, editionNumber);
         */
-        let result: string = "fetchVerse called at verse " + verseID.toString();
+        let result: string = "fetchVerse called at verse " + verseID.toString() + " in edition " + editionNumber.toString() + ".";
         res.json(result);
 
         //res.json((verseID.toString() + ": " + editionNumber.toString() + ": " + useRawText.toString()));
