@@ -366,13 +366,13 @@ async function getOneVerseText(book, chapter, verse, useFirst, useSecond, useMay
     let verseIDSpan = document.createElement('span');
     verseIDSpan.innerHTML = IDString + '\n';
     textContainer.appendChild(verseIDSpan);
-    
+
     fetch('/fetchVerse/' + IDString + '/' + editionNumber + '/' + useRawString, {
         method: 'GET',
         headers: {
         "Content-type": "application/json; charset=UTF-8"
         }
-    }).then(res => res.text()).then(res => {
+    }).then(res => res.json()).then(res => {
         let primeNumbers = [2, 3, 5, 7, 11, 13];
         for (let i = 0; i < primeNumbers.length; i++) {
             if (editionNumber % primeNumbers[i] == 0) {
