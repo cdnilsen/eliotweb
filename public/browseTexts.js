@@ -356,6 +356,7 @@ async function getOneVerseText(book, chapter, verse, useFirst, useSecond, useMay
     } else {
         useRawString = 'false';
     }
+    console.log(editionNumber);
 
     fetch('/fetchVerse/' + IDString + '/' + editionNumber + '/' + useRawString, {
         method: 'GET',
