@@ -372,12 +372,7 @@ async function getOneVerseText(book, chapter, verse, useFirst, useSecond, useMay
         headers: {
         "Content-type": "application/json; charset=UTF-8"
         }
-    }).then(res => res.text()).then(res => {
-        let span = document.createElement('span');
-        span.innerHTML = res + '\n';
-        textContainer.appendChild(span);
-        
-        /*
+    }).then(res => res.json()).then(res => {
         let primeNumbers = [2, 3, 5, 7, 11, 13];
         for (let i = 0; i < primeNumbers.length; i++) {
             let prime = primeNumbers[i];
@@ -387,7 +382,6 @@ async function getOneVerseText(book, chapter, verse, useFirst, useSecond, useMay
                 textContainer.appendChild(span);
             }
         }
-        */
     }).catch(err => console.error(err));
 }
 
