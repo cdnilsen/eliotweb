@@ -327,7 +327,7 @@ function getEditionCompositeNumber(useFirst, useSecond, useMayhew, useZeroth, us
     if (useGrebrew) {
         editionQueryNumber *= 13;
     }
-    return editionQueryNumber.toString();
+    return editionQueryNumber;
 }
 
 function appendNumberToIDString(IDString, number) {
@@ -358,7 +358,7 @@ async function getOneVerseText(book, chapter, verse, useFirst, useSecond, useMay
     }
     console.log(editionNumber);
 
-    fetch('/fetchVerse/' + IDString + '/' + editionNumber + '/' + useRawString, {
+    fetch('/fetchVerse/' + IDString + '/' + editionNumber.toString() + '/' + useRawString, {
         method: 'GET',
         headers: {
         "Content-type": "application/json; charset=UTF-8"
