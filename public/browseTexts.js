@@ -294,6 +294,7 @@ for (let i = 0; i < allBookList.length; i++) {
 }
 
 let chapterDropdown = document.getElementById("chapterSelectionDropdown");
+let chapterLegend = document.getElementById("searchChapterLegend");
 function updateChapterDropdown(whichBook) {
     chapterDropdown.innerHTML = "";
     for (var i = 1; i <= bookToChapterDict[whichBook]; i++) {
@@ -383,10 +384,12 @@ bookDropdown.addEventListener('change', async function() {
     let book = bookDropdown.value;
     updateChapterDropdown(book);
     chapterDropdown.hidden = false;
+    chapterLegend.hidden = false;
 });
 
 chapterDropdown.addEventListener('change', async function() {
     document.getElementById("verseSelectionDropdown").hidden = false;
+    document.getElementById("searchVerseLegend").hidden = false;
 
     for (let i = 0; i < bookToChapterVerseDict[bookDropdown.value][chapterDropdown.value - 1]; i++) {
         let verseOption = document.createElement('option');
