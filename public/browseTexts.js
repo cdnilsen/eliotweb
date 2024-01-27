@@ -341,6 +341,7 @@ function appendNumberToIDString(IDString, number) {
 }
 
 async function getOneVerseText(book, chapter, verse, useFirst, useSecond, useMayhew, useZeroth, useKJV, useGrebrew, useRawText, textContainer) {
+    textContainer.innerHTML = "";
 
     let editionNumber = getEditionCompositeNumber(useFirst, useSecond, useMayhew, useZeroth, useKJV, useGrebrew);
 
