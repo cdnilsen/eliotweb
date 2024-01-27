@@ -163,9 +163,6 @@ export async function getVerseText(verseNumber: number, editionNumber: number, u
         }
     }
 
-    finalDict = {
-        11: queryRows.rows[0].kjv
-    };
     return finalDict;
     
 }
