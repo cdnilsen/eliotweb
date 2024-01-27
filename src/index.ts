@@ -64,7 +64,8 @@ app.post('/processWords', wrapAsync(async (req, res) => {
 
 app.put('/populateCorrespondences', wrapAsync(async (req, res) => {
     try {
-        await populateCorrespondences();
+        let result = await populateCorrespondences();
+        res.json(result);
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error in populateCorrespondences');
@@ -85,12 +86,15 @@ app.put('/runWordCounts', wrapAsync(async (req, res) => {
 
 app.get('/fetchVerse/:verseID/:editionNumber/:useRawString', wrapAsync(async (req, res) => {
     try {
+        /*
         let verseID: number = parseInt(req.params.verseID);
         let editionNumber: number = parseInt(req.params.editionNumber);
         let useRawString: boolean = (req.params.useRawString === 'true');
 
         let verseTextDict = await getVerseText(verseID, useRawString, editionNumber);
-        res.json(verseTextDict);
+        */
+        let result: string = "fetchVerse called."
+        res.json(result);
 
         //res.json((verseID.toString() + ": " + editionNumber.toString() + ": " + useRawText.toString()));
     } catch (error) {
