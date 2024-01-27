@@ -94,7 +94,7 @@ app.get('/fetchVerse/:verseID/:editionNumber/:useRawString', wrapAsync(async (re
         
         let useRawString: boolean = (req.params.useRawString === 'true');
         
-        //await getVerseText(verseID, useRawString, editionNumber);
+        await getVerseText(verseID, useRawString, editionNumber);
         
         res.json('does this work?');
 
