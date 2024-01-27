@@ -74,7 +74,8 @@ app.put('/populateCorrespondences', wrapAsync(async (req, res) => {
 
 app.put('/runWordCounts', wrapAsync(async (req, res) => {
     try {
-        await getTotalWordCounts();
+        let result = await getTotalWordCounts();
+        res.json(result);
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error in populateCorrespondences');

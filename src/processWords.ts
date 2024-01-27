@@ -188,6 +188,7 @@ async function appendWordData(verseEditionID: number, diacriticCountDict: string
 }
 
 async function processOneVerseWordData(verseID: number) {
+
     let verseQuery = await pool.query("SELECT * FROM all_verses WHERE id = $1::int", [verseID]);
     let verseRow = verseQuery.rows[0];
     let verseBook = verseRow.book;
@@ -235,10 +236,14 @@ async function processOneVerseWordData(verseID: number) {
 
         await appendWordData(thisVerseID, thisDiacriticCountDict, thisNoDiacriticCountDict);
     }
+    
 }
 
 // This function populates the 'correspondence' columns in the word tables. In words_diacritics, this is the diacritic-less version of the word; in words_no_diacritics, it's an array of all words in words_diacritics that correspond to this word
 export async function populateCorrespondences() {
+
+    return "populateCorrespondences worked (?)";
+    /*
     let diacriticWordQuery = await pool.query("SELECT * FROM words_diacritics");
     let diacriticWordRows = diacriticWordQuery.rows;
     
@@ -273,6 +278,7 @@ export async function populateCorrespondences() {
     }
 
     return "Processed correspondences for " + allDiacriticsList.length.toString() + " words.";
+    */
 }
 
 export async function processBatchWordData(rawJSON: any) {
@@ -282,13 +288,15 @@ export async function processBatchWordData(rawJSON: any) {
         await processOneVerseWordData(parseInt(idList[i]));
     }
 }
-
+/*
 function sleep(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms));
-}
+}*/
 
 async function getTotalCounts(tableName: string) {
-
+    return ("did getTotalCounts in " + tableName);
+    
+    /*
     let query = await pool.query("SELECT * FROM " + tableName);
     let queryRows = query.rows;
     let queryRowsLength = queryRows.length;
@@ -321,9 +329,12 @@ async function getTotalCounts(tableName: string) {
         startingIndex += 50;
         endingIndex += 50;
     }
+    */
 }
 
 export async function getTotalWordCounts() {
-    await getTotalCounts("words_diacritics");
-    await getTotalCounts("words_no_diacritics");
+    let string1 = await getTotalCounts("words_diacritics");
+    let string2 = await getTotalCounts("words_no_diacritics");
+
+    return string1 + "\n" + string2;
 }
