@@ -418,7 +418,7 @@ document.getElementById("submit").addEventListener('click', async function() {
     //let useGrebrew = document.getElementById("useGrebrew").checked;
     //let useRawText = document.getElementById("useRawText").checked;
 
-    let textContainer = document.getElementById("textContainer");
+    let textContainer = document.getElementById("comparedVerses");
 
     await getOneVerseText(book, chapter, verse, useFirst, useSecond, useMayhew, useZeroth, useKJV, useGrebrew, useRawText, textContainer);
 
