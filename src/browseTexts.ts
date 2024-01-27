@@ -149,24 +149,3 @@ export async function getVerseText(verseNumber: number, editionNumber: number, u
 
     return finalDict;
 }*/
-
-
-    
-
-
-
-
-
-// Default error handling middleware is fine for now
-/*
-// https://expressjs.com/en/starter/static-files.html
-app.use(express.static('public'))
-
-// Async init - have to wait for the client to connect
-;(async function () {
-    await pool.connect()
-    app.listen(port, () => {
-        console.log(`Example app listening on port ${port}`)
-    })    
-})()
-*/
