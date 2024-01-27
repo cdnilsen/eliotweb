@@ -6,7 +6,7 @@ import { wrapAsync } from './utils'
 
 const app = express()
 const port = process.env.PORT
-
+/*
 type stringToStringDict = { 
     [key: string]: string 
 };
@@ -99,13 +99,14 @@ type StringToAnyDict = {
 type IntToAnyDict = {
     [key: number]: any
 };
+*/
+export async function getVerseText(verseNumber: number, editionNumber: number, useRawText: boolean)  {
 
-export async function getVerseText(verseNumber: number, useRawText: boolean, editionNumber: number)  {
-
-    await(pool.query("SELECT * FROM all_verses WHERE id = $1", [101003009]));
+    let verseQuery = await pool.query("SELECT * FROM all_verses WHERE id = $1::int", [101003009]);
     
     return("This is a test.");
 }
+
     //let queryRows = await pool.query("SELECT * FROM all_verses WHERE id = $1::int", [verseNumber]);
     
     //return queryRows.rows[0].id;
@@ -157,7 +158,7 @@ export async function getVerseText(verseNumber: number, useRawText: boolean, edi
 
 
 // Default error handling middleware is fine for now
-
+/*
 // https://expressjs.com/en/starter/static-files.html
 app.use(express.static('public'))
 
@@ -168,4 +169,4 @@ app.use(express.static('public'))
         console.log(`Example app listening on port ${port}`)
     })    
 })()
-
+*/

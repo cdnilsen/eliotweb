@@ -6,7 +6,6 @@ import { wrapAsync } from './utils'
 import { wordSearch } from './wordSearchMass'
 import { processVerseJSON } from './textprocessor'
 import { processBatchWordData, populateCorrespondences, getTotalWordCounts } from './processWords'
-
 import { getVerseText } from './browseTexts'
 
 const app = express();
@@ -87,14 +86,13 @@ app.put('/runWordCounts', wrapAsync(async (req, res) => {
 
 app.get('/fetchVerse/:verseID/:editionNumber/:useRawString', wrapAsync(async (req, res) => {
     try {
-        
         let verseID: number = parseInt(req.params.verseID);
         
         let editionNumber: number = parseInt(req.params.editionNumber);
         
         let useRawString: boolean = (req.params.useRawString === 'true');
         
-        await getVerseText(verseID, useRawString, editionNumber);
+        await getVerseText(verseID, editionNumber, useRawString);
         
         res.json('does this work?');
 

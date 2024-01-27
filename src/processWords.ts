@@ -158,7 +158,6 @@ async function updateExistingWordInTable(word: string, verseID: number, count: n
 
 async function processWordInTable(word: string, verseID: number, count: number, tableName: string) {
     let tableHasWord = await wordAlreadyInTable(word, tableName);
-    
 
     if (tableHasWord) {
         await updateExistingWordInTable(word, verseID, count, tableName);
