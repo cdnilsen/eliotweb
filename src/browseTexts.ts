@@ -91,7 +91,7 @@ function cleanDiacritics(word: string): string {
     }
     return cleanedWord;
 }
-
+*/
 type StringToAnyDict = {
     [key: string]: any
 };
@@ -99,20 +99,32 @@ type StringToAnyDict = {
 type IntToAnyDict = {
     [key: number]: any
 };
-*/
-export async function getVerseText(verseNumber: number, editionNumber: number, useRawText: boolean)  {
 
-    let queryRows = await pool.query("SELECT * FROM all_verses WHERE id = $1::int", [101003009]);
-
-    return queryRows.rows[0].kjv;
-    
+type stringToStringDict = {
+    [key: string]: string
 }
 
-    //let queryRows = await pool.query("SELECT * FROM all_verses WHERE id = $1::int", [verseNumber]);
-    
-    //return queryRows.rows[0].id;
-    
-    /*
+const editionToColumnRawDict: stringToStringDict = {
+    "First Edition": "first_edition_raw",
+    "Second Edition": "second_edition_raw",
+    "Mayhew": "other_edition_raw",
+    "Zeroth Edition": "other_edition_raw",
+    "KJV": "kjv",
+    "Grebrew": "grebrew" // Are we even using this except in Greek?
+};
+
+const editionToColumnComparedDict: stringToStringDict = {
+    "First Edition": "first_edition_compared",
+    "Second Edition": "second_edition_compared",
+    "Mayhew": "other_edition_raw",
+    "Zeroth Edition": "other_edition_compared",
+    "KJV": "kjv",
+    "Grebrew": "grebrew"
+}
+
+export async function getVerseText(verseNumber: number, editionNumber: number, useRawText: boolean)  {
+    let queryRows = await pool.query("SELECT * FROM all_verses WHERE id = $1::int", [verseNumber]);
+
     let rawTextDict: IntToAnyDict = {
         2: queryRows.rows[0].first_edition_raw,
         3: queryRows.rows[0].second_edition_raw,
@@ -122,7 +134,7 @@ export async function getVerseText(verseNumber: number, editionNumber: number, u
         13: queryRows.rows[0].grebrew
     };
 
-    let comparedText: StringToAnyDict = {
+    let comparedText: IntToAnyDict = {
         2: queryRows.rows[0].compared_first_edition,
         3: queryRows.rows[0].compared_second_edition,
         5: queryRows.rows[0].compared_other_edition,
@@ -145,8 +157,11 @@ export async function getVerseText(verseNumber: number, editionNumber: number, u
     for (let i = 0; i < allTextNumbers.length; i++) {
         if ((editionNumber % allTextNumbers[i]) == 0) {
             finalDict[i] = useWhichDict[i]
+        } else {
+            finalDict[i] = "";
         }
     }
 
     return finalDict;
-}*/
+    
+}
