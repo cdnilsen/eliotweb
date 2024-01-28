@@ -138,6 +138,36 @@ const allBookList = [
     "Revelation"
 ];
 
+const NTBookList = [
+    "Matthew",
+    "Mark",
+    "Luke",
+    "John",
+    "Acts",
+    "Romans",
+    "1 Corinthians",
+    "2 Corinthians",
+    "Galatians",
+    "Ephesians",
+    "Philippians",
+    "Colossians",
+    "1 Thessalonians",
+    "2 Thessalonians",
+    "1 Timothy",
+    "2 Timothy",
+    "Titus",
+    "Philemon",
+    "Hebrews",
+    "James",
+    "1 Peter",
+    "2 Peter",
+    "1 John",
+    "2 John",
+    "3 John",
+    "Jude",
+    "Revelation"
+];
+
 const bookToChapterDict = {
     "": 0,
     "Genesis": 50,
@@ -479,39 +509,123 @@ function columnMeasurePopulator(numLeftColumns, numRightColumns) {
     return allColumnMeasures.trim();
 }
 
-function columnHeaderPopulator(useFirst, useSecond, useOther, useKJV, useGrebrew) {
+function columnHeaderPopulator(useFirst, useSecond, useMayhew, useZeroth, useKJV, useGrebrew, bookName) {
     let numLeftColumns = 0;
-    let numRightcolumns = 0;
+    let numRightColumns = 0;
 
     let leftColumnList = [];
     let rightColumnList = [];
 
+    let leftColumnIndexList = [];
+    let rightColumnIndexList = [];
+
+    let useHebrew = false;
+
+    let useOther = useMayhew || useZeroth;
+    let otherEditionNumber = 1;
+
+    if (useMayhew) {
+        otherEditionNumber *= 5;
+    } else if (useZeroth) {
+        otherEditionNumber *= 7;
+    }
+    
+    let otherName = "";
+    if (useMayhew) {
+        otherName = "Mayhew";
+    } else if (useZeroth) {
+        otherName = "Zeroth Edition";
+    }
+
     if (useFirst) {
         numLeftColumns += 1;
         leftColumnList.push("First Edition");
+        leftColumnIndexList.push(2);
     }
+
     if (useSecond) {
         numLeftColumns += 1;
         leftColumnList.push("Second Edition");
+        leftColumnIndexList.push(3);
     }
 
-    if (!useFirst && !useSecond) {
+    if (!useFirst && !useSecond && useOther) {
         numLeftColumns += 1;
-        leftColumnList.push("First Edition");
-    } else {
-        if (useOther) {
-            numRightcolumns += 1;
-            rightColumnList.push("Other Editions");
-        }
+        leftColumnList.push(otherName);
+        leftColumnIndexList.push(otherEditionNumber);
+    } else if (useOther) {
+        numRightColumns += 1;
+        rightColumnList.push(otherName);
+        rightColumnIndexList.push(otherEditionNumber);
+    }
+    
+    if (useKJV) {
+        numRightColumns += 1;
+        rightColumnList.push("KJV");
+        rightColumnIndexList.push(11);
     }
 
-    if (useKJV) {
-        numRightcolumns += 1;
-        rightColumnList.push("KJV");
-    }
     if (useGrebrew) {
-        numRightcolumns += 1;
-        rightColumnList.push("Grebrew");
+        numRightColumns += 1;
+        let nameString = "";
+        if (NTBookList.includes(bookName)) {
+            nameString = "Greek";
+        } else {
+            nameString = "Hebrew";
+            useHebrew = true;
+        }
+        rightColumnList.push(nameString);
+        rightColumnIndexList.push(13);
+    }
+
+    return [numLeftColumns, numRightColumns, leftColumnList, rightColumnList, leftColumnIndexList, rightColumnIndexList, useHebrew];
+}
+
+function populateVerseColumns(columnHeaderList, backendJSON, book) {
+    let topDiv = document.getElementById("textColumns");
+    topDiv.innerHTML = "";
+    for (let i = 0; i < bookJSON.length; i++) {
+        var thisVerseDict = bookJSON[i];
+        if (thisVerseDict["chapter"] == myChapter) {
+            var thisVerse = thisVerseDict["verse"];
+            var verseDiv = document.createElement("div");
+            verseDiv.classList.add("verseRow");
+            verseDiv.id = "verse " + thisVerse;
+            verseDiv.style.gridRow = (i + 1).toString();
+            verseDiv.style.gridTemplateColumns = columnMeasureString;
+            var allVerseTexts = populateVerseRow(thisVerseDict, searchInfo, hapaxMode, markTextDiffs);
+            var allVerses = allVerseTexts[0];
+            var allVerseTypes = allVerseTexts[1];
+
+            for (var j = 0; j < allVerses.length; j++) {
+                var verseColumn = document.createElement("div");
+                if (j > 0) {
+                    verseColumn.classList.add("verseColumn");
+                } else {
+                    verseColumn.classList.add("firstVerseColumn");
+                }
+
+                verseColumn.style.gridColumn = (j + 1).toString();
+
+                verseColumn.innerHTML = allVerses[j];
+
+                if (allVerseTypes[j] == "verse") {
+                    verseColumn.style.textAlign = "center";
+                    verseColumn.style.fontWeight = "bold";
+                    verseColumn.style.fontSize = "1.2em";
+                    verseColumn.style.verticalAlign = "center";
+                }
+
+                if (allVerseTypes[j] == "hebrew") {
+                    verseColumn.style.textAlign = "right";
+                    verseColumn.style.direction = "rtl";
+                    verseColumn.style.fontSize = "1.4em";
+                }
+
+                verseDiv.appendChild(verseColumn);
+            }
+            topDiv.appendChild(verseDiv);
+        }
     }
 }
 
@@ -527,7 +641,7 @@ document.getElementById("submitBookQuery").addEventListener('click', async funct
         myQueryOptions[i].defaultChecked = myQueryOptions[i].checked; // Does this do anything?
     }
 
-    let searchInfo = searchInfoGetter(params);
+    //let searchInfo = searchInfoGetter(params);
 
     let book = bookDropdown.value;
     let chapter = chapterDropdown.value;
