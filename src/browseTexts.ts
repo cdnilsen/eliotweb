@@ -104,6 +104,10 @@ type stringToStringDict = {
     [key: string]: string
 }
 
+type IntToStringListDict = {
+    [key: number]: string[]
+};
+
 const editionToColumnRawDict: stringToStringDict = {
     "First Edition": "first_edition_raw",
     "Second Edition": "second_edition_raw",
@@ -122,28 +126,28 @@ const editionToColumnComparedDict: stringToStringDict = {
     "Grebrew": "grebrew"
 }
 
-export async function getVerseText(verseNumber: number, editionNumber: number, useRawText: boolean)  {
-    let queryRows = await pool.query("SELECT * FROM all_verses WHERE id = $1::int", [verseNumber]);
+//Since this gets used in getChapterText, it really needs to be rewritten as a function
 
+function verseFetcher(queryRow: any, editionNumber: number, useRawText: boolean) {
     let rawTextDict: IntToAnyDict = {
-        2: queryRows.rows[0].first_edition_raw,
-        3: queryRows.rows[0].second_edition_raw,
-        5: queryRows.rows[0].other_edition_raw,
-        7: queryRows.rows[0].other_edition_raw,
-        11: queryRows.rows[0].kjv,
-        13: queryRows.rows[0].grebrew
+        2: queryRow.first_edition_raw,
+        3: queryRow.second_edition_raw,
+        5: queryRow.other_edition_raw,
+        7: queryRow.other_edition_raw,
+        11: queryRow.kjv,
+        13: queryRow.grebrew
     };
 
     let comparedText: IntToAnyDict = {
-        2: queryRows.rows[0].compared_first_edition,
-        3: queryRows.rows[0].compared_second_edition,
-        5: queryRows.rows[0].compared_other_edition,
-        7: queryRows.rows[0].compared_other_edition,
-        11: queryRows.rows[0].kjv,
-        13: queryRows.rows[0].grebrew
+        2: queryRow.compared_first_edition,
+        3: queryRow.compared_second_edition,
+        5: queryRow.compared_other_edition,
+        7: queryRow.compared_other_edition,
+        11: queryRow.kjv,
+        13: queryRow.grebrew
     };
 
-    let finalDict: StringToAnyDict = {};
+    let finalVerseDict: StringToAnyDict = {};
 
     let useWhichDict: IntToAnyDict = {};
 
@@ -154,15 +158,47 @@ export async function getVerseText(verseNumber: number, editionNumber: number, u
     }
 
     let allTextNumbers: number[] = [2, 3, 5, 7, 11, 13];
-    for (let i = 0; i < allTextNumbers.length; i++) {
-        let prime = allTextNumbers[i];
+    for (let k = 0; k < allTextNumbers.length; k++) {
+        let prime = allTextNumbers[k];
         if ((editionNumber % prime) == 0) {
-            finalDict[prime] = useWhichDict[prime]
+            finalVerseDict[prime] = useWhichDict[prime]
         } else {
-            finalDict[prime] = "";
+            finalVerseDict[prime] = "";
         }
     }
+    return finalVerseDict;
 
+}
+export async function getVerseText(verseNumber: number, editionNumber: number, useRawText: boolean)  {
+    let queryRows = await pool.query("SELECT * FROM all_verses WHERE id = $1::int", [verseNumber]);
+
+    return verseFetcher(queryRows.rows[0], editionNumber, useRawText);
+}
+
+export async function getChapterText(book: string, chapterNumber: number, editionNumber: number, useRawText: boolean) {
+    let queryRows = await pool.query("SELECT * FROM all_verses WHERE book = $1::string AND chapter = $2::int", [book, chapterNumber]);
+
+    let verseIDList = [];
+    for (let i = 0; i < queryRows.rows.length; i++) {
+        verseIDList.push(queryRows.rows[i].id);
+    }
+
+    verseIDList.sort((a, b) => a - b);
+
+    let finalDict: IntToStringListDict = {};
+
+    for (let j = 0; j < verseIDList.length; j++) {
+        let thisVerseDict = await getVerseText(verseIDList[j], editionNumber, useRawText);
+        let thisVerseKeyList = Object.keys(thisVerseDict);
+        thisVerseKeyList.sort((a, b) => parseInt(a) - parseInt(b));
+        for (let k = 0; k < thisVerseKeyList.length; k++) {
+            let thisKey = parseInt(thisVerseKeyList[k]);
+            if (thisKey in finalDict) {
+                finalDict[thisKey].push(thisVerseDict[thisKey]);
+            } else {
+                finalDict[thisKey] = [thisVerseDict[thisKey]];
+            }
+        }
+    }
     return finalDict;
-    
 }

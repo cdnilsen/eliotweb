@@ -6,7 +6,7 @@ import { wrapAsync } from './utils'
 import { wordSearch } from './wordSearchMass'
 import { processVerseJSON } from './textprocessor'
 import { processBatchWordData, populateCorrespondences, getTotalWordCounts } from './processWords'
-import { getVerseText } from './browseTexts'
+import { getVerseText, getChapterText } from './browseTexts'
 
 const app = express();
 app.use(express.json());
@@ -72,6 +72,35 @@ app.put('/populateCorrespondences', wrapAsync(async (req, res) => {
     }
 }));
 
+app.put('/runWordCounts', wrapAsync(async (req, res) => {
+    try {
+        let result = await getTotalWordCounts();
+        res.json(result);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error in populateCorrespondences');
+    }
+}));
+
+
+app.get('/fetchChapter/:book/:chapterID/:editionNumber/:useRawString', wrapAsync(async (req, res) => {
+    try {
+        let book: string = req.params.book;
+
+        let chapterNum: number = parseInt(req.params.chapterID);
+        
+        let editionNumber: number = parseInt(req.params.editionNumber);
+        
+        let useRawString: boolean = (req.params.useRawString === 'true');
+
+        let result = await getChapterText(book, chapterNum, editionNumber, useRawString);
+        
+        res.json(result);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error in fetchVerse');
+    }
+}));
 
 app.put('/runWordCounts', wrapAsync(async (req, res) => {
     try {

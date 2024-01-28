@@ -357,7 +357,6 @@ async function getOneVerseText(book, chapter, verse, useFirst, useSecond, useMay
     } else {
         useRawString = 'false';
     }
-    console.log(editionNumber);
 
     fetch('/fetchVerse/' + IDString + '/' + editionNumber.toString() + '/' + useRawString, {
         method: 'GET',
@@ -370,7 +369,7 @@ async function getOneVerseText(book, chapter, verse, useFirst, useSecond, useMay
             let prime = primeNumbers[i];
             if (editionNumber % prime == 0) {
 
-                let verseText = res[prime].toString().replaceAll('8', 'ꝏ̄');
+                let verseText = res[prime].toString().replaceAll('8', 'ꝏ̄').replaceAll('$', ' ');
                 let span = document.createElement('span');
                 span.innerHTML = prime.toString() + ": " + verseText + '<br>';
                 textContainer.appendChild(span);
