@@ -478,14 +478,16 @@ function createNavButtons(currentChapter, isLastChapter) {
             document.getElementById("chapterSelectionDropdown").value = parseInt(currentChapter) - 1;
             document.getElementById("submitBookQuery").click();
         });
-
+        allButtonList.push(firstChapterButton);
+        allButtonList.push(prevChapterButton);
     } else {
         let firstChapterButton = document.createElement("span");
         let prevChapterButton = document.createElement("span");
+        allButtonList.push(firstChapterButton);
+        allButtonList.push(prevChapterButton);
     }
 
-    allButtonList.push(firstChapterButton);
-    allButtonList.push(prevChapterButton);
+    
 
     if (! isLastChapter) {
         let nextChapterButton = document.createElement("button");
@@ -505,20 +507,20 @@ function createNavButtons(currentChapter, isLastChapter) {
             document.getElementById("chapterSelectionDropdown").value = deployedBookToChapterDict[document.getElementById("bookSelectionDropdown").value];
             document.getElementById("submitBookQuery").click();
         });
+        allButtonList.push(nextChapterButton);
+        allButtonList.push(lastChapterButton);
     } else {
         let nextChapterButton = document.createElement("span");
         let lastChapterButton = document.createElement("span");
+        allButtonList.push(nextChapterButton);
+        allButtonList.push(lastChapterButton);
     }
-
-    allButtonList.push(nextChapterButton);
-    allButtonList.push(lastChapterButton);
 
     for (let i = 0; i < allButtonList.length; i++) {
         buttonDivList[i].appendChild(allButtonList[i]);
         document.getElementById("navButtonGrid").appendChild(buttonDivList[i]);
     }
 }
-
 
 document.getElementById("submit").addEventListener('click', async function() {
     let book = bookDropdown.value;
