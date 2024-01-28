@@ -404,7 +404,9 @@ async function getChapterText(book, chapter, useFirst, useSecond, useMayhew, use
         let numOfVerses = parseInt(res[101]);
         let primeNumbers = [2, 3, 5, 7, 11, 13];
         let usefulPrimes = getUsefulPrimes(editionNumber, primeNumbers); //this should be in the right order...
-
+        
+        //Debug this section early in the morning tomorrow...?
+        
         for (let j = 0; j < numOfVerses; j++) {
             let verseTextDict = {};
             for (let k = 0; k < usefulPrimes.length; k++) {
@@ -650,7 +652,7 @@ function createNavButtons(currentChapter, isLastChapter) {
         lastChapterButton.id = "lastChapterButton";
 
         lastChapterButton.addEventListener("click", function() {
-            document.getElementById("chapterSelectionDropdown").value = deployedBookToChapterDict[document.getElementById("bookSelectionDropdown").value];
+            document.getElementById("chapterSelectionDropdown").value = bookToChapterDict[document.getElementById("bookSelectionDropdown").value];
             document.getElementById("submitBookQuery").click();
         });
     } else {

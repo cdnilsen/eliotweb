@@ -178,6 +178,7 @@ export async function getVerseText(verseNumber: number, editionNumber: number, u
 
 //Should probably turn this into a function that can get all the verses from *any* group of rows...also needs to include verse numbers!
 export async function getChapterText(book: string, chapter: number, editionNumber: number, useRawText: boolean) {
+    
     let queryRows = await pool.query("SELECT * FROM all_verses WHERE book = $1::string AND chapter = $2::int", [book, chapter]);
 
     let queryRowsLength = Math.max(queryRows.rows.length, 1);
