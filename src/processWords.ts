@@ -166,7 +166,6 @@ async function processWordInTable(word: string, verseID: number, count: number, 
         let countArray = [count];
         await pool.query('INSERT INTO ' + tableName + "(word, addresses, verse_counts) VALUES ($1::text, $2::int[], $3::int[])", [word, verseIDArray, countArray]);
     }
-
 }
 
 async function appendWordDataOneTable(verseEditionID: number, countDict: stringToNumberDict, tableName: string) {

@@ -446,7 +446,7 @@ async function getOneVerseText(book, chapter, verse, useFirst, useSecond, useMay
             if (editionNumber % p == 0) {
                 let verseText = res[p].toString().replaceAll('8', 'ꝏ̄').replaceAll('$', ' ').replaceAll('{', '<i>').replaceAll('}', '</i>');;
                 let span = document.createElement('span');
-                span.innerHTML = p.toString() + ": " + verseText + '<br><br>';
+                span.innerHTML = verseText + '<br><br>';
                 textContainer.appendChild(span);
             }
         }
@@ -579,6 +579,83 @@ function columnHeaderPopulator(useFirst, useSecond, useMayhew, useZeroth, useKJV
     }
 
     return [numLeftColumns, numRightColumns, leftColumnList, rightColumnList, leftColumnIndexList, rightColumnIndexList, useHebrew];
+}
+
+function createNavButtons(currentChapter, isLastChapter) {
+    document.getElementById("navButtonGrid").innerHTML = "";
+    document.getElementById("navButtonGrid").style.background = "white";
+
+    var buttonDivNames = ["firstChapterButtonDiv", "prevChapterButtonDiv", "nextChapterButtonDiv", "lastChapterButtonDiv"];
+
+    var buttonDivList = []
+
+    for (var i = 0; i < buttonDivNames.length; i++) {
+        var thisDiv = document.createElement("div");
+        thisDiv.id = buttonDivNames[i];
+        thisDiv.style.gridRow = "1";
+        thisDiv.style.gridColumn = (i + 1).toString();
+        buttonDivList.push(thisDiv);
+    }
+    
+    let allButtonList = [];
+
+    if (currentChapter > 1) {
+        var firstChapterButton = document.createElement("button");
+        firstChapterButton.innerHTML = "↞";
+        firstChapterButton.id = "firstChapterButton";
+
+        firstChapterButton.addEventListener("click", function() {
+            document.getElementById("chapterSelectionDropdown").value = 1;
+            document.getElementById("submitBookQuery").click();
+        });
+
+        var prevChapterButton = document.createElement("button");
+        prevChapterButton.innerHTML = "←";
+        prevChapterButton.id = "prevChapterButton";
+
+        prevChapterButton.addEventListener("click", function() {
+            document.getElementById("chapterSelectionDropdown").value = parseInt(currentChapter) - 1;
+            document.getElementById("submitBookQuery").click();
+        });
+
+    } else {
+        var firstChapterButton = document.createElement("span");
+        var prevChapterButton = document.createElement("span");
+    }
+
+    allButtonList.push(firstChapterButton);
+    allButtonList.push(prevChapterButton);
+
+    if (! isLastChapter) {
+        var nextChapterButton = document.createElement("button");
+        nextChapterButton.innerHTML = "→";
+        nextChapterButton.id = "nextChapterButton";
+
+        nextChapterButton.addEventListener("click", function() {
+            document.getElementById("chapterSelectionDropdown").value = parseInt(currentChapter) + 1;
+            document.getElementById("submitBookQuery").click();
+        });
+        
+        var lastChapterButton = document.createElement("button");
+        lastChapterButton.innerHTML = "↠";
+        lastChapterButton.id = "lastChapterButton";
+
+        lastChapterButton.addEventListener("click", function() {
+            document.getElementById("chapterSelectionDropdown").value = deployedBookToChapterDict[document.getElementById("bookSelectionDropdown").value];
+            document.getElementById("submitBookQuery").click();
+        });
+    } else {
+        var nextChapterButton = document.createElement("span");
+        var lastChapterButton = document.createElement("span");
+    }
+
+    allButtonList.push(nextChapterButton);
+    allButtonList.push(lastChapterButton);
+
+    for (var i = 0; i < allButtonList.length; i++) {
+        buttonDivList[i].appendChild(allButtonList[i]);
+        document.getElementById("navButtonGrid").appendChild(buttonDivList[i]);
+    }
 }
 
 function populateVerseColumns(columnHeaderList, backendJSON, book) {
