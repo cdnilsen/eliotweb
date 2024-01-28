@@ -452,85 +452,83 @@ chapterDropdown.addEventListener('change', async function() {
     }
 });
 
-function createNavButtons(currentChapter, isLastChapter) {
-    document.getElementById("navButtonGrid").innerHTML = "";
-    document.getElementById("navButtonGrid").style.background = "white";
-
-    let buttonDivNames = ["firstChapterButtonDiv", "prevChapterButtonDiv", "nextChapterButtonDiv", "lastChapterButtonDiv"];
-
-    let buttonDivList = [];
-
-    for (let i = 0; i < buttonDivNames.length; i++) {
-        let thisDiv = document.createElement("div");
-        thisDiv.id = buttonDivNames[i];
-        thisDiv.style.gridRow = "1";
-        thisDiv.style.gridColumn = (i + 1).toString();
-        buttonDivList.push(thisDiv);
+function columnMeasurePopulator(numLeftColumns, numRightColumns) {
+    let allColumnMeasures = "";
+    let verseColumnMeasure = "10%"
+    if (numLeftColumns == 1) {
+        allColumnMeasures += "45% ";
+    } else if (numLeftColumns == 2) {
+        allColumnMeasures += "22.5% ";
+        allColumnMeasures += "22.5% ";
     }
+
+    allColumnMeasures += verseColumnMeasure + " ";
     
-    let allButtonList = [];
-
-    if (currentChapter > 1) {
-        let firstChapterButton = document.createElement("button");
-        firstChapterButton.innerHTML = "↞";
-        firstChapterButton.id = "firstChapterButton";
-
-        firstChapterButton.addEventListener("click", function() {
-            document.getElementById("chapterSelectionDropdown").value = 1;
-            document.getElementById("submitBookQuery").click();
-        });
-
-        let prevChapterButton = document.createElement("button");
-        prevChapterButton.innerHTML = "←";
-        prevChapterButton.id = "prevChapterButton";
-        prevChapterButton.addEventListener("click", function() {
-            document.getElementById("chapterSelectionDropdown").value = parseInt(currentChapter) - 1;
-            document.getElementById("submitBookQuery").click();
-        });
-
-        allButtonList.push(firstChapterButton);
-        allButtonList.push(prevChapterButton);
+    if (numRightColumns == 3) {
+        allColumnMeasures += "15% ";
+        allColumnMeasures += "15% ";
+        allColumnMeasures += "15% ";
+    } else if (numRightColumns == 2) {
+        rightColumnMeasure = "22.5%";
+        allColumnMeasures += "22.5% ";
+        allColumnMeasures += "22.5% ";
     } else {
-        let firstChapterButton = document.createElement("span");
-        let prevChapterButton = document.createElement("span");
-        allButtonList.push(firstChapterButton);
-        allButtonList.push(prevChapterButton);
+        rightColumnMeasure = "45%";
+        allColumnMeasures += "45% ";
+    }
+    return allColumnMeasures.trim();
+}
+
+function columnHeaderPopulator(useFirst, useSecond, useOther, useKJV, useGrebrew) {
+    let numLeftColumns = 0;
+    let numRightcolumns = 0;
+
+    let leftColumnList = [];
+    let rightColumnList = [];
+
+    if (useFirst) {
+        numLeftColumns += 1;
+        leftColumnList.push("First Edition");
+    }
+    if (useSecond) {
+        numLeftColumns += 1;
+        leftColumnList.push("Second Edition");
     }
 
-    
-
-    if (! isLastChapter) {
-        let nextChapterButton = document.createElement("button");
-        nextChapterButton.innerHTML = "→";
-        nextChapterButton.id = "nextChapterButton";
-        nextChapterButton.addEventListener("click", function() {
-            document.getElementById("chapterSelectionDropdown").value = parseInt(currentChapter) + 1;
-            document.getElementById("submitBookQuery").click();
-        });
-        let lastChapterButton = document.createElement("button");
-        lastChapterButton.innerHTML = "↠";
-        lastChapterButton.id = "lastChapterButton";
-
-        lastChapterButton.addEventListener("click", function() {
-            document.getElementById("chapterSelectionDropdown").value = deployedBookToChapterDict[document.getElementById("bookSelectionDropdown").value];
-            document.getElementById("submitBookQuery").click();
-        });
-        allButtonList.push(nextChapterButton);
-        allButtonList.push(lastChapterButton);
+    if (!useFirst && !useSecond) {
+        numLeftColumns += 1;
+        leftColumnList.push("First Edition");
     } else {
-        let nextChapterButton = document.createElement("span");
-        let lastChapterButton = document.createElement("span");
-        allButtonList.push(nextChapterButton);
-        allButtonList.push(lastChapterButton);
+        if (useOther) {
+            numRightcolumns += 1;
+            rightColumnList.push("Other Editions");
+        }
     }
 
-    for (let i = 0; i < allButtonList.length; i++) {
-        buttonDivList[i].appendChild(allButtonList[i]);
-        document.getElementById("navButtonGrid").appendChild(buttonDivList[i]);
+    if (useKJV) {
+        numRightcolumns += 1;
+        rightColumnList.push("KJV");
+    }
+    if (useGrebrew) {
+        numRightcolumns += 1;
+        rightColumnList.push("Grebrew");
     }
 }
 
 document.getElementById("submitBookQuery").addEventListener('click', async function() {
+    window.scrollTo(0, 0);
+    let url = window.location.href;
+
+    let params = new URLSearchParams(url.search);
+
+    let myQueryOptions = document.getElementById("queryOptions");
+
+    for (let i = 0; i < myQueryOptions.length; i++) {
+        myQueryOptions[i].defaultChecked = myQueryOptions[i].checked; // Does this do anything?
+    }
+
+    let searchInfo = searchInfoGetter(params);
+
     let book = bookDropdown.value;
     let chapter = chapterDropdown.value;
     let verse = document.getElementById("verseSelectionDropdown").value;

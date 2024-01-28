@@ -678,7 +678,6 @@ function searchInfoGetter(myParams) {
     } else {
         searchDict["useZeroth"] = false;
     }
-
     return searchDict;
 }
 
@@ -778,7 +777,6 @@ function populateHeaders(mySearchInfo) {
     for (var i = 0; i < rightColumnList.length; i++) {
         whichColumnCounter = populateCell(whichColumnCounter, rightColumnList[i], editionHeaders, true, false);
     }
-
     return allColumnMeasures;
 }
 
@@ -795,7 +793,6 @@ function textDifferenceHandler(myParams) {
 }
 
 document.getElementById("submitBookQuery").addEventListener("click", function() {
-
     window.scrollTo(0, 0);
     var url = window.location.href;
 
@@ -804,7 +801,7 @@ document.getElementById("submitBookQuery").addEventListener("click", function() 
     var myQueryOptions = document.getElementById("queryOptions");
     for (var i = 0; i < myQueryOptions.length; i++) {
         myQueryOptions[i].defaultChecked = myQueryOptions[i].checked; // Does this do anything?
-        }
+    }
 
     var searchInfo = searchInfoGetter(params);
     var myBook = searchInfo["book"];
