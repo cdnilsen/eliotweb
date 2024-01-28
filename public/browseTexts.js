@@ -345,6 +345,16 @@ function appendNumberToIDString(IDString, number) {
     return finalString;
 }
 
+function getUsefulPrimes(editionNumber, listOfPrimes) {
+    let usefulPrimes = [];
+    for (let i = 0; i < listOfPrimes.length; i++) {
+        if (editionNumber % listOfPrimes[i] == 0) {
+            usefulPrimes.push(listOfPrimes[i]);
+        }
+    }
+    return usefulPrimes;
+}
+
 async function getChapterText(book, chapter, useFirst, useSecond, useMayhew, useZeroth, useKJV, useGrebrew, useRawText, textContainer) {
     let editionNumber = getEditionCompositeNumber(useFirst, useSecond, useMayhew, useZeroth, useKJV, useGrebrew);
 
@@ -361,14 +371,15 @@ async function getChapterText(book, chapter, useFirst, useSecond, useMayhew, use
         "Content-type": "application/json; charset=UTF-8"
         }
     }).then(res => res.json()).then(res => {
+        let numOfVerses = parseInt(res[101]);
         let primeNumbers = [2, 3, 5, 7, 11, 13];
-        for (let i = 0; i < primeNumbers.length; i++) {
-            let prime = primeNumbers[i];
-            if (editionNumber % prime == 0) {
-                let verseText = res[prime].toString().replaceAll('8', 'ꝏ̄').replaceAll('$', ' ');
-                let span = document.createElement('span');
-                span.innerHTML = prime.toString() + ": " + verseText + '<br>';
-                textContainer.appendChild(span);
+        let usefulPrimes = getUsefulPrimes(editionNumber, primeNumbers);
+
+        for (let j = 0; j < numOfVerses; j++) {
+            let verseTextDict = {};
+            for (let k = 0; k < usefulPrimes.length; k++) {
+                let p = usefulPrimes[k];
+                let thisVerseText = res[p][j].toString().replaceAll('8', 'ꝏ̄').replaceAll('$', ' ').replaceAll('{', '<i>').replaceAll('}', '</i>');
             }
         }
     }).catch(err => console.error(err));
@@ -402,7 +413,7 @@ async function getOneVerseText(book, chapter, verse, useFirst, useSecond, useMay
         for (let i = 0; i < primeNumbers.length; i++) {
             let prime = primeNumbers[i];
             if (editionNumber % prime == 0) {
-                let verseText = res[prime].toString().replaceAll('8', 'ꝏ̄').replaceAll('$', ' ');
+                let verseText = res[prime].toString().replaceAll('8', 'ꝏ̄').replaceAll('$', ' ').replaceAll('{', '<i>').replaceAll('}', '</i>');;
                 let span = document.createElement('span');
                 span.innerHTML = prime.toString() + ": " + verseText + '<br>';
                 textContainer.appendChild(span);
@@ -431,6 +442,84 @@ chapterDropdown.addEventListener('change', async function() {
     }
 });
 
+function createNavButtons(currentChapter, isLastChapter) {
+    document.getElementById("navButtonGrid").innerHTML = "";
+    document.getElementById("navButtonGrid").style.background = "white";
+
+    let buttonDivNames = ["firstChapterButtonDiv", "prevChapterButtonDiv", "nextChapterButtonDiv", "lastChapterButtonDiv"];
+
+    let buttonDivList = []
+
+    for (let i = 0; i < buttonDivNames.length; i++) {
+        let thisDiv = document.createElement("div");
+        thisDiv.id = buttonDivNames[i];
+        thisDiv.style.gridRow = "1";
+        thisDiv.style.gridColumn = (i + 1).toString();
+        buttonDivList.push(thisDiv);
+    }
+    
+    let allButtonList = [];
+
+    if (currentChapter > 1) {
+        let firstChapterButton = document.createElement("button");
+        firstChapterButton.innerHTML = "↞";
+        firstChapterButton.id = "firstChapterButton";
+
+        firstChapterButton.addEventListener("click", function() {
+            document.getElementById("chapterSelectionDropdown").value = 1;
+            document.getElementById("submitBookQuery").click();
+        });
+
+        let prevChapterButton = document.createElement("button");
+        prevChapterButton.innerHTML = "←";
+        prevChapterButton.id = "prevChapterButton";
+
+        prevChapterButton.addEventListener("click", function() {
+            document.getElementById("chapterSelectionDropdown").value = parseInt(currentChapter) - 1;
+            document.getElementById("submitBookQuery").click();
+        });
+
+    } else {
+        let firstChapterButton = document.createElement("span");
+        let prevChapterButton = document.createElement("span");
+    }
+
+    allButtonList.push(firstChapterButton);
+    allButtonList.push(prevChapterButton);
+
+    if (! isLastChapter) {
+        let nextChapterButton = document.createElement("button");
+        nextChapterButton.innerHTML = "→";
+        nextChapterButton.id = "nextChapterButton";
+
+        nextChapterButton.addEventListener("click", function() {
+            document.getElementById("chapterSelectionDropdown").value = parseInt(currentChapter) + 1;
+            document.getElementById("submitBookQuery").click();
+        });
+        
+        let lastChapterButton = document.createElement("button");
+        lastChapterButton.innerHTML = "↠";
+        lastChapterButton.id = "lastChapterButton";
+
+        lastChapterButton.addEventListener("click", function() {
+            document.getElementById("chapterSelectionDropdown").value = deployedBookToChapterDict[document.getElementById("bookSelectionDropdown").value];
+            document.getElementById("submitBookQuery").click();
+        });
+    } else {
+        let nextChapterButton = document.createElement("span");
+        let lastChapterButton = document.createElement("span");
+    }
+
+    allButtonList.push(nextChapterButton);
+    allButtonList.push(lastChapterButton);
+
+    for (let i = 0; i < allButtonList.length; i++) {
+        buttonDivList[i].appendChild(allButtonList[i]);
+        document.getElementById("navButtonGrid").appendChild(buttonDivList[i]);
+    }
+}
+
+
 document.getElementById("submit").addEventListener('click', async function() {
     let book = bookDropdown.value;
 
@@ -446,7 +535,8 @@ document.getElementById("submit").addEventListener('click', async function() {
 
 
     let chapter = chapterDropdown.value;
-    let verse = document.getElementById("verseSelectionDropdown").value;
+
+    let isLastChapter = (chapter == bookToChapterDict[book]);
 
     let useFirst = document.getElementById("useFirstEdition").checked;
     let useSecond = document.getElementById("useSecondEdition").checked;
@@ -459,17 +549,20 @@ document.getElementById("submit").addEventListener('click', async function() {
     //let useGrebrew = document.getElementById("useGrebrew").checked;
     //let useRawText = document.getElementById("useRawText").checked;
 
+    createNavButtons(chapter, isLastChapter);
+
     let textContainer = document.getElementById("comparedVerses");
 
     await getOneVerseText(book, chapter, verse, useFirst, useSecond, useMayhew, useZeroth, useKJV, useGrebrew, useRawText, textContainer);
 
 });
 
+
 /*
 //This programs takes the raw text from the first and second edition, compares them, and returns them as HTML strings with the differences marked.
 
 function cleanDiacritics(word) {
-    var charReplacementDict = {
+    let charReplacementDict = {
         "á": "a",
         "é": "e",
         "í": "i",
@@ -504,8 +597,8 @@ function cleanDiacritics(word) {
         "ū": "un"
     }
 
-    var cleanedWord = "";
-    for (var i = 0; i < word.length; i++) {
+    let cleanedWord = "";
+    for (let i = 0; i < word.length; i++) {
         if (word[i] in charReplacementDict) {
             cleanedWord += charReplacementDict[word[i]];
         } else {
