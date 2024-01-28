@@ -197,7 +197,7 @@ export async function getChapterText(book: string, chapter: number, editionNumbe
             let thisKey = parseInt(thisVerseKeyList[k]);
             if (thisKey in finalDict && thisVerseDict[thisKey] != "") {
                 finalDict[thisKey].push(thisVerseDict[thisKey]);
-            } else if (thisVerseDict[thisKey] != ""){
+            } else if (thisVerseDict[thisKey] != "") {
                 finalDict[thisKey] = [thisVerseDict[thisKey]];
             } else {
                 finalDict[thisKey] = [""];

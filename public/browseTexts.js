@@ -410,12 +410,13 @@ async function getOneVerseText(book, chapter, verse, useFirst, useSecond, useMay
         }
     }).then(res => res.json()).then(res => {
         let primeNumbers = [2, 3, 5, 7, 11, 13];
-        for (let i = 0; i < primeNumbers.length; i++) {
-            let prime = primeNumbers[i];
-            if (editionNumber % prime == 0) {
-                let verseText = res[prime].toString().replaceAll('8', 'ꝏ̄').replaceAll('$', ' ').replaceAll('{', '<i>').replaceAll('}', '</i>');;
+        let usefulPrimes = getUsefulPrimes(editionNumber, primeNumbers);
+        for (let i = 0; i < usefulPrimes.length; i++) {
+            let p = usefulPrimes[i];
+            if (editionNumber % p == 0) {
+                let verseText = res[p].toString().replaceAll('8', 'ꝏ̄').replaceAll('$', ' ').replaceAll('{', '<i>').replaceAll('}', '</i>');;
                 let span = document.createElement('span');
-                span.innerHTML = prime.toString() + ": " + verseText + '<br><br>';
+                span.innerHTML = p.toString() + ": " + verseText + '<br><br>';
                 textContainer.appendChild(span);
             }
         }
