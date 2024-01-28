@@ -429,6 +429,15 @@ bookDropdown.addEventListener('change', async function() {
     updateChapterDropdown(book);
     chapterDropdown.hidden = false;
     chapterLegend.hidden = false;
+    
+    if (book == "John" || book == "Psalms (prose)") {
+        document.getElementById("mayhewContainer").hidden = false;
+    }
+
+    if (book == "Genesis") {
+        document.getElementById("zerothContainer").hidden = false;
+    }
+
 });
 
 chapterDropdown.addEventListener('change', async function() {
@@ -530,18 +539,7 @@ function createNavButtons(currentChapter, isLastChapter) {
 document.getElementById("submit").addEventListener('click', async function() {
     let book = bookDropdown.value;
 
-    if (book == "John" || book == "Psalms (prose)") {
-        document.getElementById("mayhewContainer").hidden = false;
-        
-        //document.getElementById("useMayhew").checked = true;
-        //document.getElementById("useMayhew").hidden = false;
-    }
 
-    if (book == "Genesis") {
-        document.getElementById("zerothContainer").hidden = false;
-        //document.getElementById("useZerothEdition").checked = true;
-        //document.getElementById("useZerothEdition").hidden = false;
-    }
 
 
     let chapter = chapterDropdown.value;
