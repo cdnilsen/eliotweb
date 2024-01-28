@@ -750,7 +750,7 @@ document.getElementById("submitBookQuery").addEventListener('click', async funct
 
     await getChapterText(book, chapter, useFirst, useSecond, useMayhew, useZeroth, useKJV, useGrebrew, useRawText, textContainer);
 
-    await getOneVerseText(book, chapter, verse, useFirst, useSecond, useMayhew, useZeroth, useKJV, useGrebrew, useRawText, textContainer);
+    //await getOneVerseText(book, chapter, verse, useFirst, useSecond, useMayhew, useZeroth, useKJV, useGrebrew, useRawText, textContainer);
 
 });
 
