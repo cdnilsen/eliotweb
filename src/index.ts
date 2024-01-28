@@ -83,17 +83,17 @@ app.put('/runWordCounts', wrapAsync(async (req, res) => {
 }));
 
 
-app.get('/fetchChapter/:book/:chapterID/:editionNumber/:useRawString', wrapAsync(async (req, res) => {
+app.get('/fetchChapter/:book/:chapter/:editionNum/:useRawString', wrapAsync(async (req, res) => {
     try {
         let book: string = req.params.book;
 
-        let chapterNum: number = parseInt(req.params.chapterID);
+        let chapter: number = parseInt(req.params.chapter);
         
-        let editionNumber: number = parseInt(req.params.editionNumber);
+        let editionNum: number = parseInt(req.params.editionNum);
         
         let useRawString: boolean = (req.params.useRawString === 'true');
 
-        let result = await getChapterText(book, chapterNum, editionNumber, useRawString);
+        let result = await getChapterText(book, chapter, editionNum, useRawString);
         
         res.json(result);
     } catch (error) {
@@ -113,19 +113,17 @@ app.put('/runWordCounts', wrapAsync(async (req, res) => {
 }));
 
 
-app.get('/fetchVerse/:verseID/:editionNumber/:useRawString', wrapAsync(async (req, res) => {
+app.get('/fetchVerse/:verseID/:editionNum/:useRawString', wrapAsync(async (req, res) => {
     try {
         let verseID: number = parseInt(req.params.verseID);
         
-        let editionNumber: number = parseInt(req.params.editionNumber);
+        let editionNum: number = parseInt(req.params.editionNum);
         
         let useRawString: boolean = (req.params.useRawString === 'true');
 
-        let result = await getVerseText(verseID, editionNumber, useRawString);
+        let result = await getVerseText(verseID, editionNum, useRawString);
         
         res.json(result);
-
-        //res.json((verseID.toString() + ": " + editionNumber.toString() + ": " + useRawText.toString()));
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error in fetchVerse');

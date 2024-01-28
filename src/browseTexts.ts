@@ -129,6 +129,7 @@ const editionToColumnComparedDict: stringToStringDict = {
 //Since this gets used in getChapterText, it really needs to be rewritten as a function
 
 function verseFetcher(queryRow: any, editionNumber: number, useRawText: boolean) {
+
     let rawTextDict: IntToAnyDict = {
         2: queryRow.first_edition_raw,
         3: queryRow.second_edition_raw,
@@ -167,28 +168,24 @@ function verseFetcher(queryRow: any, editionNumber: number, useRawText: boolean)
         }
     }
     return finalVerseDict;
-
 }
+
 export async function getVerseText(verseNumber: number, editionNumber: number, useRawText: boolean)  {
     let queryRows = await pool.query("SELECT * FROM all_verses WHERE id = $1::int", [verseNumber]);
 
     return verseFetcher(queryRows.rows[0], editionNumber, useRawText);
 }
 
-export async function getChapterText(book: string, chapterNumber: number, editionNumber: number, useRawText: boolean) {
-    let queryRows = await pool.query("SELECT * FROM all_verses WHERE book = $1::string AND chapter = $2::int", [book, chapterNumber]);
+export async function getChapterText(book: string, chapter: number, editionNumber: number, useRawText: boolean) {
+    let queryRows = await pool.query("SELECT * FROM all_verses WHERE book = $1::string AND chapter = $2::int", [book, chapter]);
 
-    let verseIDList = [];
-    for (let i = 0; i < queryRows.rows.length; i++) {
-        verseIDList.push(queryRows.rows[i].id);
-    }
-
-    verseIDList.sort((a, b) => a - b);
+    queryRows.rows.sort((a: any, b: any) => a.id - b.id);
 
     let finalDict: IntToStringListDict = {};
 
-    for (let j = 0; j < verseIDList.length; j++) {
-        let thisVerseDict = await getVerseText(verseIDList[j], editionNumber, useRawText);
+    for (let j = 0; j < queryRows.rows.length; j++) {
+        let thisRow = queryRows.rows[j];
+        let thisVerseDict = verseFetcher(thisRow, editionNumber, useRawText);
         let thisVerseKeyList = Object.keys(thisVerseDict);
         thisVerseKeyList.sort((a, b) => parseInt(a) - parseInt(b));
         for (let k = 0; k < thisVerseKeyList.length; k++) {

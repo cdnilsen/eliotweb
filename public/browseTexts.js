@@ -297,8 +297,12 @@ let chapterDropdown = document.getElementById("chapterSelectionDropdown");
 let chapterLegend = document.getElementById("searchChapterLegend");
 function updateChapterDropdown(whichBook) {
     chapterDropdown.innerHTML = "";
-    for (var i = 1; i <= bookToChapterDict[whichBook]; i++) {
-        var option = document.createElement("option");
+    let dummyOption = document.createElement("option");
+    dummyOption.text = "";
+    dummyOption.value = "";
+    chapterDropdown.add(dummyOption);
+    for (let i = 1; i <= bookToChapterDict[whichBook]; i++) {
+        let option = document.createElement("option");
         option.text = i;
         option.value = i;
         chapterDropdown.add(option);
@@ -341,6 +345,36 @@ function appendNumberToIDString(IDString, number) {
     return finalString;
 }
 
+async function getChapterText(book, chapter, useFirst, useSecond, useMayhew, useZeroth, useKJV, useGrebrew, useRawText, textContainer) {
+    let editionNumber = getEditionCompositeNumber(useFirst, useSecond, useMayhew, useZeroth, useKJV, useGrebrew);
+
+    let useRawString = ""
+    if (useRawText) {
+        useRawString = 'true';
+    } else {
+        useRawString = 'false';
+    }
+
+    fetch('/fetchChapter/' + book + '/' + chapter + '/' + editionNumber.toString() + '/' + useRawString, {
+        method: 'GET',
+        headers: {
+        "Content-type": "application/json; charset=UTF-8"
+        }
+    }).then(res => res.json()).then(res => {
+        let primeNumbers = [2, 3, 5, 7, 11, 13];
+        for (let i = 0; i < primeNumbers.length; i++) {
+            let prime = primeNumbers[i];
+            if (editionNumber % prime == 0) {
+                let verseText = res[prime].toString().replaceAll('8', 'ꝏ̄').replaceAll('$', ' ');
+                let span = document.createElement('span');
+                span.innerHTML = prime.toString() + ": " + verseText + '<br>';
+                textContainer.appendChild(span);
+            }
+        }
+    }).catch(err => console.error(err));
+
+}
+
 async function getOneVerseText(book, chapter, verse, useFirst, useSecond, useMayhew, useZeroth, useKJV, useGrebrew, useRawText, textContainer) {
     textContainer.innerHTML = "";
 
@@ -368,7 +402,6 @@ async function getOneVerseText(book, chapter, verse, useFirst, useSecond, useMay
         for (let i = 0; i < primeNumbers.length; i++) {
             let prime = primeNumbers[i];
             if (editionNumber % prime == 0) {
-
                 let verseText = res[prime].toString().replaceAll('8', 'ꝏ̄').replaceAll('$', ' ');
                 let span = document.createElement('span');
                 span.innerHTML = prime.toString() + ": " + verseText + '<br>';
