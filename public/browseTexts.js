@@ -448,7 +448,7 @@ function createNavButtons(currentChapter, isLastChapter) {
 
     let buttonDivNames = ["firstChapterButtonDiv", "prevChapterButtonDiv", "nextChapterButtonDiv", "lastChapterButtonDiv"];
 
-    let buttonDivList = []
+    let buttonDivList = [];
 
     for (let i = 0; i < buttonDivNames.length; i++) {
         let thisDiv = document.createElement("div");
@@ -464,20 +464,23 @@ function createNavButtons(currentChapter, isLastChapter) {
         let firstChapterButton = document.createElement("button");
         firstChapterButton.innerHTML = "↞";
         firstChapterButton.id = "firstChapterButton";
-
+        /*
         firstChapterButton.addEventListener("click", function() {
             document.getElementById("chapterSelectionDropdown").value = 1;
             document.getElementById("submitBookQuery").click();
         });
+        */
 
         let prevChapterButton = document.createElement("button");
         prevChapterButton.innerHTML = "←";
         prevChapterButton.id = "prevChapterButton";
-
+        /*
         prevChapterButton.addEventListener("click", function() {
             document.getElementById("chapterSelectionDropdown").value = parseInt(currentChapter) - 1;
             document.getElementById("submitBookQuery").click();
         });
+        */
+
         allButtonList.push(firstChapterButton);
         allButtonList.push(prevChapterButton);
     } else {
@@ -493,20 +496,21 @@ function createNavButtons(currentChapter, isLastChapter) {
         let nextChapterButton = document.createElement("button");
         nextChapterButton.innerHTML = "→";
         nextChapterButton.id = "nextChapterButton";
-
+        /*
         nextChapterButton.addEventListener("click", function() {
             document.getElementById("chapterSelectionDropdown").value = parseInt(currentChapter) + 1;
             document.getElementById("submitBookQuery").click();
         });
-        
+        */
         let lastChapterButton = document.createElement("button");
         lastChapterButton.innerHTML = "↠";
         lastChapterButton.id = "lastChapterButton";
-
+        /*
         lastChapterButton.addEventListener("click", function() {
             document.getElementById("chapterSelectionDropdown").value = deployedBookToChapterDict[document.getElementById("bookSelectionDropdown").value];
             document.getElementById("submitBookQuery").click();
         });
+        */
         allButtonList.push(nextChapterButton);
         allButtonList.push(lastChapterButton);
     } else {
