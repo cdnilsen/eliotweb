@@ -429,7 +429,7 @@ bookDropdown.addEventListener('change', async function() {
     updateChapterDropdown(book);
     chapterDropdown.hidden = false;
     chapterLegend.hidden = false;
-    
+
     if (book == "John" || book == "Psalms (prose)") {
         document.getElementById("mayhewContainer").hidden = false;
     }
@@ -474,22 +474,19 @@ function createNavButtons(currentChapter, isLastChapter) {
         let firstChapterButton = document.createElement("button");
         firstChapterButton.innerHTML = "↞";
         firstChapterButton.id = "firstChapterButton";
-        /*
+
         firstChapterButton.addEventListener("click", function() {
             document.getElementById("chapterSelectionDropdown").value = 1;
             document.getElementById("submitBookQuery").click();
         });
-        */
 
         let prevChapterButton = document.createElement("button");
         prevChapterButton.innerHTML = "←";
         prevChapterButton.id = "prevChapterButton";
-        /*
         prevChapterButton.addEventListener("click", function() {
             document.getElementById("chapterSelectionDropdown").value = parseInt(currentChapter) - 1;
             document.getElementById("submitBookQuery").click();
         });
-        */
 
         allButtonList.push(firstChapterButton);
         allButtonList.push(prevChapterButton);
@@ -506,21 +503,18 @@ function createNavButtons(currentChapter, isLastChapter) {
         let nextChapterButton = document.createElement("button");
         nextChapterButton.innerHTML = "→";
         nextChapterButton.id = "nextChapterButton";
-        /*
         nextChapterButton.addEventListener("click", function() {
             document.getElementById("chapterSelectionDropdown").value = parseInt(currentChapter) + 1;
             document.getElementById("submitBookQuery").click();
         });
-        */
         let lastChapterButton = document.createElement("button");
         lastChapterButton.innerHTML = "↠";
         lastChapterButton.id = "lastChapterButton";
-        /*
+
         lastChapterButton.addEventListener("click", function() {
             document.getElementById("chapterSelectionDropdown").value = deployedBookToChapterDict[document.getElementById("bookSelectionDropdown").value];
             document.getElementById("submitBookQuery").click();
         });
-        */
         allButtonList.push(nextChapterButton);
         allButtonList.push(lastChapterButton);
     } else {
@@ -536,12 +530,8 @@ function createNavButtons(currentChapter, isLastChapter) {
     }
 }
 
-document.getElementById("submit").addEventListener('click', async function() {
+document.getElementById("submitBookQuery").addEventListener('click', async function() {
     let book = bookDropdown.value;
-
-
-
-
     let chapter = chapterDropdown.value;
     let verse = document.getElementById("verseSelectionDropdown").value;
 
