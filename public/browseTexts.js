@@ -403,14 +403,15 @@ async function getChapterText(book, chapter, useFirst, useSecond, useMayhew, use
     }).then(res => res.json()).then(res => {
         let numOfVerses = parseInt(res[101]);
         let primeNumbers = [2, 3, 5, 7, 11, 13];
-        let usefulPrimes = getUsefulPrimes(editionNumber, primeNumbers);
+        let usefulPrimes = getUsefulPrimes(editionNumber, primeNumbers); //this should be in the right order...
 
         for (let j = 0; j < numOfVerses; j++) {
             let verseTextDict = {};
             for (let k = 0; k < usefulPrimes.length; k++) {
                 let p = usefulPrimes[k];
                 let verseColumnDiv = document.createElement('div');
-                div.style = "grid-column: " + (i + 1).toString() + ";";
+                verseColumnDiv.class = "verseColumn";
+                verseColumnDiv.style = "grid-column: " + (i + 1).toString() + ";";
                 let verseText = res[p].toString().replaceAll('8', 'ꝏ̄').replaceAll('$', ' ').replaceAll('{', '<i>').replaceAll('}', '</i>');;
                 verseColumnDiv.innerHTML = verseText;
                 textContainer.appendChild(verseColumnDiv);
@@ -478,15 +479,16 @@ bookDropdown.addEventListener('change', async function() {
 });
 
 chapterDropdown.addEventListener('change', async function() {
-    document.getElementById("verseSelectionDropdown").hidden = false;
-    document.getElementById("searchVerseLegend").hidden = false;
-
+    //document.getElementById("verseSelectionDropdown").hidden = false;
+    //document.getElementById("searchVerseLegend").hidden = false;
+    /*
     for (let i = 0; i < bookToChapterVerseDict[bookDropdown.value][chapterDropdown.value - 1]; i++) {
         let verseOption = document.createElement('option');
         verseOption.text = i + 1;
         verseOption.value = i + 1;
         document.getElementById("verseSelectionDropdown").add(verseOption);
     }
+    */
 });
 
 function columnMeasurePopulator(numLeftColumns, numRightColumns) {
@@ -664,7 +666,7 @@ function createNavButtons(currentChapter, isLastChapter) {
         document.getElementById("navButtonGrid").appendChild(buttonDivList[i]);
     }
 }
-
+/*
 function populateVerseColumns(columnHeaderList, backendJSON, book) {
     let topDiv = document.getElementById("textColumns");
     topDiv.innerHTML = "";
@@ -712,7 +714,7 @@ function populateVerseColumns(columnHeaderList, backendJSON, book) {
         }
     }
 }
-
+*/
 document.getElementById("submitBookQuery").addEventListener('click', async function() {
     window.scrollTo(0, 0);
     let url = window.location.href;
@@ -729,7 +731,6 @@ document.getElementById("submitBookQuery").addEventListener('click', async funct
 
     let book = bookDropdown.value;
     let chapter = chapterDropdown.value;
-    let verse = document.getElementById("verseSelectionDropdown").value;
 
     let isLastChapter = (chapter == bookToChapterDict[book]);
 
