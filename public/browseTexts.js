@@ -541,6 +541,7 @@ document.getElementById("submit").addEventListener('click', async function() {
 
 
     let chapter = chapterDropdown.value;
+    let verse = document.getElementById("verseSelectionDropdown").value;
 
     let isLastChapter = (chapter == bookToChapterDict[book]);
 
