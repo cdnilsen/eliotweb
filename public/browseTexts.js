@@ -531,13 +531,16 @@ document.getElementById("submit").addEventListener('click', async function() {
     let book = bookDropdown.value;
 
     if (book == "John" || book == "Psalms (prose)") {
-        document.getElementById("useMayhew").checked = true;
-        document.getElementById("useMayhew").hidden = false;
+        document.getElementById("mayhewContainer").hidden = false;
+        
+        //document.getElementById("useMayhew").checked = true;
+        //document.getElementById("useMayhew").hidden = false;
     }
 
     if (book == "Genesis") {
-        document.getElementById("useZerothEdition").checked = true;
-        document.getElementById("useZerothEdition").hidden = false;
+        document.getElementById("zerothContainer").hidden = false;
+        //document.getElementById("useZerothEdition").checked = true;
+        //document.getElementById("useZerothEdition").hidden = false;
     }
 
 
