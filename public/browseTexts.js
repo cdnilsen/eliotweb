@@ -409,7 +409,11 @@ async function getChapterText(book, chapter, useFirst, useSecond, useMayhew, use
             let verseTextDict = {};
             for (let k = 0; k < usefulPrimes.length; k++) {
                 let p = usefulPrimes[k];
-                let thisVerseText = res[p][j].toString().replaceAll('8', 'ꝏ̄').replaceAll('$', ' ').replaceAll('{', '<i>').replaceAll('}', '</i>');
+                let verseColumnDiv = document.createElement('div');
+                div.style = "grid-column: " + (i + 1).toString() + ";";
+                let verseText = res[p].toString().replaceAll('8', 'ꝏ̄').replaceAll('$', ' ').replaceAll('{', '<i>').replaceAll('}', '</i>');;
+                verseColumnDiv.innerHTML = verseText;
+                textContainer.appendChild(verseColumnDiv);
             }
         }
     }).catch(err => console.error(err));
@@ -441,12 +445,15 @@ async function getOneVerseText(book, chapter, verse, useFirst, useSecond, useMay
     }).then(res => res.json()).then(res => {
         let primeNumbers = [2, 3, 5, 7, 11, 13];
         let usefulPrimes = getUsefulPrimes(editionNumber, primeNumbers);
+        let verseTextList = [];
         for (let i = 0; i < usefulPrimes.length; i++) {
             let p = usefulPrimes[i];
             if (editionNumber % p == 0) {
+                let verseColumnDiv = document.createElement('div');
+                div.style = "grid-column: " + (i + 1).toString() + ";";
                 let verseText = res[p].toString().replaceAll('8', 'ꝏ̄').replaceAll('$', ' ').replaceAll('{', '<i>').replaceAll('}', '</i>');;
                 let span = document.createElement('span');
-                span.innerHTML = verseText + '<br><br>';
+                span.innerHTML = verseText;
                 textContainer.appendChild(span);
             }
         }
@@ -739,7 +746,9 @@ document.getElementById("submitBookQuery").addEventListener('click', async funct
 
     createNavButtons(chapter, isLastChapter);
 
-    let textContainer = document.getElementById("comparedVerses");
+    let textContainer = document.getElementById("textColumns");
+
+    await getChapterText(book, chapter, useFirst, useSecond, useMayhew, useZeroth, useKJV, useGrebrew, useRawText, textContainer);
 
     await getOneVerseText(book, chapter, verse, useFirst, useSecond, useMayhew, useZeroth, useKJV, useGrebrew, useRawText, textContainer);
 
