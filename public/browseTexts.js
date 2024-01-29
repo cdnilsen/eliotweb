@@ -401,31 +401,26 @@ async function displayChapterText(book, chapter, useFirst, useSecond, useMayhew,
         "Content-type": "application/json; charset=UTF-8"
         }
     }).then(res => res.json()).then(res => {
-        for (let i = 0; i < res.length; i++) {
-            console.log(res[i]);
-        }
-        //console.log(res.toString());
-        /*
+        
         let numOfVerses = parseInt(res[101]);
         let primeNumbers = [2, 3, 5, 7, 11, 13];
-        let usefulPrimes = getUsefulPrimes(editionNumber, primeNumbers); //this should be in the right order...
+        let usefulPrimes = getUsefulPrimes(editionNumber, primeNumbers); 
         
         //Debug this section early in the morning tomorrow...?
 
         for (let j = 0; j < numOfVerses; j++) {
             let verseTextDict = {};
             for (let k = 0; k < usefulPrimes.length; k++) {
-                //let p = usefulPrimes[k];
-                //let verseColumnDiv = document.createElement('div');
-                //verseColumnDiv.class = "verseColumn";
-                //verseColumnDiv.style = "grid-column: " + (i + 1).toString() + ";";
+                let p = usefulPrimes[k];
+                let verseColumnDiv = document.createElement('div');
+                verseColumnDiv.class = "verseColumn";
+                verseColumnDiv.style = "grid-column: " + (i + 1).toString() + ";";
                 let verseText = res[p].toString().replaceAll('8', 'ꝏ̄').replaceAll('$', ' ').replaceAll('{', '<i>').replaceAll('}', '</i>');;
                 console.log(verseText);
-                //verseColumnDiv.innerHTML = verseText;
-                //textContainer.appendChild(verseColumnDiv);
+                verseColumnDiv.innerHTML = verseText;
+                textContainer.appendChild(verseColumnDiv);
             }
         }
-        */
     }).catch(err => console.error(err));
 
 }

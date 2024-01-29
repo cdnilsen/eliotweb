@@ -181,13 +181,6 @@ export async function getChapterText(book: string, chapter: number, editionNumbe
     
     let queryRows = await pool.query('SELECT * FROM all_verses WHERE book = $1::text AND chapter = $2::int', [book, chapter]);
 
-    let finalList: number[] = [];
-    for (let i = 0; i < queryRows.rows.length; i++) {
-        finalList.push(queryRows.rows[i].id);
-    }
-    return finalList;
-
-    /*
     let queryRowsLength = Math.max(queryRows.rows.length, 1);
 
     queryRows.rows.sort((a: any, b: any) => a.id - b.id);
@@ -213,5 +206,4 @@ export async function getChapterText(book: string, chapter: number, editionNumbe
         }
     }
     return finalDict;
-    */
 }
