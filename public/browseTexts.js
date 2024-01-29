@@ -385,8 +385,8 @@ function getUsefulPrimes(editionNumber, listOfPrimes) {
     return usefulPrimes;
 }
 
-async function displayChapterText(book, chapter, editionNum, useRawText, textContainer) {
-    //let editionNumber = getEditionCompositeNumber(useFirst, useSecond, useMayhew, useZeroth, useKJV, useGrebrew);
+async function displayChapterText(book, chapter, useFirst, useSecond, useMayhew, useZeroth, useKJV, useGrebrew, useRawText, textContainer) {
+    let editionNumber = getEditionCompositeNumber(useFirst, useSecond, useMayhew, useZeroth, useKJV, useGrebrew);
 
     let useRawString = ""
     if (useRawText) {
@@ -401,6 +401,7 @@ async function displayChapterText(book, chapter, editionNum, useRawText, textCon
         "Content-type": "application/json; charset=UTF-8"
         }
     }).then(res => res.json()).then(res => {
+        console.log(res.toString());
         /*
         let numOfVerses = parseInt(res[101]);
         let primeNumbers = [2, 3, 5, 7, 11, 13];
@@ -422,7 +423,6 @@ async function displayChapterText(book, chapter, editionNum, useRawText, textCon
             }
         }
         */
-           console.log(res.toString());
     }).catch(err => console.error(err));
 
 }
