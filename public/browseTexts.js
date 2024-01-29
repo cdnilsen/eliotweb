@@ -385,6 +385,105 @@ function getUsefulPrimes(editionNumber, listOfPrimes) {
     return usefulPrimes;
 }
 
+function columnHeaderPopulator(useFirst, useSecond, useMayhew, useZeroth, useKJV, useGrebrew, bookName) {
+    let numLeftColumns = 0;
+    let numRightColumns = 0;
+
+    let leftColumnList = [];
+    let rightColumnList = [];
+
+    let leftColumnIndexList = [];
+    let rightColumnIndexList = [];
+
+    let useHebrew = false;
+
+    let useOther = useMayhew || useZeroth;
+    let otherEditionNumber = 1;
+
+    if (useMayhew) {
+        otherEditionNumber *= 5;
+    } else if (useZeroth) {
+        otherEditionNumber *= 7;
+    }
+    
+    let otherName = "";
+    if (useMayhew) {
+        otherName = "Mayhew";
+    } else if (useZeroth) {
+        otherName = "Zeroth Edition";
+    }
+
+    if (useFirst) {
+        numLeftColumns += 1;
+        leftColumnList.push("First Edition");
+        leftColumnIndexList.push(2);
+    }
+
+    if (useSecond) {
+        numLeftColumns += 1;
+        leftColumnList.push("Second Edition");
+        leftColumnIndexList.push(3);
+    }
+
+    if (!useFirst && !useSecond && useOther) {
+        numLeftColumns += 1;
+        leftColumnList.push(otherName);
+        leftColumnIndexList.push(otherEditionNumber);
+    } else if (useOther) {
+        numRightColumns += 1;
+        rightColumnList.push(otherName);
+        rightColumnIndexList.push(otherEditionNumber);
+    }
+    
+    if (useKJV) {
+        numRightColumns += 1;
+        rightColumnList.push("KJV");
+        rightColumnIndexList.push(11);
+    }
+
+    if (useGrebrew) {
+        numRightColumns += 1;
+        let nameString = "";
+        if (NTBookList.includes(bookName)) {
+            nameString = "Greek";
+        } else {
+            nameString = "Hebrew";
+            useHebrew = true;
+        }
+        rightColumnList.push(nameString);
+        rightColumnIndexList.push(13);
+    }
+
+    return [numLeftColumns, numRightColumns, leftColumnList, rightColumnList, leftColumnIndexList, rightColumnIndexList, useHebrew];
+}
+
+function columnMeasurePopulator(numLeftColumns, numRightColumns) {
+    let allColumnMeasures = "";
+    let verseColumnMeasure = "10%"
+    if (numLeftColumns == 1) {
+        allColumnMeasures += "45% ";
+    } else if (numLeftColumns == 2) {
+        allColumnMeasures += "22.5% ";
+        allColumnMeasures += "22.5% ";
+    }
+
+    allColumnMeasures += verseColumnMeasure + " ";
+    
+    if (numRightColumns == 3) {
+        allColumnMeasures += "15% ";
+        allColumnMeasures += "15% ";
+        allColumnMeasures += "15% ";
+    } else if (numRightColumns == 2) {
+        rightColumnMeasure = "22.5%";
+        allColumnMeasures += "22.5% ";
+        allColumnMeasures += "22.5% ";
+    } else {
+        rightColumnMeasure = "45%";
+        allColumnMeasures += "45% ";
+    }
+    return allColumnMeasures.trim();
+}
+
 async function displayChapterText(book, chapter, useFirst, useSecond, useMayhew, useZeroth, useKJV, useGrebrew, useRawText, textContainer) {
     textContainer.innerHTML = "";
     let editionNumber = getEditionCompositeNumber(useFirst, useSecond, useMayhew, useZeroth, useKJV, useGrebrew);
@@ -396,6 +495,10 @@ async function displayChapterText(book, chapter, useFirst, useSecond, useMayhew,
         useRawString = 'false';
     }
 
+    let columnHeads = columnHeaderPopulator(useFirst, useSecond, useMayhew, useZeroth, useKJV, useGrebrew, book);
+    let firstIndex = columnHeads[4][0];
+    let verseRowStyleString = "display: grid; grid-template-columns: " + columnMeasurePopulator(columnHeads[0], columnHeads[1]) + ";";
+
     fetch('/fetchChapter/' + book + '/' + chapter + '/' + editionNumber.toString() + '/' + useRawString, {
         method: 'GET',
         headers: {
@@ -405,21 +508,31 @@ async function displayChapterText(book, chapter, useFirst, useSecond, useMayhew,
         
         let numOfVerses = parseInt(res[101]);
         let primeNumbers = [2, 3, 5, 7, 11, 13];
-        let usefulPrimes = getUsefulPrimes(editionNumber, primeNumbers); 
+        let usefulPrimes = getUsefulPrimes(editionNumber, primeNumbers);
         
         //Debug this section early in the morning tomorrow...?
 
         for (let j = 0; j < numOfVerses; j++) {
-            let verseTextDict = {};
+            let thisVerseRow = textContainer.createElement('div');
+            thisVerseRow.class = "verseRow";
+            thisVerseRow.style = verseRowStyleString;
+
             for (let k = 0; k < usefulPrimes.length; k++) {
                 let p = usefulPrimes[k];
-                let verseColumnDiv = document.createElement('div');
-                verseColumnDiv.class = "verseColumn";
-                verseColumnDiv.style = "grid-column: " + (j + 1).toString() + ";";
+                let thisVerseColumn = document.createElement('div');
+                if (p == firstIndex) {
+                    thisVerseColumn.class = "firstVerseColumn";
+                } else {
+                    thisVerseColumn.class = "verseColumn";
+                }
+                thisVerseColumn.style = "grid-column: " + (k + 1).toString() + ";";
+
                 let verseText = res[p][j].toString().replaceAll('8', 'ꝏ̄').replaceAll('$', ' ').replaceAll('{', '<i>').replaceAll('}', '</i>');
-                verseColumnDiv.innerHTML = verseText + '<br>';
-                textContainer.appendChild(verseColumnDiv);
+                verseColumnDiv.innerHTML = verseText;
+                thisVerseColumn.appendChild(verseColumnDiv);
+                thisVerseRow.appendChild(thisVerseColumn);
             }
+            textContainer.appendChild(thisVerseRow);
         }
     }).catch(err => console.error(err));
 
@@ -495,104 +608,9 @@ chapterDropdown.addEventListener('change', async function() {
     */
 });
 
-function columnMeasurePopulator(numLeftColumns, numRightColumns) {
-    let allColumnMeasures = "";
-    let verseColumnMeasure = "10%"
-    if (numLeftColumns == 1) {
-        allColumnMeasures += "45% ";
-    } else if (numLeftColumns == 2) {
-        allColumnMeasures += "22.5% ";
-        allColumnMeasures += "22.5% ";
-    }
 
-    allColumnMeasures += verseColumnMeasure + " ";
-    
-    if (numRightColumns == 3) {
-        allColumnMeasures += "15% ";
-        allColumnMeasures += "15% ";
-        allColumnMeasures += "15% ";
-    } else if (numRightColumns == 2) {
-        rightColumnMeasure = "22.5%";
-        allColumnMeasures += "22.5% ";
-        allColumnMeasures += "22.5% ";
-    } else {
-        rightColumnMeasure = "45%";
-        allColumnMeasures += "45% ";
-    }
-    return allColumnMeasures.trim();
-}
 
-function columnHeaderPopulator(useFirst, useSecond, useMayhew, useZeroth, useKJV, useGrebrew, bookName) {
-    let numLeftColumns = 0;
-    let numRightColumns = 0;
 
-    let leftColumnList = [];
-    let rightColumnList = [];
-
-    let leftColumnIndexList = [];
-    let rightColumnIndexList = [];
-
-    let useHebrew = false;
-
-    let useOther = useMayhew || useZeroth;
-    let otherEditionNumber = 1;
-
-    if (useMayhew) {
-        otherEditionNumber *= 5;
-    } else if (useZeroth) {
-        otherEditionNumber *= 7;
-    }
-    
-    let otherName = "";
-    if (useMayhew) {
-        otherName = "Mayhew";
-    } else if (useZeroth) {
-        otherName = "Zeroth Edition";
-    }
-
-    if (useFirst) {
-        numLeftColumns += 1;
-        leftColumnList.push("First Edition");
-        leftColumnIndexList.push(2);
-    }
-
-    if (useSecond) {
-        numLeftColumns += 1;
-        leftColumnList.push("Second Edition");
-        leftColumnIndexList.push(3);
-    }
-
-    if (!useFirst && !useSecond && useOther) {
-        numLeftColumns += 1;
-        leftColumnList.push(otherName);
-        leftColumnIndexList.push(otherEditionNumber);
-    } else if (useOther) {
-        numRightColumns += 1;
-        rightColumnList.push(otherName);
-        rightColumnIndexList.push(otherEditionNumber);
-    }
-    
-    if (useKJV) {
-        numRightColumns += 1;
-        rightColumnList.push("KJV");
-        rightColumnIndexList.push(11);
-    }
-
-    if (useGrebrew) {
-        numRightColumns += 1;
-        let nameString = "";
-        if (NTBookList.includes(bookName)) {
-            nameString = "Greek";
-        } else {
-            nameString = "Hebrew";
-            useHebrew = true;
-        }
-        rightColumnList.push(nameString);
-        rightColumnIndexList.push(13);
-    }
-
-    return [numLeftColumns, numRightColumns, leftColumnList, rightColumnList, leftColumnIndexList, rightColumnIndexList, useHebrew];
-}
 
 function createNavButtons(currentChapter, isLastChapter) {
     document.getElementById("navButtonGrid").innerHTML = "";
