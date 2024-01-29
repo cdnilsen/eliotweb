@@ -529,7 +529,7 @@ async function displayChapterText(book, chapter, useFirst, useSecond, useMayhew,
                 thisVerseColumn.style = "grid-column: " + (k + 1).toString() + ";";
 
                 let verseText = res[p][j].toString().replaceAll('8', 'ꝏ̄').replaceAll('$', ' ').replaceAll('{', '<i>').replaceAll('}', '</i>');
-                verseColumnDiv.innerHTML = verseText;
+                thisVerseColumn.innerHTML = verseText;
                 thisVerseRow.appendChild(thisVerseColumn);
             }
             textContainer.appendChild(thisVerseRow);
