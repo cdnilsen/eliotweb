@@ -459,7 +459,7 @@ function columnHeaderPopulator(useFirst, useSecond, useMayhew, useZeroth, useKJV
 
 function columnMeasurePopulator(numLeftColumns, numRightColumns) {
     let allColumnMeasures = "";
-    let rightColumnMeasure = "10%";
+    //let rightColumnMeasure = "10%";
     let verseColumnMeasure = "10%"
     if (numLeftColumns == 1) {
         allColumnMeasures += "45% ";
@@ -475,11 +475,11 @@ function columnMeasurePopulator(numLeftColumns, numRightColumns) {
         allColumnMeasures += "15% ";
         allColumnMeasures += "15% ";
     } else if (numRightColumns == 2) {
-        rightColumnMeasure = "22.5%";
+        //rightColumnMeasure = "22.5%";
         allColumnMeasures += "22.5% ";
         allColumnMeasures += "22.5% ";
     } else {
-        rightColumnMeasure = "45%";
+        //rightColumnMeasure = "45%";
         allColumnMeasures += "45% ";
     }
     return allColumnMeasures.trim();
