@@ -377,9 +377,15 @@ function appendNumberToIDString(IDString, number) {
 
 function getUsefulPrimes(editionNumber, listOfPrimes) {
     let usefulPrimes = [];
+    let addedVerseColumn = false;
     for (let i = 0; i < listOfPrimes.length; i++) {
         if (editionNumber % listOfPrimes[i] == 0) {
-            usefulPrimes.push(listOfPrimes[i]);
+            let thisPrime = listOfPrimes[i];
+            if (!addedVerseColumn && thisPrime > 3) {
+                usefulPrimes.push(43);
+                addedVerseColumn = true;
+            }
+            usefulPrimes.push(thisPrime);
         }
     }
     return usefulPrimes;
@@ -521,13 +527,12 @@ async function displayChapterText(book, chapter, useFirst, useSecond, useMayhew,
             let addedVerseNumber = false;
             for (let k = 0; k < usefulPrimes.length; k++) {
                 let p = usefulPrimes[k];
-                if (p > 3 && !addedVerseNumber) {
+                if (p == 43 && !addedVerseNumber) {
                     let verseNumColumn = document.createElement('div');
                     verseNumColumn.class = "verseColumn";
                     verseNumColumn.innerHTML = parseInt(chapter) + ':' + (j + 1).toString();
                     thisVerseRow.appendChild(verseNumColumn);
                     addedVerseNumber = true;
-                    //k -= 1;
                     continue;
                 }
                 let thisVerseColumn = document.createElement('div');
