@@ -530,6 +530,8 @@ async function displayChapterText(book, chapter, useFirst, useSecond, useMayhew,
     let firstIndex = columnHeads[4][0];
     let verseRowStyleString = "grid-template-columns: " + columnMeasurePopulator(columnHeads[0], columnHeads[1]) + ";";
 
+    let headerDiv = document.getElementById("editionHeaders");
+    headerDiv.innerHTML = "";
     fetch('/fetchChapter/' + book + '/' + chapter + '/' + editionNumber.toString() + '/' + useRawString, {
         method: 'GET',
         headers: {
@@ -545,7 +547,7 @@ async function displayChapterText(book, chapter, useFirst, useSecond, useMayhew,
         
         //Debug this section early in the morning tomorrow...?
 
-        let headerDiv = document.getElementById("editionHeaders");
+        
         headerDiv.style = "text-align: center; " + verseRowStyleString; 
         for (let i = 0; i < usefulPrimes.length; i++) {
             let divClass = "";
