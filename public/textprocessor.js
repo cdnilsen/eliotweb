@@ -234,6 +234,7 @@ async function sendRawJSON(book, edition, startChapter, endChapter) {
     for (let i = 0; i < allKeyList.length; i++) {
         let verseNum = allKeyList[i];
         let verseJSON = {"id": verseNum, "text": verseDict[verseNum], "edition": edition, "book": book};
+        console.log(verseNum + ": " + verseDict[verseNum]);
         fetch('/addRaw', {
             method: 'POST',
             body: JSON.stringify(verseJSON),
