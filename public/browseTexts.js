@@ -673,7 +673,7 @@ chapterDropdown.addEventListener('change', async function() {
 
 
 
-function createNavButtons(currentChapter, isLastChapter) {
+function createNavButtons(currentChapter, isLastChapter, book) {
     document.getElementById("navButtonGrid").innerHTML = "";
     document.getElementById("navButtonGrid").style.background = "white";
 
@@ -706,7 +706,7 @@ function createNavButtons(currentChapter, isLastChapter) {
         prevChapterButton.id = "prevChapterButton";
 
         prevChapterButton.addEventListener("click", function() {
-            document.getElementById("chapterSelectionDropdown").value = parseInt(currentChapter) - 1;
+            book.value = parseInt(currentChapter) - 1;
             document.getElementById("submitBookQuery").click();
         });
 
@@ -733,7 +733,7 @@ function createNavButtons(currentChapter, isLastChapter) {
         lastChapterButton.id = "lastChapterButton";
 
         lastChapterButton.addEventListener("click", function() {
-            document.getElementById("chapterSelectionDropdown").value = bookToChapterDict[document.getElementById("bookSelectionDropdown").value];
+            document.getElementById("chapterSelectionDropdown").value = bookToChapterDict[document.getElementById("bookSelectionDropdown")];
             document.getElementById("submitBookQuery").click();
         });
     } else {
@@ -828,7 +828,7 @@ document.getElementById("submitBookQuery").addEventListener('click', async funct
     //let useGrebrew = document.getElementById("useGrebrew").checked;
     //let useRawText = document.getElementById("useRawText").checked;
 
-    createNavButtons(chapter, isLastChapter);
+    createNavButtons(chapter, isLastChapter, book);
 
     let textContainer = document.getElementById("textColumns");
 
