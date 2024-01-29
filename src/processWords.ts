@@ -151,8 +151,6 @@ async function updateExistingWordInTable(word: string, verseID: number, count: n
         newVerseCountArray.push(count);
     }
 
-    
-
     await pool.query('UPDATE ' + tableName + ' SET addresses = $1::int[], verse_counts = $2::int[] WHERE word = $3::text', [newAddressArray, newVerseCountArray, word]);
 }
 
