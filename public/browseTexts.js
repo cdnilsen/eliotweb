@@ -504,7 +504,7 @@ async function displayChapterText(book, chapter, useFirst, useSecond, useMayhew,
 
     let columnHeads = columnHeaderPopulator(useFirst, useSecond, useMayhew, useZeroth, useKJV, useGrebrew, book);
     let firstIndex = columnHeads[4][0];
-    let verseRowStyleString = "display: grid; grid-template-columns: " + columnMeasurePopulator(columnHeads[0], columnHeads[1]) + ";";
+    let verseRowStyleString = "grid-template-columns: " + columnMeasurePopulator(columnHeads[0], columnHeads[1]) + ";";
 
     fetch('/fetchChapter/' + book + '/' + chapter + '/' + editionNumber.toString() + '/' + useRawString, {
         method: 'GET',
@@ -522,7 +522,7 @@ async function displayChapterText(book, chapter, useFirst, useSecond, useMayhew,
         for (let j = 0; j < numOfVerses; j++) {
             let thisVerseRow = document.createElement('div');
             thisVerseRow.class = "verseRow";
-            thisVerseRow.style = verseRowStyleString;
+            thisVerseRow.style = "grid-row: " + (j + 1).toString() + "; " + verseRowStyleString;
 
             let addedVerseNumber = false;
             for (let k = 0; k < usefulPrimes.length; k++) {
@@ -530,6 +530,7 @@ async function displayChapterText(book, chapter, useFirst, useSecond, useMayhew,
                 if (p == 43 && !addedVerseNumber) {
                     let verseNumColumn = document.createElement('div');
                     verseNumColumn.class = "verseColumn";
+                    verseNumColumn.style = 'grid-column: ' + (k + 1).toString() + '; text-align: center; font-weight: bold; font-size: 1.3em';
                     verseNumColumn.innerHTML = parseInt(chapter) + ':' + (j + 1).toString();
                     thisVerseRow.appendChild(verseNumColumn);
                     addedVerseNumber = true;
