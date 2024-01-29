@@ -182,7 +182,7 @@ export async function getChapterText(book: string, chapter: number, editionNumbe
     let queryRows = await pool.query("SELECT * FROM all_verses WHERE book = $1::string AND chapter = $2::int", [book, chapter]);
 
     for (let i = 0; i < queryRows.rows.length; i++) {
-        console.log(queryRows.rows[i]);
+        console.log(queryRows.rows[i].id);
     }
     return queryRows.rows;
     /*
