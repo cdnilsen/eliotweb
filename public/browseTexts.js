@@ -527,7 +527,7 @@ async function displayChapterText(book, chapter, useFirst, useSecond, useMayhew,
                     verseNumColumn.innerHTML = parseInt(chapter) + ':' + (j + 1).toString();
                     thisVerseRow.appendChild(verseNumColumn);
                     addedVerseNumber = true;
-                    k -= 1;
+                    //k -= 1;
                     continue;
                 }
                 let thisVerseColumn = document.createElement('div');
