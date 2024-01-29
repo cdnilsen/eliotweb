@@ -706,7 +706,7 @@ function createNavButtons(currentChapter, isLastChapter, book) {
         prevChapterButton.id = "prevChapterButton";
 
         prevChapterButton.addEventListener("click", function() {
-            book.value = parseInt(currentChapter) - 1;
+            document.getElementById("chapterSelectionDropdown").value = parseInt(currentChapter) - 1;
             document.getElementById("submitBookQuery").click();
         });
 
@@ -733,7 +733,7 @@ function createNavButtons(currentChapter, isLastChapter, book) {
         lastChapterButton.id = "lastChapterButton";
 
         lastChapterButton.addEventListener("click", function() {
-            document.getElementById("chapterSelectionDropdown").value = bookToChapterDict[document.getElementById("bookSelectionDropdown")];
+            document.getElementById("chapterSelectionDropdown").value = bookToChapterDict[book];
             document.getElementById("submitBookQuery").click();
         });
     } else {
