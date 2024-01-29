@@ -93,8 +93,8 @@ app.get('/fetchChapter/:book/:chapter/:editionNum/:useRawString', wrapAsync(asyn
         
         let useRawString: boolean = (req.params.useRawString === 'true');
 
-        //let result = book + "\n" + chapter + ":" + editionNum + "; " + useRawString;
-        let result = await getChapterText(book, chapter, editionNum, useRawString);
+        let result = book + "\n" + chapter + ":" + editionNum + "; " + useRawString;
+        //let result = await getChapterText(book, chapter, editionNum, useRawString);
         
         res.json(result);
     } catch (error) {
