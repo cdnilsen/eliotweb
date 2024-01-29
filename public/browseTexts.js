@@ -406,17 +406,18 @@ async function getChapterText(book, chapter, useFirst, useSecond, useMayhew, use
         let usefulPrimes = getUsefulPrimes(editionNumber, primeNumbers); //this should be in the right order...
         
         //Debug this section early in the morning tomorrow...?
-        
+
         for (let j = 0; j < numOfVerses; j++) {
             let verseTextDict = {};
             for (let k = 0; k < usefulPrimes.length; k++) {
-                let p = usefulPrimes[k];
-                let verseColumnDiv = document.createElement('div');
-                verseColumnDiv.class = "verseColumn";
-                verseColumnDiv.style = "grid-column: " + (i + 1).toString() + ";";
+                //let p = usefulPrimes[k];
+                //let verseColumnDiv = document.createElement('div');
+                //verseColumnDiv.class = "verseColumn";
+                //verseColumnDiv.style = "grid-column: " + (i + 1).toString() + ";";
                 let verseText = res[p].toString().replaceAll('8', 'ꝏ̄').replaceAll('$', ' ').replaceAll('{', '<i>').replaceAll('}', '</i>');;
-                verseColumnDiv.innerHTML = verseText;
-                textContainer.appendChild(verseColumnDiv);
+                console.log(verseText);
+                //verseColumnDiv.innerHTML = verseText;
+                //textContainer.appendChild(verseColumnDiv);
             }
         }
     }).catch(err => console.error(err));
