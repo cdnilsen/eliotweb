@@ -401,6 +401,7 @@ async function getChapterText(book, chapter, useFirst, useSecond, useMayhew, use
         "Content-type": "application/json; charset=UTF-8"
         }
     }).then(res => res.json()).then(res => {
+        /*
         let numOfVerses = parseInt(res[101]);
         let primeNumbers = [2, 3, 5, 7, 11, 13];
         let usefulPrimes = getUsefulPrimes(editionNumber, primeNumbers); //this should be in the right order...
@@ -420,6 +421,8 @@ async function getChapterText(book, chapter, useFirst, useSecond, useMayhew, use
                 //textContainer.appendChild(verseColumnDiv);
             }
         }
+        */
+           console.log(res);
     }).catch(err => console.error(err));
 
 }
