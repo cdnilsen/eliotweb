@@ -385,7 +385,7 @@ function getUsefulPrimes(editionNumber, listOfPrimes) {
     return usefulPrimes;
 }
 
-async function getChapterText(book, chapter, useFirst, useSecond, useMayhew, useZeroth, useKJV, useGrebrew, useRawText, textContainer) {
+async function displayChapterText(book, chapter, editionNumString, useRawText, textContainer) {
     let editionNumber = getEditionCompositeNumber(useFirst, useSecond, useMayhew, useZeroth, useKJV, useGrebrew);
 
     let useRawString = ""
@@ -755,7 +755,7 @@ document.getElementById("submitBookQuery").addEventListener('click', async funct
 
     let textContainer = document.getElementById("textColumns");
 
-    await getChapterText(book, chapter, useFirst, useSecond, useMayhew, useZeroth, useKJV, useGrebrew, useRawText, textContainer);
+    await displayChapterText(book, chapter, useFirst, useSecond, useMayhew, useZeroth, useKJV, useGrebrew, useRawText, textContainer);
 
     //await getOneVerseText(book, chapter, verse, useFirst, useSecond, useMayhew, useZeroth, useKJV, useGrebrew, useRawText, textContainer);
 
