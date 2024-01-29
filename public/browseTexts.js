@@ -401,7 +401,10 @@ async function displayChapterText(book, chapter, useFirst, useSecond, useMayhew,
         "Content-type": "application/json; charset=UTF-8"
         }
     }).then(res => res.json()).then(res => {
-        console.log(res.toString());
+        for (let i = 0; i < res.length; i++) {
+            console.log(res[i]);
+        }
+        //console.log(res.toString());
         /*
         let numOfVerses = parseInt(res[101]);
         let primeNumbers = [2, 3, 5, 7, 11, 13];

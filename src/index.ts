@@ -93,10 +93,9 @@ app.get('/fetchChapter/:book/:chapter/:editionNum/:useRawString', wrapAsync(asyn
         
         let useRawString: boolean = (req.params.useRawString === 'true');
 
-        let result = book + "\n" + chapter + ":" + editionNum + "; " + useRawString;
-        //let result = await getChapterText(book, chapter, editionNum, useRawString);
+        let resultRows = await getChapterText(book, chapter, editionNum, useRawString);
         
-        res.json(result);
+        res.json(resultRows);
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error in fetchVerse');
