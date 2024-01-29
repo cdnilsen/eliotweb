@@ -422,7 +422,7 @@ async function getChapterText(book, chapter, useFirst, useSecond, useMayhew, use
             }
         }
         */
-           console.log(res);
+           console.log(res.toString());
     }).catch(err => console.error(err));
 
 }
