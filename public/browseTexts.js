@@ -415,9 +415,8 @@ async function displayChapterText(book, chapter, useFirst, useSecond, useMayhew,
                 let verseColumnDiv = document.createElement('div');
                 verseColumnDiv.class = "verseColumn";
                 verseColumnDiv.style = "grid-column: " + (j + 1).toString() + ";";
-                let verseText = res[p].toString().replaceAll('8', 'ꝏ̄').replaceAll('$', ' ').replaceAll('{', '<i>').replaceAll('}', '</i>');;
-                console.log(verseText);
-                verseColumnDiv.innerHTML = verseText;
+                let verseText = res[p].toString().replaceAll('8', 'ꝏ̄').replaceAll('$', ' ').replaceAll('{', '<i>').replaceAll('}', '</i>');
+                verseColumnDiv.innerHTML = verseText + '<br>';
                 textContainer.appendChild(verseColumnDiv);
             }
         }
