@@ -88,6 +88,19 @@ tbody {
     z-index: 1;
 }
 
+.firstVerseColumn {
+    padding-bottom:20px;
+    padding-left:5px;
+    padding-right:5px;
+    padding-top:5px;
+    padding-bottom:20px;
+    vertical-align:top;
+    text-align:left;
+    position: sticky;
+    top: 10;
+    z-index: 1;
+}
+
 
 #stickyButtonBar {
     position: sticky;
