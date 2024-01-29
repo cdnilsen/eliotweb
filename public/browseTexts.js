@@ -459,6 +459,7 @@ function columnHeaderPopulator(useFirst, useSecond, useMayhew, useZeroth, useKJV
 
 function columnMeasurePopulator(numLeftColumns, numRightColumns) {
     let allColumnMeasures = "";
+    let rightColumnMeasure = "10%";
     let verseColumnMeasure = "10%"
     if (numLeftColumns == 1) {
         allColumnMeasures += "45% ";
