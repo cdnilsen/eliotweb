@@ -521,7 +521,8 @@ async function displayChapterText(book, chapter, useFirst, useSecond, useMayhew,
 
         for (let j = 0; j < numOfVerses; j++) {
             let thisVerseRow = document.createElement('div');
-            thisVerseRow.class = "verseRow";
+            thisVerseRow.classList.add("verseRow");
+            thisVerseRow.id = "verse " + (j + 1).toString();
             thisVerseRow.style = "grid-row: " + (j + 1).toString() + "; " + verseRowStyleString;
 
             let addedVerseNumber = false;
@@ -529,7 +530,7 @@ async function displayChapterText(book, chapter, useFirst, useSecond, useMayhew,
                 let p = usefulPrimes[k];
                 if (p == 43 && !addedVerseNumber) {
                     let verseNumColumn = document.createElement('div');
-                    verseNumColumn.class = "verseColumn";
+                    verseNumColumn.classList.add("verseColumn");
                     verseNumColumn.style = 'grid-column: ' + (k + 1).toString() + '; text-align: center; font-weight: bold; font-size: 1.3em';
                     verseNumColumn.innerHTML = parseInt(chapter) + ':' + (j + 1).toString();
                     thisVerseRow.appendChild(verseNumColumn);
@@ -538,9 +539,9 @@ async function displayChapterText(book, chapter, useFirst, useSecond, useMayhew,
                 }
                 let thisVerseColumn = document.createElement('div');
                 if (p == firstIndex) {
-                    thisVerseColumn.class = "firstVerseColumn";
+                    thisVerseColumn.classList.add("firstVerseColumn");
                 } else {
-                    thisVerseColumn.class = "verseColumn";
+                    thisVerseColumn.classList.add("verseColumn");
                 }
                 thisVerseColumn.style = "grid-column: " + (k + 1).toString() + ";";
 
