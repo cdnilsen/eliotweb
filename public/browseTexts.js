@@ -405,6 +405,7 @@ function getUsefulPrimes(compositeEditionNumber, listOfPrimes, bookName) {
             let thisPrime = listOfPrimes[i];
             if (!addedVerseColumn && thisPrime > 3) {
                 usefulPrimeList.push(43);
+                editionNameList.push("Verses");
                 addedVerseColumn = true;
             }
             usefulPrimeList.push(thisPrime);
