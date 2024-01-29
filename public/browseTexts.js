@@ -414,7 +414,7 @@ async function displayChapterText(book, chapter, useFirst, useSecond, useMayhew,
                 let p = usefulPrimes[k];
                 let verseColumnDiv = document.createElement('div');
                 verseColumnDiv.class = "verseColumn";
-                verseColumnDiv.style = "grid-column: " + (i + 1).toString() + ";";
+                verseColumnDiv.style = "grid-column: " + (j + 1).toString() + ";";
                 let verseText = res[p].toString().replaceAll('8', 'ꝏ̄').replaceAll('$', ' ').replaceAll('{', '<i>').replaceAll('}', '</i>');;
                 console.log(verseText);
                 verseColumnDiv.innerHTML = verseText;
