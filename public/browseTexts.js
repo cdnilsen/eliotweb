@@ -375,20 +375,43 @@ function appendNumberToIDString(IDString, number) {
     return finalString;
 }
 
-function getUsefulPrimes(editionNumber, listOfPrimes) {
+function getEditionName(book, editionNumber) {
+    let originalLanguage = "";
+    if (book in NTBookList) {
+        originalLanguage = "Greek";
+    } else {
+        originalLanguage = "Hebrew";
+    }
+
+    let primeToEditionDict = {
+        2: "First Edition",
+        3: "Second Edition",
+        5: "Mayhew",
+        7: "Zeroth Edition",
+        11: "KJV",
+        13: originalLanguage,
+        43: "Verse"
+    }
+
+    return primeToEditionDict[editionNumber];
+}
+
+function getUsefulPrimes(compositeEditionNumber, listOfPrimes, bookName) {
     let usefulPrimes = [];
+    let editionNameList = [];
     let addedVerseColumn = false;
     for (let i = 0; i < listOfPrimes.length; i++) {
-        if (editionNumber % listOfPrimes[i] == 0) {
+        if (compositeEditionNumber % listOfPrimes[i] == 0) {
             let thisPrime = listOfPrimes[i];
             if (!addedVerseColumn && thisPrime > 3) {
                 usefulPrimes.push(43);
                 addedVerseColumn = true;
             }
             usefulPrimes.push(thisPrime);
+            editionNameList.push(getEditionName(bookName, thisPrime));
         }
     }
-    return usefulPrimes;
+    return [usefulPrimes, editionNameList];
 }
 
 function columnHeaderPopulator(useFirst, useSecond, useMayhew, useZeroth, useKJV, useGrebrew, bookName) {
@@ -515,9 +538,27 @@ async function displayChapterText(book, chapter, useFirst, useSecond, useMayhew,
         
         let numOfVerses = parseInt(res[101]);
         let primeNumbers = [2, 3, 5, 7, 11, 13];
-        let usefulPrimes = getUsefulPrimes(editionNumber, primeNumbers);
+        let fetchedEditions = getUsefulPrimes(editionNumber, primeNumbers);
+        let usefulPrimes = fetchedEditions[0];
+        let editionNameList = fetchedEditions[1];
         
         //Debug this section early in the morning tomorrow...?
+
+        let headerDiv = document.getElementById("editionHeaders");
+        headerDiv.style = "text-align: center; " + verseRowStyleString; 
+        for (let i = 0; i < usefulPrimes.length(); i++) {
+            let divClass = "";
+            if (i == 0) {
+                divClass = "firstEditionHeader";
+            } else {
+                divClass = "editionHeader";
+            }
+            let editionHeadDiv = document.createElement('div');
+            editionHeadDiv.classList.add(divClass);
+            editionHeadDiv.style = "grid-column: " + (i + 1).toString() + ";";
+            editionHeadDiv.innerHTML = "<h1><u>" + editionNameList[i] + "</u></h1>";
+            headerDiv.appendChild(editionHeadDiv);
+        }
 
         for (let j = 0; j < numOfVerses; j++) {
             let thisVerseRow = document.createElement('div');
