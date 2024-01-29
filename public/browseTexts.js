@@ -514,7 +514,7 @@ async function displayChapterText(book, chapter, useFirst, useSecond, useMayhew,
         //Debug this section early in the morning tomorrow...?
 
         for (let j = 0; j < numOfVerses; j++) {
-            let thisVerseRow = textContainer.createElement('div');
+            let thisVerseRow = document.createElement('div');
             thisVerseRow.class = "verseRow";
             thisVerseRow.style = verseRowStyleString;
 
@@ -530,7 +530,6 @@ async function displayChapterText(book, chapter, useFirst, useSecond, useMayhew,
 
                 let verseText = res[p][j].toString().replaceAll('8', 'ꝏ̄').replaceAll('$', ' ').replaceAll('{', '<i>').replaceAll('}', '</i>');
                 verseColumnDiv.innerHTML = verseText;
-                thisVerseColumn.appendChild(verseColumnDiv);
                 thisVerseRow.appendChild(thisVerseColumn);
             }
             textContainer.appendChild(thisVerseRow);
