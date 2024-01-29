@@ -549,9 +549,9 @@ async function displayChapterText(book, chapter, useFirst, useSecond, useMayhew,
         for (let i = 0; i < usefulPrimes.length; i++) {
             let divClass = "";
             if (i == 0) {
-                divClass = "firstEditionHeader";
+                divClass = "firstColumnHeader";
             } else {
-                divClass = "editionHeader";
+                divClass = "columnHeader";
             }
             let editionHeadDiv = document.createElement('div');
             editionHeadDiv.classList.add(divClass);
