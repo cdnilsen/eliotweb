@@ -386,6 +386,7 @@ function getUsefulPrimes(editionNumber, listOfPrimes) {
 }
 
 async function displayChapterText(book, chapter, useFirst, useSecond, useMayhew, useZeroth, useKJV, useGrebrew, useRawText, textContainer) {
+    textContainer.innerHTML = "";
     let editionNumber = getEditionCompositeNumber(useFirst, useSecond, useMayhew, useZeroth, useKJV, useGrebrew);
 
     let useRawString = ""
