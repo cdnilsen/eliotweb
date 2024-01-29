@@ -518,8 +518,18 @@ async function displayChapterText(book, chapter, useFirst, useSecond, useMayhew,
             thisVerseRow.class = "verseRow";
             thisVerseRow.style = verseRowStyleString;
 
+            let addedVerseNumber = false;
             for (let k = 0; k < usefulPrimes.length; k++) {
                 let p = usefulPrimes[k];
+                if (p > 3 && !addedVerseNumber) {
+                    let verseNumColumn = document.createElement('div');
+                    verseNumColumn.class = "verseColumn";
+                    verseNumColumn.innerHTML = parseInt(chapter) + ':' + (j + 1).toString();
+                    thisVerseRow.appendChild(verseNumColumn);
+                    addedVerseNumber = true;
+                    k -= 1;
+                    continue;
+                }
                 let thisVerseColumn = document.createElement('div');
                 if (p == firstIndex) {
                     thisVerseColumn.class = "firstVerseColumn";
