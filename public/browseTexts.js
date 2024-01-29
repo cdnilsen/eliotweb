@@ -397,21 +397,21 @@ function getEditionName(book, editionNumber) {
 }
 
 function getUsefulPrimes(compositeEditionNumber, listOfPrimes, bookName) {
-    let usefulPrimes = [];
+    let usefulPrimeList = [];
     let editionNameList = [];
     let addedVerseColumn = false;
     for (let i = 0; i < listOfPrimes.length; i++) {
         if (compositeEditionNumber % listOfPrimes[i] == 0) {
             let thisPrime = listOfPrimes[i];
             if (!addedVerseColumn && thisPrime > 3) {
-                usefulPrimes.push(43);
+                usefulPrimeList.push(43);
                 addedVerseColumn = true;
             }
-            usefulPrimes.push(thisPrime);
+            usefulPrimeList.push(thisPrime);
             editionNameList.push(getEditionName(bookName, thisPrime));
         }
     }
-    return [usefulPrimes, editionNameList];
+    return [usefulPrimeList, editionNameList];
 }
 
 function columnHeaderPopulator(useFirst, useSecond, useMayhew, useZeroth, useKJV, useGrebrew, bookName) {
@@ -546,7 +546,7 @@ async function displayChapterText(book, chapter, useFirst, useSecond, useMayhew,
 
         let headerDiv = document.getElementById("editionHeaders");
         headerDiv.style = "text-align: center; " + verseRowStyleString; 
-        for (let i = 0; i < usefulPrimes.length(); i++) {
+        for (let i = 0; i < usefulPrimes.length; i++) {
             let divClass = "";
             if (i == 0) {
                 divClass = "firstEditionHeader";
