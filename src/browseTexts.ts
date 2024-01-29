@@ -180,12 +180,15 @@ export async function getVerseText(verseNumber: number, editionNumber: number, u
 export async function getChapterText(book: string, chapter: number, editionNumber: number, useRawText: boolean) {
     
     let queryRows = await pool.query("SELECT * FROM all_verses WHERE book = $1::string AND chapter = $2::int", [book, chapter]);
-    
+
+    console.log(queryRows.rows[0])
+    /*
     let finalList: number[] = [];
     for (let i = 0; i < queryRows.rows.length; i++) {
         finalList.push(queryRows.rows[i].id);
     }
     return finalList;
+    */
     /*
     let queryRowsLength = Math.max(queryRows.rows.length, 1);
 
