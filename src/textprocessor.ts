@@ -220,6 +220,7 @@ async function updateEdition(verseExists: boolean, verseID: string, verseText: s
         console.log(wordList);
         console.log(wordCountList);
     }
+    
     if (isMassachusett && verseExists) {
         let queryText = "UPDATE all_verses SET " + editionColumn + " = $1, " + wordListColumn + " = $2, " + wordCountColumn + " = $3 WHERE id = $4";
         await pool.query(queryText, [verseText, wordList, wordCountList, parseInt(verseID)])
