@@ -337,6 +337,7 @@ document.getElementById('submit').addEventListener("click", async function() {
         startChapter += 10;
         endChapter += 10;
         console.log(numberOfVerses.toString() + " verses processed in chapters " + startChapter.toString() + "-" + endChapter.toString() + ".");
+        console.log(bookToChapterDict[whichBook].toString());
     }
 
     let processedTextString = "Total verses processed: " + totalVersesProcessed.toString() + "\n";
