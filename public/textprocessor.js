@@ -300,7 +300,7 @@ async function sendADict(myDict, routeString) {
 
 
 async function sendRawJSON(book, edition, startChapter, endChapter) {
-    print("Sending raw JSON from chapter " + startChapter.toString() + " to " + endChapter.toString() + " of " + book + " (" + edition + ").");
+    console.log("Sending raw JSON from chapter " + startChapter.toString() + " to " + endChapter.toString() + " of " + book + " (" + edition + ").");
     let verseDict = await getRawVerseDict(book, edition, startChapter, endChapter);
     let allKeyList = Object.keys(verseDict);
     for (let i = 0; i < allKeyList.length; i++) {
@@ -315,7 +315,7 @@ async function sendRawJSON(book, edition, startChapter, endChapter) {
             }
         }).then(res => res.json()).then(res => console.log(res)).catch(err => console.error(err));
     }
-    print("Finished sending raw JSON from chapter " + startChapter.toString() + " to " + endChapter.toString() + " of " + book + " (" + edition + ").");
+    console.log("Finished sending raw JSON from chapter " + startChapter.toString() + " to " + endChapter.toString() + " of " + book + " (" + edition + ").");
     return allKeyList.length;
 }
 
@@ -338,8 +338,6 @@ document.getElementById('submit').addEventListener("click", async function() {
         totalVersesProcessed += numberOfVerses;
         startChapter += 10;
         endChapter += 10;
-        console.log(numberOfVerses.toString() + " verses processed in chapters " + startChapter.toString() + "-" + endChapter.toString() + ".");
-        console.log(bookToChapterDict[whichBook].toString());
     }
 
     let processedTextString = "Total verses processed: " + totalVersesProcessed.toString() + "\n";
