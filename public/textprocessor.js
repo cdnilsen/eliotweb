@@ -257,12 +257,7 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-async function getRawVerseDict(book, edition, startChapter, endChapter) {
-    let fileAddress = './texts/' + book + "." + edition + ".txt";
-
-    let file = await fetch(fileAddress);
-    let fileText = await file.text();
-    let textLines = fileText.split("\n");
+async function getRawVerseDict(book, startChapter, endChapter, textLines) {
     let verseDict = {};
     let bookNum = bookNumberString(book);
     for (let i = 0; i < textLines.length; i++) {
@@ -299,9 +294,8 @@ async function sendADict(myDict, routeString) {
 }
 
 
-async function sendRawJSON(book, edition, startChapter, endChapter) {
-    console.log("Sending raw JSON from chapter " + startChapter.toString() + " to " + endChapter.toString() + " of " + book + " (" + edition + ").");
-    let verseDict = await getRawVerseDict(book, edition, startChapter, endChapter);
+async function sendRawJSON(book, edition, startChapter, endChapter, textLines) {
+    let verseDict = await getRawVerseDict(book, startChapter, endChapter, textLines);
     let allKeyList = Object.keys(verseDict);
     for (let i = 0; i < allKeyList.length; i++) {
         let verseNum = allKeyList[i];
@@ -319,8 +313,8 @@ async function sendRawJSON(book, edition, startChapter, endChapter) {
     return allKeyList.length;
 }
 
-async function processText(whichBook, whichEdition, startChapter, endChapter) {
-    let numberOfVerses = await sendRawJSON(whichBook, whichEdition, startChapter, endChapter);
+async function processText(whichBook, whichEdition, startChapter, endChapter, textLines) {
+    let numberOfVerses = await sendRawJSON(whichBook, whichEdition, startChapter, endChapter, textLines);
     console.log("processText called from " + startChapter + "to " + endChapter + ".");
     return numberOfVerses;
 }
@@ -334,9 +328,15 @@ document.getElementById('submit').addEventListener("click", async function() {
 
     let totalVersesProcessed = 0;
     console.log(bookToChapterDict[whichBook]);
+
+    let fileAddress = './texts/' + book + "." + edition + ".txt";
+
+    let file = await fetch(fileAddress);
+    let fileText = await file.text();
+    let textLines = fileText.split("\n");
     
     while (startChapter <= bookToChapterDict[whichBook] || endChapter <= bookToChapterDict[whichBook]) {
-        let numberOfVerses = await processText(whichBook, whichEdition, startChapter, endChapter);
+        let numberOfVerses = await processText(whichBook, whichEdition, startChapter, endChapter, textLines);
         totalVersesProcessed += numberOfVerses;
         console.log("Processed from chapter " + startChapter.toString() + " to " + endChapter.toString() + " of " + whichBook + " (" + whichEdition + ").");
         startChapter += 10;
