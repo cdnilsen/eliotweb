@@ -173,9 +173,49 @@ async function appendWordDataOneTable(verseEditionID: number, countDict: stringT
         let thisCount = countDict[thisWord];
         await processWordInTable(thisWord, verseEditionID, thisCount, tableName);
     }
-
 }
 
+async function processBookWordTable(textName: string, wordList: string[], tableName: string) {
+    let myQuery = await(pool.query("SELECT * FROM " + tableName + " WHERE textID = $1::string", [textName]));
+    let queryRows = myQuery.rows;
+    let existingWords: string[] = [];
+    let getRidOfWords: string[] = [];
+    for (let i = 0; i < queryRows.length; i++) {
+        existingWords.push(queryRows[i].word);
+        if (!wordList.includes(queryRows[i].word)) {
+            getRidOfWords.push(queryRows[i].word);
+        }
+    }
+
+    let wordsToAdd: string[] = [];
+    for (let j = 0; j < wordList.length; j++) {
+        if (!existingWords.includes(wordList[j])) {
+            wordsToAdd.push(wordList[j]);
+        }
+    }
+
+    for (let k = 0; k < getRidOfWords.length; k++) {
+        await pool.query("DELETE FROM " + tableName + " WHERE word = $1::text AND textID = $2::text", [getRidOfWords[k], textName]);
+    }
+
+    for (let l = 0; l < wordsToAdd.length; l++) {
+        await pool.query("INSERT INTO " + tableName + "(word, textID) VALUES ($1::text, $2::text)", [wordsToAdd[l], textName]);
+    }
+}
+
+async function getHapaxes(checkDiacritics: boolean) {
+    let tableName = "words_diacritics";
+    if (checkDiacritics == false) {
+        tableName = "words_no_diacritics";
+    }
+    let query = await pool.query("SELECT * FROM " + tableName + " WHERE total_count = 1");
+    let allHapaxList = [];
+    let rows = query.rows;
+    for (let i = 0; i < rows.length; i++) {
+        allHapaxList.push(rows[i].word);
+    }
+    return allHapaxList;
+}
 
 async function appendWordData(verseEditionID: number, diacriticCountDict: stringToNumberDict, noDiacriticCountDict: stringToNumberDict) {
     await appendWordDataOneTable(verseEditionID, diacriticCountDict, "words_diacritics");
