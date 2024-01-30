@@ -335,7 +335,7 @@ document.getElementById('submit').addEventListener("click", async function() {
     let numberOfVerses = 1; //dummy value
     console.log(bookToChapterDict[whichBook]);
     
-    while (endChapter <= bookToChapterDict[whichBook]) {
+    while (startChapter <= bookToChapterDict[whichBook] || endChapter <= bookToChapterDict[whichBook]) {
         //numberOfVerses = await processText(whichBook, whichEdition, startChapter, endChapter);
         totalVersesProcessed += numberOfVerses;
         startChapter += 10;
