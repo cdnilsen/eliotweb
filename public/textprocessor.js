@@ -300,7 +300,7 @@ async function sendRawJSON(book, edition, startChapter, endChapter, textLines) {
     for (let i = 0; i < allKeyList.length; i++) {
         let verseNum = allKeyList[i];
         let verseJSON = {"id": verseNum, "text": verseDict[verseNum], "edition": edition, "book": book};
-        console.log(verseNum + ": " + verseDict[verseNum]);
+        //console.log(verseNum + ": " + verseDict[verseNum]);
         fetch('/addRaw', {
             method: 'POST',
             body: JSON.stringify(verseJSON),
@@ -369,7 +369,6 @@ document.getElementById('process_words').addEventListener("click", async functio
     let endingIndex = 49;
     while (startingIndex <= allIDLength) {
         let myIDList = allIDList.slice(startingIndex, endingIndex);
-    
         fetch('/processWords', {
             method: 'POST',
             body: JSON.stringify(myIDList),
@@ -377,6 +376,7 @@ document.getElementById('process_words').addEventListener("click", async functio
             "Content-type": "application/json; charset=UTF-8"
             }
         }).then(res => res.json()).then(res => console.log(res)).catch(err => console.error(err));
+        console.log("Processed " +  endingIndex.toString() + "/" + allIDLength.toString() + " verses.");
         
         startingIndex += 50;
         endingIndex += 50;
