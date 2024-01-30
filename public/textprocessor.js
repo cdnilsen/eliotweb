@@ -309,7 +309,7 @@ async function sendRawJSON(book, edition, startChapter, endChapter, textLines) {
             }
         }).then(res => res.json()).then(res => console.log(res)).catch(err => console.error(err));
     }
-    console.log("Finished sending raw JSON from chapter " + startChapter.toString() + " to " + endChapter.toString() + " of " + book + " (" + edition + ").");
+    //console.log("Finished sending raw JSON from chapter " + startChapter.toString() + " to " + endChapter.toString() + " of " + book + " (" + edition + ").");
     return allKeyList.length;
 }
 
