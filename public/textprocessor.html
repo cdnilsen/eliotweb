@@ -6,7 +6,7 @@
 </head>
 
 <body>
-    <a href="./index.html">Back to index</a>
+    <a href="index.html">Back to index</a>
     <br>
     <div class="dropdown" id="book-dropdown-container">
         Run this text:
@@ -37,4 +37,11 @@
     <button type="submit" id="run_word_counts">Get total word counts for all words</button>
 </body>
 <script type="module" src="textprocessor.js"></script>
+<script>
+    function closeIt(){
+        window.location.href = window.location.href.split("?")[0];
+    }
+    window.onbeforeunload = closeIt;
+    window.history.pushState({}, '', window.location.href.split("?")[0]);
+</script>
 </html>
