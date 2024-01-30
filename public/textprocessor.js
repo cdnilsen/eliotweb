@@ -329,7 +329,7 @@ document.getElementById('submit').addEventListener("click", async function() {
     let totalVersesProcessed = 0;
     console.log(bookToChapterDict[whichBook]);
 
-    let fileAddress = './texts/' + book + "." + edition + ".txt";
+    let fileAddress = './texts/' + whichBook + "." + whichEdition + ".txt";
 
     let file = await fetch(fileAddress);
     let fileText = await file.text();
