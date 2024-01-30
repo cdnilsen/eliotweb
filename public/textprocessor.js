@@ -363,7 +363,7 @@ document.getElementById('process_words').addEventListener("click", async functio
     let allIDList = await getAllVerseIDs();
     allIDList = allIDList.sort();
     let allIDLength = allIDList.length;
-    
+    console.log(allIDLength.toString());
     
     let startingIndex = 0;
     let endingIndex = 49;
@@ -376,6 +376,7 @@ document.getElementById('process_words').addEventListener("click", async functio
             "Content-type": "application/json; charset=UTF-8"
             }
         }).then(res => res.json()).then(res => console.log(res)).catch(err => console.error(err));
+        
         console.log("Processed " +  endingIndex.toString() + "/" + allIDLength.toString() + " verses.");
         
         startingIndex += 50;
