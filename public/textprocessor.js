@@ -336,11 +336,11 @@ document.getElementById('submit').addEventListener("click", async function() {
     console.log(bookToChapterDict[whichBook]);
     
     while (startChapter <= bookToChapterDict[whichBook] || endChapter <= bookToChapterDict[whichBook]) {
-        //numberOfVerses = await processText(whichBook, whichEdition, startChapter, endChapter);
+        numberOfVerses = await processText(whichBook, whichEdition, startChapter, endChapter);
         totalVersesProcessed += numberOfVerses;
+        console.log("Processed from chapter " + startChapter.toString() + " to " + endChapter.toString() + " of " + whichBook + " (" + whichEdition + ").");
         startChapter += 10;
         endChapter += 10;
-        console.log("Processed from chapter " + startChapter.toString() + " to " + endChapter.toString() + " of " + whichBook + " (" + whichEdition + ").");
     }
     
     //numberOfVerses = await processText(whichBook, whichEdition, 11, 20);
