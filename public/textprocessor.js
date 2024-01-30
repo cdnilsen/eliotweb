@@ -174,7 +174,7 @@ function editionNumberString(edition){
 }
 
 function chapterString(chapter) {
-    let chapterIDNum = chapter;
+    let chapterIDNum = chapter.toString();
     if (chapterIDNum.length == 1) {
         chapterIDNum = "00" + chapterIDNum;
     } else if (chapterIDNum.length == 2) {
@@ -184,7 +184,7 @@ function chapterString(chapter) {
 }
 
 function verseString(verse) {
-    let verseIDNum = verse;
+    let verseIDNum = verse.toString();
     if (verseIDNum.length == 1) {
         verseIDNum = "00" + verseIDNum;
     } else if (verseIDNum.length == 2) {
@@ -272,9 +272,9 @@ async function getRawVerseDict(book, edition, startChapter, endChapter) {
         }
         let splitLine = line.split(" ");
         let splitAddress = splitLine[0].split(".");
-        let chapter = splitAddress[0];
-        if (parseInt(chapter) >= startChapter && parseInt(chapter) <= endChapter) {
-            let verse = splitAddress[1];
+        let chapter = parseInt(splitAddress[0]);
+        if (chapter >= startChapter && chapter <= endChapter) {
+            let verse = parseInt(splitAddress[1]);
             let lineText = splitLine.slice(1).join(" ");
             try {
                 let verseIDNum = getVerseIDNum(bookNum, chapterString(chapter), verseString(verse));
@@ -333,7 +333,7 @@ document.getElementById('submit').addEventListener("click", async function() {
 
     let totalVersesProcessed = 0;
     let numberOfVerses = 1; //dummy value
-    while (startChapter <= bookToChapterDict[whichBook]) {
+    while (endChapter <= bookToChapterDict[whichBook]) {
         numberOfVerses = await processText(whichBook, whichEdition, startChapter, endChapter);
         totalVersesProcessed += numberOfVerses;
         startChapter += 10;
