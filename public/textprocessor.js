@@ -334,15 +334,16 @@ document.getElementById('submit').addEventListener("click", async function() {
     let totalVersesProcessed = 0;
     let numberOfVerses = 1; //dummy value
     console.log(bookToChapterDict[whichBook]);
-    /*
+    
     while (endChapter <= bookToChapterDict[whichBook]) {
-        numberOfVerses = await processText(whichBook, whichEdition, startChapter, endChapter);
+        //numberOfVerses = await processText(whichBook, whichEdition, startChapter, endChapter);
         totalVersesProcessed += numberOfVerses;
         startChapter += 10;
         endChapter += 10;
+        console.log("Processed from chapter " + startChapter.toString() + " to " + endChapter.toString() + " of " + whichBook + " (" + whichEdition + ").");
     }
-    */
-   numberOfVerses = await processText(whichBook, whichEdition, 11, 20);
+    
+    //numberOfVerses = await processText(whichBook, whichEdition, 11, 20);
 
     let processedTextString = "Total verses processed: " + totalVersesProcessed.toString() + "\n";
 
