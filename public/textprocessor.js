@@ -321,6 +321,7 @@ async function sendRawJSON(book, edition, startChapter, endChapter) {
 
 async function processText(whichBook, whichEdition, startChapter, endChapter) {
     let numberOfVerses = await sendRawJSON(whichBook, whichEdition, startChapter, endChapter);
+    console.log("processText called from " + startChapter + "to " + endChapter + ".");
     return numberOfVerses;
 }
 
@@ -332,11 +333,10 @@ document.getElementById('submit').addEventListener("click", async function() {
     let whichEdition = document.getElementById('searchEditionDropdown').value;
 
     let totalVersesProcessed = 0;
-    let numberOfVerses = 1; //dummy value
     console.log(bookToChapterDict[whichBook]);
     
     while (startChapter <= bookToChapterDict[whichBook] || endChapter <= bookToChapterDict[whichBook]) {
-        numberOfVerses = await processText(whichBook, whichEdition, startChapter, endChapter);
+        let numberOfVerses = await processText(whichBook, whichEdition, startChapter, endChapter);
         totalVersesProcessed += numberOfVerses;
         console.log("Processed from chapter " + startChapter.toString() + " to " + endChapter.toString() + " of " + whichBook + " (" + whichEdition + ").");
         startChapter += 10;
