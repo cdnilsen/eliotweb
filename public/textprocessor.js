@@ -333,6 +333,7 @@ document.getElementById('submit').addEventListener("click", async function() {
 
     let totalVersesProcessed = 0;
     let numberOfVerses = 1; //dummy value
+    console.log(bookToChapterDict[whichBook]);
     /*
     while (endChapter <= bookToChapterDict[whichBook]) {
         numberOfVerses = await processText(whichBook, whichEdition, startChapter, endChapter);
