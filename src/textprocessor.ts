@@ -214,17 +214,26 @@ async function updateEdition(verseExists: boolean, verseID: string, verseText: s
 
     let isMassachusett: boolean = (edition == "First Edition" || edition == "Second Edition" || edition == "Mayhew" || edition == "Zeroth Edition");
 
+    if (verseID == "102040027") {
+        console.log("This is the verse that's causing problems");
+        console.log(verseText);
+        console.log(wordList);
+        console.log(wordCountList);
+    }
     if (isMassachusett && verseExists) {
         let queryText = "UPDATE all_verses SET " + editionColumn + " = $1, " + wordListColumn + " = $2, " + wordCountColumn + " = $3 WHERE id = $4";
         await pool.query(queryText, [verseText, wordList, wordCountList, parseInt(verseID)])
         return (consoleAddress + " updated in database.")
+
     } else if (isMassachusett && !verseExists) {
         await pool.query('INSERT INTO all_verses(id, book, ' + editionColumn + ', ' + wordListColumn + ', ' + wordCountColumn + ', chapter, verse) VALUES($1, $2, $3, $4, $5, $6, $7)', [parseInt(verseID), book, verseText, wordList, wordCountList, chapter, verse]);
         return (consoleAddress + " inserted into database.")
+
     } else if (!isMassachusett && verseExists) {
         let queryText = "UPDATE all_verses SET " + editionColumn + " = $1 WHERE id = $2";
         await pool.query(queryText, [verseText, parseInt(verseID)])
         return (consoleAddress + " updated in database.")
+
     } else if (!isMassachusett && !verseExists) {
         await pool.query('INSERT INTO all_verses(id, book, ' + editionColumn + ', chapter, verse) VALUES($1, $2, $3, $4, $5)', [parseInt(verseID), book, verseText, chapter, verse]);
         return (consoleAddress + " inserted into database.")
@@ -258,12 +267,14 @@ async function verseUpdate(verseExists: boolean, verseID: string, verseText: str
             wordCountList.push(wordTextsAndCountDict[wordList[i]]);
         }
     }
+
     let outcome = await updateEdition(verseExists, verseID, verseText, edition, book, consoleAddress, editionColumn, wordListColumn, wordList, wordCountColumn,wordCountList, chapter, verse);
     return outcome;
 }
 
 export async function processVerseJSON(rawJSON: any) {
     let idNumber = rawJSON.id;
+    console.log(typeof idNumber);
     let rawText = rawJSON.text;
     let book = rawJSON.book;
     let edition = rawJSON.edition;
@@ -271,5 +282,4 @@ export async function processVerseJSON(rawJSON: any) {
     let hasVerse = (myQuery.rows.length > 0);
     let returnValue = await verseUpdate(hasVerse, idNumber, rawText, edition, book);
     return returnValue;
-    
 }
