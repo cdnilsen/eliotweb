@@ -300,6 +300,7 @@ async function sendADict(myDict, routeString) {
 
 
 async function sendRawJSON(book, edition, startChapter, endChapter) {
+    print("Sending raw JSON from chapter " + startChapter.toString() + " to " + endChapter.toString() + " of " + book + " (" + edition + ").");
     let verseDict = await getRawVerseDict(book, edition, startChapter, endChapter);
     let allKeyList = Object.keys(verseDict);
     for (let i = 0; i < allKeyList.length; i++) {
@@ -314,6 +315,7 @@ async function sendRawJSON(book, edition, startChapter, endChapter) {
             }
         }).then(res => res.json()).then(res => console.log(res)).catch(err => console.error(err));
     }
+    print("Finished sending raw JSON from chapter " + startChapter.toString() + " to " + endChapter.toString() + " of " + book + " (" + edition + ").");
     return allKeyList.length;
 }
 
