@@ -752,17 +752,27 @@ async function getOneVerseText(book, chapter, verse, useFirst, useSecond, useMay
 }
 
 function resetCheckboxes() {
-    let allContainerList = ['firstEditionContainer', 'secondEditionContainer', 'mayhewContainer', 'zerothEditionContainer', 'grebrewContainer'];
+    let allContainerList = [
+        document.getElementById('firstEditionContainer'),
+        document.getElementById('secondEditionContainer'),
+        document.getElementById('mayhewContainer'),
+        document.getElementById('zerothEditionContainer'),
+        document.getElementById('grebrewContainer')
+    ];
 
-    let allCheckboxList = ['useFirstEdition', 'useSecondEdition', 'useMayhew', 'useZerothEdition', 'useGrebrew'];
+    let allCheckboxList = [
+        document.getElementById('useFirstEdition'),
+        document.getElementById('useSecondEdition'),
+        document.getElementById('useMayhew'),
+        document.getElementById('useZerothEdition'),
+        document.getElementById('useGrebrew')
+    ];
     //let editionPrimesList = [2, 3, 5, 7, 13];
 
     for (let i = 0; i < 5; i++) {
-        if (i < 4) {
-            document.getElementById(allCheckboxList[i]).checked = false;
-        }
-        if (document.getElementById(allContainerList[i]).hidden == false) {
-            document.getElementById(allContainerList[i]).hidden = true;
+        allCheckboxList[i].checked = false;
+        if (allContainerList[i].hidden == false) {
+            allContainerList[i].hidden = true;
         }
     }
 }
