@@ -26,11 +26,15 @@
     <br>
     <span id="queryOptions">
     <div class="checkboxes" id="editionCheckbox">
-        <input type="checkbox" name="useFirstEdition" id="useFirstEdition" checked>
+
+        <span id="firstEditionContainer" hidden>
+        <input type="checkbox" name="useFirstEdition" id="useFirstEdition">
             <label for="useFirstEdition">First Edition (1661/1663)</label>
 
-        <input type="checkbox" name="useSecondEdition" id="useSecondEdition" checked>
+        <span id="secondEditionContainer" hidden>
+        <input type="checkbox" name="useSecondEdition" id="useSecondEdition">
             <label for="useSecondEdition">Second Edition (1685)</label>
+        </span>
 
         <span id="mayhewContainer" hidden>
         <input type="checkbox" name="useMayhew" id="useMayhew">
@@ -42,8 +46,10 @@
             <label for="useZerothEdition">Zeroth Edition (1685)</label>
         </span>
 
+        <span id="grebrewContainer" hidden>
         <input type="checkbox" name="useGrebrew" id="useGrebrew">
             <label for="useGrebrew">Show Hebrew/Greek (not yet implemented)</label>
+        </span>
     </div>
 
     <span style="color:red"><b>Highlight</b></span> Differences (not yet implemented):

@@ -346,7 +346,7 @@ const bookToActiveEditionsDict = {
     "Jonah": 6,
     "Micah": 1,
     "Nahum": 6,
-    "Habakkuk": 1,
+    "Habakkuk": 2,
     "Zephaniah": 6,
     "Haggai": 6, 
     "Zechariah": 6,
@@ -388,10 +388,12 @@ bookDropdown.add(blankOption);
 
 for (let i = 0; i < allBookList.length; i++) {
     let book = allBookList[i];
-    let bookOption = document.createElement('option');
-    bookOption.text = book;
-    bookOption.value = book;
-    bookDropdown.add(bookOption);
+    if (bookToActiveEditionsDict[book] > 1) {
+        let bookOption = document.createElement('option');
+        bookOption.text = book;
+        bookOption.value = book;
+        bookDropdown.add(bookOption);
+    }
 }
 
 let chapterDropdown = document.getElementById("chapterSelectionDropdown");
@@ -409,6 +411,36 @@ function updateChapterDropdown(whichBook) {
         chapterDropdown.add(option);
     }
     chapterDropdown.hidden = false;
+}
+
+function revealCheckboxes(book) {
+    let activeEditionsNumber = bookToActiveEditionsDict[book];
+
+    let whichPrimesList = [2, 3, 5, 7, 13];
+    let editionContainerDict = {
+        2: document.getElementById('firstEditionContainer'),
+        3: document.getElementById('secondEditionContainer'),
+        5: document.getElementById('mayhewContainer'),
+        7: document.getElementById('zerothContainer'),
+        13: document.getElementById('grebrewContainer')
+    }
+
+    let editionCheckboxDict = {
+        2: document.getElementById('useFirstEdition'),
+        3: document.getElementById('useSecondEdition'),
+        5: document.getElementById('useMayhew'),
+        7: document.getElementById('useZerothEdition'),
+        13: document.getElementById('useGrebrew')
+    }
+
+    for (let i = 0; i < whichPrimesList.length; i++) {
+        let p = whichPrimesList[i];
+        if (activeEditionsNumber % p == 0) {
+            editionContainerDict[p].hidden = false;
+            editionCheckboxDict[p].checked = true;
+        }
+    }
+
 }
 
 //Returns a unique integer for the combo of editions that the user wants to view; can be decomposed in the backend by modularity testing.
@@ -717,13 +749,7 @@ bookDropdown.addEventListener('change', async function() {
     chapterDropdown.hidden = false;
     chapterLegend.hidden = false;
 
-    if (book == "John" || book == "Psalms (prose)") {
-        document.getElementById("mayhewContainer").hidden = false;
-    }
-
-    if (book == "Genesis") {
-        document.getElementById("zerothContainer").hidden = false;
-    }
+    revealCheckboxes(book);
 
 });
 
