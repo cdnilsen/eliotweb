@@ -375,14 +375,14 @@ document.getElementById('process_words').addEventListener("click", async functio
             "Content-type": "application/json; charset=UTF-8"
             }
         }).then(res => res.json()).then(res => {
+
             for (let i = 0; i < res.length; i++) {
-                if (i % 50 == 0) {
-                    console.log(res.length);
+                console.log(typeof res[i]);
+                console.log(res[i].toString());
                     //works if need be
                     //console.log(res[i].toString() + " is word " + endingIndex.toString() + "/" + allIDLength.toString());
                 }
-            }
-        }).catch(err => console.error(err));
+            }).catch(err => console.error(err));
         
         //console.log("Processed " +  endingIndex.toString() + "/" + allIDLength.toString() + " verses.");
         
