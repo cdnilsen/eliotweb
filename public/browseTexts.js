@@ -757,14 +757,16 @@ function resetCheckboxes() {
     let allCheckboxList = ['useFirstEdition', 'useSecondEdition', 'useMayhew', 'useZerothEdition', 'useGrebrew'];
 
     for (let i = 0; i < 5; i++) {
-        document.getElementById(allCheckboxList[i]).checked = false;
-        document.getElementById(allContainerList[i]).hidden = true;
+        document.getElementById(allContainerList[i]).hidden = false;
+        if (i < 4) {
+            document.getElementById(allCheckboxList[i]).checked = true;
+        }
     }
 }
 
 bookDropdown.addEventListener('change', async function() {
 
-    resetCheckboxes()
+    resetCheckboxes();
     let book = bookDropdown.value;
     updateChapterDropdown(book);
     chapterDropdown.hidden = false;
