@@ -375,9 +375,10 @@ document.getElementById('process_words').addEventListener("click", async functio
             "Content-type": "application/json; charset=UTF-8"
             }
         }).then(res => res.json()).then(res => {
-            
             for (let i = 0; i < res.length; i++) {
-                console.log(res[i]);
+                if (i % 50 == 0) {
+                    console.log(res[i].toString() + " is word " + (i + 1).toString() + "/" + res.length.toString());
+                }
             }
         }).catch(err => console.error(err));
         
