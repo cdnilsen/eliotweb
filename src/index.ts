@@ -44,6 +44,7 @@ app.get('/getAllVerseIDs', wrapAsync(async (req, res) => {
         query.rows.forEach((row: any) => {
             IDList.push(row.id);
         });
+        res.json(IDList);
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error in getAllVerseIDs');
