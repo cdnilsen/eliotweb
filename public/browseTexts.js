@@ -379,14 +379,15 @@ const bookToActiveEditionsDict = {
     "Jude": 6,
     "Revelation": 6
 };
-/*
+
+//Seems to be necessary for it to show anything
 let bookDropdown = document.getElementById("searchBookDropdown");
-let blankOption = document.createElement('option');
-blankOption.text = "";
-blankOption.value = "";
-bookDropdown.add(blankOption);
-*/
-for (let i = 0; i < allBookList.length; i++) {
+let genesisOption = document.createElement('option');
+genesisOption.text = "Genesis";
+genesisOption.value = "Genesis";
+genesisOption.add(genesisOption);
+
+for (let i = 1; i < allBookList.length; i++) {
     let book = allBookList[i];
     if (bookToActiveEditionsDict[book] > 1) {
         let bookOption = document.createElement('option');
@@ -399,20 +400,22 @@ for (let i = 0; i < allBookList.length; i++) {
 let chapterDropdown = document.getElementById("chapterSelectionDropdown");
 let chapterLegend = document.getElementById("searchChapterLegend");
 function updateChapterDropdown(whichBook) {
-    /*chapterDropdown.innerHTML = "";
-    let dummyOption = document.createElement("option");
-    dummyOption.text = "";
-    dummyOption.value = "";
-    chapterDropdown.add(dummyOption);
-    */
-    for (let i = 1; i <= bookToChapterDict[whichBook]; i++) {
-        let option = document.createElement("option");
-        option.text = i;
-        option.value = i;
-        chapterDropdown.add(option);
+    chapterDropdown.innerHTML = "";
+    let chapter1option = document.createElement("option");
+    chapter1option.text = 1;
+    chapter1option.value = 1;
+    chapterDropdown.add(chapter1option);
+    if (bookToChapterDict[whichBook] > 1) {
+        for (let i = 2; i <= bookToChapterDict[whichBook]; i++) {
+            let option = document.createElement("option");
+            option.text = i;
+            option.value = i;
+            chapterDropdown.add(option);
+        }
     }
-    chapterDropdown.hidden = false;
 }
+
+updateChapterDropdown('Genesis');
 
 function revealCheckboxes(book) {
     let activeEditionsNumber = bookToActiveEditionsDict[book];
@@ -778,8 +781,6 @@ bookDropdown.addEventListener('change', async function() {
     resetCheckboxes();
     let book = bookDropdown.value;
     updateChapterDropdown(book);
-    chapterDropdown.hidden = false;
-    chapterLegend.hidden = false;
     revealCheckboxes(book);
 });
 
