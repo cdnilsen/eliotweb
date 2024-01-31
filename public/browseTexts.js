@@ -385,7 +385,7 @@ let bookDropdown = document.getElementById("searchBookDropdown");
 let genesisOption = document.createElement('option');
 genesisOption.text = "Genesis";
 genesisOption.value = "Genesis";
-genesisOption.add(genesisOption);
+bookDropdown.add(genesisOption);
 
 for (let i = 1; i < allBookList.length; i++) {
     let book = allBookList[i];
