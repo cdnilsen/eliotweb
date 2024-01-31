@@ -365,12 +365,9 @@ document.getElementById('process_words').addEventListener("click", async functio
 
     let startingIndex = 0;
     let endingIndex = 50;
-    let howManyFailed = 0;
-    let howManyTotal = 0;
+
     while (startingIndex <= allIDLength) {
         let myIDList = allIDList.slice(startingIndex, endingIndex); // works when logged
-
-        let fetchWorked = false;
         fetch('/processWords', {
             method: 'POST',
             body: JSON.stringify(myIDList),
@@ -378,22 +375,13 @@ document.getElementById('process_words').addEventListener("click", async functio
             "Content-type": "application/json; charset=UTF-8"
             }
         }).then(res => res.json()).then(res => {
-            fetchWorked = true;
-            console.log("Worked!")
-            }).catch(err => console.log(err));
-
-        
-        if (fetchWorked == false) {
-            howManyFailed += 1;
-        }
-        howManyTotal += 1;
-        
-        //console.log("Processed " +  endingIndex.toString() + "/" + allIDLength.toString() + " verses.");
+            console.log(res[0].toString() + " worked!");
+        }).catch(err => console.log(err));
         
         startingIndex += 50;
         endingIndex += 50;
     }
-    console.log(howManyFailed.toString() + " JSONs failed of "+ howManyTotal.toString());
+    //console.log(howManyFailed.toString() + " JSONs failed of "+ howManyTotal.toString());
     let newSpan = document.createElement('span');
     newSpan.innerHTML = allIDLength.toString() + " verses processed.\n";
 
