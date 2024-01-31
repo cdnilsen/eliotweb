@@ -347,6 +347,7 @@ export async function processBatchWordData(rawJSON: any) {
         let outcomeString = await processOneVerseWordData(parseInt(idList[i]));
         outputStringList.push(outcomeString);
     }
+    
     return outputStringList;
 }
 /*

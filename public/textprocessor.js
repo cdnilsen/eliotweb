@@ -368,6 +368,7 @@ document.getElementById('process_words').addEventListener("click", async functio
     let endingIndex = 49;
     while (startingIndex <= allIDLength) {
         let myIDList = allIDList.slice(startingIndex, endingIndex);
+        console.log(myIDList);
         fetch('/processWords', {
             method: 'POST',
             body: JSON.stringify(myIDList),

@@ -52,7 +52,6 @@ app.get('/getAllVerseIDs', wrapAsync(async (req, res) => {
 }));
 
 app.post('/processWords', wrapAsync(async (req, res) => {
-    
     try {
         //this seems to work...?
         let result = await processBatchWordData(req.body);
