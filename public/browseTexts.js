@@ -415,8 +415,6 @@ function updateChapterDropdown(whichBook) {
     }
 }
 
-updateChapterDropdown('Genesis');
-
 function revealCheckboxes(book) {
     let activeEditionsNumber = bookToActiveEditionsDict[book];
     let editionContainerDict = {
@@ -452,8 +450,10 @@ function revealCheckboxes(book) {
             editionCheckboxDict[p].checked = true;
         }
     }
-
 }
+
+updateChapterDropdown('Genesis');
+revealCheckboxes('Genesis')
 
 //Returns a unique integer for the combo of editions that the user wants to view; can be decomposed in the backend by modularity testing.
 function getEditionCompositeNumber(useFirst, useSecond, useMayhew, useZeroth, useKJV, useGrebrew) {
@@ -929,7 +929,7 @@ function populateVerseColumns(columnHeaderList, backendJSON, book) {
 document.getElementById("submitBookQuery").addEventListener('click', async function() {
     window.scrollTo(0, 0);
     let url = window.location.href;
-
+    //TODO: Add params to URL bar (check old version for how to do this)
     let params = new URLSearchParams(url.search);
 
     let myQueryOptions = document.getElementById("queryOptions");
