@@ -756,7 +756,7 @@ function resetCheckboxes() {
         document.getElementById('firstEditionContainer'),
         document.getElementById('secondEditionContainer'),
         document.getElementById('mayhewContainer'),
-        document.getElementById('zerothEditionContainer'),
+        document.getElementById('zerothContainer'),
         document.getElementById('grebrewContainer')
     ];
 
