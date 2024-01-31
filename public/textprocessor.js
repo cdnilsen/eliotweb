@@ -376,8 +376,8 @@ document.getElementById('process_words').addEventListener("click", async functio
             "Content-type": "application/json; charset=UTF-8"
             }
         }).then(res => res.json()).then(res => {
+            fetchWorked = true;
             for (let i = 0; i < res.length; i++) {
-                fetchWorked = true;
                 if (i % 50 == 0) {
                     //console.log(res[i].toString());
                     }
@@ -386,7 +386,7 @@ document.getElementById('process_words').addEventListener("click", async functio
                 }
             }).catch(err => console.log(err));
 
-        if (! fetchWorked) {
+        if (fetchWorked == false) {
             console.log(myIDList.length.toString());
             console.log(myIDList);
         }
