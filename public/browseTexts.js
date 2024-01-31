@@ -440,8 +440,6 @@ function revealCheckboxes(book) {
         originalLanguage = "Hebrew";
     }
 
-    document.getElementById('originalLanguage').innerHTML = originalLanguage;
-
     let whichPrimesList = [2, 3, 5, 7, 13];
     for (let i = 0; i < whichPrimesList.length; i++) {
         let p = whichPrimesList[i];
@@ -450,6 +448,7 @@ function revealCheckboxes(book) {
             editionCheckboxDict[p].checked = true;
         }
     }
+    document.getElementById('originalLanguage').innerHTML = originalLanguage;
 }
 
 updateChapterDropdown('Genesis');
