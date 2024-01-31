@@ -378,7 +378,7 @@ document.getElementById('process_words').addEventListener("click", async functio
             for (let i = 0; i < res.length; i++) {
                 if (i % 50 == 0) {
                     //hopefully this works better
-                    console.log(res[i].toString() + " is word " + (i + 1).toString() + "/" + res.length.toString());
+                    console.log(res[i].toString() + " is word " + endingIndex.toString() + "/" + allIDLength.toString());
                 }
             }
         }).catch(err => console.error(err));
