@@ -751,8 +751,20 @@ async function getOneVerseText(book, chapter, verse, useFirst, useSecond, useMay
     }).catch(err => console.error(err));
 }
 
+function resetCheckboxes() {
+    let allContainerList = ['firstEditionContainer', 'secondEditionContainer', 'mayhewContainer', 'zerothEditionContainer', 'grebrewContainer'];
 
-bookDropdown.addEventListener('change', async function() {    
+    let allCheckboxList = ['useFirstEdition', 'useSecondEdition', 'useMayhew', 'useZerothEdition', 'useGrebrew'];
+
+    for (let i = 0; i < 5; i++) {
+        document.getElementById(allCheckboxList[i]).checked = false;
+        document.getElementById(allContainerList[i]).hidden = true;
+    }
+}
+
+bookDropdown.addEventListener('change', async function() {
+
+    resetCheckboxes()
     let book = bookDropdown.value;
     updateChapterDropdown(book);
     chapterDropdown.hidden = false;
