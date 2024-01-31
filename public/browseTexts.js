@@ -415,8 +415,7 @@ function updateChapterDropdown(whichBook) {
 
 function revealCheckboxes(book) {
     let activeEditionsNumber = bookToActiveEditionsDict[book];
-
-    let whichPrimesList = [2, 3, 5, 7, 13];
+    console.log(book + ": " + activeEditionsNumber.toString());
     let editionContainerDict = {
         2: document.getElementById('firstEditionContainer'),
         3: document.getElementById('secondEditionContainer'),
@@ -433,6 +432,16 @@ function revealCheckboxes(book) {
         13: document.getElementById('useGrebrew')
     }
 
+    let originalLanguage = "";
+    if (book in NTBookList) {
+        originalLanguage = "Greek";
+    } else {
+        originalLanguage = "Hebrew";
+    }
+
+    document.getElementById('originalLanguage').innerHTML = originalLanguage;
+
+    let whichPrimesList = [2, 3, 5, 7, 13];
     for (let i = 0; i < whichPrimesList.length; i++) {
         let p = whichPrimesList[i];
         if (activeEditionsNumber % p == 0) {
@@ -748,9 +757,7 @@ bookDropdown.addEventListener('change', async function() {
     updateChapterDropdown(book);
     chapterDropdown.hidden = false;
     chapterLegend.hidden = false;
-
     revealCheckboxes(book);
-
 });
 
 chapterDropdown.addEventListener('change', async function() {
