@@ -374,9 +374,13 @@ document.getElementById('process_words').addEventListener("click", async functio
             headers: {
             "Content-type": "application/json; charset=UTF-8"
             }
-        }).then(res => res.json()).then(res => console.log(res)).catch(err => console.error(err));
+        }).then(res => res.json()).then(res => {
+            for (let i = 0; i < res.length; i++) {
+                console.log(res[i]);
+            }
+        }).catch(err => console.error(err));
         
-        console.log("Processed " +  endingIndex.toString() + "/" + allIDLength.toString() + " verses.");
+        //console.log("Processed " +  endingIndex.toString() + "/" + allIDLength.toString() + " verses.");
         
         startingIndex += 50;
         endingIndex += 50;

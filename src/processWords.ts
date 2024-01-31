@@ -157,22 +157,28 @@ async function updateExistingWordInTable(word: string, verseID: number, count: n
 async function processWordInTable(word: string, verseID: number, count: number, tableName: string) {
     let tableHasWord = await wordAlreadyInTable(word, tableName);
 
+    let consoleString = "";
     if (tableHasWord) {
         await updateExistingWordInTable(word, verseID, count, tableName);
+        consoleString = word + " updated";
     } else {
         let verseIDArray = [verseID];
         let countArray = [count];
         await pool.query('INSERT INTO ' + tableName + "(word, addresses, verse_counts) VALUES ($1::text, $2::int[], $3::int[])", [word, verseIDArray, countArray]);
+        consoleString = word + " inserted";
     }
+    return consoleString;
 }
 
 async function appendWordDataOneTable(verseEditionID: number, countDict: stringToNumberDict, tableName: string) {
     let allWords = Object.keys(countDict);
+    let outputString = "";
     for (let i = 0; i < allWords.length; i++) {
         let thisWord = allWords[i];
         let thisCount = countDict[thisWord];
-        await processWordInTable(thisWord, verseEditionID, thisCount, tableName);
+        outputString += await processWordInTable(thisWord, verseEditionID, thisCount, tableName) + "\n";
     }
+    return outputString; 
 }
 
 async function processBookWordTable(textName: string, wordList: string[], tableName: string) {
@@ -207,7 +213,7 @@ async function processBookWordTable(textName: string, wordList: string[], tableN
 
 async function cleanUpWordIndex(tableName: string, nukableWords: string[]) {
 
-    
+
 }
 
 async function updateBookWordTables(textName: string, wordListDiacritics: string[], wordListNoDiacritics: string[]) {
@@ -233,8 +239,10 @@ async function getHapaxes(checkDiacritics: boolean) {
 }
 
 async function appendWordData(verseEditionID: number, diacriticCountDict: stringToNumberDict, noDiacriticCountDict: stringToNumberDict) {
-    await appendWordDataOneTable(verseEditionID, diacriticCountDict, "words_diacritics");
+    let outputString = await appendWordDataOneTable(verseEditionID, diacriticCountDict, "words_diacritics");
     await appendWordDataOneTable(verseEditionID, noDiacriticCountDict, "words_no_diacritics");
+
+    return outputString;
 
 }
 
@@ -278,15 +286,15 @@ async function processOneVerseWordData(verseID: number) {
             noDiacriticWordDictList.push(getWordCountDict(thisEditionWordList, thisEditionCountList, false));
         }
     }
-
+    let finalOutput: string = "";
     for (let j = 0; j < activeVersesList.length; j++) {
         let thisVerseID = activeVersesList[j];
         let thisDiacriticCountDict = diacriticCountDictList[j];
         let thisNoDiacriticCountDict = noDiacriticWordDictList[j];
 
-        await appendWordData(thisVerseID, thisDiacriticCountDict, thisNoDiacriticCountDict);
+        finalOutput += await appendWordData(thisVerseID, thisDiacriticCountDict, thisNoDiacriticCountDict);
     }
-    
+    return finalOutput;
 }
 
 // This function populates the 'correspondence' columns in the word tables. In words_diacritics, this is the diacritic-less version of the word; in words_no_diacritics, it's an array of all words in words_diacritics that correspond to this word
@@ -334,9 +342,11 @@ export async function populateCorrespondences() {
 export async function processBatchWordData(rawJSON: any) {
     let idList: string[] = Object.values(rawJSON);
 
+    let outputStringList: string[] = [];
     for (let i = 0; i < idList.length; i++) {
-        await processOneVerseWordData(parseInt(idList[i]));
+        outputStringList.push(await processOneVerseWordData(parseInt(idList[i])));
     }
+    return outputStringList;
 }
 /*
 function sleep(ms: number) {
