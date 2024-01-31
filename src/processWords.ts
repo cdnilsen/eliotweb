@@ -201,6 +201,21 @@ async function processBookWordTable(textName: string, wordList: string[], tableN
     for (let l = 0; l < wordsToAdd.length; l++) {
         await pool.query("INSERT INTO " + tableName + "(word, textID) VALUES ($1::text, $2::text)", [wordsToAdd[l], textName]);
     }
+
+    return getRidOfWords;
+}
+
+async function cleanUpWordIndex(tableName: string, nukableWords: string[]) {
+
+    
+}
+
+async function updateBookWordTables(textName: string, wordListDiacritics: string[], wordListNoDiacritics: string[]) {
+
+    let nukeWordsDiacritics = await processBookWordTable(textName, wordListDiacritics, 'book_words_diacritics');
+
+    let nukeWordsNoDiacritics = await processBookWordTable(textName, wordListNoDiacritics, 'book_words_no_diacritics'); 
+
 }
 
 async function getHapaxes(checkDiacritics: boolean) {

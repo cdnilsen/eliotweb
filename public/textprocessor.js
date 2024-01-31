@@ -216,7 +216,6 @@ let editionDropdownContainer = document.getElementById("edition-dropdown-contain
 bookDropdown.addEventListener("change", function() {
 
     //editionDropdownContainer.innerHTML = "";
-
     let editionDropdown = document.getElementById('searchEditionDropdown');
     editionDropdown.innerHTML = "";
     document.getElementById("searchEditionLegend").hidden = false;
