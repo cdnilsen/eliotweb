@@ -379,13 +379,7 @@ document.getElementById('process_words').addEventListener("click", async functio
             }
         }).then(res => res.json()).then(res => {
             fetchWorked = true;
-            for (let i = 0; i < res.length; i++) {
-                if (i % 50 == 0) {
-                    //console.log(res[i].toString());
-                    }
-                    //works if need be
-                    //console.log(res[i].toString() + " is word " + endingIndex.toString() + "/" + allIDLength.toString());
-                }
+            console.log("Worked!")
             }).catch(err => console.log(err));
 
         
@@ -399,7 +393,7 @@ document.getElementById('process_words').addEventListener("click", async functio
         startingIndex += 50;
         endingIndex += 50;
     }
-    console.log(howManyFailed.toString() + "JSONs failed of "+ howManyTotal.toString());
+    console.log(howManyFailed.toString() + " JSONs failed of "+ howManyTotal.toString());
     let newSpan = document.createElement('span');
     newSpan.innerHTML = allIDLength.toString() + " verses processed.\n";
 
