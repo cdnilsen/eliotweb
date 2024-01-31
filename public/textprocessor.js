@@ -377,8 +377,9 @@ document.getElementById('process_words').addEventListener("click", async functio
         }).then(res => res.json()).then(res => {
             for (let i = 0; i < res.length; i++) {
                 if (i % 50 == 0) {
-                    //hopefully this works better
-                    console.log(res[i].toString() + " is word " + endingIndex.toString() + "/" + allIDLength.toString());
+                    console.log(res.length);
+                    //works if need be
+                    //console.log(res[i].toString() + " is word " + endingIndex.toString() + "/" + allIDLength.toString());
                 }
             }
         }).catch(err => console.error(err));
