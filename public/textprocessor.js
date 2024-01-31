@@ -367,8 +367,7 @@ document.getElementById('process_words').addEventListener("click", async functio
     let startingIndex = 0;
     let endingIndex = 50;
     while (startingIndex <= allIDLength) {
-        let myIDList = allIDList.slice(startingIndex, endingIndex);
-        console.log(myIDList);
+        let myIDList = allIDList.slice(startingIndex, endingIndex); // works when logged
         fetch('/processWords', {
             method: 'POST',
             body: JSON.stringify(myIDList),
@@ -376,9 +375,10 @@ document.getElementById('process_words').addEventListener("click", async functio
             "Content-type": "application/json; charset=UTF-8"
             }
         }).then(res => res.json()).then(res => {
-            console.log(res);
-            //for (let i = 0; i < res.length; i++) {
-            //}
+            
+            for (let i = 0; i < res.length; i++) {
+                console.log(res[i]);
+            }
         }).catch(err => console.error(err));
         
         //console.log("Processed " +  endingIndex.toString() + "/" + allIDLength.toString() + " verses.");

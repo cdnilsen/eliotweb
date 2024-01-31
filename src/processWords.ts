@@ -341,14 +341,15 @@ export async function populateCorrespondences() {
 
 export async function processBatchWordData(rawJSON: any) {
     let idList: string[] = Object.values(rawJSON);
-
+    return idList;
+    /*
     let outputStringList: string[] = [];
     for (let i = 0; i < idList.length; i++) {
         let outcomeString = await processOneVerseWordData(parseInt(idList[i]));
         outputStringList.push(outcomeString);
     }
-    
-    return outputStringList;
+    */
+    //return outputStringList;
 }
 /*
 function sleep(ms: number) {
