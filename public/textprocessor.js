@@ -365,6 +365,8 @@ document.getElementById('process_words').addEventListener("click", async functio
 
     let startingIndex = 0;
     let endingIndex = 50;
+    let howManyFailed = 0;
+    let howManyTotal = 0;
     while (startingIndex <= allIDLength) {
         let myIDList = allIDList.slice(startingIndex, endingIndex); // works when logged
 
@@ -386,16 +388,18 @@ document.getElementById('process_words').addEventListener("click", async functio
                 }
             }).catch(err => console.log(err));
 
+        
         if (fetchWorked == false) {
-            console.log(myIDList.length.toString());
-            console.log(myIDList);
+            howManyFailed += 1;
         }
+        howManyTotal += 1;
         
         //console.log("Processed " +  endingIndex.toString() + "/" + allIDLength.toString() + " verses.");
         
         startingIndex += 50;
         endingIndex += 50;
     }
+    console.log(howManyFailed.toString() + "JSONs failed of "+ howManyTotal.toString());
     let newSpan = document.createElement('span');
     newSpan.innerHTML = allIDLength.toString() + " verses processed.\n";
 
