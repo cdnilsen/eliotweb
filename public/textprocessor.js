@@ -393,7 +393,7 @@ document.getElementById('process_words').addEventListener("click", async functio
     newSpan.innerHTML = allIDLength.toString() + " verses processed.\n";
 
     sleep(500);
-
+    /*
     fetch('/populateCorrespondences', {
         method: 'PUT',
         body: JSON.stringify({"dummy": 0}),
@@ -401,7 +401,7 @@ document.getElementById('process_words').addEventListener("click", async functio
         "Content-type": "application/json; charset=UTF-8"
         }
     }).then(res => res.json()).then(res => console.log(res)).catch(err => console.error(err));
-
+    */
     document.getElementById("text-container").appendChild(newSpan);
 });
 
