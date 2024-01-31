@@ -65,7 +65,8 @@ app.post('/processWords', wrapAsync(async (req, res) => {
 
 app.put('/populateCorrespondences', wrapAsync(async (req, res) => {
     try {
-        let result = await populateCorrespondences();
+        //let result = await populateCorrespondences();
+        let result = "called populateCorrespondences (fix later)";
         res.json(result);
     } catch (error) {
         console.error(error);
