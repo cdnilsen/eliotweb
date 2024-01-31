@@ -761,7 +761,9 @@ function resetCheckboxes() {
         if (i < 4) {
             document.getElementById(allCheckboxList[i]).checked = false;
         }
-        document.getElementById(allContainerList[i]).hidden = true;
+        if (document.getElementById(allContainerList[i]).hidden == false) {
+            document.getElementById(allContainerList[i]).hidden = true;
+        }
     }
 }
 
