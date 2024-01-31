@@ -755,12 +755,13 @@ function resetCheckboxes() {
     let allContainerList = ['firstEditionContainer', 'secondEditionContainer', 'mayhewContainer', 'zerothEditionContainer', 'grebrewContainer'];
 
     let allCheckboxList = ['useFirstEdition', 'useSecondEdition', 'useMayhew', 'useZerothEdition', 'useGrebrew'];
+    //let editionPrimesList = [2, 3, 5, 7, 13];
 
     for (let i = 0; i < 5; i++) {
-        document.getElementById(allContainerList[i]).hidden = false;
         if (i < 4) {
-            document.getElementById(allCheckboxList[i]).checked = true;
+            document.getElementById(allCheckboxList[i]).checked = false;
         }
+        document.getElementById(allContainerList[i]).hidden = true;
     }
 }
 
