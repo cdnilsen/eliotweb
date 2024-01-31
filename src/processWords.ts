@@ -252,7 +252,7 @@ async function processOneVerseWordData(verseID: number) {
     let verseBook = verseRow.book;
     
     let outputString = "";
-    if (typeof verseRow.words_first_edition[0] == 'string' && verseRow.words_first_edition[0] != '') {
+    if (verseRow.words_first_edition.length > 1) {
         outputString = verseRow.words_first_edition[0];
     } else {
         outputString = "meow";
