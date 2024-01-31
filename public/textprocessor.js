@@ -360,7 +360,7 @@ async function getAllVerseIDs() {
 document.getElementById('process_words').addEventListener("click", async function() {
     //document.getElementById("text-container").innerHTML = "";
     let allIDList = await getAllVerseIDs();
-    allIDList = allIDList.sort();
+    //allIDList = allIDList.sort();
     let allIDLength = allIDList.length;
     console.log(allIDLength.toString());
     
