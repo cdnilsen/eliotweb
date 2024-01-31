@@ -337,7 +337,7 @@ document.getElementById('submit').addEventListener("click", async function() {
     while (startChapter <= bookToChapterDict[whichBook] || endChapter <= bookToChapterDict[whichBook]) {
         let numberOfVerses = await processText(whichBook, whichEdition, startChapter, endChapter, textLines);
         totalVersesProcessed += numberOfVerses;
-        console.log("Processed from chapter " + startChapter.toString() + " to " + endChapter.toString() + " of " + whichBook + " (" + whichEdition + ").");
+        //console.log("Processed from chapter " + startChapter.toString() + " to " + endChapter.toString() + " of " + whichBook + " (" + whichEdition + ").");
         startChapter += 10;
         endChapter += 10;
     }
