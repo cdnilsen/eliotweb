@@ -250,7 +250,15 @@ async function processOneVerseWordData(verseID: number) {
     let verseQuery = await pool.query("SELECT * FROM all_verses WHERE id = $1::int", [verseID]);
     let verseRow = verseQuery.rows[0];
     let verseBook = verseRow.book;
-
+    
+    let outputString = "";
+    try {
+        outputString = verseBook.words_first_edition[0];
+    } catch {
+        outputString = "meow";
+    }
+    return outputString;
+    /*
     let editionColumnList = [verseRow.words_first_edition, verseRow.words_second_edition];
     let countColumnList = [verseRow.word_counts_first_edition, verseRow.word_counts_second_edition];
 
@@ -295,6 +303,7 @@ async function processOneVerseWordData(verseID: number) {
         finalOutput += await appendWordData(thisVerseID, thisDiacriticCountDict, thisNoDiacriticCountDict);
     }
     return "mrow";
+    */
 }
 
 // This function populates the 'correspondence' columns in the word tables. In words_diacritics, this is the diacritic-less version of the word; in words_no_diacritics, it's an array of all words in words_diacritics that correspond to this word
