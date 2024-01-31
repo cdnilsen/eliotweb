@@ -365,7 +365,7 @@ document.getElementById('process_words').addEventListener("click", async functio
     console.log(allIDLength.toString());
     
     let startingIndex = 0;
-    let endingIndex = 49;
+    let endingIndex = 50;
     while (startingIndex <= allIDLength) {
         let myIDList = allIDList.slice(startingIndex, endingIndex);
         console.log(myIDList);
