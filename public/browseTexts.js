@@ -770,6 +770,8 @@ function resetCheckboxes() {
         document.getElementById('useZerothEdition'),
         document.getElementById('useGrebrew')
     ];
+    
+    document.getElementById('originalLanguage').innerHTML = "";
 
     for (let i = 0; i < 5; i++) {
         allCheckboxList[i].checked = false;
