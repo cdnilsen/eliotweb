@@ -57,8 +57,7 @@ app.post('/processWords', wrapAsync(async (req, res) => {
         let result = await processBatchWordData(req.body);
         res.json(result);
     } catch (error) {
-        console.error(error);
-        res.status(500).send('Internal Server Error in processWords');
+        console.error(res.body);
     }
 }));
 
