@@ -54,6 +54,7 @@
         </span>
     </div>
 
+    <div id="differenceSelection">
     <span style="color:red"><b>Highlight</b></span> Differences (not yet implemented):
         <input type="radio" name="show_differences" id="no_show" value = "no" checked>
             <label for="no_show">No</label>
@@ -63,8 +64,9 @@
 
         <input type="radio" name="show_differences" id="exclude_casing" value = "exclude_casing">
             <label for="exclude_casing">Yes, ignoring letter casing (<i>Wosketomp</i> = <i>wosketomp</i>)</label>
+        </div>
 
-        <br>
+        <div id="HapaxSelection">
         <u>Underline</u> Hapaxes (<span style="color: blue"><b>blue</b></span> in Hebrew):
         <input type="radio" name="show_hapaxes" id="dont_show" value = "no" checked>
             <label for="dont_show">No</label>
@@ -74,6 +76,7 @@
 
         <input type="radio" name="show_hapaxes" id="hapaxes_lax" value="hapaxes_lax">
             <label for="hapaxes_lax">Yes, lax on diacritics (<i>mátta</i> not counted as a hapax if <i>matta</i>)</label>
+        </div>
     </span>
     <br>
 

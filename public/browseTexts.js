@@ -379,13 +379,13 @@ const bookToActiveEditionsDict = {
     "Jude": 6,
     "Revelation": 6
 };
-
+/*
 let bookDropdown = document.getElementById("searchBookDropdown");
 let blankOption = document.createElement('option');
 blankOption.text = "";
 blankOption.value = "";
 bookDropdown.add(blankOption);
-
+*/
 for (let i = 0; i < allBookList.length; i++) {
     let book = allBookList[i];
     if (bookToActiveEditionsDict[book] > 1) {
@@ -399,11 +399,12 @@ for (let i = 0; i < allBookList.length; i++) {
 let chapterDropdown = document.getElementById("chapterSelectionDropdown");
 let chapterLegend = document.getElementById("searchChapterLegend");
 function updateChapterDropdown(whichBook) {
-    chapterDropdown.innerHTML = "";
+    /*chapterDropdown.innerHTML = "";
     let dummyOption = document.createElement("option");
     dummyOption.text = "";
     dummyOption.value = "";
     chapterDropdown.add(dummyOption);
+    */
     for (let i = 1; i <= bookToChapterDict[whichBook]; i++) {
         let option = document.createElement("option");
         option.text = i;
@@ -774,7 +775,6 @@ function resetCheckboxes() {
 }
 
 bookDropdown.addEventListener('change', async function() {
-
     resetCheckboxes();
     let book = bookDropdown.value;
     updateChapterDropdown(book);
