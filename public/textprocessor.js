@@ -353,6 +353,7 @@ document.getElementById('submit').addEventListener("click", async function() {
 
 async function getAllVerseIDs() {
     let allVerseIDs = await fetch("/getAllVerseIDs").then(res => res.json()).then(res => res).catch(err => console.error(err));
+    console.log("Number of verse IDs: " + allVerseIDs.length.toString());
 
     return allVerseIDs;
 }
