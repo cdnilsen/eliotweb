@@ -415,7 +415,6 @@ function updateChapterDropdown(whichBook) {
 
 function revealCheckboxes(book) {
     let activeEditionsNumber = bookToActiveEditionsDict[book];
-    console.log(book + ": " + activeEditionsNumber.toString());
     let editionContainerDict = {
         2: document.getElementById('firstEditionContainer'),
         3: document.getElementById('secondEditionContainer'),
@@ -767,13 +766,10 @@ function resetCheckboxes() {
         document.getElementById('useZerothEdition'),
         document.getElementById('useGrebrew')
     ];
-    //let editionPrimesList = [2, 3, 5, 7, 13];
 
     for (let i = 0; i < 5; i++) {
         allCheckboxList[i].checked = false;
-        if (allContainerList[i].hidden == false) {
-            allContainerList[i].hidden = true;
-        }
+        allContainerList[i].hidden = true;
     }
 }
 
