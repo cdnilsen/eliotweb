@@ -367,6 +367,8 @@ document.getElementById('process_words').addEventListener("click", async functio
     let endingIndex = 50;
     while (startingIndex <= allIDLength) {
         let myIDList = allIDList.slice(startingIndex, endingIndex); // works when logged
+
+        let fetchWorked = false;
         fetch('/processWords', {
             method: 'POST',
             body: JSON.stringify(myIDList),
@@ -375,6 +377,7 @@ document.getElementById('process_words').addEventListener("click", async functio
             }
         }).then(res => res.json()).then(res => {
             for (let i = 0; i < res.length; i++) {
+                fetchWorked = true;
                 if (i % 50 == 0) {
                     //console.log(res[i].toString());
                     }
@@ -382,6 +385,11 @@ document.getElementById('process_words').addEventListener("click", async functio
                     //console.log(res[i].toString() + " is word " + endingIndex.toString() + "/" + allIDLength.toString());
                 }
             }).catch(err => console.log(err));
+
+        if (! fetchWorked) {
+            console.log(myIDList.length.toString());
+            console.log(myIDList);
+        }
         
         //console.log("Processed " +  endingIndex.toString() + "/" + allIDLength.toString() + " verses.");
         
