@@ -381,7 +381,7 @@ document.getElementById('process_words').addEventListener("click", async functio
                     //works if need be
                     //console.log(res[i].toString() + " is word " + endingIndex.toString() + "/" + allIDLength.toString());
                 }
-            }).catch(err => console.error(err));
+            }).catch(err => console.log(err));
         
         //console.log("Processed " +  endingIndex.toString() + "/" + allIDLength.toString() + " verses.");
         

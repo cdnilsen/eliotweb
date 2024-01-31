@@ -57,7 +57,7 @@ app.post('/processWords', wrapAsync(async (req, res) => {
         let result = await processBatchWordData(req.body);
         res.json(result);
     } catch (error) {
-        console.error(res.body);
+        res.json(res.body);
     }
 }));
 
