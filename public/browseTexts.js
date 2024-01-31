@@ -376,7 +376,7 @@ const bookToActiveEditionsDict = {
     "1 John": 6,
     "2 John": 6,
     "3 John": 6,
-    "Jude": 6,
+    "Jude": 78,
     "Revelation": 6
 };
 
@@ -770,7 +770,7 @@ function resetCheckboxes() {
         document.getElementById('useZerothEdition'),
         document.getElementById('useGrebrew')
     ];
-    
+
     document.getElementById('originalLanguage').innerHTML = "";
 
     for (let i = 0; i < 5; i++) {
