@@ -94,10 +94,13 @@ function seeAllWords(resultDiv, searchString, searchSetting) {
 //this is a dummy function that won't end up here in the end
 async function getComparedText(verseID) {
     fetch("/compareWords/" + verseID.toString()).then(res => res.json()).then(res => {
+        console.log(res.toString());
+        /*
         let outputText = res.toString();
         let newSpan = document.createElement('span');
         newSpan.innerHTML = outputText;
         document.getElementById("results-container").appendChild(newSpan);
+        */
     }).catch(err => console.error(err))
 }
 
