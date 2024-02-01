@@ -108,7 +108,7 @@ app.get('/compareVerse/:verseID', wrapAsync(async (req, res) => {
         let verseID: number = parseInt(req.params.verseID);
         let rawFirst: string = 'first_edition_raw';
         let rawSecond: string = 'second_edition_raw';
-        let result = addComparedVerses(verseID, rawFirst, rawSecond);
+        let result = await addComparedVerses(verseID, rawFirst, rawSecond);
         res.json(result);
     } catch (error) {
         console.error(error);
