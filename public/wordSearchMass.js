@@ -97,10 +97,10 @@ async function getComparedText(verseID) {
         let outputText = res.toString();
         let newSpan = document.createElement('span');
         newSpan.innerHTML = outputText;
-        document.getElementById("results-container").appendChild(span);
+        document.getElementById("results-container").appendChild(newSpan);
     }).catch(err => console.error(err))
 }
 
 document.getElementById("submit").addEventListener("click", async function () {
             await getComparedText(102037013);
-        })
+})
