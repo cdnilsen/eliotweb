@@ -406,37 +406,6 @@ function findDifferences(string1: string, string2: string): string[] {
     return [string1, string2];
 }
 
-// "Ƀβ" get turned into blue tags (for differences in case), "Řř" get turned into red tags (for actual differences in the text)
-// This probably needs to be moved to frontend
-
-function cleanProcessedString(myString: string, showDifferences: boolean, showCasing: boolean): string {
-    myString = myString.replaceAll("Ƀβ", "");
-    myString = myString.replaceAll("Řř", "");
-    
-    // Even if difference marking isn't chosen we still want to make it easier to see e.g. <nnih> vs. <n($)nih>
-    myString = myString.replaceAll("Ř ř", "Ř˙ř");
-    myString = myString.replaceAll("Ř$ř", "Ř˙ř");
-    myString = myString.replaceAll("$", " ");
-
-    if (showCasing) {
-        myString = myString.replaceAll("Ƀ", '<span style="color: blue">');
-        myString = myString.replaceAll("β", "</span>");
-    } else {
-        myString = myString.replaceAll("Ƀ", "");
-        myString = myString.replaceAll("β", "");
-    }
-
-    if (showDifferences) {
-        myString = myString.replaceAll("Ř", '<span style="color: red">');
-        myString = myString.replaceAll("ř", "</span>");
-    } else {
-        myString = myString.replaceAll("Ř", "");
-        myString = myString.replaceAll("ř", "");
-    }
-
-    return myString;
-}
-
 function getDifferenceList(myString: string, bracketList: stringToStringDict): string[] {
     let leftBracket = bracketList['left'];
     let rightBracket = bracketList['right'];
