@@ -376,7 +376,7 @@ const bookToActiveEditionsDict = {
     "1 John": 6,
     "2 John": 6,
     "3 John": 6,
-    "Jude": 78, //let's pretend it includes the greek for now
+    "Jude": 6, //let's pretend it includes the greek for now
     "Revelation": 6
 };
 
@@ -448,7 +448,7 @@ function revealCheckboxes(book) {
             editionCheckboxDict[p].checked = true;
         }
     }
-    document.getElementById('originalLanguage').innerHTML = originalLanguage;
+    document.getElementById('grebrewLabel').innerHTML = "Show " + originalLanguage;
 }
 
 updateChapterDropdown('Genesis');
