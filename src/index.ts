@@ -4,9 +4,11 @@ import path from "path"
 import { default as pool } from './db'
 import { wrapAsync } from './utils'
 import { wordSearch } from './wordSearchMass'
-import { processVerseJSON, addComparedVerses } from './textprocessor'
+import { processVerseJSON } from './textprocessor'
 import { processBatchWordData, populateCorrespondences, getTotalWordCounts } from './processWords'
 import { getVerseText, getChapterText } from './browseTexts'
+
+import { addComparedVerses } from './wordSearchMass'
 
 const app = express();
 app.use(express.json());
@@ -65,6 +67,7 @@ app.post('/processWords', wrapAsync(async (req, res) => {
 app.put('/compareWords/:verseID', wrapAsync(async (req, res) => {
     try {
         let verseID: number = parseInt(req.params.verseID);
+
         let result = await addComparedVerses(verseID, 'first_edition_raw', 'second_edition_raw');
         res.json(result);
     } catch (error) {
