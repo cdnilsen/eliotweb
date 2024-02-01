@@ -376,7 +376,7 @@ const bookToActiveEditionsDict = {
     "1 John": 6,
     "2 John": 6,
     "3 John": 6,
-    "Jude": 6, //let's pretend it includes the greek for now
+    "Jude": 78, //let's pretend it includes the greek for now
     "Revelation": 6
 };
 
