@@ -491,10 +491,10 @@ export async function addComparedVerses(idNum: number, sourceColumn1: string, so
     let myQuery = await pool.query('SELECT * from all_verses WHERE id=$1::int', [idNum]);
     let queryRow = myQuery.rows[0];
 
-    let column1Text = queryRow[column1];
-    let column2Text = queryRow[column2];
+    let column1RawText = queryRow[sourceColumn1];
+    let column2RawText = queryRow[sourceColumn2];
 
-    return "!!!!" + column1Text;
+    return "!!!!" + column1RawText;
     /*
     let comparedTextDict = getComparedVerses(column1Text, column2Text);
 
