@@ -448,7 +448,7 @@ function revealCheckboxes(book) {
             editionCheckboxDict[p].checked = true;
         }
     }
-    //document.getElementById('grebrewLabel').innerHTML = "Show " + originalLanguage;
+    document.getElementById('grebrewLabel').innerHTML = "Show " + originalLanguage;
 }
 
 updateChapterDropdown('Genesis');
