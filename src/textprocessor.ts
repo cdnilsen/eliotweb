@@ -418,7 +418,7 @@ function getDifferenceList(myString: string, bracketList: stringToStringDict): s
     return newString.split("¡");
 }
 
-function getSharedSubstrings(string1: string, string2: string): string[] {
+function getComparedVerses(string1: string, string2: string): stringToStringDict {
     //These were previously just two-member lists, but this is more human-readable
     let string1BracketDict: stringToStringDict = {
         'left': '‹',
@@ -474,14 +474,30 @@ function getSharedSubstrings(string1: string, string2: string): string[] {
 
     finalString1 = finalString1.replaceAll("ϥ", "");
     finalString2 = finalString2.replaceAll("ϣ", "");
+
+    let finalStringDict: stringToStringDict = {
+        'string1': finalString1,
+        'string2': finalString2
+    }
     
-    return [finalString1, finalString2];
+    return finalStringDict;
 }
 
-export async function getComparedVerses(idNum: number, column1: string, column2: string) {
+//This adds compared verses to the all_
+export async function addComparedVerses(idNum: number, sourceColumn1: string, sourceColumn2: string, postColumn1: string, postColumn2: string, postText2: boolean) {
     let myQuery = await pool.query('SELECT * from all_verses WHERE id=$1::int', [idNum]);
     let queryRow = myQuery.rows[0];
 
     let column1Text = queryRow[column1];
     let column2Text = queryRow[column2];
+
+    return column1Text;
+    /*
+    let comparedTextDict = getComparedVerses(column1Text, column2Text);
+
+    let comparedText1 = comparedTextDict['string1'];
+    let comparedText2 = comparedTextDict['string2'];
+
+    await pool.query(`UPDATE all_verses SET addresses = $1, verse_counts = $2, all_editions = $3, editionCounts = $4 WHERE word = $5`, [updatedVerseIDList, updatedVerseCountList, thisEditionList, thisEditionCountList, word]);
+    */
 }
