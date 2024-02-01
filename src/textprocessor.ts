@@ -487,12 +487,12 @@ function getComparedVerses(string1: string, string2: string): stringToStringDict
 /*
 export async function addComparedVerses(idNum: number, sourceColumn1: string, sourceColumn2: string, postColumn1: string, postColumn2: string, postText2: boolean)
 */
-export async function addComparedVerses(idNum: number, sourceColumn1: string, sourceColumn2: string) {
+export async function addComparedVerses(idNum: number, sourceColumn1: string, sourceColumn2: string): string {
     let myQuery = await pool.query('SELECT * from all_verses WHERE id=$1::int', [idNum]);
     let queryRow = myQuery.rows[0];
 
-    let column1RawText = queryRow[sourceColumn1];
-    let column2RawText = queryRow[sourceColumn2];
+    let column1RawText: string = queryRow[sourceColumn1];
+    let column2RawText: string = queryRow[sourceColumn2];
 
     return "!!!!" + column1RawText;
     /*
