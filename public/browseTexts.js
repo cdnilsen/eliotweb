@@ -434,7 +434,7 @@ function revealCheckboxes(book) {
     }
 
     let originalLanguage = "";
-    if (book in NTBookList) {
+    if (NTBookList.includes(book)) {
         originalLanguage = "Greek";
     } else {
         originalLanguage = "Hebrew";
@@ -491,7 +491,7 @@ function appendNumberToIDString(IDString, number) {
 
 function getEditionName(book, editionNumber) {
     let originalLanguage = "";
-    if (book in NTBookList) {
+    if (NTBookList.includes(book)) {
         originalLanguage = "Greek";
     } else {
         originalLanguage = "Hebrew";
