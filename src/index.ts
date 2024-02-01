@@ -4,7 +4,7 @@ import path from "path"
 import { default as pool } from './db'
 import { wrapAsync } from './utils'
 import { wordSearch } from './wordSearchMass'
-import { processVerseJSON } from './textprocessor'
+import { processVerseJSON, addComparedVerses } from './textprocessor'
 import { processBatchWordData, populateCorrespondences, getTotalWordCounts } from './processWords'
 import { getVerseText, getChapterText } from './browseTexts'
 
@@ -97,6 +97,19 @@ app.get('/fetchChapter/:book/:chapter/:editionNum/:useRawString', wrapAsync(asyn
         let resultRows = await getChapterText(book, chapter, editionNum, useRawString);
         
         res.json(resultRows);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error in fetchVerse');
+    }
+}));
+
+app.get('/compareVerse/:verseID', wrapAsync(async (req, res) => {
+    try {
+        let verseID: number = parseInt(req.params.verseID);
+        let rawFirst: string = 'first_edition_raw';
+        let rawSecond: string = 'second_edition_raw';
+        let result = addComparedVerses(verseID, rawFirst, rawSecond);
+        res.json(result);
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error in fetchVerse');
