@@ -62,6 +62,17 @@ app.post('/processWords', wrapAsync(async (req, res) => {
     }
 }));
 
+app.put('/compareWords/:verseID', wrapAsync(async (req, res) => {
+    try {
+        let verseID: number = parseInt(req.params.verseID);
+        let result = await addComparedVerses(verseID, 'first_edition_raw', 'second_edition_raw');
+        res.json(result);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error in compareWords');
+    }
+}));
+
 app.put('/populateCorrespondences', wrapAsync(async (req, res) => {
     try {
         //let result = await populateCorrespondences();
