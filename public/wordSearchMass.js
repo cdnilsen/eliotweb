@@ -90,3 +90,17 @@ function seeAllWords(resultDiv, searchString, searchSetting) {
         }
     }).catch(err => console.error(err))
 }
+
+//this is a dummy function that won't end up here in the end
+async function getComparedText(verseID) {
+    fetch("/compareWords/" + verseID.toString()).then(res => res.json()).then(res => {
+        let outputText = res.toString();
+        let newSpan = document.createElement('span');
+        newSpan.innerHTML = outputText;
+        document.getElementById("results-container").appendChild(span);
+    }).catch(err => console.error(err))
+}
+
+document.getElementById("submit").addEventListener("click", async function () {
+            await getComparedText(102037013);
+        })
