@@ -93,7 +93,7 @@ function seeAllWords(resultDiv, searchString, searchSetting) {
 
 //this is a dummy function that won't end up here in the end
 async function getComparedText(verseID) {
-    fetch("/compareWords/" + verseID.toString()).then(res => res.json()).then(res => {
+    fetch("/compareWords/" + verseID.toString()).then(res => res.text()).then(res => {
         console.log(res.toString());
         /*
         let outputText = res.toString();
