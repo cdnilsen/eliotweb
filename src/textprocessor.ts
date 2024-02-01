@@ -400,8 +400,8 @@ function findDifferences(string1: string, string2: string): string[] {
         shreddedSubstring2 = "»" + shreddedSubstring2.slice(0, -1) + "«";
 
         //replaceAll needed just in case the longest substring is found more than once
-        string1 = string1.replaceAll(longestSubstring, shreddedSubstring1);
-        string2 = string2.replaceAll(longestSubstring, shreddedSubstring2);
+        string1 = string1.split(longestSubstring).join(shreddedSubstring1);
+        string2 = string2.split(longestSubstring).join(shreddedSubstring2);
     }
     return [string1, string2];
 }
@@ -412,8 +412,8 @@ function getDifferenceList(myString: string, bracketList: stringToStringDict): s
 
     let newString = leftBracket + myString + rightBracket;
 
-    newString = newString.replaceAll(leftBracket, leftBracket + "¡");
-    newString = newString.replaceAll(rightBracket, "¡" + rightBracket);
+    newString = newString.split(leftBracket).join(leftBracket + "¡");
+    newString = newString.split(rightBracket).join("¡" + rightBracket);
 
     return newString.split("¡");
 }
@@ -442,24 +442,24 @@ function getComparedVerses(string1: string, string2: string): stringToStringDict
         let substring1 = string1List[i];
         let substring2 = string2List[i];
 
-        let testSubstring1 = substring1.replaceAll("‹", "");
-        testSubstring1 = testSubstring1.replaceAll("›", "");
+        let testSubstring1 = substring1.split("‹").join("");
+        testSubstring1 = testSubstring1.split("›").join("");
 
-        let testSubstring2 = substring2.replaceAll("«", "");
-        testSubstring2 = testSubstring2.replaceAll("»", "");
+        let testSubstring2 = substring2.split("«").join("");
+        testSubstring2 = testSubstring2.split("»").join("");
 
         if (testSubstring1 != testSubstring2 && testSubstring1.toLowerCase() == testSubstring2.toLowerCase()) {
-            substring1 = substring1.replaceAll("‹", 'Ƀ');
-            substring1 = substring1.replaceAll("›", "β");
+            substring1 = substring1.split("‹").join("Ƀ");
+            substring1 = substring1.split("›").join("β");
 
-            substring2 = substring2.replaceAll("«", 'Ƀ');
-            substring2 = substring2.replaceAll("»", "β");
+            substring2 = substring2.split("«").join("Ƀ");
+            substring2 = substring2.split("»").join("β");
         } else {
-            substring1 = substring1.replaceAll("‹", 'Ř');
-            substring1 = substring1.replaceAll("›", "ř");
+            substring1 = substring1.split("‹").join("Ř");
+            substring1 = substring1.split("›").join("ř");
 
-            substring2 = substring2.replaceAll("«", 'Ř');
-            substring2 = substring2.replaceAll("»", "ř");
+            substring2 = substring2.split("«").join("Ř");
+            substring2 = substring2.split("»").join("ř");
         }
         finalStringList1.push(substring1);
         finalStringList2.push(substring2);
@@ -472,8 +472,8 @@ function getComparedVerses(string1: string, string2: string): stringToStringDict
         finalString2 += finalStringList2[i];
     }
 
-    finalString1 = finalString1.replaceAll("ϥ", "");
-    finalString2 = finalString2.replaceAll("ϣ", "");
+    finalString1 = finalString1.split("ϥ").join("");
+    finalString2 = finalString2.split("ϣ").join("");
 
     let finalStringDict: stringToStringDict = {
         'string1': finalString1,
