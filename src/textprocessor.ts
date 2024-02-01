@@ -305,6 +305,12 @@ function processEngma(word: string, edition: string, book: string, chapter: numb
     let labialEngmaClusters = ['ŋp', 'ŋb', 'ŋm', 'ŋf'];
 
     let replacementLabialClusters = ['mp', 'mb', 'mm', 'mf'];
+
+    for (let i = 0; i < labialEngmaClusters.length; i++) {
+        wordCopy = wordCopy.split(labialEngmaClusters[i]).join(replacementLabialClusters[i]);
+    }
+    wordCopy = wordCopy.split('ŋ').join('n')
+    return wordCopy;
 }
 
 function cleanDiacriticsEngma(word: string, edition: string, book: string, chapter: number, verse: number): string {
@@ -487,7 +493,7 @@ function getComparedVerses(string1: string, string2: string): stringToStringDict
 /*
 export async function addComparedVerses(idNum: number, sourceColumn1: string, sourceColumn2: string, postColumn1: string, postColumn2: string, postText2: boolean)
 */
-export async function addComparedVerses(idNum: number, sourceColumn1: string, sourceColumn2: string): string {
+export async function addComparedVerses(idNum: number, sourceColumn1: string, sourceColumn2: string) {
     let myQuery = await pool.query('SELECT * from all_verses WHERE id=$1::int', [idNum]);
     let queryRow = myQuery.rows[0];
 
