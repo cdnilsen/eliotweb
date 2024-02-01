@@ -346,7 +346,7 @@ const bookToActiveEditionsDict = {
     "Jonah": 6,
     "Micah": 1,
     "Nahum": 6,
-    "Habakkuk": 2,
+    "Habakkuk": 6,
     "Zephaniah": 6,
     "Haggai": 6, 
     "Zechariah": 6,
