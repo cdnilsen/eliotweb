@@ -7,6 +7,8 @@ import { wrapAsync } from './utils'
 const app = express()
 const port = process.env.PORT;
 
+//Go through this file later and use the $1::int type enforcement on queries
+
 function cleanPunctuation(word: string): string {
     let cleanWord = word.replace(/[.,\/#!%\^&\*?;:{}=\_`~()]/g, "");
     cleanWord = cleanWord.replace('[', '').replace(']', '');
@@ -62,6 +64,10 @@ const editionToCountListDict: stringToStringDict = {
     "Second Edition": "word_counts_second_edition",
     "Mayhew": "word_counts_other_edition",
     "Zeroth Edition": "word_counts_other_edition"
+}
+
+function getVerseText(rawWordsList: string[]): string {
+    return rawWordsList.join(" ");
 }
 
 function killDiacritics(word: string): string {
@@ -231,7 +237,7 @@ async function updateEdition(verseExists: boolean, verseID: string, verseText: s
         return (consoleAddress + " inserted into database.")
 
     } else if (!isMassachusett && verseExists) {
-        let queryText = "UPDATE all_verses SET " + editionColumn + " = $1 WHERE id = $2";
+        let queryText = "UPDATE all_verses SET " + editionColumn + " = $1 WHERE id = $2::int";
         await pool.query(queryText, [verseText, parseInt(verseID)])
         return (consoleAddress + " updated in database.")
 
@@ -283,4 +289,230 @@ export async function processVerseJSON(rawJSON: any) {
     let hasVerse = (myQuery.rows.length > 0);
     let returnValue = await verseUpdate(hasVerse, idNumber, rawText, edition, book);
     return returnValue;
+}
+//can I commit this?
+
+function processEngma(word: string, edition: string, book: string, chapter: number, verse: number): string {
+    
+    let wordCopy = word;
+    if (wordCopy.endsWith('ŋ')) {
+        let chapterString = chapter.toString();
+        let verseString = verse.toString();
+        wordCopy = wordCopy.slice(0, -1) + "Ŋ";
+        console.log(`!!! CHECK ${word} AT ${edition} ${book} ${chapterString}:${verseString}`);
+    }
+    
+    let labialEngmaClusters = ['ŋp', 'ŋb', 'ŋm', 'ŋf'];
+
+    let replacementLabialClusters = ['mp', 'mb', 'mm', 'mf'];
+}
+
+function cleanDiacriticsEngma(word: string, edition: string, book: string, chapter: number, verse: number): string {
+
+    let charReplacementDict: stringToStringDict = {
+        "á": "a",
+        "é": "e",
+        "í": "i",
+        "ó": "o",
+        "ú": "u",
+        "à": "a",
+        "è": "e",
+        "ì": "i",
+        "ò": "o",
+        "ù": "u",
+        "â": "a",
+        "ê": "e",
+        "î": "i",
+        "ô": "o",
+        "û": "u",
+        "ä": "a",
+        "ë": "e",
+        "ï": "i",
+        "ö": "o",
+        "ü": "u",
+        "ã": "aŋ",
+        "õ": "oŋ",
+        "ñ": "nn",
+        "m̃": "mm",
+        "ũ": "uŋ",
+        "ẽ": "eŋ",
+        "ĩ": "iŋ",
+        "ā": "aŋ",
+        "ē": "eŋ",
+        "ī": "iŋ",
+        "ō": "oŋ",
+        "ū": "uŋ"
+    };
+
+    let cleanedWord = "";
+    for (let i = 0; i < word.length; i++) {
+        if (word[i] in charReplacementDict) {
+            cleanedWord += charReplacementDict[word[i]];
+        } else {
+            cleanedWord += word[i];
+        }
+    }
+    return processEngma(cleanedWord, edition, book, chapter, verse);
+}
+
+function findLongestCommonSubstring(str1: string, str2: string): string {
+    //(courtesy of GeeksForGeeks) 
+    let longestSubstring = ""; 
+    for (let i = 0; i < str1.length; i++) { 
+        for (let j = 0; j < str2.length; j++) { 
+            let substring = ""; 
+            let x = i; 
+            let y = j; 
+            while (x < str1.length &&  
+                   y < str2.length &&  
+                   str1[x] === str2[y]) { 
+                substring += str1[x]; 
+                x++;
+                y++;
+            } 
+            if (substring.length > longestSubstring.length) { 
+                longestSubstring = substring; 
+            } 
+        } 
+    } 
+    return longestSubstring; 
+}
+
+function findDifferences(string1: string, string2: string): string[] {
+    let longestSubstringMoreThanOne: boolean = false;
+
+    while (longestSubstringMoreThanOne == false) {
+        let longestSubstring = findLongestCommonSubstring(string1, string2);
+        if (longestSubstring.length == 1) {
+            longestSubstringMoreThanOne = true;
+            break;
+        }
+
+        let shreddedSubstring1 = "";
+        let shreddedSubstring2 = "";
+
+        for (let i = 0; i < longestSubstring.length; i++) {
+            shreddedSubstring1 += longestSubstring[i] + "ϥ";
+            shreddedSubstring2 += longestSubstring[i] + "ϣ";
+        }
+
+        shreddedSubstring1 = "›" + shreddedSubstring1.slice(0, -1) + "‹";
+        shreddedSubstring2 = "»" + shreddedSubstring2.slice(0, -1) + "«";
+
+        //replaceAll needed just in case the longest substring is found more than once
+        string1 = string1.replaceAll(longestSubstring, shreddedSubstring1);
+        string2 = string2.replaceAll(longestSubstring, shreddedSubstring2);
+    }
+    return [string1, string2];
+}
+
+// "Ƀβ" get turned into blue tags (for differences in case), "Řř" get turned into red tags (for actual differences in the text)
+// This probably needs to be moved to frontend
+
+function cleanProcessedString(myString: string, showDifferences: boolean, showCasing: boolean): string {
+    myString = myString.replaceAll("Ƀβ", "");
+    myString = myString.replaceAll("Řř", "");
+    
+    // Even if difference marking isn't chosen we still want to make it easier to see e.g. <nnih> vs. <n($)nih>
+    myString = myString.replaceAll("Ř ř", "Ř˙ř");
+    myString = myString.replaceAll("Ř$ř", "Ř˙ř");
+    myString = myString.replaceAll("$", " ");
+
+    if (showCasing) {
+        myString = myString.replaceAll("Ƀ", '<span style="color: blue">');
+        myString = myString.replaceAll("β", "</span>");
+    } else {
+        myString = myString.replaceAll("Ƀ", "");
+        myString = myString.replaceAll("β", "");
+    }
+
+    if (showDifferences) {
+        myString = myString.replaceAll("Ř", '<span style="color: red">');
+        myString = myString.replaceAll("ř", "</span>");
+    } else {
+        myString = myString.replaceAll("Ř", "");
+        myString = myString.replaceAll("ř", "");
+    }
+
+    return myString;
+}
+
+function getDifferenceList(myString: string, bracketList: stringToStringDict): string[] {
+    let leftBracket = bracketList['left'];
+    let rightBracket = bracketList['right'];
+
+    let newString = leftBracket + myString + rightBracket;
+
+    newString = newString.replaceAll(leftBracket, leftBracket + "¡");
+    newString = newString.replaceAll(rightBracket, "¡" + rightBracket);
+
+    return newString.split("¡");
+}
+
+function getSharedSubstrings(string1: string, string2: string): string[] {
+    //These were previously just two-member lists, but this is more human-readable
+    let string1BracketDict: stringToStringDict = {
+        'left': '‹',
+        'right': '›'
+    }
+
+    let string2BracketDict: stringToStringDict = {
+        'left': '«',
+        'right': '»'
+    }
+
+    let processedStrings = findDifferences(string1, string2);
+
+    let string1List = getDifferenceList(processedStrings[0], string1BracketDict);
+    let string2List = getDifferenceList(processedStrings[1], string2BracketDict);
+
+    let finalStringList1: string[] = [];
+    let finalStringList2: string[] = [];
+
+    for (let i = 0; i < string1List.length; i++) {
+        let substring1 = string1List[i];
+        let substring2 = string2List[i];
+
+        let testSubstring1 = substring1.replaceAll("‹", "");
+        testSubstring1 = testSubstring1.replaceAll("›", "");
+
+        let testSubstring2 = substring2.replaceAll("«", "");
+        testSubstring2 = testSubstring2.replaceAll("»", "");
+
+        if (testSubstring1 != testSubstring2 && testSubstring1.toLowerCase() == testSubstring2.toLowerCase()) {
+            substring1 = substring1.replaceAll("‹", 'Ƀ');
+            substring1 = substring1.replaceAll("›", "β");
+
+            substring2 = substring2.replaceAll("«", 'Ƀ');
+            substring2 = substring2.replaceAll("»", "β");
+        } else {
+            substring1 = substring1.replaceAll("‹", 'Ř');
+            substring1 = substring1.replaceAll("›", "ř");
+
+            substring2 = substring2.replaceAll("«", 'Ř');
+            substring2 = substring2.replaceAll("»", "ř");
+        }
+        finalStringList1.push(substring1);
+        finalStringList2.push(substring2);
+    }
+
+    let finalString1 = "";
+    let finalString2 = "";
+    for (let i = 0; i < finalStringList1.length; i++) {
+        finalString1 += finalStringList1[i];
+        finalString2 += finalStringList2[i];
+    }
+
+    finalString1 = finalString1.replaceAll("ϥ", "");
+    finalString2 = finalString2.replaceAll("ϣ", "");
+    
+    return [finalString1, finalString2];
+}
+
+export async function getComparedVerses(idNum: number, column1: string, column2: string) {
+    let myQuery = await pool.query('SELECT * from all_verses WHERE id=$1::int', [idNum]);
+    let queryRow = myQuery.rows[0];
+
+    let column1Text = queryRow[column1];
+    let column2Text = queryRow[column2];
 }
