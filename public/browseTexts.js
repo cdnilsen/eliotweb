@@ -770,7 +770,7 @@ function resetCheckboxes() {
         document.getElementById('useGrebrew')
     ];
 
-    document.getElementById('originalLanguage').innerHTML = "";
+    document.getElementById('grebrewLabel').innerHTML = "";
 
     for (let i = 0; i < 5; i++) {
         allCheckboxList[i].checked = false;
