@@ -452,7 +452,7 @@ function revealCheckboxes(book) {
 }
 
 updateChapterDropdown('Genesis');
-revealCheckboxes('Genesis')
+revealCheckboxes('Genesis');
 
 //Returns a unique integer for the combo of editions that the user wants to view; can be decomposed in the backend by modularity testing.
 function getEditionCompositeNumber(useFirst, useSecond, useMayhew, useZeroth, useKJV, useGrebrew) {
