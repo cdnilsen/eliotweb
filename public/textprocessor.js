@@ -489,8 +489,8 @@ function createDropdownFromList(dropdownID, list, addBlank=true) {
     return dropdown;
 }
 
-async function processTextPopulateHTML() {
-    //Sort some of this into functions lol
+
+function createDropdownChain(includeEdition) {
     let actionChoicesDiv = document.getElementById("action-choices");
 
     let selectSectionDiv = document.createElement('div');
@@ -559,52 +559,96 @@ async function processTextPopulateHTML() {
         actionChoicesDiv.appendChild(selectBookDiv);
 
         textContainerDiv.innerHTML = "";
-        selectBookDiv.addEventListener("change", function() {
 
-            selectEditionDiv.innerHTML = "";
-            submitButton.innerHTML = "";
-            submitButton.hidden = true;
-        
-            let editionsList = ["First Edition", "Second Edition"];
+        let whichBook = "";
+        let whichEdition = "";
+        let submitButton = document.createElement('button');
+        submitButton.id = "submit";
 
-            if (whichBookDropdown.value == "Genesis") {
-                editionsList.push("Zeroth Edition");
-            } else if (whichBookDropdown.value == "Psalms (prose)" || whichBookDropdown.value == "John") {
-                editionsList.push("Mayhew");
-            }
 
-            editionsList.push("KJV");
+        if (includeEdition) {
+            selectBookDiv.addEventListener("change", function() {
+                selectEditionDiv.innerHTML = "";
+                submitButton.innerHTML = "";
+                submitButton.hidden = true;
+            
+                let editionsList = ["First Edition", "Second Edition"];
 
-            //editionsList.push(originalLanguage);
+                if (whichBookDropdown.value == "Genesis") {
+                    editionsList.push("Zeroth Edition");
+                } else if (whichBookDropdown.value == "Psalms (prose)" || whichBookDropdown.value == "John") {
+                    editionsList.push("Mayhew");
+                }
 
-            let selectEditionDropdown = createDropdownFromList("editionDropdown", editionsList, true);
+                editionsList.push("KJV");
 
-            selectEditionDropdown.hidden = false;
+                //editionsList.push(originalLanguage);
 
-            let whichEditionLabel = document.createElement('span');
-            whichEditionLabel.innerHTML = "Select an edition: ";
-            selectEditionDiv.appendChild(whichEditionLabel);
+                let selectEditionDropdown = createDropdownFromList("editionDropdown", editionsList, true);
 
-            selectEditionDiv.appendChild(selectEditionDropdown);
+                selectEditionDropdown.hidden = false;
 
-            actionChoicesDiv.appendChild(selectEditionDiv);
+                let whichEditionLabel = document.createElement('span');
+                whichEditionLabel.innerHTML = "Select an edition: ";
+                selectEditionDiv.appendChild(whichEditionLabel);
 
+                selectEditionDiv.appendChild(selectEditionDropdown);
+
+                actionChoicesDiv.appendChild(selectEditionDiv);
+
+                textContainerDiv.innerHTML = "";
+                selectEditionDropdown.addEventListener("change", function() {
+                    submitButton.innerHTML = "<b>Submit</b>";
+                    submitButton.hidden = false;
+                    actionChoicesDiv.appendChild(submitButton);
+
+                    whichBook = whichBookDropdown.value;
+                    whichEdition = selectEditionDropdown.value;
+
+                    textContainerDiv.innerHTML = "";
+                });
+            });
+        } else {
             textContainerDiv.innerHTML = "";
-            selectEditionDropdown.addEventListener("change", function() {
+            whichBookDropdown.addEventListener("change", function() {
                 submitButton.innerHTML = "<b>Submit</b>";
                 submitButton.hidden = false;
                 actionChoicesDiv.appendChild(submitButton);
-
-                let whichBook = whichBookDropdown.value;
-                let whichEdition = selectEditionDropdown.value;
+                whichBook = whichBookDropdown.value;
 
                 textContainerDiv.innerHTML = "";
-                submitButton.addEventListener("click", async function() {
-                    await submitTextForProcessing(whichBook, whichEdition, textContainerDiv);
-                });
             });
-        });
+        }
     });
+
+    let returnDict = {
+        "submitButton": submitButton,
+        "textContainerDiv": textContainerDiv,
+        "whichBook": whichBook
+    };
+
+    if (includeEdition) {
+        returnDict["whichEdition"] = whichEdition;
+    }
+
+    return returnDict;
+}
+
+async function processTextPopulateHTML() {
+    let myDropdownChain = createDropdownChain(true);
+    let submitButton = myDropdownChain["submitButton"];
+    let textContainerDiv = myDropdownChain["textContainerDiv"];
+
+    let whichBook = myDropdownChain["whichBook"];
+    let whichEdition = myDropdownChain["whichEdition"];
+
+    submitButton.addEventListener("click", async function() {
+        await submitTextForProcessing(whichBook, whichEdition, textContainerDiv);
+    });
+}
+
+async function processTextComparisons() {
+    let myDropdownChain = createDropdownChain(false);
 }
 
 function getRadioSelection() {
