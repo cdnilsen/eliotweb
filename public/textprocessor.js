@@ -512,12 +512,10 @@ function processTextPopulateHTML() {
     blankOption.value = "";
     whichSectionDropdown.add(blankOption);
 
-    let bookSectionList = [pentateuchList, historicalList, wisdomList, prophetsList, otherNTList, epistlesList];
-    let sectionNameList = ["Pentateuch", "Historical", "Wisdom", "Prophets", "New Testament (not epistles)", "New Testament (epistles)"];
+    let sectionNameList = ["Pentateuch", "Historical Books", "Wisdom Books", "Prophets", "New Testament (not epistles)", "New Testament (epistles)"];
 
     for (let i = 0; i < 6; i++) {
         let sectionName = sectionNameList[i];
-        let bookSection = bookSectionList[i];
         let sectionOption = document.createElement('option');
         sectionOption.text = sectionName;
         sectionOption.value = sectionName;
@@ -526,7 +524,45 @@ function processTextPopulateHTML() {
     selectSectionDiv.appendChild(whichSectionDropdown);
     actionChoicesDiv.appendChild(selectSectionDiv);
 
-    
+    selectBookDiv = document.createElement('div');
+    selectBookDiv.hidden = true;
+    selectBookDiv.id = "select-book-div";
+    let whichBookLabel = document.createElement('span');
+    whichBookLabel.innerHTML = "Select a book: ";
+    selectBookDiv.appendChild(whichBookLabel);
+
+    whichSectionDropdown.addEventListener("change", function() {
+
+        let sectionToBookListDict = {
+            "Pentateuch": pentateuchList,
+            "Historical Books": historicalList,
+            "Wisdom Books": wisdomList,
+            "Prophets": prophetsList,
+            "New Testament (not epistles)": otherNTList,
+            "New Testament (epistles)": epistlesList
+        };
+
+        let whichSection = whichSectionDropdown.value;
+
+        let bookList = sectionToBookListDict[whichSection];
+
+        let whichBookDropdown = document.createElement('select');
+        whichBookDropdown.id = "which-book-dropdown";
+        whichBookDropdown.classList.add("dropdown");
+        let blankBookOption = document.createElement('option');
+        blankBookOption.text = "";
+        blankBookOption.value = "";
+        whichBookDropdown.add(blankBookOption);
+
+        for (let i = 0; i < bookList.length; i++) {
+            let book = bookList[i];
+            let bookOption = document.createElement('option');
+            bookOption.text = book;
+            bookOption.value = book;
+            whichBookDropdown.add(bookOption);
+        }
+        selectBookDiv.hidden = false;
+    });
 }
 
 function getRadioSelection() {
