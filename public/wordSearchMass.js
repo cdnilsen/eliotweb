@@ -92,9 +92,14 @@ function seeAllWords(resultDiv, searchString, searchSetting) {
 }
 
 //this is a dummy function that won't end up here in the end
-async function getComparedText(verseID) {
-    fetch("/compareWords/" + verseID.toString()).then(res => res.text()).then(res => {
-        console.log(res.toString());
+async function getComparedText(verseID, parentDiv) {
+    fetch("/compareWords/" + verseID.toString()).then(res => res.json()).then(res => {
+        for (let i = 0; i < res.length; i++) {
+            let thisWord = res[i];
+            let wordSpan = document.createElement('span');
+            wordDiv.innerHTML = thisWord;
+            parentDiv.appendChild(wordSpan);
+        }
         /*
         let outputText = res.toString();
         let newSpan = document.createElement('span');
@@ -105,5 +110,5 @@ async function getComparedText(verseID) {
 }
 
 document.getElementById("submit").addEventListener("click", async function () {
-            await getComparedText(102037013);
+            await getComparedText(102037013, document.getElementById("results-container"));
 })

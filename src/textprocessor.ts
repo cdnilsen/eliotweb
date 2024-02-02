@@ -496,15 +496,15 @@ export async function addComparedVerses(idNum: number, sourceColumn1: string, so
     let column1RawText: string = queryRow[sourceColumn1];
     let column2RawText: string = queryRow[sourceColumn2];
 
-    return "!!!!" + column1RawText;
-    /*
-    let comparedTextDict = getComparedVerses(column1Text, column2Text);
+    
+    let comparedTextDict = getComparedVerses(column1RawText, column2RawText);
 
     let comparedText1 = comparedTextDict['string1'];
     let comparedText2 = comparedTextDict['string2'];
 
-    await pool.query(`UPDATE all_verses SET addresses = $1, verse_counts = $2, all_editions = $3, editionCounts = $4 WHERE word = $5`, [updatedVerseIDList, updatedVerseCountList, thisEditionList, thisEditionCountList, word]);
-    */
+    return [comparedText1, comparedText2];
+    //await pool.query(`UPDATE all_verses SET addresses = $1, verse_counts = $2, all_editions = $3, editionCounts = $4 WHERE word = $5`, [updatedVerseIDList, updatedVerseCountList, thisEditionList, thisEditionCountList, word]);
+    
 }
 
 
