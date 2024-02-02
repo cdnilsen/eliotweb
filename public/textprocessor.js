@@ -532,6 +532,7 @@ function createDropdownChain(includeEdition) {
 
     whichSectionDropdown.addEventListener("change", function() {
         selectBookDropdown.innerHTML = "";
+
         selectBookDiv.innerHTML = "";
         selectEditionDiv.innerHTML = "";
         submitButton.innerHTML = "";
@@ -569,6 +570,8 @@ function createDropdownChain(includeEdition) {
 
         if (includeEdition) {
             selectBookDiv.addEventListener("change", function() {
+                selectEditionDropdown.innerHTML = "";
+                
                 selectEditionDiv.innerHTML = "";
                 submitButton.innerHTML = "";
                 submitButton.hidden = true;
