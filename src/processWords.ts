@@ -51,8 +51,8 @@ function processEngma(word: string): string {
     let wordCopy = word;
     //These will need to be dealt with manually, but we'll need to do that later
     if (word.endsWith('ŋ')) {
-        let chapterString = chapter.toString();
-        let verseString = verse.toString();
+        //let chapterString = chapter.toString();
+        //let verseString = verse.toString();
         wordCopy = word.slice(0, -1);
         wordCopy = wordCopy + "Ŋ";
     }
