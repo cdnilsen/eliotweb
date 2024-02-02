@@ -227,183 +227,9 @@ const bookToChapterDict = {
 
 /*
 
-function getBookToNumDict(bookList) {
-    let finalDict = {};
-    for (let i = 0; i < bookList.length; i++) {
-        let book = bookList[i];
-        finalDict[book] = i + 1;
-    }
-    return finalDict;
-}
-
-function bookNumberString(book) {
-    let finalString = "1";
-    let bookIDNum = getBookToNumDict(allBookList)[book].toString();
-    if (bookIDNum.length == 1) {
-        bookIDNum = "0" + bookIDNum;
-    }
-    return finalString + bookIDNum;
-}
-
-//This is probably not going to be needed, but here just in case
-function editionNumberString(edition){
-    let finalString = "";
-    if (edition == "First Edition") {
-        finalString = "1";
-    } else if (edition == "Second Edition") {
-        finalString = "2";
-    } else if (edition == "Zeroth Edition") {
-        finalString = "0";
-    } else if (edition == "Mayhew") {
-        finalString = "3";
-    }
-    return finalString;
-}
-
-function chapterString(chapter) {
-    let chapterIDNum = chapter.toString();
-    if (chapterIDNum.length == 1) {
-        chapterIDNum = "00" + chapterIDNum;
-    } else if (chapterIDNum.length == 2) {
-        chapterIDNum = "0" + chapterIDNum;
-    }
-    return chapterIDNum;
-}
-
-function verseString(verse) {
-    let verseIDNum = verse.toString();
-    if (verseIDNum.length == 1) {
-        verseIDNum = "00" + verseIDNum;
-    } else if (verseIDNum.length == 2) {
-        verseIDNum = "0" + verseIDNum;
-    }
-    return verseIDNum;
-}
-
-function getVerseIDNum(bookNum, chapterNum, verseNum) {
-    return bookNum.toString() + chapterNum.toString() + verseNum.toString();
-}
-
-let bookDropdown = document.getElementById("searchBookDropdown");
-let blankOption = document.createElement('option');
-blankOption.text = "";
-blankOption.value = "";
-bookDropdown.add(blankOption);
-
-for (let i = 0; i < allBookList.length; i++) {
-    let book = allBookList[i];
-    let bookOption = document.createElement('option');
-    bookOption.text = book;
-    bookOption.value = book;
-    bookDropdown.add(bookOption);
-}
-
-let editionDropdownContainer = document.getElementById("edition-dropdown-container");
-
-bookDropdown.addEventListener("change", function() {
-
-    //editionDropdownContainer.innerHTML = "";
-    let editionDropdown = document.getElementById('searchEditionDropdown');
-    editionDropdown.innerHTML = "";
-    document.getElementById("searchEditionLegend").hidden = false;
-    editionDropdown.hidden = false;
-
-    let blankOption = document.createElement('option');
-    blankOption.text = "";
-    blankOption.value = "";
-    editionDropdown.add(blankOption);
-
-    let editionList = ["First Edition", "Second Edition"];
-
-    if (bookDropdown.value == "Genesis") {
-        editionList.push("Zeroth Edition");
-    }
-
-    if (bookDropdown.value == "Psalms (prose)" || bookDropdown.value == "John") {
-        editionList.push("Mayhew");
-    }
-
-    editionList.push("KJV");
-
-    for (let i = 0; i < editionList.length; i++) {
-        let edition = editionList[i];
-        let editionOption = document.createElement('option');
-        editionOption.text = edition;
-        editionOption.value = edition;
-        editionDropdown.add(editionOption);
-    }
-    editionDropdownContainer.hidden = false;
-});
-
-document.getElementById('searchEditionDropdown').addEventListener("change", function() {
-    document.getElementById("submit").hidden = false;
-});
-
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-async function getRawVerseDict(book, startChapter, endChapter, textLines) {
-    let verseDict = {};
-    let bookNum = bookNumberString(book);
-    for (let i = 0; i < textLines.length; i++) {
-        let line = textLines[i];
-        if (line == "") {
-            continue;
-        }
-        let splitLine = line.split(" ");
-        let splitAddress = splitLine[0].split(".");
-        let chapter = parseInt(splitAddress[0]);
-        if (chapter >= startChapter && chapter <= endChapter) {
-            let verse = parseInt(splitAddress[1]);
-            let lineText = splitLine.slice(1).join(" ");
-            try {
-                let verseIDNum = getVerseIDNum(bookNum, chapterString(chapter), verseString(verse));
-                verseDict[verseIDNum] = lineText;
-            } catch (err) {
-                console.log("Error: " + line);
-            }
-            sleep(200);
-        }
-    }
-    return verseDict;
-}
-
-async function sendADict(myDict, routeString) {
-    fetch(routeString, {
-        method: 'POST',
-        body: JSON.stringify(myDict),
-        headers: {
-        "Content-type": "application/json; charset=UTF-8"
-        }
-    }).then(res => res.json()).then(res => console.log(res)).catch(err => console.error(err));
-}
 
 
-async function sendRawJSON(book, edition, startChapter, endChapter, textLines) {
-    let verseDict = await getRawVerseDict(book, startChapter, endChapter, textLines);
-    let allKeyList = Object.keys(verseDict);
-    for (let i = 0; i < allKeyList.length; i++) {
-        let verseNum = allKeyList[i];
-        let verseJSON = {"id": verseNum, "text": verseDict[verseNum], "edition": edition, "book": book};
-        //console.log(verseNum + ": " + verseDict[verseNum]);
-        fetch('/addRaw', {
-            method: 'POST',
-            body: JSON.stringify(verseJSON),
-            headers: {
-            "Content-type": "application/json; charset=UTF-8"
-            }
-        }).then(res => res.json()).then(res => console.log(res)).catch(err => console.error(err));
-    }
-    //console.log("Finished sending raw JSON from chapter " + startChapter.toString() + " to " + endChapter.toString() + " of " + book + " (" + edition + ").");
-    return allKeyList.length;
-}
 
-async function processText(whichBook, whichEdition, startChapter, endChapter, textLines) {
-    let numberOfVerses = await sendRawJSON(whichBook, whichEdition, startChapter, endChapter, textLines);
-    console.log("processText called from " + startChapter + "to " + endChapter + ".");
-    return numberOfVerses;
-}
 
 document.getElementById('submit').addEventListener("click", async function() {
     document.getElementById("text-container").innerHTML = "";
@@ -496,6 +322,143 @@ document.getElementById('run_word_counts').addEventListener("click", async funct
     }).then(res => res.json()).then(res => console.log(res)).catch(err => console.error(err));
 });
 */
+
+function getBookToNumDict(bookList) {
+    let finalDict = {};
+    for (let i = 0; i < bookList.length; i++) {
+        let book = bookList[i];
+        finalDict[book] = i + 1;
+    }
+    return finalDict;
+}
+
+
+function bookNumberString(book) {
+    let finalString = "1";
+    let bookIDNum = getBookToNumDict(allBookList)[book].toString();
+    if (bookIDNum.length == 1) {
+        bookIDNum = "0" + bookIDNum;
+    }
+    return finalString + bookIDNum;
+}
+
+function chapterString(chapter) {
+    let chapterIDNum = chapter.toString();
+    if (chapterIDNum.length == 1) {
+        chapterIDNum = "00" + chapterIDNum;
+    } else if (chapterIDNum.length == 2) {
+        chapterIDNum = "0" + chapterIDNum;
+    }
+    return chapterIDNum;
+}
+
+function verseString(verse) {
+    let verseIDNum = verse.toString();
+    if (verseIDNum.length == 1) {
+        verseIDNum = "00" + verseIDNum;
+    } else if (verseIDNum.length == 2) {
+        verseIDNum = "0" + verseIDNum;
+    }
+    return verseIDNum;
+}
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function getVerseIDNum(bookNum, chapterNum, verseNum) {
+    return bookNum.toString() + chapterNum.toString() + verseNum.toString();
+}
+
+async function getRawVerseDict(book, startChapter, endChapter, textLines) {
+    let verseDict = {};
+    let bookNum = bookNumberString(book);
+    for (let i = 0; i < textLines.length; i++) {
+        let line = textLines[i];
+        if (line == "") {
+            continue;
+        }
+        let splitLine = line.split(" ");
+        let splitAddress = splitLine[0].split(".");
+        let chapter = parseInt(splitAddress[0]);
+        if (chapter >= startChapter && chapter <= endChapter) {
+            let verse = parseInt(splitAddress[1]);
+            let lineText = splitLine.slice(1).join(" ");
+            try {
+                let verseIDNum = getVerseIDNum(bookNum, chapterString(chapter), verseString(verse));
+                verseDict[verseIDNum] = lineText;
+            } catch (err) {
+                console.log("Error: " + line);
+            }
+            sleep(200);
+        }
+    }
+    return verseDict;
+}
+
+async function sendADict(myDict, routeString) {
+    fetch(routeString, {
+        method: 'POST',
+        body: JSON.stringify(myDict),
+        headers: {
+        "Content-type": "application/json; charset=UTF-8"
+        }
+    }).then(res => res.json()).then(res => console.log(res)).catch(err => console.error(err));
+}
+
+
+async function sendRawJSON(book, edition, startChapter, endChapter, textLines) {
+    let verseDict = await getRawVerseDict(book, startChapter, endChapter, textLines);
+    let allKeyList = Object.keys(verseDict);
+    for (let i = 0; i < allKeyList.length; i++) {
+        let verseNum = allKeyList[i];
+        let verseJSON = {"id": verseNum, "text": verseDict[verseNum], "edition": edition, "book": book};
+        fetch('/addRaw', {
+            method: 'POST',
+            body: JSON.stringify(verseJSON),
+            headers: {
+            "Content-type": "application/json; charset=UTF-8"
+            }
+        }).then(res => res.json()).then(res => console.log(res)).catch(err => console.error(err));
+    }
+    return allKeyList.length;
+}
+
+async function processText(whichBook, whichEdition, startChapter, endChapter, textLines) {
+    let numberOfVerses = await sendRawJSON(whichBook, whichEdition, startChapter, endChapter, textLines);
+    console.log("processText called from " + startChapter + "to " + endChapter + ".");
+    return numberOfVerses;
+}
+
+async function submitTextForProcessing(whichBook, whichEdition, myTextContainer) {
+    myTextContainer.innerHTML = "";
+
+    let startChapter = 1;
+    let endChapter = 10;
+
+    let totalVersesProcessed = 0;
+    let totalChapters = bookToChapterDict[whichBook];
+
+    let fileAddress = './texts/' + whichBook + '.' + whichEdition + '.txt';
+
+    let file = await fetch(fileAddress);
+    let fileText = await file.text();
+    let textLines = fileText.split("\n");
+
+    while (startChapter <= totalChapters || endChapter <= totalChapters) {
+        let numberOfVerses = await processText(whichBook, whichEdition, startChapter, endChapter, textLines);
+        totalVersesProcessed += numberOfVerses;
+        startChapter += 10;
+        endChapter += 10;
+        await sleep(1000);
+    }
+
+    let processedTextString = "Total verses processed: " + totalVersesProcessed.toString() + "\n";
+
+    let processedTextSpan = document.createElement('span');
+    processedTextSpan.innerHTML = processedTextString;
+    myTextContainer.appendChild(processedTextSpan);
+}
 
 function createDropdown(id) {
     let newDropdown = document.createElement('select');
@@ -622,10 +585,16 @@ async function processTextPopulateHTML() {
             actionChoicesDiv.appendChild(selectEditionDiv);
 
             selectEditionDropdown.addEventListener("change", function() {
-                
                 submitButton.innerHTML = "<b>Submit</b>";
                 submitButton.hidden = false;
                 actionChoicesDiv.appendChild(submitButton);
+
+                let whichBook = whichBookDropdown.value;
+                let whichEdition = selectEditionDropdown.value;
+
+                submitButton.addEventListener("click", async function() {
+                    await submitTextForProcessing(whichBook, whichEdition, document.getElementById("text-container"));
+                });
             });
         });
     });
