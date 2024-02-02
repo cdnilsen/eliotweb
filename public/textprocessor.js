@@ -530,6 +530,15 @@ function getRadioSelection() {
 function addSelectionParams() {
     let whichAction = getRadioSelection();
 
+    let actionToButtonLegendDict = {
+        "processAText": "Process a Text",
+        "compareWords": "Compare Verses",
+        "processWordsOneText": "Process Words in a Text",
+        "runWordCounts": "Run All Word Counts"
+    };
+
+    document.getElementById("pickActionLegend") = actionToButtonLegendDict[whichAction];
+
     if (whichAction == "processAText") {
         processTextPopulateHTML();
     }
