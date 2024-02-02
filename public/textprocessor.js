@@ -522,7 +522,8 @@ function processTextPopulateHTML() {
 }
 
 function getRadioSelection() {
-    let radioList = document.getElementsByName("action");
+    let allRadioButtons = document.getElementsByName("action");
+    let radioList = Array.from(allRadioButtons);
     for (let i = 0; i < radioList.length; i++) {
         if (radioList[i].checked) {
             return radioList[i].value;
