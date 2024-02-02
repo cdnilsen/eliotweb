@@ -95,7 +95,7 @@ function seeAllWords(resultDiv, searchString, searchSetting) {
 async function getComparedText(verseID, parentDiv) {
     fetch("/compareWords/" + verseID.toString()).then(res => res.json()).then(res => {
         for (let i = 0; i < res.length; i++) {
-            let thisWord = res[i];
+            let thisWord = res[i].toString();
             let wordSpan = document.createElement('span');
             wordDiv.innerHTML = thisWord;
             parentDiv.appendChild(wordSpan);
