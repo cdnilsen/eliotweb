@@ -664,7 +664,7 @@ async function processTextPopulateHTML() {
     let whichBook = dropdownChainDict["whichBook"];
     let whichEdition = dropdownChainDict["whichEdition"];
 
-    console.log(dropdownChainDict);
+    console.log(whichBook);
     /*
     submitButton.addEventListener("click", async function() {
         await submitTextForProcessing(whichBook, whichEdition, textContainerDiv);
