@@ -499,6 +499,7 @@ document.getElementById('run_word_counts').addEventListener("click", async funct
 function processTextPopulateHTML() {
     let actionChoicesDiv = document.getElementById("action-choices");
 
+
     let whichSectionDropdown = document.createElement('select');
     whichSectionDropdown.id = "which-section-dropdown";
     whichSectionDropdown.classList.add("dropdown");
@@ -519,6 +520,11 @@ function processTextPopulateHTML() {
         whichSectionDropdown.add(sectionOption);
         actionChoicesDiv.appendChild(whichSectionDropdown);
     }
+
+    let whichSectionLabel = document.createElement('label');
+    whichSectionLabel.for = "which-section-dropdown";
+    whichSectionLabel.innerHTML = "Select a section of the Bible: ";
+    actionChoicesDiv.appendChild(whichSectionLabel);
 }
 
 function getRadioSelection() {
