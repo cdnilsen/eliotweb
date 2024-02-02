@@ -501,16 +501,16 @@ function createDropdown(id) {
     let newDropdown = document.createElement('select');
     newDropdown.id = id;
     newDropdown.classList.add("dropdown");
-
-    let blankOption = document.createElement('option');
-    blankOption.text = "";
-    blankOption.value = "";
-    newDropdown.add(blankOption);
-
     return newDropdown;
 }
 
-function addListToDropdown(dropdown, list) {
+function addListToDropdown(dropdown, list, addBlank) {
+    if (addBlank) {
+        let blankOption = document.createElement('option');
+        blankOption.text = "";
+        blankOption.value = "";
+        dropdown.add(blankOption);
+    }
 
     for (let i = 0; i < list.length; i++) {
         let item = list[i];
@@ -521,9 +521,9 @@ function addListToDropdown(dropdown, list) {
     }
 }
 
-function createDropdownFromList(dropdownID, list) {
+function createDropdownFromList(dropdownID, list, addBlank=true) {
     let dropdown = createDropdown(dropdownID);
-    addListToDropdown(dropdown, list);
+    addListToDropdown(dropdown, list, addBlank);
     return dropdown;
 }
 
@@ -550,7 +550,7 @@ async function processTextPopulateHTML() {
 
     let sectionNameList = ["Pentateuch", "Historical Books", "Wisdom Books", "Prophets", "New Testament (not epistles)", "New Testament (epistles)"];
 
-    let whichSectionDropdown = createDropdownFromList("which-section-dropdown", sectionNameList);
+    let whichSectionDropdown = createDropdownFromList("which-section-dropdown", sectionNameList, true);
 
     selectSectionDiv.appendChild(whichSectionDropdown);
     actionChoicesDiv.appendChild(selectSectionDiv);
@@ -584,7 +584,7 @@ async function processTextPopulateHTML() {
             originalLanguage = "Greek";
         }
 
-        let whichBookDropdown = createDropdownFromList("bookDropdown", bookList);
+        let whichBookDropdown = createDropdownFromList("bookDropdown", bookList, true);
 
         selectBookDiv.appendChild(whichBookDropdown);
         
@@ -609,7 +609,7 @@ async function processTextPopulateHTML() {
 
             //editionsList.push(originalLanguage);
 
-            let selectEditionDropdown = createDropdownFromList("editionDropdown", editionsList);
+            let selectEditionDropdown = createDropdownFromList("editionDropdown", editionsList, true);
 
             selectEditionDropdown.hidden = false;
 
