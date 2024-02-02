@@ -455,6 +455,7 @@ async function submitTextForProcessing(whichBook, whichEdition, myTextContainer)
 
     let processedTextSpan = document.createElement('span');
     processedTextSpan.innerHTML = processedTextString;
+    myTextContainer.innerHTML = "";
     myTextContainer.appendChild(processedTextSpan);
 }
 
