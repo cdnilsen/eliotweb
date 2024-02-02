@@ -91,11 +91,54 @@ function seeAllWords(resultDiv, searchString, searchSetting) {
     }).catch(err => console.error(err))
 }
 
+// Backend "Ƀβ" get turned into blue tags (for differences in case), "Řř" get turned into red tags (for actual differences in the text)
+function cleanProcessedString(myString, showDifferences, showCasing) {
+
+    // Not *really* necessary, but speeds up processing by checking whether all this replacement needs to be done
+    if (showDifferences || showCasing) {
+
+        myString = myString.replaceAll("Ƀβ", "");
+        myString = myString.replaceAll("Řř", "");
+        
+        myString = myString.replaceAll("Ƀ{β", "{");
+        myString = myString.replaceAll("Ř{ř", "{");
+        myString = myString.replaceAll("Ƀ}", "}");
+        myString = myString.replaceAll("Ř}ř", "}");
+        // Even if difference marking isn't chosen we still want to make it easier to see e.g. <nnih> vs. <n($)nih>
+        myString = myString.replaceAll("Ř ř", "Ř˙ř");
+        myString = myString.replaceAll("Ř$ř", "Ř˙ř");
+        myString = myString.replaceAll("$", " ");
+
+        if (showCasing) {
+            myString = myString.replaceAll("Ƀ", '<span style="color: blue">');
+            myString = myString.replaceAll("β", "</span>");
+        } else {
+            myString = myString.replaceAll("Ƀ", "");
+            myString = myString.replaceAll("β", "");
+        }
+
+        if (showDifferences) {
+            myString = myString.replaceAll("Ř", '<span style="color: red">');
+            myString = myString.replaceAll("ř", "</span>");
+        } else {
+            myString = myString.replaceAll("Ř", "");
+            myString = myString.replaceAll("ř", "");
+        }
+    } else {
+        myString = myString.replaceAll('$', ' ');
+    }
+
+    myString = myString.replaceAll('8', 'ꝏ̄').replaceAll('{', '<i>').replaceAll('}', '</i>');
+
+    return myString;
+}
+
 //this is a dummy function that won't end up here in the end
 async function getComparedText(verseID, parentDiv) {
     fetch("/compareWords/" + verseID.toString()).then(res => res.json()).then(res => {
         for (let i = 0; i < res.length; i++) {
             let thisWord = res[i].toString();
+            thisWord = cleanProcessedString(thisWord, true, true);
             let wordSpan = document.createElement('span');
             wordSpan.innerHTML = thisWord;
             parentDiv.appendChild(wordSpan);
