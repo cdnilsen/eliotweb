@@ -502,10 +502,6 @@ function createDropdownChain(includeEdition) {
     let selectEditionDiv = document.createElement('div');
     selectEditionDiv.id = "select-edition-div";
 
-    let submitButton = document.createElement('button');
-    submitButton.id = "submit";
-    submitButton.hidden = true;
-
     let whichSectionLabel = document.createElement('span');
     whichSectionLabel.innerHTML = "Select a section of the Bible: ";
     selectSectionDiv.appendChild(whichSectionLabel);
@@ -528,8 +524,13 @@ function createDropdownChain(includeEdition) {
     let textContainerDiv = document.getElementById("text-container");
     textContainerDiv.innerHTML = "";
 
-    whichSectionDropdown.addEventListener("change", function() {
+    let whichBook = "";
+    let whichEdition = "";
+    let submitButton = document.createElement('button');
+    submitButton.id = "submit";
+    submitButton.hidden = true;
 
+    whichSectionDropdown.addEventListener("change", function() {
         selectBookDiv.innerHTML = "";
         selectEditionDiv.innerHTML = "";
         submitButton.innerHTML = "";
@@ -564,11 +565,6 @@ function createDropdownChain(includeEdition) {
         actionChoicesDiv.appendChild(selectBookDiv);
 
         textContainerDiv.innerHTML = "";
-
-        let whichBook = "";
-        let whichEdition = "";
-        let submitButton = document.createElement('button');
-        submitButton.id = "submit";
 
         if (includeEdition) {
             selectBookDiv.addEventListener("change", function() {
