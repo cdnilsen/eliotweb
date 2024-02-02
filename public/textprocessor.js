@@ -514,10 +514,10 @@ function createDropdownChain(includeEdition) {
 
     let whichSectionDropdown = createDropdownFromList("which-section-dropdown", sectionNameList, true);
 
-    let selectBookDropdown = createDropdownFromList("bookDropdown", bookList, true);
+    let selectBookDropdown = createDropdown("bookDropdown");
     selectBookDropdown.hidden = true;
 
-    let selectEditionDropdown = createDropdownFromList("editionDropdown", editionsList, true);
+    let selectEditionDropdown = createDropdown("editionDropdown");
     selectEditionDropdown.hidden = true;
 
     selectSectionDiv.appendChild(whichSectionDropdown);
@@ -552,13 +552,14 @@ function createDropdownChain(includeEdition) {
 
         let bookList = sectionToBookListDict[whichSection];
 
+        addListToDropdown(selectBookDropdown, bookList, true);
+
         if (whichSection == "New Testament (not epistles)" || whichSection == "New Testament (epistles)") {
             originalLanguage = "Greek";
         }
 
         selectBookDiv.appendChild(selectBookDropdown);
-        
-        selectBookDiv.hidden = false;
+        selectBookDropdown.hidden = false;
 
         actionChoicesDiv.appendChild(selectBookDiv);
 
@@ -587,7 +588,7 @@ function createDropdownChain(includeEdition) {
 
                 //editionsList.push(originalLanguage);
 
-
+                addListToDropdown(selectEditionDropdown, editionsList, true);
                 selectEditionDropdown.hidden = false;
 
                 let whichEditionLabel = document.createElement('span');
