@@ -559,9 +559,10 @@ async function processTextPopulateHTML() {
 
     whichSectionDropdown.addEventListener("change", function() {
         selectBookDiv.innerHTML = "";
-        
+        selectEditionDiv.innerHTML = "";
+        submitButton.innerHTML = "";
+        submitButton.hidden = true;
 
-        selectBookDiv.innerHTML = "";
         let whichBookLabel = document.createElement('span');
         whichBookLabel.innerHTML = "Select a book: ";
         selectBookDiv.appendChild(whichBookLabel);
@@ -592,9 +593,10 @@ async function processTextPopulateHTML() {
         actionChoicesDiv.appendChild(selectBookDiv);
 
         selectBookDiv.addEventListener("change", function() {
-
             selectEditionDiv.innerHTML = "";
-
+            submitButton.innerHTML = "";
+            submitButton.hidden = true;
+        
             let editionsList = ["First Edition", "Second Edition"];
 
             if (whichBookDropdown.value == "Genesis") {
