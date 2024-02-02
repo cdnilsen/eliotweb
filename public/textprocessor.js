@@ -431,10 +431,6 @@ async function processText(whichBook, whichEdition, startChapter, endChapter, te
 }
 
 async function submitTextForProcessing(whichBook, whichEdition, myTextContainer) {
-    while(myTextContainer.firstChild) {
-        myTextContainer.removeChild(myTextContainer.lastChild);
-    }
-
     let startChapter = 1;
     let endChapter = 10;
 
@@ -522,7 +518,10 @@ async function processTextPopulateHTML() {
 
     let originalLanguage = "Hebrew";
 
+    let textContainerDiv = document.getElementById("text-container");
+
     whichSectionDropdown.addEventListener("change", function() {
+        textContainerDiv.innerHTML = "";
         selectBookDiv.innerHTML = "";
         selectEditionDiv.innerHTML = "";
         submitButton.innerHTML = "";
@@ -558,6 +557,8 @@ async function processTextPopulateHTML() {
         actionChoicesDiv.appendChild(selectBookDiv);
 
         selectBookDiv.addEventListener("change", function() {
+            textContainerDiv.innerHTML = "";
+
             selectEditionDiv.innerHTML = "";
             submitButton.innerHTML = "";
             submitButton.hidden = true;
@@ -587,6 +588,7 @@ async function processTextPopulateHTML() {
             actionChoicesDiv.appendChild(selectEditionDiv);
 
             selectEditionDropdown.addEventListener("change", function() {
+                textContainerDiv.innerHTML = "";
                 submitButton.innerHTML = "<b>Submit</b>";
                 submitButton.hidden = false;
                 actionChoicesDiv.appendChild(submitButton);
@@ -595,7 +597,8 @@ async function processTextPopulateHTML() {
                 let whichEdition = selectEditionDropdown.value;
 
                 submitButton.addEventListener("click", async function() {
-                    await submitTextForProcessing(whichBook, whichEdition, document.getElementById("text-container"));
+                    textContainerDiv.innerHTML = "";
+                    await submitTextForProcessing(whichBook, whichEdition, textContainerDiv);
                 });
             });
         });
