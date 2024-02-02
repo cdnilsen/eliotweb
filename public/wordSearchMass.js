@@ -91,44 +91,51 @@ function seeAllWords(resultDiv, searchString, searchSetting) {
     }).catch(err => console.error(err))
 }
 
+function cleanExtraTags(myString) {
+    
+}
+
 // Backend "Ƀβ" get turned into blue tags (for differences in case), "Řř" get turned into red tags (for actual differences in the text)
 function cleanProcessedString(myString, showDifferences, showCasing) {
 
     // Not *really* necessary, but speeds up processing by checking whether all this replacement needs to be done
     if (showDifferences || showCasing) {
 
-        myString = myString.replaceAll("Ƀβ", "");
-        myString = myString.replaceAll("Řř", "");
+        //* THIS part needs to be done earlier before putting stuff into the database
+        myString = myString.split("Ƀβ").join("");
+        myString = myString.split("Řř").join("");
         
-        myString = myString.replaceAll("Ƀ{β", "{");
-        myString = myString.replaceAll("Ř{ř", "{");
-        myString = myString.replaceAll("Ƀ}", "}");
-        myString = myString.replaceAll("Ř}ř", "}");
+        myString = myString.split("Ƀ{β").join("{");
+        myString = myString.split("Ř{ř").join("{");
+        myString = myString.split("Ƀ}").join("}");
+        myString = myString.split("Ř}ř").join("}");
         // Even if difference marking isn't chosen we still want to make it easier to see e.g. <nnih> vs. <n($)nih>
-        myString = myString.replaceAll("Ř ř", "Ř˙ř");
-        myString = myString.replaceAll("Ř$ř", "Ř˙ř");
-        myString = myString.replaceAll("$", " ");
+        myString = myString.split("Ř ř").join("Ř˙ř");
+        myString = myString.split("Ř$ř").join("Ř˙ř");
+        myString = myString.split("$").join(" ");
 
         if (showCasing) {
-            myString = myString.replaceAll("Ƀ", '<span style="color: blue">');
-            myString = myString.replaceAll("β", "</span>");
+            myString = myString.split("Ƀ").join('<span style="color: blue">');
+            myString = myString.split("β").join("</span>");
         } else {
-            myString = myString.replaceAll("Ƀ", "");
-            myString = myString.replaceAll("β", "");
+            myString = myString.split("Ƀ").join("");
+            myString = myString.split("β").join("");
         }
 
         if (showDifferences) {
-            myString = myString.replaceAll("Ř", '<span style="color: red">');
-            myString = myString.replaceAll("ř", "</span>");
+            myString = myString.split("Ř").join('<span style="color: red">');
+            myString = myString.split("ř").join("</span>");
         } else {
-            myString = myString.replaceAll("Ř", "");
-            myString = myString.replaceAll("ř", "");
+            myString = myString.split("Ř").join("");
+            myString = myString.split("ř").join("");
         }
     } else {
-        myString = myString.replaceAll('$', ' ');
+        myString = myString.split('$').join(' ');
     }
 
-    myString = myString.replaceAll('8', 'ꝏ̄').replaceAll('{', '<i>').replaceAll('}', '</i>');
+    myString = myString.split('8').join('ꝏ̄');
+    myString = myString.split('{').join('<i>');
+    myString = myString.split('}').join('</i>');
 
     return myString;
 }
@@ -143,6 +150,7 @@ async function getComparedText(verseID, parentDiv) {
             wordSpan.innerHTML = thisWord;
             parentDiv.appendChild(wordSpan);
         }
+        parentDiv.appendChild('<br>');
         /*
         let outputText = res.toString();
         let newSpan = document.createElement('span');

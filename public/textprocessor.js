@@ -378,7 +378,7 @@ document.getElementById('process_words').addEventListener("click", async functio
         }).then(res => res.json()).then(res => {
             console.log(res[0].toString() + " worked!");
         }).catch(err => console.log(err));
-        
+        ø
         startingIndex += 50;
         endingIndex += 50;
     }

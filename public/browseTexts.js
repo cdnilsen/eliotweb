@@ -312,7 +312,7 @@ const bookToChapterVerseDict = {
 //Needs to be updated manually.
 const bookToActiveEditionsDict = {
     "Genesis": 3,
-    "Exodus": 6,
+    "Exodus": 78,
     "Leviticus": 6,
     "Numbers": 3,
     "Deuteronomy": 3,
@@ -607,38 +607,40 @@ function cleanProcessedString(myString, showDifferences, showCasing) {
     // Not *really* necessary, but speeds up processing by checking whether all this replacement needs to be done
     if (showDifferences || showCasing) {
 
-        myString = myString.replaceAll("Ƀβ", "");
-        myString = myString.replaceAll("Řř", "");
+        myString = myString.split("Ƀβ").join("");
+        myString = myString.split("Řř").join("");
         
-        myString = myString.replaceAll("Ƀ{β", "{");
-        myString = myString.replaceAll("Ř{ř", "{");
-        myString = myString.replaceAll("Ƀ}", "}");
-        myString = myString.replaceAll("Ř}ř", "}");
+        myString = myString.split("Ƀ{β").join("{");
+        myString = myString.split("Ř{ř").join("{");
+        myString = myString.split("Ƀ}").join("}");
+        myString = myString.split("Ř}ř").join("}");
         // Even if difference marking isn't chosen we still want to make it easier to see e.g. <nnih> vs. <n($)nih>
-        myString = myString.replaceAll("Ř ř", "Ř˙ř");
-        myString = myString.replaceAll("Ř$ř", "Ř˙ř");
-        myString = myString.replaceAll("$", " ");
+        myString = myString.split("Ř ř").join("Ř˙ř");
+        myString = myString.split("Ř$ř").join("Ř˙ř");
+        myString = myString.split("$").join(" ");
 
         if (showCasing) {
-            myString = myString.replaceAll("Ƀ", '<span style="color: blue">');
-            myString = myString.replaceAll("β", "</span>");
+            myString = myString.split("Ƀ").join('<span style="color: blue">');
+            myString = myString.split("β").join("</span>");
         } else {
-            myString = myString.replaceAll("Ƀ", "");
-            myString = myString.replaceAll("β", "");
+            myString = myString.split("Ƀ").join("");
+            myString = myString.split("β").join("");
         }
 
         if (showDifferences) {
-            myString = myString.replaceAll("Ř", '<span style="color: red">');
-            myString = myString.replaceAll("ř", "</span>");
+            myString = myString.split("Ř").join('<span style="color: red">');
+            myString = myString.split("ř").join("</span>");
         } else {
-            myString = myString.replaceAll("Ř", "");
-            myString = myString.replaceAll("ř", "");
+            myString = myString.split("Ř").join("");
+            myString = myString.split("ř").join("");
         }
     } else {
-        myString = myString.replaceAll('$', ' ');
+        myString = myString.split('$').join(' ');
     }
 
-    myString = myString.replaceAll('8', 'ꝏ̄').replaceAll('{', '<i>').replaceAll('}', '</i>');
+    myString = myString.split('8').join('ꝏ̄');
+    myString = myString.split('{').join('<i>');
+    myString = myString.split('}').join('</i>');
 
     return myString;
 }
@@ -758,7 +760,7 @@ async function displayChapterText(book, chapter, useFirst, useSecond, useMayhew,
 
 }
 
-async function getOneVerseText(book, chapter, verse, useFirst, useSecond, useMayhew, useZeroth, useKJV, useGrebrew, useRawText, textContainer) {
+async function getOneVerseText(book, chapter, verse, useFirst, useSecond, useMayhew, useZeroth, useKJV, useGrebrew, useRawText, textContainer, showTextDifferences, showCasing) {
     textContainer.innerHTML = "";
 
     let editionNumber = getEditionCompositeNumber(useFirst, useSecond, useMayhew, useZeroth, useKJV, useGrebrew);
@@ -789,7 +791,8 @@ async function getOneVerseText(book, chapter, verse, useFirst, useSecond, useMay
             if (editionNumber % p == 0) {
                 let verseColumnDiv = document.createElement('div');
                 div.style = "grid-column: " + (i + 1).toString() + ";";
-                let verseText = res[p].toString().replaceAll('8', 'ꝏ̄').replaceAll('$', ' ').replaceAll('{', '<i>').replaceAll('}', '</i>');;
+                let verseText = res[p].toString();
+                verseText = cleanProcessedString(verseText, showTextDifferences, showCasing);
                 let span = document.createElement('span');
                 span.innerHTML = verseText;
                 textContainer.appendChild(span);

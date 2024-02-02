@@ -45,7 +45,33 @@ const editionToNumDict: stringToStringDict = {
     "Zeroth Edition": "7"
 };
 
-function cleanDiacritics(word: string): string {
+//This function is an attempt to deal with the macra and tildes that Eliot uses to represent a following nasal
+function processEngma(word: string, edition: string, book: string, chapter: number, verse: number): string {
+
+    let wordCopy = word;
+    if (word.endsWith('ŋ')) {
+        let chapterString = chapter.toString();
+        let verseString = verse.toString();
+        wordCopy = word.slice(0, -1);
+        wordCopy = wordCopy + "Ŋ";
+        console.log(`!!! MANUALLY FIX ${word} at ${edition} ${book} ${chapterString}:${verseString}`);
+    }
+    
+    let labialEngmaClusters: string[] = ['ŋb', 'ŋp', 'ŋm', 'ŋf'];
+
+    let replacementClusters: string[] = ['mb', 'mp', 'mm', 'mf'];
+
+    for (let i = 0; i < 4; i++) {
+        wordCopy = wordCopy.split(labialEngmaClusters[i]).join(replacementClusters[i]);
+    }
+
+    wordCopy = wordCopy.split('ŋ').join('n');
+
+    return wordCopy;
+}
+
+function cleanDiacriticsEngmaMarking(word: string, edition: string, book: string, chapter: number, verse: number): string {
+
     let charReplacementDict: stringToStringDict = {
         "á": "a",
         "é": "e",
@@ -67,18 +93,18 @@ function cleanDiacritics(word: string): string {
         "ï": "i",
         "ö": "o",
         "ü": "u",
-        "ã": "a",
-        "õ": "o",
+        "ã": "aŋ",
+        "õ": "oŋ",
         "ñ": "nn",
         "m̃": "mm",
-        "ũ": "u",
-        "ẽ": "e",
-        "ĩ": "i",
-        "ā": "an",
-        "ē": "en",
-        "ī": "in",
-        "ō": "on",
-        "ū": "un"
+        "ũ": "uŋ",
+        "ẽ": "eŋ",
+        "ĩ": "iŋ",
+        "ā": "aŋ",
+        "ē": "eŋ",
+        "ī": "iŋ",
+        "ō": "oŋ",
+        "ū": "uŋ"
     };
 
     let cleanedWord = "";
@@ -89,7 +115,7 @@ function cleanDiacritics(word: string): string {
             cleanedWord += word[i];
         }
     }
-    return cleanedWord;
+    return processEngma(cleanedWord, edition, book, chapter, verse);
 }
 
 function getWordCountDict(wordList: string[], countList: number[], keepDiacritics: boolean): stringToNumberDict {
