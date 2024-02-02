@@ -115,7 +115,7 @@ function cleanDiacriticsEngmaMarking(word: string): string {
             cleanedWord += word[i];
         }
     }
-    return processEngma(cleanedWord, edition, book, chapter, verse);
+    return processEngma(cleanedWord);
 }
 
 function getWordCountDict(wordList: string[], countList: number[], keepDiacritics: boolean): stringToNumberDict {
