@@ -537,7 +537,7 @@ function addSelectionParams() {
         "runWordCounts": "Run All Word Counts"
     };
 
-    document.getElementById("pickActionLegend") = actionToButtonLegendDict[whichAction];
+    document.getElementById("pickActionLegend").innerHTML = actionToButtonLegendDict[whichAction];
 
     if (whichAction == "processAText") {
         processTextPopulateHTML();
