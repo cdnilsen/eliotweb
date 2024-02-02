@@ -431,7 +431,9 @@ async function processText(whichBook, whichEdition, startChapter, endChapter, te
 }
 
 async function submitTextForProcessing(whichBook, whichEdition, myTextContainer) {
-    myTextContainer.innerHTML = "";
+    while(myTextContainer.firstChild) {
+        myTextContainer.removeChild(myTextContainer.lastChild);
+    }
 
     let startChapter = 1;
     let endChapter = 10;
