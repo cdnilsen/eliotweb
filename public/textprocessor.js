@@ -224,6 +224,7 @@ const bookToChapterDict = {
     "Jude": 1,
     "Revelation": 22
 };
+/*
 
 function getBookToNumDict(bookList) {
     let finalDict = {};
@@ -479,7 +480,7 @@ document.getElementById('process_words').addEventListener("click", async functio
         "Content-type": "application/json; charset=UTF-8"
         }
     }).then(res => res.json()).then(res => console.log(res)).catch(err => console.error(err));
-    */
+    
     document.getElementById("text-container").appendChild(newSpan);
 });
 
@@ -493,6 +494,7 @@ document.getElementById('run_word_counts').addEventListener("click", async funct
         }
     }).then(res => res.json()).then(res => console.log(res)).catch(err => console.error(err));
 });
+*/
 
 function processTextPopulateHTML() {
     let actionChoicesDiv = document.getElementById("action-choices");
