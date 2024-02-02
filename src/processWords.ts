@@ -46,15 +46,15 @@ const editionToNumDict: stringToStringDict = {
 };
 
 //This function is an attempt to deal with the macra and tildes that Eliot uses to represent a following nasal
-function processEngma(word: string, edition: string, book: string, chapter: number, verse: number): string {
+function processEngma(word: string): string {
 
     let wordCopy = word;
+    //These will need to be dealt with manually, but we'll need to do that later
     if (word.endsWith('ŋ')) {
         let chapterString = chapter.toString();
         let verseString = verse.toString();
         wordCopy = word.slice(0, -1);
         wordCopy = wordCopy + "Ŋ";
-        console.log(`!!! MANUALLY FIX ${word} at ${edition} ${book} ${chapterString}:${verseString}`);
     }
     
     let labialEngmaClusters: string[] = ['ŋb', 'ŋp', 'ŋm', 'ŋf'];
@@ -70,7 +70,7 @@ function processEngma(word: string, edition: string, book: string, chapter: numb
     return wordCopy;
 }
 
-function cleanDiacriticsEngmaMarking(word: string, edition: string, book: string, chapter: number, verse: number): string {
+function cleanDiacriticsEngmaMarking(word: string): string {
 
     let charReplacementDict: stringToStringDict = {
         "á": "a",
