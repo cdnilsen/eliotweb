@@ -97,7 +97,7 @@ async function getComparedText(verseID, parentDiv) {
         for (let i = 0; i < res.length; i++) {
             let thisWord = res[i].toString();
             let wordSpan = document.createElement('span');
-            wordDiv.innerHTML = thisWord;
+            wordSpan.innerHTML = thisWord;
             parentDiv.appendChild(wordSpan);
         }
         /*
