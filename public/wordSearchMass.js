@@ -139,9 +139,8 @@ async function getComparedText(verseID, parentDiv) {
             let thisWord = res[i].toString();
             thisWord = cleanProcessedString(thisWord, true, true);
             let wordSpan = document.createElement('span');
-            wordSpan.innerHTML = thisWord;
+            wordSpan.innerHTML = thisWord + "<br>";
             parentDiv.appendChild(wordSpan);
-            parentDiv.appendChild('<br>');
         }
         
         /*
