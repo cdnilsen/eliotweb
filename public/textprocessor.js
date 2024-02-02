@@ -517,7 +517,7 @@ function processTextPopulateHTML() {
         sectionOption.text = sectionName;
         sectionOption.value = sectionName;
         whichSectionDropdown.add(sectionOption);
-        actionChoicesDiv.appendChild(whichBookDropdown);
+        actionChoicesDiv.appendChild(whichSectionDropdown);
     }
 }
 
