@@ -519,7 +519,7 @@ function createDropdownChain(includeEdition) {
     selectSectionDiv.appendChild(whichSectionDropdown);
     actionChoicesDiv.appendChild(selectSectionDiv);
 
-    let originalLanguage = "Hebrew";
+    let originalLanguage = "";
 
     let textContainerDiv = document.getElementById("text-container");
     textContainerDiv.innerHTML = "";
@@ -532,6 +532,7 @@ function createDropdownChain(includeEdition) {
 
     whichSectionDropdown.addEventListener("change", function() {
         selectBookDropdown.innerHTML = "";
+        selectEditionDropdown.innerHTML = "";
 
         selectBookDiv.innerHTML = "";
         selectEditionDiv.innerHTML = "";
@@ -559,6 +560,8 @@ function createDropdownChain(includeEdition) {
 
         if (whichSection == "New Testament (not epistles)" || whichSection == "New Testament (epistles)") {
             originalLanguage = "Greek";
+        } else {
+            originalLanguage = "Hebrew";
         }
 
         selectBookDiv.appendChild(selectBookDropdown);
@@ -571,7 +574,7 @@ function createDropdownChain(includeEdition) {
         if (includeEdition) {
             selectBookDiv.addEventListener("change", function() {
                 selectEditionDropdown.innerHTML = "";
-                
+
                 selectEditionDiv.innerHTML = "";
                 submitButton.innerHTML = "";
                 submitButton.hidden = true;
@@ -613,6 +616,8 @@ function createDropdownChain(includeEdition) {
             });
         } else {
             textContainerDiv.innerHTML = "";
+            selectEditionDropdown.innerHTML = "";
+
             selectBookDropdown.addEventListener("change", function() {
                 submitButton.innerHTML = "<b>Submit</b>";
                 submitButton.hidden = false;
@@ -627,7 +632,8 @@ function createDropdownChain(includeEdition) {
     let returnDict = {
         "submitButton": submitButton,
         "textContainerDiv": textContainerDiv,
-        "whichBook": whichBook
+        "whichBook": whichBook,
+        "originalLanguage": originalLanguage
     };
 
     if (includeEdition) {
