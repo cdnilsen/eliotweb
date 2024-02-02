@@ -521,17 +521,20 @@ function processTextPopulateHTML() {
         sectionOption.value = sectionName;
         whichSectionDropdown.add(sectionOption);
     }
+
     selectSectionDiv.appendChild(whichSectionDropdown);
     actionChoicesDiv.appendChild(selectSectionDiv);
 
-    let selectBookDiv = document.createElement('div');
-    selectBookDiv.hidden = true;
-    selectBookDiv.id = "select-book-div";
-    let whichBookLabel = document.createElement('span');
-    whichBookLabel.innerHTML = "Select a book: ";
-    selectBookDiv.appendChild(whichBookLabel);
 
     whichSectionDropdown.addEventListener("change", function() {
+        let selectBookDiv = document.createElement('div');
+        selectBookDiv.id = "select-book-div";
+
+        selectBookDiv.innerHTML = "";
+        let whichBookLabel = document.createElement('span');
+        whichBookLabel.innerHTML = "Select a book: ";
+        selectBookDiv.appendChild(whichBookLabel);
+
         let sectionToBookListDict = {
             "Pentateuch": pentateuchList,
             "Historical Books": historicalList,
@@ -560,9 +563,12 @@ function processTextPopulateHTML() {
             bookOption.value = book;
             whichBookDropdown.add(bookOption);
         }
-        
+
         selectBookDiv.appendChild(whichBookDropdown);
+        
         selectBookDiv.hidden = false;
+
+        actionChoicesDiv.appendChild(selectBookDiv);
     });
 }
 
