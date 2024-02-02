@@ -752,8 +752,10 @@ async function displayChapterText(book, chapter, useFirst, useSecond, useMayhew,
                 }
                 thisVerseColumn.style = "grid-column: " + (k + 1).toString() + ";";
 
-                let verseText = res[p][j].toString().
+                let verseText = res[p][j].toString();
+
                 verseText = cleanProcessedString(verseText, showTextDifferences, showCasing);
+                
                 thisVerseColumn.innerHTML = verseText;
                 thisVerseRow.appendChild(thisVerseColumn);
             }
