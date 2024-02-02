@@ -532,6 +532,18 @@ async function processTextPopulateHTML() {
     let actionChoicesDiv = document.getElementById("action-choices");
 
     let selectSectionDiv = document.createElement('div');
+    selectSectionDiv.id = "select-section-div";
+    
+    let selectBookDiv = document.createElement('div');
+    selectBookDiv.id = "select-book-div";
+
+    let selectEditionDiv = document.createElement('div');
+    selectEditionDiv.id = "select-edition-div";
+
+    let submitButton = document.createElement('button');
+    submitButton.id = "submit";
+    submitButton.hidden = true;
+
     let whichSectionLabel = document.createElement('span');
     whichSectionLabel.innerHTML = "Select a section of the Bible: ";
     selectSectionDiv.appendChild(whichSectionLabel);
@@ -546,8 +558,8 @@ async function processTextPopulateHTML() {
     let originalLanguage = "Hebrew";
 
     whichSectionDropdown.addEventListener("change", function() {
-        let selectBookDiv = document.createElement('div');
-        selectBookDiv.id = "select-book-div";
+        selectBookDiv.innerHTML = "";
+        
 
         selectBookDiv.innerHTML = "";
         let whichBookLabel = document.createElement('span');
@@ -581,7 +593,7 @@ async function processTextPopulateHTML() {
 
         selectBookDiv.addEventListener("change", function() {
 
-            let selectEditionDiv = document.createElement('div');
+            selectEditionDiv.innerHTML = "";
 
             let editionsList = ["First Edition", "Second Edition"];
 
@@ -608,9 +620,9 @@ async function processTextPopulateHTML() {
             actionChoicesDiv.appendChild(selectEditionDiv);
 
             selectEditionDropdown.addEventListener("change", function() {
-                let submitButton = document.createElement('button');
-                submitButton.id = "submit";
+                
                 submitButton.innerHTML = "<b>Submit</b>";
+                submitButton.hidden = false;
                 actionChoicesDiv.appendChild(submitButton);
             });
         });
