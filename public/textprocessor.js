@@ -501,6 +501,7 @@ function processTextPopulateHTML() {
 
     let whichSectionDropdown = document.createElement('select');
     whichSectionDropdown.id = "which-section-dropdown";
+    whichSectionDropdown.classList.add("dropdown");
     let blankOption = document.createElement('option');
     blankOption.text = "";
     blankOption.value = "";
@@ -530,7 +531,7 @@ function getRadioSelection() {
 }
 
 function addSelectionParams(whichAction) {
-    if (whichAction == "Process a Text") {
+    if (whichAction == "processAText") {
         processTextPopulateHTML();
     }
 }
