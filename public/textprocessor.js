@@ -492,6 +492,7 @@ function createDropdownFromList(dropdownID, list, addBlank=true) {
 
 async function createDropdownChain(includeEdition) {
     return new Promise((resolve, reject) => {
+        let dictionaryFilled = false;
 
         let actionChoicesDiv = document.getElementById("action-choices");
 
@@ -627,6 +628,8 @@ async function createDropdownChain(includeEdition) {
                         returnDict["whichEdition"] = whichEdition;
 
                         textContainerDiv.innerHTML = "";
+                        
+                        dictionaryFilled = true;
                     });
                 });
             } else {
@@ -640,12 +643,14 @@ async function createDropdownChain(includeEdition) {
                     whichBook = selectBookDropdown.value;
 
                     returnDict["whichBook"] = whichBook;
-
+                    dictionaryFilled = true;
                     textContainerDiv.innerHTML = "";
                 });
             }
         });
-        resolve(returnDict);
+        if (dictionaryFilled) {
+            resolve(returnDict);
+        }
     });
 }
 
