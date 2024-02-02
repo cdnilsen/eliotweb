@@ -4,11 +4,9 @@ import path from "path"
 import { default as pool } from './db'
 import { wrapAsync } from './utils'
 import { wordSearch } from './wordSearchMass'
-import { processVerseJSON } from './textprocessor'
+import { processVerseJSON, addComparedVerses } from './textprocessor'
 import { processBatchWordData, populateCorrespondences, getTotalWordCounts } from './processWords'
 import { getVerseText, getChapterText } from './browseTexts'
-
-import { addComparedVerses } from './wordSearchMass'
 
 const app = express();
 app.use(express.json());
