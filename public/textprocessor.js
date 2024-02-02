@@ -490,7 +490,7 @@ function createDropdownFromList(dropdownID, list, addBlank=true) {
 }
 
 
-function createDropdownChain(includeEdition) {
+async function createDropdownChain(includeEdition) {
     let actionChoicesDiv = document.getElementById("action-choices");
 
     let selectSectionDiv = document.createElement('div');
@@ -633,10 +633,11 @@ function createDropdownChain(includeEdition) {
         "submitButton": submitButton,
         "textContainerDiv": textContainerDiv,
         "whichBook": whichBook,
-        "originalLanguage": originalLanguage
+        //"originalLanguage": originalLanguage
     };
 
     if (includeEdition) {
+        returnDict["originalLanguage"] = originalLanguage;
         returnDict["whichEdition"] = whichEdition;
     }
 
@@ -644,8 +645,9 @@ function createDropdownChain(includeEdition) {
 }
 
 async function processTextPopulateHTML() {
-    let myDropdownChain = createDropdownChain(true);
+    let myDropdownChain = await createDropdownChain(true);
     let submitButton = myDropdownChain["submitButton"];
+
     let textContainerDiv = myDropdownChain["textContainerDiv"];
 
     let whichBook = myDropdownChain["whichBook"];
