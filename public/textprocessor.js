@@ -522,7 +522,7 @@ function addListToDropdown(dropdown, list) {
 }
 
 function createDropdownFromList(dropdownID, list) {
-    createDropdown(dropdownID);
+    let dropdown = createDropdown(dropdownID);
     addListToDropdown(dropdown, list);
     return dropdown;
 }
