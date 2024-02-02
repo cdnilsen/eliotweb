@@ -597,8 +597,8 @@ async function processTextPopulateHTML() {
                 let whichBook = whichBookDropdown.value;
                 let whichEdition = selectEditionDropdown.value;
 
+                textContainerDiv.innerHTML = "";
                 submitButton.addEventListener("click", async function() {
-                    textContainerDiv.innerHTML = "";
                     await submitTextForProcessing(whichBook, whichEdition, textContainerDiv);
                 });
             });
