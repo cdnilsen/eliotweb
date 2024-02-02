@@ -560,7 +560,8 @@ function processTextPopulateHTML() {
             bookOption.value = book;
             whichBookDropdown.add(bookOption);
         }
-
+        
+        selectBookDiv.appendChild(whichBookDropdown);
         selectBookDiv.hidden = false;
     });
 }
