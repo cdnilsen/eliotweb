@@ -530,7 +530,7 @@ function getRadioSelection() {
 }
 
 function addSelectionParams(whichAction) {
-    if (whichAction == "processAText") {
+    if (whichAction == "Process a Text") {
         processTextPopulateHTML();
     }
 }
@@ -565,4 +565,3 @@ document.getElementById('pickAction').addEventListener("click", function() {
     let whichAction = getRadioSelection();
     addSelectionParams(whichAction);
 });
-
