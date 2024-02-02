@@ -645,26 +645,26 @@ async function createDropdownChain(includeEdition) {
                 });
             }
         });
-
-
-        
         resolve(returnDict);
     });
 }
 
 
 async function processTextPopulateHTML() {
-    let myDropdownChain = await createDropdownChain(true);
-    let submitButton = myDropdownChain["submitButton"];
+    let dropdownChainDict = await createDropdownChain(true);
+    let submitButton = dropdownChainDict["submitButton"];
 
-    let textContainerDiv = myDropdownChain["textContainerDiv"];
+    let textContainerDiv = dropdownChainDict["textContainerDiv"];
 
-    let whichBook = myDropdownChain["whichBook"];
-    let whichEdition = myDropdownChain["whichEdition"];
+    let whichBook = dropdownChainDict["whichBook"];
+    let whichEdition = dropdownChainDict["whichEdition"];
 
+    console.log(dropdownChainDict);
+    /*
     submitButton.addEventListener("click", async function() {
         await submitTextForProcessing(whichBook, whichEdition, textContainerDiv);
     });
+    */
 }
 
 async function processTextComparisons() {
