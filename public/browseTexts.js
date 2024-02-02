@@ -674,7 +674,9 @@ function columnMeasurePopulator(numLeftColumns, numRightColumns) {
 }
 
 async function displayChapterText(book, chapter, useFirst, useSecond, useMayhew, useZeroth, useKJV, useGrebrew, showTextDifferences, showCasing, textContainer) {
+
     textContainer.innerHTML = "";
+
     let editionNumber = getEditionCompositeNumber(useFirst, useSecond, useMayhew, useZeroth, useKJV, useGrebrew);
 
     let useRawText = !showTextDifferences && !showCasing;
@@ -692,6 +694,7 @@ async function displayChapterText(book, chapter, useFirst, useSecond, useMayhew,
 
     let headerDiv = document.getElementById("editionHeaders");
     headerDiv.innerHTML = "";
+
     fetch('/fetchChapter/' + book + '/' + chapter + '/' + editionNumber.toString() + '/' + useRawString, {
         method: 'GET',
         headers: {
@@ -949,16 +952,18 @@ document.getElementById("submitBookQuery").addEventListener('click', async funct
     let useZeroth = document.getElementById("useZerothEdition").checked;
     let useKJV = true;
     let useGrebrew = false;
-    let useRawText = true;
+
+    let showTextDifferences = false;
+    let showCasing = false;
     //let useKJV = document.getElementById("useKJV").checked;
     //let useGrebrew = document.getElementById("useGrebrew").checked;
     //let useRawText = document.getElementById("useRawText").checked;
 
     createNavButtons(chapter, isLastChapter, book);
 
-    let textContainer = document.getElementById("textColumns");
+    let columnContainer = document.getElementById("textColumns");
 
-    await displayChapterText(book, chapter, useFirst, useSecond, useMayhew, useZeroth, useKJV, useGrebrew, useRawText, textContainer);
+    await displayChapterText(book, chapter, useFirst, useSecond, useMayhew, useZeroth, useKJV, useGrebrew, showTextDifferences, showCasing, columnContainer);
 
     //await getOneVerseText(book, chapter, verse, useFirst, useSecond, useMayhew, useZeroth, useKJV, useGrebrew, useRawText, textContainer);
 
