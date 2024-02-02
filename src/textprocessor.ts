@@ -117,6 +117,76 @@ function killDiacritics(word: string): string {
     return cleanedWord;
 }
 
+
+function processEngma(word: string, edition: string, book: string, chapter: number, verse: number): string {
+    
+    let wordCopy = word;
+    if (wordCopy.endsWith('ŋ')) {
+        let chapterString = chapter.toString();
+        let verseString = verse.toString();
+        wordCopy = wordCopy.slice(0, -1) + "Ŋ";
+        console.log(`!!! CHECK ${word} AT ${edition} ${book} ${chapterString}:${verseString}`);
+    }
+    
+    let labialEngmaClusters = ['ŋp', 'ŋb', 'ŋm', 'ŋf'];
+
+    let replacementLabialClusters = ['mp', 'mb', 'mm', 'mf'];
+
+    for (let i = 0; i < labialEngmaClusters.length; i++) {
+        wordCopy = wordCopy.split(labialEngmaClusters[i]).join(replacementLabialClusters[i]);
+    }
+    wordCopy = wordCopy.split('ŋ').join('n')
+    return wordCopy;
+}
+
+function cleanDiacriticsEngma(word: string, edition: string, book: string, chapter: number, verse: number): string {
+
+    let charReplacementDict: stringToStringDict = {
+        "á": "a",
+        "é": "e",
+        "í": "i",
+        "ó": "o",
+        "ú": "u",
+        "à": "a",
+        "è": "e",
+        "ì": "i",
+        "ò": "o",
+        "ù": "u",
+        "â": "a",
+        "ê": "e",
+        "î": "i",
+        "ô": "o",
+        "û": "u",
+        "ä": "a",
+        "ë": "e",
+        "ï": "i",
+        "ö": "o",
+        "ü": "u",
+        "ã": "aŋ",
+        "õ": "oŋ",
+        "ñ": "nn",
+        "m̃": "mm",
+        "ũ": "uŋ",
+        "ẽ": "eŋ",
+        "ĩ": "iŋ",
+        "ā": "aŋ",
+        "ē": "eŋ",
+        "ī": "iŋ",
+        "ō": "oŋ",
+        "ū": "uŋ"
+    };
+
+    let cleanedWord = "";
+    for (let i = 0; i < word.length; i++) {
+        if (word[i] in charReplacementDict) {
+            cleanedWord += charReplacementDict[word[i]];
+        } else {
+            cleanedWord += word[i];
+        }
+    }
+    return processEngma(cleanedWord, edition, book, chapter, verse);
+}
+
 async function removeVerseCiteFromWordTable(verseIDNum: number, editionNum: number, word: string, wordCount: number, useDiacritics: boolean) {
 }
 
@@ -211,10 +281,6 @@ async function updateWordTables(verseID: string, edition: string, wordList: stri
     }
 }
 
-async function updateOneEdition() {
-
-}
-
 
 async function updateEdition(verseExists: boolean, verseID: string, verseText: string, edition: string, book: string, consoleAddress: string, editionColumn: string, wordListColumn: string, wordList: string[], wordCountColumn: string, wordCountList: number[], chapter: number, verse: number) {
 
@@ -289,76 +355,6 @@ export async function processVerseJSON(rawJSON: any) {
     let hasVerse = (myQuery.rows.length > 0);
     let returnValue = await verseUpdate(hasVerse, idNumber, rawText, edition, book);
     return returnValue;
-}
-//can I commit this?
-
-function processEngma(word: string, edition: string, book: string, chapter: number, verse: number): string {
-    
-    let wordCopy = word;
-    if (wordCopy.endsWith('ŋ')) {
-        let chapterString = chapter.toString();
-        let verseString = verse.toString();
-        wordCopy = wordCopy.slice(0, -1) + "Ŋ";
-        console.log(`!!! CHECK ${word} AT ${edition} ${book} ${chapterString}:${verseString}`);
-    }
-    
-    let labialEngmaClusters = ['ŋp', 'ŋb', 'ŋm', 'ŋf'];
-
-    let replacementLabialClusters = ['mp', 'mb', 'mm', 'mf'];
-
-    for (let i = 0; i < labialEngmaClusters.length; i++) {
-        wordCopy = wordCopy.split(labialEngmaClusters[i]).join(replacementLabialClusters[i]);
-    }
-    wordCopy = wordCopy.split('ŋ').join('n')
-    return wordCopy;
-}
-
-function cleanDiacriticsEngma(word: string, edition: string, book: string, chapter: number, verse: number): string {
-
-    let charReplacementDict: stringToStringDict = {
-        "á": "a",
-        "é": "e",
-        "í": "i",
-        "ó": "o",
-        "ú": "u",
-        "à": "a",
-        "è": "e",
-        "ì": "i",
-        "ò": "o",
-        "ù": "u",
-        "â": "a",
-        "ê": "e",
-        "î": "i",
-        "ô": "o",
-        "û": "u",
-        "ä": "a",
-        "ë": "e",
-        "ï": "i",
-        "ö": "o",
-        "ü": "u",
-        "ã": "aŋ",
-        "õ": "oŋ",
-        "ñ": "nn",
-        "m̃": "mm",
-        "ũ": "uŋ",
-        "ẽ": "eŋ",
-        "ĩ": "iŋ",
-        "ā": "aŋ",
-        "ē": "eŋ",
-        "ī": "iŋ",
-        "ō": "oŋ",
-        "ū": "uŋ"
-    };
-
-    let cleanedWord = "";
-    for (let i = 0; i < word.length; i++) {
-        if (word[i] in charReplacementDict) {
-            cleanedWord += charReplacementDict[word[i]];
-        } else {
-            cleanedWord += word[i];
-        }
-    }
-    return processEngma(cleanedWord, edition, book, chapter, verse);
 }
 
 function findLongestCommonSubstring(str1: string, str2: string): string {
@@ -505,9 +501,9 @@ function getComparedVerses(string1: string, string2: string): stringToStringDict
     return finalStringDict;
 }
 
-export async function addComparedVerses(idNum: number, sourceColumn1: string, sourceColumn2: string) {
-    let myQuery = await pool.query('SELECT * from all_verses WHERE id=$1::int', [idNum]);
-    let queryRow = myQuery.rows[0];
+export async function addComparedVerses(idNum: number, sourceColumn1: string, sourceColumn2: string, comparedColumn1: string, comparedColumn2: string) {
+    let getRowQuery = await pool.query('SELECT * from all_verses WHERE id=$1::int', [idNum]);
+    let queryRow = getRowQuery.rows[0];
 
     let column1RawText: string = queryRow[sourceColumn1];
     let column2RawText: string = queryRow[sourceColumn2];
@@ -518,33 +514,8 @@ export async function addComparedVerses(idNum: number, sourceColumn1: string, so
     let comparedText1 = comparedTextDict['string1'];
     let comparedText2 = comparedTextDict['string2'];
 
-    return [comparedText1, comparedText2];
-    //await pool.query(`UPDATE all_verses SET addresses = $1, verse_counts = $2, all_editions = $3, editionCounts = $4 WHERE word = $5`, [updatedVerseIDList, updatedVerseCountList, thisEditionList, thisEditionCountList, word]);
-    
+    await pool.query(`UPDATE all_verses SET ${comparedColumn1} = $1, ${comparedColumn2} = $2 WHERE id = $3::int`, [comparedText1, comparedText2, idNum]);
+
+    return("Verse #" + idNum.toString() + " has been compared and updated.");
 }
-
-
-
-//This adds compared verses to the all_
-/*
-export async function addComparedVerses(idNum: number, sourceColumn1: string, sourceColumn2: string, postColumn1: string, postColumn2: string, postText2: boolean)
-
-export async function addComparedVerses(idNum: number, sourceColumn1: string, sourceColumn2: string) {
-    let myQuery = await pool.query('SELECT * from all_verses WHERE id=$1::int', [idNum]);
-    let queryRow = myQuery.rows[0];
-
-    let column1RawText: string = queryRow[sourceColumn1];
-    let column2RawText: string = queryRow[sourceColumn2];
-
-    return "!!!!" + column1RawText;
-    /*
-    let comparedTextDict = getComparedVerses(column1Text, column2Text);
-
-    let comparedText1 = comparedTextDict['string1'];
-    let comparedText2 = comparedTextDict['string2'];
-
-    await pool.query(`UPDATE all_verses SET addresses = $1, verse_counts = $2, all_editions = $3, editionCounts = $4 WHERE word = $5`, [updatedVerseIDList, updatedVerseCountList, thisEditionList, thisEditionCountList, word]);
-    
-}
-*/ 
 

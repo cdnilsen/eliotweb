@@ -846,10 +846,6 @@ chapterDropdown.addEventListener('change', async function() {
     */
 });
 
-
-
-
-
 function createNavButtons(currentChapter, isLastChapter, book) {
     document.getElementById("navButtonGrid").innerHTML = "";
     document.getElementById("navButtonGrid").style.background = "white";

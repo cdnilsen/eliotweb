@@ -67,7 +67,7 @@ app.get('/compareWords/:verseID', wrapAsync(async (req, res) => {
     try {
         let verseID: number = parseInt(req.params.verseID);
 
-        let result = await addComparedVerses(verseID, 'first_edition_raw', 'second_edition_raw');
+        let result = await addComparedVerses(verseID, 'first_edition_raw', 'second_edition_raw', 'compared_first_edition', 'compared_second_edition');
         res.json(result);
     } catch (error) {
         console.error(error);
@@ -121,7 +121,12 @@ app.get('/compareVerse/:verseID', wrapAsync(async (req, res) => {
         let verseID: number = parseInt(req.params.verseID);
         let rawFirst: string = 'first_edition_raw';
         let rawSecond: string = 'second_edition_raw';
-        let result = await addComparedVerses(verseID, rawFirst, rawSecond);
+
+        
+        let comparedFirst: string = 'compared_first_edition';
+        let comparedSecond: string = 'compared_second_edition';
+
+        let result = await addComparedVerses(verseID, rawFirst, rawSecond, comparedFirst, comparedSecond);
         res.json(result);
     } catch (error) {
         console.error(error);
