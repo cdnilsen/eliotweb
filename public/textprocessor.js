@@ -552,6 +552,15 @@ window.addEventListener("DOMContentLoaded", () => {
     addActionButtonLegend();
 });
 
+let allRadioButtons = document.getElementsByName("action");
+let radioButtonsList = Array.from(allRadioButtons);
+
+for (let i = 0; i < radioButtonsList.length; i++) {
+    radioButtonsList[i].addEventListener("change", function() {
+        addActionButtonLegend();
+    });
+}
+
 document.getElementById('pickAction').addEventListener("click", function() {
     addSelectionParams();
 });
