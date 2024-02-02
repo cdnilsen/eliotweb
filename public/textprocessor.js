@@ -529,7 +529,7 @@ function getRadioSelection() {
     }
 }
 
-function addSelectionParams() {
+function addSelectionParams(whichAction) {
     if (whichAction == "processAText") {
         processTextPopulateHTML();
     }
@@ -540,7 +540,7 @@ function addActionButtonLegend() {
 
     let actionToButtonLegendDict = {
         "processAText": "Process a Text",
-        "compareWords": "Compare Verses",
+        "compareVerses": "Compare Verses",
         "processWordsOneText": "Process Words in a Text",
         "runWordCounts": "Run All Word Counts"
     };
@@ -562,6 +562,7 @@ for (let i = 0; i < radioButtonsList.length; i++) {
 }
 
 document.getElementById('pickAction').addEventListener("click", function() {
-    addSelectionParams();
+    let whichAction = getRadioSelection();
+    addSelectionParams(whichAction);
 });
 
