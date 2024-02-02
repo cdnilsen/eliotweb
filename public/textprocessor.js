@@ -531,6 +531,7 @@ function createDropdownChain(includeEdition) {
     submitButton.hidden = true;
 
     whichSectionDropdown.addEventListener("change", function() {
+        selectBookDropdown.innerHTML = "";
         selectBookDiv.innerHTML = "";
         selectEditionDiv.innerHTML = "";
         submitButton.innerHTML = "";
