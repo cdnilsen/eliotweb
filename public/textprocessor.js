@@ -528,6 +528,12 @@ function getRadioSelection() {
 }
 
 function addSelectionParams() {
+    if (whichAction == "processAText") {
+        processTextPopulateHTML();
+    }
+}
+
+function addActionButtonLegend() {
     let whichAction = getRadioSelection();
 
     let actionToButtonLegendDict = {
@@ -538,11 +544,11 @@ function addSelectionParams() {
     };
 
     document.getElementById("pickActionLegend").innerHTML = actionToButtonLegendDict[whichAction];
-
-    if (whichAction == "processAText") {
-        processTextPopulateHTML();
-    }
 }
+
+window.addEventListener("DOMContentLoaded", () => {
+    addActionButtonLegend();
+});
 
 document.getElementById('pickAction').addEventListener("click", function() {
     addSelectionParams();
