@@ -91,8 +91,8 @@ function seeAllWords(resultDiv, searchString, searchSetting) {
     }).catch(err => console.error(err))
 }
 
-function cleanExtraTags(myString) {
-    
+function cleanExtraTags(myString, showDifferences, showCasing) {
+
 }
 
 // Backend "Ƀβ" get turned into blue tags (for differences in case), "Řř" get turned into red tags (for actual differences in the text)
@@ -101,14 +101,6 @@ function cleanProcessedString(myString, showDifferences, showCasing) {
     // Not *really* necessary, but speeds up processing by checking whether all this replacement needs to be done
     if (showDifferences || showCasing) {
 
-        //* THIS part needs to be done earlier before putting stuff into the database
-        myString = myString.split("Ƀβ").join("");
-        myString = myString.split("Řř").join("");
-        
-        myString = myString.split("Ƀ{β").join("{");
-        myString = myString.split("Ř{ř").join("{");
-        myString = myString.split("Ƀ}").join("}");
-        myString = myString.split("Ř}ř").join("}");
         // Even if difference marking isn't chosen we still want to make it easier to see e.g. <nnih> vs. <n($)nih>
         myString = myString.split("Ř ř").join("Ř˙ř");
         myString = myString.split("Ř$ř").join("Ř˙ř");

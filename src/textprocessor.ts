@@ -424,6 +424,19 @@ function getDifferenceList(myString: string, bracketList: stringToStringDict): s
     return newString.split("¡");
 }
 
+function cleanSpuriousTags(word: string): string {
+    let myString = word;
+    myString = myString.split("Ƀβ").join("");
+    myString = myString.split("Řř").join("");
+        
+    myString = myString.split("Ƀ{β").join("{");
+    myString = myString.split("Ř{ř").join("{");
+    myString = myString.split("Ƀ}").join("}");
+    myString = myString.split("Ř}ř").join("}");
+
+    return myString;
+}
+
 function getComparedVerses(string1: string, string2: string): stringToStringDict {
     //These were previously just two-member lists, but this is more human-readable
     let string1BracketDict: stringToStringDict = {
@@ -480,6 +493,9 @@ function getComparedVerses(string1: string, string2: string): stringToStringDict
 
     finalString1 = finalString1.split("ϥ").join("");
     finalString2 = finalString2.split("ϣ").join("");
+
+    finalString1 = cleanSpuriousTags(finalString1);
+    finalString2 = cleanSpuriousTags(finalString2);
 
     let finalStringDict: stringToStringDict = {
         'string1': finalString1,

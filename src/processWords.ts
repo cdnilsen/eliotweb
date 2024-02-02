@@ -123,7 +123,7 @@ function getWordCountDict(wordList: string[], countList: number[], keepDiacritic
     for (let i = 0; i < wordList.length; i++) {
         let cleanedWord = "";
         if (!keepDiacritics) {
-            cleanedWord = cleanDiacritics(wordList[i]);
+            cleanedWord = cleanDiacriticsEngmaMarking(wordList[i]);
         } else {
             cleanedWord = wordList[i];
         }
