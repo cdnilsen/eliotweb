@@ -137,6 +137,7 @@ async function getComparedText(verseID, parentDiv) {
     fetch("/compareWords/" + verseID.toString()).then(res => res.json()).then(res => {
         for (let i = 0; i < res.length; i++) {
             let thisWord = res[i].toString();
+            console.log(thisWord);
             thisWord = cleanProcessedString(thisWord, true, true);
             let wordSpan = document.createElement('span');
             wordSpan.innerHTML = thisWord + "<br>";
