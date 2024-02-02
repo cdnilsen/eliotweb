@@ -514,6 +514,12 @@ function createDropdownChain(includeEdition) {
 
     let whichSectionDropdown = createDropdownFromList("which-section-dropdown", sectionNameList, true);
 
+    let selectBookDropdown = createDropdownFromList("bookDropdown", bookList, true);
+    selectBookDropdown.hidden = true;
+
+    let selectEditionDropdown = createDropdownFromList("editionDropdown", editionsList, true);
+    selectEditionDropdown.hidden = true;
+
     selectSectionDiv.appendChild(whichSectionDropdown);
     actionChoicesDiv.appendChild(selectSectionDiv);
 
@@ -550,9 +556,7 @@ function createDropdownChain(includeEdition) {
             originalLanguage = "Greek";
         }
 
-        let whichBookDropdown = createDropdownFromList("bookDropdown", bookList, true);
-
-        selectBookDiv.appendChild(whichBookDropdown);
+        selectBookDiv.appendChild(selectBookDropdown);
         
         selectBookDiv.hidden = false;
 
@@ -565,7 +569,6 @@ function createDropdownChain(includeEdition) {
         let submitButton = document.createElement('button');
         submitButton.id = "submit";
 
-
         if (includeEdition) {
             selectBookDiv.addEventListener("change", function() {
                 selectEditionDiv.innerHTML = "";
@@ -574,9 +577,9 @@ function createDropdownChain(includeEdition) {
             
                 let editionsList = ["First Edition", "Second Edition"];
 
-                if (whichBookDropdown.value == "Genesis") {
+                if (selectBookDropdown.value == "Genesis") {
                     editionsList.push("Zeroth Edition");
-                } else if (whichBookDropdown.value == "Psalms (prose)" || whichBookDropdown.value == "John") {
+                } else if (selectBookDropdown.value == "Psalms (prose)" || selectBookDropdown.value == "John") {
                     editionsList.push("Mayhew");
                 }
 
@@ -584,7 +587,6 @@ function createDropdownChain(includeEdition) {
 
                 //editionsList.push(originalLanguage);
 
-                let selectEditionDropdown = createDropdownFromList("editionDropdown", editionsList, true);
 
                 selectEditionDropdown.hidden = false;
 
@@ -602,7 +604,7 @@ function createDropdownChain(includeEdition) {
                     submitButton.hidden = false;
                     actionChoicesDiv.appendChild(submitButton);
 
-                    whichBook = whichBookDropdown.value;
+                    whichBook = selectBookDropdown.value;
                     whichEdition = selectEditionDropdown.value;
 
                     textContainerDiv.innerHTML = "";
@@ -610,11 +612,11 @@ function createDropdownChain(includeEdition) {
             });
         } else {
             textContainerDiv.innerHTML = "";
-            whichBookDropdown.addEventListener("change", function() {
+            selectBookDropdown.addEventListener("change", function() {
                 submitButton.innerHTML = "<b>Submit</b>";
                 submitButton.hidden = false;
                 actionChoicesDiv.appendChild(submitButton);
-                whichBook = whichBookDropdown.value;
+                whichBook = selectBookDropdown.value;
 
                 textContainerDiv.innerHTML = "";
             });
