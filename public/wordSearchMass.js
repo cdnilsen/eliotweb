@@ -141,8 +141,9 @@ async function getComparedText(verseID, parentDiv) {
             let wordSpan = document.createElement('span');
             wordSpan.innerHTML = thisWord;
             parentDiv.appendChild(wordSpan);
+            parentDiv.appendChild('<br>');
         }
-        parentDiv.appendChild('<br>');
+        
         /*
         let outputText = res.toString();
         let newSpan = document.createElement('span');
