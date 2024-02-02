@@ -520,9 +520,10 @@ async function processTextPopulateHTML() {
     let originalLanguage = "Hebrew";
 
     let textContainerDiv = document.getElementById("text-container");
+    textContainerDiv.innerHTML = "";
 
     whichSectionDropdown.addEventListener("change", function() {
-        textContainerDiv.innerHTML = "";
+
         selectBookDiv.innerHTML = "";
         selectEditionDiv.innerHTML = "";
         submitButton.innerHTML = "";
@@ -557,8 +558,8 @@ async function processTextPopulateHTML() {
 
         actionChoicesDiv.appendChild(selectBookDiv);
 
+        textContainerDiv.innerHTML = "";
         selectBookDiv.addEventListener("change", function() {
-            textContainerDiv.innerHTML = "";
 
             selectEditionDiv.innerHTML = "";
             submitButton.innerHTML = "";
@@ -588,8 +589,8 @@ async function processTextPopulateHTML() {
 
             actionChoicesDiv.appendChild(selectEditionDiv);
 
+            textContainerDiv.innerHTML = "";
             selectEditionDropdown.addEventListener("change", function() {
-                textContainerDiv.innerHTML = "";
                 submitButton.innerHTML = "<b>Submit</b>";
                 submitButton.hidden = false;
                 actionChoicesDiv.appendChild(submitButton);
