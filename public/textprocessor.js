@@ -665,7 +665,7 @@ async function createDropdownChain(includeEdition) {
                             "Content-type": "application/json; charset=UTF-8"
                             }
                         }).then(res => res.json()).then(res => console.log(res)).catch(err => console.error(err));
-                        sleep(100);      
+                        sleep(250);      
                     }
                     //Possibly we will need to do this verse by verse
                     /*
