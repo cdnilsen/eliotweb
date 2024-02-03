@@ -621,9 +621,6 @@ async function createDropdownChain(includeEdition) {
                     whichEdition = selectEditionDropdown.value;
 
                     textContainerDiv.innerHTML = "";
-                    
-                    dictionaryFilled = true;
-
                     submitButton.hidden = false;
                     submitButton.addEventListener("click", async function() {
                         await submitTextForProcessing(whichBook, whichEdition, textContainerDiv);
