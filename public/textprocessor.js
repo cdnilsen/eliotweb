@@ -676,6 +676,7 @@ async function createDropdownChain(includeEdition) {
                         startingIndex += 50;
                         endingIndex += 50;
                     }
+                    return;
                 });
             });
         }
