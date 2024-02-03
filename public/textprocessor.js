@@ -510,6 +510,12 @@ actionChoicesDiv.appendChild(selectBookDiv);
 actionChoicesDiv.appendChild(selectEditionDiv);
 actionChoicesDiv.appendChild(submitButton);
 
+async function getBookIDList(book) {
+    let bookIDList = await fetch("/getAllBookIDs/" + book).then(res => res.json()).then(res => res).catch(err => console.error(err));
+
+    return bookIDList;
+}
+
 async function createDropdownChain(includeEdition) {
     let whichSectionLabel = document.createElement('span');
     whichSectionLabel.innerHTML = "Select a section of the Bible: ";
@@ -646,7 +652,14 @@ async function createDropdownChain(includeEdition) {
                 submitButton.hidden = false;
                 actionChoicesDiv.appendChild(submitButton);
                 submitButton.addEventListener("click", async function() {
+                    let allVerseIDList = await (getBookIDList(whichBook));
+
+                    console.log(allVerseIDList);
+                    //Possibly we will need to do this verse by verse
+                    /*
                     for (let i = 1; i <= bookToChapterDict[whichBook]; i++) {
+
+
                         fetch('/compareChapter/' + whichBook + "/" + i.toString(), {
                             method: 'PUT',
                             body: JSON.stringify({"dummy": 0}),
@@ -656,6 +669,7 @@ async function createDropdownChain(includeEdition) {
                         }).then(res => res.json()).then(res => console.log(res)).catch(err => console.error(err));
                         sleep(500);
                     }
+                    */
                 });
             });
         }

@@ -37,6 +37,21 @@ app.post('/addRaw', wrapAsync(async (req, res) => {
     }
 }));
 
+app.get('/getAllBookIDs/:book', wrapAsync(async (req, res) => {
+    try {
+        let book: string = req.params.book;
+        let query = await pool.query('SELECT * FROM all_verses WHERE book = $1::text', [book]);
+        let IDList: number[] = [];
+        query.rows.forEach((row: any) => {
+            IDList.push(row.id);
+        });
+        res.json(IDList);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error in getAllBookIDs');
+    }
+}));
+
 app.get('/getAllVerseIDs', wrapAsync(async (req, res) => {
     try {
         let query = await pool.query('SELECT * FROM all_verses');
