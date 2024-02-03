@@ -630,6 +630,7 @@ async function createDropdownChain(includeEdition) {
         } else {
             // runs the comparator
             whichBook = selectBookDropdown.value;
+            console.log(whichBook);
             textContainerDiv.innerHTML = "";
             selectEditionDropdown.innerHTML = "";
             submitButton.hidden = false;
