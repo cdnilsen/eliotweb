@@ -653,7 +653,7 @@ async function createDropdownChain(includeEdition) {
                 actionChoicesDiv.appendChild(submitButton);
                 submitButton.addEventListener("click", async function() {
                     let allVerseIDList = await (getBookIDList(whichBook));
-
+                    allVerseIDList = allVerseIDList.sort();
                     console.log(allVerseIDList);
 
                     for (let i = 0; i < allVerseIDList.length; i++) {
