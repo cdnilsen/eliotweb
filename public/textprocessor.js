@@ -653,23 +653,27 @@ async function createDropdownChain(includeEdition) {
                 actionChoicesDiv.appendChild(submitButton);
                 submitButton.addEventListener("click", async function() {
                     let allVerseIDList = await (getBookIDList(whichBook));
+
+                    numOfIDs = allVerseIDList.length;
                     allVerseIDList = allVerseIDList.sort();
                     console.log(allVerseIDList);
 
                     let startingIndex = 0;
                     let endingIndex = 50;
-                    for (let i = startingIndex; i < endingIndex; i++) {
-                        let verseID = allVerseIDList[i];
-                        fetch('/compareVerse/' + verseID.toString(), {
-                            method: 'PUT',
-                            body: JSON.stringify({"dummy": 0}),
-                            headers: {
-                            "Content-type": "application/json; charset=UTF-8"
-                            }
-                        }).then(res => res.json()).then(res => console.log(res)).catch(err => console.error(err));
-                        sleep(500); 
-                        startingIndex += 50;
-                        endingIndex += 50;     
+                    while (startingIndex <= numOfIDs || endingIndex <= numOfIDs) {
+                        for (let i = startingIndex; i < endingIndex; i++) {
+                            let verseID = allVerseIDList[i];
+                            fetch('/compareVerse/' + verseID.toString(), {
+                                method: 'PUT',
+                                body: JSON.stringify({"dummy": 0}),
+                                headers: {
+                                "Content-type": "application/json; charset=UTF-8"
+                                }
+                            }).then(res => res.json()).then(res => console.log(res)).catch(err => console.error(err));
+                            sleep(500); 
+                            startingIndex += 50;
+                            endingIndex += 50;     
+                        }
                     }
                 });
             });
