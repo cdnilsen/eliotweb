@@ -622,6 +622,7 @@ async function createDropdownChain(includeEdition) {
 
                     textContainerDiv.innerHTML = "";
                     submitButton.hidden = false;
+                    submitButton.innerHTML = "<b>Submit</b>";
                     submitButton.addEventListener("click", async function() {
                         await submitTextForProcessing(whichBook, whichEdition, textContainerDiv);
                     });
