@@ -620,22 +620,20 @@ function cleanProcessedString(myString, showDifferences, showCasing) {
         myString = myString.split("$").join(" ");
 
         if (showCasing) {
-            myString = myString.split("Ƀ").join('<span style="color: blue">');
-            myString = myString.split("β").join("</span>");
+            myString = myString.split("Ƀ").join('<span style="color: blue"><b>');
+            myString = myString.split("β").join("</b></span>");
         } else {
             myString = myString.split("Ƀ").join("");
             myString = myString.split("β").join("");
         }
 
-        if (showDifferences) {
-            myString = myString.split("Ř").join('<span style="color: red">');
-            myString = myString.split("ř").join("</span>");
-        } else {
-            myString = myString.split("Ř").join("");
-            myString = myString.split("ř").join("");
-        }
+        myString = myString.split("Ř").join('<span style="color: red"><b>');
+        myString = myString.split("ř").join("</b></span>");
+        
     } else {
         myString = myString.split('$').join(' ');
+        myString = myString.split("Ř").join("");
+        myString = myString.split("ř").join("");
     }
 
     myString = myString.split('8').join('ꝏ̄');
