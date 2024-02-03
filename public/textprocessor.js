@@ -634,7 +634,7 @@ async function createDropdownChain(includeEdition) {
 
                 selectEditionDiv.innerHTML = "";
                 submitButton.innerHTML = "";
-                submitButton.hidden = true;
+                //submitButton.hidden = true;
 
                 //textContainerDiv.innerHTML = "";
                 
