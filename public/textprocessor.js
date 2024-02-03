@@ -613,17 +613,12 @@ async function createDropdownChain(includeEdition) {
                 
                 whichBook = selectBookDropdown.value;
 
-                returnDict["whichBook"] = whichBook;
-                returnDict["originalLanguage"] = originalLanguage;
-
                 selectEditionDropdown.addEventListener("change", function() {
                     submitButton.innerHTML = "<b>Submit</b>";
                     submitButton.hidden = false;
                     actionChoicesDiv.appendChild(submitButton);
                     
                     whichEdition = selectEditionDropdown.value;
-
-                    returnDict["whichEdition"] = whichEdition;
 
                     textContainerDiv.innerHTML = "";
                     
