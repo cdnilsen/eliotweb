@@ -133,7 +133,7 @@ app.put('/compareVerse/:verseID', wrapAsync(async (req, res) => {
     }
 }));
 
-app.put('/compareBook/:book/:chapter', wrapAsync(async (req, res) => {
+app.put('/compareChapter/:book/:chapter', wrapAsync(async (req, res) => {
     try {
         let book: string = req.params.book;
         let chapter: number = parseInt(req.params.chapter);
