@@ -629,23 +629,57 @@ async function createDropdownChain(includeEdition) {
             });
         } else {
             // runs the comparator
-            whichBook = selectBookDropdown.value;
-            console.log(whichBook);
-            textContainerDiv.innerHTML = "";
-            selectEditionDropdown.innerHTML = "";
-            submitButton.hidden = false;
-            submitButton.addEventListener("click", async function() {
-                fetch('/compareBook/' + whichBook, {
-                    method: 'PUT',
-                    body: JSON.stringify({"dummy": 0}),
-                    headers: {
-                    "Content-type": "application/json; charset=UTF-8"
-                    }
-                }).then(res => res.json()).then(res => console.log(res)).catch(err => console.error(err));
+            selectBookDropdown.addEventListener("change", function() {
+                selectEditionDropdown.innerHTML = "";
+
+                selectEditionDiv.innerHTML = "";
+                submitButton.innerHTML = "";
+                submitButton.hidden = true;
+            
+                let editionsList = ["First Edition", "Second Edition"];
+
+                if (selectBookDropdown.value == "Genesis") {
+                    editionsList.push("Zeroth Edition");
+                } else if (selectBookDropdown.value == "Psalms (prose)" || selectBookDropdown.value == "John") {
+                    editionsList.push("Mayhew");
+                }
+
+                editionsList.push("KJV");
+
+                //editionsList.push(originalLanguage);
+
+                addListToDropdown(selectEditionDropdown, editionsList, true);
+                selectEditionDropdown.hidden = false;
+
+                let whichEditionLabel = document.createElement('span');
+                whichEditionLabel.innerHTML = "Select an edition: ";
+                selectEditionDiv.appendChild(whichEditionLabel);
+
+                selectEditionDiv.appendChild(selectEditionDropdown);
+
+                actionChoicesDiv.appendChild(selectEditionDiv);
+
+                textContainerDiv.innerHTML = "";
+                
+                whichBook = selectBookDropdown.value;
+                console.log(whichBook);
+                textContainerDiv.innerHTML = "";
+                selectEditionDropdown.innerHTML = "";
+                submitButton.hidden = false;
+                submitButton.addEventListener("click", async function() {
+                    fetch('/compareBook/' + whichBook, {
+                        method: 'PUT',
+                        body: JSON.stringify({"dummy": 0}),
+                        headers: {
+                        "Content-type": "application/json; charset=UTF-8"
+                        }
+                    }).then(res => res.json()).then(res => console.log(res)).catch(err => console.error(err));
+                });
             });
         }
     });
 }
+
 
 async function processTextPopulateHTML() {
     await createDropdownChain(true);
