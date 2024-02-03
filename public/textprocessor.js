@@ -661,7 +661,7 @@ async function createDropdownChain(includeEdition) {
                     let startingIndex = 0;
                     let endingIndex = 50;
 
-                    let unsuccessfulIDs = [];
+                    let unsuccessfulIDs = [0];
                     while (startingIndex <= numOfIDs || endingIndex <= numOfIDs) {
                         for (let i = startingIndex; i < endingIndex; i++) {
                             let verseID = allVerseIDList[i];
