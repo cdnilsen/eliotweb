@@ -955,8 +955,8 @@ document.getElementById("submitBookQuery").addEventListener('click', async funct
     let useKJV = true;
     let useGrebrew = false;
 
-    let showTextDifferences = false;
-    let showCasing = false;
+    let showTextDifferences = document.getElementById("exclude_casing").checked;
+    let showCasing = document.getElementById("include_casing").checked;
     //let useKJV = document.getElementById("useKJV").checked;
     //let useGrebrew = document.getElementById("useGrebrew").checked;
     //let useRawText = document.getElementById("useRawText").checked;
