@@ -656,7 +656,9 @@ async function createDropdownChain(includeEdition) {
                     allVerseIDList = allVerseIDList.sort();
                     console.log(allVerseIDList);
 
-                    for (let i = 0; i < allVerseIDList.length; i++) {
+                    let startingIndex = 0;
+                    let endingIndex = 50;
+                    for (let i = startingIndex; i < endingIndex; i++) {
                         let verseID = allVerseIDList[i];
                         fetch('/compareVerse/' + verseID.toString(), {
                             method: 'PUT',
@@ -665,23 +667,10 @@ async function createDropdownChain(includeEdition) {
                             "Content-type": "application/json; charset=UTF-8"
                             }
                         }).then(res => res.json()).then(res => console.log(res)).catch(err => console.error(err));
-                        sleep(500);      
+                        sleep(500); 
+                        startingIndex += 50;
+                        endingIndex += 50;     
                     }
-                    //Possibly we will need to do this verse by verse
-                    /*
-                    for (let i = 1; i <= bookToChapterDict[whichBook]; i++) {
-
-
-                        fetch('/compareChapter/' + whichBook + "/" + i.toString(), {
-                            method: 'PUT',
-                            body: JSON.stringify({"dummy": 0}),
-                            headers: {
-                            "Content-type": "application/json; charset=UTF-8"
-                            }
-                        }).then(res => res.json()).then(res => console.log(res)).catch(err => console.error(err));
-                        sleep(500);
-                    }
-                    */
                 });
             });
         }
