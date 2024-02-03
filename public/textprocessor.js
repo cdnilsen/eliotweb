@@ -656,7 +656,7 @@ async function createDropdownChain(includeEdition) {
 
                     let numOfIDs = allVerseIDList.length;
                     allVerseIDList = allVerseIDList.sort();
-                    console.log(allVerseIDList);
+                    //console.log(allVerseIDList);
 
                     let startingIndex = 0;
                     let endingIndex = 50;
@@ -675,7 +675,6 @@ async function createDropdownChain(includeEdition) {
                                 unsuccessfulIDs.push(verseID);
                                 console.error(err);
                             });
-                            console.log("Processed verse " + verseID.toString() + ".");
                             sleep(50);     
                         }
                         startingIndex += 50;
