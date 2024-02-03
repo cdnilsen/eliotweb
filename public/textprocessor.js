@@ -646,13 +646,16 @@ async function createDropdownChain(includeEdition) {
                 submitButton.hidden = false;
                 actionChoicesDiv.appendChild(submitButton);
                 submitButton.addEventListener("click", async function() {
-                    fetch('/compareBook/' + whichBook, {
-                        method: 'PUT',
-                        body: JSON.stringify({"dummy": 0}),
-                        headers: {
-                        "Content-type": "application/json; charset=UTF-8"
-                        }
-                    }).then(res => res.json()).then(res => console.log(res)).catch(err => console.error(err));
+                    for (let i = 1; i <= bookToChapterDict[whichBook]; i++) {
+                        fetch('/compareChapter/' + whichBook + "/" + i.toString(), {
+                            method: 'PUT',
+                            body: JSON.stringify({"dummy": 0}),
+                            headers: {
+                            "Content-type": "application/json; charset=UTF-8"
+                            }
+                        }).then(res => res.json()).then(res => console.log(res)).catch(err => console.error(err));
+                        sleep(500);
+                    }
                 });
             });
         }

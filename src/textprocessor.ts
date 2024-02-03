@@ -567,6 +567,36 @@ export async function addComparedVerses(idNum: number, sourceColumn1: string, so
     return("Verse #" + idNum.toString() + " has been compared and updated.");
 }
 
+export async function addComparedChapter(book: string, chapter: number, sourceColumn1: string, sourceColumn2: string, comparedColumn1: string, comparedColumn2: string) {
+
+    let getRowQuery = await pool.query('SELECT * from all_verses WHERE book=$1 AND chapter=$2::int', [book, chapter]);
+
+    let queryRows = getRowQuery.rows;
+
+    let queryLength = queryRows.length;
+
+    let allIDList: number[] = [];
+    for (let k = 0; k < queryLength; k++) {
+        allIDList.push(queryRows[k].id);
+    }
+
+    for (let i = 0; i < queryLength; i++) {
+        let idNum = queryRows[i].id;
+        let column1RawText: string = queryRows[i][sourceColumn1];
+        let column2RawText: string = queryRows[i][sourceColumn2];
+
+        let comparedTextDict = getComparedVerses(column1RawText, column2RawText);
+
+        let comparedText1 = comparedTextDict['string1'];
+        let comparedText2 = comparedTextDict['string2'];
+
+        await pool.query(`UPDATE all_verses SET ${comparedColumn1} = $1, ${comparedColumn2} = $2 WHERE id = $3::int`, [comparedText1, comparedText2, idNum]);
+    }
+
+    return("Chapter " + chapter.toString() + " of " + book + " has been compared and updated.");
+
+}
+
 export async function addComparedBook(book: string, sourceColumn1: string, sourceColumn2: string, comparedColumn1: string, comparedColumn2: string) {
     let getRowQuery = await pool.query('SELECT * from all_verses WHERE book=$1', [book]);
     let queryRows = getRowQuery.rows;
@@ -574,8 +604,8 @@ export async function addComparedBook(book: string, sourceColumn1: string, sourc
     let queryLength = queryRows.length;
 
     let allIDList: number[] = [];
-    for (let i = 0; i < queryLength; i++) {
-        allIDList.push(queryRows[i].id);
+    for (let k = 0; k < queryLength; k++) {
+        allIDList.push(queryRows[k].id);
     }
 
     let startingIndex = 0;
