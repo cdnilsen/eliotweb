@@ -708,11 +708,13 @@ let radioButtonsList = Array.from(allRadioButtons);
 for (let i = 0; i < radioButtonsList.length; i++) {
     radioButtonsList[i].addEventListener("change", function() {
         document.getElementById("action-choices").innerHTML = "";
+        document.getElementById("text-container").innerHTML = "";
         addActionButtonLegend();
     });
 }
 
 document.getElementById('pickAction').addEventListener("click", async function() {
+    document.getElementById("text-container").innerHTML = "";
     document.getElementById("action-choices").innerHTML = "";
     let whichAction = getRadioSelection();
     await addSelectionParams(whichAction);
