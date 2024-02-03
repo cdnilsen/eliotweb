@@ -707,6 +707,7 @@ let radioButtonsList = Array.from(allRadioButtons);
 
 for (let i = 0; i < radioButtonsList.length; i++) {
     radioButtonsList[i].addEventListener("change", function() {
+        document.getElementById("action-choices").innerHTML = "";
         addActionButtonLegend();
     });
 }
