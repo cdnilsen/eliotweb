@@ -464,19 +464,20 @@ function getComparedVerses(string1: string, string2: string): stringToStringDict
         testSubstring2 = testSubstring2.split("»").join("");
 
         if (testSubstring1 != testSubstring2 && testSubstring1.toLowerCase() == testSubstring2.toLowerCase()) {
-
+            /*
             let firstCharSubstring1 = (testSubstring1[0] == "‹")
             let firstCharSubstring2 = (testSubstring2[0] == "«")
 
             let lastCharSubstring1 = (testSubstring1[testSubstring1.length - 1] == "›")
             let lastCharSubstring2 = (testSubstring2[testSubstring2.length - 1] == "»")
+            */
 
             substring1 = substring1.split("‹").join("Ƀ");
             substring1 = substring1.split("›").join("β");
 
             substring2 = substring2.split("«").join("Ƀ");
             substring2 = substring2.split("»").join("β");
-
+            /*
             if (firstCharSubstring1) {
                 substring1 = "Ƀ" + substring1;
             }
@@ -492,21 +493,22 @@ function getComparedVerses(string1: string, string2: string): stringToStringDict
             if (lastCharSubstring2) {
                 substring2 += "β";
             }
-
+            */
         } else {
-
+            /*
             let firstCharSubstring1 = (testSubstring1[0] == "‹")
             let firstCharSubstring2 = (testSubstring2[0] == "«")
 
             let lastCharSubstring1 = (testSubstring1[testSubstring1.length - 1] == "›")
             let lastCharSubstring2 = (testSubstring2[testSubstring2.length - 1] == "»")
+            */
 
             substring1 = substring1.split("‹").join("Ř");
             substring1 = substring1.split("›").join("ř");
 
             substring2 = substring2.split("«").join("Ř");
             substring2 = substring2.split("»").join("ř");
-
+            /*
             if (firstCharSubstring1) {
                 substring1 = "Ř" + substring1;
             }
@@ -522,6 +524,7 @@ function getComparedVerses(string1: string, string2: string): stringToStringDict
             if (lastCharSubstring2) {
                 substring2 += "ř";
             }
+            */
         }
         finalStringList1.push(substring1);
         finalStringList2.push(substring2);
