@@ -636,11 +636,11 @@ async function createDropdownChain(includeEdition) {
                 submitButton.innerHTML = "";
                 submitButton.hidden = true;
 
-                textContainerDiv.innerHTML = "";
+                //textContainerDiv.innerHTML = "";
                 
                 whichBook = selectBookDropdown.value;
                 console.log(whichBook);
-                textContainerDiv.innerHTML = "";
+                //textContainerDiv.innerHTML = "";
                 selectEditionDropdown.innerHTML = "";
                 submitButton.hidden = false;
                 submitButton.addEventListener("click", async function() {
