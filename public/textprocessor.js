@@ -671,10 +671,10 @@ async function createDropdownChain(includeEdition) {
                                 }
                             }).then(res => res.json()).then(res => res).catch(err => console.error(err));
                             console.log("Processed verse " + verseID.toString() + ".");
-                            sleep(50);
-                            startingIndex += 50;
-                            endingIndex += 50;     
+                            sleep(50);     
                         }
+                        startingIndex += 50;
+                        endingIndex += 50;
                     }
                 });
             });
