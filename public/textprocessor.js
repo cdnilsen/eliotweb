@@ -632,6 +632,16 @@ async function createDropdownChain(includeEdition) {
             whichBook = selectBookDropdown.value;
             textContainerDiv.innerHTML = "";
             selectEditionDropdown.innerHTML = "";
+            submitButton.hidden = false;
+            submitButton.addEventListener("click", async function() {
+                fetch('/compareBook/' + whichBook, {
+                    method: 'PUT',
+                    body: JSON.stringify({"dummy": 0}),
+                    headers: {
+                    "Content-type": "application/json; charset=UTF-8"
+                    }
+                }).then(res => res.json()).then(res => console.log(res)).catch(err => console.error(err));
+            });
         }
     });
 }
