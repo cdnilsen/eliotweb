@@ -78,7 +78,7 @@ app.post('/processWords', wrapAsync(async (req, res) => {
 }));
 
 //change this to a PUT request
-app.get('/compareWords/:verseID', wrapAsync(async (req, res) => {
+app.put('/compareVerse/:verseID', wrapAsync(async (req, res) => {
     try {
         let verseID: number = parseInt(req.params.verseID);
 

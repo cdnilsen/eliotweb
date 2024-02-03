@@ -655,6 +655,18 @@ async function createDropdownChain(includeEdition) {
                     let allVerseIDList = await (getBookIDList(whichBook));
 
                     console.log(allVerseIDList);
+
+                    for (let i = 0; i < allVerseIDList.length; i++) {
+                        let verseID = allVerseIDList[i];
+                        fetch('/compareVerse/' + verseID.toString(), {
+                            method: 'PUT',
+                            body: JSON.stringify({"dummy": 0}),
+                            headers: {
+                            "Content-type": "application/json; charset=UTF-8"
+                            }
+                        }).then(res => res.json()).then(res => console.log(res)).catch(err => console.error(err));
+                        sleep(100);      
+                    }
                     //Possibly we will need to do this verse by verse
                     /*
                     for (let i = 1; i <= bookToChapterDict[whichBook]; i++) {
