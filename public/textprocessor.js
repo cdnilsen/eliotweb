@@ -658,6 +658,8 @@ async function addSelectionParams(whichAction) {
     if (whichAction == "processAText") {
         //console.log("called addSelectionParameters");
         await processTextPopulateHTML();
+    } else if (whichAction == "compareVerses") {
+        await processTextComparisons();
     }
 }
 
