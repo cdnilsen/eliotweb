@@ -643,6 +643,7 @@ async function createDropdownChain(includeEdition) {
                 //textContainerDiv.innerHTML = "";
                 selectEditionDropdown.innerHTML = "";
                 submitButton.hidden = false;
+                actionChoicesDiv.appendChild(submitButton);
                 submitButton.addEventListener("click", async function() {
                     fetch('/compareBook/' + whichBook, {
                         method: 'PUT',
