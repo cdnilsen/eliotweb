@@ -4,7 +4,7 @@ import path from "path"
 import { default as pool } from './db'
 import { wrapAsync } from './utils'
 import { wordSearch } from './wordSearchMass'
-import { processVerseJSON, addComparedVerses } from './textprocessor'
+import { processVerseJSON, addComparedVerses, addComparedBook } from './textprocessor'
 import { processBatchWordData, populateCorrespondences, getTotalWordCounts } from './processWords'
 import { getVerseText, getChapterText } from './browseTexts'
 
@@ -116,17 +116,33 @@ app.get('/fetchChapter/:book/:chapter/:editionNum/:useRawString', wrapAsync(asyn
     }
 }));
 
-app.get('/compareVerse/:verseID', wrapAsync(async (req, res) => {
+app.put('/compareVerse/:verseID', wrapAsync(async (req, res) => {
     try {
         let verseID: number = parseInt(req.params.verseID);
         let rawFirst: string = 'first_edition_raw';
         let rawSecond: string = 'second_edition_raw';
-
         
         let comparedFirst: string = 'compared_first_edition';
         let comparedSecond: string = 'compared_second_edition';
 
         let result = await addComparedVerses(verseID, rawFirst, rawSecond, comparedFirst, comparedSecond);
+        res.json(result);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error in fetchVerse');
+    }
+}));
+
+app.put('/compareBook/:book', wrapAsync(async (req, res) => {
+    try {
+        let book: string = req.params.book;
+        let rawFirst: string = 'first_edition_raw';
+        let rawSecond: string = 'second_edition_raw';
+
+        let comparedFirst: string = 'compared_first_edition';
+        let comparedSecond: string = 'compared_second_edition';
+
+        let result = await addComparedBook(book, rawFirst, rawSecond, comparedFirst, comparedSecond);
         res.json(result);
     } catch (error) {
         console.error(error);

@@ -502,6 +502,7 @@ function getComparedVerses(string1: string, string2: string): stringToStringDict
 }
 
 export async function addComparedVerses(idNum: number, sourceColumn1: string, sourceColumn2: string, comparedColumn1: string, comparedColumn2: string) {
+
     let getRowQuery = await pool.query('SELECT * from all_verses WHERE id=$1::int', [idNum]);
     let queryRow = getRowQuery.rows[0];
 
@@ -517,5 +518,24 @@ export async function addComparedVerses(idNum: number, sourceColumn1: string, so
     await pool.query(`UPDATE all_verses SET ${comparedColumn1} = $1, ${comparedColumn2} = $2 WHERE id = $3::int`, [comparedText1, comparedText2, idNum]);
 
     return("Verse #" + idNum.toString() + " has been compared and updated.");
+}
+
+export async function addComparedBook(book: string, sourceColumn1: string, sourceColumn2: string, comparedColumn1: string, comparedColumn2: string) {
+    let getRowQuery = await pool.query('SELECT * from all_verses WHERE book=$1', [book]);
+    let queryRows = getRowQuery.rows;
+
+    for (let i = 0; i < queryRows.length; i++) {
+        let idNum = queryRows[i].id;
+        let column1RawText: string = queryRows[i][sourceColumn1];
+        let column2RawText: string = queryRows[i][sourceColumn2];
+
+        let comparedTextDict = getComparedVerses(column1RawText, column2RawText);
+
+        let comparedText1 = comparedTextDict['string1'];
+        let comparedText2 = comparedTextDict['string2'];
+
+        await pool.query(`UPDATE all_verses SET ${comparedColumn1} = $1, ${comparedColumn2} = $2 WHERE id = $3::int`, [comparedText1, comparedText2, idNum]);
+    }
+    return("Book " + book + " has been compared and updated.");
 }
 
