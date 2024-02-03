@@ -654,7 +654,7 @@ async function createDropdownChain(includeEdition) {
                 submitButton.addEventListener("click", async function() {
                     let allVerseIDList = await (getBookIDList(whichBook));
 
-                    numOfIDs = allVerseIDList.length;
+                    let numOfIDs = allVerseIDList.length;
                     allVerseIDList = allVerseIDList.sort();
                     console.log(allVerseIDList);
 
