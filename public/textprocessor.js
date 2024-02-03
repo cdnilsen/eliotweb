@@ -635,29 +635,6 @@ async function createDropdownChain(includeEdition) {
                 selectEditionDiv.innerHTML = "";
                 submitButton.innerHTML = "";
                 submitButton.hidden = true;
-            
-                let editionsList = ["First Edition", "Second Edition"];
-
-                if (selectBookDropdown.value == "Genesis") {
-                    editionsList.push("Zeroth Edition");
-                } else if (selectBookDropdown.value == "Psalms (prose)" || selectBookDropdown.value == "John") {
-                    editionsList.push("Mayhew");
-                }
-
-                editionsList.push("KJV");
-
-                //editionsList.push(originalLanguage);
-
-                addListToDropdown(selectEditionDropdown, editionsList, true);
-                selectEditionDropdown.hidden = false;
-
-                let whichEditionLabel = document.createElement('span');
-                whichEditionLabel.innerHTML = "Select an edition: ";
-                selectEditionDiv.appendChild(whichEditionLabel);
-
-                selectEditionDiv.appendChild(selectEditionDropdown);
-
-                actionChoicesDiv.appendChild(selectEditionDiv);
 
                 textContainerDiv.innerHTML = "";
                 
