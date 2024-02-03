@@ -660,6 +660,8 @@ async function createDropdownChain(includeEdition) {
 
                     let startingIndex = 0;
                     let endingIndex = 50;
+
+                    let unsuccessfulIDs = [];
                     while (startingIndex <= numOfIDs || endingIndex <= numOfIDs) {
                         for (let i = startingIndex; i < endingIndex; i++) {
                             let verseID = allVerseIDList[i];
@@ -669,13 +671,17 @@ async function createDropdownChain(includeEdition) {
                                 headers: {
                                 "Content-type": "application/json; charset=UTF-8"
                                 }
-                            }).then(res => res.json()).then(res => res).catch(err => console.error(err));
+                            }).then(res => res.json()).then(res => res).catch(err => {
+                                unsuccessfulIDs.push(verseID);
+                                console.error(err);
+                            });
                             console.log("Processed verse " + verseID.toString() + ".");
                             sleep(50);     
                         }
                         startingIndex += 50;
                         endingIndex += 50;
                     }
+                    console.log(unsuccessfulIDs);
                     return;
                 });
             });
