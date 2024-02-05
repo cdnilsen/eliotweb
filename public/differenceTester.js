@@ -69,11 +69,10 @@ async function grabChapter(book, chapter) {
     let firstEditionText = await firstEditionRaw.text();
     let secondEditionText = await secondEditionRaw.text();
     console.log(firstEditionText);
-    /*
-    let firstEditionLines = (await firstEditionText.text()).split("\n");
-    console.log(firstEditionLines);
-    let secondEditionLines = (await secondEditionText.text()).split("\n");
 
+    let firstEditionLines = firstEditionText.split("\n");
+    let secondEditionLines = secondEditionText.split("\n");
+   
     let firstEditionDict = grabRightLines(firstEditionLines, chapter);
     let secondEditionDict = grabRightLines(secondEditionLines, chapter);
 
@@ -96,8 +95,6 @@ async function grabChapter(book, chapter) {
             outputDiv.appendChild(newDiv);
         }
     }
-    return "Done";
-    */
     return "Done";
 }
 /*
