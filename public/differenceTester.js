@@ -350,8 +350,8 @@ submitButton.addEventListener("click", async function(event) {
     let outputDict = await grabBook(selectedBook);
     
     let allVerses = outputDict["verseNums"];
-    let verseText1 = outputText["verseText1"];
-    let verseText2 = outputText["verseText2"];
+    let verseText1 = outputDict["verseText1"];
+    let verseText2 = outputDict["verseText2"];
 
 
     for (let i = 0; i < allVerses.length; i++) {
