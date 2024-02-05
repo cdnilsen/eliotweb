@@ -346,6 +346,14 @@ function getDifferences(text1, text2, chapter, verse) {
         console.log("Do " + chapter.toString() + ":" + verse.toString() + " manually.");
         console.log("Replacement list identical: " + (replacementList1.length == replacementList2.length).toString());
 
+    } else {
+        let div1 = document.createElement('div');
+        div1.innerHTML = text1SplitList.join("|") + "<br>" + currentText1;
+        outerDiv.appendChild(div1);
+
+        let div2 = document.createElement('div');
+        div2.innerHTML = text2SplitList.join("|") + "<br>" + currentText2;
+        outerDiv.appendChild(div2);
     }
     return outerDiv;
 }
