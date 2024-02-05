@@ -204,9 +204,9 @@ async function grabBook(book) {
 
 
         verseNumList = verseList1;
-        for (let i = 0; i < verseList1.length; i++) {
-            let verseNum1 = parseInt(verseList1[i]);
-            let verseNum2 = parseInt(verseList2[i]);
+        for (let j = 0; j < verseList1.length; j++) {
+            let verseNum1 = parseInt(verseList1[j]);
+            let verseNum2 = parseInt(verseList2[j]);
             verseText1.push(firstEditionDict[verseNum1]);
             verseText2.push(secondEditionDict[verseNum2]);
         
