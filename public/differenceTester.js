@@ -185,6 +185,12 @@ async function grabBook(book) {
 
     let firstEditionLines = firstEditionText.split("\n");
     let secondEditionLines = secondEditionText.split("\n");
+
+    let outputDict = {};
+
+    outputDict["verseNums"] = [];
+    outputDict["verseText1"] = [];
+    outputDict["verseText2"] = [];
    
     for (let i = 1; i < bookToChapterDict[book] + 1; i++) {
         let chapter = i;
@@ -208,21 +214,20 @@ async function grabBook(book) {
             verseText1.push(firstEditionDict[verseList1[j]]);
             verseText2.push(secondEditionDict[verseList1[j]]);
         
-            console.log(verseText1.length == verseText2.length);
+            //console.log(verseText1.length == verseText2.length);
 
             if (verseText1.length != verseText2.length) {
                 console.log("Do " + chapter.toString() + ":" + verseNum1.toString() + " manually.");
             }
         }
+        outputDict["verseNums"].concat(verseNumList);
+        outputDict["verseText1"].concat(verseText1);
+        outputDict["verseText2"].concat(verseText2);
         
-        let outputDict = {};
-
-        outputDict["verseNums"] = verseNumList;
-        outputDict["verseText1"] = verseText1;
-        outputDict["verseText2"] = verseText2;
         
-        return outputDict;
+        
     }
+    return outputDict;
 }
 
 addBooks();
