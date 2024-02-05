@@ -85,8 +85,11 @@ async function grabChapter(book, chapter) {
 
     if (verseList1 == verseList2) {
         verseNumList = verseList1;
-        verseText1 = verseList1.map(verse => firstEditionDict[verse]);
-        verseText2 = verseList2.map(verse => secondEditionDict[verse]);
+        for (let i = 0; i < verseList1.length; i++) {
+            let verseNum = verseList1[i];
+            verseText1.push(firstEditionDict[verseNum]);
+            verseText2.push(secondEditionDict[verseNum]);
+        }
     }
     
     let outputDict = {};
