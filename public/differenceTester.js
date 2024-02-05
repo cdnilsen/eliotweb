@@ -70,17 +70,18 @@ async function grabChapter(book, chapter) {
     let firstEditionLines = firstEditionText.split("\n");
     let secondEditionLines = secondEditionText.split("\n");
    
+    //These have been logged to console, and work:
     let firstEditionDict = grabRightLines(firstEditionLines, chapter);
     let secondEditionDict = grabRightLines(secondEditionLines, chapter);
-
-    console.log(firstEditionDict);
-    console.log(secondEditionDict);
 
     let verseList1 = Object.keys(firstEditionDict);
     let verseList2 = Object.keys(secondEditionDict);
 
     verseList1.sort(function (a, b) { return a - b; });
     verseList2.sort(function (a, b) { return a - b; });
+
+    console.log(verseList1);
+    console.log(verseList2);
 
     let verseNumList = [];
     let verseText1 = [];
