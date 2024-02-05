@@ -96,6 +96,10 @@ async function grabChapter(book, chapter) {
         verseText1.push(firstEditionDict[verseNum1]);
         verseText2.push(secondEditionDict[verseNum2]);
     }
+
+    console.log(verseNumList);
+    console.log(verseText1);
+    console.log(verseText2);
     
     
     let outputDict = {};
