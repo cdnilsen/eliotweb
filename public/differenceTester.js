@@ -157,6 +157,23 @@ function stringIsShared(string, guillemet){
     return answer;
 }
 
+function addDummyListEntries(splitList, guillemet) {
+    let replacementList = [];
+
+    for (let i = 0; i < splitList.length - 1; i++) {
+        let thisElement = splitList[i];
+        let nextElement = splitList[i+1];
+
+        if (stringIsShared(thisElement, guillemet) && stringIsShared(nextElement, guillemet)) {
+            replacementList.push(thisElement);
+            replacementList.push("");
+        } else {
+            replacementList.push(thisElement);
+        }
+    }
+    return replacementList;
+}
+
 
 function getDifferences(text1, text2) {
     let commonSubstringLengthMoreThan2 = true;
@@ -189,19 +206,8 @@ function getDifferences(text1, text2) {
     let text1SplitList = currentText1.split("ǀ");
     let text2SplitList = currentText2.split("ǂ");
     
-    let replacementList1 = [];
-    let replacementList2 = [];
-    for (let i = 0; i < text1SplitList - 1; i++) {
-        let thisElement = text1SplitList[i];
-        let nextElement = text1SplitList[i+1];
-
-        if (stringIsShared(thisElement) && stringIsShared(nextElement)) {
-            replacementList.push(thisElement);
-            replacementList.push("");
-        } else {
-            replacementList.push(thisElement);
-        }
-    }
+    let replacementList1 = addDummyListEntries(text1SplitList, '‹');
+    let replacementList2 = addDummyListEntries(text2SplitList, '«');
 
     if (text1SplitList.length != text2SplitList.length) {
         let div1 = document.createElement('div');
