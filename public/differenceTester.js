@@ -117,6 +117,7 @@ submitButton.addEventListener("click", async function(event) {
     let outputText = await grabChapter(selectedBook, selectedChapter);
 
     let allVerses = outputText["verseNums"];
+    console.log(allVerses);
 
     allVerses = allVerses.sort(function (a, b) { return a - b; });
 
@@ -125,8 +126,6 @@ submitButton.addEventListener("click", async function(event) {
         let verseText1 = outputText["verseText1"][i];
         let verseText2 = outputText["verseText2"][i];
 
-        console.log(verseText1);
-        console.log(verseText2);
         let verseSpan = document.createElement("span");
         verseSpan.innerHTML = "<u>" + verseNum.toString() + "</u><br>" + verseText1 + "<br>" + verseText2;
         outputDiv.appendChild(verseSpan);
