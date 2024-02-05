@@ -190,9 +190,8 @@ function getDifferences(text1, text2) {
         div2.innerHTML = text2SplitList;
         outerDiv.appendChild(div2);
 
-    } else {
-        console.log(true);
     }
+    return outerDiv;
 }
 
 submitButton.addEventListener("click", async function(event) {
