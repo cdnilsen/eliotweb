@@ -13,7 +13,7 @@ const bookToChapterDict = {
 };
 
 let bookDropdown = document.getElementById("bookDropdown");
-let chapterDropdown = document.getElementById("chapterDropdown");
+let chapterDroown = document.getElementById("chapterDropdown");
 
 let outputDiv = document.getElementById("output");
 let submitButton = document.getElementById("submitButton");
@@ -97,15 +97,14 @@ async function grabChapter(book, chapter) {
         verseText2.push(secondEditionDict[verseNum2]);
     }
 
+
     
     let outputDict = {};
 
     outputDict["verseNums"] = verseNumList;
     outputDict["verseText1"] = verseText1;
     outputDict["verseText2"] = verseText2;
-
-    console.log(outputDict);
-
+    
     return outputDict;
 }
 /*
@@ -122,7 +121,7 @@ submitButton.addEventListener("click", async function(event) {
     let selectedBook = bookDropdown.value;
     let selectedChapter = chapterDropdown.value;
     let outputText = await grabChapter(selectedBook, selectedChapter);
-    /*
+    
     let allVerses = outputText["verseNums"];
     console.log(allVerses);
 
@@ -137,5 +136,4 @@ submitButton.addEventListener("click", async function(event) {
         verseSpan.innerHTML = "<u>" + verseNum.toString() + "</u><br>" + verseText1 + "<br>" + verseText2;
         outputDiv.appendChild(verseSpan);
     }
-    */
 });
