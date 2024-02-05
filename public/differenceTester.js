@@ -161,7 +161,7 @@ function getDifferences(text1, text2) {
 
     let outerDiv = document.createElement('div');
 
-    while (commonSubstringLengthMoreThan2) {
+    while (commonSubstringLengthMoreThan2 && currentSubstringIndex < 50) {
         let processedTextDict = replaceCommonSubstrings(currentText1, currentText2, currentSubstringIndex);
 
         if (processedTextDict["commonSubstring"].length < 2) {
