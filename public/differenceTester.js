@@ -348,7 +348,7 @@ submitButton.addEventListener("click", async function(event) {
     event.preventDefault(); // Prevents the default form submission behavior
 
     let selectedBook = bookDropdown.value;
-    await grabChapter(selectedBook, selectedChapter);
+    await grabBook(selectedBook);
     /*
     let allVerses = outputText["verseNums"];
 
