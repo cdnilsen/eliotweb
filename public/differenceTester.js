@@ -183,11 +183,11 @@ function getDifferences(text1, text2) {
 
     if (text1SplitList.length != text2SplitList.length) {
         let div1 = document.createElement('div');
-        div1.innerHTML = "'" + text1SplitList.join("', '") + "'";
+        div1.innerHTML = text1SplitList.join("|");
         outerDiv.appendChild(div1);
 
         let div2 = document.createElement('div');
-        div2.innerHTML = "'" + text2SplitList.join("', '") + "'";
+        div2.innerHTML = text2SplitList.join("|");
         outerDiv.appendChild(div2);
 
     }
