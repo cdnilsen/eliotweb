@@ -138,7 +138,7 @@ function replaceCommonSubstrings(text1, text2, index) {
     let text2Split = text2.split(commonSubstring);
 
     let outputText1 = text1Split.join('ǀ‹' + index.toString() + '›ǀ');
-    let outputText2 = text2Split.join('ǀ«' + index.toString() + '»ǀ');
+    let outputText2 = text2Split.join('ǁ«' + index.toString() + '»ǁ');
     
 
     let outputDict = {
