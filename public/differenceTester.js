@@ -138,7 +138,7 @@ function replaceCommonSubstrings(text1, text2, index) {
     let text2Split = text2.split(commonSubstring);
 
     let outputText1 = text1Split.join('ǀ‹' + index.toString() + '›ǀ');
-    let outputText2 = text2Split.join('ǁ«' + index.toString() + '»ǁ');
+    let outputText2 = text2Split.join('ǂ«' + index.toString() + '»ǂ');
     
 
     let outputDict = {
@@ -147,6 +147,14 @@ function replaceCommonSubstrings(text1, text2, index) {
         "commonSubstring" : commonSubstring,
     }
     return outputDict;
+}
+
+function checkIfShared(string, guillemet){
+    let answer = false;
+    if (string[0] == guillemet) {
+        answer = true;
+    }
+    return answer;
 }
 
 
@@ -179,7 +187,7 @@ function getDifferences(text1, text2) {
     }
 
     let text1SplitList = currentText1.split("ǀ");
-    let text2SplitList = currentText2.split("ǁ");
+    let text2SplitList = currentText2.split("ǂ");
     /*
     for (let i = 0; i < text1SplitList - 1; i++) {
         let thisElement = text1SplitList[i];
