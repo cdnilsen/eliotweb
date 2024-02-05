@@ -195,7 +195,6 @@ function getDifferences(text1, text2) {
             commonSubstringLengthMoreThan2 = false;
             break;
         } else {
-            console.log(processedTextDict["commonSubstring"]);
             indexToSubstringDict[currentSubstringIndex] = processedTextDict["commonSubstring"];
             currentText1 = processedTextDict["processedText1"];
             currentText2 = processedTextDict["processedText2"];
