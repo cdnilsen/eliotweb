@@ -150,7 +150,7 @@ function replaceCommonSubstrings(text1, text2, index) {
 }
 
 
-function getDifferences(text1, text2) {
+function getDifferences(text1, text2, parentDiv) {
     let commonSubstringLengthMoreThan2 = true;
     let currentSubstringIndex = 0;
 
@@ -180,8 +180,14 @@ function getDifferences(text1, text2) {
     let text2SplitList = currentText2.split("ǀ");
 
     if (text1SplitList.length != text2SplitList.length) {
-        console.log(text1SplitList);
-        console.log(text2SplitList);
+        let div1 = document.createElement('div');
+        div1.innerHTML = text1SplitList;
+        outerDiv.appendChild(div1);
+
+        let div2 = document.createElement('div');
+        div2.innerHTML = text2SplitList;
+        outerDiv.appendChild(div2);
+
     } else {
         console.log(true);
     }
@@ -204,7 +210,7 @@ submitButton.addEventListener("click", async function(event) {
         let verseText1 = outputText["verseText1"][i];
         let verseText2 = outputText["verseText2"][i];
 
-        getDifferences(verseText1, verseText2)
+        getDifferences(verseText1, verseText2, outerDiv)
         /*
         let verseSpan = document.createElement("span");
         verseSpan.innerHTML = "<u>" + verseNum.toString() + "</u><br>" + verseText1 + "<br>" + verseText2 + '<br><br>';
