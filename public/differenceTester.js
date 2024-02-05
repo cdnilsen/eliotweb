@@ -188,7 +188,6 @@ async function grabBook(book) {
    
     for (let i = 1; i < bookToChapterDict[book] + 1; i++) {
         let chapter = i;
-        console.log(chapter);
         //These have been logged to console, and work:
         let firstEditionDict = grabRightLines(firstEditionLines, chapter);
         let secondEditionDict = grabRightLines(secondEditionLines, chapter);
@@ -210,6 +209,9 @@ async function grabBook(book) {
             let verseNum2 = parseInt(verseList2[i]);
             verseText1.push(firstEditionDict[verseNum1]);
             verseText2.push(secondEditionDict[verseNum2]);
+
+            console.log(verseText1.length);
+            console.log(verseText2.length);
 
             if (verseText1.length != verseText2.length) {
                 console.log("Do " + chapter.toString() + ":" + verseNum1.toString() + " manually.");
