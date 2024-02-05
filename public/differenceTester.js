@@ -63,14 +63,10 @@ async function grabChapter(book, chapter) {
     let firstEditionAddress = "./texts/" + book + ".First Edition.txt";
     let secondEditionAddress = "./texts/" + book + ".Second Edition.txt";
 
-    console.log(firstEditionAddress);
-    let outputSpan = document.createElement("span");
-    outputSpan.innerHTML = "First Edition: " + firstEditionAddress
-    outputDiv.appendChild(outputSpan);
-    /*
     let firstEditionText = await fetch(firstEditionAddress);
     let secondEditionText = await fetch(secondEditionAddress);
-    
+    console.log(firstEditionText.text());
+    /*
     let firstEditionLines = (await firstEditionText.text()).split("\n");
     console.log(firstEditionLines);
     let secondEditionLines = (await secondEditionText.text()).split("\n");
@@ -97,7 +93,9 @@ async function grabChapter(book, chapter) {
             outputDiv.appendChild(newDiv);
         }
     }
+    return "Done";
     */
+    return "Done";
 }
 /*
 window.addEventListener("DOMContentLoaded", () => {
@@ -107,8 +105,10 @@ window.addEventListener("DOMContentLoaded", () => {
 
 addBooks();
 
-submitButton.addEventListener("click", async function() {
+submitButton.addEventListener("click", async function(event) {
+    event.preventDefault(); // Prevents the default form submission behavior
+
     let selectedBook = bookDropdown.value;
     let selectedChapter = chapterDropdown.value;
-    await grabChapter(selectedBook, selectedChapter);
+    let firstAddress = await grabChapter(selectedBook, selectedChapter);
 });
