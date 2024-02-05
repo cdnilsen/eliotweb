@@ -150,7 +150,7 @@ function replaceCommonSubstrings(text1, text2, index) {
 }
 
 
-function getDifferences(text1, text2, outerDiv) {
+function getDifferences(text1, text2) {
     let commonSubstringLengthMoreThan2 = true;
     let currentSubstringIndex = 0;
 
@@ -158,6 +158,8 @@ function getDifferences(text1, text2, outerDiv) {
 
     let currentText1 = text1;
     let currentText2 = text2;
+
+    let outerDiv = document.createElement('div');
 
     while (commonSubstringLengthMoreThan2) {
         let processedTextDict = replaceCommonSubstrings(currentText1, currentText2, currentSubstringIndex);
@@ -210,7 +212,8 @@ submitButton.addEventListener("click", async function(event) {
         let verseText1 = outputText["verseText1"][i];
         let verseText2 = outputText["verseText2"][i];
 
-        getDifferences(verseText1, verseText2, outerDiv)
+        let myDiv = getDifferences(verseText1, verseText2)
+        outputDiv.appendChild(myDiv);
         /*
         let verseSpan = document.createElement("span");
         verseSpan.innerHTML = "<u>" + verseNum.toString() + "</u><br>" + verseText1 + "<br>" + verseText2 + '<br><br>';
