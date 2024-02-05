@@ -179,7 +179,12 @@ function getDifferences(text1, text2) {
     let text1SplitList = currentText1.split("ǀ");
     let text2SplitList = currentText2.split("ǀ");
 
-    console.log(text1SplitList.length == text2SplitList.length);
+    if (text1SplitList.length != text2SplitList.length) {
+        console.log(text1SplitList);
+        console.log(text2SplitList);
+    } else {
+        console.log(true);
+    }
 }
 
 submitButton.addEventListener("click", async function(event) {
