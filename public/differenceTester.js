@@ -52,7 +52,6 @@ function grabRightLines(bookLines, chapter) {
             let lineVerse = parseInt(address[1]);
             let lineText = splitLine.slice(1).join(" ");
             rightLineDict[lineVerse] = lineText;
-            //console.log(lineVerse.toString() + ": " + lineText)
         }
     }
     return rightLineDict;
@@ -67,7 +66,6 @@ async function grabChapter(book, chapter) {
 
     let firstEditionText = await firstEditionRaw.text();
     let secondEditionText = await secondEditionRaw.text();
-    console.log(firstEditionText);
 
     let firstEditionLines = firstEditionText.split("\n");
     let secondEditionLines = secondEditionText.split("\n");
@@ -80,9 +78,6 @@ async function grabChapter(book, chapter) {
 
     verseList1.sort(function (a, b) { return a - b; });
     verseList2.sort(function (a, b) { return a - b; });
-
-    console.log(verseList1);
-    console.log(verseList2);
 
     let verseNumList = [];
     let verseText1 = [];
@@ -126,6 +121,8 @@ submitButton.addEventListener("click", async function(event) {
         let verseText1 = outputText["verseText1"][i];
         let verseText2 = outputText["verseText2"][i];
 
+        console.log(verseText1);
+        console.log(verseText2);
         let verseSpan = document.createElement("span");
         verseSpan.innerHTML = "<u>" + verseNum.toString() + "</u><br>" + verseText1 + "<br>" + verseText2;
         outputDiv.appendChild(verseSpan);
