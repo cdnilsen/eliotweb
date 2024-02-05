@@ -179,9 +179,7 @@ function getDifferences(text1, text2) {
     let text1SplitList = currentText1.split("ǀ");
     let text2SplitList = currentText2.split("ǀ");
 
-    console.log(text1SplitList);
-
-    console.log(text2SplitList);
+    console.log(text1SplitList.length == text2SplitList.length);
 }
 
 submitButton.addEventListener("click", async function(event) {
@@ -193,7 +191,6 @@ submitButton.addEventListener("click", async function(event) {
     let outputText = await grabChapter(selectedBook, selectedChapter);
     
     let allVerses = outputText["verseNums"];
-    console.log(allVerses);
 
     allVerses = allVerses.sort(function (a, b) { return a - b; });
 
