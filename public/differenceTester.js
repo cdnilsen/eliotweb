@@ -179,7 +179,7 @@ function addDummyListEntries(splitList, guillemet) {
 }
 
 
-function getDifferences(text1, text2) {
+function getDifferences(text1, text2, chapter, verse) {
     let commonSubstringLengthMoreThan2 = true;
     let currentSubstringIndex = 0;
 
@@ -212,6 +212,8 @@ function getDifferences(text1, text2) {
     let replacementList1 = addDummyListEntries(text1SplitList, '‹');
     let replacementList2 = addDummyListEntries(text2SplitList, '«');
 
+    console.log(replacementList1.length == replacementList2.length);
+
     if (text1SplitList.length != text2SplitList.length) {
         let div1 = document.createElement('div');
         div1.innerHTML = text1SplitList.join("|") + "<br>" + currentText1;
@@ -221,8 +223,7 @@ function getDifferences(text1, text2) {
         div2.innerHTML = text2SplitList.join("|") + "<br>" + currentText2;
         outerDiv.appendChild(div2);
 
-        console.log(text1SplitList.length.toString() + " / " + text2SplitList.length.toString());
-        console.log(replacementList1.length.toString() + " / "+ replacementList2.length.toString());
+        console.log("Do " + chapter.toString() + ":" + verse.toString() + " manually.");
 
     }
     return outerDiv;
@@ -245,7 +246,7 @@ submitButton.addEventListener("click", async function(event) {
         let verseText1 = outputText["verseText1"][i];
         let verseText2 = outputText["verseText2"][i];
 
-        let myDiv = getDifferences(verseText1, verseText2)
+        let myDiv = getDifferences(verseText1, verseText2, selectedChapter, verseNum)
         outputDiv.appendChild(myDiv);
         /*
         let verseSpan = document.createElement("span");
