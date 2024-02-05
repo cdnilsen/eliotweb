@@ -84,17 +84,23 @@ async function grabChapter(book, chapter) {
     console.log(verseList1);
     console.log(verseList2);
 
+    let verseNumList = [];
+    let verseText1 = [];
+    let verseText2 = [];
+
     if (verseList1 == verseList2) {
-        for (let i = 0; i < verseList1.length; i++) {
-            let verse = verseList1[i];
-            let line1 = firstEditionDict[verse];
-            let line2 = secondEditionDict[verse];
-            let newDiv = document.createElement("div");
-            newDiv.innerHTML = "<u>" + verse + "</u><br>" + line1 + "<br>" + line2;
-            outputDiv.appendChild(newDiv);
-        }
+        verseNumList = verseList1;
+        verseText1 = verseList1.map(verse => firstEditionDict[verse]);
+        verseText2 = verseList2.map(verse => secondEditionDict[verse]);
     }
-    return "Done";
+    
+    let outputDict = {};
+
+    outputDict["verseNums"] = verseNumList;
+    outputDict["verseText1"] = verseText1;
+    outputDict["verseText2"] = verseText2;
+
+    return outputDict;
 }
 /*
 window.addEventListener("DOMContentLoaded", () => {
@@ -109,5 +115,19 @@ submitButton.addEventListener("click", async function(event) {
 
     let selectedBook = bookDropdown.value;
     let selectedChapter = chapterDropdown.value;
-    let firstAddress = await grabChapter(selectedBook, selectedChapter);
+    let outputText = await grabChapter(selectedBook, selectedChapter);
+
+    let allVerses = outputText["verseNums"];
+
+    allVerses = allVerses.sort(function (a, b) { return a - b; });
+
+    for (let i = 0; i < allVerses.length; i++) {
+        let verseNum = allVerses[i];
+        let verseText1 = outputText["verseText1"][i];
+        let verseText2 = outputText["verseText2"][i];
+
+        let verseSpan = document.createElement("span");
+        verseSpan.innerHTML = "<u>" + verseNum.toString() + "</u><br>" + verseText1 + "<br>" + verseText2;
+        outputDiv.appendChild(verseSpan);
+    }
 });
