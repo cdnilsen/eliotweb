@@ -99,6 +99,7 @@ async function grabChapter(book, chapter) {
     outputDict["verseText1"] = verseText1;
     outputDict["verseText2"] = verseText2;
 
+    console.log(outputDict);
     return outputDict;
 }
 /*
@@ -115,7 +116,7 @@ submitButton.addEventListener("click", async function(event) {
     let selectedBook = bookDropdown.value;
     let selectedChapter = chapterDropdown.value;
     let outputText = await grabChapter(selectedBook, selectedChapter);
-
+    /*
     let allVerses = outputText["verseNums"];
     console.log(allVerses);
 
@@ -130,4 +131,5 @@ submitButton.addEventListener("click", async function(event) {
         verseSpan.innerHTML = "<u>" + verseNum.toString() + "</u><br>" + verseText1 + "<br>" + verseText2;
         outputDiv.appendChild(verseSpan);
     }
+    */
 });
