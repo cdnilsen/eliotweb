@@ -5,6 +5,7 @@ const basicBookList = [
     "Mark"
 ];
 
+
 const bookToChapterDict = {
     "Exodus": 40,
     "Leviticus": 27,
@@ -88,6 +89,7 @@ async function grabChapter(book, chapter) {
     let verseText2 = [];
 
     if (verseList1 == verseList2) {
+        console.log("The verses are the same");
         verseNumList = verseList1;
         for (let i = 0; i < verseList1.length; i++) {
             let verseNum = verseList1[i];
