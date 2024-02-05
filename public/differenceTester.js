@@ -92,6 +92,8 @@ async function grabChapter(book, chapter) {
             verseText2.push(secondEditionDict[verseNum]);
         }
     }
+
+    console.log(verseText2);
     
     let outputDict = {};
 
