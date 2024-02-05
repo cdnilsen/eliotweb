@@ -109,8 +109,79 @@ async function grabChapter(book, chapter) {
 
 addBooks();
 
-function getDifferences(text1, text2) {
+function findLongestCommonSubstring(str1, str2) {
+    //(courtesy of GeeksForGeeks) 
+    let longestSubstring = ""; 
+    for (let i = 0; i < str1.length; i++) { 
+        for (let j = 0; j < str2.length; j++) { 
+            let substring = ""; 
+            let x = i; 
+            let y = j; 
+            while (x < str1.length &&  
+                   y < str2.length &&  
+                   str1[x] === str2[y]) { 
+                substring += str1[x]; 
+                x++;
+                y++;
+            } 
+            if (substring.length > longestSubstring.length) { 
+                longestSubstring = substring; 
+            } 
+        } 
+    } 
+    return longestSubstring; 
+}
 
+function replaceCommonSubstrings(text1, text2, index) {
+    let commonSubstring = findLongestCommonSubstring(text1, text2);
+    let text1Split = text1.split(commonSubstring);
+    let text2Split = text2.split(commonSubstring);
+
+    let outputText1 = text1Split.join('ǀ‹' + index.toString() + '›ǀ');
+    let outputText2 = text2Split.join('ǀ«' + index.toString() + '»ǀ');
+    
+
+    let outputDict = {
+        "processedText1" : outputText1,
+        "processedText2" : outputText2,
+        "commonSubstring" : commonSubstring,
+    }
+    return outputDict;
+}
+
+
+function getDifferences(text1, text2) {
+    let commonSubstringLengthMoreThan2 = true;
+    let currentSubstringIndex = 0;
+
+    let indexToSubstringDict = {};
+
+    let currentText1 = text1;
+    let currentText2 = text2;
+
+    while (commonSubstringLengthMoreThan2) {
+        let processedTextDict = replaceCommonSubstrings(currentText1, currentText2, currentSubstringIndex);
+
+        if (processedTextDict["commonSubstring"].length < 2) {
+            let finalText1 = currentText1;
+            let finalText2 = currentText2;
+            commonSubstringLengthMoreThan2 = false;
+            break;
+        } else {
+
+            indexToSubstringDict[currentSubstringIndex] = processedTextDict["commonSubstring"];
+            currentText1 = processedTextDict["processedText1"];
+            currentText2 = processedTextDict["processedText2"];
+            currentSubstringIndex += 1;
+        }
+    }
+
+    let text1SplitList = currentText1.split("ǀ");
+    let text2SplitList = currentText2.split("ǀ");
+
+    console.log(text1SplitList);
+
+    console.log(text2SplitList);
 }
 
 submitButton.addEventListener("click", async function(event) {
@@ -131,8 +202,11 @@ submitButton.addEventListener("click", async function(event) {
         let verseText1 = outputText["verseText1"][i];
         let verseText2 = outputText["verseText2"][i];
 
+        getDifferences(verseText1, verseText2)
+        /*
         let verseSpan = document.createElement("span");
         verseSpan.innerHTML = "<u>" + verseNum.toString() + "</u><br>" + verseText1 + "<br>" + verseText2 + '<br><br>';
         outputDiv.appendChild(verseSpan);
+        */
     }
 });
