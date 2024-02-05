@@ -150,7 +150,7 @@ function replaceCommonSubstrings(text1, text2, index) {
 }
 
 
-function getDifferences(text1, text2, parentDiv) {
+function getDifferences(text1, text2, outerDiv) {
     let commonSubstringLengthMoreThan2 = true;
     let currentSubstringIndex = 0;
 
