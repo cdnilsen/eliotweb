@@ -309,12 +309,15 @@ function getDifferences(text1, text2, chapter, verse) {
 
     let outerDiv = document.createElement('div');
 
+    let finalText1 = "";
+    let finalText2 = "";
+
     while (commonSubstringLengthMoreThan2 && currentSubstringIndex < 50) {
         let processedTextDict = replaceCommonSubstrings(currentText1, currentText2, currentSubstringIndex);
 
         if (processedTextDict["commonSubstring"].length < 2) {
-            let finalText1 = currentText1;
-            let finalText2 = currentText2;
+            finalText1 = currentText1;
+            finalText2 = currentText2;
             commonSubstringLengthMoreThan2 = false;
             break;
         } else {
@@ -325,8 +328,8 @@ function getDifferences(text1, text2, chapter, verse) {
         }
     }
 
-    let text1SplitList = currentText1.split("ǀ");
-    let text2SplitList = currentText2.split("ǂ");
+    let text1SplitList = finalText1.split("ǀ");
+    let text2SplitList = finalText2.split("ǂ");
     
     let replacementList1 = addDummyListEntries(text1SplitList, '‹');
     let replacementList2 = addDummyListEntries(text2SplitList, '«');
