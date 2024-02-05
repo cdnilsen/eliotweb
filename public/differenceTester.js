@@ -202,13 +202,11 @@ async function grabBook(book) {
         let verseText1 = [];
         let verseText2 = [];
 
-
-        verseNumList = verseList1;
         for (let j = 0; j < verseList1.length; j++) {
-            let verseNum1 = parseInt(verseList1[j]);
-            let verseNum2 = parseInt(verseList2[j]);
-            verseText1.push(firstEditionDict[verseNum1]);
-            verseText2.push(secondEditionDict[verseNum2]);
+            let verseNum1 = chapter.toString()+ "." + verseList1[j];
+            let verseNum2 = chapter.toString()+ "." + verseList2[j];
+            verseText1.push(firstEditionDict[verseList1[j]]);
+            verseText2.push(secondEditionDict[verseList1[j]]);
         
             console.log(verseText1.length == verseText2.length);
 
@@ -216,7 +214,7 @@ async function grabBook(book) {
                 console.log("Do " + chapter.toString() + ":" + verseNum1.toString() + " manually.");
             }
         }
-        /*
+        
         let outputDict = {};
 
         outputDict["verseNums"] = verseNumList;
@@ -224,7 +222,6 @@ async function grabBook(book) {
         outputDict["verseText2"] = verseText2;
         
         return outputDict;
-        */
     }
 }
 
@@ -350,16 +347,16 @@ submitButton.addEventListener("click", async function(event) {
     event.preventDefault(); // Prevents the default form submission behavior
 
     let selectedBook = bookDropdown.value;
-    await grabBook(selectedBook);
-    /*
-    let allVerses = outputText["verseNums"];
+    let outputDict = await grabBook(selectedBook);
+    
+    let allVerses = outputDict["verseNums"];
+    let verseText1 = outputText["verseText1"][i];
+    let verseText2 = outputText["verseText2"][i];
 
-    allVerses = allVerses.sort(function (a, b) { return a - b; });
 
     for (let i = 0; i < allVerses.length; i++) {
         let verseNum = allVerses[i];
-        let verseText1 = outputText["verseText1"][i];
-        let verseText2 = outputText["verseText2"][i];
+        
 
         let myDiv = getDifferences(verseText1, verseText2, selectedChapter, verseNum)
         outputDiv.appendChild(myDiv);
@@ -367,7 +364,7 @@ submitButton.addEventListener("click", async function(event) {
         let verseSpan = document.createElement("span");
         verseSpan.innerHTML = "<u>" + verseNum.toString() + "</u><br>" + verseText1 + "<br>" + verseText2 + '<br><br>';
         outputDiv.appendChild(verseSpan);
-        
+        */    
     }
-    */
+    
 });
