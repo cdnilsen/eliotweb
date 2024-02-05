@@ -206,4 +206,6 @@ submitButton.addEventListener("click", async function(event) {
         outputDiv.appendChild(verseSpan);
         */
     }
+
+    return;
 });
