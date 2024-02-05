@@ -312,7 +312,7 @@ const bookToChapterVerseDict = {
 //Needs to be updated manually.
 const bookToActiveEditionsDict = {
     "Genesis": 3,
-    "Exodus": 78,
+    "Exodus": 6,
     "Leviticus": 6,
     "Numbers": 3,
     "Deuteronomy": 3,
@@ -376,7 +376,7 @@ const bookToActiveEditionsDict = {
     "1 John": 6,
     "2 John": 6,
     "3 John": 6,
-    "Jude": 78, //let's pretend it includes the greek for now
+    "Jude": 6,
     "Revelation": 6
 };
 

@@ -1,18 +1,145 @@
-
-const basicBookList = [
+const allBookList = [
+    "Genesis",
     "Exodus",
     "Leviticus",
-    "Mark"
+    "Numbers",
+    "Deuteronomy",
+    "Joshua",
+    "Judges",
+    "Ruth",
+    "1 Samuel",
+    "2 Samuel",
+    "1 Kings",
+    "2 Kings",
+    "1 Chronicles",
+    "2 Chronicles",
+    "Ezra",
+    "Nehemiah",
+    "Esther",
+    "Job",
+    "Psalms (prose)",
+    //"Psalms (metrical)", Will require a separate process
+    "Proverbs",
+    "Ecclesiastes",
+    "Song of Songs",
+    "Isaiah",
+    "Jeremiah",
+    "Lamentations",
+    "Ezekiel",
+    "Daniel",
+    "Hosea",
+    "Joel",
+    "Amos",
+    "Obadiah",
+    "Jonah",
+    "Micah",
+    "Nahum",
+    "Habakkuk",
+    "Zephaniah",
+    "Haggai",
+    "Zechariah",
+    "Malachi", 
+    "Matthew",
+    "Mark",
+    "Luke",
+    "John",
+    "Acts",
+    "Romans",
+    "1 Corinthians",
+    "2 Corinthians",
+    "Galatians",
+    "Ephesians",
+    "Philippians",
+    "Colossians",
+    "1 Thessalonians",
+    "2 Thessalonians",
+    "1 Timothy",
+    "2 Timothy",
+    "Titus",
+    "Philemon",
+    "Hebrews",
+    "James",
+    "1 Peter",
+    "2 Peter",
+    "1 John",
+    "2 John",
+    "3 John",
+    "Jude",
+    "Revelation"
 ];
 
 const bookToChapterDict = {
+    "": 0,
+    "Genesis": 50,
     "Exodus": 40,
     "Leviticus": 27,
-    "Mark": 16
+    "Numbers": 36,
+    "Deuteronomy": 34,
+    "Joshua": 24,
+    "Judges": 21,
+    "Ruth": 4,
+    "1 Samuel": 31,
+    "2 Samuel": 24,
+    "1 Kings": 22,
+    "2 Kings": 25,
+    "1 Chronicles": 29,
+    "2 Chronicles": 36,
+    "Ezra": 10,
+    "Nehemiah": 13,
+    "Esther": 10,
+    "Job": 42,
+    "Psalms (prose)": 150,
+    "Psalms (metrical)": 150,
+    "Proverbs": 31,
+    "Ecclesiastes": 12,
+    "Song of Songs": 8,
+    "Isaiah": 66,
+    "Jeremiah": 52,
+    "Lamentations": 5,
+    "Ezekiel": 48,
+    "Daniel": 12,
+    "Hosea": 14,
+    "Joel": 3,
+    "Amos": 9,
+    "Obadiah": 1,
+    "Jonah": 4,
+    "Micah": 7,
+    "Nahum": 3,
+    "Habakkuk": 3,
+    "Zephaniah": 3,
+    "Haggai": 2,
+    "Zechariah": 14,
+    "Malachi": 4,
+    "Matthew": 28,
+    "Mark": 16,
+    "Luke": 24,
+    "John": 21,
+    "Acts": 28,
+    "Romans": 16,
+    "1 Corinthians": 16,
+    "2 Corinthians": 13,
+    "Galatians": 6,
+    "Ephesians": 6,
+    "Philippians": 4,
+    "Colossians": 4,
+    "1 Thessalonians": 5,
+    "2 Thessalonians": 3,
+    "1 Timothy": 6,
+    "2 Timothy": 4,
+    "Titus": 3,
+    "Philemon": 1,
+    "Hebrews": 13,
+    "James": 5,
+    "1 Peter": 5,
+    "2 Peter": 3,
+    "1 John": 5,
+    "2 John": 1,
+    "3 John": 1,
+    "Jude": 1,
+    "Revelation": 22
 };
 
 let bookDropdown = document.getElementById("bookDropdown");
-let chapterDropdown = document.getElementById("chapterDropdown");
 
 let outputDiv = document.getElementById("output");
 let submitButton = document.getElementById("submitButton");
@@ -22,24 +149,13 @@ function addBooks() {
     blankOption.text = "";
     blankOption.value = "";
     bookDropdown.add(blankOption);
-    for (let i = 0; i < basicBookList.length; i++) {
+    for (let i = 0; i < allBookList.length; i++) {
         let option = document.createElement("option");
-        option.text = basicBookList[i];
-        option.value = basicBookList[i];
+        option.text = allBookList[i];
+        option.value = allBookList[i];
         bookDropdown.add(option);
     }
 }
-
-bookDropdown.addEventListener("change", () => {
-    let selectedBook = bookDropdown.value;
-    let chapterCount = bookToChapterDict[selectedBook];
-    chapterDropdown.innerHTML = "";
-    for (let i = 1; i <= chapterCount; i++) {
-        let option = document.createElement("option");
-        option.text = i;
-        chapterDropdown.add(option);
-    }
-});
 
 function grabRightLines(bookLines, chapter) {
     chapter = parseInt(chapter);
@@ -57,7 +173,7 @@ function grabRightLines(bookLines, chapter) {
     return rightLineDict;
 }
 
-async function grabChapter(book, chapter) {
+async function grabBook(book) {
     let firstEditionAddress = "./texts/" + book + ".First Edition.txt";
     let secondEditionAddress = "./texts/" + book + ".Second Edition.txt";
 
@@ -70,45 +186,44 @@ async function grabChapter(book, chapter) {
     let firstEditionLines = firstEditionText.split("\n");
     let secondEditionLines = secondEditionText.split("\n");
    
-    //These have been logged to console, and work:
-    let firstEditionDict = grabRightLines(firstEditionLines, chapter);
-    let secondEditionDict = grabRightLines(secondEditionLines, chapter);
+    for (let i = 1; i < bookToChapterDict[book] + 1; i++) {
+        let chapter = i;
+        //These have been logged to console, and work:
+        let firstEditionDict = grabRightLines(firstEditionLines, chapter);
+        let secondEditionDict = grabRightLines(secondEditionLines, chapter);
 
-    let verseList1 = Object.keys(firstEditionDict);
-    let verseList2 = Object.keys(secondEditionDict);
+        let verseList1 = Object.keys(firstEditionDict);
+        let verseList2 = Object.keys(secondEditionDict);
 
-    verseList1.sort(function (a, b) { return a - b; });
-    verseList2.sort(function (a, b) { return a - b; });
+        verseList1.sort(function (a, b) { return a - b; });
+        verseList2.sort(function (a, b) { return a - b; });
 
-    //console.log(verseList1);
-    //console.log(verseList2);
-
-    let verseNumList = [];
-    let verseText1 = [];
-    let verseText2 = [];
+        let verseNumList = [];
+        let verseText1 = [];
+        let verseText2 = [];
 
 
-    verseNumList = verseList1;
-    for (let i = 0; i < verseList1.length; i++) {
-        let verseNum1 = parseInt(verseList1[i]);
-        let verseNum2 = parseInt(verseList2[i]);
-        verseText1.push(firstEditionDict[verseNum1]);
-        verseText2.push(secondEditionDict[verseNum2]);
+        verseNumList = verseList1;
+        for (let i = 0; i < verseList1.length; i++) {
+            let verseNum1 = parseInt(verseList1[i]);
+            let verseNum2 = parseInt(verseList2[i]);
+            verseText1.push(firstEditionDict[verseNum1]);
+            verseText2.push(secondEditionDict[verseNum2]);
 
-        if (verseText1.length != verseText2.length) {
-            console.log("Do " + chapter.toString() + ":" + verseNum1.toString() + " manually.");
+            if (verseText1.length != verseText2.length) {
+                console.log("Do " + chapter.toString() + ":" + verseNum1.toString() + " manually.");
+            }
         }
+        /*
+        let outputDict = {};
+
+        outputDict["verseNums"] = verseNumList;
+        outputDict["verseText1"] = verseText1;
+        outputDict["verseText2"] = verseText2;
+        
+        return outputDict;
+        */
     }
-
-
-    
-    let outputDict = {};
-
-    outputDict["verseNums"] = verseNumList;
-    outputDict["verseText1"] = verseText1;
-    outputDict["verseText2"] = verseText2;
-    
-    return outputDict;
 }
 
 addBooks();
@@ -233,9 +348,8 @@ submitButton.addEventListener("click", async function(event) {
     event.preventDefault(); // Prevents the default form submission behavior
 
     let selectedBook = bookDropdown.value;
-    let selectedChapter = chapterDropdown.value;
-    let outputText = await grabChapter(selectedBook, selectedChapter);
-    
+    await grabChapter(selectedBook, selectedChapter);
+    /*
     let allVerses = outputText["verseNums"];
 
     allVerses = allVerses.sort(function (a, b) { return a - b; });
@@ -251,8 +365,7 @@ submitButton.addEventListener("click", async function(event) {
         let verseSpan = document.createElement("span");
         verseSpan.innerHTML = "<u>" + verseNum.toString() + "</u><br>" + verseText1 + "<br>" + verseText2 + '<br><br>';
         outputDiv.appendChild(verseSpan);
-        */
+        
     }
-
-    return;
+    */
 });
