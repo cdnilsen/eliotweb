@@ -209,9 +209,8 @@ async function grabBook(book) {
             let verseNum2 = parseInt(verseList2[i]);
             verseText1.push(firstEditionDict[verseNum1]);
             verseText2.push(secondEditionDict[verseNum2]);
-            console.log(verseNum1);
-            console.log(verseNum2);
-
+        
+            console.log(verseText1.length == verseText2.length);
 
             if (verseText1.length != verseText2.length) {
                 console.log("Do " + chapter.toString() + ":" + verseNum1.toString() + " manually.");
