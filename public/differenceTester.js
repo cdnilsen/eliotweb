@@ -52,8 +52,7 @@ function grabRightLines(bookLines, chapter) {
             let lineVerse = parseInt(address[1]);
             let lineText = splitLine.slice(1).join(" ");
             rightLineDict[lineVerse] = lineText;
-
-            console.log(lineVerse.toString() + ": " + lineText)
+            //console.log(lineVerse.toString() + ": " + lineText)
         }
     }
     return rightLineDict;
@@ -79,8 +78,8 @@ async function grabChapter(book, chapter) {
     let verseList1 = Object.keys(firstEditionDict);
     let verseList2 = Object.keys(secondEditionDict);
 
-    verseList1.sort();
-    verseList2.sort();
+    verseList1.sort(function (a, b) { return a - b; });
+    verseList2.sort(function (a, b) { return a - b; });
 
     console.log(verseList1);
     console.log(verseList2);
