@@ -73,6 +73,9 @@ async function grabChapter(book, chapter) {
     let firstEditionDict = grabRightLines(firstEditionLines, chapter);
     let secondEditionDict = grabRightLines(secondEditionLines, chapter);
 
+    console.log(firstEditionDict);
+    console.log(secondEditionDict);
+
     let verseList1 = Object.keys(firstEditionDict);
     let verseList2 = Object.keys(secondEditionDict);
 
@@ -92,8 +95,6 @@ async function grabChapter(book, chapter) {
             verseText2.push(secondEditionDict[verseNum]);
         }
     }
-
-    console.log(verseText2);
     
     let outputDict = {};
 
@@ -101,7 +102,6 @@ async function grabChapter(book, chapter) {
     outputDict["verseText1"] = verseText1;
     outputDict["verseText2"] = verseText2;
 
-    console.log(outputDict);
     return outputDict;
 }
 /*
