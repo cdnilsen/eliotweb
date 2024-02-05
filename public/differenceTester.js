@@ -218,6 +218,8 @@ function getDifferences(text1, text2) {
         div2.innerHTML = text2SplitList.join("|") + "<br>" + currentText2;
         outerDiv.appendChild(div2);
 
+        console.log(replacementList1.length == replacementList2.length);
+
     }
     return outerDiv;
 }
