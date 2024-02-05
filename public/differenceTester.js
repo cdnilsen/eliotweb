@@ -63,9 +63,12 @@ async function grabChapter(book, chapter) {
     let firstEditionAddress = "./texts/" + book + ".First Edition.txt";
     let secondEditionAddress = "./texts/" + book + ".Second Edition.txt";
 
-    let firstEditionText = await fetch(firstEditionAddress);
-    let secondEditionText = await fetch(secondEditionAddress);
-    console.log(firstEditionText.text());
+    let firstEditionRaw = await fetch(firstEditionAddress);
+    let secondEditionRaw = await fetch(secondEditionAddress);
+
+    let firstEditionText = await firstEditionRaw.text();
+    let secondEditionText = await secondEditionRaw.text();
+    console.log(firstEditionText);
     /*
     let firstEditionLines = (await firstEditionText.text()).split("\n");
     console.log(firstEditionLines);
