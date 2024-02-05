@@ -5,7 +5,6 @@ const basicBookList = [
     "Mark"
 ];
 
-
 const bookToChapterDict = {
     "Exodus": 40,
     "Leviticus": 27,
@@ -107,15 +106,15 @@ async function grabChapter(book, chapter) {
     
     return outputDict;
 }
-/*
-window.addEventListener("DOMContentLoaded", () => {
-    addBooks();
-});
-*/
 
 addBooks();
 
+function getDifferences(text1, text2) {
+
+}
+
 submitButton.addEventListener("click", async function(event) {
+    outputDiv.innerHTML = "";
     event.preventDefault(); // Prevents the default form submission behavior
 
     let selectedBook = bookDropdown.value;
