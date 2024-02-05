@@ -188,6 +188,7 @@ async function grabBook(book) {
    
     for (let i = 1; i < bookToChapterDict[book] + 1; i++) {
         let chapter = i;
+        console.log(chapter);
         //These have been logged to console, and work:
         let firstEditionDict = grabRightLines(firstEditionLines, chapter);
         let secondEditionDict = grabRightLines(secondEditionLines, chapter);
