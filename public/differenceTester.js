@@ -133,7 +133,7 @@ submitButton.addEventListener("click", async function(event) {
         let verseText2 = outputText["verseText2"][i];
 
         let verseSpan = document.createElement("span");
-        verseSpan.innerHTML = "<u>" + verseNum.toString() + "</u><br>" + verseText1 + "<br>" + verseText2;
+        verseSpan.innerHTML = "<u>" + verseNum.toString() + "</u><br>" + verseText1 + "<br>" + verseText2 + '<br><br>';
         outputDiv.appendChild(verseSpan);
     }
 });
