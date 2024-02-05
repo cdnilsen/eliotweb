@@ -149,7 +149,7 @@ function replaceCommonSubstrings(text1, text2, index) {
     return outputDict;
 }
 
-function checkIfShared(string, guillemet){
+function stringIsShared(string, guillemet){
     let answer = false;
     if (string[0] == guillemet) {
         answer = true;
@@ -188,16 +188,20 @@ function getDifferences(text1, text2) {
 
     let text1SplitList = currentText1.split("ǀ");
     let text2SplitList = currentText2.split("ǂ");
-    /*
+    
+    let replacementList1 = [];
+    let replacementList2 = [];
     for (let i = 0; i < text1SplitList - 1; i++) {
         let thisElement = text1SplitList[i];
         let nextElement = text1SplitList[i+1];
 
-        if (thisElement[0] == '‹') {
-
+        if (stringIsShared(thisElement) && stringIsShared(nextElement)) {
+            replacementList.push(thisElement);
+            replacementList.push("");
+        } else {
+            replacementList.push(thisElement);
         }
     }
-    */
 
     if (text1SplitList.length != text2SplitList.length) {
         let div1 = document.createElement('div');
