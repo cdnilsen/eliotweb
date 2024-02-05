@@ -81,23 +81,22 @@ async function grabChapter(book, chapter) {
     verseList1.sort(function (a, b) { return a - b; });
     verseList2.sort(function (a, b) { return a - b; });
 
-    console.log(verseList1);
-    console.log(verseList2);
+    //console.log(verseList1);
+    //console.log(verseList2);
 
     let verseNumList = [];
     let verseText1 = [];
     let verseText2 = [];
 
-    if (verseList1 == verseList2) {
-        console.log("The verses are the same");
-        verseNumList = verseList1;
-        for (let i = 0; i < verseList1.length; i++) {
-            let verseNum = verseList1[i];
-            console.log(verseNum);
-            verseText1.push(firstEditionDict[verseNum]);
-            verseText2.push(secondEditionDict[verseNum]);
-        }
+
+    verseNumList = verseList1;
+    for (let i = 0; i < verseList1.length; i++) {
+        let verseNum1 = parseInt(verseList1[i]);
+        let verseNum2 = parseInt(verseList2[i]);
+        verseText1.push(firstEditionDict[verseNum1]);
+        verseText2.push(secondEditionDict[verseNum2]);
     }
+    
     
     let outputDict = {};
 
