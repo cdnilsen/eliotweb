@@ -180,14 +180,24 @@ function getDifferences(text1, text2) {
 
     let text1SplitList = currentText1.split("ǀ");
     let text2SplitList = currentText2.split("ǁ");
+    /*
+    for (let i = 0; i < text1SplitList - 1; i++) {
+        let thisElement = text1SplitList[i];
+        let nextElement = text1SplitList[i+1];
+
+        if (thisElement[0] == '‹') {
+
+        }
+    }
+    */
 
     if (text1SplitList.length != text2SplitList.length) {
         let div1 = document.createElement('div');
-        div1.innerHTML = text1SplitList.join("|");
+        div1.innerHTML = text1SplitList.join("|") + "<br>" + currentText1;
         outerDiv.appendChild(div1);
 
         let div2 = document.createElement('div');
-        div2.innerHTML = text2SplitList.join("|");
+        div2.innerHTML = text2SplitList.join("|") + "<br>" + currentText2;
         outerDiv.appendChild(div2);
 
     }
