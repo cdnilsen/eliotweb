@@ -350,15 +350,17 @@ submitButton.addEventListener("click", async function(event) {
     let outputDict = await grabBook(selectedBook);
     
     let allVerses = outputDict["verseNums"];
-    let verseText1 = outputText["verseText1"][i];
-    let verseText2 = outputText["verseText2"][i];
+    let verseText1 = outputText["verseText1"];
+    let verseText2 = outputText["verseText2"];
 
 
     for (let i = 0; i < allVerses.length; i++) {
         let verseNum = allVerses[i];
+        let firstEdText = verseText1[i];
+        let secondEdText = verseText2[i];
         
 
-        let myDiv = getDifferences(verseText1, verseText2, selectedChapter, verseNum)
+        let myDiv = getDifferences(firstEdText, secondEdText, selectedChapter, verseNum)
         outputDiv.appendChild(myDiv);
         /*
         let verseSpan = document.createElement("span");
