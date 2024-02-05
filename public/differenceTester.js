@@ -12,7 +12,7 @@ const bookToChapterDict = {
 };
 
 let bookDropdown = document.getElementById("bookDropdown");
-let chapterDroown = document.getElementById("chapterDropdown");
+let chapterDropdown = document.getElementById("chapterDropdown");
 
 let outputDiv = document.getElementById("output");
 let submitButton = document.getElementById("submitButton");
@@ -212,8 +212,6 @@ function getDifferences(text1, text2, chapter, verse) {
     let replacementList1 = addDummyListEntries(text1SplitList, '‹');
     let replacementList2 = addDummyListEntries(text2SplitList, '«');
 
-    console.log(replacementList1.length == replacementList2.length);
-
     if (text1SplitList.length != text2SplitList.length) {
         let div1 = document.createElement('div');
         div1.innerHTML = text1SplitList.join("|") + "<br>" + currentText1;
@@ -224,6 +222,7 @@ function getDifferences(text1, text2, chapter, verse) {
         outerDiv.appendChild(div2);
 
         console.log("Do " + chapter.toString() + ":" + verse.toString() + " manually.");
+        console.log("Replacement list identical: " + (replacementList1.length == replacementList2.length).toString());
 
     }
     return outerDiv;
