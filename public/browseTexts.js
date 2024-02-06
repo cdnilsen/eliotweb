@@ -986,6 +986,24 @@ function compareVerses(text1, text2, showCasing) {
     return newStringList;
 }
 
+function addComparedVersesToDict(dict, modInt, showCasing, editionNumber) {
+    let useZeroth = (editionNumber % 7 == 0);
+
+    let firstEditionText = dict[2];
+    let secondEditionText = dict[3];
+
+    let comparedVerseList = compareVerses(firstEditionText, secondEditionText, showCasing);
+    dict[2] = comparedVerseList[0];
+    dict[3] = comparedVerseList[1];
+
+    //The zeroth edition's differences are 
+    if (useZeroth) {
+        let zerothComparedList = compareVerses(dict[7], dict[2], showCasing);
+        dict[7] = zerothComparedList[0];
+    }
+
+}
+
 function columnMeasurePopulator(numLeftColumns, numRightColumns) {
     let allColumnMeasures = "";
     //let rightColumnMeasure = "10%";
@@ -1051,7 +1069,6 @@ async function displayChapterText(book, chapter, useFirst, useSecond, useMayhew,
         
         //Debug this section early in the morning tomorrow...?
 
-        
         headerDiv.style = "text-align: center; " + verseRowStyleString; 
         for (let i = 0; i < usefulPrimes.length; i++) {
             let divClass = "";
@@ -1087,20 +1104,9 @@ async function displayChapterText(book, chapter, useFirst, useSecond, useMayhew,
             }
 
             //Run comparisons if need be. Not for Mayhew at this time.
-            if (editionNumber % 6 == 0 && !useRawText) {
-                let firstEditionText = verseTextDict[2];
-                let secondEditionText = verseTextDict[3];
 
-                let comparedVerseList = compareVerses(firstEditionText, secondEditionText, showCasing);
-                verseTextDict[2] = compareVerseList[0];
-                verseTextDict[3] = compareVerseList[1];
-            }
-
-            if (editionNumber % 14 == 0 && !useRawText) {
-                let zerothEditionText = verseTextDict[7];
-                let firstEditionText = verseTextDict[2];
-                let comparedVerseList = compareVerses(zerothEditionText, firstEditionText, showCasing);
-                verseTextDict[7] = comparedVerseList[0];
+            if (!useRawText) {
+                addComparedVersesToDict(verseTextDict, editionNumber, showCasing, editionNumber);
             }
 
             for (let k = 0; k < usefulPrimes.length; k++) {
