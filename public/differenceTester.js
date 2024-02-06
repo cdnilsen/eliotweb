@@ -282,6 +282,7 @@ function replaceCommonSubstrings(text1, text2, index) {
         outputText1 = 'ǀ‹' + index.toString() + '›ǀ' + text1.slice(commonSubstringLength);
         console.log("starts with shared substring: " + commonSubstring);
         commonSubstringFirst = true;
+        console.log(outputText1);
     } else {
         outputText1 = text1Split.join('ǀ‹' + index.toString() + '›ǀ');
     }
@@ -477,7 +478,7 @@ function getDifferences(text1, text2, chapter, verse) {
     if (finalText1.endsWith("›ǀ›ǀ")) {
         finalText1 = finalText1.slice(0, -2);
     }
-    
+
     if (finalText2.endsWith("»ǂ»ǂ")) {
         finalText2 = finalText2.slice(0, -2);
     }
