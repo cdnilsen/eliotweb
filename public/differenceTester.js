@@ -260,9 +260,14 @@ function findLongestCommonSubstring(str1, str2) {
 }
 
 function replaceCommonSubstrings(text1, text2, index) {
-    let commonSubstring = findLongestCommonSubstring(text1, text2);
-    console.log(commonSubstring);
-    console.log(commonSubstring.length);
+    let commonSubstring = "";
+
+    if (text1 == text2) {
+        commonSubstring = text1;
+    } else {
+        commonSubstring = findLongestCommonSubstring(text1, text2);
+    }
+
     let text1Split = text1.split(commonSubstring);
     let text2Split = text2.split(commonSubstring);
 
