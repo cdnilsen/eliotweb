@@ -279,7 +279,7 @@ function replaceMiniSharedStrings(string, sharedString, matchesCase) {
             finalString = bracketDict["start"] + string.split(sharedString).join(bracketDict["end"] + sharedString + bracketDict["start"]) + bracketDict["end"];
         }
     } else {
-        finalString = string;
+        finalString = bracketDict["start"] + string + bracketDict["end"];
     }
     return finalString;
 }
