@@ -993,10 +993,10 @@ function addComparedVersesToDict(dict, modInt, showCasing, editionNumber) {
     let secondEditionText = dict[3];
 
     let comparedVerseList = compareVerses(firstEditionText, secondEditionText, showCasing);
-    if (dict[2].length >= comparedVerseList[0].length) {
+    if (dict[2].length <= comparedVerseList[0].length) {
         dict[2] = comparedVerseList[0];
     }
-    if (dict[3].length >= comparedVerseList[1].length) {
+    if (dict[3].length <= comparedVerseList[1].length) {
         dict[3] = comparedVerseList[1];
     }
 
@@ -1004,7 +1004,7 @@ function addComparedVersesToDict(dict, modInt, showCasing, editionNumber) {
     if (useZeroth) {
         let zerothComparedList = compareVerses(dict[7], dict[2], showCasing);
 
-        if (dict[7].length >= zerothComparedList[0].length) {
+        if (dict[7].length <= zerothComparedList[0].length) {
             dict[7] = zerothComparedList[0];
         }
     }
