@@ -412,6 +412,24 @@ function putSubstringsBackIn(text1Split, text2Split, indexToSubstringDict) {
     return finalStringList;
 }
 
+function isDigit(char) {
+    return Boolean([true, true, true, true, true, true, true, true, true, true][char]);
+}
+
+//Horrible little Macgyvered solution
+function replaceInitialDigits(string, startingSubstring) {
+    let finalString = startingSubstring;
+    let digitsStopped = false;
+    for (let i = 0; i < string.length; i++) {
+        if (!isDigit(string[i])) {
+            digitsStopped = true
+        }
+        if (digitsStopped) {
+            finalString += string[i];
+        }
+    }
+    return startingSubstring;
+}
 
 function substringPopulationChecker(text1Split, text2Split, indexToSubstringDict, chapter, verse) {
 
@@ -514,8 +532,18 @@ function getDifferences(text1, text2, chapter, verse) {
 
     let finalStringList = substringPopulationChecker(replacementList1, replacementList2, indexToSubstringDict, chapter, verse);
 
-    console.log(finalStringList[0]);
-    console.log(finalStringList[1]);
+    let newStringList = [];
+
+    if (startsWithShared) {
+        let firstEditionText = replaceInitialDigits(finalStringList[0], startingCommon);
+        let secondEditionText = replaceInitialDigits(finalStringList[1], startingCommon);
+
+       
+        newStringList.push(firstEditionText);
+        newStringList.push(secondEditionText);
+    } else {
+        newStringList = finalStringList;
+    }
     /*
     if (text1SplitList.length != text2SplitList.length) {
         let div1 = document.createElement('div');
@@ -539,7 +567,7 @@ function getDifferences(text1, text2, chapter, verse) {
         outerDiv.appendChild(div2);
     }
     */
-    return finalStringList;
+    return newStringList;
 }
 
 function replaceDummiesWithTags(string) {
