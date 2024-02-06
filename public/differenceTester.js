@@ -596,7 +596,7 @@ submitButton.addEventListener("click", async function(event) {
     let verseText2 = outputDict["verseText2"];
 
 
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < allVerses.length(); i++) {
         let verseNum = allVerses[i];
         let chapterNum = chapterList[i];
         let firstEdText = verseText1[i];
