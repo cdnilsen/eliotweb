@@ -392,7 +392,7 @@ submitButton.addEventListener("click", async function(event) {
 
 
         for (let i = 0; i < bookToChapterDict[selectedBook]; i++) {
-            let myDiv = getDifferences(firstEdText, secondEdText, chapterNum, verseNum)
+            let myDiv = getDifferences(firstEdText, secondEdText, chapterNum, verseNum);
             outputDiv.appendChild(myDiv);
         }
         /*
