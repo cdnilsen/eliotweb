@@ -981,7 +981,7 @@ function compareVerses(text1, text2, showCasing) {
         newStringList.push(replaceDummiesWithTags(firstEditionText, showCasing));
         newStringList.push(replaceDummiesWithTags(secondEditionText, showCasing));
     } else {
-        newStringList = finalStringList;
+        newStringList = [replaceDummiesWithTags(finalStringList[0], showCasing), replaceDummiesWithTags(finalStringList[1], showCasing)];
     }
     return newStringList;
 }
