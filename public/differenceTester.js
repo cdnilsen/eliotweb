@@ -329,6 +329,9 @@ function getIndexFromGuillemetString(string, guillemet) {
 
     return parseInt(string.slice(1, -1));
 }
+
+function turnListEntryIntoString(entry, guillemet) {
+}
  
 function putSubstringsBackIn(text1Split, text2Split, indexToSubstringDict) {
 
@@ -341,6 +344,9 @@ function putSubstringsBackIn(text1Split, text2Split, indexToSubstringDict) {
         if (stringIsShared(text1Split[i], "‹") && stringIsShared(text2Split[i], "«")) {
             let text1Index = getIndexFromGuillemetString(text1Split[i], "‹");
             let text2Index = getIndexFromGuillemetString(text2Split[i], "«");
+
+            console.log(text1Index);
+            console.log(text2Index);
 
             let substring1 = indexToSubstringDict[text1Index];
             let substring2 = indexToSubstringDict[text2Index];
@@ -488,7 +494,7 @@ submitButton.addEventListener("click", async function(event) {
     let verseText2 = outputDict["verseText2"];
 
 
-    for (let i = 0; i < allVerses.length; i++) {
+    for (let i = 0; i < 20; i++) {
         let verseNum = allVerses[i];
         let chapterNum = chapterList[i];
         let firstEdText = verseText1[i];
