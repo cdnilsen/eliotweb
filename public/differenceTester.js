@@ -354,7 +354,7 @@ function putSubstringsBackIn(text1Split, text2Split, indexToSubstringDict) {
                 finalString1 += "Ƀ" + substring1 + "ƀ";
                 finalString2 += "Ƀ" + substring2 + "ƀ";
             }
-        } else if (text1Split[i].toLowerCase == text2Split[i].toLowerCase && text1Split[i] != text2Split[i]) {
+        } else if (text1Split[i].toLowerCase() == text2Split[i].toLowerCase() && text1Split[i] != text2Split[i]) {
             finalString1 += "Ƀ" + text1Split[i] + "ƀ";
             finalString2 += "Ƀ" + text2Split[i] + "ƀ";
         } else {
