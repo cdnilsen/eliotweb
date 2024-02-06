@@ -286,23 +286,31 @@ function stringIsShared(string, guillemet){
 }
 
 function addDummyListEntries(splitList, guillemet) {
-    let replacementList = [];
+    let intermediateList = [];
 
     for (let i = 0; i < splitList.length - 1; i++) {
         let thisElement = splitList[i];
         let nextElement = splitList[i+1];
 
         if (stringIsShared(thisElement, guillemet) && stringIsShared(nextElement, guillemet)) {
-            replacementList.push(thisElement);
-            replacementList.push("");
-            replacementList.push(nextElement);
+            intermediateList.push(thisElement);
+            intermediateList.push("");
+            intermediateList.push(nextElement);
         } else {
-            replacementList.push(thisElement);
-            replacementList.push(nextElement);
+            intermediateList.push(thisElement);
+            intermediateList.push(nextElement);
         }
         i += 1;
     }
-    return replacementList;
+
+    let finalList = [];
+    for (let j = 0; j < intermediateList.length; j++) {
+        if (intermediateList[j] != guillemet) {
+            finalList.push(intermediateList[j]);
+        }
+    }
+
+    return finalList;
 }
 
 
