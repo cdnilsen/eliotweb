@@ -578,8 +578,8 @@ function getDifferences(text1, text2, chapter, verse) {
 function replaceDummiesWithTags(string) {
     let finalString = string.split("Ř").join("<span style='color:red'><b>");
     finalString = finalString.split("ř").join("</b></span>");
-    finalString = finalString.split("Ƀ").join("<span style='color:blue'>");
-    finalString = finalString.split("ƀ").join("</span>");
+    finalString = finalString.split("Ƀ").join("<span style='color:blue'><b>");
+    finalString = finalString.split("ƀ").join("</b></span>");
     return finalString;
 }
 
