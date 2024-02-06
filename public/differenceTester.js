@@ -264,9 +264,22 @@ function replaceCommonSubstrings(text1, text2, index) {
     let text1Split = text1.split(commonSubstring);
     let text2Split = text2.split(commonSubstring);
 
-    let outputText1 = text1Split.join('ǀ‹' + index.toString() + '›ǀ');
-    let outputText2 = text2Split.join('ǂ«' + index.toString() + '»ǂ');
+    let outputText1 = "";
+    let outputText2 = "";
+
+    let commonSubstringLength = commonSubstring.length;
+
+    if (text1.startsWith(commonSubstring)) {
+        outputText1 = 'ǀ‹' + index.toString() + '›ǀ' + text1.slice(commonSubstringLength, -1);
+    } else {
+        outputText1 = text1Split.join('ǀ‹' + index.toString() + '›ǀ');
+    }
     
+    if (text2.startsWith(commonSubstring)) {
+        outputText2 = 'ǀ‹' + index.toString() + '›ǀ' + text2.slice(commonSubstringLength, -1);
+    } else {
+        outputText2 = text2Split.join('ǀ‹' + index.toString() + '›ǀ');
+    }
 
     let outputDict = {
         "processedText1" : outputText1,
