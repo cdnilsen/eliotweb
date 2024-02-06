@@ -225,7 +225,12 @@ async function grabBook(book) {
         //console.log(verseText1);
         //console.log(verseText2);
 
-        console.log(["2", "3", "4"].concat(["5", "6", "7"]));
+
+        let testArray = ["1", "2", "3"];
+        let testArray2 = ["4", "5", "6"];
+
+        console.log(testArray.concat(testArray2));
+        //console.log(["2", "3", "4"].concat(["5", "6", "7"]));
         outputDict["verseNums"].concat(verseNumList);
         outputDict["verseText1"].concat(verseText1);
         outputDict["verseText2"].concat(verseText2);
