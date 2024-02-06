@@ -220,11 +220,13 @@ async function grabBook(book) {
                 console.log("Do " + chapter.toString() + ":" + verseNum1.toString() + " manually.");
             }
         }
+
+        console.log(verseNumList);
+        console.log(verseText1);
+        console.log(verseText2);
         outputDict["verseNums"].concat(verseNumList);
         outputDict["verseText1"].concat(verseText1);
         outputDict["verseText2"].concat(verseText2);
-        
-        
         
     }
     return outputDict;
