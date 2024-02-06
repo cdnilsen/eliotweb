@@ -280,9 +280,9 @@ function replaceCommonSubstrings(text1, text2, index) {
 
     if (text1.startsWith(commonSubstring)) {
         outputText1 = 'ǀ‹' + index.toString() + '›ǀ' + text1.slice(commonSubstringLength);
-        console.log("starts with shared substring: " + commonSubstring);
+        //console.log("starts with shared substring: " + commonSubstring);
         commonSubstringFirst = true;
-        console.log(outputText1);
+        //console.log(outputText1);
     } else {
         outputText1 = text1Split.join('ǀ‹' + index.toString() + '›ǀ');
     }
@@ -363,7 +363,7 @@ function turnListEntryIntoString(entry, guillemet) {
  
 function putSubstringsBackIn(text1Split, text2Split, indexToSubstringDict) {
 
-    console.log(indexToSubstringDict);
+    //console.log(indexToSubstringDict);
 
     let finalString1 = "";
     let finalString2 = "";
@@ -476,6 +476,8 @@ function getDifferences(text1, text2, chapter, verse) {
         if (processedTextDict["startsWithShared"]) { 
             console.log(processedTextDict["commonSubstring"]);
             startingCommon = processedTextDict["commonSubstring"];
+
+            console.log(startingCommon);
         }
 
         currentText1 = processedTextDict["processedText1"];
@@ -515,8 +517,8 @@ function getDifferences(text1, text2, chapter, verse) {
     finalText2 = finalText2.split("»ǂ»ǂ").join("»ǂ");
     
 
-    console.log(finalText1);
-    console.log(finalText2);
+    //console.log(finalText1);
+    //console.log(finalText2);
 
     let text1SplitList = finalText1.split("ǀ");
     let text2SplitList = finalText2.split("ǂ");
@@ -612,11 +614,7 @@ submitButton.addEventListener("click", async function(event) {
         outputDiv.appendChild(div2);
         outputDiv.appendChild(document.createElement('br'));
 
-        let dummyString1 = "Kah n$nih kesukodtash wussittumwaenúog wosketomp";
-        let dummyString2 = "Kah n$nih kesukodtash wussittumwaenúog mittamwussisog"
-
-        let sharedString = findLongestCommonSubstring(dummyString1, dummyString2);
-        console.log(sharedString);
+     
 
         /*
         let verseSpan = document.createElement("span");
