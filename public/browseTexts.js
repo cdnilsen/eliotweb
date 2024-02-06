@@ -857,7 +857,10 @@ function isDigit(char) {
 
 //Horrible little Macgyvered solution
 function replaceInitialDigits(string, startingSubstring) {
-    if(!isDigit(string[0] || string == "")) {
+    if (string == "") {
+        return string;
+    }
+    else if (!isDigit(string[0])) {
         return string;
     }
     else {
