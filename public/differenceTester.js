@@ -276,9 +276,12 @@ function replaceCommonSubstrings(text1, text2, index) {
 
     let commonSubstringLength = commonSubstring.length;
 
+    let commonSubstringFirst = false;
+
     if (text1.startsWith(commonSubstring)) {
         outputText1 = 'ǀ‹' + index.toString() + '›ǀ' + text1.slice(commonSubstringLength);
         console.log("starts with shared substring: " + commonSubstring);
+        commonSubstringFirst = true;
     } else {
         outputText1 = text1Split.join('ǀ‹' + index.toString() + '›ǀ');
     }
@@ -295,6 +298,7 @@ function replaceCommonSubstrings(text1, text2, index) {
         "processedText1" : outputText1,
         "processedText2" : outputText2,
         "commonSubstring" : commonSubstring,
+        "startsWithShared": commonSubstringFirst
     }
 
     return outputDict;
@@ -552,6 +556,12 @@ submitButton.addEventListener("click", async function(event) {
         outputDiv.appendChild(div1);
         outputDiv.appendChild(div2);
         outputDiv.appendChild(document.createElement('br'));
+
+        let dummyString1 = "Kah n$nih kesukodtash wussittumwaenúog wosketomp";
+        let dummyString2 = "Kah n$nih kesukodtash wussittumwaenúog mittamwussisog"
+
+        let sharedString = findLongestCommonSubstring(dummyString1, dummyString2);
+        console.log(sharedString);
 
         /*
         let verseSpan = document.createElement("span");
