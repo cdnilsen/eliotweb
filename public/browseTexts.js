@@ -996,12 +996,11 @@ function addComparedVersesToDict(dict, modInt, showCasing, editionNumber) {
     dict[2] = comparedVerseList[0];
     dict[3] = comparedVerseList[1];
 
-    //The zeroth edition's differences are 
+    //The zeroth edition Genesis's differences are wrt the first edition, although the first edition's are still vs. the 2nd
     if (useZeroth) {
         let zerothComparedList = compareVerses(dict[7], dict[2], showCasing);
         dict[7] = zerothComparedList[0];
     }
-
 }
 
 function columnMeasurePopulator(numLeftColumns, numRightColumns) {
