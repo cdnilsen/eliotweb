@@ -356,6 +356,10 @@ function getDifferences(text1, text2, chapter, verse) {
         div2.innerHTML = text2SplitList.join("|") + "<br>" + currentText2;
         outerDiv.appendChild(div2);
     }
+
+    console.log(replacementList1.join("/"));
+    console.log(replacementList2.join("/"));
+
     console.log("Calling getDifferences");
     console.log(outerDiv.innerHTML);
     return outerDiv;
