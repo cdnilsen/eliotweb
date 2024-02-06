@@ -344,6 +344,8 @@ function putSubstringsBackIn(text1Split, text2Split, indexToSubstringDict) {
 
             let substring1 = indexToSubstringDict[text1Index];
             let substring2 = indexToSubstringDict[text2Index];
+            console.log(substring1);
+            console.log(substring2);
 
             if (substring1 == substring2) {
                 finalString1 += substring1;
