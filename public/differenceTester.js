@@ -263,14 +263,15 @@ function replaceMiniSharedStrings(string, sharedString, matchesCase) {
     let finalString = "";
     let bracketDict = {};
 
+    if (matchesCase) {
+        bracketDict["start"] = "Ƀ";
+        bracketDict["end"] = "ƀ";
+    } else {
+        bracketDict["start"] = "Ř";
+        bracketDict["end"] = "ř";
+    }
+    
     if (sharedString != "" && string != sharedString) {
-        if (matchesCase) {
-            bracketDict["start"] = "Ƀ";
-            bracketDict["end"] = "ƀ";
-        } else {
-            bracketDict["start"] = "Ř";
-            bracketDict["end"] = "ř";
-        }
         if (string.startsWith(sharedString)){
             finalString = sharedString + bracketDict["start"] + string.slice(sharedString.length) + bracketDict["end"];
         } else if (string.endsWith(sharedString)){
