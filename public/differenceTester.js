@@ -342,14 +342,8 @@ function getDifferences(text1, text2, chapter, verse) {
     finalText1 = currentText1;
     finalText2 = currentText2;
 
-    console.log(finalText1);
-    console.log(finalText2);
-
     let text1SplitList = finalText1.split("ǀ");
     let text2SplitList = finalText2.split("ǂ");
-
-    //console.log(text1SplitList);
-    //console.log(text2SplitList);
     
     let replacementList1 = addDummyListEntries(text1SplitList, '‹');
     let replacementList2 = addDummyListEntries(text2SplitList, '«');
