@@ -281,6 +281,9 @@ function replaceCommonSubstrings(text1, text2, index) {
         outputText2 = text2Split.join('ǀ‹' + index.toString() + '›ǀ');
     }
 
+    console.log(outputText1);
+    console.log(outputText2);
+
     let outputDict = {
         "processedText1" : outputText1,
         "processedText2" : outputText2,
