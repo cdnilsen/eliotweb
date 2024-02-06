@@ -605,10 +605,10 @@ submitButton.addEventListener("click", async function(event) {
         let finalStrings = getDifferences(firstEdText, secondEdText, chapterNum, verseNum);
 
         let div1 = document.createElement('div');
-        div1.innerHTML = firstEdText + "<br>" + finalStrings[0];
+        div1.innerHTML = replaceDummiesWithTags(finalStrings[0]);
 
         let div2 = document.createElement('div');
-        div2.innerHTML = secondEdText + "<br>" + finalStrings[1];
+        div2.innerHTML = replaceDummiesWithTags(finalStrings[1]);
 
         let verseSpan = document.createElement("span");
         verseSpan.innerHTML = "<u>" + verseNum.toString() + "</u><br>";
