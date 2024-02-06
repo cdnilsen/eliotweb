@@ -466,12 +466,28 @@ function getDifferences(text1, text2, chapter, verse) {
     }
 
     if (finalText1.startsWith("ǀ‹ǀ‹")) {
-        finalText1 = finalText1.slice(3);
+        finalText1 = finalText1.slice(2);
     }
 
-    if (finalText2.startsWith("ǂ«")) {
-        finalText2 = finalText2.slice(3);
+    if (finalText2.startsWith("ǂ«ǂ«")) {
+        finalText2 = finalText2.slice(2);
     }
+
+
+    if (finalText1.endsWith("›ǀ›ǀ")) {
+        finalText1 = finalText1.slice(0, -2);
+    }
+    
+    if (finalText2.endsWith("»ǂ»ǂ")) {
+        finalText2 = finalText2.slice(0, -2);
+    }
+
+
+    finalText1 = finalText1.split("ǀ‹ǀ‹").join("ǀ‹");
+    finalText2 = finalText2.split("ǂ«ǂ«").join("ǂ«");
+    finalText1 = finalText1.split("›ǀ›ǀ").join("›ǀ");
+    finalText2 = finalText2.split("»ǂ»ǂ").join("»ǂ");
+    
 
     console.log(finalText1);
     console.log(finalText2);
