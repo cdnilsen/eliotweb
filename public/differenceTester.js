@@ -454,6 +454,14 @@ function getDifferences(text1, text2, chapter, verse) {
     finalText2 = currentText2;
     }
 
+    if (finalText1.startsWith("ǀ‹ǀ‹")) {
+        finalText1 = finalText1.slice(3);
+    }
+
+    if (finalText2.startsWith("ǂ«")) {
+        finalText2 = finalText2.slice(3);
+    }
+
     console.log(finalText1);
     console.log(finalText2);
 
