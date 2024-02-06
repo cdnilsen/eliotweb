@@ -339,6 +339,8 @@ function getDifferences(text1, text2, chapter, verse) {
             commonSubstringLengthMoreThan1 = false;
         }
     }
+    finalText1 = currentText1;
+    finalText2 = currentText2;
 
     console.log(finalText1);
     console.log(finalText2);
