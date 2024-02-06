@@ -460,6 +460,14 @@ function getDifferences(text1, text2, chapter, verse) {
     return finalStringList;
 }
 
+function replaceDummiesWithTags(string) {
+    let finalString = string.split("Ř").join("<span style='color:red'>");
+    finalString = finalString.split("ř").join("</span>");
+    finalString = finalString.split("Ƀ").join("<span style='color:blue'>");
+    finalString = finalString.split("ƀ").join("</span>");
+    return finalString;
+}
+
 submitButton.addEventListener("click", async function(event) {
     outputDiv.innerHTML = "";
     event.preventDefault(); // Prevents the default form submission behavior
@@ -482,10 +490,10 @@ submitButton.addEventListener("click", async function(event) {
         let finalStrings = getDifferences(firstEdText, secondEdText, chapterNum, verseNum);
 
         let div1 = document.createElement('div');
-        div1.innerHTML = finalStrings[0];
+        div1.innerHTML = replaceDummiesWithTags(finalStrings[0]);
 
         let div2 = document.createElement('div');
-        div2.innerHTML = finalStrings[1];
+        div2.innerHTML = replaceDummiesWithTags(finalStrings[1]);
 
         let verseSpan = document.createElement("span");
         verseSpan.innerHTML = "<u>" + verseNum.toString() + "</u><br>";
