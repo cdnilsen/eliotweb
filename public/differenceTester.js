@@ -211,6 +211,8 @@ async function grabBook(book) {
         for (let j = 0; j < verseList1.length; j++) {
             let verseNum1 = chapter.toString()+ "." + verseList1[j];
             let verseNum2 = chapter.toString()+ "." + verseList2[j];
+
+            verseNumList.push(verseNum1);
             verseText1.push(firstEditionDict[verseList1[j]]);
             verseText2.push(secondEditionDict[verseList1[j]]);
 
