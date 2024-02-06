@@ -348,11 +348,11 @@ function getDifferences(text1, text2, chapter, verse) {
 
     if (text1SplitList.length != text2SplitList.length) {
         let div1 = document.createElement('div');
-        div1.innerHTML = text1SplitList.join("|") + "<br>" + currentText1;
+        div1.innerHTML = replacementList1.join("|") + "<br>"
         outerDiv.appendChild(div1);
 
         let div2 = document.createElement('div');
-        div2.innerHTML = text2SplitList.join("|") + "<br>" + currentText2;
+        div2.innerHTML = replacementList2.join("|") + "<br>"
         outerDiv.appendChild(div2);
 
         console.log("Do " + chapter.toString() + ":" + verse.toString() + " manually.");
@@ -360,11 +360,11 @@ function getDifferences(text1, text2, chapter, verse) {
 
     } else {
         let div1 = document.createElement('div');
-        div1.innerHTML = text1SplitList.join("|") + "<br>" + currentText1;
+        div1.innerHTML = replacementList1.join("|") + "<br>"
         outerDiv.appendChild(div1);
 
         let div2 = document.createElement('div');
-        div2.innerHTML = text2SplitList.join("|") + "<br>" + currentText2;
+        div2.innerHTML = replacementList2.join("|") + "<br>"
         outerDiv.appendChild(div2);
     }
     return outerDiv;
