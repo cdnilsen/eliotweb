@@ -295,9 +295,12 @@ function addDummyListEntries(splitList, guillemet) {
         if (stringIsShared(thisElement, guillemet) && stringIsShared(nextElement, guillemet)) {
             replacementList.push(thisElement);
             replacementList.push("");
+            replacementList.push(nextElement);
         } else {
             replacementList.push(thisElement);
+            replacementList.push(nextElement);
         }
+        i += 1;
     }
     return replacementList;
 }
