@@ -259,6 +259,31 @@ function findLongestCommonSubstring(str1, str2) {
     return longestSubstring; 
 }
 
+function replaceMiniSharedStrings(string, sharedString, matchesCase) {
+    let finalString = "";
+    let bracketDict = {};
+
+    if (sharedString != "" && string != sharedString) {
+        if (matchesCase) {
+            bracketDict["start"] = "Ƀ";
+            bracketDict["end"] = "ƀ";
+        } else {
+            bracketDict["start"] = "Ř";
+            bracketDict["end"] = "ř";
+        }
+        if (string.startsWith(sharedString)){
+            finalString = sharedString + bracketDict["start"] + string.slice(sharedString.length) + bracketDict["end"];
+        } else if (string.endsWith(sharedString)){
+            finalString = string.slice(0, -sharedString.length) + bracketDict["start"] + sharedString + bracketDict["end"];
+        } else if (string != sharedString) {
+            finalString = string.split(sharedString).join(bracketDict["start"] + sharedString + bracketDict["end"]);
+        }
+    } else {
+        finalString = string;
+    }
+    return finalString;
+}
+
 function replaceCommonSubstrings(text1, text2, index) {
     let commonSubstring = "";
 
@@ -387,18 +412,38 @@ function putSubstringsBackIn(text1Split, text2Split, indexToSubstringDict) {
                 finalString1 += substring1;
                 finalString2 += substring2;
             } else if (substring1.toLowerCase() != substring2.toLowerCase()) {
-                finalString1 += "Ř" + substring1 + "ř";
-                finalString2 += "Ř" + substring2 + "ř";
+                let commonSubstring = findLongestCommonSubstring(substring1, substring2);
+
+                let addString1 = replaceMiniSharedStrings(substring1, commonSubstring, false);
+                let addString2 = replaceMiniSharedStrings(substring2, commonSubstring, false);
+                //Will need to do some stuff here where there *is* a shared substring
+                finalString1 += addString1;
+                finalString2 += addString2;
             } else {
-                finalString1 += "Ƀ" + substring1 + "ƀ";
-                finalString2 += "Ƀ" + substring2 + "ƀ";
+                let commonSubstring = findLongestCommonSubstring(substring1, substring2);
+
+                let addString1 = replaceMiniSharedStrings(substring1, commonSubstring, true);
+                let addString2 = replaceMiniSharedStrings(substring2, commonSubstring, true);
+                //Will need to do some stuff here where there *is* a shared substring
+                finalString1 += addString1;
+                finalString2 += addString2;
             }
         } else if (text1Split[i].toLowerCase() == text2Split[i].toLowerCase() && text1Split[i] != text2Split[i]) {
-            finalString1 += "Ƀ" + text1Split[i] + "ƀ";
-            finalString2 += "Ƀ" + text2Split[i] + "ƀ";
+            let commonSubstring = findLongestCommonSubstring(text1Split[i], text2Split[i]);
+
+            let addString1 = replaceMiniSharedStrings(text1Split[i], commonSubstring, true);
+            let addString2 = replaceMiniSharedStrings(text2Split[i], commonSubstring, true);
+
+            finalString1 += addString1;
+            finalString2 += addString2;
         } else {
-            finalString1 += "Ř" + text1Split[i] + "ř";
-            finalString2 += "Ř" + text2Split[i] + "ř";
+            let commonSubstring = findLongestCommonSubstring(text1Split[i], text2Split[i]);
+
+            let addString1 = replaceMiniSharedStrings(text1Split[i], commonSubstring, false);
+            let addString2 = replaceMiniSharedStrings(text2Split[i], commonSubstring, false);
+
+            finalString1 += addString1;
+            finalString2 += addString2;
         } 
     }
     let listOfStrings = [finalString1, finalString2];
