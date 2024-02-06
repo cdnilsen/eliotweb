@@ -346,6 +346,9 @@ function getDifferences(text1, text2, chapter, verse) {
     let replacementList1 = addDummyListEntries(text1SplitList, '‹');
     let replacementList2 = addDummyListEntries(text2SplitList, '«');
 
+    console.log(replacementList1);
+    console.log(replacementList2);
+    /*
     if (text1SplitList.length != text2SplitList.length) {
         let div1 = document.createElement('div');
         div1.innerHTML = replacementList1.join("|") + "<br>"
@@ -367,6 +370,7 @@ function getDifferences(text1, text2, chapter, verse) {
         div2.innerHTML = replacementList2.join("|") + "<br>"
         outerDiv.appendChild(div2);
     }
+    */
     return outerDiv;
 }
 
