@@ -857,7 +857,7 @@ function isDigit(char) {
 
 //Horrible little Macgyvered solution
 function replaceInitialDigits(string, startingSubstring) {
-    if(!isDigit(string[0])) {
+    if(!isDigit(string[0] || string == "")) {
         return string;
     }
     else {
@@ -1105,6 +1105,7 @@ async function displayChapterText(book, chapter, useFirst, useSecond, useMayhew,
                 let p = usefulPrimes[k];
                 if (p != 43) {
                     let rawVerseText = res[p][j].toString();
+                    
                     verseTextDict[p] = rawVerseText;
                 }
             }
