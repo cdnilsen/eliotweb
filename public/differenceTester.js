@@ -271,14 +271,14 @@ function replaceCommonSubstrings(text1, text2, index) {
 
     if (text1.startsWith(commonSubstring)) {
         outputText1 = 'ǀ‹' + index.toString() + '›ǀ' + text1.slice(commonSubstringLength);
-        console.log(outputText1);
+        //console.log(outputText1);
     } else {
         outputText1 = text1Split.join('ǀ‹' + index.toString() + '›ǀ');
     }
     
     if (text2.startsWith(commonSubstring)) {
         outputText2 = 'ǀ‹' + index.toString() + '›ǀ' + text2.slice(commonSubstringLength);
-        console.log(outputText2);
+        //console.log(outputText2);
     } else {
         outputText2 = text2Split.join('ǀ‹' + index.toString() + '›ǀ');
     }
@@ -408,6 +408,8 @@ function substringPopulationChecker(text1Split, text2Split, indexToSubstringDict
     let finalStringList = [];
 
     if (!listsAreSameLength) {
+        console.log(text1Split);
+        console.log(text2Split);
         console.log("Lists are not the same length.");
     } else {
         finalStringList = putSubstringsBackIn(text1Split, text2Split, indexToSubstringDict);
