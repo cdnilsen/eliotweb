@@ -468,7 +468,7 @@ function replaceInitialDigits(string, startingSubstring) {
     }
 }
 
-function substringPopulationChecker(text1Split, text2Split, indexToSubstringDict, chapter, verse) {
+function substringPopulationChecker(text1Split, text2Split, indexToSubstringDict) {
 
     let listsAreSameLength = text1Split.length == text2Split.length;
 
@@ -481,7 +481,6 @@ function substringPopulationChecker(text1Split, text2Split, indexToSubstringDict
     }
     return finalStringList;
 }
-
 
 function replaceDummiesWithTags(string, showCasing) {
     let finalString = string.split("Ř").join("<span style='color:red'><b>");
@@ -496,7 +495,7 @@ function replaceDummiesWithTags(string, showCasing) {
     return finalString;
 }
 
-function getDifferences(text1, text2, chapter, verse, showCasing) {
+function getDifferences(text1, text2, showCasing) {
     let commonSubstringLengthMoreThan1 = true;
     let currentSubstringIndex = 0;
 
@@ -552,7 +551,6 @@ function getDifferences(text1, text2, chapter, verse, showCasing) {
         finalText2 = finalText2.slice(0, -2);
     }
 
-
     finalText1 = finalText1.split("ǀ‹ǀ‹").join("ǀ‹");
     finalText2 = finalText2.split("ǂ«ǂ«").join("ǂ«");
     finalText1 = finalText1.split("›ǀ›ǀ").join("›ǀ");
@@ -564,7 +562,7 @@ function getDifferences(text1, text2, chapter, verse, showCasing) {
     let replacementList1 = addDummyListEntries(text1SplitList, '‹');
     let replacementList2 = addDummyListEntries(text2SplitList, '«');
 
-    let finalStringList = substringPopulationChecker(replacementList1, replacementList2, indexToSubstringDict, chapter, verse);
+    let finalStringList = substringPopulationChecker(replacementList1, replacementList2, indexToSubstringDict);
 
     let newStringList = [];
 
