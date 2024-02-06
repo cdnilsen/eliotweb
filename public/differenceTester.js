@@ -428,7 +428,7 @@ function replaceInitialDigits(string, startingSubstring) {
             finalString += string[i];
         }
     }
-    return startingSubstring;
+    return finalString;
 }
 
 function substringPopulationChecker(text1Split, text2Split, indexToSubstringDict, chapter, verse) {
