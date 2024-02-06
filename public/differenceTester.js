@@ -190,7 +190,7 @@ async function grabBook(book) {
 
     outputDict["verseNums"] = [];
     outputDict["chapterNums"] = [];
-    outputDict["verseText1"] = [];
+    outputDict["verseText1"] =[];
     outputDict["verseText2"] = [];
    
     for (let i = 1; i < bookToChapterDict[book] + 1; i++) {
@@ -222,15 +222,8 @@ async function grabBook(book) {
             if (verseNum1 != verseNum2) {
                 console.log("Verse numbers don't match in " + book + " " + chapter + ":" + verseNum1 + "/" + verseNum2);
             }
-        
-            if (verseText1.length != verseText2.length) {
-                console.log("Do " + chapter.toString() + ":" + verseNum1.toString() + " manually.");
-            }
+     
         }
-
-        //console.log(verseNumList);
-        //console.log(verseText1);
-        //console.log(verseText2);
 
         outputDict["verseNums"] = outputDict["verseNums"].concat(verseNumList);
         outputDict["chapterNums"] = outputDict["chapterNums"].concat(chapterNums);
@@ -348,6 +341,9 @@ function getDifferences(text1, text2, chapter, verse) {
     let replacementList1 = addDummyListEntries(text1SplitList, '‹');
     let replacementList2 = addDummyListEntries(text2SplitList, '«');
 
+    console.log(replacementList1);
+    console.log(replacementList2);
+
     //console.log(replacementList1);
     //console.log(replacementList2);
 
@@ -377,7 +373,7 @@ function getDifferences(text1, text2, chapter, verse) {
         outerDiv.appendChild(div2);
     }
     */
-    return outerDiv;
+    return indexToSubstringDict;
 }
 
 submitButton.addEventListener("click", async function(event) {
