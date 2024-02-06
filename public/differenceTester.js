@@ -408,8 +408,8 @@ function substringPopulationChecker(text1Split, text2Split, indexToSubstringDict
     let finalStringList = [];
 
     if (!listsAreSameLength) {
-        console.log(text1Split);
-        console.log(text2Split);
+        //console.log(text1Split);
+        //console.log(text2Split);
         console.log("Lists are not the same length.");
     } else {
         finalStringList = putSubstringsBackIn(text1Split, text2Split, indexToSubstringDict);
@@ -453,6 +453,9 @@ function getDifferences(text1, text2, chapter, verse) {
     finalText1 = currentText1;
     finalText2 = currentText2;
     }
+
+    console.log(finalText1);
+    console.log(finalText2);
 
     let text1SplitList = finalText1.split("ǀ");
     let text2SplitList = finalText2.split("ǂ");
