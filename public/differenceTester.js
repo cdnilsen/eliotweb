@@ -299,7 +299,7 @@ function addDummyListEntries(splitList, guillemet) {
 
 
 function getDifferences(text1, text2, chapter, verse) {
-    let commonSubstringLengthMoreThan2 = true;
+    let commonSubstringLengthMoreThan1 = true;
     let currentSubstringIndex = 0;
 
     let indexToSubstringDict = {};
@@ -312,21 +312,21 @@ function getDifferences(text1, text2, chapter, verse) {
     let finalText1 = "";
     let finalText2 = "";
 
-    while (commonSubstringLengthMoreThan2 && currentSubstringIndex < 50) {
+    while (commonSubstringLengthMoreThan1 && currentSubstringIndex < 50) {
         let processedTextDict = replaceCommonSubstrings(currentText1, currentText2, currentSubstringIndex);
 
+        indexToSubstringDict[currentSubstringIndex] = processedTextDict["commonSubstring"];
+        currentText1 = processedTextDict["processedText1"];
+        currentText2 = processedTextDict["processedText2"];
+        currentSubstringIndex += 1;
+
         if (processedTextDict["commonSubstring"].length < 2) {
-            finalText1 = currentText1;
-            finalText2 = currentText2;
-            commonSubstringLengthMoreThan2 = false;
-            break;
-        } else {
-            indexToSubstringDict[currentSubstringIndex] = processedTextDict["commonSubstring"];
-            currentText1 = processedTextDict["processedText1"];
-            currentText2 = processedTextDict["processedText2"];
-            currentSubstringIndex += 1;
+            commonSubstringLengthMoreThan1 = false;
         }
-    }
+
+
+        
+        }
 
     let text1SplitList = finalText1.split("ǀ");
     let text2SplitList = finalText2.split("ǂ");
