@@ -259,6 +259,7 @@ function findLongestCommonSubstring(str1, str2) {
     return longestSubstring; 
 }
 
+//This is mildly bugged, in that if one of the mismatched parts of a string is mismatched due to casing, then it will still color it red
 function replaceMiniSharedStrings(string, sharedString, matchesCase) {
     let finalString = "";
     let bracketDict = {};
@@ -589,10 +590,8 @@ function getDifferences(text1, text2, chapter, verse) {
         console.log(finalStringList[0]);
         let firstEditionText = replaceInitialDigits(finalStringList[0], startingCommon);
 
-        console.log(firstEditionText);
         let secondEditionText = replaceInitialDigits(finalStringList[1], startingCommon);
 
-       
         newStringList.push(firstEditionText);
         newStringList.push(secondEditionText);
     } else {
