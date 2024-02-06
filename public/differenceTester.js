@@ -448,10 +448,17 @@ function getDifferences(text1, text2, chapter, verse) {
     let finalText1 = "";
     let finalText2 = "";
 
+    let startsWithShared = false;
+    let startingCommon = "";
     while (commonSubstringLengthMoreThan1 && currentSubstringIndex < 50) {
         let processedTextDict = replaceCommonSubstrings(currentText1, currentText2, currentSubstringIndex);
 
         indexToSubstringDict[currentSubstringIndex] = processedTextDict["commonSubstring"];
+
+        if (processedTextDict["startsWithShared"]) { 
+            console.log(processedTextDict["commonSubstring"]);
+            startingCommon = processedTextDict["commonSubstring"];
+        }
 
         currentText1 = processedTextDict["processedText1"];
 
@@ -506,6 +513,9 @@ function getDifferences(text1, text2, chapter, verse) {
     //console.log(replacementList2);
 
     let finalStringList = substringPopulationChecker(replacementList1, replacementList2, indexToSubstringDict, chapter, verse);
+
+    console.log(finalStringList[0]);
+    console.log(finalStringList[1]);
     /*
     if (text1SplitList.length != text2SplitList.length) {
         let div1 = document.createElement('div');
