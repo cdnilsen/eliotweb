@@ -576,8 +576,8 @@ function getDifferences(text1, text2, chapter, verse) {
 }
 
 function replaceDummiesWithTags(string) {
-    let finalString = string.split("Ř").join("<span style='color:red'>");
-    finalString = finalString.split("ř").join("</span>");
+    let finalString = string.split("Ř").join("<span style='color:red'><b>");
+    finalString = finalString.split("ř").join("</b></span>");
     finalString = finalString.split("Ƀ").join("<span style='color:blue'>");
     finalString = finalString.split("ƀ").join("</span>");
     return finalString;
@@ -596,7 +596,7 @@ submitButton.addEventListener("click", async function(event) {
     let verseText2 = outputDict["verseText2"];
 
 
-    for (let i = 0; i < allVerses.length(); i++) {
+    for (let i = 0; i < allVerses.length; i++) {
         let verseNum = allVerses[i];
         let chapterNum = chapterList[i];
         let firstEdText = verseText1[i];
