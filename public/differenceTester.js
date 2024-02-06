@@ -277,10 +277,10 @@ function replaceCommonSubstrings(text1, text2, index) {
     }
     
     if (text2.startsWith(commonSubstring)) {
-        outputText2 = '|«' + index.toString() + '»|' + text2.slice(commonSubstringLength);
+        outputText2 = 'ǂ«' + index.toString() + '»ǂ' + text2.slice(commonSubstringLength);
         //console.log(outputText2);
     } else {
-        outputText2 = text2Split.join('|«' + index.toString() + '»|');
+        outputText2 = text2Split.join('ǂ«' + index.toString() + '»ǂ');
     }
 
 
