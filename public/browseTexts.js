@@ -993,13 +993,20 @@ function addComparedVersesToDict(dict, modInt, showCasing, editionNumber) {
     let secondEditionText = dict[3];
 
     let comparedVerseList = compareVerses(firstEditionText, secondEditionText, showCasing);
-    dict[2] = comparedVerseList[0];
-    dict[3] = comparedVerseList[1];
+    if (dict[2].length >= comparedVerseList[0].length) {
+        dict[2] = comparedVerseList[0];
+    }
+    if (dict[3].length >= comparedVerseList[1].length) {
+        dict[3] = comparedVerseList[1];
+    }
 
     //The zeroth edition Genesis's differences are wrt the first edition, although the first edition's are still vs. the 2nd
     if (useZeroth) {
         let zerothComparedList = compareVerses(dict[7], dict[2], showCasing);
-        dict[7] = zerothComparedList[0];
+
+        if (dict[7].length >= zerothComparedList[0].length) {
+            dict[7] = zerothComparedList[0];
+        }
     }
 }
 
