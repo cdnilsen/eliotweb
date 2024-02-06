@@ -270,13 +270,13 @@ function replaceCommonSubstrings(text1, text2, index) {
     let commonSubstringLength = commonSubstring.length;
 
     if (text1.startsWith(commonSubstring)) {
-        outputText1 = 'ǀ‹' + index.toString() + '›ǀ' + text1.slice(commonSubstringLength, -1);
+        outputText1 = 'ǀ‹' + index.toString() + '›ǀ' + text1.slice(commonSubstringLength);
     } else {
         outputText1 = text1Split.join('ǀ‹' + index.toString() + '›ǀ');
     }
     
     if (text2.startsWith(commonSubstring)) {
-        outputText2 = 'ǀ‹' + index.toString() + '›ǀ' + text2.slice(commonSubstringLength, -1);
+        outputText2 = 'ǀ‹' + index.toString() + '›ǀ' + text2.slice(commonSubstringLength);
     } else {
         outputText2 = text2Split.join('ǀ‹' + index.toString() + '›ǀ');
     }
