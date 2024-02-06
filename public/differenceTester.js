@@ -468,17 +468,22 @@ function isDigit(char) {
 
 //Horrible little Macgyvered solution
 function replaceInitialDigits(string, startingSubstring) {
-    let finalString = startingSubstring;
-    let digitsStopped = false;
-    for (let i = 0; i < string.length; i++) {
-        if (!isDigit(string[i])) {
-            digitsStopped = true
-        }
-        if (digitsStopped) {
-            finalString += string[i];
-        }
+    if(!isDigit(string[0])) {
+        return string;
     }
-    return finalString;
+    else {
+        let finalString = startingSubstring;
+        let digitsStopped = false;
+        for (let i = 0; i < string.length; i++) {
+            if (!isDigit(string[i])) {
+                digitsStopped = true
+            }
+            if (digitsStopped) {
+                finalString += string[i];
+            }
+        }
+        return finalString;
+    }
 }
 
 function substringPopulationChecker(text1Split, text2Split, indexToSubstringDict, chapter, verse) {
