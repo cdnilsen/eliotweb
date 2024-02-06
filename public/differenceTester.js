@@ -381,10 +381,14 @@ submitButton.addEventListener("click", async function(event) {
         let verseNum = allVerses[i];
         let firstEdText = verseText1[i];
         let secondEdText = verseText2[i];
+
+        console.log(verseNum);
+        console.log(firstEdText);
+        console.log(secondEdText);
         
 
-        let myDiv = getDifferences(firstEdText, secondEdText, selectedChapter, verseNum)
-        outputDiv.appendChild(myDiv);
+        //let myDiv = getDifferences(firstEdText, secondEdText, selectedChapter, verseNum)
+        //outputDiv.appendChild(myDiv);
         /*
         let verseSpan = document.createElement("span");
         verseSpan.innerHTML = "<u>" + verseNum.toString() + "</u><br>" + verseText1 + "<br>" + verseText2 + '<br><br>';
