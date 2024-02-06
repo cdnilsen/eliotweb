@@ -286,6 +286,13 @@ function stringIsShared(string, guillemet){
 }
 
 function addDummyListEntries(splitList, guillemet) {
+
+    let rightGuillemetDict = {
+        "‹" : "›",
+        "«" : "»"
+    }
+
+    let rightGuillemet = rightGuillemetDict[guillemet];
     let intermediateList = [];
 
     for (let i = 0; i < splitList.length - 1; i++) {
@@ -305,7 +312,7 @@ function addDummyListEntries(splitList, guillemet) {
 
     let finalList = [];
     for (let j = 0; j < intermediateList.length; j++) {
-        if (intermediateList[j] != guillemet) {
+        if (intermediateList[j] != guillemet && intermediateList[j] != rightGuillemet) {
             finalList.push(intermediateList[j]);
         }
     }
