@@ -327,7 +327,7 @@ function getIndexFromGuillemetString(string, guillemet) {
     }
     let rightGuillemet = rightGuillemetDict[guillemet];
 
-    return parseInt(string.split(guillemet)[1].split(rightGuillemet)[0]);
+    return parseInt(string.slice(1, -1));
 }
  
 function putSubstringsBackIn(text1Split, text2Split, indexToSubstringDict) {
@@ -336,13 +336,13 @@ function putSubstringsBackIn(text1Split, text2Split, indexToSubstringDict) {
     let finalString2 = "";
     console.log(text1Split);
     console.log(text2Split);
-    
+
     for (let i = 0; i < text1Split.length; i++) {
-        //console.log(text1Split[i]);
-        //console.log(text2Split[i]);
         if (stringIsShared(text1Split[i], "‹") && stringIsShared(text2Split[i], "«")) {
             let text1Index = getIndexFromGuillemetString(text1Split[i], "‹");
             let text2Index = getIndexFromGuillemetString(text2Split[i], "«");
+            console.log(text1Index);
+            console.log(text2Index);
 
             let substring1 = indexToSubstringDict[text1Index];
             let substring2 = indexToSubstringDict[text2Index];
