@@ -348,6 +348,10 @@ function getDifferences(text1, text2, chapter, verse) {
 
     console.log(replacementList1);
     console.log(replacementList2);
+
+    if (replacementList1.length != replacementList2.length) {
+        console.log("Replacement list lengths don't match in " + chapter.toString() + ":" + verse.toString());
+    }
     /*
     if (text1SplitList.length != text2SplitList.length) {
         let div1 = document.createElement('div');
@@ -397,7 +401,7 @@ submitButton.addEventListener("click", async function(event) {
 
         for (let i = 0; i < bookToChapterDict[selectedBook]; i++) {
             let myDiv = getDifferences(firstEdText, secondEdText, chapterNum, verseNum);
-            outputDiv.appendChild(myDiv);
+            //outputDiv.appendChild(myDiv);
         }
         /*
         let verseSpan = document.createElement("span");
