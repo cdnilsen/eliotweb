@@ -269,6 +269,7 @@ function replaceCommonSubstrings(text1, text2, index) {
         "processedText2" : outputText2,
         "commonSubstring" : commonSubstring,
     }
+
     return outputDict;
 }
 
@@ -316,17 +317,17 @@ function getDifferences(text1, text2, chapter, verse) {
         let processedTextDict = replaceCommonSubstrings(currentText1, currentText2, currentSubstringIndex);
 
         indexToSubstringDict[currentSubstringIndex] = processedTextDict["commonSubstring"];
+
         currentText1 = processedTextDict["processedText1"];
+
         currentText2 = processedTextDict["processedText2"];
+
         currentSubstringIndex += 1;
 
         if (processedTextDict["commonSubstring"].length < 2) {
             commonSubstringLengthMoreThan1 = false;
         }
-
-
-        
-        }
+    }
 
     let text1SplitList = finalText1.split("ǀ");
     let text2SplitList = finalText2.split("ǂ");
@@ -355,6 +356,7 @@ function getDifferences(text1, text2, chapter, verse) {
         div2.innerHTML = text2SplitList.join("|") + "<br>" + currentText2;
         outerDiv.appendChild(div2);
     }
+    console.log(outerDiv.innerHTML);
     return outerDiv;
 }
 
