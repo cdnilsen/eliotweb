@@ -341,17 +341,14 @@ function putSubstringsBackIn(text1Split, text2Split, indexToSubstringDict) {
         if (stringIsShared(text1Split[i], "‹") && stringIsShared(text2Split[i], "«")) {
             let text1Index = getIndexFromGuillemetString(text1Split[i], "‹");
             let text2Index = getIndexFromGuillemetString(text2Split[i], "«");
-            console.log(text1Index);
-            console.log(text2Index);
 
             let substring1 = indexToSubstringDict[text1Index];
             let substring2 = indexToSubstringDict[text2Index];
 
-            if (text1Index == text2Index) {
-                let commonSubstring = indexToSubstringDict[text1Index];
-                finalString1 += commonSubstring;
-                finalString2 += commonSubstring;
-            } else if (indexToSubstringDict[text1Index].toLowerCase() != indexToSubstringDict[text2Index].toLowerCase()) {
+            if (substring1 == substring2) {
+                finalString1 += substring1;
+                finalString2 += substring2;
+            } else if (substring1.toLowerCase() != substring2.toLowerCase()) {
                 finalString1 += "Ř" + substring1 + "ř";
                 finalString2 += "Ř" + substring2 + "ř";
             } else {
@@ -378,7 +375,7 @@ function putSubstringsBackIn(text1Split, text2Split, indexToSubstringDict) {
 }
 
 
-function substringPopulationChecker(text1Split, text2Split, indexToSubstringDict) {
+function substringPopulationChecker(text1Split, text2Split, indexToSubstringDict, chapter, verse) {
 
     let listsAreSameLength = text1Split.length == text2Split.length;
 
@@ -388,6 +385,10 @@ function substringPopulationChecker(text1Split, text2Split, indexToSubstringDict
         console.log("Lists are not the same length.");
     } else {
         finalStringList = putSubstringsBackIn(text1Split, text2Split, indexToSubstringDict);
+    }
+    for (let i = 0; i < finalStringList.length; i++) {
+        console.log(chapter.toString() + ":" + verse.toString());
+        console.log(finalStringList[i]);
     }
     return finalStringList;
 }
@@ -437,7 +438,7 @@ function getDifferences(text1, text2, chapter, verse) {
     //console.log(replacementList1);
     //console.log(replacementList2);
 
-    let finalStringList = substringPopulationChecker(replacementList1, replacementList2, indexToSubstringDict);
+    let finalStringList = substringPopulationChecker(replacementList1, replacementList2, indexToSubstringDict, chapter, verse);
     /*
     if (text1SplitList.length != text2SplitList.length) {
         let div1 = document.createElement('div');
