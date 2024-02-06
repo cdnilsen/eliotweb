@@ -450,9 +450,9 @@ function getDifferences(text1, text2, chapter, verse) {
         if (processedTextDict["commonSubstring"].length < 2) {
             commonSubstringLengthMoreThan1 = false;
         }
-    }
     finalText1 = currentText1;
     finalText2 = currentText2;
+    }
 
     let text1SplitList = finalText1.split("ǀ");
     let text2SplitList = finalText2.split("ǂ");
