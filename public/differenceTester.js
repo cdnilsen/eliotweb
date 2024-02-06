@@ -537,7 +537,10 @@ function getDifferences(text1, text2, chapter, verse) {
     let newStringList = [];
 
     if (startsWithShared) {
+        console.log(finalStringList[0]);
         let firstEditionText = replaceInitialDigits(finalStringList[0], startingCommon);
+
+        console.log(firstEditionText);
         let secondEditionText = replaceInitialDigits(finalStringList[1], startingCommon);
 
        
