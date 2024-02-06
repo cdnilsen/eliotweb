@@ -189,6 +189,7 @@ async function grabBook(book) {
     let outputDict = {};
 
     outputDict["verseNums"] = [];
+    outputDict["chapterNums"] = [];
     outputDict["verseText1"] = [];
     outputDict["verseText2"] = [];
    
@@ -207,6 +208,7 @@ async function grabBook(book) {
         let verseNumList = [];
         let verseText1 = [];
         let verseText2 = [];
+        let chapterNums = [];
 
         for (let j = 0; j < verseList1.length; j++) {
             let verseNum1 = chapter.toString()+ "." + verseList1[j];
@@ -215,6 +217,7 @@ async function grabBook(book) {
             verseNumList.push(verseNum1);
             verseText1.push(firstEditionDict[verseList1[j]]);
             verseText2.push(secondEditionDict[verseList1[j]]);
+            chapterNums.push(chapter);
 
             if (verseNum1 != verseNum2) {
                 console.log("Verse numbers don't match in " + book + " " + chapter + ":" + verseNum1 + "/" + verseNum2);
@@ -230,6 +233,7 @@ async function grabBook(book) {
         //console.log(verseText2);
 
         outputDict["verseNums"] = outputDict["verseNums"].concat(verseNumList);
+        outputDict["chapterNums"] = outputDict["chapterNums"].concat(chapterNums);
         outputDict["verseText1"] = outputDict["verseText1"].concat(verseText1);
         outputDict["verseText2"] = outputDict["verseText2"].concat(verseText2);
         
@@ -380,18 +384,23 @@ submitButton.addEventListener("click", async function(event) {
     let outputDict = await grabBook(selectedBook);
     
     let allVerses = outputDict["verseNums"];
+    let chapterList = outputDict["chapterNums"];
     let verseText1 = outputDict["verseText1"];
     let verseText2 = outputDict["verseText2"];
 
 
     for (let i = 0; i < allVerses.length; i++) {
         let verseNum = allVerses[i];
+        let chapterNum = chapterList[i];
         let firstEdText = verseText1[i];
         let secondEdText = verseText2[i];
 
 
-        let myDiv = getDifferences(firstEdText, secondEdText, selectedChapter, verseNum)
-        outputDiv.appendChild(myDiv);
+
+        for (let i = 0; i < bookToChapterDict[selectedBook]; i++) {
+            let myDiv = getDifferences(firstEdText, secondEdText, chapterNum, verseNum)
+            outputDiv.appendChild(myDiv);
+        }
         /*
         let verseSpan = document.createElement("span");
         verseSpan.innerHTML = "<u>" + verseNum.toString() + "</u><br>" + verseText1 + "<br>" + verseText2 + '<br><br>';
