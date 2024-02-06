@@ -274,9 +274,9 @@ function replaceMiniSharedStrings(string, sharedString, matchesCase) {
         if (string.startsWith(sharedString)){
             finalString = sharedString + bracketDict["start"] + string.slice(sharedString.length) + bracketDict["end"];
         } else if (string.endsWith(sharedString)){
-            finalString = string.slice(0, -sharedString.length) + bracketDict["end"] + sharedString;
+            finalString = bracketDict["start"]+ string.slice(0, -sharedString.length) + bracketDict["end"] + sharedString;
         } else if (string != sharedString) {
-            finalString = string.split(sharedString).join(bracketDict["end"] + sharedString + bracketDict["start"]);
+            finalString = bracketDict["start"] + string.split(sharedString).join(bracketDict["end"] + sharedString + bracketDict["start"]) + bracketDict["end"];
         }
     } else {
         finalString = string;
