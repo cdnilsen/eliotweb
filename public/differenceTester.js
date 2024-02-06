@@ -334,10 +334,12 @@ function putSubstringsBackIn(text1Split, text2Split, indexToSubstringDict) {
 
     let finalString1 = "";
     let finalString2 = "";
-
+    console.log(text1Split);
+    console.log(text2Split);
+    
     for (let i = 0; i < text1Split.length; i++) {
-        console.log(text1Split[i]);
-        console.log(text2Split[i]);
+        //console.log(text1Split[i]);
+        //console.log(text2Split[i]);
         if (stringIsShared(text1Split[i], "‹") && stringIsShared(text2Split[i], "«")) {
             let text1Index = getIndexFromGuillemetString(text1Split[i], "‹");
             let text2Index = getIndexFromGuillemetString(text2Split[i], "«");
