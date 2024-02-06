@@ -320,6 +320,74 @@ function addDummyListEntries(splitList, guillemet) {
     return finalList;
 }
 
+function getIndexFromGuillemetString(string, guillemet) {
+    let rightGuillemetDict = {
+        "‹" : "›",
+        "«" : "»"
+    }
+    let rightGuillemet = rightGuillemetDict[guillemet];
+
+    return parseInt(string.split(guillemet)[1].split(rightGuillemet)[0]);
+}
+ 
+function putSubstringsBackIn(text1Split, text2Split, indexToSubstringDict) {
+
+    let finalString1 = "";
+    let finalString2 = "";
+
+    for (let i = 0; i < text1Split.length; i++) {
+        if (stringIsShared(text1Split[i], "‹") && stringIsShared(text2Split[i], "«")) {
+            let text1Index = getIndexFromGuillemetString(text1Split[i], "‹");
+            let text2Index = getIndexFromGuillemetString(text2Split[i], "«");
+
+            let substring1 = indexToSubstringDict[text1Index];
+            let substring2 = indexToSubstringDict[text2Index];
+
+            if (text1Index == text2Index) {
+                let commonSubstring = indexToSubstringDict[text1Index];
+                finalString1 += commonSubstring;
+                finalString2 += commonSubstring;
+            } else if (indexToSubstringDict[text1Index].toLowerCase() != indexToSubstringDict[text2Index].toLowerCase()) {
+                finalString1 += "Ř" + substring1 + "ř";
+                finalString2 += "Ř" + substring2 + "ř";
+            } else {
+                finalString1 += "Ƀ" + substring1 + "ƀ";
+                finalString2 += "Ƀ" + substring2 + "ƀ";
+            }
+        } else if (text1Split[i].toLowerCase == text2Split[i].toLowerCase && text1Split[i] != text2Split[i]) {
+            finalString1 += "Ƀ" + text1Split[i] + "ƀ";
+            finalString2 += "Ƀ" + text2Split[i] + "ƀ";
+        } else {
+            finalString1 += "Ř" + text1Split[i] + "ř";
+            finalString2 += "Ř" + text1Split[i] + "ř";
+        } 
+    }
+    let listOfStrings = [finalString1, finalString2];
+    let finalStringList = [];
+    for (let j = 0; j < 2; j++) {
+        let thisString = listOfStrings[j];
+        thisString = thisString.split("Řř").join("");
+        thisString = thisString.split("Ƀƀ").join("");
+        finalStringList.push(thisString);
+    }
+    return finalStringList;
+}
+
+
+function substringPopulationChecker(text1Split, text2Split, indexToSubstringDict) {
+
+    let listsAreSameLength = text1Split.length == text2Split.length;
+
+    let finalStringList = [];
+
+    if (!listsAreSameLength) {
+        console.log("Lists are not the same length.");
+    } else {
+        finalStringList = putSubstringsBackIn(text1Split, text2Split, indexToSubstringDict);
+    }
+    return finalStringList;
+}
+
 
 function getDifferences(text1, text2, chapter, verse) {
     let commonSubstringLengthMoreThan1 = true;
@@ -359,15 +427,13 @@ function getDifferences(text1, text2, chapter, verse) {
     let replacementList1 = addDummyListEntries(text1SplitList, '‹');
     let replacementList2 = addDummyListEntries(text2SplitList, '«');
 
-    console.log(replacementList1);
-    console.log(replacementList2);
+    //console.log(replacementList1);
+    //console.log(replacementList2);
 
     //console.log(replacementList1);
     //console.log(replacementList2);
 
-    if (replacementList1.length != replacementList2.length) {
-        console.log("Replacement list lengths don't match in " + chapter.toString() + ":" + verse.toString());
-    }
+    let finalStringList = substringPopulationChecker(replacementList1, replacementList2, indexToSubstringDict);
     /*
     if (text1SplitList.length != text2SplitList.length) {
         let div1 = document.createElement('div');
@@ -391,7 +457,7 @@ function getDifferences(text1, text2, chapter, verse) {
         outerDiv.appendChild(div2);
     }
     */
-    return indexToSubstringDict;
+    return finalStringList;
 }
 
 submitButton.addEventListener("click", async function(event) {
@@ -413,7 +479,20 @@ submitButton.addEventListener("click", async function(event) {
         let firstEdText = verseText1[i];
         let secondEdText = verseText2[i];
 
-        let myDiv = getDifferences(firstEdText, secondEdText, chapterNum, verseNum);
+        let finalStrings = getDifferences(firstEdText, secondEdText, chapterNum, verseNum);
+
+        let div1 = document.createElement('div');
+        div1.innerHTML = finalStrings[0];
+
+        let div2 = document.createElement('div');
+        div2.innerHTML = finalStrings[1];
+
+        let verseSpan = document.createElement("span");
+        verseSpan.innerHTML = "<u>" + verseNum.toString() + "</u><br>";
+        outputDiv.appendChild(verseSpan);
+        outputDiv.appendChild(div1);
+        outputDiv.appendChild(div2);
+        outputDiv.appendChild(document.createElement('br'));
 
         /*
         let verseSpan = document.createElement("span");
