@@ -476,7 +476,7 @@ function getDifferences(text1, text2, chapter, verse) {
         if (processedTextDict["startsWithShared"]) { 
             console.log(processedTextDict["commonSubstring"]);
             startingCommon = processedTextDict["commonSubstring"];
-
+            startsWithShared = true;
             console.log(startingCommon);
         }
 
