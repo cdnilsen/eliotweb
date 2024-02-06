@@ -270,7 +270,7 @@ function replaceMiniSharedStrings(string, sharedString, matchesCase) {
         bracketDict["start"] = "Ř";
         bracketDict["end"] = "ř";
     }
-    
+
     if (sharedString != "" && string != sharedString) {
         if (string.startsWith(sharedString)){
             finalString = sharedString + bracketDict["start"] + string.slice(sharedString.length) + bracketDict["end"];
@@ -279,8 +279,10 @@ function replaceMiniSharedStrings(string, sharedString, matchesCase) {
         } else if (string != sharedString) {
             finalString = bracketDict["start"] + string.split(sharedString).join(bracketDict["end"] + sharedString + bracketDict["start"]) + bracketDict["end"];
         }
-    } else {
+    } else if (string != sharedString) {
         finalString = bracketDict["start"] + string + bracketDict["end"];
+    } else {
+        finalString = string;
     }
     return finalString;
 }
