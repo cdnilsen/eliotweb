@@ -360,7 +360,7 @@ function putSubstringsBackIn(text1Split, text2Split, indexToSubstringDict) {
             finalString2 += "Ƀ" + text2Split[i] + "ƀ";
         } else {
             finalString1 += "Ř" + text1Split[i] + "ř";
-            finalString2 += "Ř" + text1Split[i] + "ř";
+            finalString2 += "Ř" + text2Split[i] + "ř";
         } 
     }
     let listOfStrings = [finalString1, finalString2];
