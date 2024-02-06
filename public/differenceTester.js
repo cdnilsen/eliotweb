@@ -213,9 +213,11 @@ async function grabBook(book) {
             let verseNum2 = chapter.toString()+ "." + verseList2[j];
             verseText1.push(firstEditionDict[verseList1[j]]);
             verseText2.push(secondEditionDict[verseList1[j]]);
-        
-            //console.log(verseText1.length == verseText2.length);
 
+            if (verseNum1 != verseNum2) {
+                console.log("Verse numbers don't match in " + book + " " + chapter + ":" + verseNum1 + "/" + verseNum2);
+            }
+        
             if (verseText1.length != verseText2.length) {
                 console.log("Do " + chapter.toString() + ":" + verseNum1.toString() + " manually.");
             }
@@ -230,6 +232,10 @@ async function grabBook(book) {
         outputDict["verseText2"] = outputDict["verseText2"].concat(verseText2);
         
     }
+
+    console.log(outputDict["verseNums"].length);
+    console.log(outputDict["verseText1"].length);
+    console.log(outputDict["verseText2"].length);
     return outputDict;
 }
 
