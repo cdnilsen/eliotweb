@@ -271,7 +271,7 @@ function replaceCommonSubstrings(text1, text2, index) {
 
     if (text1.startsWith(commonSubstring)) {
         outputText1 = 'ǀ‹' + index.toString() + '›ǀ' + text1.slice(commonSubstringLength);
-        //console.log(outputText1);
+        console.log("starts with shared substring: " + commonSubstring);
     } else {
         outputText1 = text1Split.join('ǀ‹' + index.toString() + '›ǀ');
     }
