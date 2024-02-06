@@ -432,23 +432,14 @@ function putSubstringsBackIn(text1Split, text2Split, indexToSubstringDict) {
                 finalString2 += addString2;
             }
         } else if (text1Split[i].toLowerCase() == text2Split[i].toLowerCase() && text1Split[i] != text2Split[i]) {
+            let commonSubstring = findLongestCommonSubstring(text1Split[i], text2Split[i]);
 
-            let dummyCommonSubstring = "";
-            let loopUnstarted = false;
-            let addString1 = text1Split[i];
-            let addString2 = text2Split[i];
+            let addString1 = replaceMiniSharedStrings(text1Split[i], commonSubstring, true);
+            let addString2 = replaceMiniSharedStrings(text2Split[i], commonSubstring, true);
 
-            while (loopUnstarted || dummyCommonSubstring.length > 1) {
-                let commonSubstring = findLongestCommonSubstring(text1Split[i], text2Split[i]);
-
-                addString1 = replaceMiniSharedStrings(addString1, commonSubstring, true);
-
-                addString2 = replaceMiniSharedStrings(addString2, commonSubstring, true);
-
-                dummyCommonSubstring = commonSubstring;
-            }
             finalString1 += addString1;
             finalString2 += addString2;
+
         } else {
             let commonSubstring = findLongestCommonSubstring(text1Split[i], text2Split[i]);
 
