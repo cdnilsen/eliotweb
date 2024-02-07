@@ -925,8 +925,10 @@ function compareVerses(verse1, verse2, chapterNum, verseNum) {
     let canProcess = fixMissingBs(verse1Dict, verse2Dict, chapterNum, verseNum);
 
     if (canProcess) {
-        let allKeys1 = Object.keys(verse1Dict);
-        let allKeys2 = Object.keys(verse2Dict);
+        let allKeys1 = Object.keys(verse1Dict).sort();
+        let allKeys2 = Object.keys(verse2Dict).sort();
+
+        console.log(allKeys1);
     } else {
         console.log("Can't process " + chapterNum.toString() + ":" + verseNum.toString());
     }
@@ -967,8 +969,6 @@ async function grabBook(book) {
 
     let firstEditionLines = firstEditionText.split("\n");
     let secondEditionLines = secondEditionText.split("\n");
-
-    console.log(secondEditionLines);
 
     let outputDict = {};
 
@@ -1015,7 +1015,6 @@ async function grabBook(book) {
         outputDict["verseText2"] = outputDict["verseText2"].concat(verseText2);
         
     }
-    console.log(outputDict["verseNums"]);
     return outputDict;
 }
 
