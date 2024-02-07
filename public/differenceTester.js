@@ -472,6 +472,12 @@ submitButton.addEventListener("click", async function(event) {
     let comparedWithCasing = compareVerses(verse1, verse2, 4, 5, true);
     let comparedWithoutCasing = compareVerses(verse1, verse2, 4, 5, false);
 
+    console.log(comparedWithCasing[0]);
+    console.log(comparedWithoutCasing[0]);
+
+    console.log(comparedWithCasing[1]);
+    console.log(comparedWithoutCasing[1]);
+
     let allExamples = [comparedWithCasing, comparedWithoutCasing];
 
     for (let i = 0; i < 2; i++) {
