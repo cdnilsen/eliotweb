@@ -848,20 +848,21 @@ function processBookDict(bookDict) {
     }
 }
 
-let ruthDict = await grabBook("Ruth");
-processBookDict(ruthDict);
+let submitButton = document.getElementById("submitButton");
+submitButton.addEventListener("click", async function(event) {
+    let ruthDict = await grabBook("Ruth");
+    processBookDict(ruthDict);
+});
 
 //I don't like this much (it's kludgy) but it seems to work:
 function addRemainingBs(differenceDict) {
     let allKeys = Object.keys(differenceDict);
     for (let i = 0; i < allKeys.length; i++) {
         let key = allKeys[i];
-        let entry = differenceDict[key];
         if (!key.endsWith("B")) {
             let newKey = key + "B";
-            differenceDict[newKey] = "";
+            differenceDict[newKey] = differenceDict[key];
             delete(differenceDict[key]);
         }
     }
-
 }
