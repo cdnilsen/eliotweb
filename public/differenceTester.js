@@ -665,61 +665,57 @@ function findLongestCommonSubstring(str1, str2) {
     return longestSubstring; 
 }
 
-function postSnippetsToDict(snippetList, verseDict, oldKey) {
-    let newKeyList = [];
-    let keySuffixList = ["A", "B", "C"];
-    for (let i = 0; i < 3; i++) {
-        let newKey = oldKey + keySuffixList[i];
-        if (i == 1 || snippetList[i] == "") {
-            newKey = newKey + "B";
+function postSnippetsToDict(snippetList, verseDict, oldKey, sharedStringIsZero) {
+
+    if (sharedStringIsZero) {
+        let newKey = oldKey + "B";
+        verseDict[newKey] = snippetList[0];
+        delete(verseDict[oldKey]);
+    } else {
+        let newKeyList = [];
+        let keySuffixList = ["A", "B", "C"];
+        for (let i = 0; i < 3; i++) {
+            let newKey = oldKey + keySuffixList[i];
+            if (snippetList[i] == "") {
+                newKey = newKey + "B";
+            }
+            newKeyList.push(newKey);
         }
-        newKeyList.push(newKey);
-    }
 
-    delete(verseDict[oldKey]);
+        delete(verseDict[oldKey]);
 
-    for (let j = 0; j < 3; j++) {
-        verseDict[newKeyList[j]] = snippetList[j];
+        for (let j = 0; j < 3; j++) {
+            verseDict[newKeyList[j]] = snippetList[j];
+        }
     }
 }
 
 function getSnippetTuples(dict1, dict2, snippet1, snippet2, sharedString, key) {
-    let verse1Split = snippet1.split(sharedString);
-    let verse2Split = snippet2.split(sharedString);
 
-    let newLogueDict = {
-    };
-    
-    let allLogueNames = ["verse1Prologue", "verse2Prologue", "sharedString", "verse1Epilogue", "verse2Epilogue"]
+    if (sharedString == "") {
 
-    let allLogueList = [verse1Split[0], verse2Split[0], sharedString, verse1Split[1], verse2Split[1]];
+        let verse1List = [snippet1, "", ""];
+        let verse2List = [snippet2, "", ""];
 
-    for (let i = 0; i < 5; i++) {
-        let logueName = allLogueNames[i];
-        if (allLogueList[i] == undefined) {
-            newLogueDict[logueName] = "";
-            if (logueName == "sharedString") {
-                console.log("Undefined shared string!")
-            }
-        } else {
-            newLogueDict[logueName] = allLogueList[i];
-        }
+        postSnippetsToDict(verse1List, dict1, key, true);
+        postSnippetsToDict(verse2List, dict2, key, true);
+
+    } else {
+        let verse1Split = snippet1.split(sharedString);
+        let verse2Split = snippet2.split(sharedString);
+        
+        let verse1Prologue = verse1Split[0];
+        let verse2Prologue = verse2Split[0];
+
+        let verse1Epilogue = verse1Split[1];
+        let verse2Epilogue = verse2Split[1];
+
+        let verse1ProcessingList = [verse1Prologue, sharedString, verse1Epilogue];
+        let verse2ProcessingList = [verse2Prologue, sharedString, verse2Epilogue];
+
+        postSnippetsToDict(verse1ProcessingList, dict1, key, false);
+        postSnippetsToDict(verse2ProcessingList, dict2, key, false);
     }
-    
-    let verse1Prologue = newLogueDict["verse1Prologue"];
-    let verse2Prologue = newLogueDict["verse2Prologue"];
-
-    let verse1Epilogue = newLogueDict["verse1Epilogue"];
-    let verse2Epilogue = newLogueDict["verse2Epilogue"];
-
-    let verse1ProcessingList = [verse1Prologue, sharedString, verse1Epilogue];
-    let verse2ProcessingList = [verse2Prologue, sharedString, verse2Epilogue];
-
-    //console.log(verse1ProcessingList);
-    //console.log(verse2ProcessingList);
-
-    postSnippetsToDict(verse1ProcessingList, dict1, key);
-    postSnippetsToDict(verse2ProcessingList, dict2, key);
 }
 
 function processDictKeys(dict1, dict2, key) {
