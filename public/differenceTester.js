@@ -481,16 +481,15 @@ submitButton.addEventListener("click", async function(event) {
     let allExamples = [comparedWithCasing, comparedWithoutCasing];
 
     for (let i = 0; i < 2; i++) {
-        let edition1 = allExamples[i][0];
-        let edition2 = allExamples[i][1];
+        let editionList = allExamples[i];
 
         let verseDiv = document.createElement("div");
         verseDiv.innerHTML = '<u>4.5</u><br>';
-        for (let j = 0; j < edition1.length; j++) {
+        for (let j = 0; j < editionList.length; j++) {
+            let edition = editionList[j];
             let textSpan = document.createElement("span");
-            textSpan.innerHTML += edition1[j];
+            textSpan.innerHTML += edition;
             textSpan.innerHTML += "<br>";
-            textSpan.innerHTML += edition2[j];
             verseDiv.appendChild(textSpan);
         }
         verseDiv.innerHTML += "<br>";
