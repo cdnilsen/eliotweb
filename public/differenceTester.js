@@ -715,6 +715,7 @@ function processVerseDictionaries(dict1, dict2) {
             relevantKeys.push(allKeys[i]);
         }
     }
+    console.log(relevantKeys);
 
     for (let j = 0; j < relevantKeys.length; j++) {
         let key = relevantKeys[j];
