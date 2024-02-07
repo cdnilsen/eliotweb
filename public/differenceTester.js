@@ -740,9 +740,10 @@ function processVerseDicts(verse1Dict, verse2Dict) {
 
             let substring = ""
             if (verse1Snippet != "" && verse2Snippet != "") {
+                console.log("Both snippets exist")
                 substring = findLongestCommonSubstring(verse1Snippet, verse2Snippet);
             }  
-
+            console.log("Substring: " + substring);
             let continueBool = processSnippets(k, substring, verse1Dict, verse2Dict, newKeys);
             if (substring != "" || continueBool) {
                 stopThisRound = false;
