@@ -817,6 +817,21 @@ function processDictKeys(dict1, dict2, key) {
     getSnippetTuples(dict1, dict2, verseSnippet1, verseSnippet2, sharedString, key);
 }
 
+function checkForKeyMismatch(dict1, dict2) {
+    let sortedDict1 = Object.keys(dict1).sort();
+    let sortedDict2 = Object.keys(dict2).sort();
+
+    if (sortedDict1 != sortedDict2) {
+        let keysDifference = getDifferenceOfTwoArrays(sortedDict1, sortedDict2);
+
+        let notInDict1List = keysDifference[0];
+        let notInDict2List = keysDifference[1];
+
+        console.log(notInDict1List);
+        console.log(notInDict2List);
+    }
+}
+
 function processVerseDictionaries(dict1, dict2) {
     let allKeys = Object.keys(dict1);
 
@@ -856,18 +871,7 @@ function compareVerses(verse1, verse2) {
         console.log("Endless loop!");
     }
 
-    let sortedDict1 = Object.keys(verse1Dict).sort();
-    let sortedDict2 = Object.keys(verse2Dict).sort();
-    
-    if (sortedDict1 != sortedDict2) {
-        let keysDifference = getDifferenceOfTwoArrays(sortedDict1, sortedDict2);
-
-        let notInDict1List = keysDifference[0];
-        let notInDict2List = keysDifference[1];
-
-        //console.log(notInDict1List);
-        //console.log(notInDict2List);
-    }
+    //checkForKeyMismatch(verse1Dict, verse2Dict);
 }
 
 let verse1 = "Kah Jehovah unnau Mosesoh, Summágunush kuhput, kah anin wussukqunat, kah summagunum wohpit, kah wunneemunnumun, kah sauobpuhquámú8 ut wunnutcheganit."
@@ -959,18 +963,16 @@ async function grabBook(book) {
 }
 
 function processBookDict(bookDict) {
-    console.log(bookDict["verseNums"].length);
     for (let j = 0; j = bookDict["verseNums"].length; j++) {
         let verse1 = bookDict["verseText1"][j];
         let verse2 = bookDict["verseText2"][j];
-        //compareVerses(verse1, verse2);
+        compareVerses(verse1, verse2);
     }
 }
 
 let submitButton = document.getElementById("submitButton");
 submitButton.addEventListener("click", async function(event) {
     let ruthDict = await grabBook("Ruth");
-    //console.log(ruthDict);
     processBookDict(ruthDict);
 });
 
