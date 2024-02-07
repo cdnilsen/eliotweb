@@ -713,7 +713,7 @@ function processVerseDicts(verse1Dict, verse2Dict) {
 
     //Dummy X is in case we're starting out and the only key is the null string
     for (let i = 0; i < verse1Keys.length; i++) {
-        if ("X" + verse1Keys[i][0] != "B") {
+        if ("X" + verse1Keys[i][-1] != "B") {
             relevantKeys.push(verse1Keys[i]);
         }
     }
