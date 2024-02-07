@@ -741,7 +741,7 @@ function processVerseDicts(verse1Dict, verse2Dict) {
             }  
 
             let continueBool = processSnippets(k, substring, verse1Dict, verse2Dict, newKeys);
-            
+            console.log(continueBool);
             if (substring != "" || continueBool) {
                 stopThisRound = false;
             }
