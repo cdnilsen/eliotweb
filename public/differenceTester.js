@@ -670,7 +670,7 @@ function postSnippetsToDict(snippetList, verseDict, oldKey) {
     let keySuffixList = ["A", "B", "C"];
     for (let i = 0; i < 3; i++) {
         let newKey = oldKey + keySuffixList[i];
-        if (i != 1 && snippetList[i] == "") {
+        if (i == 1 || snippetList[i] == "") {
             newKey = newKey + "B";
         }
         newKeyList.push(newKey);
