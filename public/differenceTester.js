@@ -697,7 +697,7 @@ function getSnippetTuples(verse1, verse2, sharedString, key) {
     let verse2ProcessingList = [verse2Prologue, sharedString, verse2Epilogue];
 }
 
-function processDictKey(dict1, dict2, key) {
+function processDictKeys(dict1, dict2, key) {
     let verseSnippet1 = dict1[key];
     let verseSnippet2 = dict2[key];
 
@@ -744,6 +744,7 @@ function compareVerses(verse1, verse2) {
     console.log(verse2Dict);
     console.log(safetyCounter);
 }
+
 let verse1 = "Kah Jehovah unnau Mosesoh, Summágunush kuhput, kah anin wussukqunat, kah summagunum wohpit, kah wunneemunnumun, kah sauobpuhquámú8 ut wunnutcheganit."
 
 let verse2 = "Kah Jehovah unnau Mosesoh, Summagunush kenutch, kah anin wussukqunat, kah summagunum wunnutch, kah wunneemunumun, kah sauóbpuhquámú8 ut wunnutcheganit."
