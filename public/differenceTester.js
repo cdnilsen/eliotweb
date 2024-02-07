@@ -674,6 +674,18 @@ function snipVerse(verse, sharedSubstring) {
     }
 }
 
+function addSnippetsToDict(keyID, continueKeyList, stopKeyList, verseDict, snipList) {
+    let keyList = [];
+    if (snipList[3]) {
+        keyList = continueKeyList;
+    } else {
+        keyList = stopKeyList;
+    }
+    for (let i = 0; i < 3; i++) {
+        verseDict[keyID + keyList[i]] = snipList[i];
+    }
+}
+
 function processSnippets(keyID, sharedSubstring, verse1Dict, verse2Dict, keyList) {
     let verse1 = verse1Dict[keyID];
     let verse2 = verse2Dict[keyID];
@@ -681,24 +693,30 @@ function processSnippets(keyID, sharedSubstring, verse1Dict, verse2Dict, keyList
     let snipList1 = snipVerse(verse1, sharedSubstring);
     let snipList2 = snipVerse(verse2, sharedSubstring);
 
-    verse1Dict[keyID + "A"] = snipList1[0];
-    verse1Dict[keyID + "B"] = snipList1[1];
-    verse1Dict[keyID + "C"] = snipList1[2];
+    let continueKeyList = ["A", "B", "C"];
+    let stopKeyList = ["AB", "BB", "CB"];
 
-    verse2Dict[keyID + "A"] = snipList2[0];
-    verse2Dict[keyID + "B"] = snipList2[1];
-    verse2Dict[keyID + "C"] = snipList2[2];
+    addSnippetsToDict(keyID, continueKeyList, stopKeyList, verse1Dict, snipList1);
+    addSnippetsToDict(keyID, continueKeyList, stopKeyList, verse2Dict, snipList2);
 
     delete(verse1Dict[keyID]);
     delete(verse2Dict[keyID]);
 
-    if (snipList1[3] || snipList2[3]) {
-        keyList = keyList.concat([keyID + "A", keyID + "B", keyID + "C"]);
-        return true;
-    } else {
-        keyList = keyList.concat([keyID + "AB", keyID + "BB", keyID + "CB"]);
-        return false;
+    keyList = keyList.concat([keyID + "A", keyID + "B", keyID + "C"]);    
+}
+
+function checkKeys(verse1Dict, verse2Dict) {
+    let dict1Keys = Object.keys(verse1Dict);
+    let dict2Keys = Object.keys(verse2Dict);
+
+    let everythingEndsInB = true;
+    for (let i = 0; i < dict1Keys.length; i++) {
+        if (!dict1Keys[i].endsWith("B") || !dict2Keys[i].endsWith("B")) {
+            everythingEndsInB = false;
+            break;
+        } 
     }
+    return everythingEndsInB;
 }
 
 function processVerseDicts(verse1Dict, verse2Dict) {
@@ -745,19 +763,10 @@ function processVerseDicts(verse1Dict, verse2Dict) {
                 substring = findLongestCommonSubstring(verse1Snippet, verse2Snippet);
             } 
 
-            if (substring != "") {
-                substringGreaterThanNull = true;
-            }
+            processSnippets(k, substring, verse1Dict, verse2Dict, newKeys);
 
-            let continueBool = processSnippets(k, substring, verse1Dict, verse2Dict, newKeys);
-
-            if (!continueBool) {
-                dontContinue = true;
-            }
-
+            stopThisRound = checkKeys(verse1Dict, verse2Dict);
         }
-
-        stopThisRound = !substringGreaterThanNull && !dontContinue
 
         if (stopThisRound) {
             keepGoing = false;
