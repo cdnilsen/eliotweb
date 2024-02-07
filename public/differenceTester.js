@@ -316,15 +316,15 @@ function addDifferenceTags(verse1Dict, verse2Dict, sortedKeys, useCasing) {
         let subverse1 = verse1Dict[k];
         let subverse2 = verse2Dict[k];
 
-        let markLower = useCasing && (subverse1.toLowerCase() == subverse2.toLowerCase());
+        let markLower = subverse1.toLowerCase() == subverse2.toLowerCase();
 
         if (subverse1 == subverse2) {
             finalVerse1 += subverse1;
             finalVerse2 += subverse2;
-        } else if (markLower) {
+        } else if (markLower && useCasing) {
             finalVerse1 += castColor(subverse1, "blue");
             finalVerse2 += castColor(subverse2, "blue");
-        } else {
+        } else if (!markLower) {
             finalVerse1 += castColor(subverse1, "red");
             finalVerse2 += castColor(subverse2, "red");
         }
