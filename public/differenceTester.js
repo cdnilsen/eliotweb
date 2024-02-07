@@ -693,13 +693,13 @@ function getSnippetTuples(dict1, dict2, snippet1, snippet2, sharedString, key) {
     let verse1Epilogue = verse1Split[1];
     let verse2Epilogue = verse2Split[1];
 
-    console.log("Shared string: ")
-    console.log([sharedString]);
-    console.log(snippet1);
-    console.log(verse1Split);
-
-    console.log(snippet2);
-    console.log(verse2Split);
+    console.log("Prologue1: [" + verse1Prologue + "]");
+    console.log("Shared string: [" + sharedString + "]");
+    console.log("Epilogue1: [" + verse1Epilogue + "]");
+    
+    console.log("Prologue2: [" + verse2Prologue + "]");
+    console.log("Shared string: [" + sharedString + "]");
+    console.log("Epilogue2: [" + verse2Epilogue + "]");
 
     let verse1ProcessingList = [verse1Prologue, sharedString, verse1Epilogue];
     let verse2ProcessingList = [verse2Prologue, sharedString, verse2Epilogue];
