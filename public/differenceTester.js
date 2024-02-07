@@ -692,7 +692,7 @@ function postSnippetsToDict(snippetList, verseDict, oldKey, sharedStringIsZero) 
 
 function getSnippetTuples(dict1, dict2, snippet1, snippet2, sharedString, key) {
 
-    if (sharedString == "") {
+    if (sharedString == "" || snippet1 == "" || snippet2 == "") {
         let verse1List = [snippet1, "", ""];
         let verse2List = [snippet2, "", ""];
 
