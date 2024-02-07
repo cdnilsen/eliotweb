@@ -745,7 +745,9 @@ function processVerseDicts(verse1Dict, verse2Dict) {
             }  
             console.log("Substring: " + substring);
             let continueBool = processSnippets(k, substring, verse1Dict, verse2Dict, newKeys);
+
             if (substring != "" || continueBool) {
+                console.log("don't stop this round");
                 stopThisRound = false;
             }
         }
