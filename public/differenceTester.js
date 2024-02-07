@@ -1,3 +1,5 @@
+/*
+
 const allBookList = [
     "Genesis",
     "Exodus",
@@ -616,7 +618,7 @@ function getDifferences(text1, text2, chapter, verse) {
         div2.innerHTML = replacementList2.join("|") + "<br>"
         outerDiv.appendChild(div2);
     }
-    */
+    
     return newStringList;
 }
 
@@ -668,7 +670,82 @@ submitButton.addEventListener("click", async function(event) {
         let verseSpan = document.createElement("span");
         verseSpan.innerHTML = "<u>" + verseNum.toString() + "</u><br>" + verseText1 + "<br>" + verseText2 + '<br><br>';
         outputDiv.appendChild(verseSpan);
-        */    
+           
     }
     
 });
+*/
+
+
+function findLongestCommonSubstring(str1, str2) {
+    //(courtesy of GeeksForGeeks) 
+    let longestSubstring = ""; 
+    for (let i = 0; i < str1.length; i++) { 
+        for (let j = 0; j < str2.length; j++) { 
+            let substring = ""; 
+            let x = i; 
+            let y = j; 
+            while (x < str1.length &&  
+                   y < str2.length &&  
+                   str1[x] === str2[y]) { 
+                substring += str1[x]; 
+                x++;
+                y++;
+            } 
+            if (substring.length > longestSubstring.length) { 
+                longestSubstring = substring; 
+            } 
+        } 
+    } 
+    return longestSubstring; 
+}
+
+function compareTwoVerses(verse1, verse2) {
+    let finalDict = {};
+    let middle = findLongestCommonSubstring(str1, str2);
+
+    finalDict["prologue1"] = verse1.split(middle)[0];
+    finalDict["prologue2"] = verse2.split(middle)[0];
+    finalDict["middle"] = middle;
+    finalDict["epilogue1"] = verse1.split(middle)[1];
+    finalDict["epilogue2"] = verse2.split(middle)[1];
+
+    return (finalDict);
+}
+
+function snipVerse(verse, sharedSubstring) {
+    let splitList = verse.split(sharedSubstring);
+    return [splitList[0], sharedSubstring, splitList[1]];
+}
+
+function processSnippets(keyID, sharedSubstring, verse1Dict, verse2Dict) {
+    let verse1 = verse1Dict[keyID];
+    let verse2 = verse2Dict[keyID];
+
+    let snipList1 = snipVerse(verse1, sharedSubstring);
+    let snipList2 = snipVerse(verse2, sharedSubstring);
+
+    verse1Dict[keyID + "A"] = snipList1[0];
+    verse1Dict[keyID + "B"] = snipList1[1];
+    verse1Dict[keyID + "C"] = snipList1[2];
+
+    verse2Dict[keyID + "A"] = snipList2[0];
+    verse2Dict[keyID + "B"] = snipList2[1];
+    verse2Dict[keyID + "C"] = snipList2[2];
+
+    verse1Dict.remove(keyID);
+    verse2Dict.remove(keyID);
+}
+
+let dict1 = { 
+    "": "Kah Jehovah unnau Mosesoh, Summágunush kuhput, kah anin wussukqunat, kah summagunum wohpit, kah wunneemunnumun, kah sauobpuhquámú8 ut wunnutcheganit."
+}
+let dict2 = {
+    "": "Kah Jehovah unnau Mosesoh, Summagunush kenutch, kah anin wussukqunat, kah summagunum wunnutch, kah wunneemunumun, kah sauóbpuhquámú8 ut wunnutcheganit."
+}
+
+let longestSubstring = findLongestCommonSubstring(dict1[""], dict2[""]);
+
+processSnippets("", longestSubstring, dict1, dict2);
+console.log(dict1);
+console.log(dict2);
