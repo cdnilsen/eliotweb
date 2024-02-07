@@ -736,8 +736,6 @@ function processVerseDicts(verse1Dict, verse2Dict) {
         let newKeys = [];
         console.log(verse1Dict);
         console.log(verse2Dict);
-        let substringGreaterThanNull = false;
-        let dontContinue = false;
         for (let j = 0; j < relevantKeys.length; j++) {
             let k = relevantKeys[j]; // k for key
             console.log(k);
@@ -771,6 +769,7 @@ function processVerseDicts(verse1Dict, verse2Dict) {
         if (stopThisRound) {
             keepGoing = false;
         }
+        console.log(newKeys);
         relevantKeys = newKeys;
     }
 }
