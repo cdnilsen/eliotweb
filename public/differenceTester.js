@@ -695,6 +695,9 @@ function getSnippetTuples(verse1, verse2, sharedString, key) {
 
     let verse1ProcessingList = [verse1Prologue, sharedString, verse1Epilogue];
     let verse2ProcessingList = [verse2Prologue, sharedString, verse2Epilogue];
+
+    postSnippetsToDict(verse1ProcessingList, verse1, key);
+    postSnippetsToDict(verse2ProcessingList, verse2, key);
 }
 
 function processDictKeys(dict1, dict2, key) {
