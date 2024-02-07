@@ -199,15 +199,14 @@ function checkForKeyMismatch(dict1, dict2) {
     return [in1ButNot2List, in2ButNot1List, noMismatches, listsNotSameLength];
 }
 
-//I don't like this much (it's kludgy) but it seems to work. When I checked against other texts it seemed to be accurate.
+//I don't like this much (it's kludgy) but it seems to work. When I checked against the texts it appears to be accurate.
 function fixMissingBs(dict1, dict2, chapter, verse) {
     let mismatchingKeys = checkForKeyMismatch(dict1, dict2);
 
-    //Can we process this verse?
     let canProcess = true;
     if (mismatchingKeys[2]) {
         // If there aren't any mismatches, quit. Could put a single return after the whole if-else thing but this makes things more explicit
-        return [[], [],canProcess, "no mismatches"];
+        return [[], [], canProcess, "no mismatches"];
     } else if (mismatchingKeys[3]) {
         // If there are mismatches but the lists aren't the same length, flag it
         console.log("Mismatching keys are not the same length at " + chapter.toString() + ":"+ verse.toString());
@@ -215,7 +214,7 @@ function fixMissingBs(dict1, dict2, chapter, verse) {
         console.log(mismatchingKeys2);
         
         canProcess = false;
-        return [[], [],canProcess, "lists aren't the same length (find the bug)"];
+        return [[], [], canProcess, "lists aren't the same length (find the bug)"];
     } else {
         let mismatchingKeys1 = mismatchingKeys[0];
         let mismatchingKeys2 = mismatchingKeys[1];
@@ -243,6 +242,8 @@ function fixMissingBs(dict1, dict2, chapter, verse) {
         
         let failureReason = "";
         let differentLengths = (newSortedKeys1.length != newSortedKeys2.length);
+
+        //The machine sometimes thinks that sorted key lists that are actually the same...aren't. This flags them, but makes sure there's really a difference. We could also call the difference array function for an extra check, though it's probably not necessary.
         if (newSortedKeys1 != newSortedKeys2) {
             console.log("Thinks it can't process " + chapter.toString() + ":" + verse.toString());
             if (differentLengths) {
@@ -302,7 +303,36 @@ function processVerseDictionaries(dict1, dict2) {
     return (relevantKeys.length > 0);
 }
 
-function compareVerses(verse1, verse2, chapterNum, verseNum) {
+function castColor(string, color) {
+    return '<span style="color:' + color + '"><b>' + string + '</b></span>';
+}
+
+function addDifferenceTags(verse1Dict, verse2Dict, sortedKeys, useCasing) {
+    let finalVerse1 = "";
+    let finalVerse2 = "";
+
+    for (let i = 0; i < sortedKeys.length; i++) {
+        let k = sortedKeys[i];
+        let subverse1 = verse1Dict[k];
+        let subverse2 = verse2Dict[k];
+
+        let markLower = useCasing && (subverse1.toLowerCase() == subverse2.toLowerCase());
+
+        if (subverse1 == subverse2) {
+            finalVerse1 += subverse1;
+            finalVerse2 += subverse2;
+        } else if (markLower) {
+            finalVerse1 += castColor(subverse1, "blue");
+            finalVerse2 += castColor(subverse2, "blue");
+        } else {
+            finalVerse1 += castColor(subverse1, "red");
+            finalVerse2 += castColor(subverse2, "red");
+        }
+    }
+    return [finalVerse1, finalVerse2];
+}
+
+function compareVerses(verse1, verse2, chapterNum, verseNum, useCasing) {
     let verse1Dict = {
         "": verse1
     };
@@ -323,21 +353,22 @@ function compareVerses(verse1, verse2, chapterNum, verseNum) {
     }
 
     let fixedBsList = fixMissingBs(verse1Dict, verse2Dict, chapterNum, verseNum);
+
     let canProcess = fixedBsList[2];
+
+    let processedVerses = [];
 
     if (canProcess) {
         let allKeys1 = fixedBsList[0];
         let allKeys2 = fixedBsList[1];
+
+        processedVerses = addDifferenceTags(verse1Dict, verse2Dict, allKeys1, useCasing);
     } else {
         console.log("Can't process " + chapterNum.toString() + "." + verseNum.toString() + ": " + fixedBsList[3]);
+        finalStringList = [verse1, verse2];
     }
+    return processedVerses;
 }
-
-let verse1 = "Kah Jehovah unnau Mosesoh, Summágunush kuhput, kah anin wussukqunat, kah summagunum wohpit, kah wunneemunnumun, kah sauobpuhquámú8 ut wunnutcheganit."
-
-let verse2 = "Kah Jehovah unnau Mosesoh, Summagunush kenutch, kah anin wussukqunat, kah summagunum wunnutch, kah wunneemunumun, kah sauóbpuhquámú8 ut wunnutcheganit."
-
-//compareVerses(verse1, verse2);
 
 function grabRightLines(bookLines, chapter) {
     chapter = parseInt(chapter);
@@ -428,10 +459,37 @@ function processBookDict(bookDict) {
     }
 }
 
+let verse1 = "Onk woh wunnamptamwog Jehovah ummanitt8m8oh wut8shinneunk, Ummanitt8moh Abraham, Ummanitt8moh Isaak kah Ummanitt8moh Jakob kenaéhtunk."
+
+let verse2 = "Onk woh wunnamptamwog Jehovah um-Manitt8m8oh wut8shinneunk, um-Manitt8moh Abraham, um-Manitt8moh Isaak, kah um-Manitt8moh Jakob kenaéhtunk."
+
 let submitButton = document.getElementById("submitButton");
 submitButton.addEventListener("click", async function(event) {
-    let ruthDict = await grabBook("Ruth");
-    processBookDict(ruthDict);
+    
+    let comparedWithCasing = compareVerses(verse1, verse2, 4, 5, true);
+    let comparedWithoutCasing = compareVerses(verse1, verse2, 4, 5, false);
+
+    let allExamples = [comparedWithCasing, comparedWithoutCasing];
+
+    let outputDiv = document.getElementById("output");
+    for (let i = 0; i < 2; i++) {
+        let edition1 = allExamples[i][0];
+        let edition2 = allExamples[i][1];
+
+        let verseDiv = document.createElement("div");
+        verseDiv.innerHTML = '<u>4.5</u><br>';
+        for (let j = 0; j < edition1.length; j++) {
+            let textSpan = document.createElement("span");
+            textSpan.innerHTML += edition1[j];
+            textSpan.innerHTML += "<br>";
+            textSpan.innerHTML += edition2[j];
+        }
+        verseDiv.innerHTML += "<br>";
+        outputDiv.appendChild(verseDiv);
+    }
+    
+    //let ruthDict = await grabBook("Ruth");
+    //processBookDict(ruthDict);
 });
 
 
