@@ -307,13 +307,17 @@ function castColor(string, color) {
     return '<span style="color:' + color + '"><b>' + string + '</b></span>';
 }
 
+function getSlicedListAtIndex(word, index) {
+    return [word.slice(0, index), word.slice(index + 1)]
+}
+
 function fixSecretCasingDifference(substring1, substring2, loweredString1, loweredString2, markCasing) {
     let finalSubstring1 = "";
     let finalSubstring2 = "";
 
-    let sharedSubstring = findLongestCommonSubstring(loweredString1, loweredString2);
+    let sharedLowerSubstring = findLongestCommonSubstring(loweredString1, loweredString2);
 
-    if (sharedSubstring == "") {
+    if (sharedLowerSubstring == "") {
         finalSubstring1 = castColor(substring1, "red");
         finalSubstring2 = castColor(substring2, "red");
         return [finalSubstring1, finalSubstring2];
@@ -324,8 +328,37 @@ function fixSecretCasingDifference(substring1, substring2, loweredString1, lower
 
     let newLowered1 = loweredString1;
     let newLowered2 = loweredString2;
+    
+    //dummy, will remove
+    let triggerWhileLoop = false;
+    let counter = 0;
+    let counterToSharedLoop = {};
 
-    //while (sharedSubstring != "") {}
+    while (sharedLowerSubstring != "" && triggerWhileLoop) {
+        let substring1Index = newLowered1.indexOf(sharedLowerSubstring);
+        let substring2Index = newLowered2.indexOf(sharedLowerSubstring);
+
+        let substringList1 = getSlicedListAtIndex(newSubstring1, substring1Index);
+        let substringList2 = getSlicedListAtIndex(newSubstring2, substring2Index);
+
+        newSubstring1 = substringList1[0] + "‹" + counter.toString() + "›" + substringList1[1];
+        newSubstring2 = substringList2[0] + "«" + counter.toString() + "»" + substringList2[1];
+
+        counterToSharedLoop[counter] = sharedLowerSubstring;
+
+        let counterDigitsNum = (counter.toString()).length
+
+        let slicedLowerList1 = newLowered1.split(sharedLowerSubstring);
+        let slicedLoweredList2 = newLowered2.split(sharedLowerSubstring);
+
+        //now go through and for every digit in the counter, plus two (for the guillemets), throw a *separate* dummy char into the lowers
+
+
+
+
+
+    }
+    
 
     return [substring1, substring2];
     
