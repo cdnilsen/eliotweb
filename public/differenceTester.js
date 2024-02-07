@@ -865,8 +865,8 @@ function compareVerses(verse1, verse2) {
         let notInDict1List = keysDifference[0];
         let notInDict2List = keysDifference[1];
 
-        console.log(notInDict1List);
-        console.log(notInDict2List);
+        //console.log(notInDict1List);
+        //console.log(notInDict2List);
     }
 }
 
@@ -953,7 +953,7 @@ async function grabBook(book) {
         outputDict["verseText2"] = outputDict["verseText2"].concat(verseText2);
         
     }
-    console.log(outputDict["verseNums"]);
+    //console.log(outputDict["verseNums"]);
     return outputDict;
 }
 
