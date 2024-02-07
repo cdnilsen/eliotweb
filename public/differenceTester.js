@@ -329,7 +329,6 @@ function fixSecretCasingDifference(substring1, substring2, loweredString1, lower
     
 }
 
-
 // To be called when the substrings *don't* match.
 function finalMismatchCheck(substring1, substring2, finalString1, finalString2, markCasing) {
     let completeMatch = (substring1 == substring2);
@@ -374,18 +373,7 @@ function addDifferenceTags(verse1Dict, verse2Dict, sortedKeys, useCasing) {
         let subverse1 = verse1Dict[k];
         let subverse2 = verse2Dict[k];
 
-        let markLower = subverse1.toLowerCase() == subverse2.toLowerCase();
-
-        if (subverse1 == subverse2 || (markLower && !useCasing)) {
-            finalVerse1 += subverse1;
-            finalVerse2 += subverse2;
-        } else if (markLower && useCasing) {
-            finalVerse1 += castColor(subverse1, "blue");
-            finalVerse2 += castColor(subverse2, "blue");
-        } else if (!markLower) {
-            finalVerse1 += castColor(subverse1, "red");
-            finalVerse2 += castColor(subverse2, "red");
-        }
+        finalMismatchCheck(subverse1, subverse2, finalVerse1, finalVerse2, useCasing);
     }
     return [finalVerse1, finalVerse2];
 }
