@@ -742,6 +742,7 @@ function compareVerses(verse1, verse2) {
 
     console.log(verse1Dict);
     console.log(verse2Dict);
+    console.log(safetyCounter);
 }
 let verse1 = "Kah Jehovah unnau Mosesoh, Summágunush kuhput, kah anin wussukqunat, kah summagunum wohpit, kah wunneemunnumun, kah sauobpuhquámú8 ut wunnutcheganit."
 
