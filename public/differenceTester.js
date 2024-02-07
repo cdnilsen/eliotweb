@@ -871,6 +871,11 @@ function fixMissingBs(dict1, dict2, chapter, verse) {
         if (newSortedKeys1 != newSortedKeys2) {
             failureReason = "sorted keys, but weren't the same";
             canProcess = false;
+            console.log("Length of keys to first edition: " + newSortedKeys1.length.toString());
+            console.log("Length of keys to second edition: " + newSortedKeys2.length.toString());
+
+            console.log(newSortedKeys1);
+            console.log(newSortedKeys2);
         }
         return [newSortedKeys1, newSortedKeys2, canProcess, failureReason];
     }
