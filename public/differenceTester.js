@@ -687,11 +687,17 @@ function getSnippetTuples(dict1, dict2, snippet1, snippet2, sharedString, key) {
     let verse1Split = snippet1.split(sharedString);
     let verse2Split = snippet2.split(sharedString);
 
-    let verse1Prologue = verse1Split[0]
-    let verse2Prologue = verse2Split[0]
+    let verse1Prologue = verse1Split[0];
+    let verse2Prologue = verse2Split[0];
 
     let verse1Epilogue = verse1Split[1];
     let verse2Epilogue = verse2Split[1];
+
+    console.log(verse1Prologue);
+    console.log(verse2Prologue);
+
+    console.log(verse1Epilogue);
+    console.log(verse2Epilogue);
 
     let verse1ProcessingList = [verse1Prologue, sharedString, verse1Epilogue];
     let verse2ProcessingList = [verse2Prologue, sharedString, verse2Epilogue];
