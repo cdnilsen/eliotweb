@@ -307,7 +307,28 @@ function castColor(string, color) {
     return '<span style="color:' + color + '"><b>' + string + '</b></span>';
 }
 
-function fixSecretCasingDifference(substring1, substring2, markCasing) {
+function fixSecretCasingDifference(substring1, substring2, loweredString1, loweredString2, markCasing) {
+    let finalSubstring1 = "";
+    let finalSubstring2 = "";
+
+    let sharedSubstring = findLongestCommonSubstring(loweredString1, loweredString2);
+
+    if (sharedSubstring == "") {
+        finalSubstring1 = castColor(substring1, "red");
+        finalSubstring2 = castColor(substring2, "red");
+        return [finalSubstring1, finalSubstring2];
+    }
+
+    let newSubstring1 = substring1;
+    let newSubstring2 = substring2;
+
+    let newLowered1 = loweredString1;
+    let newLowered2 = loweredString2;
+
+    while (sharedSubstring != "") {
+        
+
+    }
     
 }
 
@@ -339,14 +360,9 @@ function finalMismatchCheck(substring1, substring2, finalString1, finalString2, 
             finalSubstring2 = substring2;
         }
     } else {
-        let hiddenSharedString = findLongestCommonSubstring(lowered1, lowered2);
-
-        if (hiddenSharedString == "") {
-            finalSubstring1 = castColor(substring1, "red");
-            finalSubstring2 = castColor(substring2, "red");
-        } else {
-
-        }
+        let finalList = fixSecretCasingDifference(substring1, substring2, lowered1, lowered2, markCasing);
+        finalSubstring1 = finalList[0];
+        finalSubstring2 = finalList[1];
     }
     finalString1 += finalSubstring1;
     finalString2 += finalSubstring2;
