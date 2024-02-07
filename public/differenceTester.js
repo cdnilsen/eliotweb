@@ -718,6 +718,8 @@ function processVerseDicts(verse1Dict, verse2Dict) {
         let newKeys = [];
         console.log(verse1Dict);
         console.log(verse2Dict);
+        let substringGreaterThanNull = false;
+        let keepGoing = false;
         for (let j = 0; j < relevantKeys.length; j++) {
             let k = relevantKeys[j]; // k for key
             console.log(k);
@@ -738,20 +740,25 @@ function processVerseDicts(verse1Dict, verse2Dict) {
             console.log(verse1Snippet);
             console.log(verse2Snippet);
 
-            let substring = ""
             if (verse1Snippet != "" && verse2Snippet != "") {
                 console.log("Both snippets exist")
                 substring = findLongestCommonSubstring(verse1Snippet, verse2Snippet);
-            }  
-            console.log("Substring: " + substring);
+            } 
+
+            if (substring != "") {
+                substringGreaterThanNull = true;
+            }
+
             let continueBool = processSnippets(k, substring, verse1Dict, verse2Dict, newKeys);
 
-            if (substring != "" || continueBool) {
-                console.log("don't stop this round");
-                stopThisRound = false;
+            if (continueBool) {
+                keepGoing = true;
             }
+
         }
-        console.log(stopThisRound);
+
+        stopThisRound = !substringGreaterThanNull && !keepGoing
+
         if (stopThisRound) {
             keepGoing = false;
         }
