@@ -693,7 +693,8 @@ function getSnippetTuples(dict1, dict2, snippet1, snippet2, sharedString, key) {
     let verse1Epilogue = verse1Split[1];
     let verse2Epilogue = verse2Split[1];
 
-    console.log("Shared string: " + sharedString);
+    console.log("Shared string: ")
+    console.log([sharedString]);
     console.log(snippet1);
     console.log(verse1Split);
 
