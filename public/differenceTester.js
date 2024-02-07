@@ -307,6 +307,51 @@ function castColor(string, color) {
     return '<span style="color:' + color + '"><b>' + string + '</b></span>';
 }
 
+function fixSecretCasingDifference(substring1, substring2, markCasing) {
+    
+}
+
+
+// To be called when the substrings *don't* match.
+function finalMismatchCheck(substring1, substring2, finalString1, finalString2, markCasing) {
+    let completeMatch = (substring1 == substring2);
+    if (completeMatch) {
+        console.log("total match");
+        finalString1 += substring1;
+        finalString2 += substring2;
+        return;
+    }
+
+    console.log("rest of function got called");
+    let lowered1 = substring1.toLowerCase();
+    let lowered2 = substring2.toLowerCase();
+
+    let matchLower = (lowered1 == lowered2);
+
+    let finalSubstring1 = "";
+    let finalSubstring2 = "";
+    if (matchLower) {
+        if (markCasing) {
+            finalSubstring1 = castColor(substring1, "blue");
+            finalSubstring2 = castColor(substring2, "blue");
+        } else {
+            finalSubstring1 = substring1;
+            finalSubstring2 = substring2;
+        }
+    } else {
+        let hiddenSharedString = findLongestCommonSubstring(lowered1, lowered2);
+
+        if (hiddenSharedString == "") {
+            finalSubstring1 = castColor(substring1, "red");
+            finalSubstring2 = castColor(substring2, "red");
+        } else {
+
+        }
+    }
+    finalString1 += finalSubstring1;
+    finalString2 += finalSubstring2;
+}
+
 function addDifferenceTags(verse1Dict, verse2Dict, sortedKeys, useCasing) {
     let finalVerse1 = "";
     let finalVerse2 = "";
@@ -318,7 +363,7 @@ function addDifferenceTags(verse1Dict, verse2Dict, sortedKeys, useCasing) {
 
         let markLower = subverse1.toLowerCase() == subverse2.toLowerCase();
 
-        if (subverse1 == subverse2) {
+        if (subverse1 == subverse2 || (markLower && !useCasing)) {
             finalVerse1 += subverse1;
             finalVerse2 += subverse2;
         } else if (markLower && useCasing) {
