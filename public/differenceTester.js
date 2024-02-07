@@ -715,7 +715,7 @@ function processSnippets(keyID, sharedSubstring, verse1Dict, verse2Dict, keyList
 function checkKeys(verse1Dict, verse2Dict) {
     let dict1Keys = Object.keys(verse1Dict);
     let dict2Keys = Object.keys(verse2Dict);
-
+    console.log(dict1Keys);
     let everythingEndsInB = true;
     for (let i = 0; i < dict1Keys.length; i++) {
         if (!dict1Keys[i].endsWith("B") || !dict2Keys[i].endsWith("B")) {
