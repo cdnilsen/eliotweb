@@ -836,7 +836,7 @@ async function grabBook(book) {
         outputDict["verseText1"].push(firstEdText);
         outputDict["verseText2"].push(secondEdText);
     }
-
+    console.log(outputDict["verseNums"]);
     return outputDict;
 }
 
@@ -850,3 +850,18 @@ function processBookDict(bookDict) {
 
 let ruthDict = await grabBook("Ruth");
 processBookDict(ruthDict);
+
+//I don't like this much (it's kludgy) but it seems to work:
+function addRemainingBs(differenceDict) {
+    let allKeys = Object.keys(differenceDict);
+    for (let i = 0; i < allKeys.length; i++) {
+        let key = allKeys[i];
+        let entry = differenceDict[key];
+        if (!key.endsWith("B")) {
+            let newKey = key + "B";
+            differenceDict[newKey] = "";
+            delete(differenceDict[key]);
+        }
+    }
+
+}
