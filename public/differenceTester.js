@@ -683,7 +683,7 @@ function postSnippetsToDict(snippetList, verseDict, oldKey) {
     }
 }
 
-function getSnippetTuples(verse1, verse2, sharedString, key) {
+function getSnippetTuples(dict1, dict2, verse1, verse2, sharedString, key) {
     let verse1Split = verseSnippet1.split(sharedString);
     let verse2Split = verseSnippet2.split(sharedString);
 
@@ -696,8 +696,8 @@ function getSnippetTuples(verse1, verse2, sharedString, key) {
     let verse1ProcessingList = [verse1Prologue, sharedString, verse1Epilogue];
     let verse2ProcessingList = [verse2Prologue, sharedString, verse2Epilogue];
 
-    postSnippetsToDict(verse1ProcessingList, verse1, key);
-    postSnippetsToDict(verse2ProcessingList, verse2, key);
+    postSnippetsToDict(verse1ProcessingList, dict1, key);
+    postSnippetsToDict(verse2ProcessingList, dict2, key);
 }
 
 function processDictKeys(dict1, dict2, key) {
@@ -706,6 +706,7 @@ function processDictKeys(dict1, dict2, key) {
 
     let sharedString = findLongestCommonSubstring(verseSnippet1, verseSnippet2);
 
+    getSnippetTuples(dict1, dict2, verseSnippet1, verseSnippet2, sharedString, key);
 }
 
 function processVerseDictionaries(dict1, dict2) {
