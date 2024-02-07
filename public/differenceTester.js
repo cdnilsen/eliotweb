@@ -641,6 +641,19 @@ submitButton.addEventListener("click", async function(event) {
 });
 */
 
+function getDifferenceOfTwoArrays(arr1, arr2) {
+    let set1 = new Set(arr1);
+    let set2 = new Set(arr2);
+
+    let notInSet1 = new Set([...set2].filter(x => !set1.has(x)));
+    let notInSet2 = new Set([...set1].filter(x => !set2.has(x)));
+
+    let notInSet1List = Array.from(notInSet1);
+    let notInSet2List = Array.from(notInSet2);
+
+    return [notInSet1List, notInSet2List];
+}
+
 
 function findLongestCommonSubstring(str1, str2) {
     //(courtesy of GeeksForGeeks) 
@@ -776,14 +789,10 @@ function compareVerses(verse1, verse2) {
     let sortedDict2 = Object.keys(verse2Dict).sort();
     
     if (sortedDict1 != sortedDict2) {
-        let dict1Set = new Set(sortedDict1);
-        let dict2Set = new Set(sortedDict2);
+        let keysDifference = getDifferenceOfTwoArrays(sortedDict1, sortedDict2);
 
-        let notInDict1 = new Set([...dict2Set].filter(x => !dict1Set.has(x)));
-        let notInDict2 = new Set([...dict1Set].filter(x => !dict2Set.has(x)));
-
-        let notInDict1List = Array.from(notInDict1);
-        let notInDict2List = Array.from(notInDict2);
+        let notInDict1List = keysDifference[0];
+        let notInDict2List = keysDifference[1];
 
         console.log(notInDict1List);
         console.log(notInDict2List);
@@ -794,7 +803,7 @@ let verse1 = "Kah Jehovah unnau Mosesoh, Summágunush kuhput, kah anin wussukqun
 
 let verse2 = "Kah Jehovah unnau Mosesoh, Summagunush kenutch, kah anin wussukqunat, kah summagunum wunnutch, kah wunneemunumun, kah sauóbpuhquámú8 ut wunnutcheganit."
 
-compareVerses(verse1, verse2);
+//compareVerses(verse1, verse2);
 
 async function grabBook(book) {
     let firstEditionAddress = "./texts/" + book + ".First Edition.txt";
@@ -827,4 +836,12 @@ async function grabBook(book) {
         outputDict["verseText1"].push(firstEdText);
         outputDict["verseText2"].push(secondEdText);
     }
+
+    for (let j = 0; j = outputDict["verseNums"].length; j++) {
+        let verse1 = outputDict["verseText1"][j];
+        let verse2 = outputDict["verseText2"][j];
+        compareVerses(verse1, verse2);
+    }
 }
+
+await grabBook("Ruth");
