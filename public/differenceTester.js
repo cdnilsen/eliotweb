@@ -925,10 +925,11 @@ function compareVerses(verse1, verse2, chapterNum, verseNum) {
     let canProcess = fixMissingBs(verse1Dict, verse2Dict, chapterNum, verseNum);
 
     if (canProcess) {
-        let allKeys1 = Object.keys(verse1Dict).sort();
+        let allKeys1 = Object.keys(verse1Dict);
         let allKeys2 = Object.keys(verse2Dict).sort();
 
         console.log(allKeys1);
+        console.log(allKeys1.sort());
     } else {
         console.log("Can't process " + chapterNum.toString() + ":" + verseNum.toString());
     }
