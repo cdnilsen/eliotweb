@@ -837,11 +837,16 @@ async function grabBook(book) {
         outputDict["verseText2"].push(secondEdText);
     }
 
-    for (let j = 0; j = outputDict["verseNums"].length; j++) {
-        let verse1 = outputDict["verseText1"][j];
-        let verse2 = outputDict["verseText2"][j];
+    return outputDict;
+}
+
+function processBookDict(bookDict) {
+    for (let j = 0; j = bookDict["verseNums"].length; j++) {
+        let verse1 = bookDict["verseText1"][j];
+        let verse2 = bookDict["verseText2"][j];
         compareVerses(verse1, verse2);
     }
 }
 
-await grabBook("Ruth");
+let ruthDict = await grabBook("Ruth");
+processBookDict(ruthDict);
