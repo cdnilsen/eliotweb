@@ -693,7 +693,6 @@ function postSnippetsToDict(snippetList, verseDict, oldKey, sharedStringIsZero) 
 function getSnippetTuples(dict1, dict2, snippet1, snippet2, sharedString, key) {
 
     if (sharedString == "") {
-
         let verse1List = [snippet1, "", ""];
         let verse2List = [snippet2, "", ""];
 
@@ -775,12 +774,20 @@ function compareVerses(verse1, verse2) {
 
     let sortedDict1 = Object.keys(verse1Dict).sort();
     let sortedDict2 = Object.keys(verse2Dict).sort();
-    console.log(sortedDict1);
-    console.log(sortedDict2);
+    
+    if (sortedDict1 != sortedDict2) {
+        let dict1Set = new Set(sortedDict1);
+        let dict2Set = new Set(sortedDict2);
 
-    console.log(verse1Dict);
-    console.log(verse2Dict);
-    console.log(sortedDict1 == sortedDict2);
+        let notInDict1 = dict2Set.difference(dict1Set);
+        let notInDict2 = dict1Set.difference(dict2Set);
+
+        let notInDict1List = Array.from(notInDict1);
+        let notInDict2List = Array.from(notInDict2);
+
+        console.log(notInDict1List);
+        console.log(notInDict2List);
+    }
 }
 
 let verse1 = "Kah Jehovah unnau Mosesoh, Summágunush kuhput, kah anin wussukqunat, kah summagunum wohpit, kah wunneemunnumun, kah sauobpuhquámú8 ut wunnutcheganit."
@@ -788,3 +795,36 @@ let verse1 = "Kah Jehovah unnau Mosesoh, Summágunush kuhput, kah anin wussukqun
 let verse2 = "Kah Jehovah unnau Mosesoh, Summagunush kenutch, kah anin wussukqunat, kah summagunum wunnutch, kah wunneemunumun, kah sauóbpuhquámú8 ut wunnutcheganit."
 
 compareVerses(verse1, verse2);
+
+async function grabBook(book) {
+    let firstEditionAddress = "./texts/" + book + ".First Edition.txt";
+    let secondEditionAddress = "./texts/" + book + ".Second Edition.txt";
+
+    let firstEditionRaw = await fetch(firstEditionAddress);
+    let secondEditionRaw = await fetch(secondEditionAddress);
+
+    let firstEditionText = await firstEditionRaw.text();
+    let secondEditionText = await secondEditionRaw.text();
+
+    let firstEditionLines = firstEditionText.split("\n");
+    let secondEditionLines = secondEditionText.split("\n");
+
+    let outputDict = {};
+
+    outputDict["verseNums"] = [];
+    outputDict["chapterNums"] = [];
+    outputDict["verseText1"] =[];
+    outputDict["verseText2"] = [];
+
+    for (let i = 0; i < allVerses.length; i++) {
+        let verseNum = allVerses[i];
+        let chapterNum = chapterList[i];
+        let firstEdText = verseText1[i];
+        let secondEdText = verseText2[i];
+
+        outputDict["verseNums"].push(verseNum);
+        outputDict["chapterNums"].push(chapterNum);
+        outputDict["verseText1"].push(firstEdText);
+        outputDict["verseText2"].push(secondEdText);
+    }
+}
