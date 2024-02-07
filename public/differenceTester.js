@@ -722,6 +722,7 @@ function processVerseDicts(verse1Dict, verse2Dict) {
     while (keepGoing) {
         let stopThisRound = true;
         let newKeys = [];
+        console.log(relevantKeys);
         for (let j = 0; j < relevantKeys.length; j++) {
             let k = relevantKeys[j]; // k for key
             let verse1Snippet = verse1Dict[k];
