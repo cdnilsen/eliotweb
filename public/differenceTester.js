@@ -578,7 +578,6 @@ function getDifferences(text1, text2, showCasing) {
     } else {
         newStringList = finalStringList;
     }
-<<<<<<< HEAD
     /*
     if (text1SplitList.length != text2SplitList.length) {
         let div1 = document.createElement('div');
@@ -602,8 +601,6 @@ function getDifferences(text1, text2, showCasing) {
         outerDiv.appendChild(div2);
     }
     
-=======
->>>>>>> 0ce85ce6e4babbb5710601776c98a30f1c328b39
     return newStringList;
 }
 
@@ -669,11 +666,11 @@ function findLongestCommonSubstring(str1, str2) {
 }
 
 function snipVerse(verse, sharedSubstring) {
-    if (verse == "") {
-        return ["", "", ""];
-    } else {
+    if (sharedSubstring != "") {
         let splitList = verse.split(sharedSubstring);
         return [splitList[0], sharedSubstring, splitList[1]];
+    } else {
+        return ["", verse, ""];
     }
 }
 
