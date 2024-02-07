@@ -674,7 +674,7 @@ function snipVerse(verse, sharedSubstring) {
     }
 }
 
-function processSnippets(keyID, sharedSubstring, verse1Dict, verse2Dict) {
+function processSnippets(keyID, sharedSubstring, verse1Dict, verse2Dict, keyList) {
     let verse1 = verse1Dict[keyID];
     let verse2 = verse2Dict[keyID];
 
@@ -693,9 +693,11 @@ function processSnippets(keyID, sharedSubstring, verse1Dict, verse2Dict) {
     delete(verse2Dict[keyID]);
 
     if (snipList1[3] || snipList2[3]) {
-        return [keyID + "A", keyID + "B", keyID + "C"];
+        keyList = keyList.concat([keyID + "A", keyID + "B", keyID + "C"]);
+        return true;
     } else {
-        return [keyID + "AB", keyID + "BB", keyID + "CB"];
+        keyList = keyList.concat([keyID + "AB", keyID + "BB", keyID + "CB"]);
+        return false;
     }
 }
 
@@ -736,11 +738,11 @@ function processVerseDicts(verse1Dict, verse2Dict) {
             let substring = ""
             if (verse1Snippet != "" && verse2Snippet != "") {
                 substring = findLongestCommonSubstring(verse1Snippet, verse2Snippet);
-            }
+            }  
 
-            newKeys = newKeys.concat(processSnippets(k, substring, verse1Dict, verse2Dict));
-
-            if (substring != "") {
+            let continueBool = processSnippets(k, substring, verse1Dict, verse2Dict, newKeys);
+            
+            if (substring != "" || continueBool) {
                 stopThisRound = false;
             }
         }
