@@ -693,6 +693,14 @@ function getSnippetTuples(dict1, dict2, snippet1, snippet2, sharedString, key) {
     let verse1Epilogue = verse1Split[1];
     let verse2Epilogue = verse2Split[1];
 
+    let allLogueList = [verse1Prologue, verse2Prologue, verse1Epilogue, verse2Epilogue];
+    let allLogueNames = ["verse1Prologue", "verse2Prologue", "verse1Epilogue", "verse2Epilogue"]
+    for (let i = 0; i < 4; i++) {
+        if (allLogueList[i] === undefined) {
+            console.log("Undefined string in " + allLoguesNames[i]);
+        }
+    }
+
     console.log("Prologue1: [" + verse1Prologue + "]");
     console.log("Shared string: [" + sharedString + "]");
     console.log("Epilogue1: [" + verse1Epilogue + "]");
