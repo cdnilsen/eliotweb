@@ -239,7 +239,6 @@ async function grabBook(book) {
 addBooks();
 
 function findLongestCommonSubstring(str1, str2) {
-    //(courtesy of GeeksForGeeks) 
     let longestSubstring = ""; 
     for (let i = 0; i < str1.length; i++) { 
         for (let j = 0; j < str2.length; j++) { 
@@ -261,25 +260,29 @@ function findLongestCommonSubstring(str1, str2) {
     return longestSubstring; 
 }
 
+//This is mildly bugged, in that if one of the mismatched parts of a string is mismatched due to casing, then it will still color it red
 function replaceMiniSharedStrings(string, sharedString, matchesCase) {
     let finalString = "";
     let bracketDict = {};
 
+    if (matchesCase) {
+        bracketDict["start"] = "Ƀ";
+        bracketDict["end"] = "ƀ";
+    } else {
+        bracketDict["start"] = "Ř";
+        bracketDict["end"] = "ř";
+    }
+
     if (sharedString != "" && string != sharedString) {
-        if (matchesCase) {
-            bracketDict["start"] = "Ƀ";
-            bracketDict["end"] = "ƀ";
-        } else {
-            bracketDict["start"] = "Ř";
-            bracketDict["end"] = "ř";
-        }
         if (string.startsWith(sharedString)){
             finalString = sharedString + bracketDict["start"] + string.slice(sharedString.length) + bracketDict["end"];
         } else if (string.endsWith(sharedString)){
-            finalString = string.slice(0, -sharedString.length) + bracketDict["start"] + sharedString + bracketDict["end"];
+            finalString = bracketDict["start"]+ string.slice(0, -sharedString.length) + bracketDict["end"] + sharedString;
         } else if (string != sharedString) {
-            finalString = string.split(sharedString).join(bracketDict["start"] + sharedString + bracketDict["end"]);
+            finalString = bracketDict["start"] + string.split(sharedString).join(bracketDict["end"] + sharedString + bracketDict["start"]) + bracketDict["end"];
         }
+    } else if (string != sharedString) {
+        finalString = bracketDict["start"] + string + bracketDict["end"];
     } else {
         finalString = string;
     }
@@ -307,16 +310,13 @@ function replaceCommonSubstrings(text1, text2, index) {
 
     if (text1.startsWith(commonSubstring)) {
         outputText1 = 'ǀ‹' + index.toString() + '›ǀ' + text1.slice(commonSubstringLength);
-        //console.log("starts with shared substring: " + commonSubstring);
         commonSubstringFirst = true;
-        //console.log(outputText1);
     } else {
         outputText1 = text1Split.join('ǀ‹' + index.toString() + '›ǀ');
     }
     
     if (text2.startsWith(commonSubstring)) {
         outputText2 = 'ǂ«' + index.toString() + '»ǂ' + text2.slice(commonSubstringLength);
-        //console.log(outputText2);
     } else {
         outputText2 = text2Split.join('ǂ«' + index.toString() + '»ǂ');
     }
@@ -384,31 +384,17 @@ function getIndexFromGuillemetString(string, guillemet) {
 
     return parseInt(string.slice(1, -1));
 }
-
-function turnListEntryIntoString(entry, guillemet) {
-}
  
 function putSubstringsBackIn(text1Split, text2Split, indexToSubstringDict) {
-
-    //console.log(indexToSubstringDict);
-
     let finalString1 = "";
     let finalString2 = "";
-    //console.log(text1Split);
-    //console.log(text2Split);
-
     for (let i = 0; i < text1Split.length; i++) {
         if (stringIsShared(text1Split[i], "‹") && stringIsShared(text2Split[i], "«")) {
             let text1Index = getIndexFromGuillemetString(text1Split[i], "‹");
             let text2Index = getIndexFromGuillemetString(text2Split[i], "«");
 
-            //console.log(text1Index);
-            //console.log(text2Index);
-
             let substring1 = indexToSubstringDict[text1Index];
             let substring2 = indexToSubstringDict[text2Index];
-            //console.log(substring1);
-            //console.log(substring2);
 
             if (substring1 == substring2) {
                 finalString1 += substring1;
@@ -418,7 +404,7 @@ function putSubstringsBackIn(text1Split, text2Split, indexToSubstringDict) {
 
                 let addString1 = replaceMiniSharedStrings(substring1, commonSubstring, false);
                 let addString2 = replaceMiniSharedStrings(substring2, commonSubstring, false);
-                //Will need to do some stuff here where there *is* a shared substring
+
                 finalString1 += addString1;
                 finalString2 += addString2;
             } else {
@@ -426,7 +412,7 @@ function putSubstringsBackIn(text1Split, text2Split, indexToSubstringDict) {
 
                 let addString1 = replaceMiniSharedStrings(substring1, commonSubstring, true);
                 let addString2 = replaceMiniSharedStrings(substring2, commonSubstring, true);
-                //Will need to do some stuff here where there *is* a shared substring
+
                 finalString1 += addString1;
                 finalString2 += addString2;
             }
@@ -438,6 +424,7 @@ function putSubstringsBackIn(text1Split, text2Split, indexToSubstringDict) {
 
             finalString1 += addString1;
             finalString2 += addString2;
+
         } else {
             let commonSubstring = findLongestCommonSubstring(text1Split[i], text2Split[i]);
 
@@ -465,41 +452,52 @@ function isDigit(char) {
 
 //Horrible little Macgyvered solution
 function replaceInitialDigits(string, startingSubstring) {
-    let finalString = startingSubstring;
-    let digitsStopped = false;
-    for (let i = 0; i < string.length; i++) {
-        if (!isDigit(string[i])) {
-            digitsStopped = true
-        }
-        if (digitsStopped) {
-            finalString += string[i];
-        }
+    if(!isDigit(string[0])) {
+        return string;
     }
-    return finalString;
+    else {
+        let finalString = startingSubstring;
+        let digitsStopped = false;
+        for (let i = 0; i < string.length; i++) {
+            if (!isDigit(string[i])) {
+                digitsStopped = true
+            }
+            if (digitsStopped) {
+                finalString += string[i];
+            }
+        }
+        return finalString;
+    }
 }
 
-function substringPopulationChecker(text1Split, text2Split, indexToSubstringDict, chapter, verse) {
+function substringPopulationChecker(text1Split, text2Split, indexToSubstringDict) {
 
     let listsAreSameLength = text1Split.length == text2Split.length;
 
     let finalStringList = [];
 
     if (!listsAreSameLength) {
-        //console.log(text1Split);
-        //console.log(text2Split);
         console.log("Lists are not the same length.");
     } else {
         finalStringList = putSubstringsBackIn(text1Split, text2Split, indexToSubstringDict);
     }
-    for (let i = 0; i < finalStringList.length; i++) {
-        console.log(chapter.toString() + ":" + verse.toString());
-        console.log(finalStringList[i]);
-    }
     return finalStringList;
 }
 
+function replaceDummiesWithTags(string, showCasing) {
+    let finalString = string.split("Ř").join("<span style='color:red'><b>");
+    finalString = finalString.split("ř").join("</b></span>");
+    if (showCasing) {
+        finalString = finalString.split("Ƀ").join("<span style='color:blue'><b>");
+        finalString = finalString.split("ƀ").join("</b></span>");
+    } else {
+        finalString = finalString.split("Ƀ").join("");
+        finalString = finalString.split("ƀ").join("");
+    }
+    return finalString;
+}
 
-function getDifferences(text1, text2, chapter, verse) {
+function getDifferences(text1, text2, showCasing) {
     let commonSubstringLengthMoreThan1 = true;
     let currentSubstringIndex = 0;
 
@@ -521,10 +519,8 @@ function getDifferences(text1, text2, chapter, verse) {
         indexToSubstringDict[currentSubstringIndex] = processedTextDict["commonSubstring"];
 
         if (processedTextDict["startsWithShared"]) { 
-            console.log(processedTextDict["commonSubstring"]);
             startingCommon = processedTextDict["commonSubstring"];
             startsWithShared = true;
-            console.log(startingCommon);
         }
 
         currentText1 = processedTextDict["processedText1"];
@@ -557,45 +553,32 @@ function getDifferences(text1, text2, chapter, verse) {
         finalText2 = finalText2.slice(0, -2);
     }
 
-
     finalText1 = finalText1.split("ǀ‹ǀ‹").join("ǀ‹");
     finalText2 = finalText2.split("ǂ«ǂ«").join("ǂ«");
     finalText1 = finalText1.split("›ǀ›ǀ").join("›ǀ");
     finalText2 = finalText2.split("»ǂ»ǂ").join("»ǂ");
     
-
-    //console.log(finalText1);
-    //console.log(finalText2);
-
     let text1SplitList = finalText1.split("ǀ");
     let text2SplitList = finalText2.split("ǂ");
     
     let replacementList1 = addDummyListEntries(text1SplitList, '‹');
     let replacementList2 = addDummyListEntries(text2SplitList, '«');
 
-    //console.log(replacementList1);
-    //console.log(replacementList2);
-
-    //console.log(replacementList1);
-    //console.log(replacementList2);
-
-    let finalStringList = substringPopulationChecker(replacementList1, replacementList2, indexToSubstringDict, chapter, verse);
+    let finalStringList = substringPopulationChecker(replacementList1, replacementList2, indexToSubstringDict);
 
     let newStringList = [];
 
     if (startsWithShared) {
-        console.log(finalStringList[0]);
         let firstEditionText = replaceInitialDigits(finalStringList[0], startingCommon);
 
-        console.log(firstEditionText);
         let secondEditionText = replaceInitialDigits(finalStringList[1], startingCommon);
 
-       
-        newStringList.push(firstEditionText);
-        newStringList.push(secondEditionText);
+        newStringList.push(replaceDummiesWithTags(firstEditionText, showCasing));
+        newStringList.push(replaceDummiesWithTags(secondEditionText, showCasing));
     } else {
         newStringList = finalStringList;
     }
+<<<<<<< HEAD
     /*
     if (text1SplitList.length != text2SplitList.length) {
         let div1 = document.createElement('div');
@@ -619,15 +602,9 @@ function getDifferences(text1, text2, chapter, verse) {
         outerDiv.appendChild(div2);
     }
     
+=======
+>>>>>>> 0ce85ce6e4babbb5710601776c98a30f1c328b39
     return newStringList;
-}
-
-function replaceDummiesWithTags(string) {
-    let finalString = string.split("Ř").join("<span style='color:red'><b>");
-    finalString = finalString.split("ř").join("</b></span>");
-    finalString = finalString.split("Ƀ").join("<span style='color:blue'><b>");
-    finalString = finalString.split("ƀ").join("</b></span>");
-    return finalString;
 }
 
 submitButton.addEventListener("click", async function(event) {
@@ -663,16 +640,7 @@ submitButton.addEventListener("click", async function(event) {
         outputDiv.appendChild(div1);
         outputDiv.appendChild(div2);
         outputDiv.appendChild(document.createElement('br'));
-
-     
-
-        /*
-        let verseSpan = document.createElement("span");
-        verseSpan.innerHTML = "<u>" + verseNum.toString() + "</u><br>" + verseText1 + "<br>" + verseText2 + '<br><br>';
-        outputDiv.appendChild(verseSpan);
-           
-    }
-    
+    }    
 });
 */
 
