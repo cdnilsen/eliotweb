@@ -726,7 +726,11 @@ function processVerseDicts(verse1Dict, verse2Dict) {
             let k = relevantKeys[j]; // k for key
             let verse1Snippet = verse1Dict[k];
             let verse2Snippet = verse2Dict[k];
-            let substring = findLongestCommonSubstring(verse1Snippet, verse2Snippet);
+
+            let substring = ""
+            if (verse1Snippet != "" && verse2Snippet != "") {
+                substring = findLongestCommonSubstring(verse1Snippet, verse2Snippet);
+            }
 
             newKeys = newKeys.concat(processSnippets(k, substring, verse1Dict, verse2Dict));
 
