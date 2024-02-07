@@ -349,14 +349,12 @@ function fixSecretCasingDifference(substring1, substring2, loweredString1, lower
         let counterDigitsNum = (counter.toString()).length
 
         let slicedLowerList1 = newLowered1.split(sharedLowerSubstring);
-        let slicedLoweredList2 = newLowered2.split(sharedLowerSubstring);
+        let slicedLowerList2 = newLowered2.split(sharedLowerSubstring);
 
         //now go through and for every digit in the counter, plus two (for the guillemets), throw a *separate* dummy char into the lowers
 
-
-
-
-
+        newLowered1 = slicedLowerList1[0] +  "α".repeat(counterDigitsNum + 2) +  slicedLowerList1[1];
+        newLowered2 = slicedLowerList2[0] + "β".repeat(counterDigitsNum + 2) + slicedLowerList2[1]
     }
     
 
