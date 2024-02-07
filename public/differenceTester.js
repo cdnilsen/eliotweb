@@ -740,7 +740,7 @@ function processVerseDicts(verse1Dict, verse2Dict) {
     let keepGoing = true;
     while (keepGoing) {
         let stopThisRound = true;
-        let newKeys = [];
+        let newKeys = relevantKeys;
         console.log(verse1Dict);
         console.log(verse2Dict);
         for (let j = 0; j < relevantKeys.length; j++) {
