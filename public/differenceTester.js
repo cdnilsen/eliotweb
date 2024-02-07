@@ -353,7 +353,10 @@ function fixSecretCasingDifference(substring1, substring2, loweredString1, lower
         //now go through and for every digit in the counter, plus two (for the guillemets), throw a *separate* dummy char into the lowers
 
         newLowered1 = slicedLowerList1[0] +  "α".repeat(counterDigitsNum + 2) +  slicedLowerList1[1];
-        newLowered2 = slicedLowerList2[0] + "β".repeat(counterDigitsNum + 2) + slicedLowerList2[1]
+        newLowered2 = slicedLowerList2[0] + "β".repeat(counterDigitsNum + 2) + slicedLowerList2[1];
+
+        console.log(newLowered1);
+        console.log(newLowered2);
 
         sharedLowerSubstring = findLongestCommonSubstring(newLowered1, newLowered2);
     }
@@ -370,7 +373,7 @@ function finalMismatchCheck(substring1, substring2, finalString1, finalString2, 
         return;
     }
 
-    console.log("rest of function got called");
+    console.log("rest of finalMismatchCheck got called");
     let lowered1 = substring1.toLowerCase();
     let lowered2 = substring2.toLowerCase();
 
