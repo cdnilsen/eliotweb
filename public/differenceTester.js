@@ -711,11 +711,13 @@ function processVerseDictionaries(dict1, dict2) {
     let relevantKeys = [];
     
     for (let i = 0; i < allKeys.length; i++) {
+        console.log("X" + allKeys[i]);
+        console.log(("X" + allKeys[i])[-1]);
         if (("X" + allKeys[i])[-1] != "B") {
             relevantKeys.push(allKeys[i]);
         }
     }
-    console.log(relevantKeys);
+    //console.log(relevantKeys);
 
     for (let j = 0; j < relevantKeys.length; j++) {
         let key = relevantKeys[j];
