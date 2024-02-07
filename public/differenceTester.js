@@ -707,10 +707,11 @@ function processSnippets(keyID, sharedSubstring, verse1Dict, verse2Dict, keyList
 
     let keyAdditions = addSnippetsToDict(keyID, continueKeyList, stopKeyList, verse1Dict, snipList1);
 
-    console.log(keyAdditions);
+    
     addSnippetsToDict(keyID, continueKeyList, stopKeyList, verse2Dict, snipList2);
-
-    keyList = keyList.concat(keyAdditions);    
+    console.log(keyList);
+    keyList = keyList.concat(keyAdditions); 
+    console.log(keyList);   
 }
 
 function checkKeys(verse1Dict, verse2Dict) {
