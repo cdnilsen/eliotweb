@@ -719,7 +719,7 @@ function processVerseDicts(verse1Dict, verse2Dict) {
         console.log(verse1Dict);
         console.log(verse2Dict);
         let substringGreaterThanNull = false;
-        let keepGoing = false;
+        let dontContinue = false;
         for (let j = 0; j < relevantKeys.length; j++) {
             let k = relevantKeys[j]; // k for key
             console.log(k);
@@ -752,12 +752,12 @@ function processVerseDicts(verse1Dict, verse2Dict) {
             let continueBool = processSnippets(k, substring, verse1Dict, verse2Dict, newKeys);
 
             if (continueBool) {
-                keepGoing = true;
+                dontContinue = true;
             }
 
         }
 
-        stopThisRound = !substringGreaterThanNull && !keepGoing
+        stopThisRound = !substringGreaterThanNull && !dontContinue
 
         if (stopThisRound) {
             keepGoing = false;
