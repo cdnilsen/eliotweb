@@ -770,6 +770,10 @@ function compareVerses(verse1, verse2) {
         safetyCounter += 1;
     }
 
+    if (safetyCounter == 100) {
+        console.log("Endless loop!");
+    }
+
     console.log(verse1Dict.length);
     console.log(verse2Dict.length);
     let sortedDict1 = Object.keys(verse1Dict).sort();
