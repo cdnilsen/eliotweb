@@ -871,7 +871,7 @@ function compareVerses(verse1, verse2) {
         console.log("Endless loop!");
     }
 
-    //checkForKeyMismatch(verse1Dict, verse2Dict);
+    checkForKeyMismatch(verse1Dict, verse2Dict);
 }
 
 let verse1 = "Kah Jehovah unnau Mosesoh, Summágunush kuhput, kah anin wussukqunat, kah summagunum wohpit, kah wunneemunnumun, kah sauobpuhquámú8 ut wunnutcheganit."
@@ -958,7 +958,6 @@ async function grabBook(book) {
         
     }
     console.log(outputDict["verseNums"]);
-    //console.log(outputDict["verseNums"]);
     return outputDict;
 }
 
