@@ -676,6 +676,7 @@ function snipVerse(verse, sharedSubstring) {
 
 function addSnippetsToDict(keyID, continueKeyList, stopKeyList, verseDict, snipList) {
     let keyList = [];
+    let finalKeyList = [];
     if (snipList[3]) {
         keyList = continueKeyList;
     } else {
@@ -683,7 +684,9 @@ function addSnippetsToDict(keyID, continueKeyList, stopKeyList, verseDict, snipL
     }
     for (let i = 0; i < 3; i++) {
         verseDict[keyID + keyList[i]] = snipList[i];
+        finalKeyList.push(keyID + keyList[i]);
     }
+    return finalKeyList;
 }
 
 function processSnippets(keyID, sharedSubstring, verse1Dict, verse2Dict, keyList) {
@@ -696,13 +699,13 @@ function processSnippets(keyID, sharedSubstring, verse1Dict, verse2Dict, keyList
     let continueKeyList = ["A", "B", "C"];
     let stopKeyList = ["AB", "BB", "CB"];
 
-    addSnippetsToDict(keyID, continueKeyList, stopKeyList, verse1Dict, snipList1);
+    let keyAdditions = addSnippetsToDict(keyID, continueKeyList, stopKeyList, verse1Dict, snipList1);
     addSnippetsToDict(keyID, continueKeyList, stopKeyList, verse2Dict, snipList2);
 
     delete(verse1Dict[keyID]);
     delete(verse2Dict[keyID]);
 
-    keyList = keyList.concat([keyID + "A", keyID + "B", keyID + "C"]);    
+    keyList = keyList.concat(keyAdditions);    
 }
 
 function checkKeys(verse1Dict, verse2Dict) {
