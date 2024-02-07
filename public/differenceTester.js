@@ -712,7 +712,9 @@ function processVerseDictionaries(dict1, dict2) {
     
     for (let i = 0; i < allKeys.length; i++) {
         console.log("X" + allKeys[i]);
-        console.log(("X" + allKeys[i])[-1]);
+        console.log(("X" + allKeys[i]).endsWith("B"));
+        console.log("XBA".endsWith("B"));
+        console.log("".endsWith("B"));
         if (("X" + allKeys[i])[-1] != "B") {
             relevantKeys.push(allKeys[i]);
         }
