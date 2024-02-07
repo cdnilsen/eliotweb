@@ -69,15 +69,21 @@ const bookToChapterDict = {
     "Revelation": 22
 };
 
-function stringOfList(list) {
-    let finalString = "["
+//Function that turns a list into a string with spaces between the elements. Not a great pick for lists that have spaces or null elements within them.
+function stringOfList(list, useBrackets=true) {
+    let finalString = "";
     for (let i = 0; i < list.length; i++) {
         finalString += list[i].toString();
         finalString += ", "
     }
-    finalString = finalString.slice(0, -2);
-    finalString += "]";
-    return finalString;
+    if (finalString.endsWith(", ")) {
+        finalString = finalString.slice(0, -2);
+    }
+    if (useBrackets) {
+        return "[" + finalString + "]";
+    } else {
+        return finalString;
+    }
 }
 
 function getDifferenceOfTwoArrays(arr1, arr2) {
