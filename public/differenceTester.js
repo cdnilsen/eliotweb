@@ -721,8 +721,11 @@ function getSnippetTuples(dict1, dict2, snippet1, snippet2, sharedString, key) {
 function processDictKeys(dict1, dict2, key) {
     let verseSnippet1 = dict1[key];
     let verseSnippet2 = dict2[key];
-
-    let sharedString = findLongestCommonSubstring(verseSnippet1, verseSnippet2);
+    
+    let sharedString = "";
+    if (verseSnippet1 != undefined && verseSnippet2 != undefined) {
+        sharedString = findLongestCommonSubstring(verseSnippet1, verseSnippet2);
+    }
 
     getSnippetTuples(dict1, dict2, verseSnippet1, verseSnippet2, sharedString, key);
 }
