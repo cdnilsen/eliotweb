@@ -1,3 +1,429 @@
+const bookToChapterDict = {
+    "": 0,
+    "Genesis": 50,
+    "Exodus": 40,
+    "Leviticus": 27,
+    "Numbers": 36,
+    "Deuteronomy": 34,
+    "Joshua": 24,
+    "Judges": 21,
+    "Ruth": 4,
+    "1 Samuel": 31,
+    "2 Samuel": 24,
+    "1 Kings": 22,
+    "2 Kings": 25,
+    "1 Chronicles": 29,
+    "2 Chronicles": 36,
+    "Ezra": 10,
+    "Nehemiah": 13,
+    "Esther": 10,
+    "Job": 42,
+    "Psalms (prose)": 150,
+    "Psalms (metrical)": 150,
+    "Proverbs": 31,
+    "Ecclesiastes": 12,
+    "Song of Songs": 8,
+    "Isaiah": 66,
+    "Jeremiah": 52,
+    "Lamentations": 5,
+    "Ezekiel": 48,
+    "Daniel": 12,
+    "Hosea": 14,
+    "Joel": 3,
+    "Amos": 9,
+    "Obadiah": 1,
+    "Jonah": 4,
+    "Micah": 7,
+    "Nahum": 3,
+    "Habakkuk": 3,
+    "Zephaniah": 3,
+    "Haggai": 2,
+    "Zechariah": 14,
+    "Malachi": 4,
+    "Matthew": 28,
+    "Mark": 16,
+    "Luke": 24,
+    "John": 21,
+    "Acts": 28,
+    "Romans": 16,
+    "1 Corinthians": 16,
+    "2 Corinthians": 13,
+    "Galatians": 6,
+    "Ephesians": 6,
+    "Philippians": 4,
+    "Colossians": 4,
+    "1 Thessalonians": 5,
+    "2 Thessalonians": 3,
+    "1 Timothy": 6,
+    "2 Timothy": 4,
+    "Titus": 3,
+    "Philemon": 1,
+    "Hebrews": 13,
+    "James": 5,
+    "1 Peter": 5,
+    "2 Peter": 3,
+    "1 John": 5,
+    "2 John": 1,
+    "3 John": 1,
+    "Jude": 1,
+    "Revelation": 22
+};
+
+function stringOfList(list) {
+    let finalString = "["
+    for (let i = 0; i < list.length; i++) {
+        finalString += list[i].toString();
+        finalString += ", "
+    }
+    finalString = finalString.slice(0, -2);
+    finalString += "]";
+    return finalString;
+}
+
+function getDifferenceOfTwoArrays(arr1, arr2) {
+    let set1 = new Set(arr1);
+    let set2 = new Set(arr2);
+
+    let notInSet1 = new Set([...set2].filter(x => !set1.has(x)));
+    let notInSet2 = new Set([...set1].filter(x => !set2.has(x)));
+
+    let notInSet1List = Array.from(notInSet1);
+    let notInSet2List = Array.from(notInSet2);
+
+    return [notInSet1List, notInSet2List];
+}
+
+
+function findLongestCommonSubstring(str1, str2) {
+    //(courtesy of GeeksForGeeks) 
+    let longestSubstring = ""; 
+    for (let i = 0; i < str1.length; i++) { 
+        for (let j = 0; j < str2.length; j++) { 
+            let substring = ""; 
+            let x = i; 
+            let y = j; 
+            while (x < str1.length &&  
+                   y < str2.length &&  
+                   str1[x] === str2[y]) { 
+                substring += str1[x]; 
+                x++;
+                y++;
+            } 
+            if (substring.length > longestSubstring.length) { 
+                longestSubstring = substring; 
+            } 
+        } 
+    } 
+    return longestSubstring; 
+}
+
+function postSnippetsToDict(snippetList, verseDict, oldKey, sharedStringIsZero) {
+
+    if (sharedStringIsZero) {
+        let newKey = oldKey + "B";
+        verseDict[newKey] = snippetList[0];
+        delete(verseDict[oldKey]);
+    } else {
+        let newKeyList = [];
+        let keySuffixList = ["A", "B", "C"];
+        for (let i = 0; i < 3; i++) {
+            let newKey = oldKey + keySuffixList[i];
+            if (snippetList[i] == "") {
+                newKey = newKey + "B";
+            }
+            newKeyList.push(newKey);
+        }
+
+        delete(verseDict[oldKey]);
+
+        for (let j = 0; j < 3; j++) {
+            verseDict[newKeyList[j]] = snippetList[j];
+        }
+    }
+}
+
+function getSnippetTuples(dict1, dict2, snippet1, snippet2, sharedString, key) {
+
+    if (sharedString == "" || snippet1 == "" || snippet2 == "") {
+        let verse1List = [snippet1, "", ""];
+        let verse2List = [snippet2, "", ""];
+
+        postSnippetsToDict(verse1List, dict1, key, true);
+        postSnippetsToDict(verse2List, dict2, key, true);
+
+    } else {
+        let verse1Split = snippet1.split(sharedString);
+        let verse2Split = snippet2.split(sharedString);
+        
+        let verse1Prologue = verse1Split[0];
+        let verse2Prologue = verse2Split[0];
+
+        let verse1Epilogue = verse1Split[1];
+        let verse2Epilogue = verse2Split[1];
+
+        let verse1ProcessingList = [verse1Prologue, sharedString, verse1Epilogue];
+        let verse2ProcessingList = [verse2Prologue, sharedString, verse2Epilogue];
+
+        postSnippetsToDict(verse1ProcessingList, dict1, key, false);
+        postSnippetsToDict(verse2ProcessingList, dict2, key, false);
+    }
+}
+
+function checkForKeyMismatch(dict1, dict2) {
+    let keyList1 = Object.keys(dict1).sort();
+    let keyList2 = Object.keys(dict2).sort();
+
+    let in1ButNot2List = [];
+    let in2ButNot1List = [];
+
+    if (keyList1 != keyList2) {
+        let keysDifference = getDifferenceOfTwoArrays(keyList1, keyList2);
+
+        in2ButNot1List = keysDifference[0];
+        in1ButNot2List = keysDifference[1];
+
+    }
+    in2ButNot1List = in2ButNot1List.sort();
+    in1ButNot2List = in1ButNot2List.sort();
+
+    let noMismatches = (in1ButNot2List.length == 0 && in2ButNot1List.length == 0);
+
+    let listsNotSameLength = (in1ButNot2List.length != in2ButNot1List.length);
+
+    return [in1ButNot2List, in2ButNot1List, noMismatches, listsNotSameLength];
+}
+
+//I don't like this much (it's kludgy) but it seems to work. When I checked against other texts it seemed to be accurate.
+function fixMissingBs(dict1, dict2, chapter, verse) {
+    let mismatchingKeys = checkForKeyMismatch(dict1, dict2);
+
+    //Can we process this verse?
+    let canProcess = true;
+    if (mismatchingKeys[2]) {
+        // If there aren't any mismatches, quit. Could put a single return after the whole if-else thing but this makes things more explicit
+        return [[], [],canProcess, "no mismatches"];
+    } else if (mismatchingKeys[3]) {
+        // If there are mismatches but the lists aren't the same length, flag it
+        console.log("Mismatching keys are not the same length at " + chapter.toString() + ":"+ verse.toString());
+        console.log(mismatchingKeys1);
+        console.log(mismatchingKeys2);
+        
+        canProcess = false;
+        return [[], [],canProcess, "lists aren't the same length (find the bug)"];
+    } else {
+        let mismatchingKeys1 = mismatchingKeys[0];
+        let mismatchingKeys2 = mismatchingKeys[1];
+
+        for (let i = 0; i < mismatchingKeys1.length; i++) {
+
+            let firstKey = mismatchingKeys1[i];
+            let secondKey = mismatchingKeys2[i];
+
+            if (firstKey.endsWith("B") && firstKey.slice(0, -1) == secondKey) {
+                let newSecondKey = secondKey + "B";
+                dict2[newSecondKey] = dict2[secondKey];
+                delete(dict2[secondKey]);
+            }
+
+            if (secondKey.endsWith("B") && secondKey.slice(0, -1) == firstKey) {
+                let newFirstKey = firstKey + "B";
+                dict1[newFirstKey] = dict1[firstKey];
+                delete(dict1[firstKey]);
+            }
+        }
+        // Pre-sort for safety
+        let newSortedKeys1 = Object.keys(dict1).sort();
+        let newSortedKeys2 = Object.keys(dict2).sort();
+        
+        let failureReason = "";
+        if (newSortedKeys1 != newSortedKeys2) {
+            failureReason = "sorted keys, but weren't the same";
+            canProcess = false;
+            if (newSortedKeys1.length != newSortedKeys2.length) {
+                console.log("Length of keys to first edition: " + newSortedKeys1.length.toString());
+                console.log("Length of keys to second edition: " + newSortedKeys2.length.toString());
+            }
+
+            let differences = getDifferenceOfTwoArrays(newSortedKeys1, newSortedKeys2);
+
+            console.log(stringOfList(differences[0]));
+            console.log(stringOfList(differences[1]));
+
+            console.log(stringOfList(newSortedKeys1));
+            console.log(stringOfList(newSortedKeys2));
+        }
+        return [newSortedKeys1, newSortedKeys2, canProcess, failureReason];
+    }
+}
+
+function processDictKeys(dict1, dict2, key) {
+    if (dict1[key] == undefined) {
+        dict1[key] = "";
+    }
+    if (dict2[key] == undefined) {
+        dict2[key] = "";
+    }
+
+    let verseSnippet1 = dict1[key];
+    let verseSnippet2 = dict2[key];
+
+    let sharedString = findLongestCommonSubstring(verseSnippet1, verseSnippet2);
+    
+    getSnippetTuples(dict1, dict2, verseSnippet1, verseSnippet2, sharedString, key);
+}
+
+function processVerseDictionaries(dict1, dict2) {
+    let allKeys = Object.keys(dict1);
+
+    let relevantKeys = [];
+    
+    for (let i = 0; i < allKeys.length; i++) {
+        if (!allKeys[i].endsWith("B")) {
+            relevantKeys.push(allKeys[i]);
+        }
+    }
+
+    for (let j = 0; j < relevantKeys.length; j++) {
+        let key = relevantKeys[j];
+        processDictKeys(dict1, dict2, key);
+    }
+
+    return (relevantKeys.length > 0);
+}
+
+function compareVerses(verse1, verse2, chapterNum, verseNum) {
+    let verse1Dict = {
+        "": verse1
+    };
+
+    let verse2Dict = {
+        "": verse2
+    };
+
+    let keepGoing = true;
+    let safetyCounter = 0;
+    while(keepGoing && safetyCounter < 100) {
+        keepGoing = processVerseDictionaries(verse1Dict, verse2Dict);
+        safetyCounter += 1;
+    }
+
+    if (safetyCounter == 100) {
+        console.log("Endless loop!");
+    }
+
+    let fixedBsList = fixMissingBs(verse1Dict, verse2Dict, chapterNum, verseNum);
+    let canProcess = fixedBsList[2];
+
+    if (canProcess) {
+        let allKeys1 = fixedBsList[0];
+        let allKeys2 = fixedBsList[1];
+    } else {
+        console.log("Can't process " + chapterNum.toString() + "." + verseNum.toString() + ": " + fixedBsList[3]);
+    }
+}
+
+let verse1 = "Kah Jehovah unnau Mosesoh, Summágunush kuhput, kah anin wussukqunat, kah summagunum wohpit, kah wunneemunnumun, kah sauobpuhquámú8 ut wunnutcheganit."
+
+let verse2 = "Kah Jehovah unnau Mosesoh, Summagunush kenutch, kah anin wussukqunat, kah summagunum wunnutch, kah wunneemunumun, kah sauóbpuhquámú8 ut wunnutcheganit."
+
+//compareVerses(verse1, verse2);
+
+function grabRightLines(bookLines, chapter) {
+    chapter = parseInt(chapter);
+    let rightLineDict = {};
+    for (let i = 0; i < bookLines.length; i++) {
+        let splitLine = bookLines[i].split(" ");
+        let address = splitLine[0].split(".");
+        let lineChapter = parseInt(address[0]);
+        if (lineChapter === chapter) {
+            let lineVerse = parseInt(address[1]);
+            let lineText = splitLine.slice(1).join(" ");
+            rightLineDict[lineVerse] = lineText;
+        }
+    }
+    return rightLineDict;
+}
+
+async function grabBook(book) {
+    event.preventDefault(); // Prevents the default form submission behavior
+    let firstEditionAddress = "./texts/" + book + ".First Edition.txt";
+    let secondEditionAddress = "./texts/" + book + ".Second Edition.txt";
+
+    let firstEditionRaw = await fetch(firstEditionAddress);
+    let secondEditionRaw = await fetch(secondEditionAddress);
+
+    let firstEditionText = await firstEditionRaw.text();
+    let secondEditionText = await secondEditionRaw.text();
+
+    let firstEditionLines = firstEditionText.split("\n");
+    let secondEditionLines = secondEditionText.split("\n");
+
+    let outputDict = {};
+
+    outputDict["verseNums"] = [];
+    outputDict["chapterNums"] = [];
+    outputDict["verseText1"] =[];
+    outputDict["verseText2"] = [];
+
+    for (let i = 1; i < bookToChapterDict[book] + 1; i++) {
+        let chapter = i;
+        //These have been logged to console, and work:
+        let firstEditionDict = grabRightLines(firstEditionLines, chapter);
+        let secondEditionDict = grabRightLines(secondEditionLines, chapter);
+        
+        let verseList1 = Object.keys(firstEditionDict);
+        let verseList2 = Object.keys(secondEditionDict);
+
+        verseList1.sort(function (a, b) { return a - b; });
+        verseList2.sort(function (a, b) { return a - b; });
+
+        let verseNumList = [];
+        let verseText1 = [];
+        let verseText2 = [];
+        let chapterNums = [];
+
+        for (let j = 0; j < verseList1.length; j++) {
+            let verseNum1 = chapter.toString()+ "." + verseList1[j];
+            let verseNum2 = chapter.toString()+ "." + verseList2[j];
+
+            verseNumList.push(verseNum1);
+            verseText1.push(firstEditionDict[verseList1[j]]);
+            verseText2.push(secondEditionDict[verseList1[j]]);
+            chapterNums.push(chapter);
+
+            if (verseNum1 != verseNum2) {
+                console.log("Verse numbers don't match in " + book + " " + chapter + ":" + verseNum1 + "/" + verseNum2);
+            }
+     
+        }
+
+        outputDict["verseNums"] = outputDict["verseNums"].concat(verseNumList);
+        outputDict["chapterNums"] = outputDict["chapterNums"].concat(chapterNums);
+        outputDict["verseText1"] = outputDict["verseText1"].concat(verseText1);
+        outputDict["verseText2"] = outputDict["verseText2"].concat(verseText2);
+        
+    }
+    return outputDict;
+}
+
+function processBookDict(bookDict) {
+    for (let j = 0; j < bookDict["verseNums"].length; j++) {
+        let verse1 = bookDict["verseText1"][j];
+        let verse2 = bookDict["verseText2"][j];
+        let chapterNum = bookDict["chapterNums"][j];
+        let verseNum = bookDict["verseNums"][j];
+        
+        compareVerses(verse1, verse2, chapterNum, verseNum);
+    }
+}
+
+let submitButton = document.getElementById("submitButton");
+submitButton.addEventListener("click", async function(event) {
+    let ruthDict = await grabBook("Ruth");
+    processBookDict(ruthDict);
+});
+
+
 /*
 
 const allBookList = [
@@ -640,412 +1066,3 @@ submitButton.addEventListener("click", async function(event) {
     }    
 });
 */
-
-const bookToChapterDict = {
-    "": 0,
-    "Genesis": 50,
-    "Exodus": 40,
-    "Leviticus": 27,
-    "Numbers": 36,
-    "Deuteronomy": 34,
-    "Joshua": 24,
-    "Judges": 21,
-    "Ruth": 4,
-    "1 Samuel": 31,
-    "2 Samuel": 24,
-    "1 Kings": 22,
-    "2 Kings": 25,
-    "1 Chronicles": 29,
-    "2 Chronicles": 36,
-    "Ezra": 10,
-    "Nehemiah": 13,
-    "Esther": 10,
-    "Job": 42,
-    "Psalms (prose)": 150,
-    "Psalms (metrical)": 150,
-    "Proverbs": 31,
-    "Ecclesiastes": 12,
-    "Song of Songs": 8,
-    "Isaiah": 66,
-    "Jeremiah": 52,
-    "Lamentations": 5,
-    "Ezekiel": 48,
-    "Daniel": 12,
-    "Hosea": 14,
-    "Joel": 3,
-    "Amos": 9,
-    "Obadiah": 1,
-    "Jonah": 4,
-    "Micah": 7,
-    "Nahum": 3,
-    "Habakkuk": 3,
-    "Zephaniah": 3,
-    "Haggai": 2,
-    "Zechariah": 14,
-    "Malachi": 4,
-    "Matthew": 28,
-    "Mark": 16,
-    "Luke": 24,
-    "John": 21,
-    "Acts": 28,
-    "Romans": 16,
-    "1 Corinthians": 16,
-    "2 Corinthians": 13,
-    "Galatians": 6,
-    "Ephesians": 6,
-    "Philippians": 4,
-    "Colossians": 4,
-    "1 Thessalonians": 5,
-    "2 Thessalonians": 3,
-    "1 Timothy": 6,
-    "2 Timothy": 4,
-    "Titus": 3,
-    "Philemon": 1,
-    "Hebrews": 13,
-    "James": 5,
-    "1 Peter": 5,
-    "2 Peter": 3,
-    "1 John": 5,
-    "2 John": 1,
-    "3 John": 1,
-    "Jude": 1,
-    "Revelation": 22
-};
-
-function getDifferenceOfTwoArrays(arr1, arr2) {
-    let set1 = new Set(arr1);
-    let set2 = new Set(arr2);
-
-    let notInSet1 = new Set([...set2].filter(x => !set1.has(x)));
-    let notInSet2 = new Set([...set1].filter(x => !set2.has(x)));
-
-    let notInSet1List = Array.from(notInSet1);
-    let notInSet2List = Array.from(notInSet2);
-
-    return [notInSet1List, notInSet2List];
-}
-
-
-function findLongestCommonSubstring(str1, str2) {
-    //(courtesy of GeeksForGeeks) 
-    let longestSubstring = ""; 
-    for (let i = 0; i < str1.length; i++) { 
-        for (let j = 0; j < str2.length; j++) { 
-            let substring = ""; 
-            let x = i; 
-            let y = j; 
-            while (x < str1.length &&  
-                   y < str2.length &&  
-                   str1[x] === str2[y]) { 
-                substring += str1[x]; 
-                x++;
-                y++;
-            } 
-            if (substring.length > longestSubstring.length) { 
-                longestSubstring = substring; 
-            } 
-        } 
-    } 
-    return longestSubstring; 
-}
-
-function postSnippetsToDict(snippetList, verseDict, oldKey, sharedStringIsZero) {
-
-    if (sharedStringIsZero) {
-        let newKey = oldKey + "B";
-        verseDict[newKey] = snippetList[0];
-        delete(verseDict[oldKey]);
-    } else {
-        let newKeyList = [];
-        let keySuffixList = ["A", "B", "C"];
-        for (let i = 0; i < 3; i++) {
-            let newKey = oldKey + keySuffixList[i];
-            if (snippetList[i] == "") {
-                newKey = newKey + "B";
-            }
-            newKeyList.push(newKey);
-        }
-
-        delete(verseDict[oldKey]);
-
-        for (let j = 0; j < 3; j++) {
-            verseDict[newKeyList[j]] = snippetList[j];
-        }
-    }
-}
-
-function getSnippetTuples(dict1, dict2, snippet1, snippet2, sharedString, key) {
-
-    if (sharedString == "" || snippet1 == "" || snippet2 == "") {
-        let verse1List = [snippet1, "", ""];
-        let verse2List = [snippet2, "", ""];
-
-        postSnippetsToDict(verse1List, dict1, key, true);
-        postSnippetsToDict(verse2List, dict2, key, true);
-
-    } else {
-        let verse1Split = snippet1.split(sharedString);
-        let verse2Split = snippet2.split(sharedString);
-        
-        let verse1Prologue = verse1Split[0];
-        let verse2Prologue = verse2Split[0];
-
-        let verse1Epilogue = verse1Split[1];
-        let verse2Epilogue = verse2Split[1];
-
-        let verse1ProcessingList = [verse1Prologue, sharedString, verse1Epilogue];
-        let verse2ProcessingList = [verse2Prologue, sharedString, verse2Epilogue];
-
-        postSnippetsToDict(verse1ProcessingList, dict1, key, false);
-        postSnippetsToDict(verse2ProcessingList, dict2, key, false);
-    }
-}
-
-function checkForKeyMismatch(dict1, dict2) {
-    let keyList1 = Object.keys(dict1).sort();
-    let keyList2 = Object.keys(dict2).sort();
-
-    let in1ButNot2List = [];
-    let in2ButNot1List = [];
-
-    if (keyList1 != keyList2) {
-        let keysDifference = getDifferenceOfTwoArrays(keyList1, keyList2);
-
-        in2ButNot1List = keysDifference[0];
-        in1ButNot2List = keysDifference[1];
-
-    }
-    in2ButNot1List = in2ButNot1List.sort();
-    in1ButNot2List = in1ButNot2List.sort();
-
-    let noMismatches = (in1ButNot2List.length == 0 && in2ButNot1List.length == 0);
-
-    let listsNotSameLength = (in1ButNot2List.length != in2ButNot1List.length);
-
-    return [in1ButNot2List, in2ButNot1List, noMismatches, listsNotSameLength];
-}
-
-//I don't like this much (it's kludgy) but it seems to work. When I checked against other texts it seemed to be accurate.
-function fixMissingBs(dict1, dict2, chapter, verse) {
-    let mismatchingKeys = checkForKeyMismatch(dict1, dict2);
-
-    //Can we process this verse?
-    let canProcess = true;
-    if (mismatchingKeys[2]) {
-        // If there aren't any mismatches, quit. Could put a single return after the whole if-else thing but this makes things more explicit
-        return [[], [],canProcess, "no mismatches"];
-    } else if (mismatchingKeys[3]) {
-        // If there are mismatches but the lists aren't the same length, flag it
-        console.log("Mismatching keys are not the same length at " + chapter.toString() + ":"+ verse.toString());
-        console.log(mismatchingKeys1);
-        console.log(mismatchingKeys2);
-        
-        canProcess = false;
-        return [[], [],canProcess, "lists aren't the same length (find the bug)"];
-    } else {
-        let mismatchingKeys1 = mismatchingKeys[0];
-        let mismatchingKeys2 = mismatchingKeys[1];
-
-        for (let i = 0; i < mismatchingKeys1.length; i++) {
-
-            let firstKey = mismatchingKeys1[i];
-            let secondKey = mismatchingKeys2[i];
-
-            if (firstKey.endsWith("B") && firstKey.slice(0, -1) == secondKey) {
-                let newSecondKey = secondKey + "B";
-                dict2[newSecondKey] = dict2[secondKey];
-                delete(dict2[secondKey]);
-            }
-
-            if (secondKey.endsWith("B") && secondKey.slice(0, -1) == firstKey) {
-                let newFirstKey = firstKey + "B";
-                dict1[newFirstKey] = dict1[firstKey];
-                delete(dict1[firstKey]);
-            }
-        }
-        // Pre-sort for safety
-        let newSortedKeys1 = Object.keys(dict1).sort();
-        let newSortedKeys2 = Object.keys(dict2).sort();
-        
-        let failureReason = "";
-        if (newSortedKeys1 != newSortedKeys2) {
-            failureReason = "sorted keys, but weren't the same";
-            canProcess = false;
-            console.log("Length of keys to first edition: " + newSortedKeys1.length.toString());
-            console.log("Length of keys to second edition: " + newSortedKeys2.length.toString());
-
-            console.log(newSortedKeys1);
-            console.log(newSortedKeys2);
-        }
-        return [newSortedKeys1, newSortedKeys2, canProcess, failureReason];
-    }
-}
-
-function processDictKeys(dict1, dict2, key) {
-    if (dict1[key] == undefined) {
-        dict1[key] = "";
-    }
-    if (dict2[key] == undefined) {
-        dict2[key] = "";
-    }
-
-    let verseSnippet1 = dict1[key];
-    let verseSnippet2 = dict2[key];
-
-    let sharedString = findLongestCommonSubstring(verseSnippet1, verseSnippet2);
-    
-    getSnippetTuples(dict1, dict2, verseSnippet1, verseSnippet2, sharedString, key);
-}
-
-function processVerseDictionaries(dict1, dict2) {
-    let allKeys = Object.keys(dict1);
-
-    let relevantKeys = [];
-    
-    for (let i = 0; i < allKeys.length; i++) {
-        if (!allKeys[i].endsWith("B")) {
-            relevantKeys.push(allKeys[i]);
-        }
-    }
-
-    for (let j = 0; j < relevantKeys.length; j++) {
-        let key = relevantKeys[j];
-        processDictKeys(dict1, dict2, key);
-    }
-
-    return (relevantKeys.length > 0);
-}
-
-function compareVerses(verse1, verse2, chapterNum, verseNum) {
-    let verse1Dict = {
-        "": verse1
-    };
-
-    let verse2Dict = {
-        "": verse2
-    };
-
-    let keepGoing = true;
-    let safetyCounter = 0;
-    while(keepGoing && safetyCounter < 100) {
-        keepGoing = processVerseDictionaries(verse1Dict, verse2Dict);
-        safetyCounter += 1;
-    }
-
-    if (safetyCounter == 100) {
-        console.log("Endless loop!");
-    }
-
-    let fixedBsList = fixMissingBs(verse1Dict, verse2Dict, chapterNum, verseNum);
-    let canProcess = fixedBsList[2];
-
-    if (canProcess) {
-        let allKeys1 = fixedBsList[0];
-        let allKeys2 = fixedBsList[1];
-    } else {
-        console.log("Can't process " + chapterNum.toString() + "." + verseNum.toString() + ": " + fixedBsList[3]);
-    }
-}
-
-let verse1 = "Kah Jehovah unnau Mosesoh, Summágunush kuhput, kah anin wussukqunat, kah summagunum wohpit, kah wunneemunnumun, kah sauobpuhquámú8 ut wunnutcheganit."
-
-let verse2 = "Kah Jehovah unnau Mosesoh, Summagunush kenutch, kah anin wussukqunat, kah summagunum wunnutch, kah wunneemunumun, kah sauóbpuhquámú8 ut wunnutcheganit."
-
-//compareVerses(verse1, verse2);
-
-function grabRightLines(bookLines, chapter) {
-    chapter = parseInt(chapter);
-    let rightLineDict = {};
-    for (let i = 0; i < bookLines.length; i++) {
-        let splitLine = bookLines[i].split(" ");
-        let address = splitLine[0].split(".");
-        let lineChapter = parseInt(address[0]);
-        if (lineChapter === chapter) {
-            let lineVerse = parseInt(address[1]);
-            let lineText = splitLine.slice(1).join(" ");
-            rightLineDict[lineVerse] = lineText;
-        }
-    }
-    return rightLineDict;
-}
-
-async function grabBook(book) {
-    event.preventDefault(); // Prevents the default form submission behavior
-    let firstEditionAddress = "./texts/" + book + ".First Edition.txt";
-    let secondEditionAddress = "./texts/" + book + ".Second Edition.txt";
-
-    let firstEditionRaw = await fetch(firstEditionAddress);
-    let secondEditionRaw = await fetch(secondEditionAddress);
-
-    let firstEditionText = await firstEditionRaw.text();
-    let secondEditionText = await secondEditionRaw.text();
-
-    let firstEditionLines = firstEditionText.split("\n");
-    let secondEditionLines = secondEditionText.split("\n");
-
-    let outputDict = {};
-
-    outputDict["verseNums"] = [];
-    outputDict["chapterNums"] = [];
-    outputDict["verseText1"] =[];
-    outputDict["verseText2"] = [];
-
-    for (let i = 1; i < bookToChapterDict[book] + 1; i++) {
-        let chapter = i;
-        //These have been logged to console, and work:
-        let firstEditionDict = grabRightLines(firstEditionLines, chapter);
-        let secondEditionDict = grabRightLines(secondEditionLines, chapter);
-        
-        let verseList1 = Object.keys(firstEditionDict);
-        let verseList2 = Object.keys(secondEditionDict);
-
-        verseList1.sort(function (a, b) { return a - b; });
-        verseList2.sort(function (a, b) { return a - b; });
-
-        let verseNumList = [];
-        let verseText1 = [];
-        let verseText2 = [];
-        let chapterNums = [];
-
-        for (let j = 0; j < verseList1.length; j++) {
-            let verseNum1 = chapter.toString()+ "." + verseList1[j];
-            let verseNum2 = chapter.toString()+ "." + verseList2[j];
-
-            verseNumList.push(verseNum1);
-            verseText1.push(firstEditionDict[verseList1[j]]);
-            verseText2.push(secondEditionDict[verseList1[j]]);
-            chapterNums.push(chapter);
-
-            if (verseNum1 != verseNum2) {
-                console.log("Verse numbers don't match in " + book + " " + chapter + ":" + verseNum1 + "/" + verseNum2);
-            }
-     
-        }
-
-        outputDict["verseNums"] = outputDict["verseNums"].concat(verseNumList);
-        outputDict["chapterNums"] = outputDict["chapterNums"].concat(chapterNums);
-        outputDict["verseText1"] = outputDict["verseText1"].concat(verseText1);
-        outputDict["verseText2"] = outputDict["verseText2"].concat(verseText2);
-        
-    }
-    return outputDict;
-}
-
-function processBookDict(bookDict) {
-    for (let j = 0; j < bookDict["verseNums"].length; j++) {
-        let verse1 = bookDict["verseText1"][j];
-        let verse2 = bookDict["verseText2"][j];
-        let chapterNum = bookDict["chapterNums"][j];
-        let verseNum = bookDict["verseNums"][j];
-        
-        compareVerses(verse1, verse2, chapterNum, verseNum);
-    }
-}
-
-let submitButton = document.getElementById("submitButton");
-submitButton.addEventListener("click", async function(event) {
-    let ruthDict = await grabBook("Ruth");
-    processBookDict(ruthDict);
-});
-
-
