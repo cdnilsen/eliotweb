@@ -770,8 +770,12 @@ function compareVerses(verse1, verse2) {
         safetyCounter += 1;
     }
 
-    console.log(verse1Dict);
-    console.log(verse2Dict);
+    console.log(verse1Dict.length);
+    console.log(verse2Dict.length);
+    let sortedDict1 = Object.keys(verse1Dict).sort();
+    let sortedDict2 = Object.keys(verse2Dict).sort();
+
+    console.log(sortedDict1 == sortedDict2);
     console.log(safetyCounter);
 }
 
