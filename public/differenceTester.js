@@ -927,9 +927,6 @@ function compareVerses(verse1, verse2, chapterNum, verseNum) {
     if (canProcess) {
         let allKeys1 = Object.keys(verse1Dict);
         let allKeys2 = Object.keys(verse2Dict);
-
-        console.log(allKeys1);
-        console.log(allKeys2);
     } else {
         console.log("Can't process " + chapterNum.toString() + ":" + verseNum.toString());
     }
