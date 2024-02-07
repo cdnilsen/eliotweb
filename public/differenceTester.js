@@ -893,6 +893,7 @@ function grabRightLines(bookLines, chapter) {
 }
 
 async function grabBook(book) {
+    event.preventDefault(); // Prevents the default form submission behavior
     let firstEditionAddress = "./texts/" + book + ".First Edition.txt";
     let secondEditionAddress = "./texts/" + book + ".Second Edition.txt";
 
@@ -904,6 +905,8 @@ async function grabBook(book) {
 
     let firstEditionLines = firstEditionText.split("\n");
     let secondEditionLines = secondEditionText.split("\n");
+
+    console.log(secondEditionLines);
 
     let outputDict = {};
 
