@@ -775,9 +775,9 @@ function compareVerses(verse1, verse2) {
 
     let sortedDict1 = Object.keys(verse1Dict).sort();
     let sortedDict2 = Object.keys(verse2Dict).sort();
-
+    console.log(sortedDict1);
+    console.log(sortedDict2);
     console.log(sortedDict1 == sortedDict2);
-    console.log(safetyCounter);
 }
 
 let verse1 = "Kah Jehovah unnau Mosesoh, Summágunush kuhput, kah anin wussukqunat, kah summagunum wohpit, kah wunneemunnumun, kah sauobpuhquámú8 ut wunnutcheganit."
