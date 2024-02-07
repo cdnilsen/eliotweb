@@ -779,8 +779,8 @@ function compareVerses(verse1, verse2) {
         let dict1Set = new Set(sortedDict1);
         let dict2Set = new Set(sortedDict2);
 
-        let notInDict1 = dict2Set.difference(dict1Set);
-        let notInDict2 = dict1Set.difference(dict2Set);
+        let notInDict1 = new Set([...dict2Set].filter(x => !dict1Set.has(x)));
+        let notInDict2 = new Set([...dict1Set].filter(x => !dict2Set.has(x)));
 
         let notInDict1List = Array.from(notInDict1);
         let notInDict2List = Array.from(notInDict2);
