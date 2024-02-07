@@ -697,7 +697,8 @@ function getSnippetTuples(dict1, dict2, snippet1, snippet2, sharedString, key) {
     let allLogueNames = ["verse1Prologue", "verse2Prologue", "verse1Epilogue", "verse2Epilogue"]
     for (let i = 0; i < 4; i++) {
         if (allLogueList[i] === undefined) {
-            console.log("Undefined string in " + allLogueNames[i]);
+            allLogueList[i] = "";
+            //console.log("Undefined string in " + allLogueNames[i]);
         }
     }
 
