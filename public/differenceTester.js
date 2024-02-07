@@ -325,10 +325,7 @@ function fixSecretCasingDifference(substring1, substring2, loweredString1, lower
     let newLowered1 = loweredString1;
     let newLowered2 = loweredString2;
 
-    while (sharedSubstring != "") {
-        
-
-    }
+    //while (sharedSubstring != "") {}
     
 }
 
