@@ -244,6 +244,7 @@ function fixMissingBs(dict1, dict2, chapter, verse) {
         let failureReason = "";
         let differentLengths = (newSortedKeys1.length != newSortedKeys2.length);
         if (newSortedKeys1 != newSortedKeys2) {
+            console.log("Thinks it can't process " + chapter.toString() + ":" + verse.toString());
             if (differentLengths) {
                 failureReason = "different lengths";
                 canProcess = false;
