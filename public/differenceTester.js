@@ -709,9 +709,7 @@ function processSnippets(keyID, sharedSubstring, verse1Dict, verse2Dict, keyList
 
     
     addSnippetsToDict(keyID, continueKeyList, stopKeyList, verse2Dict, snipList2);
-    console.log(keyList);
     keyList = keyList.concat(keyAdditions); 
-    console.log(keyList);   
 }
 
 function checkKeys(verse1Dict, verse2Dict) {
@@ -769,8 +767,9 @@ function processVerseDicts(verse1Dict, verse2Dict) {
                 console.log("Both snippets exist")
                 substring = findLongestCommonSubstring(verse1Snippet, verse2Snippet);
             } 
-
+            console.log(newKeys);
             processSnippets(k, substring, verse1Dict, verse2Dict, newKeys);
+            console.log(newKeys);
 
             stopThisRound = checkKeys(verse1Dict, verse2Dict);
         }
