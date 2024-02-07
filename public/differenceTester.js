@@ -801,6 +801,72 @@ function getSnippetTuples(dict1, dict2, snippet1, snippet2, sharedString, key) {
     }
 }
 
+function checkForKeyMismatch(dict1, dict2) {
+    let keyList1 = Object.keys(dict1).sort();
+    let keyList2 = Object.keys(dict2).sort();
+
+    let in1ButNot2List = [];
+    let in2ButNot1List = [];
+
+    if (keyList1 != keyList2) {
+        let keysDifference = getDifferenceOfTwoArrays(keyList1, keyList2);
+
+        in2ButNot1List = keysDifference[0];
+        in1ButNot2List = keysDifference[1];
+
+    }
+    in2ButNot1List = in2ButNot1List.sort();
+    in1ButNot2List = in1ButNot2List.sort();
+
+    let noMismatches = (in1ButNot2List.length == 0 && in2ButNot1List.length == 0);
+
+    let listsNotSameLength = (in1ButNot2List.length != in2ButNot1List.length);
+
+    return [in1ButNot2List, in2ButNot1List, noMismatches, listsNotSameLength];
+}
+
+//I don't like this much (it's kludgy) but it seems to work. When I checked against other texts it seemed to be accurate.
+function fixMissingBs(dict1, dict2, chapter, verse) {
+    let mismatchingKeys = checkForKeyMismatch(dict1, dict2);
+
+    //Can we process this verse?
+    let canProcess = true;
+    if (mismatchingKeys[2]) {
+        // If there aren't any mismatches, quit. Could put a single return after the whole if-else thing but this makes things more explicit
+        return canProcess;
+    } else if (mismatchingKeys[3]) {
+        // If there are mismatches but the lists aren't the same length, flag it
+        console.log("Mismatching keys are not the same length at " + chapter.toString() + ":"+ verse.toString());
+        console.log(mismatchingKeys1);
+        console.log(mismatchingKeys2);
+        
+        canProcess = false;
+        return canProcess;
+    } else {
+        let mismatchingKeys1 = mismatchingKeys[0];
+        let mismatchingKeys2 = mismatchingKeys[1];
+
+        for (let i = 0; i < mismatchingKeys1.length; i++) {
+
+            let firstKey = mismatchingKeys1[i];
+            let secondKey = mismatchingKeys2[i];
+
+            if (firstKey.endsWith("B") && firstKey.slice(0, -1) == secondKey) {
+                let newSecondKey = secondKey + "B";
+                dict2[newSecondKey] = dict2[secondKey];
+                delete(dict2[secondKey]);
+            }
+
+            if (secondKey.endsWith("B") && secondKey.slice(0, -1) == firstKey) {
+                let newFirstKey = firstKey + "B";
+                dict1[newFirstKey] = dict1[firstKey];
+                delete(dict1[firstKey]);
+            }
+        }
+        return canProcess;
+    }
+}
+
 function processDictKeys(dict1, dict2, key) {
     if (dict1[key] == undefined) {
         dict1[key] = "";
@@ -815,21 +881,6 @@ function processDictKeys(dict1, dict2, key) {
     let sharedString = findLongestCommonSubstring(verseSnippet1, verseSnippet2);
     
     getSnippetTuples(dict1, dict2, verseSnippet1, verseSnippet2, sharedString, key);
-}
-
-function checkForKeyMismatch(dict1, dict2) {
-    let sortedDict1 = Object.keys(dict1).sort();
-    let sortedDict2 = Object.keys(dict2).sort();
-
-    if (sortedDict1 != sortedDict2) {
-        let keysDifference = getDifferenceOfTwoArrays(sortedDict1, sortedDict2);
-
-        let notInDict1List = keysDifference[0];
-        let notInDict2List = keysDifference[1];
-
-        console.log(notInDict1List);
-        console.log(notInDict2List);
-    }
 }
 
 function processVerseDictionaries(dict1, dict2) {
@@ -851,7 +902,7 @@ function processVerseDictionaries(dict1, dict2) {
     return (relevantKeys.length > 0);
 }
 
-function compareVerses(verse1, verse2) {
+function compareVerses(verse1, verse2, chapterNum, verseNum) {
     let verse1Dict = {
         "": verse1
     };
@@ -871,7 +922,17 @@ function compareVerses(verse1, verse2) {
         console.log("Endless loop!");
     }
 
-    checkForKeyMismatch(verse1Dict, verse2Dict);
+    let canProcess = fixMissingBs(verse1Dict, verse2Dict, chapterNum, verseNum);
+
+    if (canProcess) {
+        let allKeys1 = Object.keys(verse1Dict);
+        let allKeys2 = Object.keys(verse2Dict);
+
+        console.log(allKeys1);
+        console.log(allKeys2);
+    } else {
+        console.log("Can't process " + chapterNum.toString() + ":" + verseNum.toString());
+    }
 }
 
 let verse1 = "Kah Jehovah unnau Mosesoh, Summágunush kuhput, kah anin wussukqunat, kah summagunum wohpit, kah wunneemunnumun, kah sauobpuhquámú8 ut wunnutcheganit."
@@ -965,7 +1026,10 @@ function processBookDict(bookDict) {
     for (let j = 0; j < bookDict["verseNums"].length; j++) {
         let verse1 = bookDict["verseText1"][j];
         let verse2 = bookDict["verseText2"][j];
-        compareVerses(verse1, verse2);
+        let chapterNum = bookDict["chapterNums"][j];
+        let verseNum = bookDict["verseNums"][j];
+        
+        compareVerses(verse1, verse2, chapterNum, verseNum);
     }
 }
 
@@ -975,15 +1039,4 @@ submitButton.addEventListener("click", async function(event) {
     processBookDict(ruthDict);
 });
 
-//I don't like this much (it's kludgy) but it seems to work:
-function addRemainingBs(differenceDict) {
-    let allKeys = Object.keys(differenceDict);
-    for (let i = 0; i < allKeys.length; i++) {
-        let key = allKeys[i];
-        if (!key.endsWith("B")) {
-            let newKey = key + "B";
-            differenceDict[newKey] = differenceDict[key];
-            delete(differenceDict[key]);
-        }
-    }
-}
+
