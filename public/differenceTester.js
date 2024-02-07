@@ -739,6 +739,7 @@ function processVerseDicts(verse1Dict, verse2Dict) {
 
     //Fix this in the morning. The issue appears to be with the key list
     let keepGoing = true;
+    let cycleCounter = 0;
     while (keepGoing) {
         let stopThisRound = true;
         console.log(verse1Dict);
@@ -772,9 +773,11 @@ function processVerseDicts(verse1Dict, verse2Dict) {
             console.log(relevantKeys);
 
             stopThisRound = checkKeys(verse1Dict, verse2Dict);
+
+            cycleCounter += 1;
         }
 
-        if (stopThisRound) {
+        if (stopThisRound || cycleCounter > 10) {
             keepGoing = false;
         }
     }
