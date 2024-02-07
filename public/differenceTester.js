@@ -737,10 +737,10 @@ function processVerseDicts(verse1Dict, verse2Dict) {
         }
     }
 
+    //Fix this in the morning. The issue appears to be with the key list
     let keepGoing = true;
     while (keepGoing) {
         let stopThisRound = true;
-        let newKeys = relevantKeys;
         console.log(verse1Dict);
         console.log(verse2Dict);
         for (let j = 0; j < relevantKeys.length; j++) {
@@ -767,9 +767,9 @@ function processVerseDicts(verse1Dict, verse2Dict) {
                 console.log("Both snippets exist")
                 substring = findLongestCommonSubstring(verse1Snippet, verse2Snippet);
             } 
-            console.log(newKeys);
-            processSnippets(k, substring, verse1Dict, verse2Dict, newKeys);
-            console.log(newKeys);
+            console.log(relevantKeys);
+            processSnippets(k, substring, verse1Dict, verse2Dict, relevantKeys);
+            console.log(relevantKeys);
 
             stopThisRound = checkKeys(verse1Dict, verse2Dict);
         }
@@ -777,8 +777,6 @@ function processVerseDicts(verse1Dict, verse2Dict) {
         if (stopThisRound) {
             keepGoing = false;
         }
-        console.log(newKeys);
-        relevantKeys = newKeys;
     }
 }
 
