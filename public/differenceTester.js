@@ -965,10 +965,6 @@ function processBookDict(bookDict) {
     for (let j = 0; j < bookDict["verseNums"].length; j++) {
         let verse1 = bookDict["verseText1"][j];
         let verse2 = bookDict["verseText2"][j];
-        if (j % 5 == 0) {
-            console.log(verse1);
-            console.log(verse2);
-        }
         compareVerses(verse1, verse2);
     }
 }
