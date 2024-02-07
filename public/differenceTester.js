@@ -833,7 +833,7 @@ function fixMissingBs(dict1, dict2, chapter, verse) {
     let canProcess = true;
     if (mismatchingKeys[2]) {
         // If there aren't any mismatches, quit. Could put a single return after the whole if-else thing but this makes things more explicit
-        return canProcess;
+        return [[], [],canProcess, "no mismatches"];
     } else if (mismatchingKeys[3]) {
         // If there are mismatches but the lists aren't the same length, flag it
         console.log("Mismatching keys are not the same length at " + chapter.toString() + ":"+ verse.toString());
@@ -841,7 +841,7 @@ function fixMissingBs(dict1, dict2, chapter, verse) {
         console.log(mismatchingKeys2);
         
         canProcess = false;
-        return canProcess;
+        return [[], [],canProcess, "lists aren't the same length (find the bug)"];
     } else {
         let mismatchingKeys1 = mismatchingKeys[0];
         let mismatchingKeys2 = mismatchingKeys[1];
@@ -863,7 +863,16 @@ function fixMissingBs(dict1, dict2, chapter, verse) {
                 delete(dict1[firstKey]);
             }
         }
-        return canProcess;
+        // Pre-sort for safety
+        let newSortedKeys1 = Object.keys(dict1).sort();
+        let newSortedKeys2 = Object.keys(dict2).sort();
+        
+        let failureReason = "";
+        if (newSortedKeys1 != newSortedKeys2) {
+            failureReason = "sorted keys, but weren't the same";
+            canProcess = false;
+        }
+        return [newSortedKeys1, newSortedKeys2, canProcess, failureReason];
     }
 }
 
@@ -922,16 +931,14 @@ function compareVerses(verse1, verse2, chapterNum, verseNum) {
         console.log("Endless loop!");
     }
 
-    let canProcess = fixMissingBs(verse1Dict, verse2Dict, chapterNum, verseNum);
+    let fixedBsList = fixMissingBs(verse1Dict, verse2Dict, chapterNum, verseNum);
+    let canProcess = fixedBsList[2];
 
     if (canProcess) {
-        let allKeys1 = Object.keys(verse1Dict);
-        let allKeys2 = Object.keys(verse2Dict).sort();
-
-        console.log(allKeys1);
-        console.log(allKeys1.sort());
+        let allKeys1 = fixedBsList[0];
+        let allKeys2 = fixedBsList[1];
     } else {
-        console.log("Can't process " + chapterNum.toString() + ":" + verseNum.toString());
+        console.log("Can't process " + chapterNum.toString() + "." + verseNum.toString() + ": " + fixedBsList[3]);
     }
 }
 
