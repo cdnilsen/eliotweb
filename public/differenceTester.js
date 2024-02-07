@@ -703,17 +703,61 @@ function processSnippets(keyID, sharedSubstring, verse1Dict, verse2Dict) {
 
     delete(verse1Dict[keyID]);
     delete(verse2Dict[keyID]);
+
+    return [keyID + "A", keyID + "B", keyID + "C"];
 }
 
-let dict1 = { 
-    "": "Kah Jehovah unnau Mosesoh, Summágunush kuhput, kah anin wussukqunat, kah summagunum wohpit, kah wunneemunnumun, kah sauobpuhquámú8 ut wunnutcheganit."
-}
-let dict2 = {
-    "": "Kah Jehovah unnau Mosesoh, Summagunush kenutch, kah anin wussukqunat, kah summagunum wunnutch, kah wunneemunumun, kah sauóbpuhquámú8 ut wunnutcheganit."
+function processVerseDicts(verse1Dict, verse2Dict) {
+    let verse1Keys = Object.keys(verse1Dict);
+    let relevantKeys = [];
+
+    //Dummy X is in case we're starting out and the only key is the null string
+    for (let i = 0; i < verse1Keys.length; i++) {
+        if ("X" + verse1Keys[i][0] != "B") {
+            relevantKeys.push(verse1Keys[i]);
+        }
+    }
+
+    let keepGoing = true;
+    while (keepGoing) {
+        let stopThisRound = true;
+        let newKeys = [];
+        for (let j = 0; j < relevantKeys.length; j++) {
+            let k = relevantKeys[j]; // k for key
+            let verse1Snippet = verse1Dict[k];
+            let verse2Snippet = verse2Dict[k];
+            let substring = findLongestCommonSubstring(verse1Snippet, verse2Snippet);
+
+            newKeys = newKeys.concat(processSnippets(k, substring, verse1Dict, verse2Dict));
+
+            if (substring != "") {
+                stopThisRound = false;
+            }
+        }
+        if (stopThisRound) {
+            keepGoing = false;
+        }
+        relevantKeys = newKeys;
+    }
 }
 
-let longestSubstring = findLongestCommonSubstring(dict1[""], dict2[""]);
+function compareVerses(verse1, verse2) {
+    let verse1Dict = {
+        "" : verse1
+    };
 
-processSnippets("", longestSubstring, dict1, dict2);
-console.log(dict1);
-console.log(dict2);
+    let verse2Dict = {
+        "" : verse2
+    };
+
+    processVerseDicts(verse1Dict, verse2Dict);
+
+    console.log(verse1Dict);
+    console.log(verse2Dict);
+}
+
+let verse1 = "Kah Jehovah unnau Mosesoh, Summágunush kuhput, kah anin wussukqunat, kah summagunum wohpit, kah wunneemunnumun, kah sauobpuhquámú8 ut wunnutcheganit."
+
+let verse2 = "Kah Jehovah unnau Mosesoh, Summagunush kenutch, kah anin wussukqunat, kah summagunum wunnutch, kah wunneemunumun, kah sauóbpuhquámú8 ut wunnutcheganit."
+
+compareVerses(verse1, verse2);
