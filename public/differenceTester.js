@@ -465,13 +465,15 @@ let verse2 = "Onk woh wunnamptamwog Jehovah um-Manitt8m8oh wut8shinneunk, um-Man
 
 let submitButton = document.getElementById("submitButton");
 submitButton.addEventListener("click", async function(event) {
+    let outputDiv = document.getElementById("output");
+    outputDiv.innerHTML = "";
+    event.preventDefault();
     
     let comparedWithCasing = compareVerses(verse1, verse2, 4, 5, true);
     let comparedWithoutCasing = compareVerses(verse1, verse2, 4, 5, false);
 
     let allExamples = [comparedWithCasing, comparedWithoutCasing];
 
-    let outputDiv = document.getElementById("output");
     for (let i = 0; i < 2; i++) {
         let edition1 = allExamples[i][0];
         let edition2 = allExamples[i][1];
