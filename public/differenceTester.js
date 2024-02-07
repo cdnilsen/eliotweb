@@ -777,6 +777,9 @@ function compareVerses(verse1, verse2) {
     let sortedDict2 = Object.keys(verse2Dict).sort();
     console.log(sortedDict1);
     console.log(sortedDict2);
+
+    console.log(verse1Dict);
+    console.log(verse2Dict);
     console.log(sortedDict1 == sortedDict2);
 }
 
