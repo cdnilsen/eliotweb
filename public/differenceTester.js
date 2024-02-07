@@ -701,8 +701,8 @@ function processSnippets(keyID, sharedSubstring, verse1Dict, verse2Dict) {
     verse2Dict[keyID + "B"] = snipList2[1];
     verse2Dict[keyID + "C"] = snipList2[2];
 
-    verse1Dict.remove(keyID);
-    verse2Dict.remove(keyID);
+    delete(verse1Dict[keyID]);
+    delete(verse2Dict[keyID]);
 }
 
 let dict1 = { 
