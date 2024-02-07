@@ -491,6 +491,7 @@ submitButton.addEventListener("click", async function(event) {
             textSpan.innerHTML += edition1[j];
             textSpan.innerHTML += "<br>";
             textSpan.innerHTML += edition2[j];
+            verseDiv.appendChild(textSpan);
         }
         verseDiv.innerHTML += "<br>";
         outputDiv.appendChild(verseDiv);
