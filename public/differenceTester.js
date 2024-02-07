@@ -720,6 +720,9 @@ function processVerseDicts(verse1Dict, verse2Dict) {
         console.log(verse2Dict);
         for (let j = 0; j < relevantKeys.length; j++) {
             let k = relevantKeys[j]; // k for key
+            console.log(k);
+            console.log(verse1Dict);
+            console.log(verse2Dict);
             let verse1Snippet = "";
             let verse2Snippet = "";
             if (!Object.keys(verse1Dict).includes(k)) {
