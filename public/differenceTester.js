@@ -711,15 +711,11 @@ function processVerseDictionaries(dict1, dict2) {
     let relevantKeys = [];
     
     for (let i = 0; i < allKeys.length; i++) {
-        console.log("X" + allKeys[i]);
-        console.log(("X" + allKeys[i]).endsWith("B"));
-        console.log("XBA".endsWith("B"));
-        console.log("".endsWith("B"));
-        if (("X" + allKeys[i])[-1] != "B") {
+        if (!allKeys[i].endsWith("B")) {
             relevantKeys.push(allKeys[i]);
         }
     }
-    //console.log(relevantKeys);
+    console.log(relevantKeys);
 
     for (let j = 0; j < relevantKeys.length; j++) {
         let key = relevantKeys[j];
