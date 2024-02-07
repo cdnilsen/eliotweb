@@ -668,19 +668,6 @@ function findLongestCommonSubstring(str1, str2) {
     return longestSubstring; 
 }
 
-function compareTwoVerses(verse1, verse2) {
-    let finalDict = {};
-    let middle = findLongestCommonSubstring(str1, str2);
-
-    finalDict["prologue1"] = verse1.split(middle)[0];
-    finalDict["prologue2"] = verse2.split(middle)[0];
-    finalDict["middle"] = middle;
-    finalDict["epilogue1"] = verse1.split(middle)[1];
-    finalDict["epilogue2"] = verse2.split(middle)[1];
-
-    return (finalDict);
-}
-
 function snipVerse(verse, sharedSubstring) {
     let splitList = verse.split(sharedSubstring);
     return [splitList[0], sharedSubstring, splitList[1]];
@@ -723,6 +710,8 @@ function processVerseDicts(verse1Dict, verse2Dict) {
         let stopThisRound = true;
         let newKeys = [];
         console.log(relevantKeys);
+        console.log(verse1Dict);
+        console.log(verse2Dict);
         for (let j = 0; j < relevantKeys.length; j++) {
             let k = relevantKeys[j]; // k for key
             let verse1Snippet = verse1Dict[k];
