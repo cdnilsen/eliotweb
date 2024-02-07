@@ -641,6 +641,77 @@ submitButton.addEventListener("click", async function(event) {
 });
 */
 
+const bookToChapterDict = {
+    "": 0,
+    "Genesis": 50,
+    "Exodus": 40,
+    "Leviticus": 27,
+    "Numbers": 36,
+    "Deuteronomy": 34,
+    "Joshua": 24,
+    "Judges": 21,
+    "Ruth": 4,
+    "1 Samuel": 31,
+    "2 Samuel": 24,
+    "1 Kings": 22,
+    "2 Kings": 25,
+    "1 Chronicles": 29,
+    "2 Chronicles": 36,
+    "Ezra": 10,
+    "Nehemiah": 13,
+    "Esther": 10,
+    "Job": 42,
+    "Psalms (prose)": 150,
+    "Psalms (metrical)": 150,
+    "Proverbs": 31,
+    "Ecclesiastes": 12,
+    "Song of Songs": 8,
+    "Isaiah": 66,
+    "Jeremiah": 52,
+    "Lamentations": 5,
+    "Ezekiel": 48,
+    "Daniel": 12,
+    "Hosea": 14,
+    "Joel": 3,
+    "Amos": 9,
+    "Obadiah": 1,
+    "Jonah": 4,
+    "Micah": 7,
+    "Nahum": 3,
+    "Habakkuk": 3,
+    "Zephaniah": 3,
+    "Haggai": 2,
+    "Zechariah": 14,
+    "Malachi": 4,
+    "Matthew": 28,
+    "Mark": 16,
+    "Luke": 24,
+    "John": 21,
+    "Acts": 28,
+    "Romans": 16,
+    "1 Corinthians": 16,
+    "2 Corinthians": 13,
+    "Galatians": 6,
+    "Ephesians": 6,
+    "Philippians": 4,
+    "Colossians": 4,
+    "1 Thessalonians": 5,
+    "2 Thessalonians": 3,
+    "1 Timothy": 6,
+    "2 Timothy": 4,
+    "Titus": 3,
+    "Philemon": 1,
+    "Hebrews": 13,
+    "James": 5,
+    "1 Peter": 5,
+    "2 Peter": 3,
+    "1 John": 5,
+    "2 John": 1,
+    "3 John": 1,
+    "Jude": 1,
+    "Revelation": 22
+};
+
 function getDifferenceOfTwoArrays(arr1, arr2) {
     let set1 = new Set(arr1);
     let set2 = new Set(arr2);
@@ -805,6 +876,22 @@ let verse2 = "Kah Jehovah unnau Mosesoh, Summagunush kenutch, kah anin wussukqun
 
 //compareVerses(verse1, verse2);
 
+function grabRightLines(bookLines, chapter) {
+    chapter = parseInt(chapter);
+    let rightLineDict = {};
+    for (let i = 0; i < bookLines.length; i++) {
+        let splitLine = bookLines[i].split(" ");
+        let address = splitLine[0].split(".");
+        let lineChapter = parseInt(address[0]);
+        if (lineChapter === chapter) {
+            let lineVerse = parseInt(address[1]);
+            let lineText = splitLine.slice(1).join(" ");
+            rightLineDict[lineVerse] = lineText;
+        }
+    }
+    return rightLineDict;
+}
+
 async function grabBook(book) {
     let firstEditionAddress = "./texts/" + book + ".First Edition.txt";
     let secondEditionAddress = "./texts/" + book + ".Second Edition.txt";
@@ -825,16 +912,43 @@ async function grabBook(book) {
     outputDict["verseText1"] =[];
     outputDict["verseText2"] = [];
 
-    for (let i = 0; i < allVerses.length; i++) {
-        let verseNum = allVerses[i];
-        let chapterNum = chapterList[i];
-        let firstEdText = verseText1[i];
-        let secondEdText = verseText2[i];
+    for (let i = 1; i < bookToChapterDict[book] + 1; i++) {
+        let chapter = i;
+        //These have been logged to console, and work:
+        let firstEditionDict = grabRightLines(firstEditionLines, chapter);
+        let secondEditionDict = grabRightLines(secondEditionLines, chapter);
+        
+        let verseList1 = Object.keys(firstEditionDict);
+        let verseList2 = Object.keys(secondEditionDict);
 
-        outputDict["verseNums"].push(verseNum);
-        outputDict["chapterNums"].push(chapterNum);
-        outputDict["verseText1"].push(firstEdText);
-        outputDict["verseText2"].push(secondEdText);
+        verseList1.sort(function (a, b) { return a - b; });
+        verseList2.sort(function (a, b) { return a - b; });
+
+        let verseNumList = [];
+        let verseText1 = [];
+        let verseText2 = [];
+        let chapterNums = [];
+
+        for (let j = 0; j < verseList1.length; j++) {
+            let verseNum1 = chapter.toString()+ "." + verseList1[j];
+            let verseNum2 = chapter.toString()+ "." + verseList2[j];
+
+            verseNumList.push(verseNum1);
+            verseText1.push(firstEditionDict[verseList1[j]]);
+            verseText2.push(secondEditionDict[verseList1[j]]);
+            chapterNums.push(chapter);
+
+            if (verseNum1 != verseNum2) {
+                console.log("Verse numbers don't match in " + book + " " + chapter + ":" + verseNum1 + "/" + verseNum2);
+            }
+     
+        }
+
+        outputDict["verseNums"] = outputDict["verseNums"].concat(verseNumList);
+        outputDict["chapterNums"] = outputDict["chapterNums"].concat(chapterNums);
+        outputDict["verseText1"] = outputDict["verseText1"].concat(verseText1);
+        outputDict["verseText2"] = outputDict["verseText2"].concat(verseText2);
+        
     }
     console.log(outputDict["verseNums"]);
     return outputDict;
