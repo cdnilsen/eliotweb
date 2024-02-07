@@ -693,28 +693,36 @@ function getSnippetTuples(dict1, dict2, snippet1, snippet2, sharedString, key) {
     let verse1Epilogue = verse1Split[1];
     let verse2Epilogue = verse2Split[1];
 
-    let allLogueList = [verse1Prologue, verse2Prologue, verse1Epilogue, verse2Epilogue];
-    let allLogueNames = ["verse1Prologue", "verse2Prologue", "verse1Epilogue", "verse2Epilogue"]
-    for (let i = 0; i < 4; i++) {
-        if (allLogueList[i] === undefined) {
-            allLogueList[i] = "";
-            //console.log("Undefined string in " + allLogueNames[i]);
+    let newLogueDict = {
+    };
+    
+    let allLogueNames = ["verse1Prologue", "verse2Prologue", "sharedString", "verse1Epilogue", "verse2Epilogue"]
+
+    let allLogueList = [verse1Split[0], verse2Split[0], sharedString, verse1Split[1], verse2Split[1]];
+
+    for (let i = 0; i < 5; i++) {
+        let logueName = allLogueNames[i];
+        if (allLogueList[i] == undefined) {
+            newLogueDict[logueName] = "";
+            if (logueName == "sharedString") {
+                console.log("Undefined shared string!")
+            }
+        } else {
+            newLogueDict[logueName] = allLogueList[i];
         }
     }
-
-    console.log("Prologue1: [" + verse1Prologue + "]");
-    console.log("Shared string: [" + sharedString + "]");
-    console.log("Epilogue1: [" + verse1Epilogue + "]");
     
-    console.log("Prologue2: [" + verse2Prologue + "]");
-    console.log("Shared string: [" + sharedString + "]");
-    console.log("Epilogue2: [" + verse2Epilogue + "]");
+    let verse1Prologue = newLogueDict["verse1Prologue"];
+    let verse2Prologue = newLogueDict["verse2Prologue"];
+
+    let verse1Epilogue = newLogueDict["verse1Epilogue"];
+    let verse2Epilogue = newLogueDict["verse2Epilogue"];
 
     let verse1ProcessingList = [verse1Prologue, sharedString, verse1Epilogue];
     let verse2ProcessingList = [verse2Prologue, sharedString, verse2Epilogue];
 
-    console.log(verse1ProcessingList);
-    console.log(verse2ProcessingList);
+    //console.log(verse1ProcessingList);
+    //console.log(verse2ProcessingList);
 
     postSnippetsToDict(verse1ProcessingList, dict1, key);
     postSnippetsToDict(verse2ProcessingList, dict2, key);
