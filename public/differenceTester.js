@@ -69,7 +69,7 @@ const bookToChapterDict = {
     "Revelation": 22
 };
 
-//Function that turns a list into a string with spaces between the elements. Not a great pick for lists that have spaces or null elements within them.
+//Function that turns a list into a string with spaces between the elements, for readability when logging. Not a great pick for lists that have spaces or null elements within them.
 function stringOfList(list, useBrackets=true) {
     let finalString = "";
     for (let i = 0; i < list.length; i++) {
@@ -242,21 +242,25 @@ function fixMissingBs(dict1, dict2, chapter, verse) {
         let newSortedKeys2 = Object.keys(dict2).sort();
         
         let failureReason = "";
+        let differentLengths = (newSortedKeys1.length != newSortedKeys2.length);
         if (newSortedKeys1 != newSortedKeys2) {
-            failureReason = "sorted keys, but weren't the same";
-            canProcess = false;
-            if (newSortedKeys1.length != newSortedKeys2.length) {
-                console.log("Length of keys to first edition: " + newSortedKeys1.length.toString());
-                console.log("Length of keys to second edition: " + newSortedKeys2.length.toString());
+            if (differentLengths) {
+                failureReason = "different lengths";
+                canProcess = false;
+            } else {
+                let mismatchExists = false;
+                for (let i = 0; i < newSortedKeys1.length; i++) {
+                    if (newSortedKeys1[i] != newSortedKeys2[i]) {
+                        console.log("First edition: " + newSortedKeys1[i]);
+                        console.log("Second edition: " + newSortedKeys2[i]);
+                        failureReason = "sorted keys, but weren't the same";
+                        mismatchExists = true;
+                    }
+                }
+                if (mismatchExists) {
+                    canProcess = false;
+                }
             }
-
-            let differences = getDifferenceOfTwoArrays(newSortedKeys1, newSortedKeys2);
-
-            console.log(stringOfList(differences[0]));
-            console.log(stringOfList(differences[1]));
-
-            console.log(stringOfList(newSortedKeys1));
-            console.log(stringOfList(newSortedKeys2));
         }
         return [newSortedKeys1, newSortedKeys2, canProcess, failureReason];
     }
