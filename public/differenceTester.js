@@ -683,9 +683,9 @@ function postSnippetsToDict(snippetList, verseDict, oldKey) {
     }
 }
 
-function getSnippetTuples(dict1, dict2, verse1, verse2, sharedString, key) {
-    let verse1Split = verseSnippet1.split(sharedString);
-    let verse2Split = verseSnippet2.split(sharedString);
+function getSnippetTuples(dict1, dict2, snippet1, snippet2, sharedString, key) {
+    let verse1Split = snippet1.split(sharedString);
+    let verse2Split = snippet2.split(sharedString);
 
     let verse1Prologue = verse1Split[0]
     let verse2Prologue = verse2Split[0]
