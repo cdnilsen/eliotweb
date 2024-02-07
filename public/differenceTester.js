@@ -731,11 +731,11 @@ function processVerseDictionaries(dict1, dict2) {
 
 function compareVerses(verse1, verse2) {
     let verse1Dict = {
-        "": verse1
+        " ": verse1
     };
 
     let verse2Dict = {
-        "": verse2
+        " ": verse2
     };
 
     let keepGoing = true;
