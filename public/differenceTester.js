@@ -668,9 +668,9 @@ function findLongestCommonSubstring(str1, str2) {
 function snipVerse(verse, sharedSubstring) {
     if (sharedSubstring != "") {
         let splitList = verse.split(sharedSubstring);
-        return [splitList[0], sharedSubstring, splitList[1]];
+        return [splitList[0], sharedSubstring, splitList[1], true];
     } else {
-        return ["", verse, ""];
+        return ["", verse, "", false];
     }
 }
 
@@ -692,7 +692,11 @@ function processSnippets(keyID, sharedSubstring, verse1Dict, verse2Dict) {
     delete(verse1Dict[keyID]);
     delete(verse2Dict[keyID]);
 
-    return [keyID + "A", keyID + "B", keyID + "C"];
+    if (snipList1[3] || snipList2[3]) {
+        return [keyID + "A", keyID + "B", keyID + "C"];
+    } else {
+        return [keyID + "AB", keyID + "BB", keyID + "CB"];
+    }
 }
 
 function processVerseDicts(verse1Dict, verse2Dict) {
