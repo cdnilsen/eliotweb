@@ -361,8 +361,8 @@ function fixSecretCasingDifference(substring1, substring2, loweredString1, lower
         sharedLowerSubstring = findLongestCommonSubstring(newLowered1, newLowered2);
     }
 
-    console.log(substring1);
-    console.log(substring2);
+    console.log(newSubstring1);
+    console.log(newSubstring2);
     return [substring1, substring2];
 }
 
