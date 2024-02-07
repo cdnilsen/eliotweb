@@ -356,10 +356,7 @@ function fixSecretCasingDifference(substring1, substring2, loweredString1, lower
         newLowered1 = slicedLowerList1[0] +  "α".repeat(counterDigitsNum + 2) +  slicedLowerList1[1];
         newLowered2 = slicedLowerList2[0] + "β".repeat(counterDigitsNum + 2) + slicedLowerList2[1]
     }
-    
-
     return [substring1, substring2];
-    
 }
 
 // To be called when the substrings *don't* match.
