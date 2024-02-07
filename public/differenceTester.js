@@ -955,8 +955,7 @@ async function grabBook(book) {
     }
     console.log(outputDict["verseNums"]);
     //console.log(outputDict["verseNums"]);
-    return {};
-    //return outputDict;
+    return outputDict;
 }
 
 function processBookDict(bookDict) {
@@ -971,7 +970,8 @@ function processBookDict(bookDict) {
 let submitButton = document.getElementById("submitButton");
 submitButton.addEventListener("click", async function(event) {
     let ruthDict = await grabBook("Ruth");
-    processBookDict(ruthDict);
+    console.log(ruthDict);
+    //processBookDict(ruthDict);
 });
 
 //I don't like this much (it's kludgy) but it seems to work:
