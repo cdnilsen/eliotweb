@@ -953,11 +953,14 @@ async function grabBook(book) {
         outputDict["verseText2"] = outputDict["verseText2"].concat(verseText2);
         
     }
+    console.log(outputDict["verseNums"]);
     //console.log(outputDict["verseNums"]);
-    return outputDict;
+    return {};
+    //return outputDict;
 }
 
 function processBookDict(bookDict) {
+    console.log(bookDict["verseNums"].length);
     for (let j = 0; j = bookDict["verseNums"].length; j++) {
         let verse1 = bookDict["verseText1"][j];
         let verse2 = bookDict["verseText2"][j];
