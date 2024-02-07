@@ -716,13 +716,15 @@ function processVerseDicts(verse1Dict, verse2Dict) {
             let k = relevantKeys[j]; // k for key
             let verse1Snippet = "";
             let verse2Snippet = "";
-            if (Object.keys(verse1Dict).includes(k)) {
-                verse1Snippet = verse1Dict[k];
+            if (!Object.keys(verse1Dict).includes(k)) {
+                verse1Dict[k] = "";
             }
-            
-            if (Object.keys(verse2Dict).includes(k)) {
-                verse2Snippet = verse2Dict[k];
+            verse1Snippet = verse1Dict[k];
+
+            if (!Object.keys(verse2Dict).includes(k)) {
+                verse2Dict[k] = "";
             }
+            verse2Snippet = verse2Dict[k];
 
             let substring = ""
             if (verse1Snippet != "" && verse2Snippet != "") {
