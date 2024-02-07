@@ -330,11 +330,10 @@ function fixSecretCasingDifference(substring1, substring2, loweredString1, lower
     let newLowered2 = loweredString2;
     
     //dummy, will remove
-    let triggerWhileLoop = false;
     let counter = 0;
     let counterToSharedLoop = {};
 
-    while (sharedLowerSubstring != "" && triggerWhileLoop) {
+    while (sharedLowerSubstring != "") {
         let substring1Index = newLowered1.indexOf(sharedLowerSubstring);
         let substring2Index = newLowered2.indexOf(sharedLowerSubstring);
 
@@ -355,6 +354,8 @@ function fixSecretCasingDifference(substring1, substring2, loweredString1, lower
 
         newLowered1 = slicedLowerList1[0] +  "α".repeat(counterDigitsNum + 2) +  slicedLowerList1[1];
         newLowered2 = slicedLowerList2[0] + "β".repeat(counterDigitsNum + 2) + slicedLowerList2[1]
+
+        sharedLowerSubstring = findLongestCommonSubstring(newLowered1, newLowered2);
     }
     return [substring1, substring2];
 }
