@@ -963,15 +963,15 @@ function processBookDict(bookDict) {
     for (let j = 0; j = bookDict["verseNums"].length; j++) {
         let verse1 = bookDict["verseText1"][j];
         let verse2 = bookDict["verseText2"][j];
-        compareVerses(verse1, verse2);
+        //compareVerses(verse1, verse2);
     }
 }
 
 let submitButton = document.getElementById("submitButton");
 submitButton.addEventListener("click", async function(event) {
     let ruthDict = await grabBook("Ruth");
-    console.log(ruthDict);
-    //processBookDict(ruthDict);
+    //console.log(ruthDict);
+    processBookDict(ruthDict);
 });
 
 //I don't like this much (it's kludgy) but it seems to work:
