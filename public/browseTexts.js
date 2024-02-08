@@ -1131,20 +1131,23 @@ function compareVerses(verse1, verse2, chapterNum, verseNum, useCasing) {
 
 function addVersesToDict(dict, chapterNum, verseNum, showCasing, editionNumber) {
 
-    let firstEditionText = dict[2];
-    let secondEditionText = dict[3];
+    if (editionNumber % 6 == 0) {
 
-    let comparedVerseList = compareVerses(firstEditionText, secondEditionText, chapterNum, verseNum, showCasing);
+        let firstEditionText = dict[2];
+        let secondEditionText = dict[3];
 
-    if (dict[2].length <= comparedVerseList[0].length) {
-        dict[2] = comparedVerseList[0];
-    }
-    if (dict[3].length <= comparedVerseList[1].length) {
-        dict[3] = comparedVerseList[1];
+        let comparedVerseList = compareVerses(firstEditionText, secondEditionText, chapterNum, verseNum, showCasing);
+
+        if (dict[2].length <= comparedVerseList[0].length) {
+            dict[2] = comparedVerseList[0];
+        }
+        if (dict[3].length <= comparedVerseList[1].length) {
+            dict[3] = comparedVerseList[1];
+        }
     }
 
     //The zeroth edition Genesis's differences are wrt the first edition, although the first edition's are still vs. the 2nd
-    if (useZeroth) {
+    if (editionNumber % 14 == 0) {
         let zerothComparedList = compareVerses(dict[7], dict[2], showCasing);
 
         if (dict[7].length <= zerothComparedList[0].length) {
