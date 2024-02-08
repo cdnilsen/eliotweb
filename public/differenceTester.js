@@ -255,26 +255,27 @@ function scrapSpuriousTags (string) {
     return string;
 }
 
-function unwrapDummyChars(wrappedString1, wrappedString2, unwrapDict, markCasing) {
-    
-    let allKeys = Object.keys(unwrapDict);
-
+function unwrapDummyChars(wrappedString1, wrappedString2, unwrapDict1, unwrapDict2, markCasing) {
     let finalString1 = wrappedString1;
     let finalString2 = wrappedString2;
 
-    for (let i = 0; i < allKeys.length; i++){
-        let k = allKeys[i];
-        let wrap = unwrapDict[k];
+    for (let j = 0; j < 2; j++) {
+        let unwrapDict = unwrapDict1;
+        let allKeys = Object.keys(unwrapDict);
+        for (let i = 0; i < allKeys.length; i++){
+            let k = allKeys[i];
+            let wrap = unwrapDict[k];
 
-        let unwrappedString = wrap;
-        if (markCasing) {
-            unwrappedString = castColor(unwrappedString, "blue");
+            let unwrappedString = wrap;
+            if (markCasing) {
+                unwrappedString = castColor(unwrappedString, "blue");
+            }
+            unwrappedString = antiCastColor(unwrappedString, "red");
+
+            finalString1 = finalString1.split(k).join(unwrappedString);
+
+            finalString2 = finalString2.split(k).join(unwrappedString);
         }
-        unwrappedString = antiCastColor(unwrappedString, "red");
-
-        finalString1 = finalString1.split(k).join(unwrappedString);
-
-        finalString2 = finalString2.split(k).join(unwrappedString);
     }
 
     finalString1 = castColor(finalString1, "red");
@@ -305,12 +306,16 @@ function fixSecretCasingDifference(substring1, substring2, loweredString1, lower
     let newLowered1 = loweredString1;
     let newLowered2 = loweredString2;
     
-    let counterToSharedLoop = {};
+    let counterCharDict1 = {};
+    let counterCharDict2 = {};
 
     let counter = 0;
     while (sharedLowerSubstring != "") {
         let substring1Index = newLowered1.indexOf(sharedLowerSubstring);
         let substring2Index = newLowered2.indexOf(sharedLowerSubstring);
+
+        let originalChar1 = newSubstring1[substring1Index];
+        let originalChar2 = newSubstring2[substring2Index];
 
         let substringList1 = getSlicedListAtIndex(newSubstring1, substring1Index);
         let substringList2 = getSlicedListAtIndex(newSubstring2, substring2Index);
@@ -320,7 +325,8 @@ function fixSecretCasingDifference(substring1, substring2, loweredString1, lower
         newSubstring1 = substringList1[0] + guillemetedCounter + substringList1[1];
         newSubstring2 = substringList2[0] + guillemetedCounter + substringList2[1];
 
-        counterToSharedLoop[guillemetedCounter] = sharedLowerSubstring;
+        counterCharDict1[guillemetedCounter] = originalChar1;
+        counterCharDict2[guillemetedCounter] = originalChar2;
 
         let numDummies = guillemetedCounter.length
 
@@ -337,7 +343,7 @@ function fixSecretCasingDifference(substring1, substring2, loweredString1, lower
         counter += 1;
     }
 
-    return unwrapDummyChars(newSubstring1, newSubstring2, counterToSharedLoop, markCasing);
+    return unwrapDummyChars(newSubstring1, newSubstring2, counterCharDict1, counterCharDict2, markCasing);
 }
 
 // To be called when the substrings *don't* match.
