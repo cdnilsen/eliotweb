@@ -417,7 +417,7 @@ function updateChapterDropdown(whichBook) {
 
 function revealCheckboxes(book) {
     document.getElementById('differenceSelection').hidden = true;
-    
+
     let activeEditionsNumber = bookToActiveEditionsDict[book];
     let editionContainerDict = {
         2: document.getElementById('firstEditionContainer'),
@@ -1112,8 +1112,16 @@ function compareVerses(verse1, verse2, chapterNum, verseNum, useCasing, showRawT
 
     let finalVerses = [];
     for (let i = 0; i < processedVerses.length; i++) {
-        let italicizedVerse = processCurlyBrackets(processedVerses[i], showRawText);
-        finalVerses.push(italicizedVerse);
+        if (processedVerses[i] == undefined) {
+            console.log("Undefined verse at " + chapterNum.toString() + ":" + verseNum.toString());
+            finalVerses.push("");
+        } else if (processedVerses == "") {
+            console.log("Blank verse at " + chapterNum.toString() + ":" + verseNum.toString());
+            finalVerses.push("");
+        } else {
+            let italicizedVerse = processCurlyBrackets(processedVerses[i], showRawText);
+            finalVerses.push(italicizedVerse);
+        }
     }
 
     return finalVerses;
