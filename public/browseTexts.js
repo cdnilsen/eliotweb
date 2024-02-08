@@ -1101,10 +1101,12 @@ function compareVerses(verse1, verse2, chapterNum, verseNum, useCasing) {
         if (safetyCounter == 100) {
             console.log("Endless loop!");
         }
+        //Verses appear to be good: 
         console.log(verseAddress);
-        console.log(verse1Dict);
-        console.log(verse2Dict);
+        //console.log(verse1Dict);
+        //console.log(verse2Dict);
         let fixedBsList = fixMissingBs(verse1Dict, verse2Dict, chapterNum, verseNum);
+        console.log(fixedBsList);
 
         let canProcess = fixedBsList[2];
 
