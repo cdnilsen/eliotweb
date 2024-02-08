@@ -307,6 +307,7 @@ function fixSecretCasingDifference(substring1, substring2, loweredString1, lower
     
     let counterToSharedLoop = {};
 
+    let counter = 0;
     while (sharedLowerSubstring != "") {
         let substring1Index = newLowered1.indexOf(sharedLowerSubstring);
         let substring2Index = newLowered2.indexOf(sharedLowerSubstring);
