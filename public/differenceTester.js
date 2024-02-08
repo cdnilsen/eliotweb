@@ -269,20 +269,22 @@ function unwrapDummyChars(wrappedString1, wrappedString2, unwrapDict1, unwrapDic
         let unwrapDict = unwrapDictList[i];
         console.log(unwrapDict);
         let allKeys = Object.keys(unwrapDict);
-        let thisFinalString = finalStringList[i];
+        let intermediateString = finalStringList[i];
         for (let j = 0; j < allKeys.length; j++){
             let k = allKeys[j];
             let wrap = unwrapDict[k];
 
             let unwrappedString = wrap;
+
             if (markCasing) {
                 unwrappedString = castColor(unwrappedString, "blue");
             }
 
             unwrappedString = antiCastColor(unwrappedString, "red");
 
-            thisFinalString = thisFinalString.split(k).join(unwrappedString);
+            intermediateString = intermediateString.split(k).join(unwrappedString);
         }
+        finalStringList[i] = intermediateString;
     }
 
     finalString1 = castColor(finalString1, "red");
