@@ -326,6 +326,9 @@ function fixSecretCasingDifference(substring1, substring2, loweredString1, lower
         newLowered2 = slicedLowerList2[0] + "β".repeat(numDummies) + slicedLowerList2[1];
 
         sharedLowerSubstring = findLongestCommonSubstring(newLowered1, newLowered2);
+
+        console.log(newSubstring1);
+        console.log(newSubstring2);
     }
 
     console.log(unwrapDummyChars(newSubstring1, newSubstring2, counterToSharedLoop, markCasing));
