@@ -1130,14 +1130,14 @@ function compareVerses(verse1, verse2, chapterNum, verseNum, useCasing) {
     return finalVerses;
 }
 
-function addVersesToDict(dict, chapterNum, verseNum, showCasing, editionNumber) {
+function addVersesToDict(dict, chapterNum, verseNum, markCasing, editionNumber) {
 
     if (editionNumber % 6 == 0) {
 
         let firstEditionText = dict[2];
         let secondEditionText = dict[3];
 
-        let comparedVerseList = compareVerses(firstEditionText, secondEditionText, chapterNum, verseNum, showCasing);
+        let comparedVerseList = compareVerses(firstEditionText, secondEditionText, chapterNum, verseNum, markCasing);
 
         if (dict[2].length <= comparedVerseList[0].length) {
             dict[2] = comparedVerseList[0];
@@ -1149,7 +1149,7 @@ function addVersesToDict(dict, chapterNum, verseNum, showCasing, editionNumber) 
 
     //The zeroth edition Genesis's differences are wrt the first edition, although the first edition's are still vs. the 2nd. Once the first- and zeroth-edition Geneses are done we can simplify much of this
     if (editionNumber % 14 == 0) {
-        let zerothComparedList = compareVerses(dict[7], dict[2], showCasing);
+        let zerothComparedList = compareVerses(dict[7], dict[2], markCasing);
 
         if (dict[7].length <= zerothComparedList[0].length) {
             dict[7] = zerothComparedList[0];
@@ -1185,7 +1185,7 @@ function columnMeasurePopulator(numLeftColumns, numRightColumns) {
     return allColumnMeasures.trim();
 }
 
-async function displayChapterText(book, chapter, useFirst, useSecond, useMayhew, useZeroth, useKJV, useGrebrew, showTextDifferences, showCasing, textContainer) {
+async function displayChapterText(book, chapter, useFirst, useSecond, useMayhew, useZeroth, useKJV, useGrebrew, showTextDifferences, markCasing, textContainer) {
     let chapterNum = parseInt(chapter);
 
     textContainer.innerHTML = "";
@@ -1203,7 +1203,7 @@ async function displayChapterText(book, chapter, useFirst, useSecond, useMayhew,
         }
     }
     
-    let useRawText = !showTextDifferences && !showCasing;
+    let useRawText = !showTextDifferences && !markCasing;
 
     let useRawString = ""
     if (useRawText) {
@@ -1273,7 +1273,7 @@ async function displayChapterText(book, chapter, useFirst, useSecond, useMayhew,
             console.log(showTextDifferences);
             console.log(markCasing);
             if (showTextDifferences && canCompareEditions) {
-                addVersesToDict(verseTextDict, chapterNum, verseNum, showCasing, editionNumber);
+                addVersesToDict(verseTextDict, chapterNum, verseNum, markCasing, editionNumber);
             }
 
             for (let k = 0; k < usefulPrimes.length; k++) {
@@ -1306,7 +1306,7 @@ async function displayChapterText(book, chapter, useFirst, useSecond, useMayhew,
 
 }
 
-async function getOneVerseText(book, chapter, verse, useFirst, useSecond, useMayhew, useZeroth, useKJV, useGrebrew, useRawText, textContainer, showTextDifferences, showCasing) {
+async function getOneVerseText(book, chapter, verse, useFirst, useSecond, useMayhew, useZeroth, useKJV, useGrebrew, useRawText, textContainer, showTextDifferences, markCasing) {
     textContainer.innerHTML = "";
 
     let editionNumber = getEditionCompositeNumber(useFirst, useSecond, useMayhew, useZeroth, useKJV, useGrebrew);
@@ -1338,7 +1338,7 @@ async function getOneVerseText(book, chapter, verse, useFirst, useSecond, useMay
                 let verseColumnDiv = document.createElement('div');
                 div.style = "grid-column: " + (i + 1).toString() + ";";
                 let verseText = res[p].toString();
-                verseText = cleanProcessedString(verseText, showTextDifferences, showCasing);
+                verseText = cleanProcessedString(verseText, showTextDifferences, markCasing);
                 let span = document.createElement('span');
                 span.innerHTML = verseText;
                 textContainer.appendChild(span);
@@ -1497,7 +1497,7 @@ document.getElementById("submitBookQuery").addEventListener('click', async funct
     let useGrebrew = false;
 
     let showTextDifferences = document.getElementById("exclude_casing").checked;
-    let showCasing = document.getElementById("include_casing").checked;
+    let markCasing = document.getElementById("include_casing").checked;
     //let useKJV = document.getElementById("useKJV").checked;
     //let useGrebrew = document.getElementById("useGrebrew").checked;
     //let useRawText = document.getElementById("useRawText").checked;
@@ -1506,6 +1506,6 @@ document.getElementById("submitBookQuery").addEventListener('click', async funct
 
     let columnContainer = document.getElementById("textColumns");
 
-    await displayChapterText(book, chapter, useFirst, useSecond, useMayhew, useZeroth, useKJV, useGrebrew, showTextDifferences, showCasing, columnContainer);
+    await displayChapterText(book, chapter, useFirst, useSecond, useMayhew, useZeroth, useKJV, useGrebrew, showTextDifferences, markCasing, columnContainer);
 
 });
