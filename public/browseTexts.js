@@ -1496,7 +1496,7 @@ document.getElementById("submitBookQuery").addEventListener('click', async funct
     let useKJV = true;
     let useGrebrew = false;
 
-    let showTextDifferences = document.getElementById("exclude_casing").checked;
+    let showTextDifferences = document.getElementById("no_show").checked == false;
     let markCasing = document.getElementById("include_casing").checked;
     //let useKJV = document.getElementById("useKJV").checked;
     //let useGrebrew = document.getElementById("useGrebrew").checked;
