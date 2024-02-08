@@ -1126,7 +1126,6 @@ function compareVerses(verse1, verse2, chapterNum, verseNum, useCasing) {
             finalVerses.push(processedVerses[i]);
         }
     }
-
     return finalVerses;
 }
 
@@ -1200,7 +1199,6 @@ async function displayChapterText(book, chapter, useFirst, useSecond, useMayhew,
         }
     }
     
-
     let useRawText = !showTextDifferences && !showCasing;
 
     let useRawString = ""
@@ -1292,7 +1290,7 @@ async function displayChapterText(book, chapter, useFirst, useSecond, useMayhew,
                 }
                 thisVerseColumn.style = "grid-column: " + (k + 1).toString() + ";";
 
-                let thisVerseText = processCurlyBrackets(verseTextDict[p], showRawText);
+                let thisVerseText = processCurlyBrackets(verseTextDict[p], useRawText);
                 thisVerseColumn.innerHTML = thisVerseText;
                 thisVerseRow.appendChild(thisVerseColumn);
             }
