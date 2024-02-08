@@ -256,8 +256,6 @@ function scrapSpuriousTags (string) {
 }
 
 function unwrapDummyChars(wrappedString1, wrappedString2, unwrapDict, markCasing) {
-
-    console.log(unwrapDict);
     
     let allKeys = Object.keys(unwrapDict);
 
@@ -268,9 +266,6 @@ function unwrapDummyChars(wrappedString1, wrappedString2, unwrapDict, markCasing
         let k = allKeys[i];
         let wrap = unwrapDict[k];
 
-        console.log(k);
-        console.log(wrap);
-
         let unwrappedString = wrap;
         if (markCasing) {
             unwrappedString = castColor(unwrappedString, "blue");
@@ -279,25 +274,14 @@ function unwrapDummyChars(wrappedString1, wrappedString2, unwrapDict, markCasing
 
         finalString1 = finalString1.split(k).join(unwrappedString);
 
-        //console.log(finalString1);
-
-
         finalString2 = finalString2.split(k).join(unwrappedString);
-
-        //console.log(finalString2);
     }
 
     finalString1 = castColor(finalString1, "red");
     finalString2 = castColor(finalString2, "red");
 
-    console.log(finalString1);
-    console.log(finalString2);
-
     finalString1 = scrapSpuriousTags(finalString1);
     finalString2 = scrapSpuriousTags(finalString2);
-
-    console.log(finalString1);
-    console.log(finalString2);
 
     return [finalString1, finalString2];
 
@@ -308,8 +292,6 @@ function fixSecretCasingDifference(substring1, substring2, loweredString1, lower
     let finalSubstring2 = "";
 
     let sharedLowerSubstring = findLongestCommonSubstring(loweredString1, loweredString2);
-
-    console.log(sharedLowerSubstring);
 
     if (sharedLowerSubstring == "") {
         finalSubstring1 = castColor(substring1, "red");
@@ -323,16 +305,11 @@ function fixSecretCasingDifference(substring1, substring2, loweredString1, lower
     let newLowered1 = loweredString1;
     let newLowered2 = loweredString2;
     
-    //dummy, will remove
-    let counter = 0;
     let counterToSharedLoop = {};
 
     while (sharedLowerSubstring != "") {
         let substring1Index = newLowered1.indexOf(sharedLowerSubstring);
         let substring2Index = newLowered2.indexOf(sharedLowerSubstring);
-
-        console.log(substring1Index);
-        console.log(substring2Index);
 
         let substringList1 = getSlicedListAtIndex(newSubstring1, substring1Index);
         let substringList2 = getSlicedListAtIndex(newSubstring2, substring2Index);
@@ -355,14 +332,7 @@ function fixSecretCasingDifference(substring1, substring2, loweredString1, lower
         newLowered2 = slicedLowerList2[0] + "β".repeat(numDummies) + slicedLowerList2[1];
 
         sharedLowerSubstring = findLongestCommonSubstring(newLowered1, newLowered2);
-
-        console.log(newSubstring1);
-        console.log(newSubstring2);
     }
-
-    console.log(newSubstring1);
-    console.log(newSubstring2);
-    console.log(counterToSharedLoop);
 
     return unwrapDummyChars(newSubstring1, newSubstring2, counterToSharedLoop, markCasing);
 }
@@ -372,7 +342,6 @@ function finalMismatchCheck(substring1, substring2, finalString1, finalString2, 
     let completeMatch = (substring1 == substring2);
 
     if (completeMatch) {
-        console.log("total match");
         finalString1 += substring1;
         finalString2 += substring2;
         return [finalString1, finalString2];
@@ -396,7 +365,6 @@ function finalMismatchCheck(substring1, substring2, finalString1, finalString2, 
     } else {
         let finalList = fixSecretCasingDifference(substring1, substring2, lowered1, lowered2, markCasing);
 
-        //console.log(finalList);
         finalSubstring1 = finalList[0];
         finalSubstring2 = finalList[1];
     }
@@ -419,13 +387,7 @@ function addDifferenceTags(verse1Dict, verse2Dict, sortedKeys, useCasing) {
 
         finalVerse1 = newVerses[0];
         finalVerse2 = newVerses[1];
-
-        console.log(finalVerse1);
-        console.log(finalVerse2);
     }
-
-    //console.log(finalVerse1);
-    //console.log(finalVerse2);
     return [finalVerse1, finalVerse2];
 }
 
@@ -568,12 +530,6 @@ submitButton.addEventListener("click", async function(event) {
     
     let comparedWithCasing = compareVerses(verse1, verse2, 4, 5, true);
     let comparedWithoutCasing = compareVerses(verse1, verse2, 4, 5, false);
-
-    console.log(comparedWithCasing[0]);
-    console.log(comparedWithoutCasing[0]);
-
-    console.log(comparedWithCasing[1]);
-    console.log(comparedWithoutCasing[1]);
 
     let allExamples = [comparedWithCasing, comparedWithoutCasing];
 
