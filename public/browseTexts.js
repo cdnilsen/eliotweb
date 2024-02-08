@@ -1221,6 +1221,8 @@ function dealWithDollarSigns(string, useRawText) {
 function processFinalText(string, useRawText) {
     string = processCurlyBrackets(string, useRawText);
     string = dealWithDollarSigns(string, useRawText);
+
+    string = string.split("8").join("ꝏ̄");
     return string;
 }
 
