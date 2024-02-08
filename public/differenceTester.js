@@ -424,6 +424,8 @@ function finalMismatchCheck(substring1, substring2, finalString1, finalString2, 
         }
     } else {
         let finalList = fixSecretCasingDifference(substring1, substring2, lowered1, lowered2, markCasing);
+
+        console.log(finalList);
         finalSubstring1 = finalList[0];
         finalSubstring2 = finalList[1];
     }
