@@ -1063,7 +1063,7 @@ function smallCapsCompare(string1, string2) {
 
 function compareVerses(verse1, verse2, chapterNum, verseNum, useCasing) {
 
-    console.log(chapterNum.toString() + ":" + verseNum.toString() + " is being processed.");
+    //console.log(chapterNum.toString() + ":" + verseNum.toString() + " is being processed.");
 
     let hasBlanks = (verse1 == "" || verse2 == "");
 
@@ -1116,6 +1116,7 @@ function compareVerses(verse1, verse2, chapterNum, verseNum, useCasing) {
             console.log("Blank verse at " + chapterNum.toString() + ":" + verseNum.toString());
             finalVerses.push("");
         } else {
+            console.log(processedVerses[i]);
             finalVerses.push(processedVerses[i]);
         }
     }
