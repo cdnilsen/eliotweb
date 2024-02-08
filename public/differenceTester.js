@@ -387,8 +387,8 @@ function fixSecretCasingDifference(substring1, substring2, loweredString1, lower
         sharedLowerSubstring = findLongestCommonSubstring(newLowered1, newLowered2);
     }
 
-
-    return unwrapDummyChars(newSubstring1, newSubstring2, counterToSharedLoop);
+    console.log(unwrapDummyChars(newSubstring1, newSubstring2, counterToSharedLoop));
+    return [newSubstring1, newSubstring2];
 }
 
 // To be called when the substrings *don't* match.
