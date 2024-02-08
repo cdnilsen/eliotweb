@@ -251,6 +251,8 @@ function unwrapDummyChars(wrappedString1, wrappedString2, unwrapDict, markCasing
         casingTagDict["left"] = "Ƀ";
         casingTagDict["right"] = "ƀ";
     }
+
+    console.log(unwrapDict);
     
     let allKeys = Object.keys(unwrapDict);
 
@@ -261,6 +263,7 @@ function unwrapDummyChars(wrappedString1, wrappedString2, unwrapDict, markCasing
         let k = allKeys[i];
         let unwrappedString = casingTagDict["left"] + unwrapDict[k] + casingTagDict["right"];
 
+        console.log(unwrappedString);
         if (finalString1.includes(unwrappedString)) {
             finalString1 = finalString1.split(k).join(unwrappedString);
         }
@@ -335,7 +338,7 @@ function fixSecretCasingDifference(substring1, substring2, loweredString1, lower
     console.log(newSubstring2);
     console.log(counterToSharedLoop);
 
-    console.log(unwrapDummyChars(newSubstring1, newSubstring2, counterToSharedLoop, markCasing));
+    unwrapDummyChars(newSubstring1, newSubstring2, counterToSharedLoop, markCasing);
     return [newSubstring1, newSubstring2];
 }
 
