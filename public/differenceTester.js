@@ -286,13 +286,12 @@ function unwrapDummyChars(wrappedString1, wrappedString2, unwrapDict1, unwrapDic
     let finalStringList = [];
     for (let z = 0; z < 2; z++) {
         let thisString = nearFinalStringList[z];
-        thisString = scrapSpuriousTags(thisString);
+        thisString = castColor(thisString, "red");
         thisString = scrapSpuriousTags(thisString);
         finalStringList.push(thisString);
     }
-
+    
     return finalStringList;
-
 }
 
 function fixSecretCasingDifference(substring1, substring2, loweredString1, loweredString2, markCasing) {
