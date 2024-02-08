@@ -1134,7 +1134,7 @@ function addVersesToDict(dict, chapterNum, verseNum, showCasing, editionNumber) 
     let firstEditionText = dict[2];
     let secondEditionText = dict[3];
 
-    let comparedVerseList = compareVerses(firstEditionText, secondEditionText, chapterNum, verseNum, showCasing, true);
+    let comparedVerseList = compareVerses(firstEditionText, secondEditionText, chapterNum, verseNum, showCasing);
 
     if (dict[2].length <= comparedVerseList[0].length) {
         dict[2] = comparedVerseList[0];
