@@ -1072,8 +1072,12 @@ function processCurlyBrackets(string, showRawText) {
 
 function compareVerses(verse1, verse2, chapterNum, verseNum, useCasing, showRawText) {
 
+    let hasBlanks = (verse1 == "" || verse2 == "");
+
+    let hasUndefined = (verse1 == undefined || verse2 == undefined);
+
     let processedVerses = [];
-    if (showRawText) {
+    if (showRawText || hasBlanks || hasUndefined) {
         processedVerses = [verse1, verse2];
     } else {
         let verse1Dict = {
