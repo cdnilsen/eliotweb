@@ -260,9 +260,13 @@ function unwrapDummyChars(wrappedString1, wrappedString2, unwrapDict1, unwrapDic
     let finalString2 = wrappedString2;
     
     let unwrapDictList = [unwrapDict1, unwrapDict2];
+
+    let finalStringList = [finalString1, finalString2];
+
     for (let i = 0; i < 2; i++) {
         let unwrapDict = unwrapDictList[i];
         let allKeys = Object.keys(unwrapDict);
+        let thisFinalString = finalStringList[i];
         for (let j = 0; j < allKeys.length; j++){
             let k = allKeys[j];
             let wrap = unwrapDict[k];
@@ -274,9 +278,7 @@ function unwrapDummyChars(wrappedString1, wrappedString2, unwrapDict1, unwrapDic
 
             unwrappedString = antiCastColor(unwrappedString, "red");
 
-            finalString1 = finalString1.split(k).join(unwrappedString);
-
-            finalString2 = finalString2.split(k).join(unwrappedString);
+            thisFinalString = thisFinalString.split(k).join(unwrappedString);
         }
     }
 
