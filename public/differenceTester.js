@@ -445,6 +445,8 @@ function addDifferenceTags(verse1Dict, verse2Dict, sortedKeys, useCasing) {
 
         finalMismatchCheck(subverse1, subverse2, finalVerse1, finalVerse2, useCasing);
     }
+    console.log(finalVerse1);
+    console.log(finalVerse2);
     return [finalVerse1, finalVerse2];
 }
 
