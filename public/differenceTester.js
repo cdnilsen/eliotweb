@@ -393,7 +393,7 @@ function fixSecretCasingDifference(substring1, substring2, loweredString1, lower
         sharedLowerSubstring = findLongestCommonSubstring(newLowered1, newLowered2);
     }
 
-    console.log(unwrapDummyChars(newLowered1, newLowered2, counterToSharedLoop));
+    console.log(unwrapDummyChars(newLowered1, newLowered2, counterToSharedLoop, markCasing));
     return [newSubstring1, newSubstring2];
 }
 
