@@ -268,12 +268,14 @@ function unwrapDummyChars(wrappedString1, wrappedString2, unwrapDict, markCasing
 
         let unwrappedString = casingTagDict["left"] + wrap + casingTagDict["right"];
 
-        finalString1 = finalString1.split(wrap).join(unwrappedString);
+        finalString1 = finalString1.split(k).join(unwrappedString);
 
         console.log(finalString1);
 
 
-        finalString2 = finalString2.split(wrap).join(unwrappedString);
+        finalString2 = finalString2.split(k).join(unwrappedString);
+
+        console.log(finalString2);
     }
 
     console.log(finalString1);
