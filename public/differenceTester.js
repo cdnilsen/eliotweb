@@ -253,7 +253,8 @@ function scrapSpuriousTags (string) {
       string = string.split(spuriousTag).join('')
     }
     return string;
-  }
+}
+
 function unwrapDummyChars(wrappedString1, wrappedString2, unwrapDict, markCasing) {
 
     console.log(unwrapDict);
@@ -278,12 +279,12 @@ function unwrapDummyChars(wrappedString1, wrappedString2, unwrapDict, markCasing
 
         finalString1 = finalString1.split(k).join(unwrappedString);
 
-        console.log(finalString1);
+        //console.log(finalString1);
 
 
         finalString2 = finalString2.split(k).join(unwrappedString);
 
-        console.log(finalString2);
+        //console.log(finalString2);
     }
 
     finalString1 = castColor(finalString1, "red");
@@ -363,8 +364,7 @@ function fixSecretCasingDifference(substring1, substring2, loweredString1, lower
     console.log(newSubstring2);
     console.log(counterToSharedLoop);
 
-    unwrapDummyChars(newSubstring1, newSubstring2, counterToSharedLoop, markCasing);
-    return [newSubstring1, newSubstring2];
+    return unwrapDummyChars(newSubstring1, newSubstring2, counterToSharedLoop, markCasing);
 }
 
 // To be called when the substrings *don't* match.
