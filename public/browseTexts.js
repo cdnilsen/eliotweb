@@ -966,6 +966,7 @@ function fixSecretCasingDifference(substring1, substring2, loweredString1, lower
 
 // To be called when the substrings *don't* match.
 function finalMismatchCheck(substring1, substring2, finalString1, finalString2, markCasing) {
+    console.log(markCasing);
     let completeMatch = (substring1 == substring2);
 
     if (completeMatch) {
@@ -1146,7 +1147,7 @@ function addVersesToDict(dict, chapterNum, verseNum, showCasing, editionNumber) 
         }
     }
 
-    //The zeroth edition Genesis's differences are wrt the first edition, although the first edition's are still vs. the 2nd
+    //The zeroth edition Genesis's differences are wrt the first edition, although the first edition's are still vs. the 2nd. Once the first- and zeroth-edition Geneses are done we can simplify much of this
     if (editionNumber % 14 == 0) {
         let zerothComparedList = compareVerses(dict[7], dict[2], showCasing);
 
