@@ -237,20 +237,15 @@ function castColor(string, color) {
     return '<span style="color:' + color + '"><b>' + string + '</b></span>';
 }
 
+function antiCastColor(string, color) {
+    return '</b></span>' + string + '<span style="color:' + color + '"><b>';
+}
+
 function getSlicedListAtIndex(word, index) {
     return [word.slice(0, index), word.slice(index + 1)]
 }
 
 function unwrapDummyChars(wrappedString1, wrappedString2, unwrapDict, markCasing) {
-    let casingTagDict = {
-        "left": "",
-        "right": ""
-    };
-
-    if (markCasing) {
-        casingTagDict["left"] = "Ƀ";
-        casingTagDict["right"] = "ƀ";
-    }
 
     console.log(unwrapDict);
     
@@ -266,7 +261,11 @@ function unwrapDummyChars(wrappedString1, wrappedString2, unwrapDict, markCasing
         console.log(k);
         console.log(wrap);
 
-        let unwrappedString = casingTagDict["left"] + wrap + casingTagDict["right"];
+        let unwrappedString = wrap;
+        if (markCasing) {
+            unwrappedString = castColor(unwrappedString, "blue");
+        }
+        unwrappedString = antiCastColor(unwrappedString, "red");
 
         finalString1 = finalString1.split(k).join(unwrappedString);
 
@@ -278,6 +277,9 @@ function unwrapDummyChars(wrappedString1, wrappedString2, unwrapDict, markCasing
         console.log(finalString2);
     }
 
+    finalString1 = castColor(finalString1, "red");
+    finalString2 = castColor(finalString2, "red");
+    
     console.log(finalString1);
     console.log(finalString2);
 
