@@ -261,17 +261,25 @@ function unwrapDummyChars(wrappedString1, wrappedString2, unwrapDict, markCasing
 
     for (let i = 0; i < allKeys.length; i++){
         let k = allKeys[i];
-        let unwrappedString = casingTagDict["left"] + unwrapDict[k] + casingTagDict["right"];
+        let wrap = unwrapDict[k];
+
+        console.log(k);
+        console.log(wrap);
+        
+        let unwrappedString = casingTagDict["left"] + wrap + casingTagDict["right"];
 
         console.log(unwrappedString);
-        if (finalString1.includes(unwrappedString)) {
-            finalString1 = finalString1.split(k).join(unwrappedString);
+        if (finalString1.includes(wrap)) {
+            finalString1 = finalString1.split(wrap).join(unwrappedString);
         }
 
-        if (finalString2.includes(unwrappedString)) {
-            finalString2 = finalString2.split(k).join(unwrappedString);
+        if (finalString2.includes(wrap)) {
+            finalString2 = finalString2.split(wrap).join(unwrappedString);
         }
     }
+
+    console.log(finalString1);
+    console.log(finalString2);
 
     return [finalString1, finalString2];
 
