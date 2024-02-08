@@ -375,7 +375,7 @@ function finalMismatchCheck(substring1, substring2, finalString1, finalString2, 
         console.log("total match");
         finalString1 += substring1;
         finalString2 += substring2;
-        return;
+        return [finalString1, finalString2];
     }
 
     let lowered1 = substring1.toLowerCase();
