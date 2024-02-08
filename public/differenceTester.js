@@ -311,8 +311,17 @@ function getSlicedListAtIndex(word, index) {
     return [word.slice(0, index), word.slice(index + 1)]
 }
 
-function unwrapDummyChars(wrappedString1, wrappedString2, unwrapDict) {
+function unwrapDummyChars(wrappedString1, wrappedString2, unwrapDict, markCasing) {
+    let casingTagDict = {
+        "left": "",
+        "right": ""
+    };
 
+    if (markCasing) {
+        casingTagDict["left"] = "Ƀ";
+        casingTagDict["right"] = "ƀ";
+    }
+    
     let allKeys = Object.keys(unwrapDict);
 
     let finalString1 = wrappedString1;
@@ -320,7 +329,7 @@ function unwrapDummyChars(wrappedString1, wrappedString2, unwrapDict) {
 
     for (let i = 0; i < allKeys.length; i++){
         let k = allKeys[i];
-        let unwrappedString = unwrapDict[k];
+        let unwrappedString = casingTagDict["left"] + unwrapDict[k] + casingTagDict["right"];
 
         if (finalString1.includes(unwrappedString)) {
             finalString1 = finalString1.split(k).join(unwrappedString);
@@ -381,9 +390,6 @@ function fixSecretCasingDifference(substring1, substring2, loweredString1, lower
         newLowered1 = slicedLowerList1[0] +  "α".repeat(numDummies) +  slicedLowerList1[1];
         newLowered2 = slicedLowerList2[0] + "β".repeat(numDummies) + slicedLowerList2[1];
 
-        console.log(newLowered1);
-        console.log(newLowered2);
-
         sharedLowerSubstring = findLongestCommonSubstring(newLowered1, newLowered2);
     }
 
@@ -401,7 +407,6 @@ function finalMismatchCheck(substring1, substring2, finalString1, finalString2, 
         return;
     }
 
-    console.log("rest of finalMismatchCheck got called");
     let lowered1 = substring1.toLowerCase();
     let lowered2 = substring2.toLowerCase();
 
@@ -424,6 +429,9 @@ function finalMismatchCheck(substring1, substring2, finalString1, finalString2, 
     }
     finalString1 += finalSubstring1;
     finalString2 += finalSubstring2;
+
+    console.log(finalString1);
+    console.log(finalString2);
 }
 
 function addDifferenceTags(verse1Dict, verse2Dict, sortedKeys, useCasing) {
