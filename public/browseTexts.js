@@ -1076,7 +1076,7 @@ function smallCapsCompare(string1, string2) {
 
 //This is always called, so why does it sometimes not compare verses?
 function compareVerses(verse1, verse2, chapterNum, verseNum, useCasing) {
-
+    //Will need to change how this works once verses are stored as lists rather than a single blob of text
     verse1 = verse1.split(" ").join("$");
     verse2 = verse2.split(" ").join("$");
 
