@@ -1061,16 +1061,6 @@ function smallCapsCompare(string1, string2) {
     }
 }
 
-function processCurlyBrackets(string, showRawText) {
-    if (!showRawText) {
-        string = string.split('<span style="color:red"><b>{</b></span>').join('<i>');
-        string = string.split('<span style="color:red"><b>}</b></span>').join('</i>');
-      }
-      string = string.split("{").join("<i>");
-      string = string.split("}").join("</i>");
-      return string;
-}
-
 function compareVerses(verse1, verse2, chapterNum, verseNum, useCasing) {
 
     let hasBlanks = (verse1 == "" || verse2 == "");
@@ -1185,6 +1175,30 @@ function columnMeasurePopulator(numLeftColumns, numRightColumns) {
     return allColumnMeasures.trim();
 }
 
+function processCurlyBrackets(string, useRawText) {
+    if (!useRawText) {
+        string = string.split('<span style="color:red"><b>{</b></span>').join('<i>');
+        string = string.split('<span style="color:red"><b>}</b></span>').join('</i>');
+      }
+      string = string.split("{").join("<i>");
+      string = string.split("}").join("</i>");
+      return string;
+}
+
+function dealWithDollarSigns(string, useRawText) {
+    if (!useRawText) {
+        string = string.split('<span style="color:red"><b>$</b></span>').join('<span style="color:red"><b>˙</b></span>');
+      }
+      string = string.split("$").join(" ");
+      return string;
+}
+
+function processFinalText(string, useRawText) {
+    string = processCurlyBrackets(string, useRawText);
+    string = dealWithDollarSigns(string, useRawText);
+    return string;
+}
+
 async function displayChapterText(book, chapter, useFirst, useSecond, useMayhew, useZeroth, useKJV, useGrebrew, showTextDifferences, markCasing, textContainer) {
     let chapterNum = parseInt(chapter);
 
@@ -1296,7 +1310,8 @@ async function displayChapterText(book, chapter, useFirst, useSecond, useMayhew,
                 }
                 thisVerseColumn.style = "grid-column: " + (k + 1).toString() + ";";
 
-                let thisVerseText = processCurlyBrackets(verseTextDict[p], useRawText);
+                let thisVerseText = processFinalText(verseTextDict[p], useRawText);
+
                 thisVerseColumn.innerHTML = thisVerseText;
                 thisVerseRow.appendChild(thisVerseColumn);
             }
