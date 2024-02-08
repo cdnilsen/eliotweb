@@ -518,7 +518,7 @@ function processBookDict(bookDict) {
     }
 }
 
-let verse1 = "Onk woh wunnamptamwog Jehovah ummanitt8m8oh wut8shinneunk, Ummanitt8moh Abraham, Ummanitt8moh Isaak kah Ummanitt8moh Jakob kenaéhtunk."
+let verse1 = "Onk woh wunnamptamwog Jehovah ummanitt8m8oh wut8shinneunk, Ummanitt8moh Abraham, Ummanitt8moh Isaak kah Ummanitt8moh Jakob kemnaéhtunk."
 
 let verse2 = "Onk woh wunnamptamwog Jehovah um-Manitt8m8oh wut8shinneunk, um-Manitt8moh Abraham, um-Manitt8moh Isaak, kah um-Manitt8moh Jakob kenaéhtunk."
 
