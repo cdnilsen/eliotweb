@@ -966,7 +966,7 @@ function fixSecretCasingDifference(substring1, substring2, loweredString1, lower
 
 // To be called when the substrings *don't* match.
 function finalMismatchCheck(substring1, substring2, finalString1, finalString2, markCasing) {
-    console.log(markCasing);
+    //console.log(markCasing);
     let completeMatch = (substring1 == substring2);
 
     if (completeMatch) {
@@ -1270,6 +1270,8 @@ async function displayChapterText(book, chapter, useFirst, useSecond, useMayhew,
             }
 
             //Run comparisons if need be. Not for Mayhew at this time.
+            console.log(showTextDifferences);
+            console.log(markCasing);
             if (showTextDifferences && canCompareEditions) {
                 addVersesToDict(verseTextDict, chapterNum, verseNum, showCasing, editionNumber);
             }
