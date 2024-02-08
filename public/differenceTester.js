@@ -370,10 +370,14 @@ function fixSecretCasingDifference(substring1, substring2, loweredString1, lower
 // To be called when the substrings *don't* match.
 function finalMismatchCheck(substring1, substring2, finalString1, finalString2, markCasing) {
     let completeMatch = (substring1 == substring2);
+
     if (completeMatch) {
         console.log("total match");
         finalString1 += substring1;
         finalString2 += substring2;
+
+        console.log(finalString1);
+        console.log(finalString2);
         return;
     }
 
@@ -417,6 +421,7 @@ function addDifferenceTags(verse1Dict, verse2Dict, sortedKeys, useCasing) {
 
         finalMismatchCheck(subverse1, subverse2, finalVerse1, finalVerse2, useCasing);
     }
+
     console.log(finalVerse1);
     console.log(finalVerse2);
     return [finalVerse1, finalVerse2];
