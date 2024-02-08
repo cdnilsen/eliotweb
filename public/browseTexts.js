@@ -1070,14 +1070,14 @@ function processCurlyBrackets(string, showRawText) {
       return string;
 }
 
-function compareVerses(verse1, verse2, chapterNum, verseNum, useCasing, showRawText) {
+function compareVerses(verse1, verse2, chapterNum, verseNum, useCasing) {
 
     let hasBlanks = (verse1 == "" || verse2 == "");
 
     let hasUndefined = (verse1 == undefined || verse2 == undefined);
 
     let processedVerses = [];
-    if (showRawText || hasBlanks || hasUndefined) {
+    if (hasBlanks || hasUndefined) {
         processedVerses = [verse1, verse2];
     } else {
         let verse1Dict = {
@@ -1123,21 +1123,19 @@ function compareVerses(verse1, verse2, chapterNum, verseNum, useCasing, showRawT
             console.log("Blank verse at " + chapterNum.toString() + ":" + verseNum.toString());
             finalVerses.push("");
         } else {
-            let italicizedVerse = processCurlyBrackets(processedVerses[i], showRawText);
-            finalVerses.push(italicizedVerse);
+            finalVerses.push(processedVerses[i]);
         }
     }
 
     return finalVerses;
 }
 
-function addComparedVersesToDict(dict, chapterNum, verseNum, showCasing, editionNumber, showRawText) {
-    let useZeroth = (editionNumber % 7 == 0);
+function addVersesToDict(dict, chapterNum, verseNum, showCasing, editionNumber) {
 
     let firstEditionText = dict[2];
     let secondEditionText = dict[3];
 
-    let comparedVerseList = compareVerses(firstEditionText, secondEditionText, chapterNum, verseNum, showCasing, showRawText);
+    let comparedVerseList = compareVerses(firstEditionText, secondEditionText, chapterNum, verseNum, showCasing, true);
 
     if (dict[2].length <= comparedVerseList[0].length) {
         dict[2] = comparedVerseList[0];
@@ -1190,6 +1188,18 @@ async function displayChapterText(book, chapter, useFirst, useSecond, useMayhew,
     textContainer.innerHTML = "";
 
     let editionNumber = getEditionCompositeNumber(useFirst, useSecond, useMayhew, useZeroth, useKJV, useGrebrew);
+
+    //For now, don't count Mayhew
+    let canCompareEditions = false;
+    
+    let comparableComposites = [6, 21, 42];
+    for (let i = 0; i < comparableComposites.length; i++) {
+        if (editionNumber % comparableComposites[i] == 0) {
+            canCompareEditions = true;
+            break;
+        }
+    }
+    
 
     let useRawText = !showTextDifferences && !showCasing;
 
@@ -1258,8 +1268,9 @@ async function displayChapterText(book, chapter, useFirst, useSecond, useMayhew,
             }
 
             //Run comparisons if need be. Not for Mayhew at this time.
-
-            addComparedVersesToDict(verseTextDict, chapterNum, verseNum, showCasing, editionNumber, useRawText);
+            if (showTextDifferences && canCompareEditions) {
+                addVersesToDict(verseTextDict, chapterNum, verseNum, showCasing, editionNumber);
+            }
 
             for (let k = 0; k < usefulPrimes.length; k++) {
                 let p = usefulPrimes[k];
@@ -1281,8 +1292,7 @@ async function displayChapterText(book, chapter, useFirst, useSecond, useMayhew,
                 }
                 thisVerseColumn.style = "grid-column: " + (k + 1).toString() + ";";
 
-                let thisVerseText = verseTextDict[p];
-
+                let thisVerseText = processCurlyBrackets(verseTextDict[p], showRawText);
                 thisVerseColumn.innerHTML = thisVerseText;
                 thisVerseRow.appendChild(thisVerseColumn);
             }
