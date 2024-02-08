@@ -746,6 +746,8 @@ function checkForKeyMismatch(dict1, dict2) {
 function fixMissingBs(dict1, dict2, chapter, verse) {
     let mismatchingKeys = checkForKeyMismatch(dict1, dict2);
 
+    console.log(mismatchingKeys);
+
     let canProcess = true;
     if (mismatchingKeys[2]) {
         // If there aren't any mismatches, quit. Could put a single return after the whole if-else thing but this makes things more explicit
@@ -1105,6 +1107,8 @@ function compareVerses(verse1, verse2, chapterNum, verseNum, useCasing) {
         console.log(verseAddress);
         //console.log(verse1Dict);
         //console.log(verse2Dict);
+
+        //Problem appears to be in fixMissingBs
         let fixedBsList = fixMissingBs(verse1Dict, verse2Dict, chapterNum, verseNum);
         console.log(fixedBsList);
 
