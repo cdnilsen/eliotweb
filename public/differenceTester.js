@@ -289,6 +289,9 @@ function unwrapDummyChars(wrappedString1, wrappedString2, unwrapDict, markCasing
     finalString1 = castColor(finalString1, "red");
     finalString2 = castColor(finalString2, "red");
 
+    console.log(finalString1);
+    console.log(finalString2);
+
     finalString1 = scrapSpuriousTags(finalString1);
     finalString2 = scrapSpuriousTags(finalString2);
 
@@ -392,15 +395,15 @@ function finalMismatchCheck(substring1, substring2, finalString1, finalString2, 
     } else {
         let finalList = fixSecretCasingDifference(substring1, substring2, lowered1, lowered2, markCasing);
 
-        console.log(finalList);
+        //console.log(finalList);
         finalSubstring1 = finalList[0];
         finalSubstring2 = finalList[1];
     }
     finalString1 += finalSubstring1;
     finalString2 += finalSubstring2;
 
-    console.log(finalString1);
-    console.log(finalString2);
+    //console.log(finalString1);
+    //console.log(finalString2);
 }
 
 function addDifferenceTags(verse1Dict, verse2Dict, sortedKeys, useCasing) {
