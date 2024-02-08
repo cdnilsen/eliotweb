@@ -256,20 +256,16 @@ function scrapSpuriousTags (string) {
 }
 
 function unwrapDummyChars(wrappedString1, wrappedString2, unwrapDict1, unwrapDict2, markCasing) {
-    let finalString1 = wrappedString1;
-    let finalString2 = wrappedString2;
-    
     let unwrapDictList = [unwrapDict1, unwrapDict2];
 
-    let finalStringList = [finalString1, finalString2];
+    let intermediateStringList = [wrappedString1, wrappedString1];
 
-    
-
+    let nearFinalStringList = [];
     for (let i = 0; i < 2; i++) {
         let unwrapDict = unwrapDictList[i];
         console.log(unwrapDict);
         let allKeys = Object.keys(unwrapDict);
-        let intermediateString = finalStringList[i];
+        let intermediateString = intermediateStringList[i];
         for (let j = 0; j < allKeys.length; j++){
             let k = allKeys[j];
             let wrap = unwrapDict[k];
@@ -284,16 +280,18 @@ function unwrapDummyChars(wrappedString1, wrappedString2, unwrapDict1, unwrapDic
 
             intermediateString = intermediateString.split(k).join(unwrappedString);
         }
-        finalStringList[i] = intermediateString;
+        nearFinalStringList.push(intermediateString);
     }
 
-    finalString1 = castColor(finalString1, "red");
-    finalString2 = castColor(finalString2, "red");
+    let finalStringList = [];
+    for (let z = 0; z < 2; z++) {
+        let thisString = nearFinalStringList[z];
+        thisString = scrapSpuriousTags(thisString);
+        thisString = scrapSpuriousTags(thisString);
+        finalStringList.push(thisString);
+    }
 
-    finalString1 = scrapSpuriousTags(finalString1);
-    finalString2 = scrapSpuriousTags(finalString2);
-
-    return [finalString1, finalString2];
+    return finalStringList;
 
 }
 
