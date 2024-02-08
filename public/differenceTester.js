@@ -331,6 +331,10 @@ function fixSecretCasingDifference(substring1, substring2, loweredString1, lower
         console.log(newSubstring2);
     }
 
+    console.log(newSubstring1);
+    console.log(newSubstring2);
+    console.log(counterToSharedLoop);
+
     console.log(unwrapDummyChars(newSubstring1, newSubstring2, counterToSharedLoop, markCasing));
     return [newSubstring1, newSubstring2];
 }
