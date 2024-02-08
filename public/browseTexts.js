@@ -1120,7 +1120,7 @@ async function displayChapterText(book, chapter, useFirst, useSecond, useMayhew,
     let headerDiv = document.getElementById("editionHeaders");
     headerDiv.innerHTML = "";
 
-    fetch('/fetchChapter/' + book + '/' + chapter + '/' + editionNumber.toString() + '/' + useRawString, {
+    fetch('/fetchChapter/' + book + '/' + chapter + '/' + editionNumber.toString(), {
         method: 'GET',
         headers: {
         "Content-type": "application/json; charset=UTF-8"

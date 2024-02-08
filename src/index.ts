@@ -112,7 +112,7 @@ app.put('/runWordCounts', wrapAsync(async (req, res) => {
 }));
 
 
-app.get('/fetchChapter/:book/:chapter/:editionNum/:useRawString', wrapAsync(async (req, res) => {
+app.get('/fetchChapter/:book/:chapter/:editionNum', wrapAsync(async (req, res) => {
     try {
         let book: string = req.params.book;
 
@@ -120,9 +120,7 @@ app.get('/fetchChapter/:book/:chapter/:editionNum/:useRawString', wrapAsync(asyn
         
         let editionNum: number = parseInt(req.params.editionNum);
         
-        let useRawString: boolean = (req.params.useRawString === 'true');
-
-        let resultRows = await getChapterText(book, chapter, editionNum, useRawString);
+        let resultRows = await getChapterText(book, chapter, editionNum);
         
         res.json(resultRows);
     } catch (error) {

@@ -128,9 +128,9 @@ const editionToColumnComparedDict: stringToStringDict = {
 
 //Since this gets used in getChapterText, it really needs to be rewritten as a function
 
-function verseFetcher(queryRow: any, editionNumber: number, useRawText: boolean) {
+function verseFetcher(queryRow: any, editionNumber: number) {
 
-    let rawTextDict: IntToAnyDict = {
+    let textDict: IntToAnyDict = {
         2: queryRow.first_edition_raw,
         3: queryRow.second_edition_raw,
         5: queryRow.other_edition_raw,
@@ -139,30 +139,13 @@ function verseFetcher(queryRow: any, editionNumber: number, useRawText: boolean)
         13: queryRow.grebrew
     };
 
-    let comparedText: IntToAnyDict = {
-        2: queryRow.compared_first_edition,
-        3: queryRow.compared_second_edition,
-        5: queryRow.compared_other_edition,
-        7: queryRow.compared_other_edition,
-        11: queryRow.kjv,
-        13: queryRow.grebrew
-    };
-
     let finalVerseDict: StringToAnyDict = {};
-
-    let useWhichDict: IntToAnyDict = {};
-
-    if (useRawText) {
-        useWhichDict = rawTextDict;
-    } else {
-        useWhichDict = comparedText;
-    }
 
     let allTextNumbers: number[] = [2, 3, 5, 7, 11, 13];
     for (let k = 0; k < allTextNumbers.length; k++) {
         let prime = allTextNumbers[k];
         if ((editionNumber % prime) == 0) {
-            finalVerseDict[prime] = useWhichDict[prime]
+            finalVerseDict[prime] = textDict[prime]
         } else {
             finalVerseDict[prime] = "";
         }
@@ -170,14 +153,14 @@ function verseFetcher(queryRow: any, editionNumber: number, useRawText: boolean)
     return finalVerseDict;
 }
 
-export async function getVerseText(verseNumber: number, editionNumber: number, useRawText: boolean)  {
+export async function getVerseText(verseNumber: number, editionNumber: number)  {
     let queryRows = await pool.query("SELECT * FROM all_verses WHERE id = $1::int", [verseNumber]);
 
-    return verseFetcher(queryRows.rows[0], editionNumber, useRawText);
+    return verseFetcher(queryRows.rows[0], editionNumber);
 }
 
 //Should probably turn this into a function that can get all the verses from *any* group of rows...also needs to include verse numbers!
-export async function getChapterText(book: string, chapter: number, editionNumber: number, useRawText: boolean) {
+export async function getChapterText(book: string, chapter: number, editionNumber: number) {
     
     let queryRows = await pool.query('SELECT * FROM all_verses WHERE book = $1::text AND chapter = $2::int', [book, chapter]);
 
@@ -191,7 +174,7 @@ export async function getChapterText(book: string, chapter: number, editionNumbe
 
     for (let j = 0; j < queryRowsLength; j++) {
         let thisRow = queryRows.rows[j];
-        let thisVerseDict = verseFetcher(thisRow, editionNumber, useRawText);
+        let thisVerseDict = verseFetcher(thisRow, editionNumber);
         let thisVerseKeyList = Object.keys(thisVerseDict);
         thisVerseKeyList.sort((a, b) => parseInt(a) - parseInt(b));
         for (let k = 0; k < thisVerseKeyList.length; k++) {
