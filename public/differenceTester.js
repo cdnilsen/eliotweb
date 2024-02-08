@@ -173,9 +173,9 @@ function fixMissingBs(dict1, dict2, chapter, verse) {
         let failureReason = "";
         let differentLengths = (newSortedKeys1.length != newSortedKeys2.length);
 
-        //The machine sometimes thinks that sorted key lists that are actually the same...aren't. This flags them, but makes sure there's really a difference. We could also call the difference array function for an extra check, though it's probably not necessary.
+        //The machine sometimes thinks that sorted key lists that are actually the same...aren't. This can flag them to console (currently commented out), but also has the machine make sure there's really a difference. We could also call the difference array function for an extra check, though it's probably not necessary.
         if (newSortedKeys1 != newSortedKeys2) {
-            console.log("Thinks it can't process " + chapter.toString() + ":" + verse.toString());
+            //console.log("Thinks it can't process " + chapter.toString() + ":" + verse.toString());
             if (differentLengths) {
                 failureReason = "different lengths";
                 canProcess = false;
@@ -437,8 +437,8 @@ function compareVerses(verse1, verse2, chapterNum, verseNum, useCasing) {
 
         processedVerses = addDifferenceTags(verse1Dict, verse2Dict, allKeys1, useCasing);
     } else {
-        console.log("Can't process " + chapterNum.toString() + "." + verseNum.toString() + ": " + fixedBsList[3]);
-        finalStringList = [verse1, verse2];
+        console.log("Can't process " + chapterNum.toString() + "." + verseNum.toString() + ": " + fixedBsList[3] + "\n Showing raw text instead.");
+        processedVerses = [verse1, verse2];
     }
     return processedVerses;
 }
