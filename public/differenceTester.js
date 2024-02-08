@@ -258,18 +258,20 @@ function scrapSpuriousTags (string) {
 function unwrapDummyChars(wrappedString1, wrappedString2, unwrapDict1, unwrapDict2, markCasing) {
     let finalString1 = wrappedString1;
     let finalString2 = wrappedString2;
-
-    for (let j = 0; j < 2; j++) {
-        let unwrapDict = unwrapDict1;
+    
+    let unwrapDictList = [unwrapDict1, unwrapDict2];
+    for (let i = 0; i < 2; i++) {
+        let unwrapDict = unwrapDictList[i];
         let allKeys = Object.keys(unwrapDict);
-        for (let i = 0; i < allKeys.length; i++){
-            let k = allKeys[i];
+        for (let j = 0; j < allKeys.length; j++){
+            let k = allKeys[j];
             let wrap = unwrapDict[k];
 
             let unwrappedString = wrap;
             if (markCasing) {
                 unwrappedString = castColor(unwrappedString, "blue");
             }
+
             unwrappedString = antiCastColor(unwrappedString, "red");
 
             finalString1 = finalString1.split(k).join(unwrappedString);
