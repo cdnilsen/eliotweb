@@ -350,6 +350,8 @@ function fixSecretCasingDifference(substring1, substring2, loweredString1, lower
 
     let sharedLowerSubstring = findLongestCommonSubstring(loweredString1, loweredString2);
 
+    console.log(sharedLowerSubstring);
+
     if (sharedLowerSubstring == "") {
         finalSubstring1 = castColor(substring1, "red");
         finalSubstring2 = castColor(substring2, "red");
