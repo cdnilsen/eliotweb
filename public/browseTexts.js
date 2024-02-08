@@ -968,9 +968,11 @@ function finalMismatchCheck(substring1, substring2, finalString1, finalString2, 
 
     let matchLower = (lowered1 == lowered2);
 
+    let smallCapDifference = smallCapsCompare(substring1, substring2);
+
     let finalSubstring1 = "";
     let finalSubstring2 = "";
-    if (matchLower) {
+    if (matchLower || smallCapDifference) {
         if (markCasing) {
             finalSubstring1 = castColor(substring1, "blue");
             finalSubstring2 = castColor(substring2, "blue");
@@ -1005,6 +1007,46 @@ function addDifferenceTags(verse1Dict, verse2Dict, sortedKeys, useCasing) {
         finalVerse2 = newVerses[1];
     }
     return [finalVerse1, finalVerse2];
+}
+
+//All lists in the list of key lists must be the same length as the values list.
+function listToListDictionary(listOfKeyLists, valuesList) {
+    let dict = {};
+    for (let i = 0; i < listOfKeyLists.length; i++) {
+        let thisList = listOfKeyLists[i];
+        for (let j = 0; j < thisList.length; j++) {
+            dict[thisList[j]] = valuesList[j];
+        }
+    }
+    return dict;
+}
+
+// Needed to ensure that small caps in the second edition are interpreted as *casing* differences (in blue), not as 'real' differences (in red).
+function smallCaps(string) {
+    let smallCapsList = ["ᴀ",  "ʙ",  "ᴄ",  "ᴅ",  "ᴇ",  "ꜰ",  "ɢ",  "ʜ",  "ɪ",  "ᴊ",  "ᴋ",  "ʟ",  "ᴍ",  "ɴ",  "ᴏ",  "ᴘ",  "ꞯ",  "ʀ",  "ꜱ",  "ᴛ",  "ᴜ",  "ᴠ",  "ᴡ",  "ʏ",  "ᴢ"]
+    let normalLowercase = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "y", "z"]
+    let normalUppercase = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "Y", "Z"]
+
+    let normalToSmallCapsDict = listToListDictionary([normalLowercase, normalUppercase, smallCaps], smallCapsList);
+    
+    let returnString = "";
+    for (let i = 0; i < string.length; i++){
+        let char = string[i];
+        if (normalToSmallCapsDict[char] != undefined) {
+            returnString += normalToSmallCapsDict[char];
+        } else {
+            returnString += char;
+        }
+    }
+    return returnString;
+}
+
+function smallCapsCompare(string1, string2) {
+    if (smallCaps(string1) == string2 || smallCaps (string2) == string1) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 function processCurlyBrackets(string, showRawText) {
@@ -1056,7 +1098,7 @@ function compareVerses(verse1, verse2, chapterNum, verseNum, useCasing, showRawT
             processedVerses = [verse1, verse2];
         }
     }
-    
+
     let finalVerses = [];
     for (let i = 0; i < processedVerses.length; i++) {
         let italicizedVerse = processCurlyBrackets(processedVerses[i], showRawText);
