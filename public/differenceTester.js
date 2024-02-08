@@ -372,6 +372,9 @@ function fixSecretCasingDifference(substring1, substring2, loweredString1, lower
         let substring1Index = newLowered1.indexOf(sharedLowerSubstring);
         let substring2Index = newLowered2.indexOf(sharedLowerSubstring);
 
+        console.log(substring1Index);
+        console.log(substring2Index);
+
         let substringList1 = getSlicedListAtIndex(newSubstring1, substring1Index);
         let substringList2 = getSlicedListAtIndex(newSubstring2, substring2Index);
 
