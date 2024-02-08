@@ -416,6 +416,8 @@ function updateChapterDropdown(whichBook) {
 }
 
 function revealCheckboxes(book) {
+    document.getElementById('differenceSelection').hidden = true;
+    
     let activeEditionsNumber = bookToActiveEditionsDict[book];
     let editionContainerDict = {
         2: document.getElementById('firstEditionContainer'),
