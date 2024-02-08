@@ -456,7 +456,7 @@ function revealCheckboxes(book) {
     }
 
     if (numMassEditions > 1) {
-        document.getElementByID('differenceSelection').hidden = false;
+        document.getElementById('differenceSelection').hidden = false;
     }
 }
 
