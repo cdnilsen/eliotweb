@@ -440,15 +440,24 @@ function revealCheckboxes(book) {
         originalLanguage = "Hebrew";
     }
 
+    let numMassEditions = 0;
     let whichPrimesList = [2, 3, 5, 7, 13];
     for (let i = 0; i < whichPrimesList.length; i++) {
         let p = whichPrimesList[i];
         if (activeEditionsNumber % p == 0) {
             editionContainerDict[p].hidden = false;
             editionCheckboxDict[p].checked = true;
+            if (p == 13) {
+                document.getElementById('grebrewLabel').innerHTML = "Show " + originalLanguage;
+            } else {
+                numMassEditions += 1;
+            }
         }
     }
-    document.getElementById('grebrewLabel').innerHTML = "Show " + originalLanguage;
+
+    if (numMassEditions > 1) {
+        document.getElementByID('differenceSelection').hidden = false;
+    }
 }
 
 updateChapterDropdown('Genesis');
