@@ -1021,6 +1021,8 @@ function compareVerses(verse1, verse2, chapterNum, verseNum, useCasing, showRawT
 
     let processedVerses = [];
     if (showRawText) {
+        processedVerses = [verse1, verse2];
+    } else {
         let verse1Dict = {
             "": verse1
         };
@@ -1053,16 +1055,14 @@ function compareVerses(verse1, verse2, chapterNum, verseNum, useCasing, showRawT
             console.log("Can't process " + chapterNum.toString() + "." + verseNum.toString() + ": " + fixedBsList[3] + "\n Showing raw text instead.");
             processedVerses = [verse1, verse2];
         }
-    } else {
-        processedVerses = [verse1, verse2];
     }
-
+    
     let finalVerses = [];
     for (let i = 0; i < processedVerses.length; i++) {
         let italicizedVerse = processCurlyBrackets(processedVerses[i], showRawText);
         finalVerses.push(italicizedVerse);
     }
-    
+
     return finalVerses;
 }
 
