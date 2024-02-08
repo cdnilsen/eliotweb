@@ -266,6 +266,7 @@ function unwrapDummyChars(wrappedString1, wrappedString2, unwrapDict1, unwrapDic
         console.log(unwrapDict);
         let allKeys = Object.keys(unwrapDict);
         let intermediateString = intermediateStringList[i];
+        console.log(intermediateString);
         for (let j = 0; j < allKeys.length; j++){
             let k = allKeys[j];
             let wrap = unwrapDict[k];
@@ -290,7 +291,7 @@ function unwrapDummyChars(wrappedString1, wrappedString2, unwrapDict1, unwrapDic
         thisString = scrapSpuriousTags(thisString);
         finalStringList.push(thisString);
     }
-    
+
     return finalStringList;
 }
 
