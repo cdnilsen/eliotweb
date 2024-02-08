@@ -737,6 +737,11 @@ function checkForKeyMismatch(dict1, dict2) {
 
     let noMismatches = (in1ButNot2List.length == 0 && in2ButNot1List.length == 0);
 
+    if (noMismatches) {
+        in1ButNot2List = keyList1;
+        in2ButNot1List = keyList2;
+    }
+
     let listsNotSameLength = (in1ButNot2List.length != in2ButNot1List.length);
 
     return [in1ButNot2List, in2ButNot1List, noMismatches, listsNotSameLength];
@@ -746,17 +751,15 @@ function checkForKeyMismatch(dict1, dict2) {
 function fixMissingBs(dict1, dict2, chapter, verse) {
     let mismatchingKeys = checkForKeyMismatch(dict1, dict2);
 
-    console.log(mismatchingKeys);
-
     let canProcess = true;
     if (mismatchingKeys[2]) {
         // If there aren't any mismatches, quit. Could put a single return after the whole if-else thing but this makes things more explicit
-        return [[], [], canProcess, "no mismatches"];
+        return [mismatchingKeys[0], mismatchingKeys[1], canProcess, "no mismatches"];
     } else if (mismatchingKeys[3]) {
         // If there are mismatches but the lists aren't the same length, flag it
         console.log("Mismatching keys are not the same length at " + chapter.toString() + ":"+ verse.toString());
-        console.log(mismatchingKeys1);
-        console.log(mismatchingKeys2);
+        console.log(mismatchingKeys[0]);
+        console.log(mismatchingKeys[1]);
         
         canProcess = false;
         return [[], [], canProcess, "lists aren't the same length (find the bug)"];
@@ -1108,7 +1111,7 @@ function compareVerses(verse1, verse2, chapterNum, verseNum, useCasing) {
         //console.log(verse1Dict);
         //console.log(verse2Dict);
 
-        //Problem appears to be in fixMissingBs
+        //Problem appears to be in fix
         let fixedBsList = fixMissingBs(verse1Dict, verse2Dict, chapterNum, verseNum);
         console.log(fixedBsList);
 
