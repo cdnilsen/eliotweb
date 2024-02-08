@@ -263,10 +263,8 @@ function unwrapDummyChars(wrappedString1, wrappedString2, unwrapDict1, unwrapDic
     let nearFinalStringList = [];
     for (let i = 0; i < 2; i++) {
         let unwrapDict = unwrapDictList[i];
-        console.log(unwrapDict);
         let allKeys = Object.keys(unwrapDict);
         let intermediateString = intermediateStringList[i];
-        console.log(intermediateString);
         for (let j = 0; j < allKeys.length; j++){
             let k = allKeys[j];
             let wrap = unwrapDict[k];
@@ -281,11 +279,8 @@ function unwrapDummyChars(wrappedString1, wrappedString2, unwrapDict1, unwrapDic
 
             intermediateString = intermediateString.split(k).join(unwrappedString);
         }
-        //console.log(intermediateString);
         nearFinalStringList.push(intermediateString);
     }
-
-    console.log(nearFinalStringList);
 
     let finalStringList = [];
     for (let z = 0; z < 2; z++) {
