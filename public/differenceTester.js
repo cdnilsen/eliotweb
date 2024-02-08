@@ -258,7 +258,7 @@ function scrapSpuriousTags (string) {
 function unwrapDummyChars(wrappedString1, wrappedString2, unwrapDict1, unwrapDict2, markCasing) {
     let unwrapDictList = [unwrapDict1, unwrapDict2];
 
-    let intermediateStringList = [wrappedString1, wrappedString1];
+    let intermediateStringList = [wrappedString1, wrappedString2];
 
     let nearFinalStringList = [];
     for (let i = 0; i < 2; i++) {
