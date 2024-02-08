@@ -265,16 +265,19 @@ function unwrapDummyChars(wrappedString1, wrappedString2, unwrapDict, markCasing
 
         console.log(k);
         console.log(wrap);
-        
+
         let unwrappedString = casingTagDict["left"] + wrap + casingTagDict["right"];
 
-        console.log(unwrappedString);
         if (finalString1.includes(wrap)) {
             finalString1 = finalString1.split(wrap).join(unwrappedString);
+
+            console.log(finalString1);
         }
 
         if (finalString2.includes(wrap)) {
             finalString2 = finalString2.split(wrap).join(unwrappedString);
+
+            console.log(finalString2);
         }
     }
 
