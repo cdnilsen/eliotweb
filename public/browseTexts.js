@@ -1282,10 +1282,9 @@ async function displayChapterText(book, chapter, useFirst, useSecond, useMayhew,
                     verseTextDict[p] = rawVerseText;
                 }
             }
+            console.log(verseTextDict);
 
             //Run comparisons if need be. Not for Mayhew at this time.
-            console.log(showTextDifferences);
-            console.log(markCasing);
             if (showTextDifferences && canCompareEditions) {
                 addVersesToDict(verseTextDict, chapterNum, verseNum, markCasing, editionNumber);
             }
