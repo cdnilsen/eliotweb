@@ -388,9 +388,7 @@ function fixSecretCasingDifference(substring1, substring2, loweredString1, lower
     }
 
 
-    console.log(newSubstring1);
-    console.log(newSubstring2);
-    return [substring1, substring2];
+    return unwrapDummyChars(newSubstring1, newSubstring2, counterToSharedLoop);
 }
 
 // To be called when the substrings *don't* match.
