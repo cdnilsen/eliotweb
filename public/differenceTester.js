@@ -375,9 +375,6 @@ function finalMismatchCheck(substring1, substring2, finalString1, finalString2, 
         console.log("total match");
         finalString1 += substring1;
         finalString2 += substring2;
-
-        console.log(finalString1);
-        console.log(finalString2);
         return;
     }
 
@@ -418,12 +415,18 @@ function addDifferenceTags(verse1Dict, verse2Dict, sortedKeys, useCasing) {
         let k = sortedKeys[i];
         let subverse1 = verse1Dict[k];
         let subverse2 = verse2Dict[k];
+        
+        console.log(finalVerse1);
+        console.log(finalVerse2);
 
         finalMismatchCheck(subverse1, subverse2, finalVerse1, finalVerse2, useCasing);
+
+        console.log(finalVerse1);
+        console.log(finalVerse2);
     }
 
-    console.log(finalVerse1);
-    console.log(finalVerse2);
+    //console.log(finalVerse1);
+    //console.log(finalVerse2);
     return [finalVerse1, finalVerse2];
 }
 
