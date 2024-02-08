@@ -311,6 +311,30 @@ function getSlicedListAtIndex(word, index) {
     return [word.slice(0, index), word.slice(index + 1)]
 }
 
+function unwrapDummyChars(wrappedString1, wrappedString2, unwrapDict) {
+
+    let allKeys = Object.keys(unwrapDict);
+
+    let finalString1 = wrappedString1;
+    let finalString2 = wrappedString2;
+
+    for (let i = 0; i < allKeys.length; i++){
+        let k = allKeys[i];
+        let unwrappedString = unwrapDict[k];
+
+        if (finalString1.includes(unwrappedString)) {
+            finalString1 = finalString1.split(k).join(unwrappedString);
+        }
+
+        if (finalString2.includes(unwrappedString)) {
+            finalString2 = finalString2.split(k).join(unwrappedString);
+        }
+    }
+
+    return [finalString1, finalString2];
+
+}
+
 function fixSecretCasingDifference(substring1, substring2, loweredString1, loweredString2, markCasing) {
     let finalSubstring1 = "";
     let finalSubstring2 = "";
@@ -340,26 +364,29 @@ function fixSecretCasingDifference(substring1, substring2, loweredString1, lower
         let substringList1 = getSlicedListAtIndex(newSubstring1, substring1Index);
         let substringList2 = getSlicedListAtIndex(newSubstring2, substring2Index);
 
-        newSubstring1 = substringList1[0] + "‹" + counter.toString() + "›" + substringList1[1];
-        newSubstring2 = substringList2[0] + "«" + counter.toString() + "»" + substringList2[1];
+        let guillemetedCounter = "‹" + counter.toString() + "›";
 
-        counterToSharedLoop[counter] = sharedLowerSubstring;
+        newSubstring1 = substringList1[0] + guillemetedCounter + substringList1[1];
+        newSubstring2 = substringList2[0] + guillemetedCounter + substringList2[1];
 
-        let counterDigitsNum = (counter.toString()).length
+        counterToSharedLoop[guillemetedCounter] = sharedLowerSubstring;
+
+        let numDummies = guillemetedCounter.length
 
         let slicedLowerList1 = newLowered1.split(sharedLowerSubstring);
         let slicedLowerList2 = newLowered2.split(sharedLowerSubstring);
 
         //now go through and for every digit in the counter, plus two (for the guillemets), throw a *separate* dummy char into the lowers
 
-        newLowered1 = slicedLowerList1[0] +  "α".repeat(counterDigitsNum + 2) +  slicedLowerList1[1];
-        newLowered2 = slicedLowerList2[0] + "β".repeat(counterDigitsNum + 2) + slicedLowerList2[1];
+        newLowered1 = slicedLowerList1[0] +  "α".repeat(numDummies) +  slicedLowerList1[1];
+        newLowered2 = slicedLowerList2[0] + "β".repeat(numDummies) + slicedLowerList2[1];
 
         console.log(newLowered1);
         console.log(newLowered2);
 
         sharedLowerSubstring = findLongestCommonSubstring(newLowered1, newLowered2);
     }
+
 
     console.log(newSubstring1);
     console.log(newSubstring2);
