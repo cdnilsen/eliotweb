@@ -416,10 +416,10 @@ function addDifferenceTags(verse1Dict, verse2Dict, sortedKeys, useCasing) {
         let subverse1 = verse1Dict[k];
         let subverse2 = verse2Dict[k];
         
-        console.log(finalVerse1);
-        console.log(finalVerse2);
+        let newVerses = finalMismatchCheck(subverse1, subverse2, finalVerse1, finalVerse2, useCasing);
 
-        finalMismatchCheck(subverse1, subverse2, finalVerse1, finalVerse2, useCasing);
+        finalVerse1 = newVerses[0];
+        finalVerse2 = newVerses[1];
 
         console.log(finalVerse1);
         console.log(finalVerse2);
