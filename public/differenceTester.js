@@ -245,6 +245,15 @@ function getSlicedListAtIndex(word, index) {
     return [word.slice(0, index), word.slice(index + 1)]
 }
 
+function scrapSpuriousTags (string) {
+    let colorList = ['blue', 'red'];
+    for (let i = 0; i < colorList.length; i++) {
+      let spuriousTag = '<span style="color:' + colorList[i] + '"><b></b></span>'
+  
+      string = string.split(spuriousTag).join('')
+    }
+    return string;
+  }
 function unwrapDummyChars(wrappedString1, wrappedString2, unwrapDict, markCasing) {
 
     console.log(unwrapDict);
@@ -279,7 +288,10 @@ function unwrapDummyChars(wrappedString1, wrappedString2, unwrapDict, markCasing
 
     finalString1 = castColor(finalString1, "red");
     finalString2 = castColor(finalString2, "red");
-    
+
+    finalString1 = scrapSpuriousTags(finalString1);
+    finalString2 = scrapSpuriousTags(finalString2);
+
     console.log(finalString1);
     console.log(finalString2);
 
