@@ -691,7 +691,7 @@ function postSnippetsToDict(snippetList, verseDict, oldKey, sharedStringIsZero) 
     }
 }
 
-function getSnippetTuples(dict1, dict2, snippet1, snippet2, sharedString, key) {
+function processSnippets(dict1, dict2, snippet1, snippet2, sharedString, key) {
 
     if (sharedString == "" || snippet1 == "" || snippet2 == "") {
         let verse1List = [snippet1, "", ""];
@@ -824,12 +824,20 @@ function processDictKeys(dict1, dict2, key) {
         dict2[key] = "";
     }
 
+    if (dict1[key] == "$") {
+        dict1[key] = " ";
+    }
+
+    if (dict2[key] == "$") {
+        dict2[key] = " ";
+    }
+
     let verseSnippet1 = dict1[key];
     let verseSnippet2 = dict2[key];
 
     let sharedString = findLongestCommonSubstring(verseSnippet1, verseSnippet2);
     
-    getSnippetTuples(dict1, dict2, verseSnippet1, verseSnippet2, sharedString, key);
+    processSnippets(dict1, dict2, verseSnippet1, verseSnippet2, sharedString, key);
 }
 
 function processVerseDictionaries(dict1, dict2) {
@@ -1068,6 +1076,10 @@ function smallCapsCompare(string1, string2) {
 
 //This is always called, so why does it sometimes not compare verses?
 function compareVerses(verse1, verse2, chapterNum, verseNum, useCasing) {
+
+    verse1 = verse1.split(" ").join("$");
+    verse2 = verse2.split(" ").join("$");
+
     let verseAddress = chapterNum.toString() + ":" + verseNum.toString(); //useful for debugging
     //console.log(chapterNum.toString() + ":" + verseNum.toString() + " is being processed.");
 
@@ -1205,14 +1217,11 @@ function processCurlyBrackets(string, useRawText) {
 }
 
 function dealWithDollarSigns(string, useRawText) {
-    if (!useRawText) {
-        string = string.split('<span style="color:red"><b>$</b></span>').join('<span style="color:red"><b>˙</b></span>');
-      }
+    string = string.split("$").join(" ");
 
-      if (string.includes('<span style="color:red"><b>$</b></span>')) {
-        console.log("Red space found");
+    if (!useRawText) {
+        string = string.split('<span style="color:red"><b> </b></span>').join('<span style="color:red"><b>˙</b></span>');
       }
-      string = string.split("$").join(" ");
       return string;
 }
 
