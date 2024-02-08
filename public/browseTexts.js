@@ -1007,51 +1007,73 @@ function addDifferenceTags(verse1Dict, verse2Dict, sortedKeys, useCasing) {
     return [finalVerse1, finalVerse2];
 }
 
-function compareVerses(verse1, verse2, chapterNum, verseNum, useCasing) {
-    let verse1Dict = {
-        "": verse1
-    };
-
-    let verse2Dict = {
-        "": verse2
-    };
-
-    let keepGoing = true;
-    let safetyCounter = 0;
-    while(keepGoing && safetyCounter < 100) {
-        keepGoing = processVerseDictionaries(verse1Dict, verse2Dict);
-        safetyCounter += 1;
-    }
-
-    if (safetyCounter == 100) {
-        console.log("Endless loop!");
-    }
-
-    let fixedBsList = fixMissingBs(verse1Dict, verse2Dict, chapterNum, verseNum);
-
-    let canProcess = fixedBsList[2];
-
-    let processedVerses = [];
-
-    if (canProcess) {
-        let allKeys1 = fixedBsList[0];
-        let allKeys2 = fixedBsList[1];
-
-        processedVerses = addDifferenceTags(verse1Dict, verse2Dict, allKeys1, useCasing);
-    } else {
-        console.log("Can't process " + chapterNum.toString() + "." + verseNum.toString() + ": " + fixedBsList[3] + "\n Showing raw text instead.");
-        processedVerses = [verse1, verse2];
-    }
-    return processedVerses;
+function processCurlyBrackets(string, showRawText) {
+    if (!showRawText) {
+        string = string.split('<span style="color:red"><b>{</b></span>').join('<i>');
+        string = string.split('<span style="color:red"><b>}</b></span>').join('</i>');
+      }
+      string = string.split("{").join("<i>");
+      string = string.split("}").join("</i>");
+      return string;
 }
 
-function addComparedVersesToDict(dict, chapterNum, verseNum, showCasing, editionNumber) {
+function compareVerses(verse1, verse2, chapterNum, verseNum, useCasing, showRawText) {
+
+    let processedVerses = [];
+    if (showRawText) {
+        let verse1Dict = {
+            "": verse1
+        };
+
+        let verse2Dict = {
+            "": verse2
+        };
+
+        let keepGoing = true;
+        let safetyCounter = 0;
+        while(keepGoing && safetyCounter < 100) {
+            keepGoing = processVerseDictionaries(verse1Dict, verse2Dict);
+            safetyCounter += 1;
+        }
+
+        if (safetyCounter == 100) {
+            console.log("Endless loop!");
+        }
+
+        let fixedBsList = fixMissingBs(verse1Dict, verse2Dict, chapterNum, verseNum);
+
+        let canProcess = fixedBsList[2];
+
+        if (canProcess) {
+            let allKeys1 = fixedBsList[0];
+            let allKeys2 = fixedBsList[1];
+
+            processedVerses = addDifferenceTags(verse1Dict, verse2Dict, allKeys1, useCasing);
+        } else {
+            console.log("Can't process " + chapterNum.toString() + "." + verseNum.toString() + ": " + fixedBsList[3] + "\n Showing raw text instead.");
+            processedVerses = [verse1, verse2];
+        }
+    } else {
+        processedVerses = [verse1, verse2];
+    }
+
+    let finalVerses = [];
+    for (let i = 0; i < processedVerses.length; i++) {
+        let italicizedVerse = processCurlyBrackets(processedVerses[i], showRawText);
+        finalVerses.push(italicizedVerse);
+    }
+    
+    return finalVerses;
+}
+
+function addComparedVersesToDict(dict, chapterNum, verseNum, showCasing, editionNumber, showRawText) {
     let useZeroth = (editionNumber % 7 == 0);
 
     let firstEditionText = dict[2];
     let secondEditionText = dict[3];
 
-    let comparedVerseList = compareVerses(firstEditionText, secondEditionText, chapterNum, verseNum, showCasing);
+    let comparedVerseList = compareVerses(firstEditionText, secondEditionText, chapterNum, verseNum, showCasing, showRawText);
+
     if (dict[2].length <= comparedVerseList[0].length) {
         dict[2] = comparedVerseList[0];
     }
@@ -1172,9 +1194,7 @@ async function displayChapterText(book, chapter, useFirst, useSecond, useMayhew,
 
             //Run comparisons if need be. Not for Mayhew at this time.
 
-            if (!useRawText) {
-                addComparedVersesToDict(verseTextDict, chapterNum, verseNum, showCasing, editionNumber);
-            }
+            addComparedVersesToDict(verseTextDict, chapterNum, verseNum, showCasing, editionNumber, useRawText);
 
             for (let k = 0; k < usefulPrimes.length; k++) {
                 let p = usefulPrimes[k];
