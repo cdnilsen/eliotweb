@@ -1106,14 +1106,8 @@ function compareVerses(verse1, verse2, chapterNum, verseNum, useCasing) {
         if (safetyCounter == 100) {
             console.log("Endless loop!");
         }
-        //Verses appear to be good: 
-        console.log(verseAddress);
-        //console.log(verse1Dict);
-        //console.log(verse2Dict);
 
-        //Problem appears to be in fix
         let fixedBsList = fixMissingBs(verse1Dict, verse2Dict, chapterNum, verseNum);
-        console.log(fixedBsList);
 
         let canProcess = fixedBsList[2];
 
@@ -1213,6 +1207,10 @@ function processCurlyBrackets(string, useRawText) {
 function dealWithDollarSigns(string, useRawText) {
     if (!useRawText) {
         string = string.split('<span style="color:red"><b>$</b></span>').join('<span style="color:red"><b>˙</b></span>');
+      }
+
+      if (string.includes('<span style="color:red"><b>$</b></span>')) {
+        console.log("Red space found");
       }
       string = string.split("$").join(" ");
       return string;
