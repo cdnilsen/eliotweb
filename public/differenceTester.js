@@ -281,6 +281,7 @@ function unwrapDummyChars(wrappedString1, wrappedString2, unwrapDict1, unwrapDic
 
             intermediateString = intermediateString.split(k).join(unwrappedString);
         }
+        console.log(intermediateString);
         nearFinalStringList.push(intermediateString);
     }
 
