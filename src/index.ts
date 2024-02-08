@@ -176,15 +176,13 @@ app.put('/runWordCounts', wrapAsync(async (req, res) => {
 }));
 
 
-app.get('/fetchVerse/:verseID/:editionNum/:useRawString', wrapAsync(async (req, res) => {
+app.get('/fetchVerse/:verseID/:editionNum', wrapAsync(async (req, res) => {
     try {
         let verseID: number = parseInt(req.params.verseID);
         
         let editionNum: number = parseInt(req.params.editionNum);
-        
-        let useRawString: boolean = (req.params.useRawString === 'true');
 
-        let result = await getVerseText(verseID, editionNum, useRawString);
+        let result = await getVerseText(verseID, editionNum);
         
         res.json(result);
     } catch (error) {
