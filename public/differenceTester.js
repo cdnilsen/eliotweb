@@ -403,8 +403,7 @@ function finalMismatchCheck(substring1, substring2, finalString1, finalString2, 
     finalString1 += finalSubstring1;
     finalString2 += finalSubstring2;
 
-    //console.log(finalString1);
-    //console.log(finalString2);
+    return [finalString1, finalString2];
 }
 
 function addDifferenceTags(verse1Dict, verse2Dict, sortedKeys, useCasing) {
