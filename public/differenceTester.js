@@ -263,8 +263,11 @@ function unwrapDummyChars(wrappedString1, wrappedString2, unwrapDict1, unwrapDic
 
     let finalStringList = [finalString1, finalString2];
 
+    
+
     for (let i = 0; i < 2; i++) {
         let unwrapDict = unwrapDictList[i];
+        console.log(unwrapDict);
         let allKeys = Object.keys(unwrapDict);
         let thisFinalString = finalStringList[i];
         for (let j = 0; j < allKeys.length; j++){
