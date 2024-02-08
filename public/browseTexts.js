@@ -1061,13 +1061,23 @@ function smallCapsCompare(string1, string2) {
     }
 }
 
+//This is always called, so why does it sometimes not compare verses?
 function compareVerses(verse1, verse2, chapterNum, verseNum, useCasing) {
 
     //console.log(chapterNum.toString() + ":" + verseNum.toString() + " is being processed.");
 
     let hasBlanks = (verse1 == "" || verse2 == "");
 
+
+    if (hasBlanks){
+        console.log("Blank verse at " + chapterNum.toString() + ":" + verseNum.toString());
+    }
+
     let hasUndefined = (verse1 == undefined || verse2 == undefined);
+
+    if (hasUndefined) {
+        console.log("Undefined verse at " + chapterNum.toString() + ":" + verseNum.toString());
+    }
 
     let processedVerses = [];
     if (hasBlanks || hasUndefined) {
@@ -1091,7 +1101,9 @@ function compareVerses(verse1, verse2, chapterNum, verseNum, useCasing) {
         if (safetyCounter == 100) {
             console.log("Endless loop!");
         }
-
+        
+        console.log(verse1Dict);
+        console.log(verse2Dict);
         let fixedBsList = fixMissingBs(verse1Dict, verse2Dict, chapterNum, verseNum);
 
         let canProcess = fixedBsList[2];
@@ -1116,7 +1128,8 @@ function compareVerses(verse1, verse2, chapterNum, verseNum, useCasing) {
             console.log("Blank verse at " + chapterNum.toString() + ":" + verseNum.toString());
             finalVerses.push("");
         } else {
-            console.log(processedVerses[i]);
+            //...but it sometimes passes this:
+            //console.log(processedVerses[i]);
             finalVerses.push(processedVerses[i]);
         }
     }
