@@ -3,20 +3,25 @@
 let xmlFolder = './Hebrew XML/';
 let jsonFolder = './Hebrew JSON/';
 
-function processXMLLine(line, chapterCounter, verseCounter, wordCounter, finalLineText) {
-    console.log(line);
-    let lineType = line[1];
-    let lineText = line.slice(3, -4);
 
-    let hasSofPasuk = (lineText.endsWith("׃"));
-    
-    if (hasSofPasuk) {
-        console.log("Sof Pasuk");
-        lineText = lineText.slice(0, -1);
+async function getHapaxes() {
+    let hapaxFile = await fetch('OT Hapaxes.txt');
+    let hapaxText = await hapaxFile.text();
+    let textLines = hapaxText.split('\n');
+
+    let finalList = [];
+
+    for (let i = 0; i < textLines.length; i++) {
+        let hapax = textLines[i].split('\ t')[1];
+        console.log(hapax);
     }
-    
-    console.log(lineText);
-    /*
+    return finalList;
+}
+
+async function processXMLLine(line, chapterCounter, verseCounter, wordCounter, finalLineText) {
+    //console.log(line);
+    let lineType = line[1];
+
     if (lineType == 'c') {
         chapterCounter++;
         verseCounter = 0;
@@ -24,11 +29,33 @@ function processXMLLine(line, chapterCounter, verseCounter, wordCounter, finalLi
         verseCounter++;
         wordCounter = 0;
     } else {
-        if (lineType != 'q') {
-            wordCounter++;
+        let lineText = line.slice(3, -4);
+
+        let isHapax = isHapax(lineText);
+
+        let hasSofPasuk = (lineText.endsWith("׃"));
+        
+        let wordSpace = " ";
+        if (hasSofPasuk) {
+            lineText = lineText.slice(0, -1);
+            wordSpace = "׃";
         }
+
+        if (lineType == 'w') {
+            wordCounter++;
+            finalLineText += lineText + wordSpace;
+        }
+        if (lineType == 'k') {
+            wordCounter++;
+            finalLineText += "<K>" + lineText;
+        }
+
+        if (lineType == 'q') {
+            wordCounter++;
+            finalLineText += "<Q>" + lineText + "</Q></K>" + wordSpace;
+        }
+
     }
-    */
 }
 
 function lineProcessBool(line) {
@@ -47,6 +74,9 @@ async function processBook(bookName) {
     let bookLines = bookXMLText.split('\n');
 
     let allLineDict = {};
+    
+    let hapaxList = await getHapaxes();
+
     for (let i = 0; i < bookLines.length; i++) {
         let xmlLine = bookLines[i].trim();
         
