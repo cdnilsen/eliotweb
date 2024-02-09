@@ -101,7 +101,7 @@ async function populateHapaxes() {
     
 }
 
-async function getRightHapaxLine(book) {
+async function getRightHapaxes(book) {
     let allHapaxFile = await fetch('./OTHapaxList.txt');
     let allHapaxText = await allHapaxFile.text();
     let bookList = allHapaxText.split('\n');
@@ -114,8 +114,8 @@ async function getRightHapaxLine(book) {
             break;
         }
     }
-    console.log(thisLine);
-    return thisLine;
+    console.log(thisLine.split(","));
+    return thisLine.split(",");
 }
 
 async function processXMLLine(line, book, chapterCounter, verseCounter, wordCounter, finalLineText) {
