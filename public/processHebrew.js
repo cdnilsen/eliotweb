@@ -3,6 +3,8 @@
 let xmlFolder = './Hebrew XML/';
 let jsonFolder = './Hebrew JSON/';
 
+let fs = require('fs');
+
 function getHapaxBook(hapaxAddress) {
     return hapaxAddress.slice(1, -1).split(" ").slice(0, -1).join(" ");
 }
@@ -32,8 +34,7 @@ async function populateHapaxFile() {
     }
     let outputFile = './allOTHapaxes.json';
     let output = JSON.stringify(bookToHapaxDict);
-    let blob = new Blob([output], {type: "text/plain;charset=utf-8"});
-    saveAs(blob, outputFile);
+    fs.writeFileSync(outputFile, output);
 }
 
 async function processXMLLine(line, chapterCounter, verseCounter, wordCounter, finalLineText) {
