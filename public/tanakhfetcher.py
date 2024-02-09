@@ -632,11 +632,47 @@ def processBookXML(bookName):
         
     bookJSON.write(json.dumps(newRawJSON, indent=2))
 
-processBookXML("Leviticus")
 
-print("Hello!")
-                
-           
+def renormalizeHapaxFile():
+    hapaxFile = open("./OTHapaxList.txt", "r", encoding="utf-8")
+    hapaxFileLines = hapaxFile.readlines()
+    hapaxFile.close()
+
+    newFile = open("./OTHapaxesNormalized.txt", "w", encoding="utf-8")
+    for line in hapaxFileLines:
+        splitLine = line.split("|")
+        bookName = splitLine[0].strip()
+        hapaxList = splitLine[1].strip().split(',')
+        
+        normalizedHapaxList = []
+        for hapax in hapaxList:
+            newHapax = unicodedata.normalize('NFC', hapax)
+            print(hapax)
+            print(newHapax)
+            print(hapax == newHapax)
+            normalizedHapaxList.append(newHapax)
+        
+        newFile.write(bookName + "|" + ",".join(normalizedHapaxList) + "\n")
+
+    
+def normalizeXML(book):
+    xmlFile = open("./Hebrew XML/" + book + ".xml", "r", encoding="utf-8")
+    xmlLines = xmlFile.readlines()
+    xmlFile.close()
+
+    newLines = []
+    for line in xmlLines:
+        newLines.append(unicodedata.normalize('NFC', line))
+
+    newFile = open("./Hebrew XML/" + book + ".xml", "w", encoding="utf-8")
+    for line in newLines:
+        newFile.write(line)
+    newFile.close()
+
+testLine = "        <w>בִּשְׂדֵ֣י</w>"
+print(unicodedata.normalize('NFC', testLine))
+
+normalizeXML('Ruth')
 
             
 
