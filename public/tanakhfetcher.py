@@ -628,15 +628,16 @@ def processBookXML(bookName):
             "chapter": chapter,
             "verse": verse,
             "text": finalVerseTextDict[address]
-        })        
+        })
         
     bookJSON.write(json.dumps(newRawJSON, indent=2))
 
 processBookXML("Leviticus")
 
+print("Hello!")
                 
            
-            
+
             
 
             
