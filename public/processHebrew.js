@@ -8,7 +8,7 @@ function processXMLLine(line, chapterCounter, verseCounter, wordCounter, finalLi
     let lineType = line[1];
     let lineText = line.slice(3, -4);
 
-    let hasSofPasuk = (lineText[-1] == "׃");
+    let hasSofPasuk = (lineText.endsWith("׃"));
     
     if (hasSofPasuk) {
         console.log("Sof Pasuk");
