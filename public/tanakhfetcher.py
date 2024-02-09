@@ -549,9 +549,7 @@ def getBookHapaxes(book):
                 address = int(rawAddress[0] + str(addZeros(rawAddress[1], 4)))
                 hapax = killCantillationMarks(splitLine[1].strip())
                 finalDict[hapax] = address
-
-    print(numHapaxes)
-    print(len(finalDict))
+                print(address)
 
     return finalDict
                 
@@ -580,13 +578,15 @@ def processBookXML(bookName):
             allHapaxAddresses.append(address)
             addressToWordsDict[address] = [hapax]
         else:
-            print(addressToWordsDict[address])
             addressToWordsDict[address].append(hapax)
-            print(addressToWordsDict[address])
-    
+
+    #Some sort of type (?) error around here
     allHapaxAddresses.sort()
     print("hapaxes: " + str(len(allHapaxAddresses)))
+    print("list of hapaxdict: " + str(len(list(hapaxDict.keys()))))
+    print(hapaxDict)
 
+          
     finalVerseTextDict = {}
     for key in lineKeys:
         verseAddress = key[0:-4]
@@ -619,8 +619,18 @@ def processBookXML(bookName):
 
     bookJSON = open("./Hebrew JSON/" + bookName + ".json", "w", encoding="utf-8")
 
-    bookJSON.write(json.dumps(finalVerseTextDict, indent=2))
-    bookJSON.close()
+    newRawJSON = []
+
+    for address in finalVerseTextDict:
+        chapter = int(address[0:-4])
+        verse = int(address[-2:])
+        newRawJSON.append({
+            "chapter": chapter,
+            "verse": verse,
+            "text": finalVerseTextDict[address]
+        })        
+        
+    bookJSON.write(json.dumps(newRawJSON, indent=2))
 
 processBookXML("Leviticus")
 
