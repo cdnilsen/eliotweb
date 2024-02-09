@@ -1,16 +1,14 @@
 //A program to process the Hebrew text from the XML files
 
 let xmlFolder = './Hebrew XML/';
-let fs = require('fs');
-let path = require('path');
 let jsonFolder = './Hebrew JSON/';
 
 async function processBook(bookName) {
-    let xmlPath = path.join(xmlFolder, bookName + '.xml');
-    let xmlData = fs.readFileSync(xmlPath, 'utf8');
-    let jsonData = await xml2json(xmlData);
-    for (let i = 0; i < jsonData.length; i++) {
-        let xmlLine = jsonData[i];
+    let bookXML = await fetch(xmlFolder + bookName + '.xml');
+    let bookXMLText = await bookXML.text();
+    let bookLines = bookXMLText.split('\n');
+    for (let i = 0; i < bookLines.length; i++) {
+        let xmlLine = bookLines[i];
         console.log(xmlLine.strip());
     }
 }
