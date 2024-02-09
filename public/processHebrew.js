@@ -5,7 +5,7 @@ let jsonFolder = './Hebrew JSON/';
 
 function getHapaxBook(hapaxAddress) {
     console.log(hapaxAddress);
-    book = (hapaxAddress.slice(1, -1).split(" ")).slice(0, -1).join(" ");
+    let book = (hapaxAddress.slice(1, -1).split(" ")).slice(0, -1).join(" ");
     console.log(book);
 }
 
