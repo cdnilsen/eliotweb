@@ -3,7 +3,47 @@
 let xmlFolder = './Hebrew XML/';
 let jsonFolder = './Hebrew JSON/';
 
-let fs = require('fs');
+const allBookList = [
+    "Genesis",
+    "Exodus",
+    "Leviticus",
+    "Numbers",
+    "Deuteronomy",
+    "Joshua",
+    "Judges",
+    "Ruth",
+    "1 Samuel",
+    "2 Samuel",
+    "1 Kings",
+    "2 Kings",
+    "1 Chronicles",
+    "2 Chronicles",
+    "Ezra",
+    "Nehemiah",
+    "Esther",
+    "Job",
+    "Psalms",
+    "Proverbs",
+    "Ecclesiastes",
+    "Song of Songs",
+    "Isaiah",
+    "Jeremiah",
+    "Lamentations",
+    "Ezekiel",
+    "Daniel",
+    "Hosea",
+    "Joel",
+    "Amos",
+    "Obadiah",
+    "Jonah",
+    "Micah",
+    "Nahum",
+    "Habakkuk",
+    "Zephaniah",
+    "Haggai",
+    "Zechariah",
+    "Malachi"
+];
 
 function getHapaxBook(hapaxAddress) {
     return hapaxAddress.slice(1, -1).split(" ").slice(0, -1).join(" ");
@@ -13,6 +53,7 @@ async function populateHapaxFile() {
     let hapaxFile = await fetch('OT Hapaxes.txt');
     let hapaxText = await hapaxFile.text();
     let textLines = hapaxText.split('\n');
+
 
     let bookToHapaxDict = {};
 
@@ -32,9 +73,31 @@ async function populateHapaxFile() {
             bookToHapaxDict[book].push(hapax);
         }
     }
-    let outputFile = './allOTHapaxes.json';
-    let output = JSON.stringify(bookToHapaxDict);
-    fs.writeFileSync(outputFile, output);
+    let outputDiv = document.getElementById("output");
+    for (let i = 0; i < allBookList.length; i++) {
+        if (!(allBookList[i] in bookToHapaxDict)) {
+            console.log(allBookList[i] + " not in dictionary")
+            bookToHapaxDict[allBookList[i]] = [];
+        } else {
+            let thisBookDiv = document.createElement("div");
+            
+            let thisBookSpan = document.createElement("span");
+            thisBookSpan.innerHTML = allBookList[i] + " | ";
+
+            let allWordsSpan = document.createElement("span");
+            let allWordsString = "";
+            for (let j = 0; j < bookToHapaxDict[allBookList[i]].length; j++) {
+                allWordsString += bookToHapaxDict[allBookList[i]][j] + ", ";
+            }
+            allWordsSpan.innerHTML = allWordsString;
+
+            thisBookDiv.appendChild(thisBookSpan);
+            thisBookDiv.appendChild(allWordsSpan);
+
+            outputDiv.appendChild(thisBookDiv);
+        }
+    }
+    
 }
 
 async function processXMLLine(line, chapterCounter, verseCounter, wordCounter, finalLineText) {
