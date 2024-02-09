@@ -13,10 +13,10 @@ function processXMLLine(line, chapterCounter, verseCounter, wordCounter) {
 function lineProcessBool(line) {
     let lineType = line[1];
     let relevantTags = ['c', 'v', 'w', 'k', 'q'];
-    if (!relevantTags.includes(lineType)) {
-        return false;
-    } else {
+    if (relevantTags.includes(lineType) && line[2] == ">") {
         return true;
+    } else {
+        return false;
     }
 }
 
@@ -24,6 +24,8 @@ async function processBook(bookName) {
     let bookXML = await fetch(xmlFolder + bookName + '.xml');
     let bookXMLText = await bookXML.text();
     let bookLines = bookXMLText.split('\n');
+
+    let allLineDict = {};
     for (let i = 0; i < bookLines.length; i++) {
         let xmlLine = bookLines[i].trim();
         
