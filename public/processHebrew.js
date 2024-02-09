@@ -5,10 +5,9 @@ let jsonFolder = './Hebrew JSON/';
 
 function processXMLLine(line, chapterCounter, verseCounter, wordCounter) {
     let lineType = line[1];
-    let lineText = line.slice(4, -5);
+    let lineText = line.slice(3, -4);
     console.log(line);
     console.log(lineText);
-
 }
 
 function lineProcessBool(line) {
