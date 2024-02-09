@@ -7,7 +7,7 @@ function getHapaxBook(hapaxAddress) {
     return hapaxAddress.slice(1, -1).split(" ").slice(0, -1).join(" ");
 }
 
-async function getHapaxes() {
+async function populateHapaxFile() {
     let hapaxFile = await fetch('OT Hapaxes.txt');
     let hapaxText = await hapaxFile.text();
     let textLines = hapaxText.split('\n');
@@ -30,10 +30,10 @@ async function getHapaxes() {
             bookToHapaxDict[book].push(hapax);
         }
     }
-    for (let book in bookToHapaxDict) {
-        console.log(book);
-        console.log(bookToHapaxDict[book]);
-    }
+    let outputFile = './allOTHapaxes.json';
+    let output = JSON.stringify(bookToHapaxDict);
+    let blob = new Blob([output], {type: "text/plain;charset=utf-8"});
+    saveAs(blob, outputFile);
 }
 
 async function processXMLLine(line, chapterCounter, verseCounter, wordCounter, finalLineText) {
@@ -72,7 +72,6 @@ async function processXMLLine(line, chapterCounter, verseCounter, wordCounter, f
             wordCounter++;
             finalLineText += "<Q>" + lineText + "</Q></K>" + wordSpace;
         }
-
     }
 }
 
@@ -112,5 +111,6 @@ document.getElementById("submit").addEventListener("click", async function() {
     event.preventDefault();
     let bookName = document.getElementById("dropdown").value;
 
-    await processBook(bookName);
+    await populateHapaxFile();
+    //await processBook(bookName);
 });
