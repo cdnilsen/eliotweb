@@ -117,8 +117,10 @@ async function getRightHapaxes(book) {
     return thisLine.split(",");
 }
 
-async function processXMLLine(line, book, chapterCounter, verseCounter, wordCounter, finalLineText) {
+async function processXMLLine(line, book, chapterCounter, verseCounter, wordCounter, hapaxList, numHapaxes) {
     //console.log(line);
+
+    let finalLineText = "";
     let lineType = line[1];
 
     if (lineType == 'c') {
@@ -129,8 +131,10 @@ async function processXMLLine(line, book, chapterCounter, verseCounter, wordCoun
         wordCounter = 0;
     } else {
         let lineText = line.slice(3, -4);
-
-        //let isHapax = isHapax(lineText);
+        if (hapaxList.includes(lineText)) {
+            numHapaxes++;
+            console.log(lineText + " is a hapax with tag " + lineType);
+        }
 
         let hasSofPasuk = (lineText.endsWith("׃"));
         
@@ -175,19 +179,24 @@ async function processBook(bookName) {
     
     let hapaxList = await getRightHapaxes(bookName);
 
-    console.log(hapaxList);
+
+    let expectedNumHapaxes = hapaxList.length;
+    
+    let actualNumHapaxes = 0;
+
+    let currentChapter = 0;
+    let currentVerse = 0;
+    let currentWord = 0;
 
     for (let i = 0; i < bookLines.length; i++) {
         let xmlLine = bookLines[i].trim();
         
-        let currentChapter = 0;
-        let currentVerse = 0;
-        let currentWord = 0;
-        
         if (lineProcessBool(xmlLine)) {
-            processXMLLine(xmlLine, bookName, currentChapter, currentVerse, currentWord);
+            processXMLLine(xmlLine, bookName, currentChapter, currentVerse, currentWord, hapaxList, actualNumHapaxes);
         }
     }
+    console.log("Expected: " + expectedNumHapaxes.toString());
+    console.log("Actual: " + actualNumHapaxes.toString());
 }
 
 document.getElementById("submit").addEventListener("click", async function() {
