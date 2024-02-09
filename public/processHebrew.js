@@ -118,8 +118,6 @@ async function getRightHapaxes(book) {
 }
 
 async function processXMLLine(line, book, chapterCounter, verseCounter, wordCounter, hapaxList, numHapaxes) {
-    //console.log(line);
-
     let finalLineText = "";
     let lineType = line[1];
 
@@ -178,6 +176,7 @@ async function processBook(bookName) {
     let allLineDict = {};
     
     let hapaxList = await getRightHapaxes(bookName);
+    console.log(hapaxList);
 
 
     let expectedNumHapaxes = hapaxList.length;
@@ -195,8 +194,8 @@ async function processBook(bookName) {
             processXMLLine(xmlLine, bookName, currentChapter, currentVerse, currentWord, hapaxList, actualNumHapaxes);
         }
     }
-    console.log("Expected: " + expectedNumHapaxes.toString());
-    console.log("Actual: " + actualNumHapaxes.toString());
+    console.log("Expected hapaxes: " + expectedNumHapaxes.toString());
+    console.log("Actual hapaxes: " + actualNumHapaxes.toString());
 }
 
 document.getElementById("submit").addEventListener("click", async function() {
