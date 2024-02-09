@@ -1,0 +1,592 @@
+====Genesis====
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30 are normal
+----
+31: 54 in the Tanakh, 55 in the KJV
+----
+----
+32: 33 in the Tanakh, 32 in the KJV
+----
+33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50 are normal
+
+====Exodus====
+1, 2, 3, 4, 5, 6 are normal
+----
+7: 29 in the Tanakh, 25 in the KJV
+----
+----
+8: 28 in the Tanakh, 32 in the KJV
+----
+9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 are normal
+----
+21: 37 in the Tanakh, 36 in the KJV
+----
+----
+22: 30 in the Tanakh, 31 in the KJV
+----
+23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40 are normal
+
+====Leviticus====
+1, 2, 3, 4 are normal
+----
+5: 26 in the Tanakh, 19 in the KJV
+----
+----
+6: 23 in the Tanakh, 30 in the KJV
+----
+7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27 are normal
+
+====Numbers====
+Numbers has 1289 verses in the Tanakh and 1288 verses in the KJV
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 are normal
+----
+16: 35 in the Tanakh, 50 in the KJV
+----
+----
+17: 28 in the Tanakh, 13 in the KJV
+----
+18, 19, 20, 21, 22, 23, 24 are normal
+----
+25: 19 in the Tanakh, 18 in the KJV
+----
+26, 27, 28 are normal
+----
+29: 39 in the Tanakh, 40 in the KJV
+----
+----
+30: 17 in the Tanakh, 16 in the KJV
+----
+31, 32, 33, 34, 35, 36 are normal
+
+====Deuteronomy====
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 are normal
+----
+12: 31 in the Tanakh, 32 in the KJV
+----
+----
+13: 19 in the Tanakh, 18 in the KJV
+----
+14, 15, 16, 17, 18, 19, 20, 21 are normal
+----
+22: 29 in the Tanakh, 30 in the KJV
+----
+----
+23: 26 in the Tanakh, 25 in the KJV
+----
+24, 25, 26, 27 are normal
+----
+28: 69 in the Tanakh, 68 in the KJV
+----
+----
+29: 28 in the Tanakh, 29 in the KJV
+----
+30, 31, 32, 33, 34 are normal
+
+====Joshua====
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24 are normal
+
+====Judges====
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21 are normal
+
+====Ruth====
+1, 2, 3, 4 are normal
+
+====1 Samuel====
+1 Samuel has 811 verses in the Tanakh and 810 verses in the KJV
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20 are normal
+----
+21: 16 in the Tanakh, 15 in the KJV
+----
+22 are normal
+----
+23: 28 in the Tanakh, 29 in the KJV
+----
+----
+24: 23 in the Tanakh, 22 in the KJV
+----
+25, 26, 27, 28, 29, 30, 31 are normal
+
+====2 Samuel====
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17 are normal
+----
+18: 32 in the Tanakh, 33 in the KJV
+----
+----
+19: 44 in the Tanakh, 43 in the KJV
+----
+20, 21, 22, 23, 24 are normal
+
+====1 Kings====
+1 Kings has 817 verses in the Tanakh and 816 verses in the KJV
+1, 2, 3 are normal
+----
+4: 20 in the Tanakh, 34 in the KJV
+----
+----
+5: 32 in the Tanakh, 18 in the KJV
+----
+6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21 are normal
+----
+22: 54 in the Tanakh, 53 in the KJV
+----
+
+====2 Kings====
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10 are normal
+----
+11: 20 in the Tanakh, 21 in the KJV
+----
+----
+12: 22 in the Tanakh, 21 in the KJV
+----
+13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25 are normal
+
+====1 Chronicles====
+1 Chronicles has 943 verses in the Tanakh and 942 verses in the KJV
+1, 2, 3, 4 are normal
+----
+5: 41 in the Tanakh, 26 in the KJV
+----
+----
+6: 66 in the Tanakh, 81 in the KJV
+----
+7, 8, 9, 10, 11 are normal
+----
+12: 41 in the Tanakh, 40 in the KJV
+----
+13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29 are normal
+
+====2 Chronicles====
+----
+1: 18 in the Tanakh, 17 in the KJV
+----
+----
+2: 17 in the Tanakh, 18 in the KJV
+----
+3, 4, 5, 6, 7, 8, 9, 10, 11, 12 are normal
+----
+13: 23 in the Tanakh, 22 in the KJV
+----
+----
+14: 14 in the Tanakh, 15 in the KJV
+----
+15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36 are normal
+
+====Ezra====
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10 are normal
+
+====Nehemiah====
+Nehemiah has 405 verses in the Tanakh and 406 verses in the KJV
+1, 2 are normal
+----
+3: 38 in the Tanakh, 32 in the KJV
+----
+----
+4: 17 in the Tanakh, 23 in the KJV
+----
+5, 6 are normal
+----
+7: 72 in the Tanakh, 73 in the KJV
+----
+8 are normal
+----
+9: 37 in the Tanakh, 38 in the KJV
+----
+----
+10: 40 in the Tanakh, 39 in the KJV
+----
+11, 12, 13 are normal
+
+====Esther====
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10 are normal
+
+====Job====
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39 are normal
+----
+40: 32 in the Tanakh, 24 in the KJV
+----
+----
+41: 26 in the Tanakh, 34 in the KJV
+----
+42 are normal
+
+====Psalms====
+Psalms has 2527 verses in the Tanakh and 2461 verses in the KJV
+1, 2 are normal
+----
+3: 9 in the Tanakh, 8 in the KJV
+----
+----
+4: 9 in the Tanakh, 8 in the KJV
+----
+----
+5: 13 in the Tanakh, 12 in the KJV
+----
+----
+6: 11 in the Tanakh, 10 in the KJV
+----
+----
+7: 18 in the Tanakh, 17 in the KJV
+----
+----
+8: 10 in the Tanakh, 9 in the KJV
+----
+----
+9: 21 in the Tanakh, 20 in the KJV
+----
+10, 11 are normal
+----
+12: 9 in the Tanakh, 8 in the KJV
+----
+13, 14, 15, 16, 17 are normal
+----
+18: 51 in the Tanakh, 50 in the KJV
+----
+----
+19: 15 in the Tanakh, 14 in the KJV
+----
+----
+20: 10 in the Tanakh, 9 in the KJV
+----
+----
+21: 14 in the Tanakh, 13 in the KJV
+----
+----
+22: 32 in the Tanakh, 31 in the KJV
+----
+23, 24, 25, 26, 27, 28, 29 are normal
+----
+30: 13 in the Tanakh, 12 in the KJV
+----
+----
+31: 25 in the Tanakh, 24 in the KJV
+----
+32, 33 are normal
+----
+34: 23 in the Tanakh, 22 in the KJV
+----
+35 are normal
+----
+36: 13 in the Tanakh, 12 in the KJV
+----
+37 are normal
+----
+38: 23 in the Tanakh, 22 in the KJV
+----
+----
+39: 14 in the Tanakh, 13 in the KJV
+----
+----
+40: 18 in the Tanakh, 17 in the KJV
+----
+----
+41: 14 in the Tanakh, 13 in the KJV
+----
+----
+42: 12 in the Tanakh, 11 in the KJV
+----
+43 are normal
+----
+44: 27 in the Tanakh, 26 in the KJV
+----
+----
+45: 18 in the Tanakh, 17 in the KJV
+----
+----
+46: 12 in the Tanakh, 11 in the KJV
+----
+----
+47: 10 in the Tanakh, 9 in the KJV
+----
+----
+48: 15 in the Tanakh, 14 in the KJV
+----
+----
+49: 21 in the Tanakh, 20 in the KJV
+----
+50 are normal
+----
+51: 21 in the Tanakh, 19 in the KJV
+----
+----
+52: 11 in the Tanakh, 9 in the KJV
+----
+----
+53: 7 in the Tanakh, 6 in the KJV
+----
+----
+54: 9 in the Tanakh, 7 in the KJV
+----
+----
+55: 24 in the Tanakh, 23 in the KJV
+----
+----
+56: 14 in the Tanakh, 13 in the KJV
+----
+----
+57: 12 in the Tanakh, 11 in the KJV
+----
+----
+58: 12 in the Tanakh, 11 in the KJV
+----
+----
+59: 18 in the Tanakh, 17 in the KJV
+----
+----
+60: 14 in the Tanakh, 12 in the KJV
+----
+----
+61: 9 in the Tanakh, 8 in the KJV
+----
+----
+62: 13 in the Tanakh, 12 in the KJV
+----
+----
+63: 12 in the Tanakh, 11 in the KJV
+----
+----
+64: 11 in the Tanakh, 10 in the KJV
+----
+----
+65: 14 in the Tanakh, 13 in the KJV
+----
+66 are normal
+----
+67: 8 in the Tanakh, 7 in the KJV
+----
+----
+68: 36 in the Tanakh, 35 in the KJV
+----
+----
+69: 37 in the Tanakh, 36 in the KJV
+----
+----
+70: 6 in the Tanakh, 5 in the KJV
+----
+71, 72, 73, 74 are normal
+----
+75: 11 in the Tanakh, 10 in the KJV
+----
+----
+76: 13 in the Tanakh, 12 in the KJV
+----
+----
+77: 21 in the Tanakh, 20 in the KJV
+----
+78, 79 are normal
+----
+80: 20 in the Tanakh, 19 in the KJV
+----
+----
+81: 17 in the Tanakh, 16 in the KJV
+----
+82 are normal
+----
+83: 19 in the Tanakh, 18 in the KJV
+----
+----
+84: 13 in the Tanakh, 12 in the KJV
+----
+----
+85: 14 in the Tanakh, 13 in the KJV
+----
+86, 87 are normal
+----
+88: 19 in the Tanakh, 18 in the KJV
+----
+----
+89: 53 in the Tanakh, 52 in the KJV
+----
+90, 91 are normal
+----
+92: 16 in the Tanakh, 15 in the KJV
+----
+93, 94, 95, 96, 97, 98, 99, 100, 101 are normal
+----
+102: 29 in the Tanakh, 28 in the KJV
+----
+103, 104, 105, 106, 107 are normal
+----
+108: 14 in the Tanakh, 13 in the KJV
+----
+109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139 are normal
+----
+140: 14 in the Tanakh, 13 in the KJV
+----
+141 are normal
+----
+142: 8 in the Tanakh, 7 in the KJV
+----
+143, 144, 145, 146, 147, 148, 149, 150 are normal
+
+====Proverbs====
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31 are normal
+
+====Ecclesiastes====
+1, 2, 3 are normal
+----
+4: 17 in the Tanakh, 16 in the KJV
+----
+----
+5: 19 in the Tanakh, 20 in the KJV
+----
+6, 7, 8, 9, 10, 11, 12 are normal
+
+====Song of Songs====
+1, 2, 3, 4, 5 are normal
+----
+6: 12 in the Tanakh, 13 in the KJV
+----
+----
+7: 14 in the Tanakh, 13 in the KJV
+----
+8 are normal
+
+====Isaiah====
+Isaiah has 1291 verses in the Tanakh and 1292 verses in the KJV
+1, 2, 3, 4, 5, 6, 7 are normal
+----
+8: 23 in the Tanakh, 22 in the KJV
+----
+----
+9: 20 in the Tanakh, 21 in the KJV
+----
+10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63 are normal
+----
+64: 11 in the Tanakh, 12 in the KJV
+----
+65, 66 are normal
+
+====Jeremiah====
+1, 2, 3, 4, 5, 6, 7 are normal
+----
+8: 23 in the Tanakh, 22 in the KJV
+----
+----
+9: 25 in the Tanakh, 26 in the KJV
+----
+10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52 are normal
+
+====Lamentations====
+1, 2, 3, 4, 5 are normal
+
+====Ezekiel====
+1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19 are normal
+----
+20: 44 in the Tanakh, 49 in the KJV
+----
+----
+21: 37 in the Tanakh, 32 in the KJV
+----
+22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48 are normal
+
+====Daniel====
+1, 2 are normal
+----
+3: 33 in the Tanakh, 30 in the KJV
+----
+----
+4: 34 in the Tanakh, 37 in the KJV
+----
+----
+5: 30 in the Tanakh, 31 in the KJV
+----
+----
+6: 29 in the Tanakh, 28 in the KJV
+----
+7, 8, 9, 10, 11, 12 are normal
+
+====Hosea====
+----
+1: 9 in the Tanakh, 11 in the KJV
+----
+----
+2: 25 in the Tanakh, 23 in the KJV
+----
+3, 4, 5, 6, 7, 8, 9, 10 are normal
+----
+11: 11 in the Tanakh, 12 in the KJV
+----
+----
+12: 15 in the Tanakh, 14 in the KJV
+----
+----
+13: 15 in the Tanakh, 16 in the KJV
+----
+----
+14: 10 in the Tanakh, 9 in the KJV
+----
+
+====Joel====
+Joel has 4 chapters in the Tanakh and 3 chapters in the KJV
+1 are normal
+----
+2: 27 in the Tanakh, 32 in the KJV
+----
+----
+3: 5 in the Tanakh, 21 in the KJV
+----
+----
+4: 21 in the Tanakh, 0 in the KJV
+----
+
+====Amos====
+1, 2, 3, 4, 5, 6, 7, 8, 9 are normal
+
+====Obadiah====
+1 are normal
+
+====Jonah====
+----
+1: 16 in the Tanakh, 17 in the KJV
+----
+----
+2: 11 in the Tanakh, 10 in the KJV
+----
+3, 4 are normal
+
+====Micah====
+1, 2, 3 are normal
+----
+4: 14 in the Tanakh, 13 in the KJV
+----
+----
+5: 14 in the Tanakh, 15 in the KJV
+----
+6, 7 are normal
+
+====Nahum====
+----
+1: 14 in the Tanakh, 15 in the KJV
+----
+----
+2: 14 in the Tanakh, 13 in the KJV
+----
+3 are normal
+
+====Habakkuk====
+1, 2, 3 are normal
+
+====Zephaniah====
+1, 2, 3 are normal
+
+====Haggai====
+1, 2 are normal
+
+====Zechariah====
+----
+1: 17 in the Tanakh, 21 in the KJV
+----
+----
+2: 17 in the Tanakh, 13 in the KJV
+----
+3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14 are normal
+
+====Malachi====
+Malachi has 3 chapters in the Tanakh and 4 chapters in the KJV
+1, 2 are normal
+----
+3: 24 in the Tanakh, 18 in the KJV
+----
+----
+4: 0 in the Tanakh, 6 in the KJV
+----
+
