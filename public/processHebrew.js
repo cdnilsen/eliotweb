@@ -12,6 +12,7 @@ async function getHapaxes() {
     let finalList = [];
 
     for (let i = 0; i < textLines.length; i++) {
+        console.log(textLines[i]);
         let hapax = textLines[i].split('\ t')[1];
         console.log(hapax);
     }
@@ -31,7 +32,7 @@ async function processXMLLine(line, chapterCounter, verseCounter, wordCounter, f
     } else {
         let lineText = line.slice(3, -4);
 
-        let isHapax = isHapax(lineText);
+        //let isHapax = isHapax(lineText);
 
         let hasSofPasuk = (lineText.endsWith("׃"));
         
