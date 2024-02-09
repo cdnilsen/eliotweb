@@ -28,12 +28,9 @@ async function getHapaxes() {
             } else {
                 console.log("'" + hapax + "' isn already in the hapax list!");
             }
-
-            //finalList.push(textLines[i].split('\t')[1]);
         }
-        //let hapax = textLines[i].split('\ t')[1];
-        //console.log(hapax);
     }
+    console.log(finalList.length + " hapaxes found total.")
     return finalList;
 }
 
