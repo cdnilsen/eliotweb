@@ -114,7 +114,6 @@ async function getRightHapaxes(book) {
             break;
         }
     }
-    console.log(thisLine.split(","));
     return thisLine.split(",");
 }
 
@@ -174,7 +173,9 @@ async function processBook(bookName) {
 
     let allLineDict = {};
     
-    let hapaxList = await getRightHapaxLine(bookName);
+    let hapaxList = await getRightHapaxes(bookName);
+
+    console.log(hapaxList);
 
     for (let i = 0; i < bookLines.length; i++) {
         let xmlLine = bookLines[i].trim();
