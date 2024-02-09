@@ -14,7 +14,8 @@ async function processBook(bookName) {
 }
 
 document.getElementById("submit").addEventListener("click", async function() {
-    let book = document.getElementById("dropdown").value;
+    event.preventDefault();
+    let bookName = document.getElementById("dropdown").value;
 
     await processBook(bookName);
 });
