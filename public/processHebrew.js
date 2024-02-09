@@ -11,6 +11,7 @@ function processXMLLine(line, chapterCounter, verseCounter, wordCounter, finalLi
     let hasSofPasuk = (lineText[-1] == "׃");
     
     if (hasSofPasuk) {
+        console.log("Sof Pasuk");
         lineText = lineText.slice(0, -1);
     }
     
