@@ -10,7 +10,8 @@ async function processBook(bookName) {
     for (let i = 0; i < bookLines.length; i++) {
         let xmlLine = bookLines[i].trim();
 
-        let lineType = xmLLine[1];
+        let lineType = xmlLine[1];
+
         console.log(lineType);
     }
 }
