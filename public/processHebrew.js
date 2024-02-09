@@ -108,7 +108,8 @@ async function getRightHapaxes(book) {
 
     let thisLine = "";
     for (let i = 0; i < bookList.length; i++) {
-        let strippedLine = bookList[i].split(" | ")
+        let strippedLine = bookList[i].split("|")
+
         if (strippedLine[0].trim() == book) {
             thisLine = strippedLine[1];
             break;
