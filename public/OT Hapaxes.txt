@@ -1105,187 +1105,187 @@ Malachi
 [Malachi 3:21]	עַסּוֹתֶ֣ם	עסס	to crush underfoot	
 
 Psalms
-[Psalm 2:1]	רָגְשׁ֣וּ	רגשׁ	to be restless	
-[Psalm 5:1]	נְּחִיל֗וֹת	נְחִילוֹת	technical musical term: "played on the flute" or "against sickness disease"	
-[Psalm 5:3]	שַׁוְעִ֗	שֶׁוַע	cry for help	
-[Psalm 5:4]	בֹּ֥קֶר	בֹּ֫קֶר 1	sacrifice by the haruspex	
-[Psalm 6:3]	אֻמְלַ֫ל	אֻמְלַל	frail	
-[Psalm 8:8]	צֹנֶ֣ה	צֹנֶה	flocks	
-[Psalm 9:1]	עַלְמ֥וּת	עַלְמוּת	soprano? (uncertain musical term); (alt.) "to Muth"	
-[Psalm 9:21]	מוֹרָ֗ה	מוֹרָה 2	fear	
-[Psalm 12:2]	פַ֥סּוּ	פסס	to disappear	
-[Psalm 12:7]	עֲלִ֣יל	עֲלִיל	smelting-kiln: crucible	
-[Psalm 12:9]	זֻ֝לּ֗וּת	זֻלּוּת	vileness	
-[Psalm 16:6]	שָֽׁפְרָ֥ה	שׁפר	to clean; to please	
-[Psalm 17:12]	דִּמְיֹנ֗	דִּמְיוֹן	similarity	
-[Psalm 17:14]	וּצְפִינְךָ	צָפִין	treasure	
-[Psalm 18:2]	חִזְקִֽ	חֵ֫זֶק	strength	
-[Psalm 18:46]	יַחְרְג֗וּ	חרג	to come out trembling	
-[Psalm 19:13]	שְׁגִיא֥וֹת	שְׁגִיאָה	oversight, transgression	
-[Psalm 21:3]	אֲרֶ֥שֶׁת	אֲרֶ֫שֶׁת	desire	
-[Psalm 22:10]	גֹחִ֣	גחה	to pull out	
-[Psalm 22:16]	מַלְקוֹחָ֑	מַלְקוֹחַ֫יִם	gums	
-[Psalm 22:20]	אֱ֝יָלוּת	אֱיָלוּת	strength	
-[Psalm 22:25]	עֱנ֬וּת	עֱנוּת	suffering, need; (alt.) singing	
-[Psalm 27:12]	יפֵ֥חַ	יָפֵחַ	witness	
-[Psalm 29:7]	חֹצֵ֗ב	חצב 2	to rake (fire)	
-[Psalm 29:9]	יֶּחֱשֹׂ֪ף	חשׂף 2	to cause a premature birth	
-[Psalm 30:7]	שַׁלְוִ֑	שָׁ֫לוּ	quietness, ease	
-[Psalm 31:21]	רֻכְסֵ֫י	רֹ֫כֶס	mob; slander; conspiracy, intrigues, revolutions	
-[Psalm 31:23]	נִגְרַזְתִּי֮	גרז	to be cut off	
-[Psalm 32:4]	חַרְבֹ֖נֵי	חֲרָבוֹן	dry heat	
-[Psalm 32:7]	רָנֵּ֥י	רֹן	cry; song	
-[Psalm 32:9]	בְל֑וֹם	בלם	to curb, restrain	
-[Psalm 35:3]	סְגֹר	סְגֹר	sagaris: the double axe of the Scythians; alt. socket or handle of a lance	
-[Psalm 35:16]	לַעֲגֵ֣י	לָעֵג	mocking, stammering; (pl. subst.) mockers; stammering	
-[Psalm 35:17]	שֹּׁאֵי	שׁוֹא	ravage; (alt.) roaring	
-[Psalm 35:20]	רִגְעֵי	רָגֵעַ	living quietly, quiet	
-[Psalm 39:2]	מַחְס֑וֹם	מַחְסוֹם	lip covering, muzzle	
-[Psalm 39:6]	טְפָח֨וֹת	טַפְחָה 1	handbreadth, span	
-[Psalm 39:11]	תִּגְרַ֥ת	תִּגְרָה	blows, hostility, attack, strife	
-[Psalm 40:3]	שָׁאוֹן֮	שָׁאוֹן 1	wasteland; destruction	
-[Psalm 40:5]	שָׂטֵ֥י	שׂוט	to swerve, fall away	
-[Psalm 42:5]	סָּךְ֮	סָךְ	throng; (alt.) tent, hut refuge, thicket	
-[Psalm 44:15]	מְנֽוֹד	מָנוֹד	shaking the head	
-[Psalm 45:1]	יְדִידֹֽת	יְדִידוֹת	love	
-[Psalm 45:2]	רָ֘חַ֤שׁ	רחשׁ	to be moved, aroused	
-[Psalm 45:5]	עַנְוָה	עַנְוָה	humility? occupation, care?	
-[Psalm 45:9]	קְ֭צִיעוֹת	קְצִיעָה 1	cassia, cinnamon flowers	
-[Psalm 48:3]	נוֹף֮	נוֹף	height	
-[Psalm 48:14]	פַּסְּג֥וּ	פסג	(uncertain) to consider; to examine; to go through; to destroy	
-[Psalm 49:4]	הָג֖וּת	הָגוּת	meditation	
-[Psalm 50:2]	מִכְלַל	מִכְלָל	perfection	
-[Psalm 50:20]	דֹּֽפִי	דֳּפִי	blemish, fault	
-[Psalm 52:6]	בָ֗לַע	בֶּ֫לַע 3	confusion	
-[Psalm 55:4]	עָקַ֣ת	עָקָה	screech; pressure	
-[Psalm 55:9]	מִפְלָ֣ט	מִפְלָט	place of refuge	
-[Psalm 55:9]	סֹעָ֣ה	סעה	to sweep away, winnow	
-[Psalm 55:15]	רָֽגֶשׁ	רֶ֫גֶשׁ	unrest	
-[Psalm 55:16]	יְשִׁימוֹת	יְשִׁימָה	devastation	
-[Psalm 55:16]	מְגוּרָ֣	מָגוֹר 3	grain pit, storage room; (metaph.) heart, mind	
-[Psalm 55:22]	מַחְמָאֹ֣ת	מַחְמָאֹת	milk product; curds, yogurt, butter	
-[Psalm 55:22]	פְתִחֽוֹת	פְּתִיחָה	drawn sword, dagger	
-[Psalm 55:23]	יְהָבְ	יְהָב	burden	
-[Psalm 56:9]	נֹדִ	נֹד	changeable circumstances of life, misery	
-[Psalm 56:9]	סִפְרָת	סִפְרָה	book; expertise in literary records	
-[Psalm 57:4]	חֵרֵ֣ף	חרף 3	to confuse, to disillusion	
-[Psalm 57:5]	לְבָאִם֮	לֶ֫בֶא	lion	
-[Psalm 57:5]	לֹ֫הֲטִ֥ים	להט 2	to devour	
-[Psalm 58:7]	מַלְתְּע֥וֹת	מַלְתָּעוֹת	jaw-bone	
-[Psalm 58:9]	שַׁ֭בְּלוּל	שַׁבְּלוּל	snail	
-[Psalm 58:9]	תֶּ֣מֶס	תֶּ֫מֶס	outflow, melting away; ooze, slime	
-[Psalm 60:4]	פְּצַמְתּ	פצם	to crack, split	
-[Psalm 60:6]	קֹ֣שֶׁט	קֹ֫שֶׁט	archery	
-[Psalm 62:4]	תְּהֽוֹתְת֣וּ	הות	to attack	
-[Psalm 63:2]	כָּמַ֣הּ	כמהּ	to yearn for	
-[Psalm 64:3]	רִגְשַׁ֗ת	רִגְשָׁה	unrest, agitation	
-[Psalm 64:7]	חֵ֣פֶשׂ	חֵ֫פֶשׂ	disguise	
-[Psalm 66:11]	מוּעָקָ֣ה	מוּעָקָה	affliction	
-[Psalm 68:5]	עֲרָבוֹת	עֲרָבָה 2	cloud	
-[Psalm 68:7]	כּוֹשָׁר֑וֹת	כּוֹשָׁרָה	prosperity, happiness	
-[Psalm 68:7]	צְחִיחָֽה	צְחִיחָה	bare, burned lands	
-[Psalm 68:15]	תַּשְׁלֵ֥ג	שׁלג	to snow, be snowing	
-[Psalm 68:17]	תְּֽרַצְּדוּן֮	רצד	to observe, watch from cover	
-[Psalm 68:18]	שִׁנְאָ֑ן	שִׁנְאָן	reduplication (thousands); (alt.) troops, warriors, archers	
-[Psalm 68:21]	מוֹשָׁ֫ע֥וֹת	מוֹשָׁעָה	salvation, acts of deliverance	
-[Psalm 68:28]	רִגְמָת	רִגְמָה	heap; crowd	
-[Psalm 68:31]	רַצֵּי	רַץ	silver piece	
-[Psalm 68:32]	חַ֭שְׁמַנִּים	חַשְׁמַן	caustic soda as a dye; bronze; (pl.) bronze articles or red cloths	
-[Psalm 68:36]	תַעֲצֻמ֥וֹת	תַּעֲצֻמוֹת	fullness of strength, might	
-[Psalm 69:3]	מָעֳמָ֑ד	מָעֳמָד	firm ground	
-[Psalm 69:4]	נִחַ֪ר	חרר 2	to be hoarse	
-[Psalm 69:16]	תֶּאְטַר	אטר	to close	
-[Psalm 69:21]	אָ֫נ֥וּשָׁה	נושׁ	to be sick	
-[Psalm 69:22]	בָרוּתִ֣	בָּרוּת	food	
-[Psalm 71:4]	חוֹמֵֽץ	חמץ 2	to oppress	
-[Psalm 71:6]	גוֹזִ֑	גזה	to cut off	
-[Psalm 71:15]	סְפֹרֽוֹת	סְפֹרוֹת	art of writing	
-[Psalm 72:6]	זַרְזִ֥יף	זַרְזִיף	drop of water	
-[Psalm 72:16]	פִסַּת	פִּסָּה	amount, portion, share; wealth, excess, enough, increase	
-[Psalm 72:16]	יִרְעַ֣שׁ	רעשׁ 2	to be abundant, plentiful	
-[Psalm 73:4]	אוּלָֽ	אוּל	body, belly	
-[Psalm 73:8]	יָמִ֤יקוּ	מוק	to mock	
-[Psalm 73:18]	מַשּׁוּאֽוֹת	מַשּׁוּאָה	deception	
-[Psalm 73:27]	רְחֵקֶ֣י	רָחֵק	who hold themselves aloof; those departing	
-[Psalm 74:3]	מַשֻּׁא֣וֹת	מַשֻּׁאוֹת	ruins	
-[Psalm 74:6]	כַשִּׁ֥יל	כַּשִּׁיל	axe	
-[Psalm 74:6]	כֵֽילַפֹּ֗ת	כֵּילָף	crowbar	
-[Psalm 75:9]	מֶסֶךְ֮	מֶ֫סֶךְ	spiced drink	
-[Psalm 76:13]	יִ֭בְצֹר	בצר 2	to reduce, to humble	
-[Psalm 77:5]	שְׁמֻר֣וֹת	שְׁמֻרָה	eyelid	
-[Psalm 77:10]	חַנּ֣וֹת	חנה 2	to be/make gracious	
-[Psalm 77:18]	זֹ֤רְמוּ	זרם 2	to unload (clouds, water) accompanied by thunder	
-[Psalm 78:41]	הִתְוֽוּ	תוה 2	to distress, hurt	
-[Psalm 78:47]	חֲנָמַֽל	חֲנָמַ֑ל	devastating flood	
-[Psalm 78:65]	מִתְרוֹנֵ֥ן	רון	(pt.) overcome	
-[Psalm 80:14]	יְכַרְסְמֶ֣	כרסם	to eat away	
-[Psalm 80:16]	כַנָּה	כַּנָּה	clipping, shoot; support, stand, base	
-[Psalm 84:11]	הִ֭סְתּוֹפֵף	ספף	to lie on the threshold like a beggar	
-[Psalm 84:11]	דּ֗וּר	דור 2	to dwell, to live	
-[Psalm 86:5]	סַלָּ֑ח	סַלָּח	ready to forgive	
-[Psalm 87:1]	יְ֝סוּדָת֗	יְסוּדָה	foundation	
-[Psalm 88:5]	אֱיָֽל	אֱיָל	strength	
-[Psalm 88:13]	נְשִׁיָּֽה	נְשִׁיָּה	forgetting	
-[Psalm 88:16]	אָפֽוּנָה	פון	to be helpless	
-[Psalm 89:9]	חֲסִ֥ין	חֲסִין	strong	
-[Psalm 89:45]	טְּהָר֑	טְהָר	clearness, luster	
-[Psalm 90:1]	מָע֣וֹן	מָעוֹן 1	help, assistance	
-[Psalm 90:5]	זְ֭רַמְתּ	זרם 1	to check, to make an end of life	
-[Psalm 90:10]	רָהְבָּ	רֹ֫הַב	pride	
-[Psalm 90:10]	חִ֝֗ישׁ	חִישׁ	haste; (adv.) quickly	
-[Psalm 91:4]	סֹחֵרָ֣ה	סֹחֵרָה	wall; (trad.) buckler	
-[Psalm 91:8]	שִׁלֻּמַ֖ת	שִׁלֻּמָה	retaliation	
-[Psalm 93:3]	דָּכְיָֽ	דֳּכִי	dashing (of waves)	
-[Psalm 94:21]	יָ֭גוֹדּוּ	גדד 2	to band together	
-[Psalm 95:4]	מֶחְקְרֵי	מֶחְקָר	investigation	
-[Psalm 99:1]	תָּנ֥וּט	נוט	to tremble	
-[Psalm 101:3]	סֵטִ֥ים	סֵט	deviation, transgression	
-[Psalm 102:18]	עַרְעָ֑ר	עַרְעָר 1	bare, naked; penitent naked except for sackcloth	
-[Psalm 103:14]	זָ֝כ֗וּר	זָכוּר	remembering	
-[Psalm 104:3]	רְכוּב֑	רְכוּב	chariot, vehicle	
-[Psalm 104:12]	עֳ֝פָאיִ֗ם	עֳפִי	thick foliage	
-[Psalm 104:15]	הַצְהִ֣יל	צהל 2	to gleam, make the face light up	
-[Psalm 107:30]	מְח֥וֹז	מָחוֹז	harbor	
-[Psalm 109:19]	מֵ֗זַח	מֵ֫זַח 2	waistband	
-[Psalm 110:3]	מִשְׁחָ֑ר	מִשְׁחָר	dawn	
-[Psalm 114:1]	לֹעֵֽז	לעז	to speak an incomprehensible language, speak a foreign language	
-[Psalm 116:12]	תַּגְמוּל֥וֹ	תַּגְמוּל	benefit	
-[Psalm 119:20]	תַאֲבָ֑ה	תַּאֲבָה	longing, yearning	
-[Psalm 119:28]	דָּלְפָ֣ה	דלף 2	to be sleepless; (alt.) to weep	
-[Psalm 119:70]	טָפַ֣שׁ	טפשׁ	to be unfeeling, insensitive	
-[Psalm 119:96]	תִּ֭כְלָה	תִּכְלָה	completeness, perfection	
-[Psalm 119:103]	נִּמְלְצ֣וּ	מלץ	to glide, to slip	
-[Psalm 119:113]	סֵעֲפִ֥ים	סֵעֵף	divided, disunited, futile	
-[Psalm 119:130]	פֵּ֖תַח	פֵּ֫תַח	declaration; disclosure, statement	
-[Psalm 119:131]	יָאָֽבְתִּי	יאב	to long for	
-[Psalm 120:5]	אֽוֹיָה	אוֹיָה	woe!	
-[Psalm 123:4]	גְאֵ֥יוֹנִֽים	גַּאֲיוֹן	arrogant	
-[Psalm 124:5]	זֵּֽידוֹנִֽים	זֵידוֹן	disturbed, raging	
-[Psalm 126:1]	שִׁיבַ֣ת	שִׁיבָה 1	restoration	
-[Psalm 127:2]	שֵׁנָֽא	שֵׁנָא	sleep; (alt.) of a high rank	
-[Psalm 128:3]	שְׁתִלֵ֣י	שָׁתִיל	offshoot, root sucker	
-[Psalm 137:3]	תוֹלָלֵ֣י	תּוֹלָל	mocker; (alt.) plunderer	
-[Psalm 139:3]	זֵרִ֑יתָ	זרה 2	to measure up	
-[Psalm 139:8]	אֶסַּ֣ק	סלק	to ascend	
-[Psalm 139:15]	עָצְמִ֗	עֹ֫צֶם 2	bones	
-[Psalm 139:16]	גָּלְמִ֤	גֹּ֫לֶם	formless	
-[Psalm 139:21]	תְקוֹמְמֶ֗י	תְּקוֹמֵם	opponent, adversary; rebel	
-[Psalm 140:4]	עַכְשׁ֑וּב	עַכְשׁוּב	poisonous snake: horned viper or adder	
-[Psalm 140:9]	מַאֲוַיֵּ֣י	מַאֲוַיִּים	desires	
-[Psalm 140:9]	זְמָמ֥	זָמָם	plan, device	
-[Psalm 140:11]	מַהֲמֹר֗וֹת	מַהֲמֹר	bottomless pit	
-[Psalm 140:12]	מַדְחֵפֹֽת	מַדְחֵפָה	blow	
-[Psalm 141:3]	שָׁמְרָ֣ה	שָׁמְרָה	guard, watch	
-[Psalm 141:3]	דַּ֥ל	דַּל 1	door	
-[Psalm 141:4]	מַנְעַמֵּי	מַנְעַמִּים	delicacies	
-[Psalm 144:6]	בְּר֣וֹק	ברק	to flash	
-[Psalm 144:12]	נְטִעִים֮	נָטִיעַ	growing plant	
-[Psalm 144:13]	מְזָוֵ֣י	מָ֫זוּ	granary	
-[Psalm 144:13]	מַ֭אֲלִיפוֹת	אלף 2	to produce by the thousand	
-[Psalm 144:14]	יוֹצֵ֑את	יוֹצֵאת	abortion	
-[Psalm 146:4]	עֶשְׁתֹּנֹתָֽי	עֶשְׁתּוֹן	plan	
-[Psalm 150:3]	תֵ֣קַע	תֵּ֫קַע	a horn-blast	
-[Psalm 150:5]	שָׁ֑מַע	שֶׁ֫מַע 1	sound, melody	
+[Psalms 2:1]	רָגְשׁ֣וּ	רגשׁ	to be restless	
+[Psalms 5:1]	נְּחִיל֗וֹת	נְחִילוֹת	technical musical term: "played on the flute" or "against sickness disease"	
+[Psalms 5:3]	שַׁוְעִ֗	שֶׁוַע	cry for help	
+[Psalms 5:4]	בֹּ֥קֶר	בֹּ֫קֶר 1	sacrifice by the haruspex	
+[Psalms 6:3]	אֻמְלַ֫ל	אֻמְלַל	frail	
+[Psalms 8:8]	צֹנֶ֣ה	צֹנֶה	flocks	
+[Psalms 9:1]	עַלְמ֥וּת	עַלְמוּת	soprano? (uncertain musical term); (alt.) "to Muth"	
+[Psalms 9:21]	מוֹרָ֗ה	מוֹרָה 2	fear	
+[Psalms 12:2]	פַ֥סּוּ	פסס	to disappear	
+[Psalms 12:7]	עֲלִ֣יל	עֲלִיל	smelting-kiln: crucible	
+[Psalms 12:9]	זֻ֝לּ֗וּת	זֻלּוּת	vileness	
+[Psalms 16:6]	שָֽׁפְרָ֥ה	שׁפר	to clean; to please	
+[Psalms 17:12]	דִּמְיֹנ֗	דִּמְיוֹן	similarity	
+[Psalms 17:14]	וּצְפִינְךָ	צָפִין	treasure	
+[Psalms 18:2]	חִזְקִֽ	חֵ֫זֶק	strength	
+[Psalms 18:46]	יַחְרְג֗וּ	חרג	to come out trembling	
+[Psalms 19:13]	שְׁגִיא֥וֹת	שְׁגִיאָה	oversight, transgression	
+[Psalms 21:3]	אֲרֶ֥שֶׁת	אֲרֶ֫שֶׁת	desire	
+[Psalms 22:10]	גֹחִ֣	גחה	to pull out	
+[Psalms 22:16]	מַלְקוֹחָ֑	מַלְקוֹחַ֫יִם	gums	
+[Psalms 22:20]	אֱ֝יָלוּת	אֱיָלוּת	strength	
+[Psalms 22:25]	עֱנ֬וּת	עֱנוּת	suffering, need; (alt.) singing	
+[Psalms 27:12]	יפֵ֥חַ	יָפֵחַ	witness	
+[Psalms 29:7]	חֹצֵ֗ב	חצב 2	to rake (fire)	
+[Psalms 29:9]	יֶּחֱשֹׂ֪ף	חשׂף 2	to cause a premature birth	
+[Psalms 30:7]	שַׁלְוִ֑	שָׁ֫לוּ	quietness, ease	
+[Psalms 31:21]	רֻכְסֵ֫י	רֹ֫כֶס	mob; slander; conspiracy, intrigues, revolutions	
+[Psalms 31:23]	נִגְרַזְתִּי֮	גרז	to be cut off	
+[Psalms 32:4]	חַרְבֹ֖נֵי	חֲרָבוֹן	dry heat	
+[Psalms 32:7]	רָנֵּ֥י	רֹן	cry; song	
+[Psalms 32:9]	בְל֑וֹם	בלם	to curb, restrain	
+[Psalms 35:3]	סְגֹר	סְגֹר	sagaris: the double axe of the Scythians; alt. socket or handle of a lance	
+[Psalms 35:16]	לַעֲגֵ֣י	לָעֵג	mocking, stammering; (pl. subst.) mockers; stammering	
+[Psalms 35:17]	שֹּׁאֵי	שׁוֹא	ravage; (alt.) roaring	
+[Psalms 35:20]	רִגְעֵי	רָגֵעַ	living quietly, quiet	
+[Psalms 39:2]	מַחְס֑וֹם	מַחְסוֹם	lip covering, muzzle	
+[Psalms 39:6]	טְפָח֨וֹת	טַפְחָה 1	handbreadth, span	
+[Psalms 39:11]	תִּגְרַ֥ת	תִּגְרָה	blows, hostility, attack, strife	
+[Psalms 40:3]	שָׁאוֹן֮	שָׁאוֹן 1	wasteland; destruction	
+[Psalms 40:5]	שָׂטֵ֥י	שׂוט	to swerve, fall away	
+[Psalms 42:5]	סָּךְ֮	סָךְ	throng; (alt.) tent, hut refuge, thicket	
+[Psalms 44:15]	מְנֽוֹד	מָנוֹד	shaking the head	
+[Psalms 45:1]	יְדִידֹֽת	יְדִידוֹת	love	
+[Psalms 45:2]	רָ֘חַ֤שׁ	רחשׁ	to be moved, aroused	
+[Psalms 45:5]	עַנְוָה	עַנְוָה	humility? occupation, care?	
+[Psalms 45:9]	קְ֭צִיעוֹת	קְצִיעָה 1	cassia, cinnamon flowers	
+[Psalms 48:3]	נוֹף֮	נוֹף	height	
+[Psalms 48:14]	פַּסְּג֥וּ	פסג	(uncertain) to consider; to examine; to go through; to destroy	
+[Psalms 49:4]	הָג֖וּת	הָגוּת	meditation	
+[Psalms 50:2]	מִכְלַל	מִכְלָל	perfection	
+[Psalms 50:20]	דֹּֽפִי	דֳּפִי	blemish, fault	
+[Psalms 52:6]	בָ֗לַע	בֶּ֫לַע 3	confusion	
+[Psalms 55:4]	עָקַ֣ת	עָקָה	screech; pressure	
+[Psalms 55:9]	מִפְלָ֣ט	מִפְלָט	place of refuge	
+[Psalms 55:9]	סֹעָ֣ה	סעה	to sweep away, winnow	
+[Psalms 55:15]	רָֽגֶשׁ	רֶ֫גֶשׁ	unrest	
+[Psalms 55:16]	יְשִׁימוֹת	יְשִׁימָה	devastation	
+[Psalms 55:16]	מְגוּרָ֣	מָגוֹר 3	grain pit, storage room; (metaph.) heart, mind	
+[Psalms 55:22]	מַחְמָאֹ֣ת	מַחְמָאֹת	milk product; curds, yogurt, butter	
+[Psalms 55:22]	פְתִחֽוֹת	פְּתִיחָה	drawn sword, dagger	
+[Psalms 55:23]	יְהָבְ	יְהָב	burden	
+[Psalms 56:9]	נֹדִ	נֹד	changeable circumstances of life, misery	
+[Psalms 56:9]	סִפְרָת	סִפְרָה	book; expertise in literary records	
+[Psalms 57:4]	חֵרֵ֣ף	חרף 3	to confuse, to disillusion	
+[Psalms 57:5]	לְבָאִם֮	לֶ֫בֶא	lion	
+[Psalms 57:5]	לֹ֫הֲטִ֥ים	להט 2	to devour	
+[Psalms 58:7]	מַלְתְּע֥וֹת	מַלְתָּעוֹת	jaw-bone	
+[Psalms 58:9]	שַׁ֭בְּלוּל	שַׁבְּלוּל	snail	
+[Psalms 58:9]	תֶּ֣מֶס	תֶּ֫מֶס	outflow, melting away; ooze, slime	
+[Psalms 60:4]	פְּצַמְתּ	פצם	to crack, split	
+[Psalms 60:6]	קֹ֣שֶׁט	קֹ֫שֶׁט	archery	
+[Psalms 62:4]	תְּהֽוֹתְת֣וּ	הות	to attack	
+[Psalms 63:2]	כָּמַ֣הּ	כמהּ	to yearn for	
+[Psalms 64:3]	רִגְשַׁ֗ת	רִגְשָׁה	unrest, agitation	
+[Psalms 64:7]	חֵ֣פֶשׂ	חֵ֫פֶשׂ	disguise	
+[Psalms 66:11]	מוּעָקָ֣ה	מוּעָקָה	affliction	
+[Psalms 68:5]	עֲרָבוֹת	עֲרָבָה 2	cloud	
+[Psalms 68:7]	כּוֹשָׁר֑וֹת	כּוֹשָׁרָה	prosperity, happiness	
+[Psalms 68:7]	צְחִיחָֽה	צְחִיחָה	bare, burned lands	
+[Psalms 68:15]	תַּשְׁלֵ֥ג	שׁלג	to snow, be snowing	
+[Psalms 68:17]	תְּֽרַצְּדוּן֮	רצד	to observe, watch from cover	
+[Psalms 68:18]	שִׁנְאָ֑ן	שִׁנְאָן	reduplication (thousands); (alt.) troops, warriors, archers	
+[Psalms 68:21]	מוֹשָׁ֫ע֥וֹת	מוֹשָׁעָה	salvation, acts of deliverance	
+[Psalms 68:28]	רִגְמָת	רִגְמָה	heap; crowd	
+[Psalms 68:31]	רַצֵּי	רַץ	silver piece	
+[Psalms 68:32]	חַ֭שְׁמַנִּים	חַשְׁמַן	caustic soda as a dye; bronze; (pl.) bronze articles or red cloths	
+[Psalms 68:36]	תַעֲצֻמ֥וֹת	תַּעֲצֻמוֹת	fullness of strength, might	
+[Psalms 69:3]	מָעֳמָ֑ד	מָעֳמָד	firm ground	
+[Psalms 69:4]	נִחַ֪ר	חרר 2	to be hoarse	
+[Psalms 69:16]	תֶּאְטַר	אטר	to close	
+[Psalms 69:21]	אָ֫נ֥וּשָׁה	נושׁ	to be sick	
+[Psalms 69:22]	בָרוּתִ֣	בָּרוּת	food	
+[Psalms 71:4]	חוֹמֵֽץ	חמץ 2	to oppress	
+[Psalms 71:6]	גוֹזִ֑	גזה	to cut off	
+[Psalms 71:15]	סְפֹרֽוֹת	סְפֹרוֹת	art of writing	
+[Psalms 72:6]	זַרְזִ֥יף	זַרְזִיף	drop of water	
+[Psalms 72:16]	פִסַּת	פִּסָּה	amount, portion, share; wealth, excess, enough, increase	
+[Psalms 72:16]	יִרְעַ֣שׁ	רעשׁ 2	to be abundant, plentiful	
+[Psalms 73:4]	אוּלָֽ	אוּל	body, belly	
+[Psalms 73:8]	יָמִ֤יקוּ	מוק	to mock	
+[Psalms 73:18]	מַשּׁוּאֽוֹת	מַשּׁוּאָה	deception	
+[Psalms 73:27]	רְחֵקֶ֣י	רָחֵק	who hold themselves aloof; those departing	
+[Psalms 74:3]	מַשֻּׁא֣וֹת	מַשֻּׁאוֹת	ruins	
+[Psalms 74:6]	כַשִּׁ֥יל	כַּשִּׁיל	axe	
+[Psalms 74:6]	כֵֽילַפֹּ֗ת	כֵּילָף	crowbar	
+[Psalms 75:9]	מֶסֶךְ֮	מֶ֫סֶךְ	spiced drink	
+[Psalms 76:13]	יִ֭בְצֹר	בצר 2	to reduce, to humble	
+[Psalms 77:5]	שְׁמֻר֣וֹת	שְׁמֻרָה	eyelid	
+[Psalms 77:10]	חַנּ֣וֹת	חנה 2	to be/make gracious	
+[Psalms 77:18]	זֹ֤רְמוּ	זרם 2	to unload (clouds, water) accompanied by thunder	
+[Psalms 78:41]	הִתְוֽוּ	תוה 2	to distress, hurt	
+[Psalms 78:47]	חֲנָמַֽל	חֲנָמַ֑ל	devastating flood	
+[Psalms 78:65]	מִתְרוֹנֵ֥ן	רון	(pt.) overcome	
+[Psalms 80:14]	יְכַרְסְמֶ֣	כרסם	to eat away	
+[Psalms 80:16]	כַנָּה	כַּנָּה	clipping, shoot; support, stand, base	
+[Psalms 84:11]	הִ֭סְתּוֹפֵף	ספף	to lie on the threshold like a beggar	
+[Psalms 84:11]	דּ֗וּר	דור 2	to dwell, to live	
+[Psalms 86:5]	סַלָּ֑ח	סַלָּח	ready to forgive	
+[Psalms 87:1]	יְ֝סוּדָת֗	יְסוּדָה	foundation	
+[Psalms 88:5]	אֱיָֽל	אֱיָל	strength	
+[Psalms 88:13]	נְשִׁיָּֽה	נְשִׁיָּה	forgetting	
+[Psalms 88:16]	אָפֽוּנָה	פון	to be helpless	
+[Psalms 89:9]	חֲסִ֥ין	חֲסִין	strong	
+[Psalms 89:45]	טְּהָר֑	טְהָר	clearness, luster	
+[Psalms 90:1]	מָע֣וֹן	מָעוֹן 1	help, assistance	
+[Psalms 90:5]	זְ֭רַמְתּ	זרם 1	to check, to make an end of life	
+[Psalms 90:10]	רָהְבָּ	רֹ֫הַב	pride	
+[Psalms 90:10]	חִ֝֗ישׁ	חִישׁ	haste; (adv.) quickly	
+[Psalms 91:4]	סֹחֵרָ֣ה	סֹחֵרָה	wall; (trad.) buckler	
+[Psalms 91:8]	שִׁלֻּמַ֖ת	שִׁלֻּמָה	retaliation	
+[Psalms 93:3]	דָּכְיָֽ	דֳּכִי	dashing (of waves)	
+[Psalms 94:21]	יָ֭גוֹדּוּ	גדד 2	to band together	
+[Psalms 95:4]	מֶחְקְרֵי	מֶחְקָר	investigation	
+[Psalms 99:1]	תָּנ֥וּט	נוט	to tremble	
+[Psalms 101:3]	סֵטִ֥ים	סֵט	deviation, transgression	
+[Psalms 102:18]	עַרְעָ֑ר	עַרְעָר 1	bare, naked; penitent naked except for sackcloth	
+[Psalms 103:14]	זָ֝כ֗וּר	זָכוּר	remembering	
+[Psalms 104:3]	רְכוּב֑	רְכוּב	chariot, vehicle	
+[Psalms 104:12]	עֳ֝פָאיִ֗ם	עֳפִי	thick foliage	
+[Psalms 104:15]	הַצְהִ֣יל	צהל 2	to gleam, make the face light up	
+[Psalms 107:30]	מְח֥וֹז	מָחוֹז	harbor	
+[Psalms 109:19]	מֵ֗זַח	מֵ֫זַח 2	waistband	
+[Psalms 110:3]	מִשְׁחָ֑ר	מִשְׁחָר	dawn	
+[Psalms 114:1]	לֹעֵֽז	לעז	to speak an incomprehensible language, speak a foreign language	
+[Psalms 116:12]	תַּגְמוּל֥וֹ	תַּגְמוּל	benefit	
+[Psalms 119:20]	תַאֲבָ֑ה	תַּאֲבָה	longing, yearning	
+[Psalms 119:28]	דָּלְפָ֣ה	דלף 2	to be sleepless; (alt.) to weep	
+[Psalms 119:70]	טָפַ֣שׁ	טפשׁ	to be unfeeling, insensitive	
+[Psalms 119:96]	תִּ֭כְלָה	תִּכְלָה	completeness, perfection	
+[Psalms 119:103]	נִּמְלְצ֣וּ	מלץ	to glide, to slip	
+[Psalms 119:113]	סֵעֲפִ֥ים	סֵעֵף	divided, disunited, futile	
+[Psalms 119:130]	פֵּ֖תַח	פֵּ֫תַח	declaration; disclosure, statement	
+[Psalms 119:131]	יָאָֽבְתִּי	יאב	to long for	
+[Psalms 120:5]	אֽוֹיָה	אוֹיָה	woe!	
+[Psalms 123:4]	גְאֵ֥יוֹנִֽים	גַּאֲיוֹן	arrogant	
+[Psalms 124:5]	זֵּֽידוֹנִֽים	זֵידוֹן	disturbed, raging	
+[Psalms 126:1]	שִׁיבַ֣ת	שִׁיבָה 1	restoration	
+[Psalms 127:2]	שֵׁנָֽא	שֵׁנָא	sleep; (alt.) of a high rank	
+[Psalms 128:3]	שְׁתִלֵ֣י	שָׁתִיל	offshoot, root sucker	
+[Psalms 137:3]	תוֹלָלֵ֣י	תּוֹלָל	mocker; (alt.) plunderer	
+[Psalms 139:3]	זֵרִ֑יתָ	זרה 2	to measure up	
+[Psalms 139:8]	אֶסַּ֣ק	סלק	to ascend	
+[Psalms 139:15]	עָצְמִ֗	עֹ֫צֶם 2	bones	
+[Psalms 139:16]	גָּלְמִ֤	גֹּ֫לֶם	formless	
+[Psalms 139:21]	תְקוֹמְמֶ֗י	תְּקוֹמֵם	opponent, adversary; rebel	
+[Psalms 140:4]	עַכְשׁ֑וּב	עַכְשׁוּב	poisonous snake: horned viper or adder	
+[Psalms 140:9]	מַאֲוַיֵּ֣י	מַאֲוַיִּים	desires	
+[Psalms 140:9]	זְמָמ֥	זָמָם	plan, device	
+[Psalms 140:11]	מַהֲמֹר֗וֹת	מַהֲמֹר	bottomless pit	
+[Psalms 140:12]	מַדְחֵפֹֽת	מַדְחֵפָה	blow	
+[Psalms 141:3]	שָׁמְרָ֣ה	שָׁמְרָה	guard, watch	
+[Psalms 141:3]	דַּ֥ל	דַּל 1	door	
+[Psalms 141:4]	מַנְעַמֵּי	מַנְעַמִּים	delicacies	
+[Psalms 144:6]	בְּר֣וֹק	ברק	to flash	
+[Psalms 144:12]	נְטִעִים֮	נָטִיעַ	growing plant	
+[Psalms 144:13]	מְזָוֵ֣י	מָ֫זוּ	granary	
+[Psalms 144:13]	מַ֭אֲלִיפוֹת	אלף 2	to produce by the thousand	
+[Psalms 144:14]	יוֹצֵ֑את	יוֹצֵאת	abortion	
+[Psalms 146:4]	עֶשְׁתֹּנֹתָֽי	עֶשְׁתּוֹן	plan	
+[Psalms 150:3]	תֵ֣קַע	תֵּ֫קַע	a horn-blast	
+[Psalms 150:5]	שָׁ֑מַע	שֶׁ֫מַע 1	sound, melody	
 
 Job
 [Job 2:8]	הִתְגָּרֵ֖ד	גרד	to scrape oneself	
@@ -1560,51 +1560,51 @@ Ruth
 [Ruth 3:2]	מֹֽדַעְתּ	מֹדַ֫עַת	(distant) relative	
 [Ruth 3:14]	בִּטְרוֹם	טְרוֹם	even before	
 
-Song of Solomon
-[Song of Solomon 1:6]	שְׁחַרְחֹ֔רֶת	שְׁחַרְחֹר	darkish color, complexion	
-[Song of Solomon 1:8]	גְּדִיֹּתַ֔י	גְּדִיָּה	kid	
-[Song of Solomon 1:9]	סֻסָת	סוּסָה	mare	
-[Song of Solomon 1:10]	חֲרוּזִֽים	חֲרוּזִים	necklace of shells	
-[Song of Solomon 1:11]	נְקֻדּ֥וֹת	נְקֻדָּה	spot of silver; glass beads, circular or drop-shaped ear-pendant	
-[Song of Solomon 1:17]	רַחִיטֵנוּ	רָחִיט	rafters	
-[Song of Solomon 1:17]	בְּרוֹתִֽים	בְּרוֹת	juniper	
-[Song of Solomon 2:8]	מְקַפֵּ֖ץ	קפץ 2	to gambol	
-[Song of Solomon 2:9]	כָּתְלֵ֔	כֹּ֫תֶל	wall	
-[Song of Solomon 2:9]	מֵצִ֖יץ	צוץ 2	to gaze	
-[Song of Solomon 2:9]	חֲרַכִּֽים	חָרָךְ	lattice	
-[Song of Solomon 2:12]	זָּמִ֖יר	זָמִיר 2	trimming (of vine); vintage; alt. song	
-[Song of Solomon 2:13]	חָֽנְטָ֣ה	חנט 1	to put forth, to bring about ripeness	
-[Song of Solomon 2:13]	פַגֶּ֔י	פַּג	unripened fruit	
-[Song of Solomon 2:17]	בָֽתֶר	בֶּ֫תֶר 2	mountains with many ravines; mountains of perfumes	
-[Song of Solomon 3:6]	אַבְקַ֥ת	אֲבָקָה	scent-powders	
-[Song of Solomon 3:9]	אַפִּרְי֗וֹן	אַפִּרְיוֹן	sedan chair	
-[Song of Solomon 3:10]	רְפִידָת֣	רְפִידָה	support, rest, back; (alt.) base, foundation of a saddle, litter	
-[Song of Solomon 3:10]	רָצ֣וּף	רצף 1	(pt.) inlaid	
-[Song of Solomon 3:11]	חֲתֻנָּת֔	חֲתֻנָּה	wedding	
-[Song of Solomon 4:3]	מִדְבָּרֵ֖	מִדְבָּר 2	mouth	
-[Song of Solomon 4:4]	תַלְפִּיּ֑וֹת	תַּלְפִּיּוֹת	layers, courses	
-[Song of Solomon 4:9]	צַּוְּרֹנָֽי	צַוָּרוֹן	necklace	
-[Song of Solomon 4:13]	שְׁלָחַ֙י	שֶׁ֫לַח 2	shoot, small shoot	
-[Song of Solomon 4:14]	כַרְכֹּ֗ם	כַּרְכֹּם	saffron	
-[Song of Solomon 5:2]	רְסִ֥יסֵי	רָסִיס 1	droplets, dew	
-[Song of Solomon 5:3]	אֲטַנְּפֵֽ	טנף	to soil	
-[Song of Solomon 5:10]	דָּג֖וּל	דגל 1	(pt.) visible, outstanding	
-[Song of Solomon 5:11]	תַּלְתַּלִּ֔ים	תַּלְתַּלִּים	palm shoots; spathe of the date-palm, swaying of palm-branches	
-[Song of Solomon 5:12]	מִלֵּֽאת	מִלֵּאת	waterhole, pond (trad. The doves); socket (of eye or teeth)	
-[Song of Solomon 5:13]	מֶרְקָחִ֑ים	מֶרְקָח	herbal spices	
-[Song of Solomon 5:14]	עֶ֣שֶׁת	עֶ֫שֶׁת	plaques, panels	
-[Song of Solomon 6:11]	אֱגוֹז֙	אֱגוֹז	nut tree	
-[Song of Solomon 7:2]	חַמּוּקֵ֣י	חַמּוּק	curve	
-[Song of Solomon 7:2]	אָמָּֽן	אָמָּן	craftsman	
-[Song of Solomon 7:3]	סַּ֔הַר	סַ֫הַר	round drinking vessel	
-[Song of Solomon 7:3]	מָּ֑זֶג	מֶ֫זֶג	mixed wine, spiced wine	
-[Song of Solomon 7:3]	סוּגָ֖ה	סוג 2	(pt.) fenced around	
-[Song of Solomon 7:6]	רְהָטִֽים	רַ֫הַט 2	tress; (alt.) ribbon, braid, leather strip	
-[Song of Solomon 7:9]	סַנְסִנָּ֑י	סַנְסִנָּה	panicle of the date	
-[Song of Solomon 7:10]	דּוֹבֵ֖ב	דבב	to trickle ? to slide ?	
-[Song of Solomon 8:2]	רֶ֔קַח	רֶ֫קַח	spice mixture, spices	
-[Song of Solomon 8:5]	מִתְרַפֶּ֖קֶת	רפק	to lean (one-self) against, support oneself on	
-[Song of Solomon 8:6]	שַׁלְהֶ֥בֶתְיָֽה	שַׁלְהֶבֶתְיָה	flame of Yahweh, lightning	
+Song of Songs
+[Song of Songs 1:6]	שְׁחַרְחֹ֔רֶת	שְׁחַרְחֹר	darkish color, complexion	
+[Song of Songs 1:8]	גְּדִיֹּתַ֔י	גְּדִיָּה	kid	
+[Song of Songs 1:9]	סֻסָת	סוּסָה	mare	
+[Song of Songs 1:10]	חֲרוּזִֽים	חֲרוּזִים	necklace of shells	
+[Song of Songs 1:11]	נְקֻדּ֥וֹת	נְקֻדָּה	spot of silver; glass beads, circular or drop-shaped ear-pendant	
+[Song of Songs 1:17]	רַחִיטֵנוּ	רָחִיט	rafters	
+[Song of Songs 1:17]	בְּרוֹתִֽים	בְּרוֹת	juniper	
+[Song of Songs 2:8]	מְקַפֵּ֖ץ	קפץ 2	to gambol	
+[Song of Songs 2:9]	כָּתְלֵ֔	כֹּ֫תֶל	wall	
+[Song of Songs 2:9]	מֵצִ֖יץ	צוץ 2	to gaze	
+[Song of Songs 2:9]	חֲרַכִּֽים	חָרָךְ	lattice	
+[Song of Songs 2:12]	זָּמִ֖יר	זָמִיר 2	trimming (of vine); vintage; alt. song	
+[Song of Songs 2:13]	חָֽנְטָ֣ה	חנט 1	to put forth, to bring about ripeness	
+[Song of Songs 2:13]	פַגֶּ֔י	פַּג	unripened fruit	
+[Song of Songs 2:17]	בָֽתֶר	בֶּ֫תֶר 2	mountains with many ravines; mountains of perfumes	
+[Song of Songs 3:6]	אַבְקַ֥ת	אֲבָקָה	scent-powders	
+[Song of Songs 3:9]	אַפִּרְי֗וֹן	אַפִּרְיוֹן	sedan chair	
+[Song of Songs 3:10]	רְפִידָת֣	רְפִידָה	support, rest, back; (alt.) base, foundation of a saddle, litter	
+[Song of Songs 3:10]	רָצ֣וּף	רצף 1	(pt.) inlaid	
+[Song of Songs 3:11]	חֲתֻנָּת֔	חֲתֻנָּה	wedding	
+[Song of Songs 4:3]	מִדְבָּרֵ֖	מִדְבָּר 2	mouth	
+[Song of Songs 4:4]	תַלְפִּיּ֑וֹת	תַּלְפִּיּוֹת	layers, courses	
+[Song of Songs 4:9]	צַּוְּרֹנָֽי	צַוָּרוֹן	necklace	
+[Song of Songs 4:13]	שְׁלָחַ֙י	שֶׁ֫לַח 2	shoot, small shoot	
+[Song of Songs 4:14]	כַרְכֹּ֗ם	כַּרְכֹּם	saffron	
+[Song of Songs 5:2]	רְסִ֥יסֵי	רָסִיס 1	droplets, dew	
+[Song of Songs 5:3]	אֲטַנְּפֵֽ	טנף	to soil	
+[Song of Songs 5:10]	דָּג֖וּל	דגל 1	(pt.) visible, outstanding	
+[Song of Songs 5:11]	תַּלְתַּלִּ֔ים	תַּלְתַּלִּים	palm shoots; spathe of the date-palm, swaying of palm-branches	
+[Song of Songs 5:12]	מִלֵּֽאת	מִלֵּאת	waterhole, pond (trad. The doves); socket (of eye or teeth)	
+[Song of Songs 5:13]	מֶרְקָחִ֑ים	מֶרְקָח	herbal spices	
+[Song of Songs 5:14]	עֶ֣שֶׁת	עֶ֫שֶׁת	plaques, panels	
+[Song of Songs 6:11]	אֱגוֹז֙	אֱגוֹז	nut tree	
+[Song of Songs 7:2]	חַמּוּקֵ֣י	חַמּוּק	curve	
+[Song of Songs 7:2]	אָמָּֽן	אָמָּן	craftsman	
+[Song of Songs 7:3]	סַּ֔הַר	סַ֫הַר	round drinking vessel	
+[Song of Songs 7:3]	מָּ֑זֶג	מֶ֫זֶג	mixed wine, spiced wine	
+[Song of Songs 7:3]	סוּגָ֖ה	סוג 2	(pt.) fenced around	
+[Song of Songs 7:6]	רְהָטִֽים	רַ֫הַט 2	tress; (alt.) ribbon, braid, leather strip	
+[Song of Songs 7:9]	סַנְסִנָּ֑י	סַנְסִנָּה	panicle of the date	
+[Song of Songs 7:10]	דּוֹבֵ֖ב	דבב	to trickle ? to slide ?	
+[Song of Songs 8:2]	רֶ֔קַח	רֶ֫קַח	spice mixture, spices	
+[Song of Songs 8:5]	מִתְרַפֶּ֖קֶת	רפק	to lean (one-self) against, support oneself on	
+[Song of Songs 8:6]	שַׁלְהֶ֥בֶתְיָֽה	שַׁלְהֶבֶתְיָה	flame of Yahweh, lightning	
 
 Ecclesiastes
 [Ecclesiastes 1:15]	חֶסְר֖וֹן	חֶסְרוֹן	deficit; what is lacking	
