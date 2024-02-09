@@ -3,6 +3,8 @@
 let xmlFolder = './Hebrew XML/';
 let jsonFolder = './Hebrew JSON/';
 
+const hebrew = require('hebrew-transliteration');
+
 const allBookList = [
     "Genesis",
     "Exodus",
