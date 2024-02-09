@@ -4,9 +4,7 @@ let xmlFolder = './Hebrew XML/';
 let jsonFolder = './Hebrew JSON/';
 
 function getHapaxBook(hapaxAddress) {
-    console.log(hapaxAddress);
-    let book = (hapaxAddress.slice(1, -1).split(" ")).slice(0, -1).join(" ");
-    console.log(book);
+    return hapaxAddress.slice(1, -1).split(" ").slice(0, -1).join(" ");
 }
 
 async function getHapaxes() {
@@ -22,6 +20,14 @@ async function getHapaxes() {
             let lineList = textLines[i].split('\t');
 
             let book = getHapaxBook(lineList[0]);
+
+            let hapax = lineList[1];
+
+            if (!finalList.includes(hapax)) {
+                finalList.push(hapax);
+            } else {
+                console.log("'" + hapax + "' isn already in the hapax list!");
+            }
 
             //finalList.push(textLines[i].split('\t')[1]);
         }
