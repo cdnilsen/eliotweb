@@ -12,7 +12,7 @@ async function getHapaxes() {
     let finalList = [];
 
     for (let i = 0; i < textLines.length; i++) {
-        console.log(textLines[i].split('\t'));
+        console.log(textLines[i].split('\t')[1]);
         //let hapax = textLines[i].split('\ t')[1];
         //console.log(hapax);
     }
