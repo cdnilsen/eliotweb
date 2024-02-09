@@ -9,7 +9,7 @@ async function processBook(bookName) {
     let bookLines = bookXMLText.split('\n');
     for (let i = 0; i < bookLines.length; i++) {
         let xmlLine = bookLines[i];
-        console.log(xmlLine.strip());
+        console.log(xmlLine);
     }
 }
 
