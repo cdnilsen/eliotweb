@@ -102,7 +102,7 @@ async function populateHapaxes() {
 }
 
 async function getRightHapaxes(book) {
-    let allHapaxFile = await fetch('./OTHapaxListNormalized.txt');
+    let allHapaxFile = await fetch('./OTHapaxesNormalized.txt');
     let allHapaxText = await allHapaxFile.text();
     let bookList = allHapaxText.split('\n');
 
