@@ -8,8 +8,10 @@ async function processBook(bookName) {
     let bookXMLText = await bookXML.text();
     let bookLines = bookXMLText.split('\n');
     for (let i = 0; i < bookLines.length; i++) {
-        let xmlLine = bookLines[i];
-        console.log(xmlLine.trim());
+        let xmlLine = bookLines[i].trim();
+
+        let lineType = xmLLine[1];
+        console.log(lineType);
     }
 }
 
