@@ -49,7 +49,8 @@ function getHapaxBook(hapaxAddress) {
     return hapaxAddress.slice(1, -1).split(" ").slice(0, -1).join(" ");
 }
 
-async function populateHapaxFile() {
+// This works and its results have added to OTHapaxList.txt. However, it's still here in case we need to fetch it again.
+async function populateHapaxes() {
     let hapaxFile = await fetch('OT Hapaxes.txt');
     let hapaxText = await hapaxFile.text();
     let textLines = hapaxText.split('\n');
@@ -100,7 +101,24 @@ async function populateHapaxFile() {
     
 }
 
-async function processXMLLine(line, chapterCounter, verseCounter, wordCounter, finalLineText) {
+async function getRightHapaxLine(book) {
+    let allHapaxFile = await fetch('./OTHapaxList.txt');
+    let allHapaxText = await allHapaxFile.text();
+    let bookList = allHapaxText.split('\n');
+
+    let thisLine = "";
+    for (let i = 0; i < bookList.length; i++) {
+        let strippedLine = bookList[i].split(" | ")
+        if (strippedLine[0].strip() == book) {
+            thisLine = strippedLine[1];
+            break;
+        }
+    }
+    console.log(thisLine);
+    return thisLine;
+}
+
+async function processXMLLine(line, book, chapterCounter, verseCounter, wordCounter, finalLineText) {
     //console.log(line);
     let lineType = line[1];
 
@@ -156,7 +174,7 @@ async function processBook(bookName) {
 
     let allLineDict = {};
     
-    let hapaxList = await getHapaxes();
+    let hapaxList = await getRightHapaxLine(bookName);
 
     for (let i = 0; i < bookLines.length; i++) {
         let xmlLine = bookLines[i].trim();
@@ -166,7 +184,7 @@ async function processBook(bookName) {
         let currentWord = 0;
         
         if (lineProcessBool(xmlLine)) {
-            processXMLLine(xmlLine, currentChapter, currentVerse, currentWord);
+            processXMLLine(xmlLine, bookName, currentChapter, currentVerse, currentWord);
         }
     }
 }
@@ -175,6 +193,5 @@ document.getElementById("submit").addEventListener("click", async function() {
     event.preventDefault();
     let bookName = document.getElementById("dropdown").value;
 
-    await populateHapaxFile();
-    //await processBook(bookName);
+    await processBook(bookName);
 });
