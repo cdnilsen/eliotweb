@@ -3,11 +3,31 @@
 let xmlFolder = './Hebrew XML/';
 let jsonFolder = './Hebrew JSON/';
 
-function processXMLLine(line, chapterCounter, verseCounter, wordCounter) {
+function processXMLLine(line, chapterCounter, verseCounter, wordCounter, finalLineText) {
+    console.log(line);
     let lineType = line[1];
     let lineText = line.slice(3, -4);
-    console.log(line);
+
+    let hasSofPasuk = (lineText[-1] == "׃");
+    
+    if (hasSofPasuk) {
+        lineText = lineText.slice(0, -1);
+    }
+    
     console.log(lineText);
+    /*
+    if (lineType == 'c') {
+        chapterCounter++;
+        verseCounter = 0;
+    } else if (lineType == 'v') {
+        verseCounter++;
+        wordCounter = 0;
+    } else {
+        if (lineType != 'q') {
+            wordCounter++;
+        }
+    }
+    */
 }
 
 function lineProcessBool(line) {
