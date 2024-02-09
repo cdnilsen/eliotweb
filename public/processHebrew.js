@@ -3,16 +3,38 @@
 let xmlFolder = './Hebrew XML/';
 let jsonFolder = './Hebrew JSON/';
 
+function processXMLLine(line, chapterCounter, verseCounter, wordCounter) {
+    let lineType = line[1];
+    let lineText = line.slice(4, -5);
+    console.log(line);
+    console.log(lineText);
+
+}
+
+function lineProcessBool(line) {
+    let lineType = line[1];
+    let relevantTags = ['c', 'v', 'w', 'k', 'q'];
+    if (!relevantTags.includes(lineType)) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
 async function processBook(bookName) {
     let bookXML = await fetch(xmlFolder + bookName + '.xml');
     let bookXMLText = await bookXML.text();
     let bookLines = bookXMLText.split('\n');
     for (let i = 0; i < bookLines.length; i++) {
         let xmlLine = bookLines[i].trim();
-
-        let lineType = xmlLine[1];
-
-        console.log(lineType);
+        
+        let currentChapter = 0;
+        let currentVerse = 0;
+        let currentWord = 0;
+        
+        if (lineProcessBool(xmlLine)) {
+            processXMLLine(xmlLine, currentChapter, currentVerse, currentWord);
+        }
     }
 }
 
