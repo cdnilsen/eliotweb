@@ -13,8 +13,8 @@ async function processBook(bookName) {
     }
 }
 
-document.getElementById("dropdown").addEventListener("change", async function() {
-    let bookName = this.value;
+document.getElementById("submit").addEventListener("click", async function() {
+    let book = document.getElementById("dropdown").value;
 
     await processBook(bookName);
 });
