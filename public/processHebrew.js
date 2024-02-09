@@ -12,7 +12,7 @@ async function getHapaxes() {
     let hapaxText = await hapaxFile.text();
     let textLines = hapaxText.split('\n');
 
-    let finalList = [];
+    let bookToHapaxDict = {};
 
     for (let i = 0; i < textLines.length; i++) {
         let line = textLines[i];
@@ -21,17 +21,19 @@ async function getHapaxes() {
 
             let book = getHapaxBook(lineList[0]);
 
-            let hapax = lineList[1];
-
-            if (!finalList.includes(hapax)) {
-                finalList.push(hapax);
-            } else {
-                console.log("'" + hapax + "' isn already in the hapax list!");
+            if (!(book in bookToHapaxDict)) {
+                bookToHapaxDict[book] = [];
             }
+            
+            //There are no doublets, I checked
+            let hapax = lineList[1];
+            bookToHapaxDict[book].push(hapax);
         }
     }
-    console.log(finalList.length + " hapaxes found total.")
-    return finalList;
+    for (let book in bookToHapaxDict) {
+        console.log(book);
+        console.log(bookToHapaxDict[book]);
+    }
 }
 
 async function processXMLLine(line, chapterCounter, verseCounter, wordCounter, finalLineText) {
