@@ -1,0 +1,525 @@
+ERROR: כֹּֽפֶר found 2 times in Genesis 6:14
+ERROR: צֹהַר found 0 times in Genesis 6:16
+ERROR: יַפְתְּ found 2 times in Genesis 9:27
+ERROR: מֶשֶׁק found 2 times in Genesis 15:2
+ERROR: אָשְׁרִ found 3 times in Genesis 30:13
+ERROR: זְבָדַ found 2 times in Genesis 30:20
+ERROR: זֵבֶד found 2 times in Genesis 30:20
+ERROR: Genesis 50:4 has 7 hapaxes left:
+כֹּֽפֶר
+
+ERROR: Genesis 50:4 has 7 hapaxes left:
+כֹּֽפֶר
+צֹהַר
+
+ERROR: Genesis 50:4 has 7 hapaxes left:
+כֹּֽפֶר
+צֹהַר
+יַפְתְּ
+
+ERROR: Genesis 50:4 has 7 hapaxes left:
+כֹּֽפֶר
+צֹהַר
+יַפְתְּ
+מֶשֶׁק
+
+ERROR: Genesis 50:4 has 7 hapaxes left:
+כֹּֽפֶר
+צֹהַר
+יַפְתְּ
+מֶשֶׁק
+אָשְׁרִ
+
+ERROR: Genesis 50:4 has 7 hapaxes left:
+כֹּֽפֶר
+צֹהַר
+יַפְתְּ
+מֶשֶׁק
+אָשְׁרִ
+זְבָדַ
+
+ERROR: Genesis 50:4 has 7 hapaxes left:
+כֹּֽפֶר
+צֹהַר
+יַפְתְּ
+מֶשֶׁק
+אָשְׁרִ
+זְבָדַ
+זֵבֶד
+
+ERROR: Genesis hapaxes not marked correctly
+ERROR: אֶֽהְיֶה found 3 times in Exodus 3:14
+ERROR: רָצַע found 2 times in Exodus 21:6
+ERROR: סֶרַח found 2 times in Exodus 26:12
+ERROR: נָטָף found 0 times in Exodus 30:34
+ERROR: Exodus 35:25 has 4 hapaxes left:
+אֶֽהְיֶה
+
+ERROR: Exodus 35:25 has 4 hapaxes left:
+אֶֽהְיֶה
+רָצַע
+
+ERROR: Exodus 35:25 has 4 hapaxes left:
+אֶֽהְיֶה
+רָצַע
+סֶרַח
+
+ERROR: Exodus 35:25 has 4 hapaxes left:
+אֶֽהְיֶה
+רָצַע
+סֶרַח
+נָטָף
+
+ERROR: Exodus hapaxes not marked correctly
+ERROR: חֻפְשָׁה found 2 times in Leviticus 19:20
+ERROR: חֻפָּֽשָׁה found 2 times in Leviticus 19:20
+ERROR: Leviticus 26:37 has 2 hapaxes left:
+חֻפְשָׁה
+
+ERROR: Leviticus 26:37 has 2 hapaxes left:
+חֻפְשָׁה
+חֻפָּֽשָׁה
+
+ERROR: Leviticus hapaxes not marked correctly
+ERROR: הַסְכֵּת found 0 times in Deuteronomy 27:9
+ERROR: רֹךְ found 2 times in Deuteronomy 28:56
+ERROR: Deuteronomy 34:7 has 2 hapaxes left:
+הַסְכֵּת
+
+ERROR: Deuteronomy 34:7 has 2 hapaxes left:
+הַסְכֵּת
+רֹךְ
+
+ERROR: Deuteronomy hapaxes not marked correctly
+ERROR: אַלָּה found 3 times in Joshua 24:26
+ERROR: Joshua 24:26 has 1 hapaxes left:
+אַלָּה
+
+ERROR: Joshua hapaxes not marked correctly
+ERROR: מַּֽעֲרֵה found 0 times in Judges 20:33
+ERROR: Judges 20:33 has 1 hapaxes left:
+מַּֽעֲרֵה
+
+ERROR: Judges hapaxes not marked correctly
+ERROR: עִפַּר found 2 times in 2 Samuel 16:13
+ERROR: 2 Samuel 23:8 has 1 hapaxes left:
+עִפַּר
+
+ERROR: 2 Samuel hapaxes not marked correctly
+ERROR: כֵּרָה found 2 times in 2 Kings 6:23
+ERROR: 2 Kings 24:15 has 1 hapaxes left:
+כֵּרָה
+
+ERROR: 2 Kings hapaxes not marked correctly
+ERROR: מְכֻרְבָּל found 0 times in 1 Chronicles 15:27
+ERROR: 1 Chronicles 29:2 has 1 hapaxes left:
+מְכֻרְבָּל
+
+ERROR: 1 Chronicles hapaxes not marked correctly
+ERROR: סְּפָר found 3 times in 2 Chronicles 2:16
+ERROR: 2 Chronicles 36:17 has 1 hapaxes left:
+סְּפָר
+
+ERROR: 2 Chronicles hapaxes not marked correctly
+ERROR: בֶֽכֶה found 2 times in Ezra 10:1
+ERROR: Ezra 10:1 has 1 hapaxes left:
+בֶֽכֶה
+
+ERROR: Ezra hapaxes not marked correctly
+ERROR: יַּחַשׂ found 2 times in Nehemiah 7:5
+ERROR: Nehemiah 13:29 has 1 hapaxes left:
+יַּחַשׂ
+
+ERROR: Nehemiah hapaxes not marked correctly
+ERROR: מְרוּקֵי found 2 times in Esther 2:12
+ERROR: Esther 9:19 has 1 hapaxes left:
+מְרוּקֵי
+
+ERROR: Esther hapaxes not marked correctly
+ERROR: עָשׁ found 2 times in Job 9:9
+ERROR: גַּבֵּי found 2 times in Job 13:12
+ERROR: רִי found 2 times in Job 37:11
+ERROR: מְסִבּוֹת found 0 times in Job 37:12
+ERROR: Job 42:13 has 4 hapaxes left:
+עָשׁ
+
+ERROR: Job 42:13 has 4 hapaxes left:
+עָשׁ
+גַּבֵּי
+
+ERROR: Job 42:13 has 4 hapaxes left:
+עָשׁ
+גַּבֵּי
+רִי
+
+ERROR: Job 42:13 has 4 hapaxes left:
+עָשׁ
+גַּבֵּי
+רִי
+מְסִבּוֹת
+
+ERROR: Job hapaxes not marked correctly
+ERROR: בֹּקֶר found 2 times in Psalms 5:4
+ERROR: רָנֵּי found 2 times in Psalms 32:7
+ERROR: טְפָחוֹת found 0 times in Psalms 39:6
+ERROR: סִפְרָת found 2 times in Psalms 56:9
+ERROR: חֵפֶשׂ found 3 times in Psalms 64:7
+ERROR: יָמִיקוּ found 0 times in Psalms 73:8
+ERROR: חֲסִין found 0 times in Psalms 89:9
+ERROR: גָּלְמִ found 0 times in Psalms 139:16
+ERROR: Psalms 150:5 has 8 hapaxes left:
+בֹּקֶר
+
+ERROR: Psalms 150:5 has 8 hapaxes left:
+בֹּקֶר
+רָנֵּי
+
+ERROR: Psalms 150:5 has 8 hapaxes left:
+בֹּקֶר
+רָנֵּי
+טְפָחוֹת
+
+ERROR: Psalms 150:5 has 8 hapaxes left:
+בֹּקֶר
+רָנֵּי
+טְפָחוֹת
+סִפְרָת
+
+ERROR: Psalms 150:5 has 8 hapaxes left:
+בֹּקֶר
+רָנֵּי
+טְפָחוֹת
+סִפְרָת
+חֵפֶשׂ
+
+ERROR: Psalms 150:5 has 8 hapaxes left:
+בֹּקֶר
+רָנֵּי
+טְפָחוֹת
+סִפְרָת
+חֵפֶשׂ
+יָמִיקוּ
+
+ERROR: Psalms 150:5 has 8 hapaxes left:
+בֹּקֶר
+רָנֵּי
+טְפָחוֹת
+סִפְרָת
+חֵפֶשׂ
+יָמִיקוּ
+חֲסִין
+
+ERROR: Psalms 150:5 has 8 hapaxes left:
+בֹּקֶר
+רָנֵּי
+טְפָחוֹת
+סִפְרָת
+חֵפֶשׂ
+יָמִיקוּ
+חֲסִין
+גָּלְמִ
+
+ERROR: Psalms hapaxes not marked correctly
+ERROR: פֶתִי found 2 times in Proverbs 1:22
+ERROR: עֱלִי found 2 times in Proverbs 27:22
+ERROR: עֲלוּקָה found 0 times in Proverbs 30:15
+ERROR: Proverbs 31:27 has 3 hapaxes left:
+פֶתִי
+
+ERROR: Proverbs 31:27 has 3 hapaxes left:
+פֶתִי
+עֱלִי
+
+ERROR: Proverbs 31:27 has 3 hapaxes left:
+פֶתִי
+עֱלִי
+עֲלוּקָה
+
+ERROR: Proverbs hapaxes not marked correctly
+ERROR: חְפֹּר פֵּרוֹת found 0 times in Isaiah 2:20
+ERROR: מַשְׁעֵן found 4 times in Isaiah 3:1
+ERROR: לַם found 3 times in Isaiah 9:6
+ERROR: גֵּא found 4 times in Isaiah 16:6
+ERROR: מְעִי found 2 times in Isaiah 17:1
+ERROR: קִר found 2 times in Isaiah 22:5
+ERROR: מִקְוָה found 0 times in Isaiah 22:11
+ERROR: בָרַד found 2 times in Isaiah 32:19
+ERROR: אֹרֶן found 0 times in Isaiah 44:14
+ERROR: פְּקַח קֽוֹחַ found 0 times in Isaiah 61:1
+ERROR: Isaiah 66:20 has 10 hapaxes left:
+חְפֹּר פֵּרוֹת
+
+ERROR: Isaiah 66:20 has 10 hapaxes left:
+חְפֹּר פֵּרוֹת
+מַשְׁעֵן
+
+ERROR: Isaiah 66:20 has 10 hapaxes left:
+חְפֹּר פֵּרוֹת
+מַשְׁעֵן
+לַם
+
+ERROR: Isaiah 66:20 has 10 hapaxes left:
+חְפֹּר פֵּרוֹת
+מַשְׁעֵן
+לַם
+גֵּא
+
+ERROR: Isaiah 66:20 has 10 hapaxes left:
+חְפֹּר פֵּרוֹת
+מַשְׁעֵן
+לַם
+גֵּא
+מְעִי
+
+ERROR: Isaiah 66:20 has 10 hapaxes left:
+חְפֹּר פֵּרוֹת
+מַשְׁעֵן
+לַם
+גֵּא
+מְעִי
+קִר
+
+ERROR: Isaiah 66:20 has 10 hapaxes left:
+חְפֹּר פֵּרוֹת
+מַשְׁעֵן
+לַם
+גֵּא
+מְעִי
+קִר
+מִקְוָה
+
+ERROR: Isaiah 66:20 has 10 hapaxes left:
+חְפֹּר פֵּרוֹת
+מַשְׁעֵן
+לַם
+גֵּא
+מְעִי
+קִר
+מִקְוָה
+בָרַד
+
+ERROR: Isaiah 66:20 has 10 hapaxes left:
+חְפֹּר פֵּרוֹת
+מַשְׁעֵן
+לַם
+גֵּא
+מְעִי
+קִר
+מִקְוָה
+בָרַד
+אֹרֶן
+
+ERROR: Isaiah 66:20 has 10 hapaxes left:
+חְפֹּר פֵּרוֹת
+מַשְׁעֵן
+לַם
+גֵּא
+מְעִי
+קִר
+מִקְוָה
+בָרַד
+אֹרֶן
+פְּקַח קֽוֹחַ
+
+ERROR: Isaiah hapaxes not marked correctly
+ERROR: קִּטֵּר found 2 times in Jeremiah 44:21
+ERROR: יְפֵֽה פִיָּה found 0 times in Jeremiah 46:20
+ERROR: רֶטֶט found 0 times in Jeremiah 49:24
+ERROR: Jeremiah 51:44 has 3 hapaxes left:
+קִּטֵּר
+
+ERROR: Jeremiah 51:44 has 3 hapaxes left:
+קִּטֵּר
+יְפֵֽה פִיָּה
+
+ERROR: Jeremiah 51:44 has 3 hapaxes left:
+קִּטֵּר
+יְפֵֽה פִיָּה
+רֶטֶט
+
+ERROR: Jeremiah hapaxes not marked correctly
+ERROR: שֻׂכּ found 2 times in Lamentations 2:6
+ERROR: Lamentations 5:13 has 1 hapaxes left:
+שֻׂכּ
+
+ERROR: Lamentations hapaxes not marked correctly
+ERROR: הִֽי found 2 times in Ezekiel 2:10
+ERROR: קָח found 2 times in Ezekiel 17:5
+ERROR: חַד found 2 times in Ezekiel 33:30
+ERROR: שִֽׁמְמָה found 2 times in Ezekiel 35:7
+ERROR: Ezekiel 48:12 has 4 hapaxes left:
+הִֽי
+
+ERROR: Ezekiel 48:12 has 4 hapaxes left:
+הִֽי
+קָח
+
+ERROR: Ezekiel 48:12 has 4 hapaxes left:
+הִֽי
+קָח
+חַד
+
+ERROR: Ezekiel 48:12 has 4 hapaxes left:
+הִֽי
+קָח
+חַד
+שִֽׁמְמָה
+
+ERROR: Ezekiel hapaxes not marked correctly
+ERROR: שֵּׂח found 2 times in Amos 4:13
+ERROR: Amos 9:11 has 1 hapaxes left:
+שֵּׂח
+
+ERROR: Amos hapaxes not marked correctly
+ERROR: בּוּקָה found 2 times in Nahum 2:11
+ERROR: Nahum 3:19 has 1 hapaxes left:
+בּוּקָה
+
+ERROR: Nahum hapaxes not marked correctly
+PS C:\Users\Campbell\desktop\eliotweb\public> py tanakhprocessor.py
+ERROR: כֹּֽפֶר found 2 times in Genesis 6:14
+ERROR: צֹהַר found 0 times in Genesis 6:16   
+ERROR: יַפְתְּ found 2 times in Genesis 9:27 
+ERROR: מֶשֶׁק found 2 times in Genesis 15:2  
+ERROR: אָשְׁרִ found 3 times in Genesis 30:13
+ERROR: זְבָדַ found 2 times in Genesis 30:20 
+ERROR: זֵבֶד found 2 times in Genesis 30:20  
+ERROR: Genesis has 7 hapaxes left:
+
+  File "C:\Users\Campbell\desktop\eliotweb\public\tanakhprocessor.py", line 313, in <module>
+    redoBook(book)
+  File "C:\Users\Campbell\desktop\eliotweb\public\tanakhprocessor.py", line 310, in redoBook
+    markHapaxes(book)
+  File "C:\Users\Campbell\desktop\eliotweb\public\tanakhprocessor.py", line 270, in markHapaxes
+    hapaxesWorked = checkHapaxes(hapaxDict, currentVerseWords, currentVerseTags, book)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Campbell\desktop\eliotweb\public\tanakhprocessor.py", line 228, in checkHapaxes
+    for i in range(unfinishedHapaxes):
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'list' object cannot be interpreted as an integer
+PS C:\Users\Campbell\desktop\eliotweb\public> py tanakhprocessor.py
+ERROR: כֹּֽפֶר found 2 times in Genesis 6:14
+ERROR: צֹהַר found 0 times in Genesis 6:16
+ERROR: יַפְתְּ found 2 times in Genesis 9:27
+ERROR: מֶשֶׁק found 2 times in Genesis 15:2
+ERROR: אָשְׁרִ found 3 times in Genesis 30:13
+ERROR: זְבָדַ found 2 times in Genesis 30:20
+ERROR: זֵבֶד found 2 times in Genesis 30:20
+ERROR: Genesis has 7 hapaxes left:
+
+ERROR: Genesis hapaxes not marked correctly
+ERROR: אֶֽהְיֶה found 3 times in Exodus 3:14
+ERROR: רָצַע found 2 times in Exodus 21:6
+ERROR: סֶרַח found 2 times in Exodus 26:12
+ERROR: נָטָף found 0 times in Exodus 30:34
+ERROR: Exodus has 4 hapaxes left:
+
+ERROR: Exodus hapaxes not marked correctly
+ERROR: חֻפְשָׁה found 2 times in Leviticus 19:20
+ERROR: חֻפָּֽשָׁה found 2 times in Leviticus 19:20
+ERROR: Leviticus has 2 hapaxes left:
+
+ERROR: Leviticus hapaxes not marked correctly
+ERROR: הַסְכֵּת found 0 times in Deuteronomy 27:9
+ERROR: רֹךְ found 2 times in Deuteronomy 28:56
+ERROR: Deuteronomy has 2 hapaxes left:
+
+ERROR: Deuteronomy hapaxes not marked correctly
+ERROR: אַלָּה found 3 times in Joshua 24:26
+ERROR: Joshua has 1 hapaxes left:
+
+ERROR: Joshua hapaxes not marked correctly
+ERROR: מַּֽעֲרֵה found 0 times in Judges 20:33
+ERROR: Judges has 1 hapaxes left:
+
+ERROR: Judges hapaxes not marked correctly
+ERROR: עִפַּר found 2 times in 2 Samuel 16:13
+ERROR: 2 Samuel has 1 hapaxes left:
+
+ERROR: 2 Samuel hapaxes not marked correctly
+ERROR: כֵּרָה found 2 times in 2 Kings 6:23
+ERROR: 2 Kings has 1 hapaxes left:
+
+ERROR: 2 Kings hapaxes not marked correctly
+ERROR: מְכֻרְבָּל found 0 times in 1 Chronicles 15:27
+ERROR: 1 Chronicles has 1 hapaxes left:
+
+ERROR: 1 Chronicles hapaxes not marked correctly
+ERROR: סְּפָר found 3 times in 2 Chronicles 2:16
+ERROR: 2 Chronicles has 1 hapaxes left:
+
+ERROR: 2 Chronicles hapaxes not marked correctly
+ERROR: בֶֽכֶה found 2 times in Ezra 10:1
+ERROR: Ezra has 1 hapaxes left:
+
+ERROR: Ezra hapaxes not marked correctly
+ERROR: יַּחַשׂ found 2 times in Nehemiah 7:5
+ERROR: Nehemiah has 1 hapaxes left:
+
+ERROR: Nehemiah hapaxes not marked correctly
+ERROR: מְרוּקֵי found 2 times in Esther 2:12
+ERROR: Esther has 1 hapaxes left:
+
+ERROR: Esther hapaxes not marked correctly
+ERROR: עָשׁ found 2 times in Job 9:9
+ERROR: גַּבֵּי found 2 times in Job 13:12
+ERROR: רִי found 2 times in Job 37:11
+ERROR: מְסִבּוֹת found 0 times in Job 37:12
+ERROR: Job has 4 hapaxes left:
+
+ERROR: Job hapaxes not marked correctly
+ERROR: בֹּקֶר found 2 times in Psalms 5:4
+ERROR: רָנֵּי found 2 times in Psalms 32:7
+ERROR: טְפָחוֹת found 0 times in Psalms 39:6
+ERROR: סִפְרָת found 2 times in Psalms 56:9
+ERROR: חֵפֶשׂ found 3 times in Psalms 64:7
+ERROR: יָמִיקוּ found 0 times in Psalms 73:8
+ERROR: חֲסִין found 0 times in Psalms 89:9
+ERROR: גָּלְמִ found 0 times in Psalms 139:16
+ERROR: Psalms has 8 hapaxes left:
+
+ERROR: Psalms hapaxes not marked correctly
+ERROR: פֶתִי found 2 times in Proverbs 1:22
+ERROR: עֱלִי found 2 times in Proverbs 27:22
+ERROR: עֲלוּקָה found 0 times in Proverbs 30:15
+ERROR: Proverbs has 3 hapaxes left:
+
+ERROR: Proverbs hapaxes not marked correctly
+ERROR: חְפֹּר פֵּרוֹת found 0 times in Isaiah 2:20
+ERROR: מַשְׁעֵן found 4 times in Isaiah 3:1
+ERROR: לַם found 3 times in Isaiah 9:6
+ERROR: גֵּא found 4 times in Isaiah 16:6
+ERROR: מְעִי found 2 times in Isaiah 17:1
+ERROR: קִר found 2 times in Isaiah 22:5
+ERROR: מִקְוָה found 0 times in Isaiah 22:11
+ERROR: בָרַד found 2 times in Isaiah 32:19
+ERROR: אֹרֶן found 0 times in Isaiah 44:14
+ERROR: פְּקַח קֽוֹחַ found 0 times in Isaiah 61:1
+ERROR: Isaiah has 10 hapaxes left:
+
+ERROR: Isaiah hapaxes not marked correctly
+ERROR: קִּטֵּר found 2 times in Jeremiah 44:21
+ERROR: יְפֵֽה פִיָּה found 0 times in Jeremiah 46:20
+ERROR: רֶטֶט found 0 times in Jeremiah 49:24
+ERROR: Jeremiah has 3 hapaxes left:
+
+ERROR: Jeremiah hapaxes not marked correctly
+ERROR: שֻׂכּ found 2 times in Lamentations 2:6
+ERROR: Lamentations has 1 hapaxes left:
+
+ERROR: Lamentations hapaxes not marked correctly
+ERROR: הִֽי found 2 times in Ezekiel 2:10
+ERROR: קָח found 2 times in Ezekiel 17:5
+ERROR: חַד found 2 times in Ezekiel 33:30
+ERROR: שִֽׁמְמָה found 2 times in Ezekiel 35:7
+ERROR: Ezekiel has 4 hapaxes left:
+
+ERROR: Ezekiel hapaxes not marked correctly
+ERROR: שֵּׂח found 2 times in Amos 4:13
+ERROR: Amos has 1 hapaxes left:
+
+ERROR: Amos hapaxes not marked correctly
+ERROR: בּוּקָה found 2 times in Nahum 2:11
+ERROR: Nahum has 1 hapaxes left:
+
+ERROR: Nahum hapaxes not marked correctly

@@ -539,20 +539,71 @@ def getBookHapaxes(book):
     for line in hapaxFileLines:
         if line[0] == "[":
             splitLine = line.split("\t")
-            lineAddress = splitLine[0][1:-1]
-            splitAddress = lineAddress.split(" ")
-            lineBook = ' '.join(splitAddress[0:-1])
-            if lineBook == book:
-                rawAddress = splitAddress[-1].split(":")
+            address = splitLine[0][1:-1]
+            splitAddress =address.split(" ")
+            if (' '.join(splitAddress[:-1]) == book):
                 numHapaxes += 1
-
-                address = int(rawAddress[0] + str(addZeros(rawAddress[1], 4)))
-                hapax = killCantillationMarks(splitLine[1].strip())
+                address = splitAddress[-1]
+                hapax = splitLine[1].strip()
+                hapax = unicodedata.normalize('NFC', hapax)
                 finalDict[hapax] = address
-                print(address)
-
+    finalDict["number"] = str(numHapaxes)
     return finalDict
-                
+
+
+
+def swapHapaxDictOrder(hapaxDict):
+    finalDict = {}
+    for word in hapaxDict:
+        verse = hapaxDict[word]
+        if verse not in finalDict:
+            finalDict[verse] = [word]
+        else:
+            finalDict[verse].append(word)
+    return finalDict
+
+
+def checkHapaxesinBookXML(bookName):
+    bookXML = open("./Hebrew XML/" + bookName + ".xml", "r", encoding="utf-8")
+    bookXMLLines = bookXML.readlines()
+
+    hapaxDict = getBookHapaxes(bookName)
+    swappedDict = swapHapaxDictOrder(hapaxDict)
+
+    currentChapter = ""
+    currentVerse = ""
+    numHapaxes = 0
+    for line in bookXMLLines:
+        line = line.strip()
+        line = unicodedata.normalize('NFC', line)
+        if line.startswith('<c n='):
+            currentChapter = line.split('"')[1]
+        if line.startswith('<v n='):
+            currentVerse = line.split('"')[1]
+        if line.startswith("<w>") or line.startswith("<k") or line.startswith("<q"):
+            address = currentChapter + ":" + currentVerse
+            if address in swappedDict:
+                for word in swappedDict[address]:
+                    if word in line:
+                        numHapaxes += 1
+
+    hapaxesInDict = hapaxDict["number"]
+
+    if numHapaxes != int(hapaxesInDict):
+
+        print(bookName + ": " + str(numHapaxes) + " vs. " + hapaxesInDict)
+
+        return False
+    else:
+        return True
+
+numMismatches = 0
+for book in allOTBookListPsalmsNormal:
+    if checkHapaxesinBookXML(book) == False:
+        numMismatches += 1
+        print(book)
+print("total mismatches: " + str(numMismatches))
+
 
 def processBookXML(bookName):
     xmlFile = open("./Hebrew XML/" + bookName + ".xml", "r", encoding="utf-8")
@@ -632,6 +683,28 @@ def processBookXML(bookName):
         
     bookJSON.write(json.dumps(newRawJSON, indent=2))
 
+def replaceFinalForms(char):
+    if char == "ך":
+        return "כ"
+    elif char == "ם":
+        return "מ"
+    elif char == "ן":
+        return "נ"
+    elif char == "ף":
+        return "פ"
+    elif char == "ץ":
+        return "צ"
+    else:
+        return char
+
+def consonantsOnly(word):
+    consonantList = ["א", "ב", "ג", "ד", "ה", "ו", "ז", "ח", "ט", "י", "כ", "ל", "מ", "נ", "ס", "ע", "פ", "צ", "ק", "ר", "ש", "ת", "ך", "ם", "ן", "ף", "ץ"]
+
+    finalWordCharList = []
+    for char in word:
+        if char in consonantList:
+            finalWordCharList.append(replaceFinalForms(char))
+    return finalWordCharList
 
 def renormalizeHapaxFile():
     hapaxFile = open("./OTHapaxList.txt", "r", encoding="utf-8")
@@ -647,37 +720,97 @@ def renormalizeHapaxFile():
         normalizedHapaxList = []
         for hapax in hapaxList:
             newHapax = unicodedata.normalize('NFC', hapax)
-            print(hapax)
-            print(newHapax)
-            print(hapax == newHapax)
             normalizedHapaxList.append(newHapax)
         
         newFile.write(bookName + "|" + ",".join(normalizedHapaxList) + "\n")
+    newFile.close()
+
+def getBookHapaxes(book):
+    hapaxFile = open("./OTHapaxesNormalized.txt", "r", encoding="utf-8")
+    hapaxFileLines = hapaxFile.readlines()
+    hapaxFile.close()
+
+    allHapaxes = []
+    for line in hapaxFileLines:
+        splitLine = line.split("|")
+        if splitLine[0] == book:
+            hapaxList = splitLine[1].split(",")
+            for hapax in hapaxList:
+                hapax = hapax.strip()
+                hapax = unicodedata.normalize('NFC', hapax)
+                allHapaxes.append(hapax)
+
+    return allHapaxes
 
     
+def lineIsRelevant(line):
+    return line.startswith("<w>") or line.startswith("<k>") or line.startswith("<q>") or line.startswith('<c n=') or line.startswith('<v n=')
+
 def normalizeXML(book):
     xmlFile = open("./Hebrew XML/" + book + ".xml", "r", encoding="utf-8")
     xmlLines = xmlFile.readlines()
     xmlFile.close()
 
+    hapaxList = getBookHapaxes(book)
+    print(hapaxList)
+
     newLines = []
+
+    currentChapter = 0
+    currentVerse = 0
+    wordCounter = 1
+
+    consonantHapaxList = []
+    for hapax in hapaxList:
+        consonantHapaxList.append(consonantsOnly(hapax))
+
+    hapaxesFound = 0
+
     for line in xmlLines:
-        newLines.append(unicodedata.normalize('NFC', line))
+        line = line.strip()
+        if (line.startswith('<w>') or line.startswith('<k>') or line.startswith('<q>')):
+            thisWord = line.split(">")[1].split("<")[0]
 
-    newFile = open("./Hebrew XML/" + book + ".xml", "w", encoding="utf-8")
+            skeletonWord = consonantsOnly(thisWord)
+            if skeletonWord in consonantHapaxList:
+                hapaxesFound += 1
+                print(thisWord)
+    print("Hapaxes found: " + str(hapaxesFound))
+
+    numHapaxesFound = 0
+    for line in xmlLines:
+        line = line.strip()
+        if lineIsRelevant(line):
+            if (line.startswith('<w>') or line.startswith('<k>') or line.startswith('<q>')):
+                addressString = "(" + str(currentChapter) + ":" + str(currentVerse) + ":" + str(wordCounter) + ")"
+                lineKey = line[1]
+                thisWord = line.split(">")[1].split("<")[0]
+                thisWord = unicodedata.normalize('NFC', thisWord)
+
+                for word in hapaxList:
+                    if word in thisWord:
+                        lineKey = "h"
+                        numHapaxesFound += 1
+                        print(word)
+                        print(thisWord)
+
+                newWord = killCantillationMarks(thisWord)
+
+                
+                newLines.append('<' + lineKey + '>' + newWord + '</' + lineKey + '> ' + addressString)
+
+                if (not line.startswith('<k>')):
+                    wordCounter += 1
+                
+            elif line.startswith('<c n='):
+                currentChapter = line.split('"')[1]
+            elif line.startswith('<v n='):
+                wordCounter = 1
+                currentVerse = line.split('"')[1]
+
+    newTextFile = open("./Hebrew Raw Text/" + book + ".txt", "w", encoding="utf-8")
     for line in newLines:
-        newFile.write(line)
-    newFile.close()
+        newTextFile.write(line + "\n")
 
-testLine = "        <w>בִּשְׂדֵ֣י</w>"
-print(unicodedata.normalize('NFC', testLine))
-
-normalizeXML('Ruth')
-
-            
-
-            
-
-#getBookHapaxes('Daniel')
-#def processBookToEasierXML(bookName):
+    print("Hapaxes found: " + str(numHapaxesFound))
 
