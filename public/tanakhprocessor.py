@@ -46,7 +46,7 @@ def killCantillationMarks(word):
             newWord += char
     return newWord
 
-
+allTranscriptionNotes = []
 
 def processBook(book):
     bookXML = xmlFolder + book + '.xml'
@@ -58,9 +58,14 @@ def processBook(book):
         chapterCounter = 0
         verseCounter = 0
         wordCounter = 0
-        for line in xmlLines:
+        for l in range(len(xmlLines)):
+            line = xmlLines[l]
             line = line.strip()
             line = unicodedata.normalize('NFKD', line)
+
+            if l < len(xmlLines) -1 and xmlLines[l + 1].startswith("</"):
+                line = line + xmlLines[l + 1].strip()
+            
             line = killCantillationMarks(line)
             if (line.startswith('<c n="')):
                 chapterCounter += 1
@@ -72,10 +77,25 @@ def processBook(book):
                 f.write('<V>' + str(verseCounter) + '</V>\n')
             if line.startswith('<w>') or line.startswith('<q>') or line.startswith('<k>'):
                 wordCounter += 1
-                line = re.sub('<x>.*</x>', '', line)
-                outputString = line + ' (' + str(chapterCounter) + ':' + str(verseCounter) + ':' + str(wordCounter) + ')'
+                
+                transcriptionNote = ""
+
+                if '<s>' in line or '</s>' in line:
+                    print(line + " (" + book + " " + str(chapterCounter) + ":" + str(verseCounter) + ":" + str(wordCounter) + ")")
+                if '<x>' in line:
+
+                    transcriptionNotes = re.findall(r'<x>(.*?)</x>', line)
+                    for note in transcriptionNotes:
+                        transcriptionNote += note + ","
+                    transcriptionNote = "{" + transcriptionNote[:-1] + "}"
+                    
+                line = re.sub('<x>.</x>', '', line)
+                outputString = line + ' (' + str(chapterCounter) + ':' + str(verseCounter) + ':' + str(wordCounter) + ') ' + transcriptionNote
+
+                if "><" in outputString:
+                    print("Error at " + book + " " + str(chapterCounter) + ":" + str(verseCounter) + ":" + str(wordCounter) + " " + outputString)
                 f.write(outputString + '\n')
-            if line == "<samekh/>" or line == "<pe/>":
+            if line == "<samekh/>" or line == "<pe/>" or line == "<reversednun/>":
                 f.write(line + '\n')
         f.close()
 
@@ -172,18 +192,21 @@ def getRelevantHapaxes(book):
 
 
 def getWordFromLine(line):
+    if '׀' in line:
+        line = line.replace(' ׀', '׀')
     word = line.split(' ')[0]
     word = word[3:-4]
     return word
 
 
-def checkHapaxes(hapaxDict, verseToWordDict, verseToTagDict, book):
+def checkHapaxes(hapaxDict, verseToWordDict, verseToTagDict, book, printErrors):
     allHapaxVerses = hapaxDict.keys()
     
 
     unfinishedHapaxes = []
     unfinishedHapaxKeys = []
 
+    allErrorMessages = []
     
     for key in allHapaxVerses:
         allHapaxes = hapaxDict[key]
@@ -191,6 +214,8 @@ def checkHapaxes(hapaxDict, verseToWordDict, verseToTagDict, book):
         numHapaxes = len(allHapaxes)
 
         verseList = verseToWordDict[key]
+        #print(verseList)
+
         tagList = verseToTagDict[key]
 
         hapaxesLeft = numHapaxes
@@ -206,7 +231,8 @@ def checkHapaxes(hapaxDict, verseToWordDict, verseToTagDict, book):
                     indexList.append(listIndex)
                 
             if len(indexList) != 1:
-                print("ERROR: " + hapax + " found " + str(len(indexList)) + " times in " + book + " " + key)
+                errorString = "ERROR: " + hapax + " found " + str(len(indexList)) + " times in " + book + " " + key
+                allErrorMessages.append(errorString)
                 unfinishedHapaxes.append(hapax)
                 unfinishedHapaxKeys.append(key)
             else:
@@ -222,17 +248,19 @@ def checkHapaxes(hapaxDict, verseToWordDict, verseToTagDict, book):
                     print(tagList[wordIndex]);
 
 
-    if len(unfinishedHapaxes) != 0:
+    if len(unfinishedHapaxes) != 0 and printErrors:
+        print("ERROR: " + book + " hapaxes not marked correctly")
         errorString = "ERROR: " + book + " has " + str(len(unfinishedHapaxes)) + " hapaxes left:\n"
-        print(errorString)
+        
         for i in range(len(unfinishedHapaxes)):
             errorString += unfinishedHapaxes[i] + " at " + unfinishedHapaxKeys[i] + "\n"
+        print(errorString)
             
 
     return (unfinishedHapaxes == [])
 
 
-def markHapaxes(book):
+def markHapaxes(book, checkErrors):
     processedFile = open(textFolder + book + '.txt', 'r', encoding = 'utf-8')
     processedLines = processedFile.readlines()
     processedFile.close()
@@ -245,7 +273,13 @@ def markHapaxes(book):
     currentAddress = ""
     currentVerseWords = {}
     currentVerseTags = {}
+    currentVerseNotes = {}
+
     for line in processedLines:
+        transcriptionNote = ""
+        if (line.strip()[-1] == "}"):
+            splitLine = line.split(' ')
+            transcriptionNote = splitLine[-1].strip()
         if line.startswith('<C>'):
             currentChapter = int(line[3:-5])
         elif line.startswith('<V>'):
@@ -253,24 +287,27 @@ def markHapaxes(book):
             currentAddress = str(currentChapter) + ':' + str(currentVerse)
             currentVerseWords[currentAddress] = []
             currentVerseTags[currentAddress] = []
+            currentVerseNotes[currentAddress] = []
 
         elif line.strip() == "<samekh/>":
             currentVerseWords[currentAddress].append('ס')
             currentVerseTags[currentAddress].append('s')
+            currentVerseNotes[currentAddress].append(transcriptionNote)
         elif line.strip() == "<pe/>":
             currentVerseWords[currentAddress].append('פ')
             currentVerseTags[currentAddress].append('p')
+            currentVerseNotes[currentAddress].append(transcriptionNote)
         else:
             tag = line[1]
             thisWord = getWordFromLine(line)
-            
+
             currentVerseWords[currentAddress].append(thisWord)
             currentVerseTags[currentAddress].append(tag)
+            currentVerseNotes[currentAddress].append(transcriptionNote)
+            
 
-    hapaxesWorked = checkHapaxes(hapaxDict, currentVerseWords, currentVerseTags, book)
-
-    if (not hapaxesWorked):
-        print("ERROR: " + book + " hapaxes not marked correctly")
+    hapaxesWorked = checkHapaxes(hapaxDict, currentVerseWords, currentVerseTags, book, checkErrors)
+        
 
     allVerseList = currentVerseWords.keys()
     writeToFileChapter = 0
@@ -282,16 +319,13 @@ def markHapaxes(book):
         chapter = int(address[0])
         verse = int(address[1])
 
-        if chapter != writeToFileChapter:
-            reprocessedFile.writelines('<C>' + str(chapter) + '</C>\n')
-        writeToFileChapter = chapter
+        if len(currentVerseNotes[key]) != len(currentVerseWords[key]):
+            print("Transcription notes list isn't the same at " + book + " " + key)
 
-        reprocessedFile.writelines('<V>' + str(verse) + '</V>\n')
+        reprocessedFile.writelines('<V>' + str(chapter) + ":" + str(verse) + '</V>\n')
         for i in range(len(currentVerseWords[key])):
             word = currentVerseWords[key][i]
-
             if word == "<pe/>" or word == "<samekh/>":
-                print(word)
                 reprocessedFile.writelines(word + '\n')
                 continue
             
@@ -303,14 +337,32 @@ def markHapaxes(book):
 
                 newLine = newLine.replace(('׃' + tag2), (tag2 + '׃'))
 
+                newLine = newLine.replace(('׀ ' + tag2), (tag2 + '׀'))
+                if currentVerseNotes[key][i] != "":
+                    newLine = newLine + " " + currentVerseNotes[key][i]
+                
+                if ('><' in newLine):
+                    print("Error at " + book + " " + str(chapter) + ":" + str(verse) + ":" + str(i) + " " + newLine)
                 reprocessedFile.writelines(newLine + '\n')
 
-def redoBook(book):
+def redoBook(book, markErrors):
     processBook(book)
-    markHapaxes(book)
-         
+    markHapaxes(book, markErrors)
+
+
+#redoBook("Genesis") 
+
 for book in allOTBookListPsalmsNormal:
-    redoBook(book)
+    redoBook(book, True)
 
-    
+#redoBook("2 Kings")
+'''
+testString  = 'צֹ֣הַר ׀'
+normalizedTestString = unicodedata.normalize('NFKD', testString)
+normalizedTestString = killCantillationMarks(normalizedTestString)
+#print(getWordFromLine(testString))
+for char in normalizedTestString:
+    print("'" + char+ "'")
 
+print(normalizedTestString)
+'''
