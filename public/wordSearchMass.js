@@ -46,10 +46,10 @@ document.getElementById("searchButton").addEventListener("click", ev => {
         searchSetting *= 19;
     }
 
-    let searchString = document.getElementById("searchBar").value;
+    let query = document.getElementById("search_bar").value;
 
     console.log(searchSetting);
-    console.log(searchString);
+    console.log(query);
 
 
 });
