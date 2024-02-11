@@ -432,15 +432,15 @@ function sectionHeader(useAlphabetical, thisWord, thisWordCount, currentFirstLet
     if (useAlphabetical) {
         if (thisWord[0] != currentFirstLetter) {
             let firstLetterDiv = document.createElement("div");
-            firstLetterDiv.style.fontSize = "24px";
+            firstLetterDiv.style.fontSize = "16px";
             firstLetterDiv.innerHTML = "<u><b>" + thisWord[0] + "</b></u>";
             resultDiv.appendChild(firstLetterDiv);
             currentFirstLetter = thisWord[0];
         }
     } else if (lastWordCount != thisWordCount) {
         let countDiv = document.createElement("div");
-        countDiv.style.fontSize = "24px";
-        countDiv.innerHTML = "<u><b>" + lastWordCount + "</b> tokens:</u>";
+        countDiv.style.fontSize = "16px";
+        countDiv.innerHTML = "<u><i><b>" + lastWordCount + "</b> tokens</i></u>";
         resultDiv.appendChild(countDiv);
         lastWordCount = thisWordCount;
     }
@@ -448,15 +448,30 @@ function sectionHeader(useAlphabetical, thisWord, thisWordCount, currentFirstLet
 
 
 function processAllWordCites(wordList, dictOfDicts, sortAlphabetical, resultDiv) {
+    console.log(wordList);
+    resultDiv.hidden = true;
+    let totalWords = wordList.length;
+    let totalTokens = 0;
+
+    let topDiv = document.getElementById("headline-container");
+
+    let topSpan = document.createElement("span");
+
     let lastWordCount = 0;
     let firstLetter = "";
     for (let i = 0; i < wordList.length; i++) {
         let word = wordList[i];
         let wordDict = dictOfDicts[word];
+        totalTokens += wordDict["totalCount"];
         outputSpan = processWordCites(word, wordDict["totalCount"], wordDict["allVerses"], wordDict["allVerseCounts"], sortAlphabetical);
         sectionHeader(sortAlphabetical, word, wordDict["totalCount"], firstLetter, lastWordCount, resultDiv);
         resultDiv.appendChild(outputSpan);  
     }
+    topSpan.innerHTML = `<u>Found <b>${totalTokens}</b> tokens, representing <b>${totalWords}</b> distinct words.</u>`;
+    topSpan.style.fontSize = "24px";
+    topDiv.appendChild(topSpan);
+
+    resultDiv.hidden = false;
 }
 
 function getDictFromSearchOutput(searchOutput, resultDiv, sortAlphabetical, sortByBook) {
