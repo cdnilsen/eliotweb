@@ -442,8 +442,10 @@ function sectionHeader(useAlphabetical, thisWord, thisWordCount, currentFirstLet
         countDiv.innerHTML = "<u><i><b>" + thisWordCount + "</b> tokens</i></u>";
         resultDiv.appendChild(countDiv);
     }
-    currentFirstLetter = thisWord[0];
+
+    // The variables here need to be named the same as the things they're calling to update them...?
     lastWordCount = thisWordCount;
+    currentFirstLetter = thisWord[0];   
 }
 
 
@@ -459,15 +461,21 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical, resultDiv)
     let topSpan = document.createElement("span");
 
     let lastWordCount = 0;
-    let firstLetter = "";
+    let currentFirstLetter = "";
     for (let i = 0; i < wordList.length; i++) {
         let word = wordList[i];
         let wordDict = dictOfDicts[word];
-        totalTokens += wordDict["totalCount"];
-        outputSpan = processWordCites(word, wordDict["totalCount"], wordDict["allVerses"], wordDict["allVerseCounts"], sortAlphabetical);
-        console.log(firstLetter);
-        sectionHeader(sortAlphabetical, word, wordDict["totalCount"], firstLetter, lastWordCount, resultDiv);
-        console.log(firstLetter);
+        let totalCount = wordDict["totalCount"];
+        let allVerses = wordDict["allVerses"];
+        let allCounts = wordDict["allVerseCounts"];
+
+        totalTokens += totalCount;
+        outputSpan = processWordCites(word, totalCount, allVerses, allCounts, sortAlphabetical);
+
+        //console.log(currentFirstLetter);
+        sectionHeader(sortAlphabetical, word, totalCount, currentFirstLetter, lastWordCount, resultDiv);
+        //console.log(firstLetter);
+
         resultDiv.appendChild(outputSpan);  
     }
     topSpan.innerHTML = `<u>Found <b>${totalTokens}</b> tokens, representing <b>${totalWords}</b> distinct words.</u>`;
