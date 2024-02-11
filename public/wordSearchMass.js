@@ -423,7 +423,7 @@ function processWordCites(word, totalCount, verseList, verseCountList, sortAlpha
     return outputSpan;
 }
 
-function processAllWordCites(wordList, totalCountList, verseListList, verseCountListList, sortAlphabetical, resultDiv) {
+function processAllWordCites(wordList, totalCountList, dictOfDicts, verseListList, verseCountListList, sortAlphabetical, resultDiv) {
     let lastWordCount = 0;
     for (let i = 0; i < wordList.length; i++) {
         let word = wordList[i];
@@ -496,7 +496,10 @@ function getDictFromSearchOutput(searchOutput, resultDiv, sortAlphabetical, sort
         }
     }
 
-    processAllWordCites(newWordList, allTotalCounts, allVerseLists, allVerseCounts, sortAlphabetical, resultDiv);
+    console.log(newWordList);
+    console.log(allVerseLists);
+    console.log(allVerseCounts);
+    processAllWordCites(newWordList, allTotalCounts, dictOfDicts, allVerseLists, allVerseCounts, sortAlphabetical, resultDiv);
 }
 
 async function seeAllWords(fetchString, resultDiv, sortAlphabetical, sortByBook) {
