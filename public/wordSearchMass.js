@@ -74,10 +74,30 @@ function cleanDiacritics(word) {
     return processEngma(cleanedWord);
 }
 
+function decodeVerseCode(verseCode) {
+
+}
+
+function getVerseCodeSpan(verseList, verseCount) {
+    let verseCodeText = "";
+    for (let i = 0; i < verseList.length; i++) {
+        verseCodeText += verseList[i] + ", ";
+        if (i == verseList.length -1){
+            verseCodeText = verseCodeText.slice(0, -2);
+        }
+    }
+    return verseCodeText;
+}
+
 function processWordCites(word, totalCount, verseList, verseCount) {
+
+    word = word.split("8").join("ꝏ̄");
     let outputSpan = document.createElement("span");
-    let outputText = `<b>${word}</b> (${totalCount})`
-    outputSpan.innerHTML = outputText;
+    let outputText = `<b>${word}</b> (${totalCount}):<br>`
+
+    let verseCodeSpan = getVerseCodeSpan(verseList, verseCount);
+
+    outputSpan.innerHTML = outputText + verseCodeSpan + "<br>";
     outputSpan.classList.add("wordResult");
     return outputSpan;
 }
