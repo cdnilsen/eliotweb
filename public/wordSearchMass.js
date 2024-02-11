@@ -433,7 +433,7 @@ function processAllWordCites(wordList, totalCountList, dictOfDicts, verseListLis
         console.log(outputSpan);
 
         if (sortAlphabetical) {
-            continue;
+            resultDiv.appendChild(outputSpan);
         } else {
             if (wordDict["totalCount"] != lastWordCount) {
                 let countDiv = document.createElement("div");
@@ -442,10 +442,9 @@ function processAllWordCites(wordList, totalCountList, dictOfDicts, verseListLis
                 resultDiv.appendChild(countDiv);
                 lastWordCount = wordDict["totalCount"];
             }
-        }
-        resultDiv.appendChild(outputSpan);
+            resultDiv.appendChild(outputSpan);
+        }  
     }
-    
 }
 
 function getDictFromSearchOutput(searchOutput, resultDiv, sortAlphabetical, sortByBook) {
