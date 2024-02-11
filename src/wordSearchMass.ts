@@ -25,7 +25,7 @@ export async function wordSearch(searchString: string, searchSetting: number) {
     } else if (searchSetting % 5 == 0) {
         queryString += "starts_with($1::text, word)"
     } else if (searchSetting % 7 == 0) { //  ends with
-        queryString += "word = 'kah'" // placeholder
+        queryString += "word LIKE ||$1||'%'" // placeholder
     }
     console.log(queryString);
     let allQuery = await pool.query(queryString, [searchString]);
