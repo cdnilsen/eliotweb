@@ -11,7 +11,9 @@ const port = process.env.PORT
 // Numerical code for search settings: 2 = is exactly, 3 = contains, 5 = starts with, 7 = ends with. 11 = search in Massachuett, 13 = search in English (only Massachusett right now). 17 = clean the diacritics
 export async function wordSearch(searchString: string, searchSetting: number) {
 
-    let table = 'words_diacritics'
+    searchString = searchString.split('*').join('%');
+
+    let table: string = 'words_diacritics'
     if (searchSetting % 17 == 0) {
         table = 'words_no_diacritics'
     }
@@ -27,7 +29,7 @@ export async function wordSearch(searchString: string, searchSetting: number) {
     } else if (searchSetting % 7 == 0) { //  ends with
         queryString += "word LIKE ||$1||'%'" 
     }
-    console.log(queryString);
+
     let allQuery = await pool.query(queryString, [searchString]);
 
     return allQuery.rows;
