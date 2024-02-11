@@ -423,27 +423,32 @@ function processWordCites(word, totalCount, verseList, verseCountList, sortAlpha
     return outputSpan;
 }
 
-function processAllWordCites(wordList, totalCountList, dictOfDicts, verseListList, verseCountListList, sortAlphabetical, resultDiv) {
+function sectionHeader(useAlphabetical, thisWord, thisWordCount, currentFirstLetter, lastWordCount, resultDiv) {
+    if (useAlphabetical && thisWord[0] != currentFirstLetter) {
+        let firstLetterDiv = document.createElement("div");
+        firstLetterDiv.style.fontSize = "24px";
+        firstLetterDiv.innerHTML = "<u><b>" + thisWord[0] + "</b></u>";
+        resultDiv.appendChild(firstLetterDiv);
+        currentFirstLetter = thisWord[0];
+    } else if (!useAlphabetical && lastWordCount != thisWordCount) {
+        let countDiv = document.createElement("div");
+        countDiv.style.fontSize = "24px";
+        countDiv.innerHTML = "<u><b>" + lastWordCount + "</b> tokens:</u>";
+        resultDiv.appendChild(countDiv);
+        lastWordCount = thisWordCount;
+    }
+}
+
+
+function processAllWordCites(wordList, dictOfDicts, sortAlphabetical, resultDiv) {
     let lastWordCount = 0;
+    let firstLetter = "";
     for (let i = 0; i < wordList.length; i++) {
         let word = wordList[i];
         let wordDict = dictOfDicts[word];
-        console.log(wordDict);
         outputSpan = processWordCites(word, wordDict["totalCount"], wordDict["allVerses"], wordDict["allVerseCounts"], sortAlphabetical);
-        console.log(outputSpan);
-
-        if (sortAlphabetical) {
-            resultDiv.appendChild(outputSpan);
-        } else {
-            if (wordDict["totalCount"] != lastWordCount) {
-                let countDiv = document.createElement("div");
-                countDiv.style.fontsize = "24px;"
-                countDiv.innerHTML = "<u></b>" + wordDict["totalCount"] + "</b> tokens:</u>";
-                resultDiv.appendChild(countDiv);
-                lastWordCount = wordDict["totalCount"];
-            }
-            resultDiv.appendChild(outputSpan);
-        }  
+        sectionHeader(sortAlphabetical, word, wordDict["totalCount"], firstLetter, lastWordCount, resultDiv);
+        resultDiv.appendChild(outputSpan);  
     }
 }
 
@@ -501,7 +506,7 @@ function getDictFromSearchOutput(searchOutput, resultDiv, sortAlphabetical, sort
     console.log(newWordList);
     console.log(allVerseLists);
     console.log(allVerseCounts);
-    processAllWordCites(newWordList, allTotalCounts, dictOfDicts, allVerseLists, allVerseCounts, sortAlphabetical, resultDiv);
+    processAllWordCites(newWordList, dictOfDicts, sortAlphabetical, resultDiv);
 }
 
 async function seeAllWords(fetchString, resultDiv, sortAlphabetical, sortByBook) {
