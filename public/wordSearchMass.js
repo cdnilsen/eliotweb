@@ -403,7 +403,7 @@ function getVerseCodeSpan(verseList, verseCount) {
             totalBookCount += verseInfo[1];
         }
 
-        bookString += totalBookCount.toString() + "): " + verseCiteString.slice(0, -2) + "</span><br>";
+        bookString += totalBookCount.toString() + "): " + verseCiteString.slice(0, -2) + "</span><br><br>";
         verseCodeText += bookString;
     }
     return verseCodeText;
