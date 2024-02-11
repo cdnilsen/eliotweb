@@ -21,11 +21,11 @@ export async function wordSearch(searchString: string, searchSetting: number) {
     if (searchSetting % 2 == 0) { // is exactly
         queryString += "word = $1::text"
     } else if (searchSetting % 3 == 0) { // contains (placeholder)
-        queryString = "word LIKE '%$1::text%'"
+        queryString = "word LIKE '%'||$1||'%'"
     } else if (searchSetting % 5 == 0) {
         queryString += "starts_with($1::text, word)"
     } else if (searchSetting % 7 == 0) { //  ends with
-        queryString = "word = kah"
+        queryString = "word = 'kah'" // placeholder
     }
 
     let allQuery = await pool.query(queryString, [searchString]);
