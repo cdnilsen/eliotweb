@@ -499,8 +499,8 @@ sectionDropdown.addEventListener("change", function() {
 
     let firstBook = bookList[0];
     bookDropdown.hidden = false;
-    updateChapterDropdown('firstBook');
-    revealCheckboxes('firstBook');
+    updateChapterDropdown(firstBook);
+    revealCheckboxes(firstBook);
     document.getElementById('searchChapterLegend').innerHTML = "Chapter";
     document.getElementById('searchVerseDropdown').hidden = true;
 });
