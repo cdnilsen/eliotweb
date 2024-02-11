@@ -228,12 +228,13 @@ function processVerseCite(addressNum, editionList, countList, thisBookName) {
     let prefix = editionToSuperscriptDict[editionNum];
 
     let splitAddress = addressNum.toString().split("0");
+    console.log(splitAddress);
 
     let unsplitAddress= splitAddress[0] + ":" + splitAddress[-1];
 
     let suffix = getCiteSuffix(editionList, countList);
 
-    let finalString = unsplitAddress + prefix + suffix + ", ";
+    let finalString = prefix + unsplitAddress + suffix + ", ";
 
     return [finalString, totalCountVerse];
 
