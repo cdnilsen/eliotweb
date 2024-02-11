@@ -1,5 +1,5 @@
 // Allows the user to search for matching words in the Massachusett texts and outputs a list of all their cites.
-const allBookList = [
+const topBookList = [
     "Genesis",
     "Exodus",
     "Leviticus",
@@ -169,7 +169,7 @@ function getVerseCodeSpan(verseList, verseCount) {
     let verseCodeText = "";
     let dictOfDicts = {};
     let allBookList = [];
-    /*
+    
     for (let i = 0; i < verseList.length; i++) {
         let verseDict = decodeVerseCode(verseList[i], verseCount[i]);
 
@@ -182,10 +182,13 @@ function getVerseCodeSpan(verseList, verseCount) {
     }
     allBookList.sort();
     for (let j=0; j < allBookList.length; j++) {
+        let thisBookDict = dictOfDicts[allBookList[j]];
+
+        let thisBookName = topBookList[j + 1];
+        console.log(j.toString() + ": " + thisBookName);
         
     
     }
-    */
     return verseCodeText;
 }
 
@@ -218,7 +221,6 @@ function getDictFromSearchOutput(searchOutput, resultDiv, sortAlphabetical, sort
         processedDict["word"] = word;
         processedDict["totalCount"] = rawDict["totalCount"];
         processedDict["allVerses"] = rawDict["allVerses"];
-        console.log(rawDict["allVerseCounts"]);
         processedDict["allVerseCounts"] = rawDict["allVerseCounts"];
         dictOfDicts[word] = processedDict;
     }
