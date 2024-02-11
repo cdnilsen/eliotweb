@@ -228,7 +228,7 @@ function getDictFromSearchOutput(searchOutput, resultDiv, sortAlphabetical, sort
 
     for (let j = 0; j < allWords.length; j++) {
         let word = allWords[j];
-        let wordDict = dictOfDicts[j];
+        let wordDict = dictOfDicts[word];
         outputSpan = processWordCites(allWords[j], wordDict["totalCount"], wordDict["allVerses"], wordDict["allVerseCounts"]);
 
         resultDiv.appendChild(outputSpan);
