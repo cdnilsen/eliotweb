@@ -425,10 +425,10 @@ function processWordCites(word, totalCount, verseList, verseCountList, sortAlpha
 
 function processAllWordCites(wordList, totalCountList, verseListList, verseCountListList, sortAlphabetical, resultDiv) {
     let lastWordCount = 0;
-    for (let i = 0; j < wordList.length; i++) {
+    for (let i = 0; i < wordList.length; i++) {
         let word = wordList[i];
         let wordDict = dictOfDicts[word];
-        outputSpan = processWordCites(wordList[j], wordDict["totalCount"], wordDict["allVerses"], wordDict["allVerseCounts"], sortAlphabetical);
+        outputSpan = processWordCites(word, wordDict["totalCount"], wordDict["allVerses"], wordDict["allVerseCounts"], sortAlphabetical);
 
         if (sortAlphabetical) {
             continue;
