@@ -424,22 +424,17 @@ function processWordCites(word, totalCount, verseList, verseCountList, sortAlpha
 }
 
 function sectionHeader(useAlphabetical, thisWord, thisWordCount, currentFirstLetter, lastWordCount, resultDiv) {
-    //console.log(thisWord);
-    //console.log(thisWordCount);
-
-    //console.log(currentFirstLetter);
-    //console.log(lastWordCount);
     if (useAlphabetical) {
         if (thisWord[0] != currentFirstLetter) {
             let firstLetterDiv = document.createElement("div");
-            firstLetterDiv.style.fontSize = "16px";
-            firstLetterDiv.innerHTML = "<u><b>" + thisWord[0] + "</b></u>";
+            firstLetterDiv.style.fontSize = "20px";
+            firstLetterDiv.innerHTML = "<u><b><i>" + thisWord[0] + "</i></b></u><br>";
             resultDiv.appendChild(firstLetterDiv);
         }
     } else if (lastWordCount != thisWordCount) {
         let countDiv = document.createElement("div");
-        countDiv.style.fontSize = "16px";
-        countDiv.innerHTML = "<u><i><b>" + thisWordCount + "</b> tokens</i></u>";
+        countDiv.style.fontSize = "20px";
+        countDiv.innerHTML = "<u><i><b>" + thisWordCount + "</b> tokens</i></u><br>";
         resultDiv.appendChild(countDiv);
     }
 
@@ -471,7 +466,6 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical, resultDiv)
         totalTokens += totalCount;
         outputSpan = processWordCites(word, totalCount, allVerses, allCounts, sortAlphabetical);
 
-        //console.log(currentFirstLetter);
         let updatedHeaderList = sectionHeader(sortAlphabetical, word, totalCount, currentFirstLetter, lastWordCount, resultDiv);
 
         lastWordCount = updatedHeaderList[0];
