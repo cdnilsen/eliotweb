@@ -201,9 +201,44 @@ app.get('/fetchBook/:book/:edition', wrapAsync(async (req, res) => {
     res.json(outputString);
 }));
 
-app.get('/words', wrapAsync(async (req, res) => {
-    const words = await pool.query('SELECT * FROM test_table')
-    res.json(words.rows)
+type wordSearchDict = {
+    // Word, verses, word counts in each verse, and total count
+    [key: string]: string | number[] | number
+}
+
+type allSearchDicts = wordSearchDict[];
+
+app.get('/getWords/:searchString/:searchSetting', wrapAsync(async (req, res) => {
+    let searchString: string = req.params.searchString;
+
+    let searchSetting: string = req.params.searchSetting;
+
+    let list: string[] = [searchString, searchSetting]
+
+    res.json(list);
+    /*
+    let matchingWordRows = await wordSearch(searchString, parseInt(searchSetting));
+
+    let outputDict: allSearchDicts = [];
+
+    for (let i = 0; i < matchingWordRows.length; i++) {
+        let row = matchingWordRows[i];
+        let word: string = row.word;
+        let totalCount: number = row.total_count;
+        let verseCounts: number[] = row.verse_counts;
+
+        let wordDict: wordSearchDict = {
+            word: word,
+            totalCount: totalCount,
+            verseCounts: verseCounts
+        }
+
+        outputDict.push(wordDict);
+    }
+
+    res.json(outputDict);
+    */
+    
 }));
 
 app.put('/words/:word/increment', wrapAsync(async (req, res) => {
