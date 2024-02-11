@@ -163,6 +163,14 @@ function decodeVerseCode(verseCode, verseCount) {
 
 }
 
+function processVerseCite(addressNum, editionList, countList) {
+    let editionNum = 1;
+    for (let i=0; i < editionList.length; i++) {
+        editionNum *= editionList[i];
+    }
+    console.log(editionNum);
+}
+
 function getVerseCodeSpan(verseList, verseCount) {
     console.log(verseList);
     console.log(verseCount);
@@ -182,9 +190,38 @@ function getVerseCodeSpan(verseList, verseCount) {
     }
     allBookList.sort();
     for (let j=0; j < allBookList.length; j++) {
-        let thisBookDict = dictOfDicts[allBookList[j]];
+        let thisBookDictList = dictOfDicts[allBookList[j]];
         let thisBookName = topBookList[allBookList[j] - 1];       
-        console.log(thisBookDict);
+        console.log(thisBookDictList);
+
+        let verseAddressDict = {};
+        let verseCountDict = {};
+        
+        let allAddresses = [];
+
+        let bookString = "";
+        for (let k=0; k < thisBookDictList.length; k++) {
+            let thisVerseDict = thisBookDictList[k];
+            let thisVerseEdition = thisVerseDict["editionNum"];
+            let thisVerseAddress = thisVerseDict["addressNum"];
+            let thisVerseCount = thisVerseDict["verseCount"];
+            if (verseAddressDict[thisVerseAddress] === undefined) {
+                verseAddressDict[thisVerseAddress] = [thisVerseEdition];
+                verseCountDict[thisVerseAddress] = [thisVerseCount];
+                allAddresses.push(thisVerseAddress);
+            } else {
+                verseAddressDict[thisVerseAddress].push(thisVerseEdition);
+                verseCountDict[thisVerseAddress].push(thisVerseCount);
+            }
+        }
+
+        allAddresses.sort();
+        for (let l=0; l < allAddresses.length; l++) {
+            let thisAddress = allAddresses[l];
+            let thisEditionList = verseAddressDict[thisAddress];
+            let thisCountList = verseCountDict[thisAddress];
+            let editionString = processVerseCite(thisAddress, thisEditionList, thisCountList);
+        }
     }
     return verseCodeText;
 }
