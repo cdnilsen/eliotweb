@@ -77,7 +77,10 @@ function cleanDiacritics(word) {
 
 async function seeAllWords(fetchString) {
     await fetch(fetchString, {
-        method: 'GET'
+        method: 'GET',
+        headers: {
+            "Content-type": "application/json; charset=UTF-8"
+        }
     }).then(res => res.json()).then(res => {
         for (let item of res) {
             console.log(item);
