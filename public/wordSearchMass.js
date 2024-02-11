@@ -161,25 +161,41 @@ let customAlphabetizationDict = {
     "z": 58
 };
 
-//Custom alphabetization: the double-o ligature is alphabetized after <o>
 
-function alphabetizeWords(wordList) {
-    console.log(wordList);
-    wordList.sort((a, b) => {
-        const scoreA = [...a.toLowerCase()].reduce((acc, char) => acc + (customAlphabetizationDict[char] || 100), 0);
-        const scoreB = [...b.toLowerCase()].reduce((acc, char) => acc + (customAlphabetizationDict[char] || 101), 0);
-    
-        if (scoreA === scoreB) {
-            return a.localeCompare(b); // Sort alphabetically if scores are equal
-        }
-    
-        return scoreA - scoreB; // Sort by custom score
+//Courtesy of stack exchange
+function makeComparer(order) {
+    let ap = Array.prototype;
+  
+    // mapping from character -> precedence
+    let orderMap = {},
+        max = order.length + 2;
+    ap.forEach.call(order, function(char, idx) {
+      orderMap[char] = idx + 1;
     });
-    console.log(wordList);
-    
-    return wordList;
+  
+    function compareChars(l, r) {
+      let lOrder = orderMap[l] || max,
+          rOrder = orderMap[r] || max;
+  
+      return lOrder - rOrder;
+    }
+  
+    function compareStrings(l, r) {
+      let minLength = Math.min(l.length, r.length);
+      let result = ap.reduce.call(l.substring(0, minLength), function (prev, _, i) {
+          return prev || compareChars(l[i], r[i]);
+      }, 0);
+  
+      return result || (l.length - r.length);
+    }
+  
+    return compareStrings;
 }
 
+function alphabetizeWords(wordList) {
+    let compare = makeComparer("aáâàãāäbcdeéêèẽēëfghiíîìĩīïjklm̃nñŋoóôòõōö8pqrstuúûùũūüvwxyz");
+    return wordList.sort(compare);
+}
 
 
 //This function is an attempt to deal with the macra and tildes that Eliot uses to represent a following nasal
