@@ -489,7 +489,7 @@ sectionDropdown.addEventListener("change", function() {
     let selectedSection = sectionDropdown.value;
     let bookList = sectionToBooksDict[selectedSection];
     bookDropdown.innerHTML = "";
-    for (let i = 1; i < bookList.length; i++) {
+    for (let i = 0; i < bookList.length; i++) {
         let book = bookList[i];
         if (bookToActiveEditionsDict[book] > 1) {
             let bookOption = document.createElement('option');
