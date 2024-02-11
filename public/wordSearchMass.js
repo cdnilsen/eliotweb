@@ -27,7 +27,7 @@ document.getElementById("searchButton").addEventListener("click", ev => {
         searchSetting *= 13;
     }
 
-    let otherSearchSetting = document.getElementbyId("searchWordDropdown").value;
+    let otherSearchSetting = document.getElementById("searchWordDropdown").value;
 
     if (otherSearchSetting == "exact") {
         searchSetting *= 2;
