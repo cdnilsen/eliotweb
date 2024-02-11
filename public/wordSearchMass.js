@@ -39,7 +39,10 @@ document.getElementById("searchButton").addEventListener("click", ev => {
         searchSetting *= 7;
     }
 
+    let searchString = document.getElementById("searchBar").value;
+
     console.log(searchSetting);
+    console.log(searchString);
 
 
 });
