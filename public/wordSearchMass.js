@@ -17,4 +17,29 @@ function seeAllWords(resultDiv, searchString, searchSetting) {
     }).catch(err => console.error(err))
 }
 
+document.getElementById("searchButton").addEventListener("click", ev => {
+    let searchSetting = 1;
 
+    if (document.getElementById("searchMassachusett").checked) {
+        searchSetting *= 11;
+    }
+    if (document.getElementById("searchEnglish").checked) {
+        searchSetting *= 13;
+    }
+
+    let otherSearchSetting = document.getelementbyId("searchWordDropdown").value;
+
+    if (otherSearchSetting == "exact") {
+        searchSetting *= 2;
+    } else if (otherSearchSetting == "contains") {
+        searchSetting *= 3;
+    } else if (otherSearchSetting == "starts") {
+        searchSetting *= 5;
+    } else if (otherSearchSetting == "ends") {
+        searchSetting *= 7;
+    }
+
+    console.log(searchSetting);
+
+
+});
