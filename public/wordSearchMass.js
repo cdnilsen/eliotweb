@@ -414,10 +414,11 @@ function getDictFromSearchOutput(searchOutput, resultDiv, sortAlphabetical, sort
     for (let i = 0; i < searchOutput.length; i++) {
         let rawDict = searchOutput[i];
 
-        allWords.push(rawDict["word"]);
+        let word = rawDict["word"];
+        allWords.push(word);
 
         let processedDict = {};
-        processedDict["word"] = rawDict["word"];
+        processedDict["word"] = word;
         processedDict["totalCount"] = rawDict["totalCount"];
         processedDict["allVerses"] = rawDict["allVerses"];
         processedDict["allVerseCounts"] = rawDict["allVerseCounts"];
