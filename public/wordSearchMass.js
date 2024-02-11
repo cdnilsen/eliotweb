@@ -260,7 +260,6 @@ function getVerseCodeSpan(verseList, verseCount) {
     for (let j=0; j < allBookList.length; j++) {
         let thisBookDictList = dictOfDicts[allBookList[j]];
         let thisBookName = topBookList[allBookList[j] - 1];       
-        console.log(thisBookDictList);
 
         let verseAddressDict = {};
         let verseCountDict = {};
@@ -281,7 +280,8 @@ function getVerseCodeSpan(verseList, verseCount) {
             }
         }
 
-        let bookString = "\t";
+        let bookString = "\t<i>" + thisBookName + "</i> (";
+        let verseCiteString = ""
         let totalBookCount = 0;
         allAddresses.sort();
         for (let l=0; l < allAddresses.length; l++) {
@@ -289,11 +289,11 @@ function getVerseCodeSpan(verseList, verseCount) {
             let thisEditionList = verseAddressDict[thisAddress];
             let thisCountList = verseCountDict[thisAddress];
             let verseInfo = processVerseCite(thisAddress, thisEditionList, thisCountList, thisBookName);
-            bookString += verseInfo[0];
+            verseCiteString += verseInfo[0];
             totalBookCount += verseInfo[1];
         }
 
-        bookString += "<i>" + thisBookName + "</i> (" + totalBookCount.toString() + "): " + bookString.slice(0, -2) + "<br>";
+        bookString += totalBookCount.toString() + "): " + verseCiteString.slice(0, -2) + "<br>";
         verseCodeText += bookString;
     }
     return verseCodeText;
