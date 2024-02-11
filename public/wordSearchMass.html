@@ -7,7 +7,7 @@
 <body>
     <a href="index.html">Back to index</a>
 
-    <div id="languageSelection">
+    <div id="languageSelection" hidden>
         Search in: 
         <input type="radio" name="language" id="searchMassachusett" value="massachusett" checked>
             <label for="searchMassachusett">Massachusett</label>
@@ -32,10 +32,10 @@
 
     <div id="diacriticsSelection">
         <input type="radio" name="diacritics" id="diacriticsStrict" value="diacriticsStrict" checked>
-            <label for="diacriticsStrict">Strict diacritics (search for <i>matta</i> returns <i>matta</i> but not <i>mattá</i>)</label>
+            <label for="diacriticsStrict">Strict diacritics (search for <i>matta</i> returns <i>matta</i> but <span style="color: red">not</span> <i>matt<b>á</b></i>)</label>
         <br>
         <input type="radio" name="diacritics" id="diacriticsLax" value="diacriticsLax">
-            <label for="diacriticsLax">Lax diacritics (search for <i>matta</i> returns <i>matta, mattá, mattà</i>, etc.)</label>
+            <label for="diacriticsLax">Lax diacritics (search for <i>matta</i> returns <i>matt<b>a</b>, matt<b>á</b>, matt<b>à</b></i>, etc.)</label>
     </div>
 
     <button type="submit" id="searchButton">Search</button>
