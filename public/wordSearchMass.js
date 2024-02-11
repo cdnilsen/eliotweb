@@ -166,14 +166,14 @@ let customAlphabetizationDict = {
 function alphabetizeWords(wordList) {
     console.log(wordList);
     wordList.sort((a, b) => {
-        const indexA = customAlphabetizationDict[a.toLowerCase()] || 100;
-        const indexB = customAlphabetizationDict[b.toLowerCase()] || 101;
-
-        if (indexA === indexB) {
-            return a.localeCompare(b); // Sort alphabetically if indexes are equal
+        const scoreA = [...a.toLowerCase()].reduce((acc, char) => acc + (customAlphabetizationDict[char] || 100), 0);
+        const scoreB = [...b.toLowerCase()].reduce((acc, char) => acc + (customAlphabetizationDict[char] || 101), 0);
+    
+        if (scoreA === scoreB) {
+            return a.localeCompare(b); // Sort alphabetically if scores are equal
         }
-
-        return indexA - indexB; // Sort by custom index
+    
+        return scoreA - scoreB; // Sort by custom score
     });
     console.log(wordList);
     
