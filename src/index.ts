@@ -213,10 +213,8 @@ app.get('/getWords/:searchString/:searchSetting', wrapAsync(async (req, res) => 
 
     let searchSetting: string = req.params.searchSetting;
 
-    let list: string[] = [searchString, searchSetting]
 
-    res.json(list);
-    /*
+   
     let matchingWordRows = await wordSearch(searchString, parseInt(searchSetting));
 
     let outputDict: allSearchDicts = [];
@@ -237,7 +235,6 @@ app.get('/getWords/:searchString/:searchSetting', wrapAsync(async (req, res) => 
     }
 
     res.json(outputDict);
-    */
     
 }));
 
