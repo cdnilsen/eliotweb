@@ -433,7 +433,6 @@ function sectionHeader(useAlphabetical, thisWord, thisWordCount, currentFirstLet
         if (thisWord[0] != currentFirstLetter) {
             let firstLetterDiv = document.createElement("div");
             firstLetterDiv.style.fontSize = "16px";
-            console.log(thisWord[0]);
             firstLetterDiv.innerHTML = "<u><b>" + thisWord[0] + "</b></u>";
             resultDiv.appendChild(firstLetterDiv);
         }
@@ -443,7 +442,9 @@ function sectionHeader(useAlphabetical, thisWord, thisWordCount, currentFirstLet
         countDiv.innerHTML = "<u><i><b>" + thisWordCount + "</b> tokens</i></u>";
         resultDiv.appendChild(countDiv);
     }
+    console.log(currentFirstLetter);
     currentFirstLetter = thisWord[0];
+    console.log(currentFirstLetter);
     lastWordCount = thisWordCount;
 }
 
