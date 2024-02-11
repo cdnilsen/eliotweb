@@ -211,6 +211,19 @@ function getCiteSuffix(editionList, countList) {
     }
 }
 
+//There is probably a more efficient way to do this
+function getAddressString(addressNum) {
+    let splitAddress = addressNum.toString().split("0");
+
+    let newAddressList = [];
+    for (let i = 0; i < splitAddress.length; i++) {
+        if (splitAddress[i] != "") {
+            newAddressList.push(splitAddress[i]);
+        }
+    }
+    return newAddressList.join(":");
+}
+
 function processVerseCite(addressNum, editionList, countList, thisBookName) {
     let editionNum = 1;
     let totalCountVerse = 0;
@@ -227,14 +240,11 @@ function processVerseCite(addressNum, editionList, countList, thisBookName) {
     }
     let prefix = editionToSuperscriptDict[editionNum];
 
-    let splitAddress = addressNum.toString().split("0");
-    console.log(splitAddress);
-
-    let unsplitAddress= splitAddress[0] + ":" + splitAddress[-1];
+    let address = getAddressString(addressNum);
 
     let suffix = getCiteSuffix(editionList, countList);
 
-    let finalString = prefix + unsplitAddress + suffix + ", ";
+    let finalString = prefix + address + suffix + ", ";
 
     return [finalString, totalCountVerse];
 
