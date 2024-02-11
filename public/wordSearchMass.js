@@ -69,7 +69,6 @@ const topBookList = [
     "Revelation"
 ];
 
-const tab = "<span class='textTab'></span>";
 
 editionToSuperscriptDict = {
     //Possible combinations in Genesis:
@@ -293,7 +292,7 @@ function getVerseCodeSpan(verseList, verseCount) {
             }
         }
 
-        let bookString = tab + "<i>" + thisBookName + "</i> (";
+        let bookString = "<span style='margin-left:4em;'><i>" + thisBookName + "</i> (";
         let verseCiteString = ""
         let totalBookCount = 0;
         allAddresses.sort();
@@ -306,7 +305,7 @@ function getVerseCodeSpan(verseList, verseCount) {
             totalBookCount += verseInfo[1];
         }
 
-        bookString += totalBookCount.toString() + "): " + verseCiteString.slice(0, -2) + "<br>";
+        bookString += totalBookCount.toString() + "): " + verseCiteString.slice(0, -2) + "</span><br>";
         verseCodeText += bookString;
     }
     return verseCodeText;
