@@ -70,7 +70,7 @@ const topBookList = [
 ];
 
 editionToSuperscriptDict = {
-    //Possible Genesis combinations:
+    //Possible combinations in Genesis:
     22: "<sup>α</sup>",
     33: "<sup>β</sup>",
     77: "<sup>א</sup>",
@@ -79,7 +79,7 @@ editionToSuperscriptDict = {
     231: "<sup>βא</sup>",
     462: "",
 
-    //Possible Mayhew combinations:
+    //Possible combinations in John or the prose Psalms:
     26: "<sup>α</sup>",
     39: "<sup>β</sup>",
     65: "<sup>M</sup>",
@@ -88,7 +88,7 @@ editionToSuperscriptDict = {
     195: "<sup>βM</sup>",
     390: "",
 
-    //Otherwise:
+    //For all other books:
     2: "<sup>α</sup>",
     3: "<sup>β</sup>",
     6: ""
@@ -197,7 +197,7 @@ function processVerseCite(addressNum, editionList, countList, thisBookName) {
     let prefix = editionToSuperscriptDict[editionNum];
 
     let splitAddress = addressNum.toString().split("0");
-    print(splitAddress);
+    console.log(splitAddress);
     console.log(thisBookName);
 }
 
