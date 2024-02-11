@@ -69,6 +69,8 @@ const topBookList = [
     "Revelation"
 ];
 
+const tab = "<span class='textTab'></span>";
+
 editionToSuperscriptDict = {
     //Possible combinations in Genesis:
     22: "<sup>α</sup>",
@@ -187,7 +189,7 @@ function getCiteSuffix(editionList, countList) {
     let allCountsEqual = true;
     let allCountsOne = true
     let firstCount = countList[0];
-    for (let i = 1; i < countList.length; i++) {
+    for (let i = 0; i < countList.length; i++) {
         if (countList[i] != firstCount) {
             allCountsEqual = false;
         }
@@ -291,7 +293,7 @@ function getVerseCodeSpan(verseList, verseCount) {
             }
         }
 
-        let bookString = "\t<i>" + thisBookName + "</i> (";
+        let bookString = tab + "<i>" + thisBookName + "</i> (";
         let verseCiteString = ""
         let totalBookCount = 0;
         allAddresses.sort();
@@ -343,10 +345,24 @@ function getDictFromSearchOutput(searchOutput, resultDiv, sortAlphabetical, sort
         dictOfDicts[word] = processedDict;
     }
 
+    //let newWordList = [];
     if (sortAlphabetical) {
         allWords.sort();
     } else {
-        allWords.sort((a, b) => dictOfDicts[b]["totalCount"] - dictOfDicts[a]["totalCount"]);
+        let frequencyList = [];
+        let frequencyToWordDict = {};
+        let newWordList = [];
+        
+        allWords.sort((a, b) => {
+            const countA = dictOfDicts[a]["totalCount"];
+            const countB = dictOfDicts[b]["totalCount"];
+            
+            if (countA === countB) {
+                return a.localeCompare(b); // Sort alphabetically if counts are equal
+            }
+            
+            return countB - countA; // Sort by total count in descending order
+        });
     }
 
     for (let j = 0; j < allWords.length; j++) {

@@ -170,6 +170,12 @@ tbody {
     padding-left: 40px;
 }
 
+.textTab {
+    display: inline-block;
+    margin-left: 4em;
+}
+
+
 li {
     text-align: center;
 }
