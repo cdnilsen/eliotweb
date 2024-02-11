@@ -75,19 +75,10 @@ function cleanDiacritics(word) {
 }
 
 
-function seeAllWords(resultDiv, searchString, searchSetting) {
-    resultDiv.innerText = "";
-
-    fetch("/getWords/" + searchString + "/" + searchSetting).then(res => res.json()).then(res => {
+async function seeAllWords(fetchString) {
+    await fetch(fetchString).then(res => res.json()).then(res => {
         for (let item of res) {
-            let wordCheck = checkWord(item.word, searchString, searchSetting);
-            if (wordCheck[0] && searchString != "") {
-                if (wordCheck[1].length == 0) {
-                    resultDiv.append("No results found.")
-                } else {
-                    resultDiv.appendChild(getAllWordTokens(searchString, wordCheck[1], item.total_count, item.verse_addresses, item.verse_tokens));
-                }
-            }
+            console.log(item);
         }
     }).catch(err => console.error(err))
 }
@@ -123,17 +114,9 @@ document.getElementById("searchButton").addEventListener("click", async function
         query = cleanDiacritics(query);
     }
 
-    console.log(searchSetting);
-    console.log(query);
-    /*
+   
     let fetchString = "/getWords/" + query + "/" + searchSetting.toString();
 
-    await fetch(fetchString).then(res => res.json()).then(res => {
-        for (let item of res) {
-            console.log(item.word);
-        }
-    }).catch(err => console.error(err))
-    */
-
+    await seeAllWords(fetchString);
 
 });
