@@ -98,6 +98,87 @@ editionToSuperscriptDict = {
 }
 
 
+let customAlphabetizationDict = {
+    "a": 0,
+    "á": 1,
+    "â": 2,
+    "à": 3,
+    "ã": 4,
+    "ā": 5,
+    "ä": 6,
+    "b": 7,
+    "c": 8,
+    "d": 9,
+    "e": 10,
+    "é": 11,
+    "ê": 12,
+    "è": 13,
+    "ẽ": 14,
+    "ē": 15,
+    "ë": 16,
+    "f": 17,
+    "g": 18,
+    "h": 19,
+    "i": 20,
+    "í": 21,
+    "î": 22,
+    "ì": 23,
+    "ĩ": 24,
+    "ī": 25,
+    "ï": 26,
+    "j": 27,
+    "k": 28,
+    "l": 29,
+    "m": 30,
+    "̃": 31, //This is the tilde that represents a following nasal
+    "n": 32,
+    "ñ": 33,
+    //"ŋ": 34,
+    "o": 34,
+    "ó": 35,
+    "ô": 36,
+    "ò": 37,
+    "õ": 38,
+    "ō": 39,
+    "ö": 40,
+    "8": 41,
+    "p": 42,
+    "q": 43,
+    "r": 44,
+    "s": 45,
+    "t": 46,
+    "u": 47,
+    "ú": 48,
+    "û": 49,
+    "ù": 50,
+    "ũ": 51,
+    "ū": 52,
+    "ü": 53,
+    "v": 54,
+    "w": 55,
+    "x": 56,
+    "y": 57,
+    "z": 58
+};
+
+//Custom alphabetization: the double-o ligature is alphabetized after <o>
+
+function alphabetizeWords(wordList) {
+
+    wordList.sort((a, b) => {
+        const indexA = customAlphabetizationDict[a.toLowerCase()] || 100;
+        const indexB = customAlphabetizationDict[b.toLowerCase()] || 101;
+
+        if (indexA === indexB) {
+            return a.localeCompare(b); // Sort alphabetically if indexes are equal
+        }
+
+        return indexA - indexB; // Sort by custom index
+    });
+}
+
+
+
 //This function is an attempt to deal with the macra and tildes that Eliot uses to represent a following nasal
 function processEngma(word) {
 
@@ -333,8 +414,7 @@ function getDictFromSearchOutput(searchOutput, resultDiv, sortAlphabetical, sort
     for (let i = 0; i < searchOutput.length; i++) {
         let rawDict = searchOutput[i];
 
-        let word = rawDict["word"].split("8").join("ꝏ̄");
-        allWords.push(word);
+        allWords.push(rawDict["word"]);
 
         let processedDict = {};
         processedDict["word"] = word;
@@ -346,7 +426,7 @@ function getDictFromSearchOutput(searchOutput, resultDiv, sortAlphabetical, sort
 
     //let newWordList = [];
     if (sortAlphabetical) {
-        allWords.sort();
+        alphabetizeWords(allWords);
     } else {
         let frequencyList = [];
         let frequencyToWordDict = {};
@@ -357,7 +437,9 @@ function getDictFromSearchOutput(searchOutput, resultDiv, sortAlphabetical, sort
             const countB = dictOfDicts[b]["totalCount"];
             
             if (countA === countB) {
-                return a.localeCompare(b); // Sort alphabetically if counts are equal
+                let miniList = alphabetizeWords([a, b]);
+                return miniList[0] == a ? -1 : 1;
+                // Sort alphabetically using the alphabetizeWords function with custom alphabetization dictionary
             }
             
             return countB - countA; // Sort by total count in descending order
