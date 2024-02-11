@@ -288,7 +288,6 @@ function getCiteSuffix(editionList, countList) {
     let allCountsEqual = true;
     let allCountsOne = true
     let firstCount = countList[0];
-    console.log(firstCount);
     for (let i = 0; i < countList.length; i++) {
         if (countList[i] != firstCount) {
             allCountsEqual = false;
@@ -429,6 +428,7 @@ function processAllWordCites(wordList, totalCountList, dictOfDicts, verseListLis
     for (let i = 0; i < wordList.length; i++) {
         let word = wordList[i];
         let wordDict = dictOfDicts[word];
+        console.log(wordDict);
         outputSpan = processWordCites(word, wordDict["totalCount"], wordDict["allVerses"], wordDict["allVerseCounts"], sortAlphabetical);
         console.log(outputSpan);
 
