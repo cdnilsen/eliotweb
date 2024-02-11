@@ -224,7 +224,7 @@ app.get('/getWords/:searchString/:searchSetting', wrapAsync(async (req, res) => 
         outputDict["word"] = row.word;
         outputDict["totalCount"] = row.total_count;
         outputDict["allVerses"] = row.addresses;
-        outputDict["allCounts"] = row.verse_counts;
+        outputDict["allVerseCounts"] = row.verse_counts;
         outputList.push(outputDict);
     }
 

@@ -189,11 +189,11 @@ function getVerseCodeSpan(verseList, verseCount) {
     return verseCodeText;
 }
 
-function processWordCites(word, totalCount, verseList, verseCount) {
+function processWordCites(word, totalCount, verseList, verseCountList) {
     let outputSpan = document.createElement("span");
     let outputText = `<b>${word}</b> (${totalCount}):<br>`
 
-    let verseCodeSpan = getVerseCodeSpan(verseList, verseCount);
+    let verseCodeSpan = getVerseCodeSpan(verseList, verseCountList);
 
     outputSpan.innerHTML = outputText + verseCodeSpan + "<br>";
     outputSpan.classList.add("wordResult");
@@ -218,6 +218,7 @@ function getDictFromSearchOutput(searchOutput, resultDiv, sortAlphabetical, sort
         processedDict["word"] = word;
         processedDict["totalCount"] = rawDict["totalCount"];
         processedDict["allVerses"] = rawDict["allVerses"];
+        console.log(rawDict["allVerseCounts"]);
         processedDict["allVerseCounts"] = rawDict["allVerseCounts"];
         dictOfDicts[word] = processedDict;
     }
