@@ -83,6 +83,7 @@ function getDictFromSearchOutput(searchOutput, resultDiv) {
         let outputText = "<span>" + thisWord + "</span><br>";
         outputSpan.innerHTML = outputText;
         outputSpan.classList.add("wordResult");
+        resultDiv.appendChild(outputSpan);
     }
 }
 
