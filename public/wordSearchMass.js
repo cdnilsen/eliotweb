@@ -175,6 +175,7 @@ function alphabetizeWords(wordList) {
 
         return indexA - indexB; // Sort by custom index
     });
+    return wordList;
 }
 
 
