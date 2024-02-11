@@ -425,32 +425,40 @@ function getDictFromSearchOutput(searchOutput, resultDiv, sortAlphabetical, sort
         dictOfDicts[word] = processedDict;
     }
 
-    //let newWordList = [];
+    let newWordList = [];
+    
     if (sortAlphabetical) {
-        alphabetizeWords(allWords);
+        newWordList = alphabetizeWords(allWords);
     } else {
         let frequencyList = [];
         let frequencyToWordDict = {};
         let newWordList = [];
-        
-        allWords.sort((a, b) => {
-            const countA = dictOfDicts[a]["totalCount"];
-            const countB = dictOfDicts[b]["totalCount"];
-            
-            if (countA === countB) {
-                let miniList = alphabetizeWords([a, b]);
-                return miniList[0] == a ? -1 : 1;
-                // Sort alphabetically using the alphabetizeWords function with custom alphabetization dictionary
+        for (let i = 0; i < allWords.length; i++) {
+            let thisWord = allWords[i];
+            let thisCount = dictOfDicts[thisWord]["totalCount"];
+
+            if (frequencyToWordDict[thisCount] === undefined) {
+                frequencyToWordDict[thisCount] = [thisWord];
+                frequencyList.push(thisCount);
+            } else {
+                frequencyToWordDict[thisCount].push(thisWord);
             }
-            
-            return countB - countA; // Sort by total count in descending order
-        });
+        }
+        frequencyList.sort((a, b) => b - a);
+        for (let j = 0; j < frequencyList.length; j++) {
+            let thisFrequency = frequencyList[j];
+            let thisWordList = frequencyToWordDict[thisFrequency];
+            thisWordList.sort();
+            for (let k = 0; k < thisWordList.length; k++) {
+                newWordList.push(thisWordList[k]);
+            }
+        }
     }
 
-    for (let j = 0; j < allWords.length; j++) {
-        let word = allWords[j];
+    for (let j = 0; j < newWordList.length; j++) {
+        let word = newWordList[j];
         let wordDict = dictOfDicts[word];
-        outputSpan = processWordCites(allWords[j], wordDict["totalCount"], wordDict["allVerses"], wordDict["allVerseCounts"]);
+        outputSpan = processWordCites(newWordList[j], wordDict["totalCount"], wordDict["allVerses"], wordDict["allVerseCounts"]);
 
         resultDiv.appendChild(outputSpan);
     }
