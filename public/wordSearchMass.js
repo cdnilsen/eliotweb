@@ -163,17 +163,22 @@ function decodeVerseCode(verseCode, verseCount) {
 
 }
 
-function processVerseCite(addressNum, editionList, countList) {
+function translateEditionNum(editionNum, thisBookName) {
+    return "";
+}
+
+function processVerseCite(addressNum, editionList, countList, thisBookName) {
     let editionNum = 1;
     for (let i=0; i < editionList.length; i++) {
         editionNum *= editionList[i];
     }
-    console.log(editionNum);
+    let prefix = translateEditionNum(editionNum, thisBookName);
+    console.log(thisBookName);
 }
 
 function getVerseCodeSpan(verseList, verseCount) {
-    console.log(verseList);
-    console.log(verseCount);
+    //console.log(verseList);
+    //console.log(verseCount);
     let verseCodeText = "";
     let dictOfDicts = {};
     let allBookList = [];
@@ -220,7 +225,7 @@ function getVerseCodeSpan(verseList, verseCount) {
             let thisAddress = allAddresses[l];
             let thisEditionList = verseAddressDict[thisAddress];
             let thisCountList = verseCountDict[thisAddress];
-            let editionString = processVerseCite(thisAddress, thisEditionList, thisCountList);
+            let editionString = processVerseCite(thisAddress, thisEditionList, thisCountList, thisBookName);
         }
     }
     return verseCodeText;
