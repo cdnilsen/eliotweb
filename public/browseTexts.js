@@ -504,7 +504,7 @@ sectionDropdown.addEventListener("change", function() {
     updateChapterDropdown(firstBook);
     revealCheckboxes(firstBook);
     document.getElementById('searchChapterLegend').innerHTML = "Chapter";
-    document.getElementById('searchVerseDropdown').hidden = true;
+    document.getElementById('verseDropdown').hidden = true;
 });
 
 //Seems to be necessary for it to show anything
