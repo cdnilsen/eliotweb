@@ -188,6 +188,8 @@ function processVerseCite(addressNum, editionList, countList, thisBookName) {
         editionNum *= editionList[i];
     }
 
+    console.log(editionList);
+
     // This gives a unique prime factorization of all the possibilities. E.g. an edition number of 6 should get no prefix (the book in question is only 1st/2nd edition and so 6 means it exists in both verses), but an edition number of 66 means that the word occurs in both of Eliot's editions of this verse but not Mayhew's (even though an edition of this verse by Mayhew exists).
     if (thisBookName == "Genesis") {
         editionNum *= 11;
@@ -197,6 +199,8 @@ function processVerseCite(addressNum, editionList, countList, thisBookName) {
     let prefix = editionToSuperscriptDict[editionNum];
 
     let splitAddress = addressNum.toString().split("0");
+
+    let suffix = "";
     console.log(splitAddress);
     console.log(thisBookName);
 }
