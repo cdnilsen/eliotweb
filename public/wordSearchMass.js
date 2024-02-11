@@ -164,7 +164,7 @@ let customAlphabetizationDict = {
 //Custom alphabetization: the double-o ligature is alphabetized after <o>
 
 function alphabetizeWords(wordList) {
-
+    console.log(wordList);
     wordList.sort((a, b) => {
         const indexA = customAlphabetizationDict[a.toLowerCase()] || 100;
         const indexB = customAlphabetizationDict[b.toLowerCase()] || 101;
@@ -175,6 +175,8 @@ function alphabetizeWords(wordList) {
 
         return indexA - indexB; // Sort by custom index
     });
+    console.log(wordList);
+    
     return wordList;
 }
 
@@ -449,7 +451,7 @@ function getDictFromSearchOutput(searchOutput, resultDiv, sortAlphabetical, sort
         for (let j = 0; j < frequencyList.length; j++) {
             let thisFrequency = frequencyList[j];
             let thisWordList = frequencyToWordDict[thisFrequency];
-            thisWordList.sort();
+            thisWordList = alphabetizeWords(thisWordList);
             for (let k = 0; k < thisWordList.length; k++) {
                 newWordList.push(thisWordList[k]);
             }
