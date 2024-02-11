@@ -417,7 +417,7 @@ function getDictFromSearchOutput(searchOutput, resultDiv, sortAlphabetical, sort
         allWords.push(rawDict["word"]);
 
         let processedDict = {};
-        processedDict["word"] = word;
+        processedDict["word"] = rawDict["word"];
         processedDict["totalCount"] = rawDict["totalCount"];
         processedDict["allVerses"] = rawDict["allVerses"];
         processedDict["allVerseCounts"] = rawDict["allVerseCounts"];
