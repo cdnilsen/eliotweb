@@ -148,7 +148,13 @@ async function wordAlreadyInTable(word: string, tableName: string) {
 
 //Edition counts should probably be re-processed later on
 async function updateExistingWordInTable(word: string, verseID: number, count: number, tableName: string) {
-    let query = await pool.query('SELECT * FROM ' + tableName + ' WHERE word = $1::text', [word]);
+    let useDiacritics: boolean = tableName == "words_diacritics";
+    let queryWord: string = word;
+    if (!useDiacritics){
+        queryWord = cleanDiacriticsEngmaMarking(word);
+    }
+
+    let query = await pool.query('SELECT * FROM ' + tableName + ' WHERE word = $1::text', [queryWord]);
 
     let queryRow = query.rows[0];
 
@@ -177,20 +183,40 @@ async function updateExistingWordInTable(word: string, verseID: number, count: n
         newVerseCountArray.push(count);
     }
 
-    await pool.query('UPDATE ' + tableName + ' SET addresses = $1::int[], verse_counts = $2::int[] WHERE word = $3::text', [newAddressArray, newVerseCountArray, word]);
+    if (useDiacritics){
+        await pool.query('UPDATE ' + tableName + ' SET addresses = $1::int[], verse_counts = $2::int[], correspondingWord = $3::text WHERE word = $4::text', [newAddressArray, newVerseCountArray, cleanDiacriticsEngmaMarking(word), word]);
+    } else {
+        let correspondingArray: string[] = queryRow.corresponding_words;
+        if (!correspondingArray.includes(cleanDiacriticsEngmaMarking(word))) {
+            correspondingArray.push(cleanDiacriticsEngmaMarking(word));
+        }
+        await pool.query('UPDATE ' + tableName + ' SET addresses = $1::int[], verse_counts = $2::int[], corresponding_words = $3::text[] WHERE word = $4::text', [newAddressArray, newVerseCountArray, correspondingArray, cleanDiacriticsEngmaMarking(word)]);
+    }
 }
 
 async function processWordInTable(word: string, verseID: number, count: number, tableName: string) {
     let tableHasWord = await wordAlreadyInTable(word, tableName);
 
+    let useDiacritics: boolean = tableName == "words_diacritics";
+
     let consoleString = "";
+
+    let verseIDArray = [verseID];
+    let countArray = [count];
+
     if (tableHasWord) {
         await updateExistingWordInTable(word, verseID, count, tableName);
         consoleString = word + " updated";
     } else {
-        let verseIDArray = [verseID];
-        let countArray = [count];
-        await pool.query('INSERT INTO ' + tableName + "(word, addresses, verse_counts) VALUES ($1::text, $2::int[], $3::int[])", [word, verseIDArray, countArray]);
+        let queryString: string = "";
+        let noDiacriticsWord: string = cleanDiacriticsEngmaMarking(word);
+        if (useDiacritics) {    
+            await pool.query('INSERT INTO ' + tableName + "(word, addresses, verse_counts, corresponding_word) VALUES ($1::text, $2::int[], $3::int[], $4::text)", [word, verseIDArray, countArray, noDiacriticsWord])
+        } else {
+            let verseIDArray = [verseID];
+            let countArray = [count];
+            await pool.query('INSERT INTO ' + tableName + "(word, addresses, verse_counts) VALUES ($1::text, $2::int[], $3::int[], $4::text[])", [noDiacriticsWord, verseIDArray, countArray, [word]]); 
+        }
         consoleString = word + " inserted";
     }
     return consoleString;

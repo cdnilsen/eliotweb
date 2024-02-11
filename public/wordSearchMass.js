@@ -532,9 +532,6 @@ function getDictFromSearchOutput(searchOutput, resultDiv, sortAlphabetical, sort
         }
     }
 
-    console.log(newWordList);
-    //console.log(allVerseLists);
-    //console.log(allVerseCounts);
     processAllWordCites(newWordList, dictOfDicts, sortAlphabetical, resultDiv);
 }
 
