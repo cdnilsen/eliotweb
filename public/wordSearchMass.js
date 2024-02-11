@@ -427,13 +427,13 @@ function sectionHeader(useAlphabetical, thisWord, thisWordCount, currentFirstLet
     if (useAlphabetical) {
         if (thisWord[0] != currentFirstLetter) {
             let firstLetterDiv = document.createElement("div");
-            firstLetterDiv.style.fontSize = "20px";
+            firstLetterDiv.style.fontSize = "24px";
             firstLetterDiv.innerHTML = "<u><b><i>" + thisWord[0] + "</i></b></u><br>";
             resultDiv.appendChild(firstLetterDiv);
         }
     } else if (lastWordCount != thisWordCount) {
         let countDiv = document.createElement("div");
-        countDiv.style.fontSize = "20px";
+        countDiv.style.fontSize = "24px";
         countDiv.innerHTML = "<u><i><b>" + thisWordCount + "</b> tokens</i></u><br>";
         resultDiv.appendChild(countDiv);
     }
@@ -474,8 +474,8 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical, resultDiv)
 
         resultDiv.appendChild(outputSpan);  
     }
-    topSpan.innerHTML = `<u>Found <b>${totalTokens}</b> tokens, representing <b>${totalWords}</b> distinct words.</u>`;
-    topSpan.style.fontSize = "24px";
+    topSpan.innerHTML = `Found <b><u>${totalTokens}</u></b> tokens, representing <b><u>${totalWords}</u></b> distinct words.`;
+    topSpan.style.fontSize = "32px";
     topDiv.appendChild(topSpan);
 
     resultDiv.hidden = false;
