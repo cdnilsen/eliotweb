@@ -433,7 +433,6 @@ function getDictFromSearchOutput(searchOutput, resultDiv, sortAlphabetical, sort
     } else {
         let frequencyList = [];
         let frequencyToWordDict = {};
-        let newWordList = [];
         for (let i = 0; i < allWords.length; i++) {
             let thisWord = allWords[i];
             let thisCount = dictOfDicts[thisWord]["totalCount"];
