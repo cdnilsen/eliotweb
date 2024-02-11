@@ -70,7 +70,7 @@ const topBookList = [
 ];
 
 
-editionToSuperscriptDict = {
+const editionToSuperscriptDict = {
     //Possible combinations in Genesis:
     22: "<sup>α</sup>",
     33: "<sup>β</sup>",
@@ -84,7 +84,7 @@ editionToSuperscriptDict = {
     26: "<sup>α</sup>",
     39: "<sup>β</sup>",
     65: "<sup>M</sup>",
-    78: "<sup>E</sup>",
+    78: "<sup>αβ</sup>",
     130: "<sup>αM</sup>",
     195: "<sup>βM</sup>",
     390: "",
@@ -269,6 +269,7 @@ function getCiteSuffix(editionList, countList) {
     let allCountsEqual = true;
     let allCountsOne = true
     let firstCount = countList[0];
+    console.log(firstCount);
     for (let i = 0; i < countList.length; i++) {
         if (countList[i] != firstCount) {
             allCountsEqual = false;
