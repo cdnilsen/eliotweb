@@ -168,20 +168,20 @@ function getVerseCodeSpan(verseList, verseCount) {
     
     let dictOfDicts = {};
 
-    let allEditionList = [];
+    let allBookList = [];
     for (let i = 0; i < verseList.length; i++) {
         let verseDict = decodeVerseCode(verseList[i], verseCount[i]);
 
-        if (dictOfDicts[verseDict["editionNum"]] === undefined) {
-            dictOfDicts[verseDict["editionNum"]] = [verseDict];
-            allEditionList.push(verseDict["editionNum"]);
+        if (dictOfDicts[verseDict["bookNum"]] === undefined) {
+            dictOfDicts[verseDict["bookNum"]] = [verseDict];
+            allEditionList.push(verseDict["bookNum"]);
         } else {
-            dictOfDicts[verseDict["editionNum"]].push(verseDict);
+            dictOfDicts[verseDict["bookNum"]].push(verseDict);
         }
     }
 
-    allEditionList.sort();
-    console.log(allEditionList);
+    allBookList.sort();
+    console.log(allBookList);
     return verseCodeText;
 }
 
