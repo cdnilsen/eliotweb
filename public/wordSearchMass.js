@@ -435,15 +435,15 @@ function sectionHeader(useAlphabetical, thisWord, thisWordCount, currentFirstLet
             firstLetterDiv.style.fontSize = "16px";
             firstLetterDiv.innerHTML = "<u><b>" + thisWord[0] + "</b></u>";
             resultDiv.appendChild(firstLetterDiv);
-            currentFirstLetter = thisWord[0];
         }
     } else if (lastWordCount != thisWordCount) {
         let countDiv = document.createElement("div");
         countDiv.style.fontSize = "16px";
         countDiv.innerHTML = "<u><i><b>" + lastWordCount + "</b> tokens</i></u>";
         resultDiv.appendChild(countDiv);
-        lastWordCount = thisWordCount;
     }
+    currentFirstLetter = thisWord[0];
+    lastWordCount = thisWordCount;
 }
 
 
@@ -526,8 +526,8 @@ function getDictFromSearchOutput(searchOutput, resultDiv, sortAlphabetical, sort
     }
 
     console.log(newWordList);
-    console.log(allVerseLists);
-    console.log(allVerseCounts);
+    //console.log(allVerseLists);
+    //console.log(allVerseCounts);
     processAllWordCites(newWordList, dictOfDicts, sortAlphabetical, resultDiv);
 }
 
