@@ -325,6 +325,7 @@ async function getAllVerseIDs() {
 
 async function runCorrespondences() {
     document.getElementById("text-container").innerHTML = "";
+    /*
     let allIDList = await getAllVerseIDs();
     allIDList = allIDList.sort();
     let allIDLength = allIDList.length;
@@ -352,7 +353,7 @@ async function runCorrespondences() {
     newSpan.innerHTML = allIDLength.toString() + " verses processed.\n";
 
     sleep(500);
-    
+    */
     fetch('/populateCorrespondences', {
         method: 'PUT',
         body: JSON.stringify({"dummy": 0}),
