@@ -360,44 +360,42 @@ async function processOneVerseWordData(verseID: number) {
 
 // This function populates the 'correspondence' columns in the word tables. In words_diacritics, this is the diacritic-less version of the word; in words_no_diacritics, it's an array of all words in words_diacritics that correspond to this word
 export async function populateCorrespondences() {
-
-    return "populateCorrespondences worked (?)";
-    /*
     let diacriticWordQuery = await pool.query("SELECT * FROM words_diacritics");
     let diacriticWordRows = diacriticWordQuery.rows;
-    
-    let diacriticToNoneDict: stringToStringDict = {};
-    let noneToDiacriticDict: stringToStringListDict = {};
+
     let allDiacriticsList: string[] = [];
-    let allNoDiacriticsList: string[] = [];
+    let noDiacriticsList: string[] = [];
+    let noDiacriticsToDiacriticsDict: stringToStringListDict = {};
     
     for (let i = 0; i < diacriticWordRows.length; i++) {
         let diacriticWord = diacriticWordRows[i].word;
         allDiacriticsList.push(diacriticWord);
-
-        let noDiacriticWord = cleanDiacritics(diacriticWord);
-        diacriticToNoneDict[i] = noDiacriticWord;
         
-        if (! allNoDiacriticsList.includes(noDiacriticWord)) {
-            allNoDiacriticsList.push(noDiacriticWord);
-            noneToDiacriticDict[noDiacriticWord] = [diacriticWord];
+        let noDiacriticsWord = cleanDiacriticsEngmaMarking(diacriticWord);
+        if (noDiacriticsToDiacriticsDict[noDiacriticsWord] == undefined) {
+            noDiacriticsToDiacriticsDict[noDiacriticsWord] = [diacriticWord];
         } else {
-            noneToDiacriticDict[noDiacriticWord].push(diacriticWord);
+            noDiacriticsToDiacriticsDict[noDiacriticsWord].push(diacriticWord);
+            noDiacriticsList.push(noDiacriticsWord);
         }
     }
 
-    for (let j = 0; j < allDiacriticsList.length; j++) {
-        let word = allDiacriticsList[j];
-        await pool.query("UPDATE words_diacritics SET corresponding_word = $1::text WHERE word = $2::text", [diacriticToNoneDict[word], word]);
+    for (let j=0; j < allDiacriticsList.length; j++) {
+        let diacriticWord = allDiacriticsList[j];
+        let noDiacriticWord = cleanDiacriticsEngmaMarking(diacriticWord);
+        await pool.query('UPDATE words_diacritics SET correspondingWord = $1::text WHERE word = $2::text', [noDiacriticWord, diacriticWord]);
     }
 
-    for (let k = 0; k < allNoDiacriticsList.length; k++) {
-        let word = allNoDiacriticsList[k];
-        await pool.query("UPDATE words_no_diacritics SET corresponding_words = $1::text[] WHERE word = $2::text", [noneToDiacriticDict[word], word]);
+    for (let k=0; k < noDiacriticsList.length; k++) {
+        let noDiacriticWord = noDiacriticsList[k];
+        let diacriticWordArray = noDiacriticsToDiacriticsDict[noDiacriticWord];
+        await pool.query('UPDATE words_no_diacritics SET corresponding_words = $1::text[] WHERE word = $2::text', [diacriticWordArray, noDiacriticWord]);
     }
-
+        
+        
+        
     return "Processed correspondences for " + allDiacriticsList.length.toString() + " words.";
-    */
+    
 }
 
 export async function processBatchWordData(rawJSON: any) {

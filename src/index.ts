@@ -92,8 +92,7 @@ app.put('/compareVerse/:verseID', wrapAsync(async (req, res) => {
 
 app.put('/populateCorrespondences', wrapAsync(async (req, res) => {
     try {
-        //let result = await populateCorrespondences();
-        let result = "called populateCorrespondences (fix later)";
+        let result = await populateCorrespondences();
         res.json(result);
     } catch (error) {
         console.error(error);

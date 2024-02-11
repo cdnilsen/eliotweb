@@ -264,13 +264,6 @@ document.getElementById('submit').addEventListener("click", async function() {
     document.getElementById("text-container").appendChild(processedTextSpan);
 });
 
-async function getAllVerseIDs() {
-    let allVerseIDs = await fetch("/getAllVerseIDs").then(res => res.json()).then(res => res).catch(err => console.error(err));
-    console.log("Number of verse IDs: " + allVerseIDs.length.toString());
-
-    return allVerseIDs;
-}
-
 document.getElementById('process_words').addEventListener("click", async function() {
     //document.getElementById("text-container").innerHTML = "";
     let allIDList = await getAllVerseIDs();
@@ -322,6 +315,53 @@ document.getElementById('run_word_counts').addEventListener("click", async funct
     }).then(res => res.json()).then(res => console.log(res)).catch(err => console.error(err));
 });
 */
+
+async function getAllVerseIDs() {
+    let allVerseIDs = await fetch("/getAllVerseIDs").then(res => res.json()).then(res => res).catch(err => console.error(err));
+    console.log("Number of verse IDs: " + allVerseIDs.length.toString());
+
+    return allVerseIDs;
+}
+
+async function runCorrespondences() {
+    document.getElementById("text-container").innerHTML = "";
+    let allIDList = await getAllVerseIDs();
+    allIDList = allIDList.sort();
+    let allIDLength = allIDList.length;
+
+    let startingIndex = 0;
+    let endingIndex = 50;
+
+    while (startingIndex <= allIDLength) {
+        let myIDList = allIDList.slice(startingIndex, endingIndex); // works when logged
+        fetch('/processWords', {
+            method: 'POST',
+            body: JSON.stringify(myIDList),
+            headers: {
+            "Content-type": "application/json; charset=UTF-8"
+            }
+        }).then(res => res.json()).then(res => {
+            console.log(res[0].toString() + " worked!");
+        }).catch(err => console.log(err));
+        startingIndex += 50;
+        endingIndex += 50;
+    }
+    console.log(howManyFailed.toString() + " JSONs failed of "+ howManyTotal.toString());
+    let newSpan = document.createElement('span');
+    newSpan.innerHTML = allIDLength.toString() + " verses processed.\n";
+
+    sleep(500);
+    
+    fetch('/populateCorrespondences', {
+        method: 'PUT',
+        body: JSON.stringify({"dummy": 0}),
+        headers: {
+        "Content-type": "application/json; charset=UTF-8"
+        }
+    }).then(res => res.json()).then(res => console.log(res)).catch(err => console.error(err));
+    
+    document.getElementById("text-container").appendChild(newSpan);
+}
 
 function getBookToNumDict(bookList) {
     let finalDict = {};
@@ -713,6 +753,8 @@ async function addSelectionParams(whichAction) {
         await processTextPopulateHTML();
     } else if (whichAction == "compareVerses") {
         await processTextComparisons();
+    } else if (whichAction == "runCorrespondences") {
+        await runCorrespondences();
     }
 }
 
@@ -722,6 +764,7 @@ function addActionButtonLegend() {
     let actionToButtonLegendDict = {
         "processAText": "Process a Text",
         "compareVerses": "Compare Verses",
+        "runCorrespondences": "Run Correspondences",
         "processWordsOneText": "Process Words in a Text",
         "runWordCounts": "Run All Word Counts"
     };
@@ -743,6 +786,8 @@ for (let i = 0; i < radioButtonsList.length; i++) {
         addActionButtonLegend();
     });
 }
+
+
 
 document.getElementById('pickAction').addEventListener("click", async function() {
     document.getElementById("text-container").innerHTML = "";
