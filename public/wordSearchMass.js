@@ -109,10 +109,18 @@ function getDictFromSearchOutput(searchOutput, resultDiv) {
     let allVerseLists = [];
     let allVerseCounts = [];
     for (let i = 0; i < searchOutput.length; i++) {
-        allWords.push(searchOutput[i].word);
-        allTotalCounts.push(searchOutput[i].totalCount);
-        allVerseLists.push(searchOutput[i].verseList);
-        allVerseCounts.push(searchOutput[i].verseCount);
+        let dict = searchOutput[i]
+        allWords.push(dict["word"]);
+        allTotalCounts.push(dict["totalCount"]);
+        allVerseLists.push(dict["allVerses"]);
+        allVerseCounts.push(dict["allVerses"]);
+    }
+
+    for (let i = 0; i < allWords.length; i++) {
+        let outputSpan = document.createElement("span");
+        let outputText = `<b>${allWords[i]}</b> (${allTotalCounts[i]}):<br>`
+        outputSpan.innerHTML = outputText;
+        resultDiv.appendChild(outputSpan);
     }
     console.log(allVerseLists)
     /*
