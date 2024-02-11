@@ -435,7 +435,8 @@ function processAllWordCites(wordList, totalCountList, dictOfDicts, verseListLis
         } else {
             if (wordDict["totalCount"] != lastWordCount) {
                 let countDiv = document.createElement("div");
-                countDiv.innerHTML = "<h2><u>" + wordDict["totalCount"] + " tokens:</u></h2>";
+                countDiv.style.fontsize = "24px;"
+                countDiv.innerHTML = "<u></b>" + wordDict["totalCount"] + "</b> tokens:</u>";
                 resultDiv.appendChild(countDiv);
             }
         }
