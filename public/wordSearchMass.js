@@ -424,13 +424,16 @@ function processWordCites(word, totalCount, verseList, verseCountList, sortAlpha
 }
 
 function sectionHeader(useAlphabetical, thisWord, thisWordCount, currentFirstLetter, lastWordCount, resultDiv) {
-    if (useAlphabetical && (thisWord[0] != currentFirstLetter)) {
-        let firstLetterDiv = document.createElement("div");
-        firstLetterDiv.style.fontSize = "24px";
-        firstLetterDiv.innerHTML = "<u><b>" + thisWord[0] + "</b></u>";
-        resultDiv.appendChild(firstLetterDiv);
-        currentFirstLetter = thisWord[0];
-    } else if (!useAlphabetical && (lastWordCount != thisWordCount)) {
+    console.log(thisWord);
+    if (useAlphabetical) {
+        if (thisWord[0] != currentFirstLetter) {
+            let firstLetterDiv = document.createElement("div");
+            firstLetterDiv.style.fontSize = "24px";
+            firstLetterDiv.innerHTML = "<u><b>" + thisWord[0] + "</b></u>";
+            resultDiv.appendChild(firstLetterDiv);
+            currentFirstLetter = thisWord[0];
+        }
+    } else if (lastWordCount != thisWordCount) {
         let countDiv = document.createElement("div");
         countDiv.style.fontSize = "24px";
         countDiv.innerHTML = "<u><b>" + lastWordCount + "</b> tokens:</u>";
