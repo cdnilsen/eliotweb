@@ -430,6 +430,7 @@ function processAllWordCites(wordList, totalCountList, dictOfDicts, verseListLis
         let word = wordList[i];
         let wordDict = dictOfDicts[word];
         outputSpan = processWordCites(word, wordDict["totalCount"], wordDict["allVerses"], wordDict["allVerseCounts"], sortAlphabetical);
+        console.log(outputSpan);
 
         if (sortAlphabetical) {
             continue;
@@ -439,9 +440,9 @@ function processAllWordCites(wordList, totalCountList, dictOfDicts, verseListLis
                 countDiv.style.fontsize = "24px;"
                 countDiv.innerHTML = "<u></b>" + wordDict["totalCount"] + "</b> tokens:</u>";
                 resultDiv.appendChild(countDiv);
+                lastWordCount = wordDict["totalCount"];
             }
         }
-        lastWordCount = wordDict["totalCount"];
         resultDiv.appendChild(outputSpan);
     }
     
