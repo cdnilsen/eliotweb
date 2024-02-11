@@ -75,7 +75,18 @@ function cleanDiacritics(word) {
 }
 
 
-async function seeAllWords(fetchString) {
+function getDictFromSearchOutput(searchOutput, resultDiv) {
+    for (let i = 0; i < searchOutput.length; i++) {
+        let thisWord = searchOutput[i].word;
+
+        let outputSpan = document.createElement("span");
+        let outputText = "<span>" + thisWord + "</span><br>";
+        outputSpan.innerHTML = outputText;
+        outputSpan.classList.add("wordResult");
+    }
+}
+
+async function seeAllWords(fetchString, resultDiv) {
     fetch(fetchString, {
         method: 'GET',
         headers: {
@@ -83,6 +94,7 @@ async function seeAllWords(fetchString) {
         }
     }).then(res => res.json()).then(res => {
         console.log(res);
+        getDictFromSearchOutput(res, resultDiv);
     }).catch(err => console.error(err))
 }
 
@@ -120,6 +132,7 @@ document.getElementById("searchButton").addEventListener("click", async function
    
     let fetchString = "/getWords/" + query + "/" + searchSetting.toString();
 
-    await seeAllWords(fetchString);
+    let resultDiv = document.getElementById("results-container");
+    await seeAllWords(fetchString, resultDiv);
 
 });
