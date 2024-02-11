@@ -454,6 +454,7 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical, resultDiv)
     let totalTokens = 0;
 
     let topDiv = document.getElementById("headline-container");
+    topDiv.innerHTML = "";
 
     let topSpan = document.createElement("span");
 
