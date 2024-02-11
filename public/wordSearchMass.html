@@ -32,14 +32,18 @@
 
     <div id="diacriticsSelection">
         <input type="radio" name="diacritics" id="diacriticsStrict" value="diacriticsStrict" checked>
-            <label for="diacriticsStrict"><b>Strict</b> diacritics (search for <i>matta</i> returns <i>matta</i> but <span style="color: red">not</span> <i>matt<b>á</b></i>)</label>
+            <label for="diacriticsStrict"><b>Strict</b> diacritics: search for <i>matta</i> returns <i>matta</i> but <span style="color: red">not</span> <i>matt<b>á</b></i></label>
         <br>
         <input type="radio" name="diacritics" id="diacriticsLax" value="diacriticsLax">
-            <label for="diacriticsLax"><b>Lax</b> diacritics: search for <i>matta</i> returns <i>matt<b>a</b>, matt<b>á</b>, matt<b>à</b></i>, etc.)</label>
+            <label for="diacriticsLax"><b>Lax</b> diacritics: search for <i>matta</i> returns <i>matt<b>a</b>, matt<b>á</b>, matt<b>à</b></i>, etc.</label>
     </div>
 
     <button type="submit" id="searchButton">Search</button>
     <br>
+    <div id="headline-container">
+
+    </div>
+
     <div id="results-container">
 
     </div>

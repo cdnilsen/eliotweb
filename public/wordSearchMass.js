@@ -150,24 +150,38 @@ function cleanDiacritics(word) {
     return processEngma(cleanedWord);
 }
 
-function decodeVerseCode(verseCode) {
+//Returns a dictionary with the info about this verse
+function decodeVerseCode(verseCode, verseCount) {
+    //Examples of verse codes: 225003010, 325003010, 219104022. The first digit is the edition number, the next two are the book number, the next three are the chapter number, and the last three are the verse number. Note that both verseCode and verseCount are lists of strings.
+    
+    let finalDict = {};
+    finalDict["verseCount"] = parseInt(verseCount);
+    finalDict["editionNum"] = parseInt(verseCode[0]);
+    finalDict["bookNum"] = parseInt(verseCode.slice(1, 3));
+    finalDict["addressNum"] = parseInt(verseCode.slice(3, 9));
+    return finalDict;
 
 }
 
 function getVerseCodeSpan(verseList, verseCount) {
     let verseCodeText = "";
-    let firstEditionDict = {};
-    let secondEditionDict = {};
-    let MayhewDict = {};
-    let ZerothEditionDict = {};
+    
+    let dictOfDicts = {};
 
+    let allEditionList = [];
     for (let i = 0; i < verseList.length; i++) {
+        let verseDict = decodeVerseCode(verseList[i], verseCount[i]);
 
-        console.log(typeof verseList[i])
-        console.log(typeof verseCount[i])
-        let verseCode = decodeVerseCode(verseList[i]);
-        let thisVerseCount = verseCount[i];
+        if (dictOfDicts[verseDict["editionNum"]] === undefined) {
+            dictOfDicts[verseDict["editionNum"]] = [verseDict];
+            allEditionList.push(verseDict["editionNum"]);
+        } else {
+            dictOfDicts[verseDict["editionNum"]].push(verseDict);
+        }
     }
+
+    allEditionList.sort();
+    console.log(allEditionList);
     return verseCodeText;
 }
 
