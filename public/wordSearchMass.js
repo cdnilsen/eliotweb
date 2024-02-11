@@ -442,9 +442,7 @@ function sectionHeader(useAlphabetical, thisWord, thisWordCount, currentFirstLet
         countDiv.innerHTML = "<u><i><b>" + thisWordCount + "</b> tokens</i></u>";
         resultDiv.appendChild(countDiv);
     }
-    console.log(currentFirstLetter);
     currentFirstLetter = thisWord[0];
-    console.log(currentFirstLetter);
     lastWordCount = thisWordCount;
 }
 
@@ -467,7 +465,9 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical, resultDiv)
         let wordDict = dictOfDicts[word];
         totalTokens += wordDict["totalCount"];
         outputSpan = processWordCites(word, wordDict["totalCount"], wordDict["allVerses"], wordDict["allVerseCounts"], sortAlphabetical);
+        console.log(firstLetter);
         sectionHeader(sortAlphabetical, word, wordDict["totalCount"], firstLetter, lastWordCount, resultDiv);
+        console.log(firstLetter);
         resultDiv.appendChild(outputSpan);  
     }
     topSpan.innerHTML = `<u>Found <b>${totalTokens}</b> tokens, representing <b>${totalWords}</b> distinct words.</u>`;
