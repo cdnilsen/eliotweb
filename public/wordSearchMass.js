@@ -70,10 +70,15 @@ const topBookList = [
 ];
 
 editionToSuperscriptDict = {
-    "2": "<sup>α</sup>",
-    "3": "<sup>β</sup>",
-    "5": "<sup>M</sup>",
-    "7": "<sup>א</sup>",
+    2: "<sup>α</sup>",
+    3: "<sup>β</sup>",
+    5: "<sup>M</sup>",
+    6: "",
+    7: "<sup>א</sup>",
+    10: "<sup>αM</sup>",
+    14: "<sup>αא</sup>",
+    15: "<sup>βM</sup>",
+
 }
 
 
@@ -163,16 +168,20 @@ function decodeVerseCode(verseCode, verseCount) {
 
 }
 
-function translateEditionNum(editionNum, thisBookName) {
-    return "";
-}
 
 function processVerseCite(addressNum, editionList, countList, thisBookName) {
     let editionNum = 1;
     for (let i=0; i < editionList.length; i++) {
         editionNum *= editionList[i];
     }
-    let prefix = translateEditionNum(editionNum, thisBookName);
+
+    // This gives a unique prime factorization of all the possibilities. E.g. an edition number of 6 should get no prefix (the book in question is only 1st/2nd edition and so 6 means it exists in both verses), but an edition number of 66 means that the word occurs in both of Eliot's editions of this verse but not Mayhew's (even though an edition of this verse by Mayhew exists).
+    if (thisBookName == "Genesis") {
+        editionNum *= 7;
+    } else if (thisBookName == "Psalms (prose)" || thisBookName == "John") {
+        editionNum *= 11;
+    }
+    let prefix = translateEditionNum(editionNum)
     console.log(thisBookName);
 }
 
