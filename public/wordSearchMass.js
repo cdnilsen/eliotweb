@@ -439,10 +439,10 @@ function processAllWordCites(wordList, totalCountList, dictOfDicts, verseListLis
                 resultDiv.appendChild(countDiv);
             }
         }
-            lastWordCount = wordDict["totalCount"];
-        }
+        lastWordCount = wordDict["totalCount"];
         resultDiv.appendChild(outputSpan);
-
+    }
+    
 }
 
 function getDictFromSearchOutput(searchOutput, resultDiv, sortAlphabetical, sortByBook) {
