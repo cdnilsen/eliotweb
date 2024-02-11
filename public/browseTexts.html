@@ -10,8 +10,20 @@
     <a href="index.html">Back to index</a>
     <br>
     <div class="dropdown" id="book-dropdown-container">
-        Run this text:
-        <select id="searchBookDropdown" name="searchBookDropdown" style="padding-right:5px"></select>
+        View this text:
+        <select id="sectionDropdown" name="sectionDropdown" style="padding-right:5px">
+            <option value="blank"></option>
+            <option value="pentateuch">Pentateuch</option>
+            <option value="history">Historical Books</option>
+            <option value="wisdom">Wisdom/Poetry Books</option>
+            <option value="major_prophets">Major Prophets</option>
+            <option value="minor_prophets">Minor Prophets</option>
+            <option value="gospels">Gospels</option>
+            <option value="other_nt">Rest of New Testament</option>
+            <option value="mishnaic" hidden>"Mishnaic" publications</option>
+        </select>
+        
+        <select id="searchBookDropdown" name="searchBookDropdown" style="padding-right:5px" hidden></select>
     </div>
 
     <div class="dropdown" id="chapterDropdown">

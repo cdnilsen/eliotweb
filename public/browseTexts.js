@@ -138,6 +138,94 @@ const allBookList = [
     "Revelation"
 ];
 
+const PentateuchList = [
+    "Genesis",
+    "Exodus",
+    "Leviticus",
+    "Numbers",
+    "Deuteronomy"
+];
+
+const HistoricalBooksList = [
+    "Joshua",
+    "Judges",
+    "Ruth",
+    "1 Samuel",
+    "2 Samuel",
+    "1 Kings",
+    "2 Kings",
+    "1 Chronicles",
+    "2 Chronicles",
+    "Ezra",
+    "Nehemiah",
+    "Esther"
+];
+
+const WisdomBooksList = [
+    "Job",
+    "Psalms (prose)",
+    "Psalms (metrical)",
+    "Proverbs",
+    "Ecclesiastes",
+    "Song of Songs"
+];
+
+const MajorProphetsList = [
+    "Isaiah",
+    "Jeremiah",
+    "Lamentations",
+    "Ezekiel",
+    "Daniel"
+];
+
+const MinorProphetsList = [
+    "Hosea",
+    "Joel",
+    "Amos",
+    "Obadiah",
+    "Jonah",
+    "Micah",
+    "Nahum",
+    "Habakkuk",
+    "Zephaniah",
+    "Haggai",
+    "Zechariah",
+    "Malachi"
+];
+
+const gospelsList = [
+    "Matthew",
+    "Mark",
+    "Luke",
+    "John"
+];
+
+const restOfNTList = [
+    "Acts",
+    "Romans",
+    "1 Corinthians",
+    "2 Corinthians",
+    "Galatians",
+    "Ephesians",
+    "Philippians",
+    "Colossians",
+    "1 Thessalonians",
+    "2 Thessalonians",
+    "1 Timothy",
+    "2 Timothy",
+    "Titus",
+    "Philemon",
+    "Hebrews",
+    "James",
+    "1 Peter",
+    "2 Peter",
+    "1 John",
+    "2 John",
+    "3 John",
+    "Jude",
+    "Revelation"
+]
+
 const NTBookList = [
     "Matthew",
     "Mark",
@@ -380,23 +468,43 @@ const bookToActiveEditionsDict = {
     "Revelation": 6
 };
 
-//Seems to be necessary for it to show anything
-let bookDropdown = document.getElementById("searchBookDropdown");
-let genesisOption = document.createElement('option');
-genesisOption.text = "Genesis";
-genesisOption.value = "Genesis";
-bookDropdown.add(genesisOption);
 
-for (let i = 1; i < allBookList.length; i++) {
-    let book = allBookList[i];
-    if (bookToActiveEditionsDict[book] > 1) {
-        let bookOption = document.createElement('option');
-        bookOption.text = book;
-        bookOption.value = book;
-        bookDropdown.add(bookOption);
-    }
+let sectionToBooksDict = {
+    "pentateuch": PentateuchList,
+    "history": HistoricalBooksList,
+    "wisdom": WisdomBooksList,
+    "major_prophets": MajorProphetsList,
+    "minor_prophets": MinorProphetsList,
+    "gospels": gospelsList,
+    "other_nt": restOfNTList,
+    "mishnaic": mishnaicList
 }
 
+let sectionDropdown = document.getElementById("sectionDropdown");
+
+let bookDropdown = document.getElementById("searchBookDropdown");
+sectionDropdown.addEventListener("change", function() {
+    let selectedSection = sectionDropdown.value;
+    let bookList = sectionToBooksDict[selectedSection];
+    bookDropdown.innerHTML = "";
+    for (let i = 1; i < bookList.length; i++) {
+        let book = bookList[i];
+        if (bookToActiveEditionsDict[book] > 1) {
+            let bookOption = document.createElement('option');
+            bookOption.text = book;
+            bookOption.value = book;
+            bookDropdown.add(bookOption);
+        }
+    }
+
+    let firstBook = bookList[0];
+    updateChapterDropdown('firstBook');
+    revealCheckboxes('firstBook');
+    document.getElementById('searchChapterLegend').innerHTML = "Chapter";
+    document.getElementById('searchVerseDropdown').hidden = true;
+});
+
+//Seems to be necessary for it to show anything
 let chapterDropdown = document.getElementById("chapterSelectionDropdown");
 let chapterLegend = document.getElementById("searchChapterLegend");
 function updateChapterDropdown(whichBook) {
