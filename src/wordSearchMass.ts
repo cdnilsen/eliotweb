@@ -27,7 +27,7 @@ export async function wordSearch(searchString: string, searchSetting: number) {
     } else if (searchSetting % 7 == 0) { //  ends with
         queryString = "word = 'kah'" // placeholder
     }
-
+    console.log(queryString);
     let allQuery = await pool.query(queryString, [searchString]);
 
     return allQuery.rows;
