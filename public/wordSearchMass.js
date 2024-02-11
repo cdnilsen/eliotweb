@@ -425,6 +425,10 @@ function processWordCites(word, totalCount, verseList, verseCountList, sortAlpha
 
 function sectionHeader(useAlphabetical, thisWord, thisWordCount, currentFirstLetter, lastWordCount, resultDiv) {
     console.log(thisWord);
+    console.log(thisWordCount);
+
+    console.log(currentFirstLetter);
+    console.log(lastWordCount);
     if (useAlphabetical) {
         if (thisWord[0] != currentFirstLetter) {
             let firstLetterDiv = document.createElement("div");
