@@ -39,6 +39,13 @@ document.getElementById("searchButton").addEventListener("click", ev => {
         searchSetting *= 7;
     }
 
+    if (document.getElementById("diacriticsLax").checked) {
+        searchSetting *= 17;
+    }
+    if (document.getElementById("diacriticsStrict").checked) {
+        searchSetting *= 19;
+    }
+
     let searchString = document.getElementById("searchBar").value;
 
     console.log(searchSetting);
