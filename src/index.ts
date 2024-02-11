@@ -213,28 +213,22 @@ app.get('/getWords/:searchString/:searchSetting', wrapAsync(async (req, res) => 
 
     let searchSetting: string = req.params.searchSetting;
 
-
-   
     let matchingWordRows = await wordSearch(searchString, parseInt(searchSetting));
 
-    let outputDict: allSearchDicts = [];
+    let outputList: allSearchDicts = [];
 
     for (let i = 0; i < matchingWordRows.length; i++) {
         let row = matchingWordRows[i];
-        let word: string = row.word;
-        let totalCount: number = row.total_count;
-        let verseCounts: number[] = row.verse_counts;
+        let outputDict: wordSearchDict = {};
 
-        let wordDict: wordSearchDict = {
-            word: word,
-            totalCount: totalCount,
-            verseCounts: verseCounts
-        }
-
-        outputDict.push(wordDict);
+        outputDict["word"] = row.word;
+        outputDict["totalCount"] = row.total_count;
+        outputDict["allVerses"] = row.addresses;
+        outputDict["allCounts"] = row.verse_counts;
+        outputList.push(outputDict);
     }
 
-    res.json(outputDict);
+    res.json(outputList);
     
 }));
 
