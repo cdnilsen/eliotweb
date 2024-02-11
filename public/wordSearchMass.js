@@ -414,6 +414,7 @@ function getVerseCodeSpan(verseList, verseCount) {
 
 function processWordCites(word, totalCount, verseList, verseCountList, sortAlphabetical) {
     let outputSpan = document.createElement("span");
+    word = word.split('8').join('ꝏ̄');
     let outputText = `<b>${word}</b> (${totalCount}):<br>`
 
     let verseCodeSpan = getVerseCodeSpan(verseList, verseCountList);
@@ -426,7 +427,7 @@ function processWordCites(word, totalCount, verseList, verseCountList, sortAlpha
 function processAllWordCites(wordList, totalCountList, dictOfDicts, verseListList, verseCountListList, sortAlphabetical, resultDiv) {
     let lastWordCount = 0;
     for (let i = 0; i < wordList.length; i++) {
-        let word = wordList[i].split('8').join('ꝏ̄');
+        let word = wordList[i];
         let wordDict = dictOfDicts[word];
         outputSpan = processWordCites(word, wordDict["totalCount"], wordDict["allVerses"], wordDict["allVerseCounts"], sortAlphabetical);
 
