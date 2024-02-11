@@ -341,12 +341,13 @@ async function runCorrespondences() {
             "Content-type": "application/json; charset=UTF-8"
             }
         }).then(res => res.json()).then(res => {
-            console.log(res[0].toString() + " worked!");
+            //console.log(res[0].toString() + " worked!");
         }).catch(err => console.log(err));
         startingIndex += 50;
         endingIndex += 50;
     }
-    console.log(howManyFailed.toString() + " JSONs failed of "+ howManyTotal.toString());
+
+    //console.log(howManyFailed.toString() + " JSONs failed of "+ howManyTotal.toString());
     let newSpan = document.createElement('span');
     newSpan.innerHTML = allIDLength.toString() + " verses processed.\n";
 

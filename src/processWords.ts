@@ -360,6 +360,7 @@ async function processOneVerseWordData(verseID: number) {
 
 // This function populates the 'correspondence' columns in the word tables. In words_diacritics, this is the diacritic-less version of the word; in words_no_diacritics, it's an array of all words in words_diacritics that correspond to this word
 export async function populateCorrespondences() {
+    console.log("Successfully called 'populating correspondences'.")
     let diacriticWordQuery = await pool.query("SELECT * FROM words_diacritics");
     let diacriticWordRows = diacriticWordQuery.rows;
 
