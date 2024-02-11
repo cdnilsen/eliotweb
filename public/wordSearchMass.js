@@ -164,10 +164,10 @@ function decodeVerseCode(verseCode, verseCount) {
 }
 
 function getVerseCodeSpan(verseList, verseCount) {
+    console.log(verseList);
+    console.log(verseCount);
     let verseCodeText = "";
-    
     let dictOfDicts = {};
-
     let allBookList = [];
     for (let i = 0; i < verseList.length; i++) {
         let verseDict = decodeVerseCode(verseList[i], verseCount[i]);
@@ -179,9 +179,11 @@ function getVerseCodeSpan(verseList, verseCount) {
             dictOfDicts[verseDict["bookNum"]].push(verseDict);
         }
     }
-
     allBookList.sort();
-    console.log(allBookList);
+    for (let j=0; j < allBookList.length; j++) {
+        
+    
+    }
     return verseCodeText;
 }
 
@@ -196,28 +198,44 @@ function processWordCites(word, totalCount, verseList, verseCount) {
     return outputSpan;
 }
 
-function getDictFromSearchOutput(searchOutput, resultDiv) {
+function getDictFromSearchOutput(searchOutput, resultDiv, sortAlphabetical, sortByBook) {
 
     let allWords = [];
     let allTotalCounts = [];
     let allVerseLists = [];
     let allVerseCounts = [];
+
+    let dictOfDicts = {};
     for (let i = 0; i < searchOutput.length; i++) {
-        let dict = searchOutput[i]
-        allWords.push(dict["word"].split("8").join("ꝏ̄"));
-        allTotalCounts.push(dict["totalCount"]);
-        allVerseLists.push(dict["allVerses"]);
-        allVerseCounts.push(dict["allVerses"]);
+        let rawDict = searchOutput[i];
+
+        let word = rawDict["word"].split("8").join("ꝏ̄");
+        allWords.push(word);
+
+        let processedDict = {};
+        processedDict["word"] = word;
+        processedDict["totalCount"] = rawDict["totalCount"];
+        processedDict["allVerses"] = rawDict["allVerses"];
+        processedDict["allVerseCounts"] = rawDict["allVerseCounts"];
+        dictOfDicts[word] = processedDict;
+    }
+
+    if (sortAlphabetical) {
+        allWords.sort();
+    } else {
+        allWords.sort((a, b) => dictOfDicts[b]["totalCount"] - dictOfDicts[a]["totalCount"]);
     }
 
     for (let j = 0; j < allWords.length; j++) {
-        let outputSpan = processWordCites(allWords[j], allTotalCounts[j], allVerseLists[j], allVerseCounts[j]);
+        let word = allWords[j];
+        let wordDict = dictOfDicts[j];
+        outputSpan = processWordCites(allWords[j], wordDict["totalCount"], wordDict["allVerses"], wordDict["allVerseCounts"]);
 
         resultDiv.appendChild(outputSpan);
     }
 }
 
-async function seeAllWords(fetchString, resultDiv) {
+async function seeAllWords(fetchString, resultDiv, sortAlphabetical, sortByBook) {
     resultDiv.innerHTML = "";
     fetch(fetchString, {
         method: 'GET',
@@ -225,7 +243,7 @@ async function seeAllWords(fetchString, resultDiv) {
             "Content-type": "application/json; charset=UTF-8"
         }
     }).then(res => res.json()).then(res => {
-        getDictFromSearchOutput(res, resultDiv);
+        getDictFromSearchOutput(res, resultDiv, sortAlphabetical, sortByBook);
     }).catch(err => console.error(err))
 }
 
@@ -260,10 +278,14 @@ document.getElementById("searchButton").addEventListener("click", async function
         query = cleanDiacritics(query);
     }
 
+    let sortAlphabetical = document.getElementById("sortAlph").checked;
+
+    let sortByBook = document.getElementById("sortBookFirst").checked;
+
    
     let fetchString = "/getWords/" + query + "/" + searchSetting.toString();
 
     let resultDiv = document.getElementById("results-container");
-    await seeAllWords(fetchString, resultDiv);
+    await seeAllWords(fetchString, resultDiv, sortAlphabetical, sortByBook);
 
 });
