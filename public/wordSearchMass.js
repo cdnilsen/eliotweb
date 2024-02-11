@@ -114,12 +114,14 @@ function getDictFromSearchOutput(searchOutput, resultDiv) {
         allVerseLists.push(searchOutput[i].verseList);
         allVerseCounts.push(searchOutput[i].verseCount);
     }
-
+    console.log(allVerseLists)
+    /*
     for (let j = 0; j < allWords.length; j++) {
         let outputSpan = processWordCites(allWords[j], allTotalCounts[j], allVerseLists[j], allVerseCounts[j]);
 
         resultDiv.appendChild(outputSpan);
     }
+    */
 }
 
 async function seeAllWords(fetchString, resultDiv) {
