@@ -169,6 +169,7 @@ function getVerseCodeSpan(verseList, verseCount) {
     let verseCodeText = "";
     let dictOfDicts = {};
     let allBookList = [];
+    /*
     for (let i = 0; i < verseList.length; i++) {
         let verseDict = decodeVerseCode(verseList[i], verseCount[i]);
 
@@ -184,6 +185,7 @@ function getVerseCodeSpan(verseList, verseCount) {
         
     
     }
+    */
     return verseCodeText;
 }
 
