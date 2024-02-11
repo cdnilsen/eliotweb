@@ -412,7 +412,7 @@ function getVerseCodeSpan(verseList, verseCount) {
     return verseCodeText;
 }
 
-function processWordCites(word, totalCount, verseList, verseCountList) {
+function processWordCites(word, totalCount, verseList, verseCountList, sortAlphabetical) {
     let outputSpan = document.createElement("span");
     let outputText = `<b>${word}</b> (${totalCount}):<br>`
 
@@ -421,6 +421,28 @@ function processWordCites(word, totalCount, verseList, verseCountList) {
     //maybe these should be separate divs, who knows
     outputSpan.innerHTML = outputText + verseCodeSpan + "<br>";
     return outputSpan;
+}
+
+function processAllWordCites(wordList, totalCountList, verseListList, verseCountListList, sortAlphabetical, resultDiv) {
+    let lastWordCount = 0;
+    for (let i = 0; j < wordList.length; i++) {
+        let word = wordList[i];
+        let wordDict = dictOfDicts[word];
+        outputSpan = processWordCites(wordList[j], wordDict["totalCount"], wordDict["allVerses"], wordDict["allVerseCounts"], sortAlphabetical);
+
+        if (sortAlphabetical) {
+            continue;
+        } else {
+            if (wordDict["totalCount"] != lastWordCount) {
+                let countDiv = document.createElement("div");
+                countDiv.innerHTML = "<h2><u>" + wordDict["totalCount"] + " tokens:</u></h2>";
+                resultDiv.appendChild(countDiv);
+            }
+        }
+            lastWordCount = wordDict["totalCount"];
+        }
+        resultDiv.appendChild(outputSpan);
+
 }
 
 function getDictFromSearchOutput(searchOutput, resultDiv, sortAlphabetical, sortByBook) {
@@ -474,13 +496,7 @@ function getDictFromSearchOutput(searchOutput, resultDiv, sortAlphabetical, sort
         }
     }
 
-    for (let j = 0; j < newWordList.length; j++) {
-        let word = newWordList[j];
-        let wordDict = dictOfDicts[word];
-        outputSpan = processWordCites(newWordList[j], wordDict["totalCount"], wordDict["allVerses"], wordDict["allVerseCounts"]);
-
-        resultDiv.appendChild(outputSpan);
-    }
+    processAllWordCites(newWordList, allTotalCounts, allVerseLists, allVerseCounts, sortAlphabetical, resultDiv);
 }
 
 async function seeAllWords(fetchString, resultDiv, sortAlphabetical, sortByBook) {
