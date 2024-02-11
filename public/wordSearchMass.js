@@ -352,8 +352,6 @@ function processVerseCite(addressNum, editionList, countList, thisBookName) {
 }
 
 function getVerseCodeSpan(verseList, verseCount) {
-    //console.log(verseList);
-    //console.log(verseCount);
     let verseCodeText = "";
     let dictOfDicts = {};
     let allBookList = [];
@@ -392,7 +390,7 @@ function getVerseCodeSpan(verseList, verseCount) {
             }
         }
 
-        let bookString = "<span style='margin-left:4em;'><i>" + thisBookName + "</i> (";
+        let bookString = "<span style='margin-left:4em; display:inline-block'><i>" + thisBookName + "</i> (";
         let verseCiteString = ""
         let totalBookCount = 0;
         allAddresses.sort();
@@ -444,7 +442,6 @@ function sectionHeader(useAlphabetical, thisWord, thisWordCount, currentFirstLet
 
 
 function processAllWordCites(wordList, dictOfDicts, sortAlphabetical, resultDiv) {
-    console.log(wordList);
     resultDiv.hidden = true;
     let totalWords = wordList.length;
     let totalTokens = 0;
@@ -470,8 +467,6 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical, resultDiv)
 
         lastWordCount = updatedHeaderList[0];
         currentFirstLetter = updatedHeaderList[1];
-        //console.log(firstLetter);
-
         resultDiv.appendChild(outputSpan);  
     }
     topSpan.innerHTML = `Found <b><u>${totalTokens}</u></b> tokens, representing <b><u>${totalWords}</u></b> distinct words.`;
