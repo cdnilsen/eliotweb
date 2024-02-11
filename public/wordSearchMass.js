@@ -2,7 +2,7 @@
 
 
 //This function is an attempt to deal with the macra and tildes that Eliot uses to represent a following nasal
-function processEngma(string) {
+function processEngma(word) {
 
     let wordCopy = word;
     //These will need to be dealt with manually, but we'll need to do that later
@@ -26,7 +26,7 @@ function processEngma(string) {
     return wordCopy;
 }
 
-function cleanDiacritics(string) {
+function cleanDiacritics(word) {
 
     let charReplacementDict = {
         "á": "a",
