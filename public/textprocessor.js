@@ -791,7 +791,7 @@ for (let i = 0; i < radioButtonsList.length; i++) {
 
 document.getElementById('pickAction').addEventListener("click", async function() {
     document.getElementById("text-container").innerHTML = "";
-    //document.getElementById("action-choices").innerHTML = "";
+    document.getElementById("action-choices").innerHTML = "";
     let whichAction = getRadioSelection();
     await addSelectionParams(whichAction);
 });
