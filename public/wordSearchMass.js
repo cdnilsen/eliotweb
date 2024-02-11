@@ -90,8 +90,6 @@ function getVerseCodeSpan(verseList, verseCount) {
 }
 
 function processWordCites(word, totalCount, verseList, verseCount) {
-
-    word = word.split("8").join("ꝏ̄");
     let outputSpan = document.createElement("span");
     let outputText = `<b>${word}</b> (${totalCount}):<br>`
 
@@ -110,26 +108,17 @@ function getDictFromSearchOutput(searchOutput, resultDiv) {
     let allVerseCounts = [];
     for (let i = 0; i < searchOutput.length; i++) {
         let dict = searchOutput[i]
-        allWords.push(dict["word"]);
+        allWords.push(dict["word"].split("8").join("ꝏ̄"));
         allTotalCounts.push(dict["totalCount"]);
         allVerseLists.push(dict["allVerses"]);
         allVerseCounts.push(dict["allVerses"]);
     }
 
-    for (let i = 0; i < allWords.length; i++) {
-        let outputSpan = document.createElement("span");
-        let outputText = `<b>${allWords[i]}</b> (${allTotalCounts[i]}):<br>`
-        outputSpan.innerHTML = outputText;
-        resultDiv.appendChild(outputSpan);
-    }
-    console.log(allVerseLists)
-    /*
     for (let j = 0; j < allWords.length; j++) {
         let outputSpan = processWordCites(allWords[j], allTotalCounts[j], allVerseLists[j], allVerseCounts[j]);
 
         resultDiv.appendChild(outputSpan);
     }
-    */
 }
 
 async function seeAllWords(fetchString, resultDiv) {
