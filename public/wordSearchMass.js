@@ -443,9 +443,8 @@ function sectionHeader(useAlphabetical, thisWord, thisWordCount, currentFirstLet
         resultDiv.appendChild(countDiv);
     }
 
-    // The variables here need to be named the same as the things they're calling to update them...?
-    lastWordCount = thisWordCount;
-    currentFirstLetter = thisWord[0];   
+    // For some weird kludge reason, I can update wordCount but not currentFirstLetter from in here, so let's just return them as values
+    return [thisWordCount, thisWord[0]];   
 }
 
 
@@ -473,7 +472,10 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical, resultDiv)
         outputSpan = processWordCites(word, totalCount, allVerses, allCounts, sortAlphabetical);
 
         //console.log(currentFirstLetter);
-        sectionHeader(sortAlphabetical, word, totalCount, currentFirstLetter, lastWordCount, resultDiv);
+        let updatedHeaderList = sectionHeader(sortAlphabetical, word, totalCount, currentFirstLetter, lastWordCount, resultDiv);
+
+        lastWordCount = updatedHeaderList[0];
+        currentFirstLetter = updatedHeaderList[1];
         //console.log(firstLetter);
 
         resultDiv.appendChild(outputSpan);  
