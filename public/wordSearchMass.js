@@ -88,10 +88,12 @@ editionToSuperscriptDict = {
     195: "<sup>βM</sup>",
     390: "",
 
-    //For all other books:
+    //For all other books. 5 and 7 are needed for getting the right suffix but won't be called in the prefix.
     2: "<sup>α</sup>",
     3: "<sup>β</sup>",
-    6: ""
+    5: "<sup>M</sup>",
+    6: "",
+    7: "<sup>א</sup>"
 }
 
 
@@ -181,14 +183,41 @@ function decodeVerseCode(verseCode, verseCount) {
 
 }
 
+function getCiteSuffix(editionList, countList) {
+    let allCountsEqual = true;
+    let allCountsOne = true
+    let firstCount = countList[0];
+    for (let i = 1; i < countList.length; i++) {
+        if (countList[i] != firstCount) {
+            allCountsEqual = false;
+        }
+        if (countList[i] != 1) {
+            allCountsOne = false;
+        }
+    }
+
+    if (allCountsEqual && allCountsOne) {
+        return "";
+    } else if (allCountsEqual) {
+        return " (" + firstCount.toString() + ")"
+    } else {
+        finalString = " (";
+        for (let j = 0; j < countList.length; j++) {
+            finalString += editionToSuperscriptDict[editionList[j]];
+            finalString += countList[j].toString();
+            finalString += "/";
+        }
+        return finalString.slice(0, -1) + ")";
+    }
+}
 
 function processVerseCite(addressNum, editionList, countList, thisBookName) {
     let editionNum = 1;
+    let totalCountVerse = 0;
     for (let i=0; i < editionList.length; i++) {
         editionNum *= editionList[i];
+        totalCountVerse += countList[i];
     }
-    console.log(countList);
-    console.log(editionList);
 
     // This gives a unique prime factorization of all the possibilities. E.g. an edition number of 6 should get no prefix (the book in question is only 1st/2nd edition and so 6 means it exists in both verses), but an edition number of 66 means that the word occurs in both of Eliot's editions of this verse but not Mayhew's (even though an edition of this verse by Mayhew exists).
     if (thisBookName == "Genesis") {
@@ -202,7 +231,12 @@ function processVerseCite(addressNum, editionList, countList, thisBookName) {
 
     let unsplitAddress= splitAddress[0] + ":" + splitAddress[-1];
 
-    let suffix = "";
+    let suffix = getCiteSuffix(editionList, countList);
+
+    let finalString = unsplitAddress + prefix + suffix + ", ";
+
+    return [finalString, totalCountVerse];
+
 }
 
 function getVerseCodeSpan(verseList, verseCount) {
@@ -232,8 +266,6 @@ function getVerseCodeSpan(verseList, verseCount) {
         let verseCountDict = {};
         
         let allAddresses = [];
-
-        let bookString = "";
         for (let k=0; k < thisBookDictList.length; k++) {
             let thisVerseDict = thisBookDictList[k];
             let thisVerseEdition = thisVerseDict["editionNum"];
@@ -249,13 +281,20 @@ function getVerseCodeSpan(verseList, verseCount) {
             }
         }
 
+        let bookString = "\t";
+        let totalBookCount = 0;
         allAddresses.sort();
         for (let l=0; l < allAddresses.length; l++) {
             let thisAddress = allAddresses[l];
             let thisEditionList = verseAddressDict[thisAddress];
             let thisCountList = verseCountDict[thisAddress];
-            let editionString = processVerseCite(thisAddress, thisEditionList, thisCountList, thisBookName);
+            let verseInfo = processVerseCite(thisAddress, thisEditionList, thisCountList, thisBookName);
+            bookString += verseInfo[0];
+            totalBookCount += verseInfo[1];
         }
+
+        bookString += "<i>" + thisBookName + "</i> (" + totalBookCount.toString() + "): " + bookString.slice(0, -2) + "<br>";
+        verseCodeText += bookString;
     }
     return verseCodeText;
 }
@@ -266,8 +305,8 @@ function processWordCites(word, totalCount, verseList, verseCountList) {
 
     let verseCodeSpan = getVerseCodeSpan(verseList, verseCountList);
 
+    //maybe these should be separate divs, who knows
     outputSpan.innerHTML = outputText + verseCodeSpan + "<br>";
-    outputSpan.classList.add("wordResult");
     return outputSpan;
 }
 
