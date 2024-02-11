@@ -256,6 +256,8 @@ const NTBookList = [
     "Revelation"
 ];
 
+const mishnaicList = []; //Placeholder
+
 const bookToChapterDict = {
     "": 0,
     "Genesis": 50,
