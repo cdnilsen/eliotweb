@@ -183,10 +183,7 @@ function getVerseCodeSpan(verseList, verseCount) {
     allBookList.sort();
     for (let j=0; j < allBookList.length; j++) {
         let thisBookDict = dictOfDicts[allBookList[j]];
-
-        let thisBookName = topBookList[j + 1];
-        console.log(j.toString() + ": " + thisBookName);
-        
+        console.log(allBookList[j] + ": " + topBookList[allBookList[j] - 1]);        
     
     }
     return verseCodeText;
