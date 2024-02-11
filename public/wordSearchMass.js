@@ -74,27 +74,42 @@ function cleanDiacritics(word) {
     return processEngma(cleanedWord);
 }
 
+function processWordCites(word, totalCount, verseList, verseCount) {
+    let outputSpan = document.createElement("span");
+    let outputText = `<b>${word}</b> (${totalCount})`
+    outputSpan.innerHTML = outputText;
+    outputSpan.classList.add("wordResult");
+    return outputSpan;
+}
 
 function getDictFromSearchOutput(searchOutput, resultDiv) {
-    for (let i = 0; i < searchOutput.length; i++) {
-        let thisWord = searchOutput[i].word;
 
-        let outputSpan = document.createElement("span");
-        let outputText = "<span>" + thisWord + "</span><br>";
-        outputSpan.innerHTML = outputText;
-        outputSpan.classList.add("wordResult");
+    let allWords = [];
+    let allTotalCounts = [];
+    let allVerseLists = [];
+    let allVerseCounts = [];
+    for (let i = 0; i < searchOutput.length; i++) {
+        allWords.push(searchOutput[i].word);
+        allTotalCounts.push(searchOutput[i].totalCount);
+        allVerseLists.push(searchOutput[i].verseList);
+        allVerseCounts.push(searchOutput[i].verseCount);
+    }
+
+    for (let j = 0; j < allWords.length; j++) {
+        let outputSpan = processWordCites(allWords[j], allTotalCounts[j], allVerseLists[j], allVerseCounts[j]);
+
         resultDiv.appendChild(outputSpan);
     }
 }
 
 async function seeAllWords(fetchString, resultDiv) {
+    resultDiv.innerHTML = "";
     fetch(fetchString, {
         method: 'GET',
         headers: {
             "Content-type": "application/json; charset=UTF-8"
         }
     }).then(res => res.json()).then(res => {
-        console.log(res);
         getDictFromSearchOutput(res, resultDiv);
     }).catch(err => console.error(err))
 }

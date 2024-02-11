@@ -206,7 +206,7 @@ type wordSearchDict = {
     [key: string]: string | number[] | number
 }
 
-type allSearchDicts = wordSearchDict[];
+type searchDictList = wordSearchDict[];
 
 app.get('/getWords/:searchString/:searchSetting', wrapAsync(async (req, res) => {
     let searchString: string = req.params.searchString;
@@ -215,7 +215,7 @@ app.get('/getWords/:searchString/:searchSetting', wrapAsync(async (req, res) => 
 
     let matchingWordRows = await wordSearch(searchString, parseInt(searchSetting));
 
-    let outputList: allSearchDicts = [];
+    let outputList: searchDictList  = [];
 
     for (let i = 0; i < matchingWordRows.length; i++) {
         let row = matchingWordRows[i];

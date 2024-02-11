@@ -22,10 +22,10 @@ export async function wordSearch(searchString: string, searchSetting: number) {
         queryString += "word = $1::text"
     } else if (searchSetting % 3 == 0) { // contains (placeholder)
         queryString += "word LIKE '%'||$1||'%'"
-    } else if (searchSetting % 5 == 0) {
+    } else if (searchSetting % 5 == 0) { // starts with
         queryString += "starts_with($1::text, word)"
     } else if (searchSetting % 7 == 0) { //  ends with
-        queryString += "word LIKE ||$1||'%'" // placeholder
+        queryString += "word LIKE ||$1||'%'" 
     }
     console.log(queryString);
     let allQuery = await pool.query(queryString, [searchString]);
