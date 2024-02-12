@@ -584,14 +584,18 @@ function getVerseCodeSpan(verseList, verseCount, word) {
 function processWordCites(word, totalCount, verseList, verseCountList) {
     let outputDiv = document.createElement("div");
     let ligaturedWord = word.split('8').join('ꝏ̄');
-    outputDiv.innerHTML = `<b>${ligaturedWord}</b> (${totalCount}):<br>`
+    outputDiv.innerHTML = `<b>${ligaturedWord}</b> (${totalCount}):`
 
     let verseDivInfo = getVerseDivs(verseList, verseCountList, word);
-    outputDiv.appendChild(verseDivInfo[0]);
+    
 
     if (verseDivInfo[1]) {
         let clickableTriangle = addClickableTriangle("gray", "blue", [verseDivInfo[0]]);
+        outputDiv.appendChild(clickableTriangle);
     }
+    outputDiv.innerHTML += "<br>";
+
+    outputDiv.appendChild(verseDivInfo[0]);
     //maybe these should be separate divs, who knows
     
     return outputDiv;
