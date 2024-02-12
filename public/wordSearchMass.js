@@ -326,6 +326,28 @@ function addClickableTriangle(unclickedColor, clickedColor, showSpanList, addFol
     return clickableTriangle;
 }
 
+function createDivWithTriangle(topHTMLString, subDivList, minTriangleNum, triangleClickColor, alwaysAddBreak) {
+    let outputDiv = document.createElement("div");
+    outputDiv.innerHTML = topHTMLString;
+
+    let useTriangle = subDivList.length >= minTriangleNum;
+
+    if (useTriangle) {
+        let clickableTriangle = addClickableTriangle("gray", triangleClickColor, subDivList, false);
+        outputDiv.appendChild(clickableTriangle);
+        outputDiv.innerHTML += "<br>";
+    } else if (alwaysAddBreak) {
+        outputDiv.innerHTML += "<br>";
+    }
+
+    for (let i = 0; i < subDivList.length; i++) {
+        subDivList[i].hidden = true;
+        outputDiv.appendChild(subDivList[i]);
+        outputDiv.innerHTML += "<br>";
+    }
+    return outputDiv;
+}
+
 //Returns a dictionary with the info about this verse. Calls 'word' to debug position of Deuteronomy
 function decodeVerseCode(verseCode, verseCount, word) {
     //Examples of verse codes: 225003010, 325003010, 219104022. The first digit is the edition number, the next two are the book number, the next three are the chapter number, and the last three are the verse number. Note that both verseCode and verseCount are lists of strings.
@@ -429,13 +451,10 @@ function processVerseCite(addressNum, editionList, countList, dbCode, thisBookNa
     popupVerseBox.hidden = true;
     newSpan.appendChild(popupVerseBox);
 
-    newSpan.onclick = "showVersesInBox(this, " + editionNum + ", " + dbCode + ")";
-    /*
     newSpan.addEventListener("click", async function() {
         console.log("Hello, you clicked on me!")
         showVersesInBox(newSpan, popupVerseBox, verseLinkNum, dbCode);
     });
-    */
 
     return [newSpan, totalCountVerse];
 
@@ -487,15 +506,6 @@ function getBookDivs(verseList, verseCount, word) {
                 verseCountDict[thisVerseAddress].push(thisVerseCount);
             }
         }
-        
-        let moreThan30Addresses = allAddresses.length > 30;	
-
-        let spanOfSpans = document.createElement("span");
-        if (moreThan30Addresses) {
-            spanOfSpans.innerHTML += "<br>"
-        }
-
-        let triangleHolderSpan = document.createElement("span");
 
         let allVerseSpanList = [];
         let thisBookTotalCount = 0;
@@ -523,32 +533,13 @@ function getBookDivs(verseList, verseCount, word) {
         let thisBookString = "<i>" + thisBookName + "</i> ("
         thisBookString += thisBookTotalCount.toString() + "): ";
 
-        if (moreThan30Addresses) {
-            let clickableTriangle = addClickableTriangle("gray", "#00FF60", allVerseSpanList, false);
-            triangleHolderSpan.appendChild(clickableTriangle);
-            console.log(triangleHolderSpan.innerHTML);
-        }
-
-        let thisBookDiv = document.createElement("div");
+        let thisBookDiv = createDivWithTriangle(thisBookString, allVerseSpanList, 31, "#00FF60", true);
         thisBookDiv.style.marginLeft = "4em";
         thisBookDiv.style.display = "inline-block";
-        thisBookDiv.innerHTML = thisBookString;
 
-        if (moreThan30Addresses) {
-            thisBookDiv.appendChild(triangleHolderSpan);
-        }
-
-        for (let m = 0; m < allVerseSpanList.length; m++) {
-            spanOfSpans.appendChild(allVerseSpanList[m]);
-        }
-        thisBookDiv.appendChild(spanOfSpans);
         allBookDivs.push(thisBookDiv);
     }
-    let needTriangle = false;
-    if (allBookList.length > 5) {
-        needTriangle = true;
-    }
-    return [allBookDivs, needTriangle]; 
+    return allBookDivs; 
 }
 
 /*
@@ -628,14 +619,15 @@ function getVerseCodeSpan(verseList, verseCount, word) {
 */
 
 function processWordCites(word, totalCount, verseList, verseCountList) {
-    let outputDiv = document.createElement("div");
+    //let outputDiv = document.createElement("div");
     let ligaturedWord = word.split('8').join('ꝏ̄');
-    outputDiv.innerHTML = `<b>${ligaturedWord}</b> (${totalCount}):`
+    let topString = `<b>${ligaturedWord}</b> (${totalCount}):`
 
-    let bookDivInfo = getBookDivs(verseList, verseCountList, word);
-    let allBookDivs = bookDivInfo[0];
-    let useTriangle = bookDivInfo[1];
-    
+    let allBookDivs = getBookDivs(verseList, verseCountList, word);
+
+    let outputDiv = createDivWithTriangle(topString, allBookDivs, 6, "blue", true);
+    return outputDiv
+    /*
     if (useTriangle) {
         let clickableTriangle = addClickableTriangle("gray", "blue", allBookDivs, false);
         outputDiv.appendChild(clickableTriangle);
@@ -648,8 +640,7 @@ function processWordCites(word, totalCount, verseList, verseCountList) {
         outputDiv.appendChild(thisBookDiv);
         outputDiv.innerHTML += "<br>";
     }
-
-    return outputDiv;
+    */
 }
 
 function getHeaderText(wordCount, tokenCount, useToken, initialLetter) {
