@@ -278,8 +278,6 @@ function showVersesInBox(verseAddressSpan, addressNum, editionNum, dbCode) {
 
     verseAddressSpan.addEventListener("click", async function() {
         let fetchString = "/getVerses/" + dbCode.toString() + "/" + editionNum.toString();
-        
-
     });
 
 }
@@ -499,7 +497,7 @@ function sectionHeader(useAlphabetical, thisWord, thisWordCount, currentFirstLet
     let changeHeader = false;
     let tokenCount = 0;
     let wordCount = 0;
-    console.log(showSpanList);
+    //console.log(showSpanList);
     if (useAlphabetical) {
 
         let cleanedFirstLetter = cleanDiacritics(thisWord[0]);
@@ -624,7 +622,7 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical, resultDiv)
     }
 
     for (let k = 0; k < outputSpanList.length; k++) {
-        outputSpanList[k].hidden = false;
+        //outputSpanList[k].hidden = false;
     }
 
     topSpan.innerHTML = `Found <b><u>${totalTokens}</u></b> tokens, representing <b><u>${totalWords}</u></b> distinct words.`;
