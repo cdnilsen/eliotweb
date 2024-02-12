@@ -302,7 +302,6 @@ function addClickableTriangle(unclickedColor, clickedColor, showSpanList, addFol
     clickableTriangle.style.color = unclickedColor;
     clickableTriangle.style.cursor = "pointer";
 
-
     let htmlToggleDict = {
         " ▶": " ▼",
         " ▼": " ▶",
@@ -724,7 +723,7 @@ function sectionHeader(useAlphabetical, thisWord, thisWordCount, currentFirstLet
 
         countDiv.innerHTML = getHeaderText(thisWordCount, tokenCount, false, thisWord[0]);
 
-        let clickableTriangle = addClickableTriangle("gray", "blue", showSpanList);
+        let clickableTriangle = addClickableTriangle("gray", "blue", showSpanList, true);
 
         countDiv.appendChild(clickableTriangle);
 
