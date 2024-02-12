@@ -421,23 +421,26 @@ function processWordCites(word, totalCount, verseList, verseCountList, sortAlpha
     return outputSpan;
 }
 
-function sectionHeader(useAlphabetical, thisWord, thisWordCount, currentFirstLetter, lastWordCount, resultDiv) {
+function sectionHeader(useAlphabetical, thisWord, thisWordCount, currentFirstLetter, lastWordCount, resultDiv, wordsWithThisHeader) {
+    let changeHeader = false;
     if (useAlphabetical) {
         if (thisWord[0] != currentFirstLetter) {
+            changeHeader = true;
             let firstLetterDiv = document.createElement("div");
             firstLetterDiv.style.fontSize = "24px";
-            firstLetterDiv.innerHTML = "<u><b><i>" + thisWord[0] + "</i></b></u><br>";
+            firstLetterDiv.innerHTML = "<u><b><i>" + thisWord[0] + "</i></b> (" + wordsWithThisHeader.toString() + " words)</u><br>";
             resultDiv.appendChild(firstLetterDiv);
         }
     } else if (lastWordCount != thisWordCount) {
+        changeHeader = true;
         let countDiv = document.createElement("div");
         countDiv.style.fontSize = "24px";
-        countDiv.innerHTML = "<u><i><b>" + thisWordCount + "</b> tokens</i></u><br>";
+        countDiv.innerHTML = "<u><i><b>" + thisWordCount + "</b> tokens</i> (" + wordsWithThisHeader.toString() + " words)</u><br>";
         resultDiv.appendChild(countDiv);
     }
 
     // For some weird kludge reason, I can update wordCount but not currentFirstLetter from in here, so let's just return them as values
-    return [thisWordCount, thisWord[0]];   
+    return [thisWordCount, thisWord[0], changeHeader];   
 }
 
 
@@ -453,6 +456,8 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical, resultDiv)
 
     let lastWordCount = 0;
     let currentFirstLetter = "";
+    let wordsWithThisHeader = 0;
+
     for (let i = 0; i < wordList.length; i++) {
         let word = wordList[i];
         let wordDict = dictOfDicts[word];
@@ -463,10 +468,15 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical, resultDiv)
         totalTokens += totalCount;
         outputSpan = processWordCites(word, totalCount, allVerses, allCounts, sortAlphabetical);
 
-        let updatedHeaderList = sectionHeader(sortAlphabetical, word, totalCount, currentFirstLetter, lastWordCount, resultDiv);
+        let updatedHeaderList = sectionHeader(sortAlphabetical, word, totalCount, currentFirstLetter, lastWordCount, resultDiv, wordsWithThisHeader);
 
         lastWordCount = updatedHeaderList[0];
         currentFirstLetter = updatedHeaderList[1];
+
+        if (updatedHeaderList[2]) {
+            wordsWithThisHeader = 0;
+        }
+        wordsWithThisHeader += 1;
         resultDiv.appendChild(outputSpan);  
     }
     topSpan.innerHTML = `Found <b><u>${totalTokens}</u></b> tokens, representing <b><u>${totalWords}</u></b> distinct words.`;
@@ -568,11 +578,9 @@ document.getElementById("searchButton").addEventListener("click", async function
 
     let query = document.getElementById("search_bar").value;
 
-    let diacriticsStrict = true;
     if (document.getElementById("diacriticsLax").checked) {
         searchSetting *= 17;
         query = cleanDiacritics(query);
-        diacriticsStrict = false;
     }
 
     let sortAlphabetical = document.getElementById("sortAlph").checked;
