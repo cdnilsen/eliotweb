@@ -464,7 +464,7 @@ function sectionHeader(useAlphabetical, thisWord, thisWordCount, currentFirstLet
             resultDiv.appendChild(firstLetterDiv);
         }
     } else if (lastWordCount != thisWordCount) {
-        let wordCount = headerToWordListDict[thisWord[0]];
+        let wordCount = headerToWordListDict[thisWordCount];
         let tokenCount = headerToTokenListDict[thisWordCount];
 
         console.log(wordCount);
