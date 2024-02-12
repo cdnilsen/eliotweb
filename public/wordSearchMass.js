@@ -315,7 +315,7 @@ function getCiteSuffix(editionList, countList) {
 //There is probably a more efficient way to do this
 function getAddressString(addressNum) {
     let splitAddress = [];
-    //Necessary for the Psalms, where they may be no zero a 0 in the address
+    //Necessary for the Psalms, where they may be no zero a 0 in the address. Spaghetti as hell so fix later
     if (addressNum.includes("0")) {
         splitAddress = addressNum.toString().split("0");
     } else {
@@ -434,7 +434,7 @@ function sectionHeader(useAlphabetical, thisWord, thisWordCount, currentFirstLet
 
 
     if (useAlphabetical) {
-        tokenCount = customAlphabetizationDict[thisWord[0]];
+        tokenCount = headerToWordListDict[thisWord[0]];
         if (thisWord[0] != currentFirstLetter) {
             changeHeader = true;
             let firstLetterDiv = document.createElement("div");
