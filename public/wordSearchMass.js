@@ -278,7 +278,7 @@ function populateColumns(popupDiv, editionNum, allVerseList) {
 //Address num probably not needed here
 async function showVersesInBox(parentSpan, popupDiv, editionNum, dbCode) {
 
-    console.log("Show verses in box was called");
+    console.log("Show verses in box was called!");
     let fetchString = "/fetchVerse/" + dbCode.toString() + "/" + editionNum.toString();
     fetch(fetchString, {
         method: 'GET',
@@ -419,9 +419,13 @@ function processVerseCite(addressNum, editionList, countList, dbCode, thisBookNa
     popupVerseBox.hidden = true;
     newSpan.appendChild(popupVerseBox);
 
+    newSpan.onclick(showVersesInBox(popupVerseBox, editionNum, dbCode))
+    /*
     newSpan.addEventListener("click", async function() {
+        console.log("Hello, you clicked on me!")
         showVersesInBox(newSpan, popupVerseBox, verseLinkNum, dbCode);
     });
+    */
 
     return [newSpan, totalCountVerse];
 
