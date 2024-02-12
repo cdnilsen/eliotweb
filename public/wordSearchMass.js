@@ -271,13 +271,13 @@ function cleanDiacritics(word) {
     return processEngma(cleanedWord);
 }
 
-function populateColumns(popupDiv, editionNum) {
+function populateColumns(popupDiv, editionNum, allVerseList) {
 
 }
 
 //Address num probably not needed here
 async function showVersesInBox(parentSpan, popupDiv, editionNum, dbCode) {
-    let fetchString = "/getVerses/" + dbCode.toString() + "/" + editionNum.toString();
+    let fetchString = "/fetchVerse/" + dbCode.toString() + "/" + editionNum.toString();
     fetch(fetchString, {
         method: 'GET',
         headers: {
