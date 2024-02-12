@@ -386,8 +386,6 @@ function processVerseCite(addressNum, editionList, countList, dbCode, thisBookNa
         editionNum *= editionList[i];
         totalCountVerse += countList[i];
     }
-
-
     //Once Greek and Hebrew are added, change this to 858 (= 2 * 3 * 11(KJV) * 13 (Grebew))
     let verseLinkNum = 66;
     // This gives a unique prime factorization of all the possibilities. E.g. an edition number of 6 should get no prefix (the book in question is only 1st/2nd edition and so 6 means it exists in both verses), but an edition number of 66 means that the word occurs in both of Eliot's editions of this verse but not Mayhew's (even though an edition of this verse by Mayhew exists).
@@ -527,6 +525,7 @@ function getBookDivs(verseList, verseCount, word) {
     return [allBookDivs, needTriangle]; 
 }
 
+/*
 function getVerseCodeSpan(verseList, verseCount, word) {
     let verseCodeText = "";
     let dictOfDicts = {};
@@ -573,7 +572,7 @@ function getVerseCodeSpan(verseList, verseCount, word) {
         }
 
         let bookString = "<span style='margin-left:4em; display:inline-block'><i>" + thisBookName + "</i> (";
-        let verseCiteString = ""
+        let allVersesSpan = document.createElement("span");
         let totalBookCount = 0;
         allAddresses.sort();
         for (let l=0; l < allAddresses.length; l++) {
@@ -592,7 +591,7 @@ function getVerseCodeSpan(verseList, verseCount, word) {
 
             let verseInfo = processVerseCite(thisAddress, thisEditionList, thisCountList, thisDBCode, thisBookName);
 
-            verseCiteString += verseInfo[0];
+            allVersesSpan.appendChild(verseInfo[0]);
             totalBookCount += verseInfo[1];
         }
         bookString += totalBookCount.toString() + "): " + verseCiteString.slice(0, -2) + "</span><br>";
@@ -600,6 +599,7 @@ function getVerseCodeSpan(verseList, verseCount, word) {
     }
     return verseCodeText;
 }
+*/
 
 function processWordCites(word, totalCount, verseList, verseCountList) {
     let outputDiv = document.createElement("div");
