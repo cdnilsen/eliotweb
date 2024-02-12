@@ -580,7 +580,7 @@ function sectionHeader(useAlphabetical, thisWord, thisWordCount, currentFirstLet
 
 function sendSpanToCorrectPlace(span, word, wordTotalCount, useAlphabetical, spanDict) {
     if (useAlphabetical) {
-        let key = word[0];
+        let key = cleanDiacritics(word[0]);
         if (word[0] == "8") {
             key = "ꝏ̄";
         }
