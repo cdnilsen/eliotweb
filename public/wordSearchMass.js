@@ -484,6 +484,8 @@ function getBookDivs(verseList, verseCount, word) {
         if (allAddresses.length > 30) {
             spanOfSpans.innerHTML += "<br>"
         }
+
+        let allVerseSpanList = [];
         for (let l=0; l < allAddresses.length; l++) {
             let thisAddress = allAddresses[l];
             if (thisAddress == undefined) {
@@ -499,20 +501,22 @@ function getBookDivs(verseList, verseCount, word) {
             let thisDBCode = dbCodeDict[thisAddress];
 
             let verseInfo = processVerseCite(thisAddress, thisEditionList, thisCountList, thisDBCode, thisBookName, (l < allAddresses.length -1));
-
-            let thisVerseSpan = verseInfo[0];
+            
+            allVerseSpanList.push(verseInfo[0]); 
             thisBookTotalCount += verseInfo[1];
-            spanOfSpans.innerHTML += thisVerseSpan; 
         }
         //Check order here
         thisBookString += thisBookTotalCount.toString() + "):";
         
         if (allAddresses.length > 30) {
-            let clickableTriangle = addClickableTriangle("gray", "#00FF60", [spanOfSpans], true);
+            let clickableTriangle = addClickableTriangle("gray", "#00FF60", allVerseSpanList, true);
             thisBookDiv.innerHTML = thisBookString;
             thisBookDiv.appendChild(clickableTriangle);
         } else {
             thisBookDiv.innerHTML = thisBookString;
+        }
+        for (let m = 0; m < allVerseSpanList.length; m++) {
+            spanOfSpans.appendChild(allVerseSpanList[m]);
         }
         thisBookDiv.appendChild(spanOfSpans);
         allBookDivs.push(thisBookDiv);
