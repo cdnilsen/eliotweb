@@ -303,11 +303,11 @@ function addClickableTriangle(unclickedColor, clickedColor, showSpanList, addFol
         for (let i = 0; i < showSpanList.length; i++) {
             showSpanList[i].hidden = !showSpanList[i].hidden;
         }
-        if (clickableTriangle.innerHTML == ' ▶') {
+        if (clickableTriangle.innerHTML == ' ▶' + followingBreak) {
             clickableTriangle.innerHTML = ' ▼' + followingBreak
             clickableTriangle.style.color = clickedColor;
         } else {
-            clickableTriangle.innerHTML = ' ▶'
+            clickableTriangle.innerHTML = ' ▶' + followingBreak;
             clickableTriangle.style.color = unclickedColor;
         }
     });
@@ -507,6 +507,7 @@ function getBookDivs(verseList, verseCount, word) {
         thisBookString += thisBookTotalCount.toString() + "): ";
         
         if (allAddresses.length > 30) {
+            spanOfSpans.hidden = true;
             let clickableTriangle = addClickableTriangle("gray", "#00FF60", [spanOfSpans], true);
             thisBookDiv.innerHTML = thisBookString;
             thisBookDiv.appendChild(clickableTriangle);
