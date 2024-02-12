@@ -460,7 +460,7 @@ function sectionHeader(useAlphabetical, thisWord, thisWordCount, currentFirstLet
             
             clickableTriangle.addEventListener("click", function() {
                 for (let i = 0; i < showSpanList.length; i++) {
-                    showSpanList[i].hidden = false;
+                    showSpanList[i].hidden = !showSpanList[i].hidden;
                 }
                 clickableTriangle.innerHTML = '▼'
                 clickableTriangle.style.color = "blue";
@@ -484,7 +484,7 @@ function sectionHeader(useAlphabetical, thisWord, thisWordCount, currentFirstLet
             clickableTriangle.style.cursor = "pointer";
             clickableTriangle.addEventListener("click", function() {
                 for (let i = 0; i < showSpanList.length; i++) {
-                    showSpanList[i].hidden = false;
+                    showSpanList[i].hidden = !showSpanList[i].hidden;
                 }
                 clickableTriangle.innerHTML = '▼'
                 clickableTriangle.style.color = "blue";
