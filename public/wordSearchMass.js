@@ -358,7 +358,7 @@ function processVerseCite(addressNum, editionList, countList, thisBookName) {
 
 }
 
-function getVerseCodeSpan(verseList, verseCount) {
+function getVerseCodeSpan(verseList, verseCount, word) {
     let verseCodeText = "";
     let dictOfDicts = {};
     let allBookList = [];
@@ -421,18 +421,17 @@ function processWordCites(word, totalCount, verseList, verseCountList, sortAlpha
     word = word.split('8').join('ꝏ̄');
     let outputText = `<b>${word}</b> (${totalCount}):<br>`
 
-    let verseCodeSpan = getVerseCodeSpan(verseList, verseCountList);
+    let verseCodeSpan = getVerseCodeSpan(verseList, verseCountList, word);
 
     //maybe these should be separate divs, who knows
     outputSpan.innerHTML = outputText + verseCodeSpan + "<br>";
     return outputSpan;
 }
 
-function sectionHeader(useAlphabetical, thisWord, thisWordCount, currentFirstLetter, lastWordCount, resultDiv, wordsWithThisHeader, headerToWordListDict, headerToTokenListDict) {
+function sectionHeader(useAlphabetical, thisWord, thisWordCount, currentFirstLetter, lastWordCount, resultDiv, wordsWithThisHeader, headerToWordListDict, headerToTokenListDict, word) {
     let changeHeader = false;
     let tokenCount = 0;
     let wordCount = 0;
-
 
     if (useAlphabetical) {
         wordCount = headerToWordListDict[thisWord[0]];
@@ -447,7 +446,20 @@ function sectionHeader(useAlphabetical, thisWord, thisWordCount, currentFirstLet
             changeHeader = true;
             let firstLetterDiv = document.createElement("div");
             firstLetterDiv.style.fontSize = "24px";
-            firstLetterDiv.innerHTML = "<u><b><i>" + initialLetter + "</i></b></u> (" + wordCount.toString() + " words, " + tokenCount.toString() + " total tokens)<br>";
+            firstLetterDiv.innerHTML = "<u><b><i>" + initialLetter + "</i></b></u> (" + wordCount.toString() + " words, " + tokenCount.toString() + " total tokens)";
+            
+
+            let clickableTriangle = document.createElement('span')
+            clickableTriangle.innerHTML = ' ▶';
+            clickableTriangle.style.color = "gray";
+            clickableTriangle.style.cursor = "pointer";
+            clickableTriangle.onclick = function() {
+                document.getElementById("word-" + word).hidden = false;
+                clickableTriangle.innerHTML = '▼'
+                clickableTriangle.style.color = "blue";
+            }
+
+            firstLetterDiv.appendChild(clickableTriangle);
             resultDiv.appendChild(firstLetterDiv);
         }
     } else if (lastWordCount != thisWordCount) {
@@ -457,6 +469,19 @@ function sectionHeader(useAlphabetical, thisWord, thisWordCount, currentFirstLet
         let countDiv = document.createElement("div");
         countDiv.style.fontSize = "24px";
         countDiv.innerHTML = "<u><i><b>" + thisWordCount + "</b> tokens</i></u> ("  + wordCount.toString() + " words, " + tokenCount.toString() + " total tokens)<br>";
+
+        let clickableTriangle = document.createElement('span')
+            clickableTriangle.innerHTML = ' ▶';
+            clickableTriangle.style.color = "gray";
+            clickableTriangle.style.cursor = "pointer";
+            clickableTriangle.onclick = function() {
+                document.getElementById("word-" + word).hidden = false;
+                clickableTriangle.innerHTML = '▼'
+                clickableTriangle.style.color = "blue";
+            }
+
+        countDiv.appendChild(clickableTriangle);
+
         resultDiv.appendChild(countDiv);
     }
 
@@ -515,6 +540,10 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical, resultDiv)
         totalTokens += totalCount;
         outputSpan = processWordCites(word, totalCount, allVerses, allCounts, sortAlphabetical);
 
+        outputSpan.id = "word-" + word;
+        outputSpan.hidden = true;
+        resultDiv.appendChild(outputSpan); 
+
         let updatedHeaderList = sectionHeader(sortAlphabetical, word, totalCount, currentFirstLetter, lastWordCount, resultDiv, wordsWithThisHeader, headerToWordListDict, headerToTokenListDict);
 
         lastWordCount = updatedHeaderList[0];
@@ -524,7 +553,7 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical, resultDiv)
             wordsWithThisHeader = 0;
         }
         wordsWithThisHeader += 1;
-        resultDiv.appendChild(outputSpan);  
+         
     }
     topSpan.innerHTML = `Found <b><u>${totalTokens}</u></b> tokens, representing <b><u>${totalWords}</u></b> distinct words.`;
     topSpan.style.fontSize = "32px";
