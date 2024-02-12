@@ -408,8 +408,6 @@ function processVerseCite(addressNum, editionList, countList, dbCode, thisBookNa
         finalString += ", ";
     }
 
-    console.log(finalString);
-
     let newSpan = document.createElement("span");
     newSpan.classList.add("dotted-underline");
     newSpan.innerHTML = finalString;
@@ -525,7 +523,6 @@ function getBookDivs(verseList, verseCount, word) {
     }
     let needTriangle = false;
     if (allBookList.length > 5) {
-        console.log("This word appears in " + allBookList.length.toString() + " books.");
         needTriangle = true;
     }
     return [allBookDivs, needTriangle]; 
