@@ -568,9 +568,11 @@ document.getElementById("searchButton").addEventListener("click", async function
 
     let query = document.getElementById("search_bar").value;
 
+    let diacriticsStrict = true;
     if (document.getElementById("diacriticsLax").checked) {
         searchSetting *= 17;
         query = cleanDiacritics(query);
+        diacriticsStrict = false;
     }
 
     let sortAlphabetical = document.getElementById("sortAlph").checked;
