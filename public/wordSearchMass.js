@@ -300,7 +300,7 @@ function decodeVerseCode(verseCode, verseCount, word) {
     finalDict["editionNum"] = parseInt(verseCode[0]);
     finalDict["bookNum"] = parseInt(verseCode.slice(1, 3));
 
-    console.log(word + ": " + verseCode.slice(1, 3))
+    //console.log(word + ": " + verseCode.slice(1, 3))
     finalDict["addressNum"] = parseInt(verseCode.slice(3, 9));
     return finalDict;
 
@@ -398,6 +398,8 @@ function getVerseCodeSpan(verseList, verseCount, word) {
         }
     }
     allBookList.sort();
+    console.log(word);
+    console.log(allBookList);
     for (let j=0; j < allBookList.length; j++) {
         let thisBookDictList = dictOfDicts[allBookList[j]];
         let thisBookName = topBookList[allBookList[j] - 1];       
@@ -542,9 +544,8 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical, resultDiv)
 
 
     //let outputSpanDict = {};
-    
+    let outputSpanDict = [];
     for (let j=0; j < wordList.length; j++) {
-        let outputSpanList = [];
         let word = wordList[j];
         let wordDict = dictOfDicts[word];
         let totalCount = wordDict["totalCount"];
