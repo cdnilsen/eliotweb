@@ -364,8 +364,16 @@ export async function populateCorrespondences() {
     let diacriticWordQuery = await pool.query("SELECT * FROM words_diacritics");
     let diacriticWordRows = diacriticWordQuery.rows;
 
+    let noDiacriticWordQuery = await pool.query("SELECT * FROM words_no_diacritics");
+    let noDiacriticWordRows = noDiacriticWordQuery.rows;
+
+    let noDiacriticsReferenceList: string[] = [];
+    for (let i = 0; i < noDiacriticWordRows.length; i++) {
+        noDiacriticsReferenceList.push(noDiacriticWordRows[i].word);
+    }
+
     let allDiacriticsList: string[] = [];
-    let noDiacriticsList: string[] = [];
+    let noDiacriticsWorkingList: string[] = [];
     let noDiacriticsToDiacriticsDict: stringToStringListDict = {};
     
     for (let i = 0; i < diacriticWordRows.length; i++) {
@@ -377,20 +385,28 @@ export async function populateCorrespondences() {
             noDiacriticsToDiacriticsDict[noDiacriticsWord] = [diacriticWord];
         } else {
             noDiacriticsToDiacriticsDict[noDiacriticsWord].push(diacriticWord);
-            noDiacriticsList.push(noDiacriticsWord);
+            noDiacriticsWorkingList.push(noDiacriticsWord);
         }
     }
 
     for (let j=0; j < allDiacriticsList.length; j++) {
         let diacriticWord = allDiacriticsList[j];
         let noDiacriticWord = cleanDiacriticsEngmaMarking(diacriticWord);
+
         await pool.query('UPDATE words_diacritics SET correspondingWord = $1::text WHERE word = $2::text', [noDiacriticWord, diacriticWord]);
+
     }
 
-    for (let k=0; k < noDiacriticsList.length; k++) {
-        let noDiacriticWord = noDiacriticsList[k];
+    for (let k=0; k < noDiacriticsWorkingList.length; k++) {
+        let noDiacriticWord = noDiacriticsWorkingList[k];
         let diacriticWordArray = noDiacriticsToDiacriticsDict[noDiacriticWord];
-        await pool.query('UPDATE words_no_diacritics SET corresponding_words = $1::text[] WHERE word = $2::text', [diacriticWordArray, noDiacriticWord]);
+
+        if (noDiacriticsReferenceList.includes(noDiacriticWord)) {
+            await pool.query('UPDATE words_no_diacritics SET corresponding_words = $1::text[] WHERE word = $2::text', [diacriticWordArray, noDiacriticWord]);
+        }
+        else {
+            await pool.query('INSERT INTO words_no_diacritics (word, corresponding_words) VALUES ($1::text, $2::text[])', [noDiacriticWord, diacriticWordArray]);
+        }
     }
         
         
