@@ -426,9 +426,7 @@ function processVerseCite(addressNum, editionList, countList, dbCode, thisBookNa
 }
 
 function getVerseDivs(verseList, verseCount, word) {
-    let topDiv = document.createElement("div");
-    topDiv.style.marginLeft = "4em";
-    topDiv.style.display = "inline-block";
+    let allBookDivs = [];
 
     let dictOfDicts = {};
     let allBookList = [];
@@ -474,6 +472,8 @@ function getVerseDivs(verseList, verseCount, word) {
             }
         }
         let thisBookDiv = document.createElement("div");
+        thisBookDiv.style.marginLeft = "4em";
+        thisBookDiv.style.display = "inline-block";
         let thisBookTotalCount = 0;
 
         let thisBookString = "<i>" + thisBookName + "</i> ("
@@ -499,12 +499,16 @@ function getVerseDivs(verseList, verseCount, word) {
             thisBookDiv.appendChild(thisVerseSpan); 
         }
         //Check order here
-        thisBookString += thisBookTotalCount.toString() + "):<br>";
+        thisBookString += thisBookTotalCount.toString() + "): ";
         thisBookDiv.innerHTML = thisBookString;
-        topDiv.appendChild(thisBookDiv);
+        allBookDivs.push(thisBookDiv);
     }
-    let needTriangle = (allBookList.length > 5);
-    return [topDiv, needTriangle]; 
+    let needTriangle = false;
+    if (allBookList.length > 5) {
+        console.log("This word appears in " + allBookList.length.toString() + " books.");
+        needTriangle = true;
+    }
+    return [allBookDivs, needTriangle]; 
 }
 
 function getVerseCodeSpan(verseList, verseCount, word) {
@@ -588,7 +592,6 @@ function processWordCites(word, totalCount, verseList, verseCountList) {
 
     let verseDivInfo = getVerseDivs(verseList, verseCountList, word);
     
-
     if (verseDivInfo[1]) {
         let clickableTriangle = addClickableTriangle("gray", "blue", [verseDivInfo[0]]);
         outputDiv.appendChild(clickableTriangle);
