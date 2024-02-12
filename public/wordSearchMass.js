@@ -369,8 +369,8 @@ function getVerseCodeSpan(verseList, verseCount, word) {
         if (dictOfDicts[verseDict["bookNum"]] === undefined) {
             dictOfDicts[verseDict["bookNum"]] = [verseDict];
             allBookList.push(verseDict["bookNum"]);
-            
-            console.log(verseDict["bookNum"]);
+
+            console.log(word + ": " + verseDict["bookNum"].toString());
         } else {
             dictOfDicts[verseDict["bookNum"]].push(verseDict);
         }
@@ -471,9 +471,6 @@ function sectionHeader(useAlphabetical, thisWord, thisWordCount, currentFirstLet
         let wordCount = headerToWordListDict[thisWordCount];
         let tokenCount = headerToTokenListDict[thisWordCount];
 
-        console.log(wordCount);
-        console.log(tokenCount);
-        console.log(thisWordCount);
         changeHeader = true;
         let countDiv = document.createElement("div");
         countDiv.style.fontSize = "24px";
