@@ -429,7 +429,7 @@ function processVerseCite(addressNum, editionList, countList, dbCode, thisBookNa
     popupVerseBox.hidden = true;
     newSpan.appendChild(popupVerseBox);
 
-    newSpan.onclick(showVersesInBox(popupVerseBox, editionNum, dbCode))
+    newSpan.onclick = "showVersesInBox(this, " + editionNum + ", " + dbCode + ")";
     /*
     newSpan.addEventListener("click", async function() {
         console.log("Hello, you clicked on me!")
