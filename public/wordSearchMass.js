@@ -338,15 +338,7 @@ function getCiteSuffix(editionList, countList) {
 function getAddressString(addressNum) {
     let splitAddress = [];
     //Necessary for the Psalms, where they may be no zero a 0 in the address. Spaghetti as hell so fix later
-
-    try {
-        console.log("!" + addressNum.toString());
-    } catch (e) {
-        console.log("error: ")
-        console.log(addressNum);
-    }
-    return addressNum;
-    /*
+  
     if (addressNum.toString().includes("0")) {
         splitAddress = addressNum.toString().split("0");
     } else {
@@ -361,7 +353,6 @@ function getAddressString(addressNum) {
         }
     }
     return newAddressList.join(":");
-    */
 }
 
 function processVerseCite(addressNum, editionList, countList, thisBookName) {
@@ -460,8 +451,8 @@ function getVerseCodeSpan(verseList, verseCount, word) {
 
 function processWordCites(word, totalCount, verseList, verseCountList, sortAlphabetical) {
     let outputSpan = document.createElement("span");
-    word = word.split('8').join('ꝏ̄');
-    let outputText = `<b>${word}</b> (${totalCount}):<br>`
+    let ligaturedWord = word.split('8').join('ꝏ̄');
+    let outputText = `<b>${ligaturedWord}</b> (${totalCount}):<br>`
 
     let verseCodeSpan = getVerseCodeSpan(verseList, verseCountList, word);
 
