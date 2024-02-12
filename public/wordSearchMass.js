@@ -544,7 +544,7 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical, resultDiv)
     //let outputSpanDict = {};
     
     for (let j=0; j < wordList.length; j++) {
-        let outerSpanList = [];
+        let outputSpanList = [];
         let word = wordList[j];
         let wordDict = dictOfDicts[word];
         let totalCount = wordDict["totalCount"];
