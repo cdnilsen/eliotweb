@@ -428,7 +428,7 @@ function processWordCites(word, totalCount, verseList, verseCountList, sortAlpha
     return outputSpan;
 }
 
-function sectionHeader(useAlphabetical, thisWord, thisWordCount, currentFirstLetter, lastWordCount, resultDiv, wordsWithThisHeader, headerToWordListDict, headerToTokenListDict, word) {
+function sectionHeader(useAlphabetical, thisWord, thisWordCount, currentFirstLetter, lastWordCount, resultDiv, wordsWithThisHeader, headerToWordListDict, headerToTokenListDict, showSpan) {
     let changeHeader = false;
     let tokenCount = 0;
     let wordCount = 0;
@@ -455,7 +455,7 @@ function sectionHeader(useAlphabetical, thisWord, thisWordCount, currentFirstLet
             clickableTriangle.style.cursor = "pointer";
             
             clickableTriangle.addEventListener("click", function() {
-                document.getElementById("word-" + word).hidden = false;
+                showSpan.hidden = false;
                 clickableTriangle.innerHTML = '▼'
                 clickableTriangle.style.color = "blue";
             });
@@ -476,7 +476,7 @@ function sectionHeader(useAlphabetical, thisWord, thisWordCount, currentFirstLet
             clickableTriangle.style.color = "gray";
             clickableTriangle.style.cursor = "pointer";
             clickableTriangle.addEventListener("click", function() {
-                document.getElementById("word-" + word).hidden = false;
+                showSpan.hidden = false;
                 clickableTriangle.innerHTML = '▼'
                 clickableTriangle.style.color = "blue";
             });
@@ -545,7 +545,7 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical, resultDiv)
         outputSpan.hidden = true;
         resultDiv.appendChild(outputSpan); 
 
-        let updatedHeaderList = sectionHeader(sortAlphabetical, word, totalCount, currentFirstLetter, lastWordCount, resultDiv, wordsWithThisHeader, headerToWordListDict, headerToTokenListDict);
+        let updatedHeaderList = sectionHeader(sortAlphabetical, word, totalCount, currentFirstLetter, lastWordCount, resultDiv, wordsWithThisHeader, headerToWordListDict, headerToTokenListDict, outputSpan);
 
         lastWordCount = updatedHeaderList[0];
         currentFirstLetter = updatedHeaderList[1];
