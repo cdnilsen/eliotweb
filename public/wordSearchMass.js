@@ -605,7 +605,6 @@ function processWordCites(word, totalCount, verseList, verseCountList) {
         outputDiv.appendChild(thisBookDiv);
     }
 
-    outputDiv.appendChild("<br>")
     return outputDiv;
 }
 
