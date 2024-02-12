@@ -749,7 +749,7 @@ function getRadioSelection() {
     }
 }
 
-async function addSelectionParams(whichAction) {
+async function callRadioFunction(whichAction) {
     if (whichAction == "processAText") {
         //console.log("called addSelectionParameters");
         await processTextPopulateHTML();
@@ -796,5 +796,5 @@ document.getElementById('pickAction').addEventListener("click", async function()
     document.getElementById("action-choices").innerHTML = "";
     let whichAction = getRadioSelection();
     console.log(whichAction);
-    await addSelectionParams(whichAction);
+    await callRadioFunction(whichAction);
 });

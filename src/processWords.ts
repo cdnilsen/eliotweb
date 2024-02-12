@@ -393,7 +393,7 @@ export async function populateCorrespondences() {
         let diacriticWord = allDiacriticsList[j];
         let noDiacriticWord = cleanDiacriticsEngmaMarking(diacriticWord);
 
-        await pool.query('UPDATE words_diacritics SET correspondingWord = $1::text WHERE word = $2::text', [noDiacriticWord, diacriticWord]);
+        await pool.query('UPDATE words_diacritics SET corresponding_word = $1::text WHERE word = $2::text', [noDiacriticWord, diacriticWord]);
 
     }
 
