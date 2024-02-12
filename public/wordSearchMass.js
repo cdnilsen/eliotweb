@@ -271,6 +271,10 @@ function cleanDiacritics(word) {
     return processEngma(cleanedWord);
 }
 
+function showVersesInBox(verseAddress) {
+
+}
+
 function addClickableTriangle(unclickedColor, clickedColor, showSpanList) {
     let clickableTriangle = document.createElement('span')
     clickableTriangle.innerHTML = ' ▶';
@@ -387,6 +391,8 @@ function getVerseCodeSpan(verseList, verseCount, word) {
     let allBookList = [];
     
     for (let i = 0; i < verseList.length; i++) {
+
+        console.log(verseList[i]);
         let verseDict = decodeVerseCode(verseList[i], verseCount[i], word);
 
         if (dictOfDicts[verseDict["bookNum"]] === undefined) {
