@@ -499,8 +499,8 @@ function getVerseDivs(verseList, verseCount, word) {
         }
         thisBookString += thisBookTotalCount.toString() + "): ";
         thisBookDiv.innerHTML = thisBookString;
+        topDiv.appendChild(thisBookDiv);
     }
-    topDiv.appendChild(thisBookDiv);
     return topDiv;
     
 }
@@ -577,13 +577,10 @@ function getVerseCodeSpan(verseList, verseCount, word) {
         bookString += totalBookCount.toString() + "): " + verseCiteString.slice(0, -2) + "</span><br>";
         verseCodeText += bookString;
     }
-    //console.log(verseCodeText);
     return verseCodeText;
 }
 
 function processWordCites(word, totalCount, verseList, verseCountList) {
-
-    console.log(verseList);
     let outputDiv = document.createElement("div");
     let ligaturedWord = word.split('8').join('ꝏ̄');
     outputDiv.innerHTML = `<b>${ligaturedWord}</b> (${totalCount}): `
@@ -761,8 +758,6 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical, resultDiv)
         let totalCount = wordDict["totalCount"];
         let allVerses = wordDict["allVerses"];
         let allCounts = wordDict["allVerseCounts"];
-
-        console.log(allVerses);
 
         totalTokens += totalCount;
         let outputDiv = processWordCites(word, totalCount, allVerses, allCounts);
