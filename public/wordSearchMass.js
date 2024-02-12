@@ -412,6 +412,20 @@ function processVerseCite(addressNum, editionList, countList, dbCode, thisBookNa
 
 }
 
+function getVerseDivs(verseList, verseCount, word) {
+    let topDiv = document.createElement("div");
+    let dictOfDicts = {};
+    let allBookList = [];
+
+    for (let i=0; i < verseList.length; i++) {
+        let verseDict = decodeVerseCode(verseList[i], verseCount[i], word);
+    
+    }
+
+
+    return topDiv;
+}
+
 function getVerseCodeSpan(verseList, verseCount, word) {
     let verseCodeText = "";
     let dictOfDicts = {};
@@ -488,15 +502,25 @@ function getVerseCodeSpan(verseList, verseCount, word) {
     return verseCodeText;
 }
 
-function processWordCites(word, totalCount, verseList, verseCountList, sortAlphabetical) {
+function processWordCites(word, totalCount, verseList, verseCountList) {
+
+    console.log(verseList);
     let outputDiv = document.createElement("div");
     let ligaturedWord = word.split('8').join('ꝏ̄');
-    outputDiv.innerHTML = `<b>${ligaturedWord}</b> (${totalCount}):<br>`
+    outputDiv.innerHTML = `<b>${ligaturedWord}</b> (${totalCount}): `
 
-    let verseSpans = getVerseCodeSpans(verseList, verseCountList, word);
+    let verseSpans = getVerseDivs(verseList, verseCountList, word);
 
-    let clickableTriangle = addClickableTriangle("gray", "blue", verseSpans);
+    if (verseSpans.length > 5) {
+        for (let i=0; i < verseSpans.length; i++) {
+            verseSpans[i].hidden = true;
+        }
+        outputDiv.appendChild(addClickableTriangle("gray", "red", verseSpans));
+    }
 
+    for (let j=0; j < verseSpans.length; j++) {
+        outputDiv.appendChild(verseSpans[j]);
+    }
     //maybe these should be separate divs, who knows
     
     return outputDiv;
@@ -660,7 +684,7 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical, resultDiv)
         let allCounts = wordDict["allVerseCounts"];
 
         totalTokens += totalCount;
-        let outputDiv = processWordCites(word, totalCount, allVerses, allCounts, sortAlphabetical);
+        let outputDiv = processWordCites(word, totalCount, allVerses, allCounts);
 
         outputDiv.id = "word-" + word;
         outputDiv.hidden = true;
