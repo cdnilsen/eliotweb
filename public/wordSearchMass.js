@@ -519,6 +519,7 @@ function getBookDivs(verseList, verseCount, word) {
             thisBookTotalCount += verseInfo[1];
         }
         //Check order here
+        let thisBookString = "<i>" + thisBookName + "</i> ("
         thisBookString += thisBookTotalCount.toString() + "): ";
 
         if (moreThan30Addresses) {
@@ -531,8 +532,6 @@ function getBookDivs(verseList, verseCount, word) {
         let thisBookDiv = document.createElement("div");
         thisBookDiv.style.marginLeft = "4em";
         thisBookDiv.style.display = "inline-block";
-
-        let thisBookString = "<i>" + thisBookName + "</i> ("
 
         if (moreThan30Addresses) {
             thisBookDiv.appendChild(triangleHolderSpan);
