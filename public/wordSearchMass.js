@@ -290,7 +290,11 @@ async function showVersesInBox(parentSpan, popupDiv, editionNum, dbCode) {
 }
 
 
-function addClickableTriangle(unclickedColor, clickedColor, showSpanList) {
+function addClickableTriangle(unclickedColor, clickedColor, showSpanList, addFollowingBreak) {  
+    let followingBreak = ""
+    if (addFollowingBreak) {
+        followingBreak = "<br>";
+    }
     let clickableTriangle = document.createElement('span')
     clickableTriangle.innerHTML = ' ▶';
     clickableTriangle.style.color = unclickedColor;
@@ -300,7 +304,7 @@ function addClickableTriangle(unclickedColor, clickedColor, showSpanList) {
             showSpanList[i].hidden = !showSpanList[i].hidden;
         }
         if (clickableTriangle.innerHTML == ' ▶') {
-            clickableTriangle.innerHTML = '▼'
+            clickableTriangle.innerHTML = ' ▼' + followingBreak
             clickableTriangle.style.color = clickedColor;
         } else {
             clickableTriangle.innerHTML = ' ▶'
@@ -478,6 +482,10 @@ function getBookDivs(verseList, verseCount, word) {
 
         let thisBookString = "<i>" + thisBookName + "</i> ("
 
+        let spanOfSpans = document.createElement("span");
+        if (allAddresses.length > 30) {
+            spanOfSpans.innerHTML += "<br>"
+        }
         for (let l=0; l < allAddresses.length; l++) {
             let thisAddress = allAddresses[l];
             if (thisAddress == undefined) {
@@ -496,11 +504,17 @@ function getBookDivs(verseList, verseCount, word) {
 
             let thisVerseSpan = verseInfo[0];
             thisBookTotalCount += verseInfo[1];
-            thisBookDiv.appendChild(thisVerseSpan); 
+            spanOfSpans.innerHTML += thisVerseSpan; 
         }
         //Check order here
-        thisBookString += thisBookTotalCount.toString() + "): ";
-        thisBookDiv.innerHTML = thisBookString;
+        thisBookString += thisBookTotalCount.toString() + "):";
+        
+        if (allAddresses.length > 30) {
+            let clickableTriangle = addClickableTriangle("gray", "#00FF60", [spanOfSpans], true);
+            thisBookDiv.innerHTML = thisBookString;
+            thisBookDiv.appendChild(clickableTriangle);
+        }
+        thisBookDiv.innerHTML += thisBookString;
         allBookDivs.push(thisBookDiv);
     }
     let needTriangle = false;
