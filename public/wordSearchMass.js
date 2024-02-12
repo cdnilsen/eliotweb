@@ -512,7 +512,7 @@ function getBookDivs(verseList, verseCount, word) {
             thisBookDiv.innerHTML = thisBookString;
             thisBookDiv.appendChild(clickableTriangle);
         } else {
-            thisBookDiv.innerHTML = thisBookString + "<br>";
+            thisBookDiv.innerHTML = thisBookString;
         }
         thisBookDiv.appendChild(spanOfSpans);
         allBookDivs.push(thisBookDiv);
@@ -612,7 +612,7 @@ function processWordCites(word, totalCount, verseList, verseCountList) {
     
     if (useTriangle) {
         let clickableTriangle = addClickableTriangle("gray", "blue", allBookDivs);
-        outputDiv.innerHTML += clickableTriangle;
+        outputDiv.appendChild(clickableTriangle);
     }
     outputDiv.innerHTML += "<br>";
     
