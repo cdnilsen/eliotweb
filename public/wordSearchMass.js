@@ -390,7 +390,7 @@ function getVerseCodeSpan(verseList, verseCount, word) {
 
         if (dictOfDicts[verseDict["bookNum"]] === undefined) {
             dictOfDicts[verseDict["bookNum"]] = [verseDict];
-            allBookList.push(verseDict["bookNum"]);
+            allBookList.push(parseInt(verseDict["bookNum"]));
 
             //console.log(word + ": " + verseDict["bookNum"].toString());
         } else {
@@ -409,7 +409,7 @@ function getVerseCodeSpan(verseList, verseCount, word) {
         
         let allAddresses = [];
         for (let k=0; k < thisBookDictList.length; k++) {
-            let thisVerseDict = thisBookDictList[k];
+            let thisVerseDict = thisBookDictList[k].toString();
             let thisVerseEdition = thisVerseDict["editionNum"];
             let thisVerseAddress = thisVerseDict["addressNum"];
             let thisVerseCount = thisVerseDict["verseCount"];
