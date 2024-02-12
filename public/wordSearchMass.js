@@ -655,7 +655,7 @@ function getHeaderText(wordCount, tokenCount, useToken, initialLetter) {
 
         return "<u><b><i>" + initialLetter + "</i></b></u> (" + wordCount.toString() + " " + wordOrWords + ", " + tokenCount.toString() + " total " + tokenOrTokens + ")";
     } else {
-        return "<u><i><b>" + thisWordCount.toString() + "</b> tokens</i></u> ("  + wordCount.toString() + " " + wordOrWords + ")";
+        return "<u><i><b>" + wordCount.toString() + "</b> tokens</i></u> ("  + wordCount.toString() + " " + wordOrWords + ")";
     }
 }
 
