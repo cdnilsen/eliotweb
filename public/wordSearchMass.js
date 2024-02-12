@@ -487,17 +487,15 @@ function getBookDivs(verseList, verseCount, word) {
                 verseCountDict[thisVerseAddress].push(thisVerseCount);
             }
         }
-        let thisBookDiv = document.createElement("div");
-        thisBookDiv.style.marginLeft = "4em";
-        thisBookDiv.style.display = "inline-block";
-        let thisBookTotalCount = 0;
-
-        let thisBookString = "<i>" + thisBookName + "</i> ("
+        
+        let moreThan30Addresses = allAddresses.length > 30;	
 
         let spanOfSpans = document.createElement("span");
-        if (allAddresses.length > 30) {
+        if (moreThan30Addresses) {
             spanOfSpans.innerHTML += "<br>"
         }
+
+        let triangleHolderSpan = document.createElement("span");
 
         let allVerseSpanList = [];
         for (let l=0; l < allAddresses.length; l++) {
@@ -516,28 +514,33 @@ function getBookDivs(verseList, verseCount, word) {
 
             let verseInfo = processVerseCite(thisAddress, thisEditionList, thisCountList, thisDBCode, thisBookName, (l < allAddresses.length -1));
             
-            allVerseSpanList.push(verseInfo[0]); 
+            allVerseSpanList.push(verseInfo[0]);
             thisBookTotalCount += verseInfo[1];
         }
         //Check order here
         thisBookString += thisBookTotalCount.toString() + "): ";
 
-        
-        
-        if (allAddresses.length > 30) {
+        if (moreThan30Addresses) {
             spanOfSpans.hidden = true;
-            let clickableTriangle = addClickableTriangle("gray", "#00FF60", [spanOfSpans], false);
-            thisBookDiv.innerHTML = thisBookString;
-            thisBookDiv.appendChild(clickableTriangle);
-        } else {
-            thisBookDiv.innerHTML = thisBookString;
+            let clickableTriangle = addClickableTriangle("gray", "#00FF60", allVerseSpanList, false);
+            triangleHolderSpan.appendChild(clickableTriangle);
+            console.log(triangleHolderSpan.innerHTML);
+        }
+
+        let thisBookDiv = document.createElement("div");
+        thisBookDiv.style.marginLeft = "4em";
+        thisBookDiv.style.display = "inline-block";
+        let thisBookTotalCount = 0;
+
+        let thisBookString = "<i>" + thisBookName + "</i> ("
+
+        if (moreThan30Addresses) {
+            thisBookDiv.appendChild(triangleHolderSpan);
         }
 
         for (let m = 0; m < allVerseSpanList.length; m++) {
             spanOfSpans.appendChild(allVerseSpanList[m]);
         }
-
-        thisBookDiv.innerHTML += "<br>";
         thisBookDiv.appendChild(spanOfSpans);
         allBookDivs.push(thisBookDiv);
     }
