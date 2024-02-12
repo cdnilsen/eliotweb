@@ -498,6 +498,7 @@ function getBookDivs(verseList, verseCount, word) {
         let triangleHolderSpan = document.createElement("span");
 
         let allVerseSpanList = [];
+        let thisBookTotalCount = 0;
         for (let l=0; l < allAddresses.length; l++) {
             let thisAddress = allAddresses[l];
             if (thisAddress == undefined) {
@@ -530,7 +531,6 @@ function getBookDivs(verseList, verseCount, word) {
         let thisBookDiv = document.createElement("div");
         thisBookDiv.style.marginLeft = "4em";
         thisBookDiv.style.display = "inline-block";
-        let thisBookTotalCount = 0;
 
         let thisBookString = "<i>" + thisBookName + "</i> ("
 
