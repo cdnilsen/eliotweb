@@ -341,7 +341,6 @@ function createDivWithTriangle(topHTMLString, subDivList, minTriangleNum, triang
     }
 
     for (let i = 0; i < subDivList.length; i++) {
-        subDivList[i].hidden = true;
         outputDiv.appendChild(subDivList[i]);
         outputDiv.innerHTML += "<br>";
     }
@@ -525,6 +524,9 @@ function getBookDivs(verseList, verseCount, word) {
 
             let verseInfo = processVerseCite(thisAddress, thisEditionList, thisCountList, thisDBCode, thisBookName, (l < allAddresses.length -1));
             
+            if (allAddresses.length > 30) {
+                verseInfo[0].hidden = true;
+            }
             allVerseSpanList.push(verseInfo[0]);
             thisBookTotalCount += verseInfo[1];
         }
