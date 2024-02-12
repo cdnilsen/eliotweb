@@ -596,7 +596,7 @@ async function seeAllWords(fetchString, resultDiv, sortAlphabetical, sortByBook)
         }
     }).then(res => res.json()).then(res => {    
         console.log(res);
-        if (res == []) {
+        if (res.length == 0) {
             let wrongSpan = document.createElement("span");
             wrongSpan.style.fontSize = "20px";
             wrongSpan.innerHTML = "No words found, and/or you tried to search for fewer than three letters (restricted for now to prevent too much overloading).";
