@@ -532,6 +532,7 @@ function getBookDivs(verseList, verseCount, word) {
         let thisBookDiv = document.createElement("div");
         thisBookDiv.style.marginLeft = "4em";
         thisBookDiv.style.display = "inline-block";
+        thisBookDiv.innerHTML = thisBookString;
 
         if (moreThan30Addresses) {
             thisBookDiv.appendChild(triangleHolderSpan);
