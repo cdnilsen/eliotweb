@@ -417,7 +417,7 @@ function getAddressString(addressNum) {
     return newAddressList.join(":");
 }
 
-function processVerseCite(addressNum, editionList, countList, dbCode, thisBookName, notLastCite) {
+function processVerseCite(addressNum, editionList, countList, dbCode, thisBookName) {
     let editionNum = 1;
     let totalCountVerse = 0;
     for (let i=0; i < editionList.length; i++) {
@@ -523,7 +523,7 @@ function getBookDivs(verseList, verseCount, word) {
             let thisCountList = verseCountDict[thisAddress];
             let thisDBCode = dbCodeDict[thisAddress];
 
-            let verseInfo = processVerseCite(thisAddress, thisEditionList, thisCountList, thisDBCode, thisBookName, (l < allAddresses.length -1));
+            let verseInfo = processVerseCite(thisAddress, thisEditionList, thisCountList, thisDBCode, thisBookName);
             
             if (allAddresses.length > 30) {
                 verseInfo[0].hidden = true;
