@@ -271,12 +271,13 @@ function cleanDiacritics(word) {
     return processEngma(cleanedWord);
 }
 
+//Address num probably not needed here
 function showVersesInBox(verseAddressSpan, addressNum, editionNum, dbCode) {
     let popoutBoxDiv = document.createElement("div");
     popoutBoxDiv.classList.add("popout-box");
 
     verseAddressSpan.addEventListener("click", async function() {
-        let fetchString = "/getVerses/" + verseAddressSpan.id.toString();
+        let fetchString = "/getVerses/" + dbCode.toString() + "/" + editionNum.toString();
         
 
     });
@@ -312,7 +313,6 @@ function decodeVerseCode(verseCode, verseCount, word) {
     finalDict["editionNum"] = parseInt(verseCode[0]);
     finalDict["bookNum"] = parseInt(verseCode.slice(1, 3));
 
-    //console.log(word + ": " + verseCode.slice(1, 3))
     finalDict["addressNum"] = parseInt(verseCode.slice(3, 9));
 
     finalDict["dbVerseCode"] = parseInt("1" + verseCode.toString().slice(1));
@@ -370,7 +370,6 @@ function getAddressString(addressNum) {
 }
 
 function processVerseCite(addressNum, editionList, countList, dbCode, thisBookName) {
-    //console.log(dbCode);
     let editionNum = 1;
     let totalCountVerse = 0;
     for (let i=0; i < editionList.length; i++) {
@@ -414,11 +413,9 @@ function getVerseCodeSpan(verseList, verseCount, word) {
     let allBookList = [];
     
     for (let i = 0; i < verseList.length; i++) {
-
-        console.log(verseList[i]);
         let verseDict = decodeVerseCode(verseList[i], verseCount[i], word);
-
         let bookNum = verseDict["bookNum"];
+        
         if (dictOfDicts[bookNum] === undefined) {
             dictOfDicts[bookNum] = [verseDict];
             allBookList.push(bookNum);
@@ -429,7 +426,6 @@ function getVerseCodeSpan(verseList, verseCount, word) {
     allBookList.sort((a, b) => a - b);
     for (let j=0; j < allBookList.length; j++) {
         let thisBookDictList = dictOfDicts[allBookList[j]];
-        console.log(thisBookDictList);
 
         let thisBookName = topBookList[allBookList[j] - 1];       
 
@@ -483,6 +479,7 @@ function getVerseCodeSpan(verseList, verseCount, word) {
         bookString += totalBookCount.toString() + "): " + verseCiteString.slice(0, -2) + "</span><br>";
         verseCodeText += bookString;
     }
+    console.log(verseCodeText);
     return verseCodeText;
 }
 
