@@ -351,9 +351,8 @@ function createDivWithTriangle(topHTMLString, subDivList, minTriangleNum, triang
         let clickableTriangle = addClickableTriangle("gray", triangleClickColor, [listContainer], false);
         outputDiv.appendChild(clickableTriangle);
         outputDiv.innerHTML += "<br>";
-    } else if (alwaysAddBreak) {
-        outputDiv.innerHTML += "<br>";
-    }
+    } 
+    
     outputDiv.appendChild(listContainer);
     return outputDiv;
 }
