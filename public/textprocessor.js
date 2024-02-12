@@ -795,5 +795,6 @@ document.getElementById('pickAction').addEventListener("click", async function()
     document.getElementById("text-container").innerHTML = "";
     document.getElementById("action-choices").innerHTML = "";
     let whichAction = getRadioSelection();
+    console.log(whichAction);
     await addSelectionParams(whichAction);
 });
