@@ -485,6 +485,14 @@ function sectionHeader(useAlphabetical, thisWord, thisWordCount, currentFirstLet
         let wordCount = headerToWordListDict[thisWordCount];
         let tokenCount = headerToTokenListDict[thisWordCount];
 
+        if (wordCount == undefined) {
+            wordCount = 0;
+        }
+
+        if (tokenCount == undefined) {
+            tokenCount = 0;
+        }
+
         changeHeader = true;
         let countDiv = document.createElement("div");
         countDiv.style.fontSize = "24px";
