@@ -271,7 +271,7 @@ function cleanDiacritics(word) {
     return processEngma(cleanedWord);
 }
 
-function showVersesInBox(verseAddressSpan, addressNum, editionNum) {
+function showVersesInBox(verseAddressSpan, addressNum, editionNum, dbCode) {
     let popoutBoxDiv = document.createElement("div");
     popoutBoxDiv.classList.add("popout-box");
 
@@ -369,8 +369,8 @@ function getAddressString(addressNum) {
     return newAddressList.join(":");
 }
 
-function processVerseCite(addressNum, editionList, countList, dbCodeList, thisBookName) {
-    console.log(dbCodeList);
+function processVerseCite(addressNum, editionList, countList, dbCode, thisBookName) {
+    //console.log(dbCode);
     let editionNum = 1;
     let totalCountVerse = 0;
     for (let i=0; i < editionList.length; i++) {
@@ -401,7 +401,7 @@ function processVerseCite(addressNum, editionList, countList, dbCodeList, thisBo
     newSpan.classList.add("dotted-underline");
 
     newSpan.addEventListener("click", async function() {
-        showVersesInBox(newSpan, addressNum, editionNum);
+        showVersesInBox(newSpan, addressNum, editionNum, dbCode);
     });
 
     return [finalString, totalCountVerse];
@@ -448,12 +448,11 @@ function getVerseCodeSpan(verseList, verseCount, word) {
             if (verseAddressDict[thisVerseAddress] === undefined) {
                 verseAddressDict[thisVerseAddress] = [thisVerseEdition];
                 verseCountDict[thisVerseAddress] = [thisVerseCount];
-                dbCodeDict[thisVerseAddress] = [dbVerseCode];
+                dbCodeDict[thisVerseAddress] = dbVerseCode;
                 allAddresses.push(thisVerseAddress);
             } else {
                 verseAddressDict[thisVerseAddress].push(thisVerseEdition);
                 verseCountDict[thisVerseAddress].push(thisVerseCount);
-                dbCodeDict[thisVerseAddress].push(dbVerseCode);
             }
         }
 
@@ -473,9 +472,9 @@ function getVerseCodeSpan(verseList, verseCount, word) {
 
             let thisEditionList = verseAddressDict[thisAddress];
             let thisCountList = verseCountDict[thisAddress];
-            let thisDBCodeList = dbCodeDict[thisAddress];
+            let thisDBCode = dbCodeDict[thisAddress];
 
-            let verseInfo = processVerseCite(thisAddress, thisEditionList, thisCountList, thisDBCodeList, thisBookName);
+            let verseInfo = processVerseCite(thisAddress, thisEditionList, thisCountList, thisDBCode, thisBookName);
 
             verseCiteString += verseInfo[0];
             totalBookCount += verseInfo[1];
@@ -503,7 +502,7 @@ function sectionHeader(useAlphabetical, thisWord, thisWordCount, currentFirstLet
     let changeHeader = false;
     let tokenCount = 0;
     let wordCount = 0;
-
+    console.log(showSpanList);
     if (useAlphabetical) {
 
         let cleanedFirstLetter = cleanDiacritics(thisWord[0]);
