@@ -369,6 +369,8 @@ function getVerseCodeSpan(verseList, verseCount, word) {
         if (dictOfDicts[verseDict["bookNum"]] === undefined) {
             dictOfDicts[verseDict["bookNum"]] = [verseDict];
             allBookList.push(verseDict["bookNum"]);
+            
+            console.log(verseDict["bookNum"]);
         } else {
             dictOfDicts[verseDict["bookNum"]].push(verseDict);
         }
