@@ -506,7 +506,10 @@ function getBookDivs(verseList, verseCount, word) {
             thisBookTotalCount += verseInfo[1];
         }
         //Check order here
-        thisBookString += thisBookTotalCount.toString() + "):";
+        thisBookString += thisBookTotalCount.toString() + "): ";
+        for (let m = 0; m < allVerseSpanList.length; m++) {
+            spanOfSpans.appendChild(allVerseSpanList[m]);
+        }
         
         if (allAddresses.length > 30) {
             let clickableTriangle = addClickableTriangle("gray", "#00FF60", allVerseSpanList, true);
@@ -515,9 +518,7 @@ function getBookDivs(verseList, verseCount, word) {
         } else {
             thisBookDiv.innerHTML = thisBookString;
         }
-        for (let m = 0; m < allVerseSpanList.length; m++) {
-            spanOfSpans.appendChild(allVerseSpanList[m]);
-        }
+        
         thisBookDiv.appendChild(spanOfSpans);
         allBookDivs.push(thisBookDiv);
     }
