@@ -479,7 +479,7 @@ function getVerseCodeSpan(verseList, verseCount, word) {
         bookString += totalBookCount.toString() + "): " + verseCiteString.slice(0, -2) + "</span><br>";
         verseCodeText += bookString;
     }
-    console.log(verseCodeText);
+    //console.log(verseCodeText);
     return verseCodeText;
 }
 
@@ -604,6 +604,8 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical, resultDiv)
         totalTokens += totalCount;
         outputSpan = processWordCites(word, totalCount, allVerses, allCounts, sortAlphabetical);
 
+        console.log(outputSpan);
+
         outputSpan.id = "word-" + word;
         outputSpan.hidden = true;
         outputSpanList.push(outputSpan);
@@ -612,7 +614,6 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical, resultDiv)
 
         resultDiv.appendChild(outputSpan);
         
-
         lastWordCount = updatedHeaderList[0];
         currentFirstLetter = updatedHeaderList[1];
 
@@ -620,6 +621,10 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical, resultDiv)
             wordsWithThisHeader = 0;
         }
         wordsWithThisHeader += 1; 
+    }
+
+    for (let k = 0; k < outputSpanList.length; k++) {
+        outputSpanList[k].hidden = false;
     }
 
     topSpan.innerHTML = `Found <b><u>${totalTokens}</u></b> tokens, representing <b><u>${totalWords}</u></b> distinct words.`;
