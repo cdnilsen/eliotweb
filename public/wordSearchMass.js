@@ -594,11 +594,16 @@ async function seeAllWords(fetchString, resultDiv, sortAlphabetical, sortByBook)
         headers: {
             "Content-type": "application/json; charset=UTF-8"
         }
-    }).then(res => res.json()).then(res => {
+    }).then(res => res.json()).then(res => {    
+        console.log(res);
         if (res == []) {
-            resultDiv.innerHTML = "No words found, and/or you tried to search for fewer than three letters (restricted for now to prevent too much overloading).";
+            let wrongSpan = document.createElement("span");
+            wrongSpan.style.fontSize = "20px";
+            wrongSpan.innerHTML = "No words found, and/or you tried to search for fewer than three letters (restricted for now to prevent too much overloading).";
+            resultDiv.appendChild(wrongSpan);
+        } else {
+            getDictFromSearchOutput(res, resultDiv, sortAlphabetical, sortByBook);
         }
-        getDictFromSearchOutput(res, resultDiv, sortAlphabetical, sortByBook);
     }).catch(err => console.error(err))
 }
 
