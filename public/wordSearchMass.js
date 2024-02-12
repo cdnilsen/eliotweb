@@ -495,13 +495,12 @@ function getVerseDivs(verseList, verseCount, word) {
 
             let thisVerseSpan = verseInfo[0];
             thisBookTotalCount += verseInfo[1];
+            thisBookDiv.appendChild(thisVerseSpan); 
         }
-
-
-
-
-
+        thisBookString += thisBookTotalCount.toString() + "): ";
+        thisBookDiv.innerHTML = thisBookString;
     }
+    topDiv.appendChild(thisBookDiv);
     return topDiv;
     
 }
