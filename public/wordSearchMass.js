@@ -493,27 +493,54 @@ function processWordCites(word, totalCount, verseList, verseCountList, sortAlpha
     return outputSpan;
 }
 
+function getHeaderText(wordCount, tokenCount, useToken, initialLetter) {
+    if (initialLetter == "8") {
+        initialLetter = "ꝏ̄";
+    }
+
+    if (wordCount == undefined) {
+        wordCount = 0;
+    }
+
+    let wordOrWords = "words";
+    if (wordCount == 1) {
+        wordOrWords = "word";
+    }
+
+    if (useToken) {
+        if (tokenCount == undefined) {
+            tokenCount = 0;
+        }
+
+        let tokenOrTokens = "tokens";
+        if (tokenCount == 1) {
+            tokenOrTokens = "token";
+        }
+
+        return "<u><b><i>" + initialLetter + "</i></b></u> (" + wordCount.toString() + " " + wordOrWords + ", " + tokenCount.toString() + " total " + tokenOrTokens + ")";
+    } else {
+        return "<u><i><b>" + thisWordCount.toString() + "</b> tokens</i></u> ("  + wordCount.toString() + " " + wordOrWords + ")";
+    }
+}
+
 function sectionHeader(useAlphabetical, thisWord, thisWordCount, currentFirstLetter, lastWordCount, resultDiv, wordsWithThisHeader, headerToWordListDict, headerToTokenListDict, showSpanList) {
     let changeHeader = false;
     let tokenCount = 0;
     let wordCount = 0;
     //console.log(showSpanList);
     if (useAlphabetical) {
-
         let cleanedFirstLetter = cleanDiacritics(thisWord[0]);
         wordCount = headerToWordListDict[cleanedFirstLetter];
         tokenCount = headerToTokenListDict[cleanedFirstLetter];
 
-
         if (cleanedFirstLetter != currentFirstLetter) {
-            let initialLetter = cleanedFirstLetter;
-            if (initialLetter == 8) {
-                initialLetter = "ꝏ̄";
-            }
             changeHeader = true;
+            
+            
             let firstLetterDiv = document.createElement("div");
             firstLetterDiv.style.fontSize = "24px";
-            firstLetterDiv.innerHTML = "<u><b><i>" + initialLetter + "</i></b></u> (" + wordCount.toString() + " words, " + tokenCount.toString() + " total tokens)";
+
+            firstLetterDiv.innerHTML = getHeaderText(wordCount, tokenCount, true, cleanedFirstLetter);
             
             let clickableTriangle = addClickableTriangle("gray", "blue", showSpanList);
 
@@ -521,21 +548,14 @@ function sectionHeader(useAlphabetical, thisWord, thisWordCount, currentFirstLet
             resultDiv.appendChild(firstLetterDiv);
         }
     } else if (lastWordCount != thisWordCount) {
-        let wordCount = headerToWordListDict[thisWordCount];
-        let tokenCount = headerToTokenListDict[thisWordCount];
-
-        if (wordCount == undefined) {
-            wordCount = 0;
-        }
-
-        if (tokenCount == undefined) {
-            tokenCount = 0;
-        }
-
+        wordCount = headerToWordListDict[thisWordCount];
+        tokenCount = headerToTokenListDict[thisWordCount];
         changeHeader = true;
+
         let countDiv = document.createElement("div");
         countDiv.style.fontSize = "24px";
-        countDiv.innerHTML = "<u><i><b>" + thisWordCount.toString() + "</b> tokens</i></u> ("  + wordCount.toString() + " words)<br>";
+
+        countDiv.innerHTML = getHeaderText(thisWordCount, tokenCount, false, thisWord[0]);
 
         let clickableTriangle = addClickableTriangle("gray", "blue", showSpanList);
 
@@ -548,6 +568,28 @@ function sectionHeader(useAlphabetical, thisWord, thisWordCount, currentFirstLet
     return [thisWordCount, thisWord[0], changeHeader];   
 }
 
+function sendSpanToCorrectPlace(span, word, wordTotalCount, useAlphabetical, spanDict) {
+    if (useAlphabetical) {
+        let key = word[0];
+        if (word[0] == "8") {
+            key = "ꝏ̄";
+        }
+        if (spanDict[key] === undefined) {
+            spanDict[key] = [span];
+        } else {
+            spanDict[key].push(span);
+        }
+        return key;
+    } else {
+        let key = wordTotalCount;
+        if (spanDict[key] === undefined) {
+            spanDict[key] = [span];
+        } else {
+            spanDict[key].push(span);
+        }
+        return key;
+    }
+}
 
 function processAllWordCites(wordList, dictOfDicts, sortAlphabetical, resultDiv) {
     resultDiv.hidden = true;
@@ -590,7 +632,7 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical, resultDiv)
     }
 
 
-    //let outputSpanDict = {};
+    let outputSpanDict = {};
     let outputSpanList = [];
     for (let j=0; j < wordList.length; j++) {
         let word = wordList[j];
@@ -606,9 +648,10 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical, resultDiv)
 
         outputSpan.id = "word-" + word;
         outputSpan.hidden = true;
-        outputSpanList.push(outputSpan);
+        
+        let dictKey = sendSpanToCorrectPlace(outputSpan, word, totalCount, sortAlphabetical, outputSpanDict);
 
-        let updatedHeaderList = sectionHeader(sortAlphabetical, word, totalCount, currentFirstLetter, lastWordCount, resultDiv, wordsWithThisHeader, headerToWordListDict, headerToTokenListDict, [outputSpanList.slice(-1)]);
+        let updatedHeaderList = sectionHeader(sortAlphabetical, word, totalCount, currentFirstLetter, lastWordCount, resultDiv, wordsWithThisHeader, headerToWordListDict, headerToTokenListDict, outputSpanDict[dictKey]);
 
         resultDiv.appendChild(outputSpan);
         
@@ -619,10 +662,6 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical, resultDiv)
             wordsWithThisHeader = 0;
         }
         wordsWithThisHeader += 1; 
-    }
-
-    for (let k = 0; k < outputSpanList.length; k++) {
-        //outputSpanList[k].hidden = false;
     }
 
     topSpan.innerHTML = `Found <b><u>${totalTokens}</u></b> tokens, representing <b><u>${totalWords}</u></b> distinct words.`;
