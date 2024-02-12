@@ -278,8 +278,15 @@ function showVersesInBox(verseAddressSpan, addressNum, editionNum, dbCode) {
 
     verseAddressSpan.addEventListener("click", async function() {
         let fetchString = "/getVerses/" + dbCode.toString() + "/" + editionNum.toString();
+        fetch(fetchString, {
+            method: 'GET',
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        }).then(res => res.json()).then(res => {
+            console.log(res);
+        });
     });
-
 }
 
 function addClickableTriangle(unclickedColor, clickedColor, showSpanList) {
@@ -482,15 +489,17 @@ function getVerseCodeSpan(verseList, verseCount, word) {
 }
 
 function processWordCites(word, totalCount, verseList, verseCountList, sortAlphabetical) {
-    let outputSpan = document.createElement("span");
+    let outputDiv = document.createElement("div");
     let ligaturedWord = word.split('8').join('ꝏ̄');
-    let outputText = `<b>${ligaturedWord}</b> (${totalCount}):<br>`
+    outputDiv.innerHTML = `<b>${ligaturedWord}</b> (${totalCount}):<br>`
 
-    let verseCodeSpan = getVerseCodeSpan(verseList, verseCountList, word);
+    let verseSpans = getVerseCodeSpans(verseList, verseCountList, word);
+
+    let clickableTriangle = addClickableTriangle("gray", "blue", verseSpans);
 
     //maybe these should be separate divs, who knows
-    outputSpan.innerHTML = outputText + verseCodeSpan + "<br>";
-    return outputSpan;
+    
+    return outputDiv;
 }
 
 function getHeaderText(wordCount, tokenCount, useToken, initialLetter) {
@@ -642,7 +651,7 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical, resultDiv)
     }
 
 
-    let outputSpanDict = {};
+    let outputDivDict = {};
     for (let j=0; j < wordList.length; j++) {
         let word = wordList[j];
         let wordDict = dictOfDicts[word];
@@ -651,24 +660,24 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical, resultDiv)
         let allCounts = wordDict["allVerseCounts"];
 
         totalTokens += totalCount;
-        outputSpan = processWordCites(word, totalCount, allVerses, allCounts, sortAlphabetical);
+        let outputDiv = processWordCites(word, totalCount, allVerses, allCounts, sortAlphabetical);
 
-        outputSpan.id = "word-" + word;
-        outputSpan.hidden = true;
+        outputDiv.id = "word-" + word;
+        outputDiv.hidden = true;
         
-        let dictKey = sendSpanToCorrectPlace(outputSpan, word, totalCount, sortAlphabetical, outputSpanDict);
+        let dictKey = sendSpanToCorrectPlace(outputDiv, word, totalCount, sortAlphabetical, outputDivDict);
 
         let changeSection = changeSectionBool(sortAlphabetical, word, totalCount, currentFirstLetter, lastWordCount);
 
         if (changeSection) {
-            let updatedHeaderList = sectionHeader(sortAlphabetical, word, totalCount, currentFirstLetter, lastWordCount, resultDiv, wordsWithThisHeader, headerToWordListDict, headerToTokenListDict, outputSpanDict[dictKey]);
+            let updatedHeaderList = sectionHeader(sortAlphabetical, word, totalCount, currentFirstLetter, lastWordCount, resultDiv, wordsWithThisHeader, headerToWordListDict, headerToTokenListDict, outputDivDict[dictKey]);
 
             lastWordCount = updatedHeaderList[0];
             currentFirstLetter = updatedHeaderList[1];
 
             wordsWithThisHeader = 0;
         }
-        resultDiv.appendChild(outputSpan);
+        resultDiv.appendChild(outputDiv);
         wordsWithThisHeader += 1; 
     }
 
