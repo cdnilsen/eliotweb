@@ -512,7 +512,7 @@ function getBookDivs(verseList, verseCount, word) {
         
         if (allAddresses.length > 30) {
             spanOfSpans.hidden = true;
-            let clickableTriangle = addClickableTriangle("gray", "#00FF60", [spanOfSpans], true);
+            let clickableTriangle = addClickableTriangle("gray", "#00FF60", [spanOfSpans], false);
             thisBookDiv.innerHTML = thisBookString;
             thisBookDiv.appendChild(clickableTriangle);
         } else {
@@ -520,6 +520,7 @@ function getBookDivs(verseList, verseCount, word) {
         }
 
         thisBookDiv.appendChild(spanOfSpans);
+        thisBookDiv.innerHTML += "<br>";
         allBookDivs.push(thisBookDiv);
     }
     let needTriangle = false;
@@ -615,7 +616,7 @@ function processWordCites(word, totalCount, verseList, verseCountList) {
     let useTriangle = bookDivInfo[1];
     
     if (useTriangle) {
-        let clickableTriangle = addClickableTriangle("gray", "blue", allBookDivs);
+        let clickableTriangle = addClickableTriangle("gray", "blue", allBookDivs, false);
         outputDiv.appendChild(clickableTriangle);
     }
     outputDiv.innerHTML += "<br>";
