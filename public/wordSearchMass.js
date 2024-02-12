@@ -271,6 +271,26 @@ function cleanDiacritics(word) {
     return processEngma(cleanedWord);
 }
 
+function addClickableTriangle(unclickedColor, clickedColor, showSpanList) {
+    let clickableTriangle = document.createElement('span')
+    clickableTriangle.innerHTML = ' ▶';
+    clickableTriangle.style.color = unclickedColor;
+    clickableTriangle.style.cursor = "pointer";
+    clickableTriangle.addEventListener("click", function() {
+        for (let i = 0; i < showSpanList.length; i++) {
+            showSpanList[i].hidden = !showSpanList[i].hidden;
+        }
+        if (clickableTriangle.innerHTML == ' ▶') {
+            clickableTriangle.innerHTML = '▼'
+            clickableTriangle.style.color = clickedColor;
+        } else {
+            clickableTriangle.innerHTML = ' ▶'
+            clickableTriangle.style.color = unclickedColor;
+        }
+    });
+    return clickableTriangle;
+}
+
 //Returns a dictionary with the info about this verse
 function decodeVerseCode(verseCode, verseCount) {
     //Examples of verse codes: 225003010, 325003010, 219104022. The first digit is the edition number, the next two are the book number, the next three are the chapter number, and the last three are the verse number. Note that both verseCode and verseCount are lists of strings.
@@ -453,18 +473,7 @@ function sectionHeader(useAlphabetical, thisWord, thisWordCount, currentFirstLet
             firstLetterDiv.innerHTML = "<u><b><i>" + initialLetter + "</i></b></u> (" + wordCount.toString() + " words, " + tokenCount.toString() + " total tokens)";
             
 
-            let clickableTriangle = document.createElement('span')
-            clickableTriangle.innerHTML = ' ▶';
-            clickableTriangle.style.color = "gray";
-            clickableTriangle.style.cursor = "pointer";
-            
-            clickableTriangle.addEventListener("click", function() {
-                for (let i = 0; i < showSpanList.length; i++) {
-                    showSpanList[i].hidden = !showSpanList[i].hidden;
-                }
-                clickableTriangle.innerHTML = '▼'
-                clickableTriangle.style.color = "blue";
-            });
+            let clickableTriangle = addClickableTriangle("gray", "blue", showSpanList);
 
             firstLetterDiv.appendChild(clickableTriangle);
             resultDiv.appendChild(firstLetterDiv);
@@ -478,17 +487,7 @@ function sectionHeader(useAlphabetical, thisWord, thisWordCount, currentFirstLet
         countDiv.style.fontSize = "24px";
         countDiv.innerHTML = "<u><i><b>" + thisWordCount.toString() + "</b> tokens</i></u> ("  + wordCount.toString() + " words)<br>";
 
-        let clickableTriangle = document.createElement('span')
-            clickableTriangle.innerHTML = ' ▶';
-            clickableTriangle.style.color = "gray";
-            clickableTriangle.style.cursor = "pointer";
-            clickableTriangle.addEventListener("click", function() {
-                for (let i = 0; i < showSpanList.length; i++) {
-                    showSpanList[i].hidden = !showSpanList[i].hidden;
-                }
-                clickableTriangle.innerHTML = '▼'
-                clickableTriangle.style.color = "blue";
-            });
+        let clickableTriangle = addClickableTriangle("gray", "blue", showSpanList);
 
         countDiv.appendChild(clickableTriangle);
 
