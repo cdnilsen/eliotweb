@@ -453,11 +453,12 @@ function sectionHeader(useAlphabetical, thisWord, thisWordCount, currentFirstLet
             clickableTriangle.innerHTML = ' ▶';
             clickableTriangle.style.color = "gray";
             clickableTriangle.style.cursor = "pointer";
-            clickableTriangle.onclick = function() {
+            
+            clickableTriangle.addEventListener("click", function() {
                 document.getElementById("word-" + word).hidden = false;
                 clickableTriangle.innerHTML = '▼'
                 clickableTriangle.style.color = "blue";
-            }
+            });
 
             firstLetterDiv.appendChild(clickableTriangle);
             resultDiv.appendChild(firstLetterDiv);
@@ -474,11 +475,11 @@ function sectionHeader(useAlphabetical, thisWord, thisWordCount, currentFirstLet
             clickableTriangle.innerHTML = ' ▶';
             clickableTriangle.style.color = "gray";
             clickableTriangle.style.cursor = "pointer";
-            clickableTriangle.onclick = function() {
+            clickableTriangle.addEventListener("click", function() {
                 document.getElementById("word-" + word).hidden = false;
                 clickableTriangle.innerHTML = '▼'
                 clickableTriangle.style.color = "blue";
-            }
+            });
 
         countDiv.appendChild(clickableTriangle);
 
