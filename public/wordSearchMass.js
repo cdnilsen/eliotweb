@@ -513,8 +513,10 @@ function getBookDivs(verseList, verseCount, word) {
             let clickableTriangle = addClickableTriangle("gray", "#00FF60", [spanOfSpans], true);
             thisBookDiv.innerHTML = thisBookString;
             thisBookDiv.appendChild(clickableTriangle);
+        } else {
+            thisBookDiv.innerHTML = thisBookString + "<br>";
         }
-        thisBookDiv.innerHTML += thisBookString;
+        thisBookDiv.appendChild(spanOfSpans);
         allBookDivs.push(thisBookDiv);
     }
     let needTriangle = false;
