@@ -27,9 +27,9 @@ export async function wordSearch(searchString: string, searchSetting: number) {
     } else if (searchSetting % 3 == 0) { // contains (placeholder)
         queryString += wordString + " LIKE '%'||$1||'%'"
     } else if (searchSetting % 5 == 0) { // starts with
-        queryString += "starts_with($1::text, " + wordString + ")"
+        queryString +=wordString +  " LIKE ||$1||'%'"
     } else if (searchSetting % 7 == 0) { //  ends with
-        queryString += wordString + " LIKE ||$1||'%'" 
+        queryString += wordString + " LIKE '%'||$1||" 
     }
 
     let allQuery = await pool.query(queryString, [searchString]);
