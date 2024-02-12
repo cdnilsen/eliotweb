@@ -327,28 +327,33 @@ function addClickableTriangle(unclickedColor, clickedColor, showSpanList, addFol
 }
 
 function createDivWithTriangle(topHTMLString, subDivList, minTriangleNum, triangleClickColor, alwaysAddBreak, afterEverySubDivString="", includingAtEnd=true) {
+
+    let listContainer = document.createElement('span');
+
+    for (let i = 0; i < subDivList.length; i++) {
+        listContainer.appendChild(subDivList[i]);
+        if (includingAtEnd || i < subDivList.length - 1){
+            listContainer.innerHTML += afterEverySubDivString;
+        }
+        if (alwaysAddBreak) {
+            listContainer.innerHTML += "<br>";
+        }
+    }
+
     let outputDiv = document.createElement("div");
     outputDiv.innerHTML = topHTMLString;
 
     let useTriangle = subDivList.length >= minTriangleNum;
 
     if (useTriangle) {
-        let clickableTriangle = addClickableTriangle("gray", triangleClickColor, subDivList, false);
+        listContainer.hidden = true;
+        let clickableTriangle = addClickableTriangle("gray", triangleClickColor, [listContainer], false);
         outputDiv.appendChild(clickableTriangle);
         outputDiv.innerHTML += "<br>";
     } else if (alwaysAddBreak) {
         outputDiv.innerHTML += "<br>";
     }
-
-    for (let i = 0; i < subDivList.length; i++) {
-        outputDiv.appendChild(subDivList[i]);
-        if (includingAtEnd || i < subDivList.length - 1){
-            outputDiv.innerHTML += afterEverySubDivString;
-        }
-        if (alwaysAddBreak) {
-            outputDiv.innerHTML += "<br>";
-        }
-    }
+    outputDiv.appendChild(listContainer);
     return outputDiv;
 }
 
@@ -524,10 +529,6 @@ function getBookDivs(verseList, verseCount, word) {
             let thisDBCode = dbCodeDict[thisAddress];
 
             let verseInfo = processVerseCite(thisAddress, thisEditionList, thisCountList, thisDBCode, thisBookName);
-            
-            if (allAddresses.length > 30) {
-                verseInfo[0].hidden = true;
-            }
 
             allVerseSpanList.push(verseInfo[0]);
             thisBookTotalCount += verseInfo[1];
