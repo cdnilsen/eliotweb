@@ -566,7 +566,7 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical, resultDiv)
 
 
     //let outputSpanDict = {};
-    let outputSpanDict = [];
+    let outputSpanList = [];
     for (let j=0; j < wordList.length; j++) {
         let word = wordList[j];
         let wordDict = dictOfDicts[word];
@@ -581,7 +581,7 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical, resultDiv)
         outputSpan.hidden = true;
         outputSpanList.push(outputSpan);
 
-        let updatedHeaderList = sectionHeader(sortAlphabetical, word, totalCount, currentFirstLetter, lastWordCount, resultDiv, wordsWithThisHeader, headerToWordListDict, headerToTokenListDict, outputSpanList);
+        let updatedHeaderList = sectionHeader(sortAlphabetical, word, totalCount, currentFirstLetter, lastWordCount, resultDiv, wordsWithThisHeader, headerToWordListDict, headerToTokenListDict, [outputSpan[-1]]);
 
         resultDiv.appendChild(outputSpan);
         
