@@ -523,34 +523,45 @@ function getHeaderText(wordCount, tokenCount, useToken, initialLetter) {
     }
 }
 
+function changeSectionBool (useAlphabetical, thisWord, thisWordCount, currentFirstLetter, lastWordCount) {
+    let changeHeader = false;
+    if (useAlphabetical) {
+        let cleanedFirstLetter = cleanDiacritics(thisWord[0]);
+        if (cleanedFirstLetter != currentFirstLetter) {
+            changeHeader = true;
+        }
+    }
+    else {
+        if (lastWordCount != thisWordCount) {
+            changeHeader = true;
+        }
+    }
+    return changeHeader;
+}
+
 function sectionHeader(useAlphabetical, thisWord, thisWordCount, currentFirstLetter, lastWordCount, resultDiv, wordsWithThisHeader, headerToWordListDict, headerToTokenListDict, showSpanList) {
     let changeHeader = false;
     let tokenCount = 0;
     let wordCount = 0;
+    let cleanedFirstLetter = cleanDiacritics(thisWord[0]);
     //console.log(showSpanList);
     if (useAlphabetical) {
-        let cleanedFirstLetter = cleanDiacritics(thisWord[0]);
         wordCount = headerToWordListDict[cleanedFirstLetter];
         tokenCount = headerToTokenListDict[cleanedFirstLetter];
 
-        if (cleanedFirstLetter != currentFirstLetter) {
-            changeHeader = true;
-            
-            
-            let firstLetterDiv = document.createElement("div");
-            firstLetterDiv.style.fontSize = "24px";
+        let firstLetterDiv = document.createElement("div");
+        firstLetterDiv.style.fontSize = "24px";
 
-            firstLetterDiv.innerHTML = getHeaderText(wordCount, tokenCount, true, cleanedFirstLetter);
-            
-            let clickableTriangle = addClickableTriangle("gray", "blue", showSpanList);
+        firstLetterDiv.innerHTML = getHeaderText(wordCount, tokenCount, true, cleanedFirstLetter);
+        
+        let clickableTriangle = addClickableTriangle("gray", "blue", showSpanList);
 
-            firstLetterDiv.appendChild(clickableTriangle);
-            resultDiv.appendChild(firstLetterDiv);
-        }
-    } else if (lastWordCount != thisWordCount) {
+        firstLetterDiv.appendChild(clickableTriangle);
+        resultDiv.appendChild(firstLetterDiv);
+        
+    } else {
         wordCount = headerToWordListDict[thisWordCount];
         tokenCount = headerToTokenListDict[thisWordCount];
-        changeHeader = true;
 
         let countDiv = document.createElement("div");
         countDiv.style.fontSize = "24px";
@@ -564,8 +575,7 @@ function sectionHeader(useAlphabetical, thisWord, thisWordCount, currentFirstLet
         resultDiv.appendChild(countDiv);
     }
 
-    // For some weird kludge reason, I can update wordCount but not currentFirstLetter from in here, so let's just return them as values
-    return [thisWordCount, thisWord[0], changeHeader];   
+    return [thisWordCount, cleanedFirstLetter];   
 }
 
 function sendSpanToCorrectPlace(span, word, wordTotalCount, useAlphabetical, spanDict) {
@@ -633,7 +643,6 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical, resultDiv)
 
 
     let outputSpanDict = {};
-    let outputSpanList = [];
     for (let j=0; j < wordList.length; j++) {
         let word = wordList[j];
         let wordDict = dictOfDicts[word];
@@ -644,23 +653,22 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical, resultDiv)
         totalTokens += totalCount;
         outputSpan = processWordCites(word, totalCount, allVerses, allCounts, sortAlphabetical);
 
-        console.log(outputSpan);
-
         outputSpan.id = "word-" + word;
         outputSpan.hidden = true;
         
         let dictKey = sendSpanToCorrectPlace(outputSpan, word, totalCount, sortAlphabetical, outputSpanDict);
 
-        let updatedHeaderList = sectionHeader(sortAlphabetical, word, totalCount, currentFirstLetter, lastWordCount, resultDiv, wordsWithThisHeader, headerToWordListDict, headerToTokenListDict, outputSpanDict[dictKey]);
+        let changeSection = changeSectionBool(sortAlphabetical, word, totalCount, currentFirstLetter, lastWordCount);
 
-        resultDiv.appendChild(outputSpan);
-        
-        lastWordCount = updatedHeaderList[0];
-        currentFirstLetter = updatedHeaderList[1];
+        if (changeSection) {
+            let updatedHeaderList = sectionHeader(sortAlphabetical, word, totalCount, currentFirstLetter, lastWordCount, resultDiv, wordsWithThisHeader, headerToWordListDict, headerToTokenListDict, outputSpanDict[dictKey]);
 
-        if (updatedHeaderList[2]) {
+            lastWordCount = updatedHeaderList[0];
+            currentFirstLetter = updatedHeaderList[1];
+
             wordsWithThisHeader = 0;
         }
+        resultDiv.appendChild(outputSpan);
         wordsWithThisHeader += 1; 
     }
 
