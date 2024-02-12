@@ -307,7 +307,7 @@ function addClickableTriangle(unclickedColor, clickedColor, showSpanList, addFol
         " ▶": " ▼",
         " ▼": " ▶",
         " ▶<br>": " ▼<br>",
-        " ▼<br>": " ▼<br>"
+        " ▼<br>": " ▶<br>"
     }
 
     let unClickedHTML = [" ▶", " ▶<br>"];
