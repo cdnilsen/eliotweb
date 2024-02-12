@@ -301,17 +301,27 @@ function addClickableTriangle(unclickedColor, clickedColor, showSpanList, addFol
     clickableTriangle.innerHTML = ' ▶' + followingBreak;
     clickableTriangle.style.color = unclickedColor;
     clickableTriangle.style.cursor = "pointer";
+
+
+    let htmlToggleDict = {
+        " ▶": " ▼",
+        " ▼": " ▶",
+        " ▶<br>": " ▼<br>",
+        " ▼<br>": " ▼<br>"
+    }
+
+    let unClickedHTML = [" ▶", " ▶<br>"];
+    let clickedHTML = [" ▼", " ▼<br>"];
     clickableTriangle.addEventListener("click", function() {
         for (let i = 0; i < showSpanList.length; i++) {
             showSpanList[i].hidden = !showSpanList[i].hidden;
         }
-        if (clickableTriangle.innerHTML == ' ▶' + followingBreak) {
-            clickableTriangle.innerHTML = ' ▼' + followingBreak
+        if (unClickedHTML.includes(clickableTriangle.innerHTML)) {
             clickableTriangle.style.color = clickedColor;
         } else {
-            clickableTriangle.innerHTML = ' ▶' + followingBreak;
             clickableTriangle.style.color = unclickedColor;
         }
+        clickableTriangle.innerHTML = htmlToggleDict[clickableTriangle.innerHTML];
     });
     return clickableTriangle;
 }
