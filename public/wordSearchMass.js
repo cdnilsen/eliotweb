@@ -440,10 +440,14 @@ function sectionHeader(useAlphabetical, thisWord, thisWordCount, currentFirstLet
 
 
         if (thisWord[0] != currentFirstLetter) {
+            let initialLetter = thisWord[0];
+            if (initialLetter == 8) {
+                initialLetter = "ꝏ̄";
+            }
             changeHeader = true;
             let firstLetterDiv = document.createElement("div");
             firstLetterDiv.style.fontSize = "24px";
-            firstLetterDiv.innerHTML = "<u><b><i>" + thisWord[0] + "</i></b></u> (" + wordCount.toString() + " words, " + tokenCount.toString() + " total tokens)<br>";
+            firstLetterDiv.innerHTML = "<u><b><i>" + initialLetter + "</i></b></u> (" + wordCount.toString() + " words, " + tokenCount.toString() + " total tokens)<br>";
             resultDiv.appendChild(firstLetterDiv);
         }
     } else if (lastWordCount != thisWordCount) {
