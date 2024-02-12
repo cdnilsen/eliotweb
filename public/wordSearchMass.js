@@ -428,26 +428,31 @@ function processWordCites(word, totalCount, verseList, verseCountList, sortAlpha
     return outputSpan;
 }
 
-function sectionHeader(useAlphabetical, thisWord, thisWordCount, currentFirstLetter, lastWordCount, resultDiv, wordsWithThisHeader, headerToWordListDict) {
+function sectionHeader(useAlphabetical, thisWord, thisWordCount, currentFirstLetter, lastWordCount, resultDiv, wordsWithThisHeader, headerToWordListDict, headerToTokenListDict) {
     let changeHeader = false;
     let tokenCount = 0;
+    let wordCount = 0;
 
 
     if (useAlphabetical) {
-        tokenCount = headerToWordListDict[thisWord[0]];
+        wordCount = headerToWordListDict[thisWord[0]];
+        tokenCount = headerToTokenListDict[thisWord[0]];
+
+
         if (thisWord[0] != currentFirstLetter) {
             changeHeader = true;
             let firstLetterDiv = document.createElement("div");
             firstLetterDiv.style.fontSize = "24px";
-            firstLetterDiv.innerHTML = "<u><b><i>" + thisWord[0] + "</i></b></u> (" + tokenCount.toString() + " words)<br>";
+            firstLetterDiv.innerHTML = "<u><b><i>" + thisWord[0] + "</i></b></u> (" + wordCount.toString() + " words, " + tokenCount.toString() + " total tokens)<br>";
             resultDiv.appendChild(firstLetterDiv);
         }
     } else if (lastWordCount != thisWordCount) {
-        tokenCount = headerToWordListDict[thisWordCount];
+        wordCount = headerToWordListDict[thisWord[0]];
+        tokenCount = headerToTokenListDict[thisWordCount];
         changeHeader = true;
         let countDiv = document.createElement("div");
         countDiv.style.fontSize = "24px";
-        countDiv.innerHTML = "<u><i><b>" + thisWordCount + "</b> tokens</i></u> (" + tokenCount.toString() + " words)<br>";
+        countDiv.innerHTML = "<u><i><b>" + thisWordCount + "</b> tokens</i></u> ("  + wordCount.toString() + " words, " + tokenCount.toString() + " total tokens)<br>";
         resultDiv.appendChild(countDiv);
     }
 
@@ -471,6 +476,7 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical, resultDiv)
     let wordsWithThisHeader = 0;
 
     let headerToWordListDict = {};
+    let headerToTokenListDict = {};
 
     for (let i=0; i < wordList.length; i++) {
         let thisWord = wordList[i];
@@ -481,13 +487,17 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical, resultDiv)
             if (headerToWordListDict[firstLetter] === undefined) 
             {
                 headerToWordListDict[firstLetter] = 0;
+                headerToTokenListDict[firstLetter] = 0;
             } 
-            headerToWordListDict[firstLetter] += wordCount;
+            headerToWordListDict[firstLetter] += 1;
+            headerToTokenListDict[firstLetter] += wordCount;
         } else {
             if (headerToWordListDict[thisCount] === undefined) {
                 headerToWordListDict[thisCount] = 0;
+                headerToTokenListDict[thisCount] = 0;
             } 
             headerToWordListDict[thisCount] += 1;
+            headerToTokenListDict[thisCount] += wordCount;
         }
     }
 
@@ -501,7 +511,7 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical, resultDiv)
         totalTokens += totalCount;
         outputSpan = processWordCites(word, totalCount, allVerses, allCounts, sortAlphabetical);
 
-        let updatedHeaderList = sectionHeader(sortAlphabetical, word, totalCount, currentFirstLetter, lastWordCount, resultDiv, wordsWithThisHeader, headerToWordListDict);
+        let updatedHeaderList = sectionHeader(sortAlphabetical, word, totalCount, currentFirstLetter, lastWordCount, resultDiv, wordsWithThisHeader, headerToWordListDict, headerToTokenListDict);
 
         lastWordCount = updatedHeaderList[0];
         currentFirstLetter = updatedHeaderList[1];
