@@ -342,7 +342,9 @@ function createDivWithTriangle(topHTMLString, subDivList, minTriangleNum, triang
 
     for (let i = 0; i < subDivList.length; i++) {
         outputDiv.appendChild(subDivList[i]);
-        outputDiv.innerHTML += "<br>";
+        if (alwaysAddBreak) {
+            outputDiv.innerHTML += "<br>";
+        }
     }
     return outputDiv;
 }
@@ -534,7 +536,7 @@ function getBookDivs(verseList, verseCount, word) {
         let thisBookString = "<i>" + thisBookName + "</i> ("
         thisBookString += thisBookTotalCount.toString() + "): ";
 
-        let thisBookDiv = createDivWithTriangle(thisBookString, allVerseSpanList, 31, "#00FF60", true);
+        let thisBookDiv = createDivWithTriangle(thisBookString, allVerseSpanList, 31, "#00FF60", false);
         thisBookDiv.style.marginLeft = "4em";
         thisBookDiv.style.display = "inline-block";
 
