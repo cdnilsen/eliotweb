@@ -428,7 +428,7 @@ function processWordCites(word, totalCount, verseList, verseCountList, sortAlpha
     return outputSpan;
 }
 
-function sectionHeader(useAlphabetical, thisWord, thisWordCount, currentFirstLetter, lastWordCount, resultDiv, wordsWithThisHeader, headerToWordListDict, headerToTokenListDict, showSpan) {
+function sectionHeader(useAlphabetical, thisWord, thisWordCount, currentFirstLetter, lastWordCount, resultDiv, wordsWithThisHeader, headerToWordListDict, headerToTokenListDict, showSpanList) {
     let changeHeader = false;
     let tokenCount = 0;
     let wordCount = 0;
@@ -455,7 +455,9 @@ function sectionHeader(useAlphabetical, thisWord, thisWordCount, currentFirstLet
             clickableTriangle.style.cursor = "pointer";
             
             clickableTriangle.addEventListener("click", function() {
-                showSpan.hidden = false;
+                for (let i = 0; i < showSpanList.length; i++) {
+                    showSpanList[i].hidden = false;
+                }
                 clickableTriangle.innerHTML = '▼'
                 clickableTriangle.style.color = "blue";
             });
@@ -480,7 +482,9 @@ function sectionHeader(useAlphabetical, thisWord, thisWordCount, currentFirstLet
             clickableTriangle.style.color = "gray";
             clickableTriangle.style.cursor = "pointer";
             clickableTriangle.addEventListener("click", function() {
-                showSpan.hidden = false;
+                for (let i = 0; i < showSpanList.length; i++) {
+                    showSpanList[i].hidden = false;
+                }
                 clickableTriangle.innerHTML = '▼'
                 clickableTriangle.style.color = "blue";
             });
@@ -535,6 +539,8 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical, resultDiv)
         }
     }
 
+
+    let outputSpanList = [];
     for (let j=0; j < wordList.length; j++) {
         let word = wordList[j];
         let wordDict = dictOfDicts[word];
@@ -547,10 +553,13 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical, resultDiv)
 
         outputSpan.id = "word-" + word;
         outputSpan.hidden = true;
+        outputSpanList.push(outputSpan);
         
 
-        let updatedHeaderList = sectionHeader(sortAlphabetical, word, totalCount, currentFirstLetter, lastWordCount, resultDiv, wordsWithThisHeader, headerToWordListDict, headerToTokenListDict, outputSpan);
-        resultDiv.appendChild(outputSpan); 
+        let updatedHeaderList = sectionHeader(sortAlphabetical, word, totalCount, currentFirstLetter, lastWordCount, resultDiv, wordsWithThisHeader, headerToWordListDict, headerToTokenListDict, outputSpanList);
+
+        resultDiv.appendChild(outputSpan);
+        
 
         lastWordCount = updatedHeaderList[0];
         currentFirstLetter = updatedHeaderList[1];
