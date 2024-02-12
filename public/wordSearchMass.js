@@ -439,6 +439,12 @@ function getVerseCodeSpan(verseList, verseCount, word) {
         allAddresses.sort();
         for (let l=0; l < allAddresses.length; l++) {
             let thisAddress = allAddresses[l];
+            if (thisAddress == undefined) {
+                console.log("undefined address: " + word);
+                console.log(verseAddressDict);
+                console.log(verseCountDict);
+                console.log(thisBookDictList)
+            }
             let thisEditionList = verseAddressDict[thisAddress];
             let thisCountList = verseCountDict[thisAddress];
             let verseInfo = processVerseCite(thisAddress, thisEditionList, thisCountList, thisBookName);
