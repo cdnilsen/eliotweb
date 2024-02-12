@@ -271,7 +271,15 @@ function cleanDiacritics(word) {
     return processEngma(cleanedWord);
 }
 
-function showVersesInBox(verseAddress) {
+function showVersesInBox(verseAddressSpan, addressNum, editionNum) {
+    let popoutBoxDiv = document.createElement("div");
+    popoutBoxDiv.classList.add("popout-box");
+
+    verseAddressSpan.addEventListener("click", async function() {
+        let fetchString = "/getVerses/" + verseAddressSpan.id.toString();
+        
+
+    });
 
 }
 
@@ -306,6 +314,8 @@ function decodeVerseCode(verseCode, verseCount, word) {
 
     //console.log(word + ": " + verseCode.slice(1, 3))
     finalDict["addressNum"] = parseInt(verseCode.slice(3, 9));
+
+    finalDict["dbVerseCode"] = parseInt("1" + verseCode.toString().slice(1));
     return finalDict;
 
 }
@@ -359,7 +369,8 @@ function getAddressString(addressNum) {
     return newAddressList.join(":");
 }
 
-function processVerseCite(addressNum, editionList, countList, thisBookName) {
+function processVerseCite(addressNum, editionList, countList, dbCodeList, thisBookName) {
+    console.log(dbCodeList);
     let editionNum = 1;
     let totalCountVerse = 0;
     for (let i=0; i < editionList.length; i++) {
@@ -367,10 +378,15 @@ function processVerseCite(addressNum, editionList, countList, thisBookName) {
         totalCountVerse += countList[i];
     }
 
+
+    //Once Greek and Hebrew are added, change this to 858 (= 2 * 3 * 11(KJV) * 13 (Grebew))
+    let verseLinkNum = 66;
     // This gives a unique prime factorization of all the possibilities. E.g. an edition number of 6 should get no prefix (the book in question is only 1st/2nd edition and so 6 means it exists in both verses), but an edition number of 66 means that the word occurs in both of Eliot's editions of this verse but not Mayhew's (even though an edition of this verse by Mayhew exists).
     if (thisBookName == "Genesis") {
         editionNum *= 11;
+        verseLinkNum *= 7;
     } else if (thisBookName == "Psalms (prose)" || thisBookName == "John") {
+        verseLinkNum *= 5;
         editionNum *= 13;
     }
     let prefix = editionToSuperscriptDict[editionNum];
@@ -380,6 +396,13 @@ function processVerseCite(addressNum, editionList, countList, thisBookName) {
     let suffix = getCiteSuffix(editionList, countList);
 
     let finalString = prefix + address + suffix + ", ";
+
+    let newSpan = document.createElement("span");
+    newSpan.classList.add("dotted-underline");
+
+    newSpan.addEventListener("click", async function() {
+        showVersesInBox(newSpan, addressNum, editionNum);
+    });
 
     return [finalString, totalCountVerse];
 
@@ -395,11 +418,12 @@ function getVerseCodeSpan(verseList, verseCount, word) {
         console.log(verseList[i]);
         let verseDict = decodeVerseCode(verseList[i], verseCount[i], word);
 
-        if (dictOfDicts[verseDict["bookNum"]] === undefined) {
-            dictOfDicts[verseDict["bookNum"]] = [verseDict];
-            allBookList.push(verseDict["bookNum"]);
+        let bookNum = verseDict["bookNum"];
+        if (dictOfDicts[bookNum] === undefined) {
+            dictOfDicts[bookNum] = [verseDict];
+            allBookList.push(bookNum);
         } else {
-            dictOfDicts[verseDict["bookNum"]].push(verseDict);
+            dictOfDicts[bookNum].push(verseDict);
         }
     }
     allBookList.sort((a, b) => a - b);
@@ -411,6 +435,7 @@ function getVerseCodeSpan(verseList, verseCount, word) {
 
         let verseAddressDict = {};
         let verseCountDict = {};
+        let dbCodeDict = {};
         
         let allAddresses = [];
         for (let k=0; k < thisBookDictList.length; k++) {
@@ -418,13 +443,17 @@ function getVerseCodeSpan(verseList, verseCount, word) {
             let thisVerseEdition = thisVerseDict["editionNum"];
             let thisVerseAddress = thisVerseDict["addressNum"];
             let thisVerseCount = thisVerseDict["verseCount"];
+            let dbVerseCode = thisVerseDict["dbVerseCode"];
+
             if (verseAddressDict[thisVerseAddress] === undefined) {
                 verseAddressDict[thisVerseAddress] = [thisVerseEdition];
                 verseCountDict[thisVerseAddress] = [thisVerseCount];
+                dbCodeDict[thisVerseAddress] = [dbVerseCode];
                 allAddresses.push(thisVerseAddress);
             } else {
                 verseAddressDict[thisVerseAddress].push(thisVerseEdition);
                 verseCountDict[thisVerseAddress].push(thisVerseCount);
+                dbCodeDict[thisVerseAddress].push(dbVerseCode);
             }
         }
 
@@ -441,9 +470,13 @@ function getVerseCodeSpan(verseList, verseCount, word) {
                 console.log(verseCountDict);
                 console.log(thisBookDictList)
             }
+
             let thisEditionList = verseAddressDict[thisAddress];
             let thisCountList = verseCountDict[thisAddress];
-            let verseInfo = processVerseCite(thisAddress, thisEditionList, thisCountList, thisBookName);
+            let thisDBCodeList = dbCodeDict[thisAddress];
+
+            let verseInfo = processVerseCite(thisAddress, thisEditionList, thisCountList, thisDBCodeList, thisBookName);
+
             verseCiteString += verseInfo[0];
             totalBookCount += verseInfo[1];
         }

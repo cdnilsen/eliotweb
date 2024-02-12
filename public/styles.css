@@ -219,6 +219,12 @@ button {
     cursor: help; /* Changes the cursor to a question mark
 }
 */
+
+.dotted-underline {
+    text-decoration: underline;
+    text-decoration-style: dotted;
+    text-decoration-color: black;
+}
   
 .ketiv {
     position: relative;
