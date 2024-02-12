@@ -175,6 +175,17 @@ tbody {
     margin-left: 4em;
 }
 
+.popup-verse-box {
+    display: none;
+    position: relative;
+    z-index: 1;
+    background-color: #f9f9f9;
+    border: 1px solid #888;
+    width: 600px;
+    height: 300px;
+    overflow: auto;
+}
+
 
 li {
     text-align: center;

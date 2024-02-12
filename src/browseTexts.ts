@@ -143,11 +143,11 @@ function verseFetcher(queryRow: any, editionNumber: number) {
 
     let allTextNumbers: number[] = [2, 3, 5, 7, 11, 13];
     for (let k = 0; k < allTextNumbers.length; k++) {
-        let prime = allTextNumbers[k];
-        if ((editionNumber % prime) == 0) {
-            finalVerseDict[prime] = textDict[prime]
+        let p = allTextNumbers[k];
+        if ((editionNumber % p) == 0 && textDict[p] != null) {
+            finalVerseDict[p] = textDict[p]
         } else {
-            finalVerseDict[prime] = "";
+            finalVerseDict[p] = "";
         }
     }
     return finalVerseDict;
