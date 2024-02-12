@@ -436,12 +436,14 @@ function sectionHeader(useAlphabetical, thisWord, thisWordCount, currentFirstLet
     let wordCount = 0;
 
     if (useAlphabetical) {
-        wordCount = headerToWordListDict[thisWord[0]];
-        tokenCount = headerToTokenListDict[thisWord[0]];
+
+        let cleanedFirstLetter = cleanDiacritics(thisWord[0]);
+        wordCount = headerToWordListDict[cleanedFirstLetter];
+        tokenCount = headerToTokenListDict[cleanedFirstLetter];
 
 
-        if (thisWord[0] != currentFirstLetter) {
-            let initialLetter = thisWord[0];
+        if (cleanedFirstLetter != currentFirstLetter) {
+            let initialLetter = cleanedFirstLetter;
             if (initialLetter == 8) {
                 initialLetter = "ꝏ̄";
             }
@@ -474,7 +476,7 @@ function sectionHeader(useAlphabetical, thisWord, thisWordCount, currentFirstLet
         changeHeader = true;
         let countDiv = document.createElement("div");
         countDiv.style.fontSize = "24px";
-        countDiv.innerHTML = "<u><i><b>" + thisWordCount.toString() + "</b> tokens</i></u> ("  + wordCount.toString() + " words, " + tokenCount.toString() + " total tokens)<br>";
+        countDiv.innerHTML = "<u><i><b>" + thisWordCount.toString() + "</b> tokens</i></u> ("  + wordCount.toString() + " words)<br>";
 
         let clickableTriangle = document.createElement('span')
             clickableTriangle.innerHTML = ' ▶';
@@ -520,14 +522,14 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical, resultDiv)
         let wordCount = dictOfDicts[thisWord]["totalCount"];
 
         if (sortAlphabetical) {
-            let firstLetter = thisWord[0];
-            if (headerToWordListDict[firstLetter] === undefined) 
+            let cleanedFirstLetter = cleanDiacritics(thisWord[0]);
+            if (headerToWordListDict[cleanedFirstLetter] === undefined) 
             {
-                headerToWordListDict[firstLetter] = 0;
-                headerToTokenListDict[firstLetter] = 0;
+                headerToWordListDict[cleanedFirstLetter] = 0;
+                headerToTokenListDict[cleanedFirstLetter] = 0;
             } 
-            headerToWordListDict[firstLetter] += 1;
-            headerToTokenListDict[firstLetter] += wordCount;
+            headerToWordListDict[cleanedFirstLetter] += 1;
+            headerToTokenListDict[cleanedFirstLetter] += wordCount;
         } else {
             if (headerToWordListDict[wordCount] === undefined) {
                 headerToWordListDict[wordCount] = 0;
