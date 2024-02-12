@@ -313,6 +313,7 @@ function addClickableTriangle(unclickedColor, clickedColor, showSpanList, addFol
     let unClickedHTML = [" ▶", " ▶<br>"];
     let clickedHTML = [" ▼", " ▼<br>"];
     clickableTriangle.addEventListener("click", function() {
+        console.log("Clicked me!")
         for (let i = 0; i < showSpanList.length; i++) {
             showSpanList[i].hidden = !showSpanList[i].hidden;
         }
@@ -329,7 +330,6 @@ function addClickableTriangle(unclickedColor, clickedColor, showSpanList, addFol
 function createDivWithTriangle(topHTMLString, subDivList, minTriangleNum, triangleClickColor, alwaysAddBreak, afterEverySubDivString="", includingAtEnd=true) {
 
     let listContainer = document.createElement('span');
-
     for (let i = 0; i < subDivList.length; i++) {
         listContainer.appendChild(subDivList[i]);
         if (includingAtEnd || i < subDivList.length - 1){
@@ -344,6 +344,8 @@ function createDivWithTriangle(topHTMLString, subDivList, minTriangleNum, triang
     outputDiv.innerHTML = topHTMLString;
 
     let useTriangle = subDivList.length >= minTriangleNum;
+
+    console.log(useTriangle);
 
     if (useTriangle) {
         listContainer.hidden = true;
@@ -537,7 +539,7 @@ function getBookDivs(verseList, verseCount, word) {
         let thisBookString = "<i>" + thisBookName + "</i> ("
         thisBookString += thisBookTotalCount.toString() + "): ";
 
-        let thisBookDiv = createDivWithTriangle(thisBookString, allVerseSpanList, 31, "#00FF60", false, ", ", false);
+        let thisBookDiv = createDivWithTriangle(thisBookString, allVerseSpanList, 31, "#00FF60", true, ", ", false);
         thisBookDiv.style.marginLeft = "4em";
         thisBookDiv.style.display = "inline-block";
 
