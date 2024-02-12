@@ -398,17 +398,11 @@ function getVerseCodeSpan(verseList, verseCount, word) {
         if (dictOfDicts[verseDict["bookNum"]] === undefined) {
             dictOfDicts[verseDict["bookNum"]] = [verseDict];
             allBookList.push(verseDict["bookNum"]);
-
-            console.log(typeof verseDict["bookNum"]);
-
-            //console.log(word + ": " + verseDict["bookNum"].toString());
         } else {
             dictOfDicts[verseDict["bookNum"]].push(verseDict);
         }
     }
     allBookList.sort((a, b) => a - b);
-    console.log(word);
-    console.log(allBookList);
     for (let j=0; j < allBookList.length; j++) {
         let thisBookDictList = dictOfDicts[allBookList[j]];
         console.log(thisBookDictList);
@@ -420,8 +414,6 @@ function getVerseCodeSpan(verseList, verseCount, word) {
         
         let allAddresses = [];
         for (let k=0; k < thisBookDictList.length; k++) {
-
-
             let thisVerseDict = thisBookDictList[k];
             let thisVerseEdition = thisVerseDict["editionNum"];
             let thisVerseAddress = thisVerseDict["addressNum"];
@@ -587,7 +579,7 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical, resultDiv)
         outputSpan.hidden = true;
         outputSpanList.push(outputSpan);
 
-        let updatedHeaderList = sectionHeader(sortAlphabetical, word, totalCount, currentFirstLetter, lastWordCount, resultDiv, wordsWithThisHeader, headerToWordListDict, headerToTokenListDict, [outputSpan[-1]]);
+        let updatedHeaderList = sectionHeader(sortAlphabetical, word, totalCount, currentFirstLetter, lastWordCount, resultDiv, wordsWithThisHeader, headerToWordListDict, headerToTokenListDict, [outputSpanList[-1]]);
 
         resultDiv.appendChild(outputSpan);
         
