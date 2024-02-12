@@ -299,6 +299,8 @@ function decodeVerseCode(verseCode, verseCount) {
     finalDict["verseCount"] = parseInt(verseCount);
     finalDict["editionNum"] = parseInt(verseCode[0]);
     finalDict["bookNum"] = parseInt(verseCode.slice(1, 3));
+
+    console.log(verseCode.slice(1, 3))
     finalDict["addressNum"] = parseInt(verseCode.slice(3, 9));
     return finalDict;
 
@@ -390,7 +392,7 @@ function getVerseCodeSpan(verseList, verseCount, word) {
             dictOfDicts[verseDict["bookNum"]] = [verseDict];
             allBookList.push(verseDict["bookNum"]);
 
-            console.log(word + ": " + verseDict["bookNum"].toString());
+            //console.log(word + ": " + verseDict["bookNum"].toString());
         } else {
             dictOfDicts[verseDict["bookNum"]].push(verseDict);
         }
@@ -472,7 +474,6 @@ function sectionHeader(useAlphabetical, thisWord, thisWordCount, currentFirstLet
             firstLetterDiv.style.fontSize = "24px";
             firstLetterDiv.innerHTML = "<u><b><i>" + initialLetter + "</i></b></u> (" + wordCount.toString() + " words, " + tokenCount.toString() + " total tokens)";
             
-
             let clickableTriangle = addClickableTriangle("gray", "blue", showSpanList);
 
             firstLetterDiv.appendChild(clickableTriangle);
