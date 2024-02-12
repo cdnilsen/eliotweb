@@ -581,6 +581,9 @@ async function seeAllWords(fetchString, resultDiv, sortAlphabetical, sortByBook)
             "Content-type": "application/json; charset=UTF-8"
         }
     }).then(res => res.json()).then(res => {
+        if (res == []) {
+            resultDiv.innerHTML = "No words found, and/or you tried to search for fewer than three letters (restricted for now to prevent too much overloading).";
+        }
         getDictFromSearchOutput(res, resultDiv, sortAlphabetical, sortByBook);
     }).catch(err => console.error(err))
 }

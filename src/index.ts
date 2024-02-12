@@ -210,24 +210,29 @@ type searchDictList = wordSearchDict[];
 app.get('/getWords/:searchString/:searchSetting', wrapAsync(async (req, res) => {
     let searchString: string = req.params.searchString;
 
-    let searchSetting: string = req.params.searchSetting;
+    if (searchString.length < 3) {
+        res.json([]);
+    } else {
 
-    let matchingWordRows = await wordSearch(searchString, parseInt(searchSetting));
+        let searchSetting: string = req.params.searchSetting;
 
-    let outputList: searchDictList  = [];
+        let matchingWordRows = await wordSearch(searchString, parseInt(searchSetting));
 
-    for (let i = 0; i < matchingWordRows.length; i++) {
-        let row = matchingWordRows[i];
-        let outputDict: wordSearchDict = {};
+        let outputList: searchDictList  = [];
 
-        outputDict["word"] = row.word;
-        outputDict["totalCount"] = row.total_count;
-        outputDict["allVerses"] = row.addresses;
-        outputDict["allVerseCounts"] = row.verse_counts;
-        outputList.push(outputDict);
+        for (let i = 0; i < matchingWordRows.length; i++) {
+            let row = matchingWordRows[i];
+            let outputDict: wordSearchDict = {};
+
+            outputDict["word"] = row.word;
+            outputDict["totalCount"] = row.total_count;
+            outputDict["allVerses"] = row.addresses;
+            outputDict["allVerseCounts"] = row.verse_counts;
+            outputList.push(outputDict);
+        }
+
+        res.json(outputList);
     }
-
-    res.json(outputList);
     
 }));
 
