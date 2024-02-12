@@ -525,7 +525,6 @@ function getBookDivs(verseList, verseCount, word) {
 
             let verseInfo = processVerseCite(thisAddress, thisEditionList, thisCountList, thisDBCode, thisBookName, (l < allAddresses.length -1));
             
-            verseInfo[0].hidden = moreThan30Addresses;
             allVerseSpanList.push(verseInfo[0]);
             thisBookTotalCount += verseInfo[1];
         }
