@@ -410,6 +410,8 @@ function processVerseCite(addressNum, editionList, countList, dbCode, thisBookNa
         finalString += ", ";
     }
 
+    console.log(finalString);
+
     let newSpan = document.createElement("span");
     newSpan.classList.add("dotted-underline");
     newSpan.innerHTML = finalString;
@@ -422,8 +424,6 @@ function processVerseCite(addressNum, editionList, countList, dbCode, thisBookNa
     newSpan.addEventListener("click", async function() {
         showVersesInBox(newSpan, popupVerseBox, verseLinkNum, dbCode);
     });
-
-    newSpan.innerHTML = finalString;
 
     return [newSpan, totalCountVerse];
 
