@@ -425,7 +425,7 @@ function processVerseCite(addressNum, editionList, countList, dbCode, thisBookNa
 
 }
 
-function getVerseDivs(verseList, verseCount, word) {
+function getBookDivs(verseList, verseCount, word) {
     let allBookDivs = [];
 
     let dictOfDicts = {};
@@ -590,15 +590,20 @@ function processWordCites(word, totalCount, verseList, verseCountList) {
     let ligaturedWord = word.split('8').join('ꝏ̄');
     outputDiv.innerHTML = `<b>${ligaturedWord}</b> (${totalCount}):`
 
-    let verseDivInfo = getVerseDivs(verseList, verseCountList, word);
+    let bookDivInfo = getBookDivs(verseList, verseCountList, word);
+    let allBookDivs = bookDivInfo[0];
+    let useTriangle = bookDivInfo[1];
     
-    if (verseDivInfo[1]) {
-        let clickableTriangle = addClickableTriangle("gray", "blue", [verseDivInfo[0]]);
+    if (useTriangle) {
+        let clickableTriangle = addClickableTriangle("gray", "blue", allBookDivs);
         outputDiv.appendChild(clickableTriangle);
     }
     outputDiv.innerHTML += "<br>";
 
-    outputDiv.appendChild(verseDivInfo[0]);
+    for (let i = 0; i < allBookDivs.length; i++) {
+        let thisBookDiv = allBookDivs[i];
+        outputDiv.appendChild(thisBookDiv);
+    }
     //maybe these should be separate divs, who knows
     
     return outputDiv;
@@ -902,6 +907,7 @@ document.getElementById("searchButton").addEventListener("click", async function
     let fetchString = "/getWords/" + query + "/" + searchSetting.toString();
 
     let resultDiv = document.getElementById("results-container");
+
     await seeAllWords(fetchString, resultDiv, sortAlphabetical, sortByBook);
 
 });
