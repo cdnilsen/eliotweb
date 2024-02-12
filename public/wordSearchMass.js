@@ -296,7 +296,7 @@ function addClickableTriangle(unclickedColor, clickedColor, showSpanList, addFol
         followingBreak = "<br>";
     }
     let clickableTriangle = document.createElement('span')
-    clickableTriangle.innerHTML = ' ▶';
+    clickableTriangle.innerHTML = ' ▶' + followingBreak;
     clickableTriangle.style.color = unclickedColor;
     clickableTriangle.style.cursor = "pointer";
     clickableTriangle.addEventListener("click", function() {
