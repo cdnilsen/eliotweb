@@ -604,6 +604,7 @@ function processWordCites(word, totalCount, verseList, verseCountList) {
         let thisBookDiv = allBookDivs[i];
         outputDiv.appendChild(thisBookDiv);
     }
+    outputDiv.appendChild("<br>")
     //maybe these should be separate divs, who knows
     
     return outputDiv;
