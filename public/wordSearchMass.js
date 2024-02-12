@@ -596,17 +596,16 @@ function processWordCites(word, totalCount, verseList, verseCountList) {
     
     if (useTriangle) {
         let clickableTriangle = addClickableTriangle("gray", "blue", allBookDivs);
-        outputDiv.appendChild(clickableTriangle);
+        outputDiv.innerHTML += clickableTriangle;
     }
     outputDiv.innerHTML += "<br>";
-
+    
     for (let i = 0; i < allBookDivs.length; i++) {
         let thisBookDiv = allBookDivs[i];
         outputDiv.appendChild(thisBookDiv);
     }
+
     outputDiv.appendChild("<br>")
-    //maybe these should be separate divs, who knows
-    
     return outputDiv;
 }
 
