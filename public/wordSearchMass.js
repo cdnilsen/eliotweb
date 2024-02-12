@@ -710,7 +710,7 @@ function sectionHeader(useAlphabetical, thisWord, thisWordCount, currentFirstLet
 
         firstLetterDiv.innerHTML = getHeaderText(wordCount, tokenCount, true, cleanedFirstLetter);
         
-        let clickableTriangle = addClickableTriangle("gray", "blue", showSpanList);
+        let clickableTriangle = addClickableTriangle("gray", "blue", showSpanList, true);
 
         firstLetterDiv.appendChild(clickableTriangle);
         resultDiv.appendChild(firstLetterDiv);
