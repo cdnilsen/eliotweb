@@ -291,8 +291,8 @@ function addClickableTriangle(unclickedColor, clickedColor, showSpanList) {
     return clickableTriangle;
 }
 
-//Returns a dictionary with the info about this verse
-function decodeVerseCode(verseCode, verseCount) {
+//Returns a dictionary with the info about this verse. Calls 'word' to debug position of Deuteronomy
+function decodeVerseCode(verseCode, verseCount, word) {
     //Examples of verse codes: 225003010, 325003010, 219104022. The first digit is the edition number, the next two are the book number, the next three are the chapter number, and the last three are the verse number. Note that both verseCode and verseCount are lists of strings.
     
     let finalDict = {};
@@ -300,7 +300,7 @@ function decodeVerseCode(verseCode, verseCount) {
     finalDict["editionNum"] = parseInt(verseCode[0]);
     finalDict["bookNum"] = parseInt(verseCode.slice(1, 3));
 
-    console.log(verseCode.slice(1, 3))
+    console.log(word + ": " + verseCode.slice(1, 3))
     finalDict["addressNum"] = parseInt(verseCode.slice(3, 9));
     return finalDict;
 
@@ -386,7 +386,7 @@ function getVerseCodeSpan(verseList, verseCount, word) {
     let allBookList = [];
     
     for (let i = 0; i < verseList.length; i++) {
-        let verseDict = decodeVerseCode(verseList[i], verseCount[i]);
+        let verseDict = decodeVerseCode(verseList[i], verseCount[i], word);
 
         if (dictOfDicts[verseDict["bookNum"]] === undefined) {
             dictOfDicts[verseDict["bookNum"]] = [verseDict];
@@ -541,8 +541,10 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical, resultDiv)
     }
 
 
-    let outputSpanList = [];
+    //let outputSpanDict = {};
+    
     for (let j=0; j < wordList.length; j++) {
+        let outerSpanList = [];
         let word = wordList[j];
         let wordDict = dictOfDicts[word];
         let totalCount = wordDict["totalCount"];
@@ -555,7 +557,6 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical, resultDiv)
         outputSpan.id = "word-" + word;
         outputSpan.hidden = true;
         outputSpanList.push(outputSpan);
-        
 
         let updatedHeaderList = sectionHeader(sortAlphabetical, word, totalCount, currentFirstLetter, lastWordCount, resultDiv, wordsWithThisHeader, headerToWordListDict, headerToTokenListDict, outputSpanList);
 
@@ -568,9 +569,9 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical, resultDiv)
         if (updatedHeaderList[2]) {
             wordsWithThisHeader = 0;
         }
-        wordsWithThisHeader += 1;
-         
+        wordsWithThisHeader += 1; 
     }
+
     topSpan.innerHTML = `Found <b><u>${totalTokens}</u></b> tokens, representing <b><u>${totalWords}</u></b> distinct words.`;
     topSpan.style.fontSize = "32px";
     topDiv.appendChild(topSpan);
