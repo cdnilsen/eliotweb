@@ -408,6 +408,7 @@ function processVerseCite(addressNum, editionList, countList, dbCode, thisBookNa
 
     let newSpan = document.createElement("span");
     newSpan.classList.add("dotted-underline");
+    newSpan.innerHTML = finalString;
 
     let popupVerseBox = document.createElement("div");
     popupVerseBox.classList.add("popup-verse-box");
@@ -498,11 +499,10 @@ function getVerseDivs(verseList, verseCount, word) {
             thisBookDiv.appendChild(thisVerseSpan); 
         }
         //Check order here
-        thisBookString += thisBookTotalCount.toString() + "): ";
+        thisBookString += thisBookTotalCount.toString() + "):<br>";
         thisBookDiv.innerHTML = thisBookString;
         topDiv.appendChild(thisBookDiv);
     }
-
     let needTriangle = (allBookList.length > 5);
     return [topDiv, needTriangle]; 
 }
