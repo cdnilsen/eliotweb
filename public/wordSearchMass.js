@@ -611,7 +611,7 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical, resultDiv)
         outputSpan.hidden = true;
         outputSpanList.push(outputSpan);
 
-        let updatedHeaderList = sectionHeader(sortAlphabetical, word, totalCount, currentFirstLetter, lastWordCount, resultDiv, wordsWithThisHeader, headerToWordListDict, headerToTokenListDict, [outputSpanList[-1]]);
+        let updatedHeaderList = sectionHeader(sortAlphabetical, word, totalCount, currentFirstLetter, lastWordCount, resultDiv, wordsWithThisHeader, headerToWordListDict, headerToTokenListDict, [outputSpanList.slice(-1)]);
 
         resultDiv.appendChild(outputSpan);
         
