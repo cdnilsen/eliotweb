@@ -276,7 +276,7 @@ function populateColumns(popupDiv, editionNum, allVerseList) {
 }
 
 //Address num probably not needed here
-async function showVersesInBox(parentSpan, popupDiv, editionNum, dbCode) {
+async function showVersesInBox(popupDiv, editionNum, dbCode) {
 
     console.log("Show verses in box was called!");
     let fetchString = "/fetchVerse/" + dbCode.toString() + "/" + editionNum.toString();
