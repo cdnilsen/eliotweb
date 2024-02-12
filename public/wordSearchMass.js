@@ -522,12 +522,12 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical, resultDiv)
             headerToWordListDict[firstLetter] += 1;
             headerToTokenListDict[firstLetter] += wordCount;
         } else {
-            if (headerToWordListDict[thisCount] === undefined) {
-                headerToWordListDict[thisCount] = 0;
-                headerToTokenListDict[thisCount] = 0;
+            if (headerToWordListDict[wordCount] === undefined) {
+                headerToWordListDict[wordCount] = 0;
+                headerToTokenListDict[wordCount] = 0;
             } 
-            headerToWordListDict[thisCount] += 1;
-            headerToTokenListDict[thisCount] += wordCount;
+            headerToWordListDict[wordCount] += 1;
+            headerToTokenListDict[wordCount] += wordCount;
         }
     }
 
