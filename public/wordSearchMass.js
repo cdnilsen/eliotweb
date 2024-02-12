@@ -316,7 +316,7 @@ function getCiteSuffix(editionList, countList) {
 function getAddressString(addressNum) {
     let splitAddress = [];
     //Necessary for the Psalms, where they may be no zero a 0 in the address. Spaghetti as hell so fix later
-    if (addressNum.includes("0")) {
+    if (addressNum.toString().includes("0")) {
         splitAddress = addressNum.toString().split("0");
     } else {
         return addressNum.toString().slice(0, 3) + ":" + (parseInt(addressNum.toString().slice(3, 6))).toString();
