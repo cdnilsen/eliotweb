@@ -362,7 +362,7 @@ async function runCorrespondences() {
         }
     }).then(res => res.json()).then(res => console.log(res)).catch(err => console.error(err));
     
-    document.getElementById("text-container").appendChild(newSpan);
+    //document.getElementById("text-container").appendChild(newSpan);
 }
 
 function getBookToNumDict(bookList) {
