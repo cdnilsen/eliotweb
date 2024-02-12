@@ -497,12 +497,14 @@ function getVerseDivs(verseList, verseCount, word) {
             thisBookTotalCount += verseInfo[1];
             thisBookDiv.appendChild(thisVerseSpan); 
         }
+        //Check order here
         thisBookString += thisBookTotalCount.toString() + "): ";
         thisBookDiv.innerHTML = thisBookString;
         topDiv.appendChild(thisBookDiv);
     }
-    return topDiv;
-    
+
+    let needTriangle = (allBookList.length > 5);
+    return [topDiv, needTriangle]; 
 }
 
 function getVerseCodeSpan(verseList, verseCount, word) {
@@ -573,7 +575,6 @@ function getVerseCodeSpan(verseList, verseCount, word) {
             verseCiteString += verseInfo[0];
             totalBookCount += verseInfo[1];
         }
-
         bookString += totalBookCount.toString() + "): " + verseCiteString.slice(0, -2) + "</span><br>";
         verseCodeText += bookString;
     }
@@ -585,17 +586,11 @@ function processWordCites(word, totalCount, verseList, verseCountList) {
     let ligaturedWord = word.split('8').join('ꝏ̄');
     outputDiv.innerHTML = `<b>${ligaturedWord}</b> (${totalCount}): `
 
-    let verseSpans = getVerseDivs(verseList, verseCountList, word);
+    let verseDivInfo = getVerseDivs(verseList, verseCountList, word);
+    outputDiv.appendChild(verseDivInfo[0]);
 
-    if (verseSpans.length > 5) {
-        for (let i=0; i < verseSpans.length; i++) {
-            verseSpans[i].hidden = true;
-        }
-        outputDiv.appendChild(addClickableTriangle("gray", "red", verseSpans));
-    }
-
-    for (let j=0; j < verseSpans.length; j++) {
-        outputDiv.appendChild(verseSpans[j]);
+    if (verseDivInfo[1]) {
+        let clickableTriangle = addClickableTriangle("gray", "blue", [verseDivInfo[0]]);
     }
     //maybe these should be separate divs, who knows
     
