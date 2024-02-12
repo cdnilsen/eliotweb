@@ -466,10 +466,14 @@ function sectionHeader(useAlphabetical, thisWord, thisWordCount, currentFirstLet
     } else if (lastWordCount != thisWordCount) {
         wordCount = headerToWordListDict[thisWord[0]];
         tokenCount = headerToTokenListDict[thisWordCount];
+
+        console.log(wordCount);
+        console.log(tokenCount);
+        console.log(thisWordCount);
         changeHeader = true;
         let countDiv = document.createElement("div");
         countDiv.style.fontSize = "24px";
-        countDiv.innerHTML = "<u><i><b>" + thisWordCount + "</b> tokens</i></u> ("  + wordCount.toString() + " words, " + tokenCount.toString() + " total tokens)<br>";
+        countDiv.innerHTML = "<u><i><b>" + thisWordCount.toString() + "</b> tokens</i></u> ("  + wordCount.toString() + " words, " + tokenCount.toString() + " total tokens)<br>";
 
         let clickableTriangle = document.createElement('span')
             clickableTriangle.innerHTML = ' ▶';
