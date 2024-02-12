@@ -277,6 +277,8 @@ function populateColumns(popupDiv, editionNum, allVerseList) {
 
 //Address num probably not needed here
 async function showVersesInBox(parentSpan, popupDiv, editionNum, dbCode) {
+
+    console.log("Show verses in box was called");
     let fetchString = "/fetchVerse/" + dbCode.toString() + "/" + editionNum.toString();
     fetch(fetchString, {
         method: 'GET',
@@ -506,9 +508,7 @@ function getBookDivs(verseList, verseCount, word) {
         //Check order here
         thisBookString += thisBookTotalCount.toString() + "): ";
 
-        for (let m = 0; m < allVerseSpanList.length; m++) {
-            spanOfSpans.appendChild(allVerseSpanList[m]);
-        }
+        
         
         if (allAddresses.length > 30) {
             spanOfSpans.hidden = true;
@@ -519,8 +519,12 @@ function getBookDivs(verseList, verseCount, word) {
             thisBookDiv.innerHTML = thisBookString;
         }
 
-        thisBookDiv.appendChild(spanOfSpans);
+        for (let m = 0; m < allVerseSpanList.length; m++) {
+            spanOfSpans.appendChild(allVerseSpanList[m]);
+        }
+
         thisBookDiv.innerHTML += "<br>";
+        thisBookDiv.appendChild(spanOfSpans);
         allBookDivs.push(thisBookDiv);
     }
     let needTriangle = false;
