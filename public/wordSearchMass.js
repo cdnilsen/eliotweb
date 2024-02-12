@@ -326,7 +326,7 @@ function addClickableTriangle(unclickedColor, clickedColor, showSpanList, addFol
     return clickableTriangle;
 }
 
-function createDivWithTriangle(topHTMLString, subDivList, minTriangleNum, triangleClickColor, alwaysAddBreak) {
+function createDivWithTriangle(topHTMLString, subDivList, minTriangleNum, triangleClickColor, alwaysAddBreak, afterEverySubDivString="", includingAtEnd=true) {
     let outputDiv = document.createElement("div");
     outputDiv.innerHTML = topHTMLString;
 
@@ -342,6 +342,9 @@ function createDivWithTriangle(topHTMLString, subDivList, minTriangleNum, triang
 
     for (let i = 0; i < subDivList.length; i++) {
         outputDiv.appendChild(subDivList[i]);
+        if (includingAtEnd || i < subDivList.length - 1){
+            outputDiv.innerHTML += afterEverySubDivString;
+        }
         if (alwaysAddBreak) {
             outputDiv.innerHTML += "<br>";
         }
@@ -439,10 +442,6 @@ function processVerseCite(addressNum, editionList, countList, dbCode, thisBookNa
 
     let finalString = prefix + address + suffix;
 
-    if (notLastCite) {
-        finalString += ", ";
-    }
-
     let newSpan = document.createElement("span");
     newSpan.classList.add("dotted-underline");
     newSpan.innerHTML = finalString;
@@ -529,6 +528,7 @@ function getBookDivs(verseList, verseCount, word) {
             if (allAddresses.length > 30) {
                 verseInfo[0].hidden = true;
             }
+
             allVerseSpanList.push(verseInfo[0]);
             thisBookTotalCount += verseInfo[1];
         }
@@ -536,7 +536,7 @@ function getBookDivs(verseList, verseCount, word) {
         let thisBookString = "<i>" + thisBookName + "</i> ("
         thisBookString += thisBookTotalCount.toString() + "): ";
 
-        let thisBookDiv = createDivWithTriangle(thisBookString, allVerseSpanList, 31, "#00FF60", false);
+        let thisBookDiv = createDivWithTriangle(thisBookString, allVerseSpanList, 31, "#00FF60", false, ", ", false);
         thisBookDiv.style.marginLeft = "4em";
         thisBookDiv.style.display = "inline-block";
 
@@ -628,7 +628,7 @@ function processWordCites(word, totalCount, verseList, verseCountList) {
 
     let allBookDivs = getBookDivs(verseList, verseCountList, word);
 
-    let outputDiv = createDivWithTriangle(topString, allBookDivs, 6, "blue", true);
+    let outputDiv = createDivWithTriangle(topString, allBookDivs, 6, "blue");
     return outputDiv
     /*
     if (useTriangle) {
