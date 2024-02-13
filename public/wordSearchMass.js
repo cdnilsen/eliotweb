@@ -639,9 +639,7 @@ function processBookData(bookDataList, bookHTMLSpan, bookName) {
 
 function addVersesToBookSpan(verseTextList, word, book) {
     let verseCiteContainer = document.createElement("span");   
-    verseCiteContainer.id = "word-" + word + "-book-" + book + "-cites";
-    verseCiteContainer.innerHTML = "<br>";
-    
+    verseCiteContainer.id = "word-" + word + "-book-" + book + "-cites";    
     for (let i=0; i < verseTextList.length; i++) {
         let thisVerseSpan = document.createElement("span");
         thisVerseSpan.innerHTML = verseTextList[i];
@@ -714,13 +712,9 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
             let thisWordDiv = document.createElement("div");
 
             if (totalCount > 1) {
-                thisWordDiv.innerHTML = `<br><b>${ligaturedWord}</b> (${totalCount}): `;
+                thisWordDiv.innerHTML = `<b>${ligaturedWord}</b> (${totalCount}): `;
             } else {
-                thisWordDiv.innerHTML = `<br><b>${ligaturedWord}</b>: `;
-            }
-
-            if (allBookNums.length < 6) {
-                thisWordDiv.innerHTML += "<br>";
+                thisWordDiv.innerHTML = `<b>${ligaturedWord}</b>: `;
             }
             
             thisWordDiv.style.fontSize = "16px";
@@ -728,7 +722,6 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
             let allBooksContainer = document.createElement("span");
             allBooksContainer.id = thisWord + "-books-container";
             allBooksContainer.classList.add("textTab");
-            allBooksContainer.innerHTML = "<br>";
             let bookCountDict = {};
             for (let k=0; k < allBookNums.length; k++) {
                 let thisBookSpan = document.createElement("span");
@@ -737,7 +730,7 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
 
                 thisBookSpan.id = "word-" + thisWord + "-book-" + thisBookName;
 
-                thisBookSpan.innerHTML = "<br><i>" + thisBookName;
+                thisBookSpan.innerHTML = "<i>" + thisBookName;
 
                 let thisBookData = allBookToVerseDict[thisBookNum];
                 
@@ -757,8 +750,10 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
                 */
 
                 triangleSandwich(allBooksContainer, thisBookSpan, verseCiteContainer, verseTextList.length > 30, "red", false, false);
+                thisBookSpan.innerHTML += "<br>";
             }
             triangleSandwich(headerResultsDiv, thisWordDiv, allBooksContainer, allBookNums.length > 5, "#00FF50", false, false);
+            allBooksContainer.innerHTML += "<br>";
         }
         triangleSandwich(resultDiv, thisHeaderDiv, headerResultsDiv, true, "blue", false, false);
     }
