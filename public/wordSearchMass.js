@@ -291,40 +291,6 @@ async function showVersesInBox(popupDiv, editionNum, dbCode) {
     });
 }
 
-
-function addClickableTriangle(unclickedColor, clickedColor, spanContainer, addFollowingBreak) {  
-    let followingBreak = ""
-    if (addFollowingBreak) {
-        followingBreak = "<br>";
-    }
-    let clickableTriangle = document.createElement('span')
-    clickableTriangle.innerHTML = ' ▶' + followingBreak;
-    clickableTriangle.style.color = unclickedColor;
-    clickableTriangle.style.cursor = "pointer";
-
-    let htmlToggleDict = {
-        " ▶": " ▼",
-        " ▼": " ▶",
-        " ▶<br>": " ▼<br>",
-        " ▼<br>": " ▶<br>"
-    }
-
-    let unClickedHTML = [" ▶", " ▶<br>"];
-    let clickedHTML = [" ▼", " ▼<br>"];
-
-    clickableTriangle.addEventListener("click", function() {
-        console.log("Clicked me!")
-        spanContainer.hidden = !spanContainer.hidden;
-        if (unClickedHTML.includes(clickableTriangle.innerHTML)) {
-            clickableTriangle.style.color = clickedColor;
-        } else {
-            clickableTriangle.style.color = unclickedColor;
-        }
-        clickableTriangle.innerHTML = htmlToggleDict[clickableTriangle.innerHTML];
-    });
-    return clickableTriangle;
-}
-
 //Returns a dictionary with the info about this verse. Calls 'word' to debug position of Deuteronomy
 function decodeVerseCode(verseCode, verseCount, word) {
     //Examples of verse codes: 225003010, 325003010, 219104022. The first digit is the edition number, the next two are the book number, the next three are the chapter number, and the last three are the verse number. Note that both verseCode and verseCount are lists of strings.
@@ -439,6 +405,34 @@ function getBooks(verseList, verseCount, word) {
     }
     allBooks.sort((a, b) => a - b);
     return [allBooks, dictOfDicts];
+}
+
+function addClickableTriangle(unclickedColor, clickedColor, spanContainer, addFollowingBreak) {  
+    let followingBreak = ""
+    if (addFollowingBreak) {
+        followingBreak = "<br>";
+    }
+    let clickableTriangle = document.createElement('span')
+    clickableTriangle.innerHTML = ' ▶' + followingBreak;
+    clickableTriangle.style.color = unclickedColor;
+    clickableTriangle.style.cursor = "pointer";
+    let htmlToggleDict = {
+        " ▶": " ▼",
+        " ▼": " ▶",
+        " ▶<br>": " ▼<br>",
+        " ▼<br>": " ▶<br>"
+    }
+    let unClickedHTML = [" ▶", " ▶<br>"];
+    clickableTriangle.addEventListener("click", function() {
+        spanContainer.hidden = !spanContainer.hidden;
+        if (unClickedHTML.includes(clickableTriangle.innerHTML)) {
+            clickableTriangle.style.color = clickedColor;
+        } else {
+            clickableTriangle.style.color = unclickedColor;
+        }
+        clickableTriangle.innerHTML = htmlToggleDict[clickableTriangle.innerHTML];
+    });
+    return clickableTriangle;
 }
 
 function appendToContainer(parentContainer, childContainer, useTriangle, triangleClickColor, alwaysAddBreak) {
@@ -779,7 +773,6 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
                     let thisVerseCounts = [];
                 
                     //Turn this into a function later lol
-                    let justOneEdition = true;
                     let everythingEqualsOne = true;
                     let allCountsEqual = true;
                     let mostRecentCount = 0;
@@ -792,7 +785,6 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
                                 everythingEqualsOne = false;
                             }
                             if (n != 0) {
-                                justOneEdition = false;
                                 if (thisCount != mostRecentCount) {
                                     allCountsEqual = false;
                                 }
@@ -800,6 +792,8 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
                             mostRecentCount = thisCount;
                         }
                     }
+
+                    let justOneEdition = thisVersePrimes.length == 1;
 
                     let suffix = "";
                     if ((allCountsEqual || justOneEdition) && everythingEqualsOne) {
