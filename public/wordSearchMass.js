@@ -650,6 +650,8 @@ function processWordCites(word, totalCount, verseList, verseCountList) {
 
     let outputDiv = document.createElement('div');
     outputDiv.innerHTML = topString;
+
+    let useTriangle = allBookDivs.length > 5;
     if (useTriangle) {
         let clickableTriangle = addClickableTriangle("gray", "blue", allBookDivs, false);
         outputDiv.appendChild(clickableTriangle);
