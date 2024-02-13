@@ -1035,9 +1035,11 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
                 }
 
                 if (thisBookNum == 2) {
-                    let thisVerse = allVerses[m];
-                    console.log(thisVerse);
-                    console.log(redoneDictionaries[thisVerse]);
+                    for (let m=0; m < allVerses.length; m++) {
+                        let thisVerse = allVerses[m];
+                        console.log(thisVerse);
+                        console.log(redoneDictionaries[thisVerse]);
+                    }
                 }
                 allBooksContainer.appendChild(thisBookSpan);
             }
