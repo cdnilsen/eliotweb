@@ -512,8 +512,6 @@ function getBookDivs(verseList, verseCount, word) {
 
         let thisBookSpan = document.createElement("span");
         thisBookSpan.innerHTML = thisBookString;
-        thisBookSpan.style.marginLeft = "4em";
-        thisBookSpan.style.display = "inline-block";
 
         let verseContainer = document.createElement("div");
         //HELL NO verseContainer.style.display = "inline-block";
@@ -619,7 +617,11 @@ function processWordCites(word, totalCount, verseList, verseCountList) {
     //console.log(allBookDivs)
 
     let outputDiv = document.createElement('div');
+    
     outputDiv.innerHTML = topString;
+    outputDiv.style.display = "inline-block";
+    outputDiv.style.marginLeft = "4em";
+    
     let useTopTriangle = allBookDivs.length > 5;
 
     for (let i = 0; i < allBookDivs.length; i++) {
