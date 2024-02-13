@@ -635,9 +635,6 @@ function processWordCites(word, totalCount, verseList, verseCountList) {
         }
         thisBookDiv.appendChild(allVerseContainers[i]);
         thisBookDiv.innerHTML += "<br>";
-        if (useTopTriangle) {
-            thisBookDiv.hidden = true;
-        }
     }
 
     if (useTopTriangle) {
