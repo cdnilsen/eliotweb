@@ -327,36 +327,6 @@ function addClickableTriangle(unclickedColor, clickedColor, showSpanList, addFol
     return clickableTriangle;
 }
 
-function createDivWithTriangle(parentDiv, topHTMLString, subDivList, minTriangleNum, triangleClickColor, alwaysAddBreak, afterEverySubDivString="", includingAtEnd=true) {
-
-    let listContainer = document.createElement('span');
-    for (let i = 0; i < subDivList.length; i++) {
-        listContainer.appendChild(subDivList[i]);
-        if (includingAtEnd || i < subDivList.length - 1){
-            listContainer.innerHTML += afterEverySubDivString;
-        }
-        if (alwaysAddBreak) {
-            listContainer.innerHTML += "<br>";
-        }
-    }
-
-    parentDiv.innerHTML = topHTMLString;
-
-    let useTriangle = subDivList.length >= minTriangleNum;
-
-    console.log(useTriangle);
-
-    if (useTriangle) {
-        listContainer.hidden = true;
-        let clickableTriangle = addClickableTriangle("gray", triangleClickColor, [listContainer], false);
-        parentDiv.appendChild(clickableTriangle);
-        parentDiv.innerHTML += "<br>";
-    } 
-
-    parentDiv.appendChild(listContainer);
-    return listContainer;
-}
-
 //Returns a dictionary with the info about this verse. Calls 'word' to debug position of Deuteronomy
 function decodeVerseCode(verseCode, verseCount, word) {
     //Examples of verse codes: 225003010, 325003010, 219104022. The first digit is the edition number, the next two are the book number, the next three are the chapter number, and the last three are the verse number. Note that both verseCode and verseCount are lists of strings.
@@ -471,6 +441,9 @@ function getBookDivs(verseList, verseCount, word) {
     let dictOfDicts = {};
     let allBookList = [];
 
+    let allVerseContainers = [];
+    let hasTriangleList = [];
+
     for (let i=0; i < verseList.length; i++) {
         let verseDict = decodeVerseCode(verseList[i], verseCount[i], word);
 
@@ -556,13 +529,15 @@ function getBookDivs(verseList, verseCount, word) {
             verseContainer.hidden = true;
             let thisTriangle = addClickableTriangle("grey", "#00FF50", [verseContainer], true);
             thisBookDiv.appendChild(thisTriangle);
-            thisBookDiv.appendChild(verseContainer);
+            hasTriangleList.push(true);
         } else {
-            thisBookDiv.appendChild(verseContainer);
+            hasTriangleList.push(false);
         }
+
         allBookDivs.push(thisBookDiv);
+        allVerseContainers.push(verseContainer);
     }
-    return allBookDivs; 
+    return [allBookDivs, allVerseContainers, hasTriangleList]; 
 }
 
 /*
@@ -646,7 +621,13 @@ function processWordCites(word, totalCount, verseList, verseCountList) {
     let ligaturedWord = word.split('8').join('ꝏ̄');
     let topString = `<b>${ligaturedWord}</b> (${totalCount}):`
 
-    let allBookDivs = getBookDivs(verseList, verseCountList, word);
+    let bookVerseDivs = getBookDivs(verseList, verseCountList, word);
+
+    let allBookDivs = bookVerseDivs[0];
+    let allVerseContainers = bookVerseDivs[1];
+    let allHasTriangle = bookVerseDivs[2];
+    console.log(allBookDivs)
+
 
     let outputDiv = document.createElement('div');
     outputDiv.innerHTML = topString;
@@ -662,7 +643,10 @@ function processWordCites(word, totalCount, verseList, verseCountList) {
     for (let i = 0; i < allBookDivs.length; i++) {
         let thisBookDiv = allBookDivs[i];
         outputDiv.appendChild(thisBookDiv);
-        outputDiv.innerHTML += "<br>";
+        if (allHasTriangle[i]) {
+            outputDiv.innerHTML += "<br>";
+        }
+        outputDiv.appendChild(allVerseContainers[i]);
     }
     return outputDiv;
 }
@@ -947,8 +931,6 @@ document.getElementById("searchButton").addEventListener("click", async function
     } else if (otherSearchSetting == "ends") {
         searchSetting *= 7;
     }
-
-    
 
     let query = document.getElementById("search_bar").value;
 
