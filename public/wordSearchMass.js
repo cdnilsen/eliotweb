@@ -615,6 +615,7 @@ function processWordCites(word, totalCount, verseList, verseCountList) {
     let allVerseContainers = bookVerseDivs[1];
     let allHasTriangle = bookVerseDivs[2];
     //console.log(allBookDivs)
+    console.log(allVerseContainers);
 
     let outputDiv = document.createElement('div');
     
@@ -628,7 +629,7 @@ function processWordCites(word, totalCount, verseList, verseCountList) {
     for (let i = 0; i < allBookDivs.length; i++) {
         let thisBookDiv = allBookDivs[i];
         if (allHasTriangle[i]) {
-            let clickableTriangle = addClickableTriangle("gray", "#FF0000", [allVerseContainers[i]], true);
+            let clickableTriangle = addClickableTriangle("gray", "#FF0000", allVerseContainers[i], true);
             thisBookDiv.appendChild(clickableTriangle);
             allVerseContainers[i].hidden = true;
             thisBookDiv.innerHTML += "<br>";
