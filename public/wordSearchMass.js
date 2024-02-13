@@ -1112,9 +1112,8 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
                     }
                 }
                 appendToContainer(thisBookSpan, thisBookVerseCiteContainer, allVerseTextList.length > 30, "blue");
+                allBooksContainer.appendChild(thisBookSpan);
             }
-            allBooksContainer.appendChild(thisBookSpan);
-            
             appendToContainer(thisWordDiv, allBooksContainer, allBookNums.length > 5, "blue");
 
             headerResultsDiv.appendChild(thisWordDiv);
