@@ -934,7 +934,7 @@ function getCountDictionaries(wordList, dictOfDicts, sortAlphabetical) {
     return [allHeaders, headerToWordListDict, headerToWordCountDict, headerToTokenCountDict, totalWords, totalTokens];
 }
 
-function processAllWordCites(wordList, dictOfDicts, sortAlphabetical, resultDiv) {
+function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
     //console.log(dictOfDicts);
     resultDiv.hidden = true;
     let totalWords = wordList.length;
@@ -1070,7 +1070,7 @@ function getDictFromSearchOutput(searchOutput, resultDiv, sortAlphabetical, sort
         }
     }
 
-    processAllWordCites(newWordList, dictOfDicts, sortAlphabetical, resultDiv);
+    processAllWordCites(newWordList, dictOfDicts, sortAlphabetical);
 }
 
 async function seeAllWords(fetchString, resultDiv, sortAlphabetical, sortByBook) {
