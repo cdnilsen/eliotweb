@@ -680,7 +680,7 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
         let headerResultsDiv = document.createElement("div");
         headerResultsDiv.id = "header-results-" + thisHeader;
 
-        wordList = headerToWordListDict[thisHeader];
+        let wordList = headerToWordListDict[thisHeader];
         
         for (let j=0; j < wordList.length; j++) {
             let thisWord = wordList[j];
