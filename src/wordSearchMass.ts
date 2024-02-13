@@ -15,6 +15,7 @@ export async function wordSearch(searchString: string, searchSetting: number) {
 
     searchString = searchString.split('(').join('');
     searchString = searchString.split(')').join('?');
+    console.log(searchString);
 
     let table: string = 'words_diacritics';
 
@@ -26,13 +27,13 @@ export async function wordSearch(searchString: string, searchSetting: number) {
     }
 
     if (searchSetting % 2 == 0) { // is exactly
-        queryString += wordString + " = $1::text"
+        queryString += wordString + " SIMILAR TO $1::text"
     } else if (searchSetting % 3 == 0) { // contains (placeholder)
-        queryString += wordString + " LIKE '%'||$1||'%'"
+        queryString += wordString + " SIMILAR TO '%'||$1||'%'"
     } else if (searchSetting % 5 == 0) { // starts with
-        queryString +=wordString +  " LIKE $1||'%'"
+        queryString +=wordString +  " SIMILAR TO $1||'%'"
     } else if (searchSetting % 7 == 0) { //  ends with
-        queryString += wordString + " LIKE '%'||$1" 
+        queryString += wordString + " SIMILAR TO '%'||$1" 
     }
 
     let allQuery = await pool.query(queryString, [searchString]);
