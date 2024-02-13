@@ -697,8 +697,7 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
 
             let allBooksContainer = document.createElement("span");
             allBooksContainer.id = thisWord + "-books-span";
-
-            allBooksContainer.style.indent = "4em";
+            allBooksContainer.style.textIndent = "4em";
             
             let bookCountDict = {};
             for (let k=0; k < allBookNums.length; k++) {
@@ -722,6 +721,7 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
             }
             triangleSandwich(headerResultsDiv, thisWordDiv, allBooksContainer, allBookNums.length > 5, "blue", true, true);
         }
+
         triangleSandwich(resultDiv, headerResultsDiv, thisHeaderDiv, true, "blue", true, true);
     }
     let totalWordCount = countData[4];
