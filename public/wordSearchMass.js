@@ -629,38 +629,35 @@ function getVerseCodeSpan(verseList, verseCount, word) {
 
 
 //Do this tomorrow. As far as I can tell, we're going to have to go bottom-up. First get the verse cites and check if there are too many of them to display without a triangle; if so, add the triangle. Then do the same with books. Because we want this to be fairly flexible it is probably best to rewrite it as a function that just takes lists of stuff to make spans and divs out of and then adds triangles to the parent if need be.
+function appendToContainer(container, spanList, useTriangle, triangleClickColor) {
+    if (useTriangle) {
+        let clickableTriangle = addClickableTriangle("gray", triangleClickColor, spanList, true);
+        container.appendChild(clickableTriangle);
+    }
+    for (let i=0; i < spanList.length; i++) {
+        if (useTriangle) {
+            spanList[i].hidden = true;
+        }
+        container.appendChild(spanList[i]);
+    }
+}
+
+
 function processWordCites(word, totalCount, verseList, verseCountList) {
     let ligaturedWord = word.split('8').join('ꝏ̄');
     let topString = `<b>${ligaturedWord}</b> (${totalCount}): `
 
+    let wordDiv = document.createElement("div");
+    wordDiv.innerHTML = topString;
+
     let books = getBooks(verseList, verseCountList, word);
+    let bookList = books[0];
 
-    let allBookDivs = books[0];
-    let allVerseContainers = books[1];
-    //console.log(allBookDivs)
-    //console.log(allVerseContainers);
+    let useTriangle = bookList.length > 5;
 
-    let outputDiv = document.createElement('div');
-    
-    outputDiv.innerHTML = topString;
-    outputDiv.style.marginLeft = "4em";
-    for (let i=0; i < allBookDivs.length; i++) {
-        let useTopTriangle = allBookDivs.length > 5;
+    appendToContainer(wordDiv, bookList, useTriangle, "blue");
 
-        if (useTopTriangle) {
-            let clickableTriangle = addClickableTriangle("gray", "blue", allBookDivs, false);
-            outputDiv.appendChild(clickableTriangle);
-            outputDiv.innerHTML += "<br>";
-        }
-
-        for (let i=0; i < allBookDivs.length; i++) {
-            let thisBookDiv = allBookDivs[i];
-            console.log(thisBookDiv);
-            thisBookDiv.hidden = useTopTriangle;
-            outputDiv.appendChild(thisBookDiv);
-        }
-    }
-    return outputDiv;
+    return wordDiv;
 }
 
     /*
