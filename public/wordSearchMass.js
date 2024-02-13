@@ -631,7 +631,7 @@ function processBookData(bookDataList, bookHTMLSpan, bookName) {
     let totalCountString = totalCount.toString();
 
     if (totalCount > 1) {
-        bookHTMLSpan.innerHTML += `</i> (<sup>V</sup>${verseCountString}/<sup>T</sup>${totalCountString}): `;
+        bookHTMLSpan.innerHTML += `</i> (${totalCountString}): `;
     } else {
         bookHTMLSpan.innerHTML += ":</i> ";
     }
@@ -741,6 +741,9 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
                 let verseCiteContainer = addVersesToBookSpan(verseTextList, thisWord, thisBookName);
 
                 triangleSandwich(allBooksContainer, thisBookSpan, verseCiteContainer, verseTextList.length > 30, "blue", false, true);
+                if (verseTextList.length > 1) {
+                    verseCiteContainer.innerHTML += `(${verseTextList.length} vv.)`;
+                }
             }
             triangleSandwich(headerResultsDiv, thisWordDiv, allBooksContainer, allBookNums.length > 5, "blue", true, false);
         }
