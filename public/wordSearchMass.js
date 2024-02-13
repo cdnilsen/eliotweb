@@ -991,7 +991,6 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
             let bookCountDict = {};
             for (let k=0; k < allBookNums.length; k++) {
                 let thisBookSpan = document.createElement("span");
-
                 let thisBookNum = allBookNums[k];
                 let thisBookName = topBookList[thisBookNum - 1];
 
@@ -1003,7 +1002,7 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
                 
                 thisBookData.sort((a, b) => a["dbVerseCode"] - b["dbVerseCode"]
                 );
-                console.log(thisBookData);
+                //console.log(thisBookData);
 
                 
 
@@ -1038,27 +1037,89 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
                     redoneDictionaries[thisAddress][thisEdition] = thisCount;
                 }
 
-                if (thisBookNum == 2) {
-                    for (let m=0; m < allVerses.length; m++) {
-                        let thisVerse = allVerses[m];
-                        console.log(thisVerse);
-                        console.log(redoneDictionaries[thisVerse]);
-                    }
-                }
-
                 thisBookSpan.innerHTML += thisBookCount.toString() + "): ";
                 thisBookSpan.innerHTML += "<br>";
 
-                allBooksContainer.appendChild(thisBookSpan);
-            }
+                let allVerseTextList = [];
+                for (let m=0; m < allVerses.length; m++) {
+                    let thisVerse = allVerses[m];
+                    let thisVerseData = redoneDictionaries[thisVerse];
 
+                    let editionNum = thisVerseData["allEditions"];
+                    if (thisBookName == "Genesis") {
+                        editionNum *= 11;
+                    } else if (thisBookName == "Psalms (prose)" || thisBookName == "John") {
+                        editionNum *= 13;
+                    }
+                    let prefix = editionToSuperscriptDict[editionNum];
+
+                    let allEditionPrimes = [2, 3, 5, 7];
+                    let thisVersePrimes = [];
+                    let thisVerseCounts = [];
+                    let pastOneVerse = false;
+
+                    //Turn this into a function later lol
+                    let everythingEqualsOne = true;
+                    let allCountsEqual = true;
+                    let mostRecentCount = 0;
+                    for (let n=0; n < allEditionPrimes.length; n++) {
+                        if (thisVerseData[allEditionPrimes[n]] != undefined) {
+                            let thisCount = thisVerseData[allEditionPrimes[n]];
+                            thisVersePrimes.push(allEditionPrimes[n]);
+                            thisVerseCounts.push(thisCount);
+                            if (thisCount != 1) {
+                                everythingEqualsOne = false;
+                            }
+                            if (n != 0) {
+                                pastOneVerse = true;
+                                if (thisCount != mostRecentCount) {
+                                    allCountsEqual = false;
+                                }
+                            }
+                            mostRecentCount = thisCount;
+                        }
+                    }
+
+                    let suffix = "";
+                    if (allCountsEqual && everythingEqualsOne) {
+                        suffix == "";
+                    } else if (allCountsEqual) {
+                        suffix = "(" + mostRecentCount.toString() + ")";
+                    } else {
+                        for (let o=0; o < thisVersePrimes.length; o++) {   
+                            suffix = "(";
+                            suffix += editionToSuperscriptDict[thisVersePrimes[o]];
+                            suffix += thisVerseCounts[o].toString();
+                            if (o != thisVersePrimes.length -1) {
+                                suffix += "/";
+                            }
+                            suffix += ")"
+                        }                      
+                    }
+
+                    let finalString = prefix + thisVerse + suffix;
+                    allVerseTextList.push(finalString);
+                }
+
+                let thisBookVerseCiteContainer = document.createElement("span");
+                for (let p=0; p < allVerseTextList.length; p++) {
+                    let thisVerseSpan = document.createElement("span");
+                    thisVerseSpan.innerHTML = allVerseTextList[p];
+                    thisVerseSpan.classList.add("dotted-underline");
+                    thisBookVerseCiteContainer.appendChild(thisVerseSpan);
+                    if (p != allVerseTextList.length - 1) {
+                        thisBookVerseCiteContainer.innerHTML += ", ";
+                    }
+                }
+                appendToContainer(thisBookSpan, thisBookVerseCiteContainer, allVerseTextList.length > 30, "blue");
+            }
+            allBooksContainer.appendChild(thisBookSpan);
+            
             appendToContainer(thisWordDiv, allBooksContainer, allBookNums.length > 5, "blue");
 
             headerResultsDiv.appendChild(thisWordDiv);
-
         }
         appendToContainer(thisHeaderDiv, headerResultsDiv, true, "blue");
-
         document.getElementById("results-container").appendChild(thisHeaderDiv);
     }
     let totalWordCount = countData[4];
