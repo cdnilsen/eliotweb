@@ -646,9 +646,8 @@ function processWordCites(word, totalCount, verseList, verseCountList) {
     for (let i = 0; i < allBookDivs.length; i++) {
         let thisBookDiv = allBookDivs[i];
         outputDiv.appendChild(thisBookDiv);
+        console.log(thisBookDiv);
     }
-    
-
     outputDiv.innerHTML += "<br>";
 
     return outputDiv;
