@@ -627,18 +627,15 @@ function processBookData(bookDataList, bookHTMLSpan, bookName) {
         redoneDictionaries[thisAddress]["allEditions"] *= thisEdition;
         redoneDictionaries[thisAddress][thisEdition] = thisCount;
     }
-    console.log(allVerses);
-
     let verseCountString = allVerses.length.toString();
     let totalCountString = totalCount.toString();
+
     if (totalCount > 1) {
-        bookHTMLSpan.innerHTML += ` (<sup>V</sup>${verseCountString}/<sup>T</sup>${totalCountString}): `;
+        bookHTMLSpan.innerHTML += `</i> (<sup>V</sup>${verseCountString}/<sup>T</sup>${totalCountString}): `;
     } else {
-        bookHTMLSpan.innerHTML += ": ";
+        bookHTMLSpan.innerHTML += ":</i> ";
     }
-
     return getVerseCiteSpans(allVerses, redoneDictionaries, bookName);
-
 }
 
 function addVersesToBookSpan(verseTextList, word, book) {
@@ -722,7 +719,6 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
 
             let allBooksContainer = document.createElement("span");
             allBooksContainer.id = thisWord + "-books-container";
-            allBooksContainer.style.textIndent = "4em";
             
             let bookCountDict = {};
             for (let k=0; k < allBookNums.length; k++) {
@@ -732,7 +728,7 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
 
                 thisBookSpan.id = "word-" + thisWord + "-book-" + thisBookName;
 
-                thisBookSpan.innerHTML = "<i>" + thisBookName + "</i>";
+                thisBookSpan.innerHTML = "<i>" + thisBookName;
 
                 //thisBookSpan.style.textIndent = "4em";
 
