@@ -516,7 +516,7 @@ function getBookDivs(verseList, verseCount, word) {
         thisBookDiv.style.display = "inline-block";
 
         let verseContainer = document.createElement("div");
-        verseContainer.style.display = "inline-block";
+        //HELL NO verseContainer.style.display = "inline-block";
 
         for (let i=0; i < allVerseSpanList.length; i++) {
             verseContainer.appendChild(allVerseSpanList[i]);
