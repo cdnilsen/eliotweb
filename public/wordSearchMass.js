@@ -448,7 +448,9 @@ function appendToContainer(parentContainer, childContainer, useTriangle, triangl
 
 function triangleSandwich(grandparentContainer, parentContainer, childContainer, useTriangle, triangleClickColor, breakAfterChild, breakAfterParent) {
     appendToContainer(parentContainer, childContainer, useTriangle, triangleClickColor, breakAfterChild);
+
     grandparentContainer.appendChild(parentContainer);
+    
     if (breakAfterParent) {
         grandparentContainer.innerHTML += "<br>";
     }
@@ -625,8 +627,7 @@ function processBookData(bookDataList, bookHTMLSpan, bookName) {
 }
 
 function addVersesToBookSpan(verseTextList, word, book) {
-    let verseCiteContainer = document.createElement("span");
-    
+    let verseCiteContainer = document.createElement("span");   
     verseCiteContainer.id = "word-" + word + "-book-" + book + "-cites";
     
     for (let i=0; i < verseTextList.length; i++) {
@@ -724,6 +725,7 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
             triangleSandwich(headerResultsDiv, thisWordDiv, allBooksContainer, allBookNums.length > 5, "blue", true, true);
         }
         triangleSandwich(resultDiv, headerResultsDiv, thisHeaderDiv, true, "blue", true, true);
+        thisHeaderDiv.hidden = false;
     }
     let totalWordCount = countData[4];
     let totalTokenCount = countData[5];
