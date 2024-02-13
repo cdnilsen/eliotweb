@@ -1002,6 +1002,8 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
 
             appendToContainer(thisWordDiv, thisWordDaughterSpan, allBookNums.length > 5, "blue");
 
+            headerResultsDiv.appendChild(thisWordDiv);
+
         }
         appendToContainer(thisHeaderDiv, headerResultsDiv, true, "blue");
 
@@ -1010,7 +1012,7 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
     let totalWordCount = countData[4];
     let totalTokenCount = countData[5];
 
-    topDiv.style.fontSize = "24px";
+    topDiv.style.fontSize = "30px";
     topDiv.innerHTML = `Found <b><u>${totalTokenCount}</u></b> tokens, representing <b><u>${totalWordCount}</u></b> distinct words.`;
 }
 
