@@ -13,6 +13,9 @@ export async function wordSearch(searchString: string, searchSetting: number) {
 
     searchString = searchString.split('*').join('%');
 
+    searchString = searchString.split('(').join('');
+    searchString = searchString.split(')').join('?');
+
     let table: string = 'words_diacritics';
 
     let queryString = "SELECT * FROM " + table + " WHERE "
