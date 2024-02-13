@@ -860,11 +860,11 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical, resultDiv)
 
         if (changeSection) {
             let thisLetterDiv = document.createElement("div");
-            divContainer.id = "container-" + dictKey;
+            thisLetterDiv.id = "container-" + dictKey;
 
             for (let i = 0; i < outputDivDict[dictKey].length; i++) {
-                divContainer.appendChild(outputDivDict[dictKey][i]);
-                divContainer.innerHTML += "<br>";
+                thisLetterDiv.appendChild(outputDivDict[dictKey][i]);
+                thisLetterDiv.innerHTML += "<br>";
             }
 
             let updatedHeaderList = sectionHeader(sortAlphabetical, word, totalCount, currentFirstLetter, lastWordCount, resultDiv, wordsWithThisHeader, headerToWordListDict, headerToTokenListDict, thisLetterDiv);
@@ -873,6 +873,7 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical, resultDiv)
             currentFirstLetter = updatedHeaderList[1];
 
             wordsWithThisHeader = 0;
+            outputDiv.appendChild(thisLetterDiv);
         }
         resultDiv.appendChild(outputDiv);
         wordsWithThisHeader += 1; 
