@@ -1018,12 +1018,14 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
 
                 let allVerses = [];
                 let redoneDictionaries = {};
+                let thisBookCount = 0;
                 for (let l=0; l < thisBookData.length; l++) {
                     let thisVerseData = thisBookData[l];
                     let thisDBCode = thisVerseData["dbVerseCode"];
                     let thisAddress = getAddressString(thisDBCode);
                     let thisEdition = thisVerseData["editionNum"];
                     let thisCount = thisVerseData["verseCount"];
+                    thisBookCount += thisCount;
 
                     if (l == 0 || allVerses[-1] != thisAddress) {
                         allVerses.push(thisAddress);
@@ -1041,6 +1043,10 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
                         console.log(redoneDictionaries[thisVerse]);
                     }
                 }
+
+                thisBookSpan.innerHTML += thisBookCount.toString() + "): ";
+                thisBookSpan.innerHTML += "<br>";
+
                 allBooksContainer.appendChild(thisBookSpan);
             }
 
