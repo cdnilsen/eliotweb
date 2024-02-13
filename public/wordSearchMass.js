@@ -641,11 +641,12 @@ function processWordCites(word, totalCount, verseList, verseCountList) {
     for (let i = 0; i < allBookDivs.length; i++) {
         let thisBookDiv = allBookDivs[i];
         outputDiv.appendChild(thisBookDiv);
-        outputDiv.innerHTML += "<br>";
+        //outputDiv.innerHTML += "<br>";
         if (allHasTriangle[i]) {
-            //outputDiv.innerHTML += "<br>";
+            outputDiv.innerHTML += "<br>";
         }
         outputDiv.appendChild(allVerseContainers[i]);
+        outputDiv.innerHTML += "<br>";
     }
     return outputDiv;
 }
