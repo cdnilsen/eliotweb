@@ -960,10 +960,11 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
         let thisHeaderDiv = document.createElement("div");
         let thisHeader = allHeaders[i].toString();
 
-        let headerText = getHeaderText(headerToWordCountDict[thisHeader], headerToTokenCountDict[thisHeader], !sortAlphabetical, thisHeader);
+        let headerText = getHeaderText(headerToWordCountDict[thisHeader], headerToTokenCountDict[thisHeader], sortAlphabetical, thisHeader[0]);
 
         thisHeaderDiv.id = "header-" + thisHeader;
         thisHeaderDiv.innerHTML = headerText;
+        thisHeaderDiv.style = "font-size: 24px;";
     
         let headerResultsDiv = document.createElement("div");
         headerResultsDiv.id = "header-results-" + thisHeader;
@@ -974,6 +975,7 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
 
             let bookData = getBooks(thisWordDataDict["allVerses"], thisWordDataDict["allVerseCounts"], thisWord);
             console.log(thisWord);
+
             let allBookNums = bookData[0];
             let allBookToVerseDict = bookData[1];
 
