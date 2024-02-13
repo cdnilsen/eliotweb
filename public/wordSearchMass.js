@@ -643,6 +643,8 @@ function processWordCites(word, totalCount, verseList, verseCountList) {
         outputDiv.appendChild(thisBookDiv);
         outputDiv.innerHTML += " ";
         if (allHasTriangle[i]) {
+            let clickableTriangle = addClickableTriangle("gray", "#FF0000", [allVerseContainers[i]], true);
+            outputDiv.appendChild(clickableTriangle);
             allVerseContainers[i].hidden = true;
             outputDiv.innerHTML += "<br>";
         }
