@@ -624,20 +624,22 @@ function processBookData(bookDataList, bookHTMLSpan, bookName) {
 
 }
 
-function addVersesToBookSpan(bookDataList, bookNameHTMLSpan, bookName, citeContainer) {
-    let verseTextList = processBookData(bookDataList, bookNameHTMLSpan, bookName);
+function addVersesToBookSpan(verseTextList, word, book) {
+    let verseCiteContainer = document.createElement("span");
+    
+    verseCiteContainer.id = "word-" + word + "-book-" + book + "-cites";
     
     for (let i=0; i < verseTextList.length; i++) {
         let thisVerseSpan = document.createElement("span");
         thisVerseSpan.innerHTML = verseTextList[i];
         thisVerseSpan.classList.add("dotted-underline");
-        citeContainer.appendChild(thisVerseSpan);
+        verseCiteContainer.appendChild(thisVerseSpan);
         if (i != verseTextList.length - 1) {
             citeContainer.innerHTML += ", ";
         }
     }
 
-    return verseTextList.length;
+    return verseCiteContainer;
 }
 
 //Note: wordList should come presorted.
@@ -713,12 +715,11 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
                 
                 thisBookData.sort((a, b) => a["dbVerseCode"] - b["dbVerseCode"]);
 
-                let verseCiteContainer = document.createElement("span");
-                verseCiteContainer.id = "word-" + thisWord + "-book-" + thisBookName + "-verses";
+                let verseTextList = processBookData(thisBookData, thisBookSpan, thisBookName);
 
-                let numVerses = addVersesToBookSpan(thisBookData, thisBookSpan, thisBookName, verseCiteContainer);
+                let verseCiteContainer = addVersesToBookSpan(verseTextList, thisWord, thisBookName);
 
-                triangleSandwich(allBooksContainer, thisBookSpan, verseCiteContainer, numVerses > 30, "blue", false, true);
+                triangleSandwich(allBooksContainer, thisBookSpan, verseCiteContainer, verseTextList.length > 30, "blue", false, true);
             }
             triangleSandwich(headerResultsDiv, thisWordDiv, allBooksContainer, allBookNums.length > 5, "blue", true, true);
         }
