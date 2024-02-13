@@ -451,11 +451,6 @@ function appendToContainer(parentContainer, childContainer, useTriangle, triangl
 //This should not be used as the last chain of a triangle sandwich (the last member of the chain has no triangle so you need to simply use appendToContainer.)
 function triangleSandwich(grandparentContainer, parentContainer, childContainer, useTriangle, triangleClickColor, breakBeforeChildren, breakAfterGrandparent) {
     appendToContainer(parentContainer, childContainer, useTriangle, triangleClickColor, breakBeforeChildren);
-
-    if (breakAfterGrandparent) {
-        //grandparentContainer.innerHTML += "<br>";
-        parentContainer.innerHTML = "<br>" + parentContainer.innerHTML;
-    }
     
     grandparentContainer.appendChild(parentContainer);
 }
@@ -659,7 +654,6 @@ function addVersesToBookSpan(verseTextList, word, book) {
             }
         }
     }
-    verseCiteContainer.innerHTML += "<br>";
     return verseCiteContainer;
 }
 
@@ -719,9 +713,9 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
             let thisWordDiv = document.createElement("div");
 
             if (totalCount > 1) {
-                thisWordDiv.innerHTML = `<b>${ligaturedWord}</b> (${totalCount}): `;
+                thisWordDiv.innerHTML = `<br><b>${ligaturedWord}</b> (${totalCount}): `;
             } else {
-                thisWordDiv.innerHTML = `<b>${ligaturedWord}</b>: `;
+                thisWordDiv.innerHTML = `<br><b>${ligaturedWord}</b>: `;
             }
 
             if (allBookNums.length < 6) {
@@ -741,7 +735,7 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
 
                 thisBookSpan.id = "word-" + thisWord + "-book-" + thisBookName;
 
-                thisBookSpan.innerHTML = "<i>" + thisBookName;
+                thisBookSpan.innerHTML = "<br><i>" + thisBookName;
 
                 let thisBookData = allBookToVerseDict[thisBookNum];
                 
