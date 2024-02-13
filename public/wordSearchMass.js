@@ -620,8 +620,13 @@ function processBookData(bookDataList, bookHTMLSpan, bookName) {
         redoneDictionaries[thisAddress]["allEditions"] *= thisEdition;
         redoneDictionaries[thisAddress][thisEdition] = thisCount;
     }
-
-    bookHTMLSpan.innerHTML += totalCount.toString() + "): ";
+    let verseCountString = allVerses.length.toString();
+    let totalCountString = totalCount.toString();
+    if (totalCount > 1) {
+        bookHTMLSpan.innerHTML += ` (<sup>V</sup>${verseCountString}/<sup>T</sup>${totalCountString}): `;
+    } else {
+        bookHTMLSpan.innerHTML += ": ";
+    }
 
     return getVerseCiteSpans(allVerses, redoneDictionaries, bookName);
 
@@ -698,12 +703,16 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
 
             let thisWordDiv = document.createElement("div");
 
-            thisWordDiv.innerHTML = `<b>${ligaturedWord}</b> (<sup>V</sup>${numVerses}/<sup>T</sup>${totalCount}): `;
+            if (totalCount > 1) {
+                thisWordDiv.innerHTML = `<b>${ligaturedWord}</b> (<sup>V</sup>${numVerses}/<sup>T</sup>${totalCount}): `;
+            } else {
+                thisWordDiv.innerHTML = `<b>${ligaturedWord}</b>: `;
+            }
             
             thisWordDiv.style.fontSize = "16px";
 
-            let allBooksContainer = document.createElement("div");
-            allBooksContainer.id = thisWord + "-books-div";
+            let allBooksContainer = document.createElement("span");
+            allBooksContainer.id = thisWord + "-books-container";
             allBooksContainer.style.textIndent = "4em";
             
             let bookCountDict = {};
@@ -714,7 +723,7 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
 
                 thisBookSpan.id = "word-" + thisWord + "-book-" + thisBookName;
 
-                thisBookSpan.innerHTML = "<i>" + thisBookName + "</i> ("
+                thisBookSpan.innerHTML = "<i>" + thisBookName + "</i>";
 
                 //thisBookSpan.style.textIndent = "4em";
 
