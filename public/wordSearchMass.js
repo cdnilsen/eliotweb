@@ -935,7 +935,7 @@ function getCountDictionaries(wordList, dictOfDicts, sortAlphabetical) {
 }
 
 function processAllWordCites(wordList, dictOfDicts, sortAlphabetical, resultDiv) {
-    console.log(dictOfDicts);
+    //console.log(dictOfDicts);
     resultDiv.hidden = true;
     let totalWords = wordList.length;
     let totalTokens = 0;
@@ -960,7 +960,8 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical, resultDiv)
 
     for (let i=0; i < wordList.length; i++) {
         let thisWord = wordList[i];
-        let thisWordCiteDictionary = {};
+        let thisWordDataDict = dictOfDicts[thisWord];
+        console.log(thisWordDataDict);
 
 
 
@@ -968,7 +969,7 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical, resultDiv)
 
 
 
-        wordToCiteDict[thisWord] = thisWordCiteDictionary;
+        
     }
 
 
@@ -991,6 +992,7 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical, resultDiv)
     let totalWordCount = countData[4];
     let totalTokenCount = countData[5];
 
+    topDiv.style.fontSize = "24px";
     topDiv.innerHTML = `Found <b><u>${totalTokenCount}</u></b> tokens, representing <b><u>${totalWordCount}</u></b> distinct words.`;
 }
 
