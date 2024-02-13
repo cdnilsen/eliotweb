@@ -695,8 +695,8 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
             
             thisWordDiv.style.fontSize = "16px";
 
-            let allBooksContainer = document.createElement("span");
-            allBooksContainer.id = thisWord + "-books-span";
+            let allBooksContainer = document.createElement("div");
+            allBooksContainer.id = thisWord + "-books-div";
             allBooksContainer.style.textIndent = "4em";
             
             let bookCountDict = {};
@@ -714,6 +714,7 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
                 thisBookData.sort((a, b) => a["dbVerseCode"] - b["dbVerseCode"]);
 
                 let verseCiteContainer = document.createElement("span");
+                verseCiteContainer.id = "word-" + thisWord + "-book-" + thisBookName + "-verses";
 
                 let numVerses = addVersesToBookSpan(thisBookData, thisBookSpan, thisBookName, verseCiteContainer);
 
@@ -721,7 +722,6 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
             }
             triangleSandwich(headerResultsDiv, thisWordDiv, allBooksContainer, allBookNums.length > 5, "blue", true, true);
         }
-
         triangleSandwich(resultDiv, headerResultsDiv, thisHeaderDiv, true, "blue", true, true);
     }
     let totalWordCount = countData[4];
