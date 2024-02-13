@@ -533,6 +533,7 @@ function getBookDivs(verseList, verseCount, word) {
             allVerseSpanList.push(verseInfo[0]);
             thisBookTotalCount += verseInfo[1];
         }
+
         console.log(allVerseSpanList);
         //Check order here
         let thisBookString = "<i>" + thisBookName + "</i> ("
@@ -648,13 +649,7 @@ function processWordCites(word, totalCount, verseList, verseCountList) {
     let allBookDivs = getBookDivs(verseList, verseCountList, word);
 
     let outputDiv = document.createElement('div');
-
-    let bookContainer = createDivWithTriangle(outputDiv, topString, allBookDivs, 6, "blue", true);
-    bookContainer.hidden = true;
-
-    outputDiv.appendChild(bookContainer);
-    return outputDiv
-    /*
+    outputDiv.innerHTML = topString;
     if (useTriangle) {
         let clickableTriangle = addClickableTriangle("gray", "blue", allBookDivs, false);
         outputDiv.appendChild(clickableTriangle);
@@ -667,7 +662,6 @@ function processWordCites(word, totalCount, verseList, verseCountList) {
         outputDiv.appendChild(thisBookDiv);
         outputDiv.innerHTML += "<br>";
     }
-    */
 }
 
 function getHeaderText(wordCount, tokenCount, useToken, initialLetter) {
