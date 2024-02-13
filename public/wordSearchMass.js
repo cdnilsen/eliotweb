@@ -992,12 +992,14 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
                 let thisBookName = topBookList[thisBookNum - 1];
 
                 thisBookSpan.id = "word-" + thisWord + "-book-" + thisBookName;
+                thisBookSpan.innerHTML = "<i>" + thisBookName + "</i> (" + thisWordDataDict["totalCount"] + "): ";
+                
                 let thisBookData = allBookToVerseDict[thisBookNum];
 
                 
             }
 
-            appendToContainer(resultDiv, thisWordDaughterSpan, allBookNums.length > 5, "blue");
+            appendToContainer(thisWordDiv, thisWordDaughterSpan, allBookNums.length > 5, "blue");
 
             appendToContainer()
 
