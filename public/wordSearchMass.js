@@ -454,8 +454,8 @@ function triangleSandwich(grandparentContainer, parentContainer, childContainer,
         //grandparentContainer.innerHTML += "<br>";
         parentContainer.innerHTML = "<br>" + parentContainer.innerHTML;
     }
-    grandparentContainer.appendChild(parentContainer);
     appendToContainer(parentContainer, childContainer, useTriangle, triangleClickColor, breakBeforeChildren);
+    grandparentContainer.appendChild(parentContainer);
 }
 
 function getHeaderText(wordCount, tokenCount, useToken, initialLetter) {
