@@ -800,6 +800,9 @@ function sendSpanToCorrectPlace(span, word, wordTotalCount, useAlphabetical, spa
     }
 }
 
+
+/*
+//wordList comes presorted
 function processAllWordCites(wordList, dictOfDicts, sortAlphabetical, resultDiv) {
     resultDiv.hidden = true;
     let totalWords = wordList.length;
@@ -873,9 +876,8 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical, resultDiv)
             currentFirstLetter = updatedHeaderList[1];
 
             wordsWithThisHeader = 0;
-            outputDiv.appendChild(thisLetterDiv);
         }
-        resultDiv.appendChild(outputDiv);
+        resultDiv.appendChild(thisLetterDiv);
         wordsWithThisHeader += 1; 
     }
 
@@ -884,6 +886,112 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical, resultDiv)
     topDiv.appendChild(topSpan);
 
     resultDiv.hidden = false;
+}
+*/
+
+function getCountDictionaries(wordList, dictOfDicts, sortAlphabetical) {
+    let allHeaders = [];
+    let headerToWordListDict = {};
+    let headerToWordCountDict = {};
+    let headerToTokenCountDict = {};
+    let totalWords = 0;
+    let totalTokens = 0;
+
+    for (let i=0; i < wordList.length; i++) {
+        let thisWord = wordList[i];
+        let wordCount = dictOfDicts[thisWord]["totalCount"];
+
+        let myHeader;
+
+        if (sortAlphabetical) {
+            myHeader = cleanDiacritics(thisWord[0]);
+        } else {
+            myHeader = wordCount;
+        }
+
+        if (headerToWordListDict[myHeader] === undefined) {
+            headerToWordListDict[myHeader] = [thisWord];
+            headerToWordCountDict[myHeader] = 1;
+            headerToTokenCountDict[myHeader] = wordCount;
+            allHeaders.push(myHeader);
+            totalWords += 1;
+            totalTokens += wordCount;
+        } else {
+            headerToWordListDict[myHeader].push(thisWord);
+            headerToWordCountDict[myHeader] += 1;
+            headerToTokenCountDict[myHeader] += wordCount;
+            totalWords += 1;
+            totalTokens += wordCount;
+        }
+    }
+
+    if (sortAlphabetical) {
+        allHeaders = alphabetizeWords(allHeaders);
+    } else {
+        allHeaders.sort((a, b) => a - b);
+    }
+
+    return [allHeaders, headerToWordListDict, headerToWordCountDict, headerToTokenCountDict, totalWords, totalTokens];
+}
+
+function processAllWordCites(wordList, dictOfDicts, sortAlphabetical, resultDiv) {
+    console.log(dictOfDicts);
+    resultDiv.hidden = true;
+    let totalWords = wordList.length;
+    let totalTokens = 0;
+
+    let topDiv = document.getElementById("headline-container");
+    topDiv.innerHTML = "";
+
+    let lastWordCount = 0;
+    let currentFirstLetter = "";
+    let wordsWithThisHeader = 0;
+
+    let currentHeader;
+    // wordList comes pre-sorted.
+    let countData = getCountDictionaries(wordList, dictOfDicts, sortAlphabetical);
+
+    let allHeaders = countData[0];
+    let headerToWordListDict = countData[1];
+    let headerToWordCountDict = countData[2];
+    let headerToTokenCountDict = countData[3];
+
+    let wordToCiteDict = {};
+
+    for (let i=0; i < wordList.length; i++) {
+        let thisWord = wordList[i];
+        let thisWordCiteDictionary = {};
+
+
+
+
+
+
+
+        wordToCiteDict[thisWord] = thisWordCiteDictionary;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    let totalWordCount = countData[4];
+    let totalTokenCount = countData[5];
+
+    topDiv.innerHTML = `Found <b><u>${totalTokenCount}</u></b> tokens, representing <b><u>${totalWordCount}</u></b> distinct words.`;
 }
 
 function getDictFromSearchOutput(searchOutput, resultDiv, sortAlphabetical, sortByBook) {
