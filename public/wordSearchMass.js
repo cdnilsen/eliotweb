@@ -407,7 +407,7 @@ function getBooks(verseList, verseCount, word) {
     return [allBooks, dictOfDicts];
 }
 
-function addClickableTriangle(unclickedColor, clickedColor, spanContainer, addFollowingBreak) {  
+function addClickableTriangle(unclickedColor, clickedColor, childContainer, addFollowingBreak) {  
     let followingBreak = ""
     if (addFollowingBreak) {
         followingBreak = "<br>";
@@ -424,7 +424,7 @@ function addClickableTriangle(unclickedColor, clickedColor, spanContainer, addFo
     }
     let unClickedHTML = [" ▶", " ▶<br>"];
     clickableTriangle.addEventListener("click", function() {
-        spanContainer.hidden = !spanContainer.hidden;
+        childContainer.hidden = !childContainer.hidden;
         if (unClickedHTML.includes(clickableTriangle.innerHTML)) {
             clickableTriangle.style.color = clickedColor;
         } else {
@@ -446,6 +446,7 @@ function appendToContainer(parentContainer, childContainer, useTriangle, triangl
     parentContainer.appendChild(childContainer);
 }
 
+//This should not be used as the last chain of a triangle sandwich (the last member of the chain has no triangle so you need to simply use appendToContainer.)
 function triangleSandwich(grandparentContainer, parentContainer, childContainer, useTriangle, triangleClickColor, breakAfterChild, breakAfterParent) {
     appendToContainer(parentContainer, childContainer, useTriangle, triangleClickColor, breakAfterChild);
 
@@ -723,8 +724,11 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
             }
             triangleSandwich(headerResultsDiv, thisWordDiv, allBooksContainer, allBookNums.length > 5, "blue", true, true);
         }
+        
+        appendToContainer(thisHeaderDiv, headerResultsDiv, true, "blue", true);
+        resultDiv.appendChild(thisHeaderDiv);
 
-        triangleSandwich(resultDiv, thisHeaderDiv, headerResultsDiv, true, "blue", true, true);
+        //triangleSandwich(resultDiv, thisHeaderDiv, headerResultsDiv, true, "blue", true, true);
         console.log(resultDiv.hidden);
         console.log(thisHeaderDiv.hidden);
         console.log(headerResultsDiv.hidden);
