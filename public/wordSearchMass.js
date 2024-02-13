@@ -968,6 +968,7 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
     
         let headerResultsDiv = document.createElement("div");
         headerResultsDiv.id = "header-results-" + thisHeader;
+        headerResultsDiv.hidden = true;
         
         for (let j=0; j < wordList.length; j++) {
             let thisWord = wordList[j];
@@ -981,8 +982,6 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
 
             let thisWordDiv = document.createElement("div");
             thisWordDiv.innerHTML = "<b>" + thisWord + "</b> (" + thisWordDataDict["totalCount"] + "):";
-            thisWordDiv.hidden = true;
-
 
             let thisWordDaughterSpan = document.createElement("span");
             thisWordDaughterSpan.innerHTML = thisWord + "-span";
