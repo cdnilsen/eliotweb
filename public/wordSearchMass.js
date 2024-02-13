@@ -766,7 +766,7 @@ function getRightWordList(sortAlphabetical, wordList, dictOfDicts) {
         let frequencyList = [];
         let frequencyToWordDict = {};
         for (let i = 0; i < wordList.length; i++) {
-            let thisWord = allWords[i];
+            let thisWord = wordList[i];
             let thisCount = dictOfDicts[thisWord]["totalCount"];
 
             if (frequencyToWordDict[thisCount] === undefined) {
