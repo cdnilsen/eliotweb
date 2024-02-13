@@ -621,7 +621,6 @@ function appendToContainer(parentContainer, childContainer, useTriangle, triangl
     if (useTriangle) {
         let clickableTriangle = addClickableTriangle("gray", triangleClickColor, childContainer, true);
         parentContainer.appendChild(clickableTriangle);
-        parentContainer.innerHTML += "<br>";
     }
 
     if (useTriangle) {
@@ -1039,7 +1038,6 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
                     console.log(redoneDictionaries[thisVerse]);
                 }
                 allBooksContainer.appendChild(thisBookSpan);
-                allBooksContainer.innerHTML += "<br>";
             }
 
             appendToContainer(thisWordDiv, allBooksContainer, allBookNums.length > 5, "blue");
