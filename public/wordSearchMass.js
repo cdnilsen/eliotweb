@@ -627,17 +627,17 @@ function getVerseCodeSpan(verseList, verseCount, word) {
 
 
 //Do this tomorrow. As far as I can tell, we're going to have to go bottom-up. First get the verse cites and check if there are too many of them to display without a triangle; if so, add the triangle. Then do the same with books. Because we want this to be fairly flexible it is probably best to rewrite it as a function that just takes lists of stuff to make spans and divs out of and then adds triangles to the parent if need be.
-function appendToContainer(container, spanContainer, useTriangle, triangleClickColor) {
+function appendToContainer(parentContainer, childContainer, useTriangle, triangleClickColor) {
 
     if (useTriangle) {
-        let clickableTriangle = addClickableTriangle("gray", triangleClickColor, spanContainer, true);
-        container.appendChild(clickableTriangle);
+        let clickableTriangle = addClickableTriangle("gray", triangleClickColor, childContainer, true);
+        parentContainer.appendChild(clickableTriangle);
     }
 
     if (useTriangle) {
-        spanContainer.hidden = true;
+        childContainer.hidden = true;
     }
-    container.appendChild(spanContainer);
+    parentContainer.appendChild(spanContainer);
 }
 
 
@@ -958,53 +958,60 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical, resultDiv)
 
     let wordToCiteDict = {};
 
-    for (let i=0; i < wordList.length; i++) {
-        let thisWord = wordList[i];
-        let thisWordDataDict = dictOfDicts[thisWord];
+    for (let i=0; i < allHeaders.length; i++) {
+        let thisHeaderDiv = document.createElement("div");
+        let thisHeader = allHeaders[i].toString();
 
-        let bookData = getBooks(thisWordDataDict["allVerses"], thisWordDataDict["allVerseCounts"], thisWord);
-        console.log(thisWord);
-        let allBookNums = bookData[0];
-        let allBookToVerseDict = bookData[1];
+        let headerText = getHeaderText(headerToWordCountDict[thisHeader], headerToTokenCountDict[thisHeader], !sortAlphabetical, thisHeader);
 
-        for (let j=0; j < allBookNums.length; j++) {
-            let thisBookSpan = document.createElement("span");
-
-            let thisBookNum = allBookNums[j];
-            let thisBookName = topBookList[thisBookNum - 1];
-
-            thisBookSpan.id = "word-" + thisWord + "-book-" + thisBookName;
-            let thisBookData = allBookToVerseDict[thisBookNum];
-
-            console.log(thisBookData);
-        }
-
-
-
-
-
-
-
+        thisHeaderDiv.innerHTML = headerText;
+    
+        let headerResultsDiv = document.createElement("div");
+        headerResultsDiv.id = "header-" + thisHeader;
         
+        for (let j=0; j < wordList.length; j++) {
+            let thisWord = wordList[j];
+            let thisWordDataDict = dictOfDicts[thisWord];
+
+            let bookData = getBooks(thisWordDataDict["allVerses"], thisWordDataDict["allVerseCounts"], thisWord);
+            console.log(thisWord);
+            let allBookNums = bookData[0];
+            let allBookToVerseDict = bookData[1];
+
+            let thisWordDiv = document.createElement("div");
+            thisWordDiv.innerHTML = "<b>" + thisWord + "</b> (" + thisWordDataDict["totalCount"] + "):";
+            thisWordDiv.hidden = true;
+
+
+            let thisWordDaughterSpan = document.createElement("span");
+            thisWordDaughterSpan.innerHTML = thisWord + "-span";
+
+            for (let k=0; k < allBookNums.length; k++) {
+                let thisBookSpan = document.createElement("span");
+
+                let thisBookNum = allBookNums[k];
+                let thisBookName = topBookList[thisBookNum - 1];
+
+                thisBookSpan.id = "word-" + thisWord + "-book-" + thisBookName;
+                let thisBookData = allBookToVerseDict[thisBookNum];
+
+                
+            }
+
+            appendToContainer(resultDiv, thisWordDaughterSpan, allBookNums.length > 5, "blue");
+
+            appendToContainer()
+
+
+
+
+
+
+        }
+        appendToContainer(thisHeaderDiv, headerResultsDiv, true, "blue");
+        
+        document.getElementById("results-container").appendChild(thisHeaderDiv);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     let totalWordCount = countData[4];
     let totalTokenCount = countData[5];
 
