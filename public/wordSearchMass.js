@@ -749,6 +749,10 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
                 let verseTextList = processBookData(thisBookData, thisBookSpan, thisBookName);
 
                 let verseCiteContainer = addVersesToBookSpan(verseTextList, thisWord, thisBookName);
+
+                if (verseTextList.length > 30) {
+                    verseCiteContainer.classList.add("textTab2");
+                }
                 /*
                 if (verseTextList.length > 1) {
                     verseCiteContainer.innerHTML += ` (${verseTextList.length} vv.)`;

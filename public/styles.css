@@ -175,6 +175,11 @@ tbody {
     margin-left: 2em;
 }
 
+.textTab2 {
+    display: inline-block;
+    margin-left: 4em;
+}
+
 .popup-verse-box {
     display: none;
     position: relative;
