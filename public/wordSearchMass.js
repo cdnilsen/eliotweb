@@ -657,9 +657,9 @@ function addVersesToBookSpan(verseTextList, word, book) {
             if (verseTextList.length > 1) {
                 verseCiteContainer.innerHTML += ` (${verseTextList.length} vv.)`;
             }
-            verseCiteContainer.innerHTML += "<br>";
         }
     }
+    verseCiteContainer.innerHTML += "<br>";
     return verseCiteContainer;
 }
 
