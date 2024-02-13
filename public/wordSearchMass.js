@@ -964,8 +964,20 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical, resultDiv)
 
         let bookData = getBooks(thisWordDataDict["allVerses"], thisWordDataDict["allVerseCounts"], thisWord);
         console.log(thisWord);
-        console.log(bookData[0]);
-        console.log(bookData[1]);
+        let allBookNums = bookData[0];
+        let allBookToVerseDict = bookData[1];
+
+        for (let j=0; j < allBookNums.length; j++) {
+            let thisBookSpan = document.createElement("span");
+
+            let thisBookNum = allBookNums[j];
+            let thisBookName = topBookList[thisBookNum - 1];
+
+            thisBookSpan.id = "word-" + thisWord + "-book-" + thisBookName;
+            let thisBookData = allBookToVerseDict[thisBookNum];
+
+            console.log(thisBookData);
+        }
 
 
 
