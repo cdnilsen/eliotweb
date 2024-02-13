@@ -964,10 +964,11 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
 
         let headerText = getHeaderText(headerToWordCountDict[thisHeader], headerToTokenCountDict[thisHeader], !sortAlphabetical, thisHeader);
 
+        thisHeaderDiv.id = "header-" + thisHeader;
         thisHeaderDiv.innerHTML = headerText;
     
         let headerResultsDiv = document.createElement("div");
-        headerResultsDiv.id = "header-" + thisHeader;
+        headerResultsDiv.id = "header-results-" + thisHeader;
         
         for (let j=0; j < wordList.length; j++) {
             let thisWord = wordList[j];
