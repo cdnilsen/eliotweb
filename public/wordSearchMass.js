@@ -621,7 +621,7 @@ function processBookData(bookDataList, bookHTMLSpan, bookName) {
 
     bookHTMLSpan.innerHTML += totalCount.toString() + "): ";
 
-    return getVerseCiteSpans(allVerses, redoneDictionaries, BookName);
+    return getVerseCiteSpans(allVerses, redoneDictionaries, bookName);
 
 }
 
