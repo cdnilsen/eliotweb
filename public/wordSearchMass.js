@@ -860,7 +860,7 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical, resultDiv)
         let changeSection = changeSectionBool(sortAlphabetical, word, totalCount, currentFirstLetter, lastWordCount);
 
         if (changeSection) {
-
+            /*
             let divContainer = document.createElement("div");
             divContainer.id = "container-" + dictKey;
 
@@ -868,8 +868,9 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical, resultDiv)
                 divContainer.appendChild(outputDivDict[dictKey][i]);
                 divContainer.innerHTML += "<br>";
             }
+            */
 
-            let updatedHeaderList = sectionHeader(sortAlphabetical, word, totalCount, currentFirstLetter, lastWordCount, resultDiv, wordsWithThisHeader, headerToWordListDict, headerToTokenListDict, divContainer);
+            let updatedHeaderList = sectionHeader(sortAlphabetical, word, totalCount, currentFirstLetter, lastWordCount, resultDiv, wordsWithThisHeader, headerToWordListDict, headerToTokenListDict, outputDiv);
 
             lastWordCount = updatedHeaderList[0];
             currentFirstLetter = updatedHeaderList[1];
