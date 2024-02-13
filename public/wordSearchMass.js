@@ -435,6 +435,25 @@ function processVerseCite(addressNum, editionList, countList, dbCode, thisBookNa
 
 }
 //This will have to be split up into multiple functions. First get the book divs and create triangles for the ones that need them. Then get the verse
+
+function getBooks(verseList, verseCount, word) {
+    let allBooks = [];
+    let dictOfDicts = {};
+    for (let i = 0; i < verseList.length; i++) {
+        let thisVerseDict = decodeVerseCode(verseList[i], verseCount[i], word);
+        let bookNum = thisVerseDict["bookNum"];
+
+        if (dictOfDicts[bookNum] === undefined) {
+            dictOfDicts[bookNum] = [thisVerseDict];
+            allBooks.push(bookNum);
+        } else {
+            dictOfDicts[bookNum].push(thisVerseDict);
+        }
+    }
+    allBooks.sort((a, b) => a - b);
+    return [allBooks, dictOfDicts];
+}
+/*
 function getBookDivs(verseList, verseCount, word) {
     let allBookDivs = [];
 
@@ -530,6 +549,7 @@ function getBookDivs(verseList, verseCount, word) {
     }
     return [allBookDivs, allVerseContainers, hasTriangleList]; 
 }
+*/
 
 /*
 function getVerseCodeSpan(verseList, verseCount, word) {
@@ -611,11 +631,10 @@ function processWordCites(word, totalCount, verseList, verseCountList) {
     let ligaturedWord = word.split('8').join('ꝏ̄');
     let topString = `<b>${ligaturedWord}</b> (${totalCount}): `
 
-    let bookVerseDivs = getBookDivs(verseList, verseCountList, word);
+    let books = getBooks(verseList, verseCountList, word);
 
     let allBookDivs = bookVerseDivs[0];
     let allVerseContainers = bookVerseDivs[1];
-    let allHasTriangle = bookVerseDivs[2];
     //console.log(allBookDivs)
     //console.log(allVerseContainers);
 
@@ -623,22 +642,24 @@ function processWordCites(word, totalCount, verseList, verseCountList) {
     
     outputDiv.innerHTML = topString;
     outputDiv.style.marginLeft = "4em";
-    
-    let useTopTriangle = allBookDivs.length > 5;
-
-    if (useTopTriangle) {
-        let clickableTriangle = addClickableTriangle("gray", "blue", allBookDivs, false);
-        outputDiv.appendChild(clickableTriangle);
-        outputDiv.innerHTML += "<br>";
-    }
-
     for (let i=0; i < allBookDivs.length; i++) {
-        let thisBookDiv = allBookDivs[i];
-        console.log(thisBookDiv);
-        thisBookDiv.hidden = useTopTriangle;
-        outputDiv.appendChild(thisBookDiv);
+        let useTopTriangle = allBookDivs.length > 5;
+
+        if (useTopTriangle) {
+            let clickableTriangle = addClickableTriangle("gray", "blue", allBookDivs, false);
+            outputDiv.appendChild(clickableTriangle);
+            outputDiv.innerHTML += "<br>";
+        }
+
+        for (let i=0; i < allBookDivs.length; i++) {
+            let thisBookDiv = allBookDivs[i];
+            console.log(thisBookDiv);
+            thisBookDiv.hidden = useTopTriangle;
+            outputDiv.appendChild(thisBookDiv);
+        }
     }
     return outputDiv;
+}
 
     /*
     for (let i = 0; i < allBookDivs.length; i++) {
@@ -661,8 +682,6 @@ function processWordCites(word, totalCount, verseList, verseCountList) {
         console.log(thisBookDiv);
     }
     */
-    return outputDiv;
-}
 
 function getHeaderText(wordCount, tokenCount, useToken, initialLetter) {
     if (initialLetter == "8") {
