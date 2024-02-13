@@ -311,6 +311,7 @@ function addClickableTriangle(unclickedColor, clickedColor, showSpanList, addFol
 
     let unClickedHTML = [" ▶", " ▶<br>"];
     let clickedHTML = [" ▼", " ▼<br>"];
+
     clickableTriangle.addEventListener("click", function() {
         console.log("Clicked me!")
         for (let i = 0; i < showSpanList.length; i++) {
@@ -532,20 +533,32 @@ function getBookDivs(verseList, verseCount, word) {
             allVerseSpanList.push(verseInfo[0]);
             thisBookTotalCount += verseInfo[1];
         }
+        console.log(allVerseSpanList);
         //Check order here
         let thisBookString = "<i>" + thisBookName + "</i> ("
         thisBookString += thisBookTotalCount.toString() + "): ";
 
         let thisBookDiv = document.createElement("div");
+        thisBookDiv.innerHTML = thisBookString;
         thisBookDiv.style.marginLeft = "4em";
         thisBookDiv.style.display = "inline-block";
 
-        let bookSpanContainer = createDivWithTriangle(thisBookDiv, thisBookString, allVerseSpanList, 31, "#00FF60", true, ", ", false);
+        let verseContainer = document.createElement("span");
+        for (let i=0; i < allAddresses.length; i++) {
+            verseContainer.appendChild(allAddresses[i]);
+            if (i != allAddresses.length - 1) {
+                verseContainer.innerHTML += ", "
+            }
+        }
 
-        bookSpanContainer.hidden = true;
-        thisBookDiv.appendChild(bookSpanContainer);
-        
-
+        if (allAddresses.length > 30) {
+            verseContainer.hidden = true;
+            let thisTriangle = addClickableTriangle("grey", "#00FF50", [verseContainer], true);
+            thisBookDiv.appendChild(thisTriangle);
+            thisBookDiv.appendChild(verseContainer);
+        } else {
+            thisBookDiv.appendChild(verseContainer);
+        }
         allBookDivs.push(thisBookDiv);
     }
     return allBookDivs; 
