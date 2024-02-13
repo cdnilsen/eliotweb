@@ -326,7 +326,7 @@ function addClickableTriangle(unclickedColor, clickedColor, showSpanList, addFol
     return clickableTriangle;
 }
 
-function createDivWithTriangle(topHTMLString, subDivList, minTriangleNum, triangleClickColor, alwaysAddBreak, afterEverySubDivString="", includingAtEnd=true) {
+function createDivWithTriangle(parentDiv, topHTMLString, subDivList, minTriangleNum, triangleClickColor, alwaysAddBreak, afterEverySubDivString="", includingAtEnd=true) {
 
     let listContainer = document.createElement('span');
     for (let i = 0; i < subDivList.length; i++) {
@@ -339,8 +339,7 @@ function createDivWithTriangle(topHTMLString, subDivList, minTriangleNum, triang
         }
     }
 
-    let outputDiv = document.createElement("div");
-    outputDiv.innerHTML = topHTMLString;
+    parentDiv.innerHTML = topHTMLString;
 
     let useTriangle = subDivList.length >= minTriangleNum;
 
@@ -349,12 +348,12 @@ function createDivWithTriangle(topHTMLString, subDivList, minTriangleNum, triang
     if (useTriangle) {
         listContainer.hidden = true;
         let clickableTriangle = addClickableTriangle("gray", triangleClickColor, [listContainer], false);
-        outputDiv.appendChild(clickableTriangle);
-        outputDiv.innerHTML += "<br>";
+        parentDiv.appendChild(clickableTriangle);
+        parentDiv.innerHTML += "<br>";
     } 
-    
-    outputDiv.appendChild(listContainer);
-    return outputDiv;
+
+    parentDiv.appendChild(listContainer);
+    return listContainer;
 }
 
 //Returns a dictionary with the info about this verse. Calls 'word' to debug position of Deuteronomy
@@ -537,9 +536,15 @@ function getBookDivs(verseList, verseCount, word) {
         let thisBookString = "<i>" + thisBookName + "</i> ("
         thisBookString += thisBookTotalCount.toString() + "): ";
 
-        let thisBookDiv = createDivWithTriangle(thisBookString, allVerseSpanList, 31, "#00FF60", true, ", ", false);
+        let thisBookDiv = document.createElement("div");
         thisBookDiv.style.marginLeft = "4em";
         thisBookDiv.style.display = "inline-block";
+
+        let bookSpanContainer = createDivWithTriangle(thisBookDiv, thisBookString, allVerseSpanList, 31, "#00FF60", true, ", ", false);
+
+        bookSpanContainer.hidden = true;
+        thisBookDiv.appendChild(bookSpanContainer);
+        
 
         allBookDivs.push(thisBookDiv);
     }
@@ -629,7 +634,12 @@ function processWordCites(word, totalCount, verseList, verseCountList) {
 
     let allBookDivs = getBookDivs(verseList, verseCountList, word);
 
-    let outputDiv = createDivWithTriangle(topString, allBookDivs, 6, "blue");
+    let outputDiv = document.createElement('div');
+
+    let bookContainer = createDivWithTriangle(outputDiv, topString, allBookDivs, 6, "blue", true);
+    bookContainer.hidden = true;
+
+    outputDiv.appendChild(bookContainer);
     return outputDiv
     /*
     if (useTriangle) {
