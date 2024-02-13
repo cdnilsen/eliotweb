@@ -634,6 +634,7 @@ function processWordCites(word, totalCount, verseList, verseCountList) {
 
     for (let i=0; i < allBookDivs.length; i++) {
         let thisBookDiv = allBookDivs[i];
+        console.log(thisBookDiv);
         thisBookDiv.hidden = useTopTriangle;
         outputDiv.appendChild(thisBookDiv);
     }
