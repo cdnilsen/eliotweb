@@ -640,6 +640,7 @@ function processBookData(bookDataList, bookHTMLSpan, bookName) {
 function addVersesToBookSpan(verseTextList, word, book) {
     let verseCiteContainer = document.createElement("span");   
     verseCiteContainer.id = "word-" + word + "-book-" + book + "-cites";
+    verseCiteContainer.innerHTML = "<br>";
     
     for (let i=0; i < verseTextList.length; i++) {
         let thisVerseSpan = document.createElement("span");
@@ -727,6 +728,7 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
             let allBooksContainer = document.createElement("span");
             allBooksContainer.id = thisWord + "-books-container";
             allBooksContainer.classList.add("textTab");
+            allBooksContainer.innerHTML = "<br>";
             let bookCountDict = {};
             for (let k=0; k < allBookNums.length; k++) {
                 let thisBookSpan = document.createElement("span");
