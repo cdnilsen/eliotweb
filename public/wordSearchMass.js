@@ -664,6 +664,7 @@ function processWordCites(word, totalCount, verseList, verseCountList) {
         outputDiv.appendChild(thisBookDiv);
         outputDiv.innerHTML += "<br>";
     }
+    return outputDiv;
 }
 
 function getHeaderText(wordCount, tokenCount, useToken, initialLetter) {
