@@ -718,9 +718,9 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
             let thisWordDiv = document.createElement("div");
 
             if (totalCount > 1) {
-                thisWordDiv.innerHTML = `<b>${ligaturedWord}</b> (${totalCount}): `;
+                thisWordDiv.innerHTML = `<b>${ligaturedWord}</b> (${totalCount}): <br>`;
             } else {
-                thisWordDiv.innerHTML = `<b>${ligaturedWord}</b>: `;
+                thisWordDiv.innerHTML = `<b>${ligaturedWord}</b>: <br>`;
             }
             
             thisWordDiv.style.fontSize = "16px";
