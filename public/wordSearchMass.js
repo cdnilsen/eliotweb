@@ -982,6 +982,8 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
 
             let thisWordDiv = document.createElement("div");
             thisWordDiv.innerHTML = "<b>" + thisWord + "</b> (" + thisWordDataDict["totalCount"] + "):";
+            thisWordDiv.style = "indent: 4em; font-size: 16px;";
+            thisWordDiv.style = "font-size: 16px;";
 
             let thisWordDaughterSpan = document.createElement("span");
             thisWordDaughterSpan.innerHTML = thisWord + "-span";
