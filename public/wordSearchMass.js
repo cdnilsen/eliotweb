@@ -633,8 +633,8 @@ function processWordCites(word, totalCount, verseList, verseCountList) {
 
     let books = getBooks(verseList, verseCountList, word);
 
-    let allBookDivs = bookVerseDivs[0];
-    let allVerseContainers = bookVerseDivs[1];
+    let allBookDivs = books[0];
+    let allVerseContainers = books[1];
     //console.log(allBookDivs)
     //console.log(allVerseContainers);
 
