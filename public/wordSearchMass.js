@@ -981,12 +981,11 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
             let allBookToVerseDict = bookData[1];
 
             let thisWordDiv = document.createElement("div");
-            thisWordDiv.innerHTML = "<b>" + thisWord + "</b> (" + thisWordDataDict["totalCount"] + "):";
+            thisWordDiv.innerHTML = "<b>" + thisWord + "</b> (" + thisWordDataDict["totalCount"] + "): ";
             thisWordDiv.style = "indent: 4em; font-size: 16px;";
-            thisWordDiv.style = "font-size: 16px;";
 
             let thisWordDaughterSpan = document.createElement("span");
-            thisWordDaughterSpan.innerHTML = thisWord + "-span";
+            thisWordDaughterSpan.id = thisWord + "-span";
 
             for (let k=0; k < allBookNums.length; k++) {
                 let thisBookSpan = document.createElement("span");
