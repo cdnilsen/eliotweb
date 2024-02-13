@@ -624,8 +624,7 @@ function processBookData(bookDataList, bookHTMLSpan, bookName) {
 
 }
 
-function addAllVersesToBookSpan(bookDataList, bookNameHTMLSpan, bookName) {
-    let citeContainer = document.createElement("span");
+function addVersesToBookSpan(bookDataList, bookNameHTMLSpan, bookName, citeContainer) {
     let verseTextList = processBookData(bookDataList, bookNameHTMLSpan, bookName);
     
     for (let i=0; i < verseTextList.length; i++) {
@@ -637,7 +636,7 @@ function addAllVersesToBookSpan(bookDataList, bookNameHTMLSpan, bookName) {
             citeContainer.innerHTML += ", ";
         }
     }
-    return citeContainer;
+    return verseTextList.length;
 }
 
 //Note: wordList should come presorted.
@@ -715,9 +714,11 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
                 
                 thisBookData.sort((a, b) => a["dbVerseCode"] - b["dbVerseCode"]);
 
-                let thisBookVerseCiteContainer = addAllVersesToBookSpan(thisBookData, thisBookSpan, thisBookName);
+                let citeContainer = document.createElement("span");
 
-                triangleSandwich(allBooksContainer, thisBookSpan,  thisBookVerseCiteContainer, allVerseTextList.length > 30, "blue", false, true);
+                let numVerses = addVersesToBookSpan(thisBookData, thisBookSpan, thisBookName, citeContainer);
+
+                triangleSandwich(allBooksContainer, thisBookSpan, thisBookVerseCiteContainer, numVerses > 30, "blue", false, true);
             }
             triangleSandwich(headerResultsDiv, thisWordDiv, allBooksContainer, allBookNums.length > 5, "blue", true, true);
         }
