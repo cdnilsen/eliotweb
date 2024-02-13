@@ -637,7 +637,7 @@ function appendToContainer(parentContainer, childContainer, useTriangle, triangl
     if (useTriangle) {
         childContainer.hidden = true;
     }
-    parentContainer.appendChild(spanContainer);
+    parentContainer.appendChild(childContainer);
 }
 
 
@@ -1009,7 +1009,7 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical, resultDiv)
 
         }
         appendToContainer(thisHeaderDiv, headerResultsDiv, true, "blue");
-        
+
         document.getElementById("results-container").appendChild(thisHeaderDiv);
     }
     let totalWordCount = countData[4];
