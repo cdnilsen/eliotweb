@@ -1029,7 +1029,7 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
                     let thisCount = thisVerseData["verseCount"];
                     thisBookCount += thisCount;
 
-                    if (l == 0 || allVerses[-1] != thisAddress) {
+                    if (l == 0 || allVerses.slice(-1)[0] != thisAddress) {
                         allVerses.push(thisAddress);
                         redoneDictionaries[thisAddress] = {"allEditions": 1};
                     }
