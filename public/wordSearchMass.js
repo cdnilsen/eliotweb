@@ -644,9 +644,9 @@ function addVersesToBookSpan(verseTextList, word, book) {
 }
 
 //Note: wordList should come presorted.
-function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
+function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
     let resultDiv = document.getElementById("results-container");
-    let totalWords = wordList.length;
+    let totalWords = allWordList.length;
     let totalTokens = 0;
 
     let topDiv = document.getElementById("headline-container");
@@ -658,7 +658,7 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
 
     let currentHeader;
     // wordList comes pre-sorted.
-    let countData = getCountDictionaries(wordList, dictOfDicts, sortAlphabetical);
+    let countData = getCountDictionaries(allWordList, dictOfDicts, sortAlphabetical);
 
     let allHeaders = countData[0];
     let headerToWordListDict = countData[1];
@@ -679,6 +679,8 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
     
         let headerResultsDiv = document.createElement("div");
         headerResultsDiv.id = "header-results-" + thisHeader;
+
+        wordList = headerToWordListDict[thisHeader];
         
         for (let j=0; j < wordList.length; j++) {
             let thisWord = wordList[j];
@@ -707,11 +709,11 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
                 let thisBookNum = allBookNums[k];
                 let thisBookName = topBookList[thisBookNum - 1];
 
-                thisBookSpan.style.textIndent = "4em";
-
                 thisBookSpan.id = "word-" + thisWord + "-book-" + thisBookName;
 
                 thisBookSpan.innerHTML = "<i>" + thisBookName + "</i> ("
+
+                thisBookSpan.style.textIndent = "4em";
 
                 let thisBookData = allBookToVerseDict[thisBookNum];
                 
@@ -721,18 +723,11 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
 
                 let verseCiteContainer = addVersesToBookSpan(verseTextList, thisWord, thisBookName);
 
-                triangleSandwich(allBooksContainer, thisBookSpan, verseCiteContainer, verseTextList.length > 30, "blue", true, false);
+                triangleSandwich(allBooksContainer, thisBookSpan, verseCiteContainer, verseTextList.length > 30, "blue", false, true);
             }
             triangleSandwich(headerResultsDiv, thisWordDiv, allBooksContainer, allBookNums.length > 5, "blue", true, false);
         }
-
-        //appendToContainer(thisHeaderDiv, headerResultsDiv, true, "blue", true);
-        //resultDiv.appendChild(thisHeaderDiv);
-
         triangleSandwich(resultDiv, thisHeaderDiv, headerResultsDiv, true, "blue", true, false);
-        console.log(resultDiv.hidden);
-        console.log(thisHeaderDiv.hidden);
-        console.log(headerResultsDiv.hidden);
     }
     let totalWordCount = countData[4];
     let totalTokenCount = countData[5];
