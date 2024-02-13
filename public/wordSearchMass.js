@@ -649,10 +649,11 @@ function addVersesToBookSpan(verseTextList, word, book) {
         verseCiteContainer.appendChild(thisVerseSpan);
         if (i != verseTextList.length - 1) {
             verseCiteContainer.innerHTML += ", ";
+        } else {
+            if (verseTextList.length > 1) {
+                verseCiteContainer.innerHTML += ` (${verseTextList.length} vv.)`;
+            }
         }
-    }
-    if (verseTextList.length > 1) {
-        verseCiteContainer.innerHTML += ` (${verseTextList.length} vv.)`;
     }
     return verseCiteContainer;
 }
@@ -733,8 +734,6 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
 
                 thisBookSpan.innerHTML = "<i>" + thisBookName;
 
-                
-
                 let thisBookData = allBookToVerseDict[thisBookNum];
                 
                 thisBookData.sort((a, b) => a["dbVerseCode"] - b["dbVerseCode"]);
@@ -748,7 +747,7 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
                 }
                 */
 
-                triangleSandwich(allBooksContainer, thisBookSpan, verseCiteContainer, verseTextList.length > 30, "blue", false, true);
+                triangleSandwich(allBooksContainer, thisBookSpan, verseCiteContainer, verseTextList.length > 30, "blue", true, false);
             }
             triangleSandwich(headerResultsDiv, thisWordDiv, allBooksContainer, allBookNums.length > 5, "blue", true, false);
         }
