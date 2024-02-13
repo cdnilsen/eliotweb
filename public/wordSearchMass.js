@@ -710,7 +710,7 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
             let thisWordDiv = document.createElement("div");
 
             if (totalCount > 1) {
-                thisWordDiv.innerHTML = `<b>${ligaturedWord}</b> (<sup>V</sup>${numVerses}/<sup>T</sup>${totalCount}): `;
+                thisWordDiv.innerHTML = `<b>${ligaturedWord}</b> (${totalCount}): `;
             } else {
                 thisWordDiv.innerHTML = `<b>${ligaturedWord}</b>: `;
             }
