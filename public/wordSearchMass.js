@@ -616,13 +616,13 @@ function getVerseCodeSpan(verseList, verseCount, word) {
 
 
 //Do this tomorrow. As far as I can tell, we're going to have to go bottom-up. First get the verse cites and check if there are too many of them to display without a triangle; if so, add the triangle. Then do the same with books. Because we want this to be fairly flexible it is probably best to rewrite it as a function that just takes lists of stuff to make spans and divs out of and then adds triangles to the parent if need be.
-function appendToContainer(parentContainer, childContainer, useTriangle, triangleClickColor) {
+function appendToContainer(parentContainer, childContainer, useTriangle, triangleClickColor, alwaysAddBreak) {
 
     if (useTriangle) {
         let clickableTriangle = addClickableTriangle("gray", triangleClickColor, childContainer, true);
         parentContainer.appendChild(clickableTriangle);
         childContainer.hidden = true;
-    } else {
+    } else if (alwaysAddBreak) {
         parentContainer.innerHTML += "<br>";
     }
 
@@ -1038,7 +1038,6 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
                 }
 
                 thisBookSpan.innerHTML += thisBookCount.toString() + "): ";
-                thisBookSpan.innerHTML += "<br>";
 
                 let allVerseTextList = [];
                 for (let m=0; m < allVerses.length; m++) {
@@ -1111,14 +1110,13 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
                         thisBookVerseCiteContainer.innerHTML += ", ";
                     }
                 }
-                appendToContainer(thisBookSpan, thisBookVerseCiteContainer, allVerseTextList.length > 30, "blue");
+                appendToContainer(thisBookSpan, thisBookVerseCiteContainer, allVerseTextList.length > 30, "blue", false);
                 allBooksContainer.appendChild(thisBookSpan);
             }
-            appendToContainer(thisWordDiv, allBooksContainer, allBookNums.length > 5, "blue");
-
+            appendToContainer(thisWordDiv, allBooksContainer, allBookNums.length > 5, "blue", true);
             headerResultsDiv.appendChild(thisWordDiv);
         }
-        appendToContainer(thisHeaderDiv, headerResultsDiv, true, "blue");
+        appendToContainer(thisHeaderDiv, headerResultsDiv, true, "blue", true);
         document.getElementById("results-container").appendChild(thisHeaderDiv);
     }
     let totalWordCount = countData[4];
