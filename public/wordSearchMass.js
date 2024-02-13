@@ -961,7 +961,11 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical, resultDiv)
     for (let i=0; i < wordList.length; i++) {
         let thisWord = wordList[i];
         let thisWordDataDict = dictOfDicts[thisWord];
-        console.log(thisWordDataDict);
+
+        let bookData = getBooks(thisWordDataDict["allVerses"], thisWordDataDict["allVerseCounts"], thisWord);
+        console.log(thisWord);
+        console.log(bookData[0]);
+        console.log(bookData[1]);
 
 
 
