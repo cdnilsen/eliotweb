@@ -853,7 +853,6 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical, resultDiv)
         let outputDiv = processWordCites(word, totalCount, allVerses, allCounts);
 
         outputDiv.id = "word-" + word;
-        outputDiv.hidden = true;
         
         let dictKey = sendSpanToCorrectPlace(outputDiv, word, totalCount, sortAlphabetical, outputDivDict);
 
