@@ -446,9 +446,12 @@ function appendToContainer(parentContainer, childContainer, useTriangle, triangl
     parentContainer.appendChild(childContainer);
 }
 
-function triangleSandwich(grandparentContainer, parentContainer, childContainer, useTriangle, triangleClickColor, alwaysAddBreak) {
-    appendToContainer(parentContainer, childContainer, useTriangle, triangleClickColor, alwaysAddBreak);
+function triangleSandwich(grandparentContainer, parentContainer, childContainer, useTriangle, triangleClickColor, breakAfterChild, breakAfterParent) {
+    appendToContainer(parentContainer, childContainer, useTriangle, triangleClickColor, breakAfterChild);
     grandparentContainer.appendChild(parentContainer);
+    if (breakAfterParent) {
+        grandparentContainer.innerHTML += "<br>";
+    }
 }
 
 
@@ -825,11 +828,11 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
                         thisBookVerseCiteContainer.innerHTML += ", ";
                     }
                 }
-                triangleSandwich(allBooksContainer, thisBookSpan,  thisBookVerseCiteContainer, allVerseTextList.length > 30, "blue", false);
+                triangleSandwich(allBooksContainer, thisBookSpan,  thisBookVerseCiteContainer, allVerseTextList.length > 30, "blue", false, true);
             }
-            triangleSandwich(headerResultsDiv, thisWordDiv, allBooksContainer, allBookNums.length > 5, "blue", true);
+            triangleSandwich(headerResultsDiv, thisWordDiv, allBooksContainer, allBookNums.length > 5, "blue", true, true);
         }
-        triangleSandwich(resultDiv, thisHeaderDiv, headerResultsDiv, true, "blue", true);
+        triangleSandwich(resultDiv, thisHeaderDiv, headerResultsDiv, true, "blue", true, true);
     }
     let totalWordCount = countData[4];
     let totalTokenCount = countData[5];
