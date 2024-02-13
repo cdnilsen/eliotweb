@@ -722,8 +722,7 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
 
             let allBooksContainer = document.createElement("span");
             allBooksContainer.id = thisWord + "-books-container";
-            allBooksContainer.style.textIndent = "4em";
-
+            allBooksContainer.classList.add("textTab");
             let bookCountDict = {};
             for (let k=0; k < allBookNums.length; k++) {
                 let thisBookSpan = document.createElement("span");
@@ -734,7 +733,7 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
 
                 thisBookSpan.innerHTML = "<i>" + thisBookName;
 
-                thisBookSpan.classList.add("textTab");
+                
 
                 let thisBookData = allBookToVerseDict[thisBookNum];
                 
