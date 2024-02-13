@@ -1005,17 +1005,14 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
 
                 let verseToStringDict = {};
 
-/*
-                Example of book data: {
+
+                /*Example of book data: {
                     addressNum: 3003,
                     bookNum: 66,
                     dbVerseCode: 166003003,
                     editionNum: 2,
                     verseCount: 2
-                }
-
-
-                */
+                }*/
 
                 let allVerses = [];
                 let redoneDictionaries = {};
@@ -1030,11 +1027,16 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
                         allVerses.push(thisAddress);
                         redoneDictionaries[thisAddress]["allEditions"] = 1;
                     }
+
                     redoneDictionaries[thisAddress]["allEditions"] *= thisEdition;
                     redoneDictionaries[thisAddress][thisEdition] = thisCount;
-
                 }
 
+                for (let m=0; m < 5; m++) {
+                    let thisVerse = allVerses[m];
+                    console.log(thisVerse);
+                    console.log(redoneDictionaries[thisVerse]);
+                }
                 thisWordDaughterSpan.appendChild(thisBookSpan);
             }
 
