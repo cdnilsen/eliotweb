@@ -734,7 +734,7 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
 
                 thisBookSpan.innerHTML = "<i>" + thisBookName;
 
-                //thisBookSpan.style.textIndent = "4em";
+                thisBookSpan.style.textIndent = "4em";
 
                 let thisBookData = allBookToVerseDict[thisBookNum];
                 
