@@ -691,17 +691,20 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
             let allBookNums = bookData[0];
             let allBookToVerseDict = bookData[1];
 
+            let numVerses = thisWordDataDict["allVerses"].length;
+
             let totalCount = thisWordDataDict["totalCount"];
             let ligaturedWord = thisWord.split('8').join('ꝏ̄');
 
             let thisWordDiv = document.createElement("div");
 
-            thisWordDiv.innerHTML = `<b>${ligaturedWord}</b> (${totalCount}): `;
+            thisWordDiv.innerHTML = `<b>${ligaturedWord}</b> (<sup>V</sup>${numVerses}/<sup>T</sup>${totalCount}): `;
             
             thisWordDiv.style.fontSize = "16px";
 
             let allBooksContainer = document.createElement("div");
             allBooksContainer.id = thisWord + "-books-div";
+            allBooksContainer.style.textIndent = "4em";
             
             let bookCountDict = {};
             for (let k=0; k < allBookNums.length; k++) {
@@ -713,7 +716,7 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
 
                 thisBookSpan.innerHTML = "<i>" + thisBookName + "</i> ("
 
-                thisBookSpan.style.textIndent = "4em";
+                //thisBookSpan.style.textIndent = "4em";
 
                 let thisBookData = allBookToVerseDict[thisBookNum];
                 
