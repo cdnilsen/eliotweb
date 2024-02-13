@@ -639,7 +639,6 @@ function addVersesToBookSpan(verseTextList, word, book) {
             verseCiteContainer.innerHTML += ", ";
         }
     }
-
     return verseCiteContainer;
 }
 
@@ -724,7 +723,11 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
             }
             triangleSandwich(headerResultsDiv, thisWordDiv, allBooksContainer, allBookNums.length > 5, "blue", true, true);
         }
+
         triangleSandwich(resultDiv, thisHeaderDiv, headerResultsDiv, true, "blue", true, true);
+        console.log(resultDiv.hidden);
+        console.log(thisHeaderDiv.hidden);
+        console.log(headerResultsDiv.hidden);
     }
     let totalWordCount = countData[4];
     let totalTokenCount = countData[5];
