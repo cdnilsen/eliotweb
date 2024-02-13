@@ -440,184 +440,8 @@ function getBooks(verseList, verseCount, word) {
     allBooks.sort((a, b) => a - b);
     return [allBooks, dictOfDicts];
 }
-/*
-function getBookDivs(verseList, verseCount, word) {
-    let allBookDivs = [];
 
-    let dictOfDicts = {};
-    let allBookList = [];
-
-    let allVerseContainers = [];
-    let hasTriangleList = [];
-
-    for (let i=0; i < verseList.length; i++) {
-        let verseDict = decodeVerseCode(verseList[i], verseCount[i], word);
-
-        let bookNum = verseDict["bookNum"];
-
-        if (dictOfDicts[bookNum] === undefined) {
-            dictOfDicts[bookNum] = [verseDict];
-            allBookList.push(bookNum);
-        } else {
-            dictOfDicts[bookNum].push(verseDict);
-        }
-    }
-    allBookList.sort((a, b) => a - b);
-    for (let j=0; j < allBookList.length; j++) {
-        let thisBookDictList = dictOfDicts[allBookList[j]];
-
-        let thisBookName = topBookList[allBookList[j] - 1];       
-
-        let verseAddressDict = {};
-        let verseCountDict = {};
-        let dbCodeDict = {};
-        
-        let allAddresses = [];
-        for (let k=0; k < thisBookDictList.length; k++) {
-            let thisVerseDict = thisBookDictList[k];
-            let thisVerseEdition = thisVerseDict["editionNum"];
-            let thisVerseAddress = thisVerseDict["addressNum"];
-            let thisVerseCount = thisVerseDict["verseCount"];
-            let dbVerseCode = thisVerseDict["dbVerseCode"];
-
-            if (verseAddressDict[thisVerseAddress] === undefined) {
-                verseAddressDict[thisVerseAddress] = [thisVerseEdition];
-                verseCountDict[thisVerseAddress] = [thisVerseCount];
-                dbCodeDict[thisVerseAddress] = dbVerseCode;
-                allAddresses.push(thisVerseAddress);
-            } else {
-                verseAddressDict[thisVerseAddress].push(thisVerseEdition);
-                verseCountDict[thisVerseAddress].push(thisVerseCount);
-            }
-        }
-
-        let allVerseSpanList = [];
-        let thisBookTotalCount = 0;
-        for (let l=0; l < allAddresses.length; l++) {
-            let thisAddress = allAddresses[l];
-            if (thisAddress == undefined) {
-                console.log(allAddresses);
-                console.log("undefined address: " + word);
-                console.log(verseAddressDict);
-                console.log(verseCountDict);
-                console.log(thisBookDictList)
-            }
-
-            let thisEditionList = verseAddressDict[thisAddress];
-            let thisCountList = verseCountDict[thisAddress];
-            let thisDBCode = dbCodeDict[thisAddress];
-
-            let verseInfo = processVerseCite(thisAddress, thisEditionList, thisCountList, thisDBCode, thisBookName);
-
-            allVerseSpanList.push(verseInfo[0]);
-            thisBookTotalCount += verseInfo[1];
-        }
-        //Check order here
-        let thisBookString = "<i>" + thisBookName + "</i> ("
-        thisBookString += thisBookTotalCount.toString() + "): ";
-
-        let thisBookSpan = document.createElement("span");
-        thisBookSpan.innerHTML = thisBookString;
-
-        let verseContainer = document.createElement("div");
-        //HELL NO verseContainer.style.display = "inline-block";
-
-        for (let i=0; i < allVerseSpanList.length; i++) {
-            verseContainer.appendChild(allVerseSpanList[i]);
-            if (i != allVerseSpanList.length - 1) {
-                verseContainer.innerHTML += ", "
-            }
-        }
-        hasTriangleList.push(allAddresses.length > 30);
-        allBookDivs.push(thisBookSpan);
-        allVerseContainers.push(verseContainer);
-        console.log(thisBookSpan);
-        console.log(verseContainer);
-    }
-    return [allBookDivs, allVerseContainers, hasTriangleList]; 
-}
-*/
-
-/*
-function getVerseCodeSpan(verseList, verseCount, word) {
-    let verseCodeText = "";
-    let dictOfDicts = {};
-    let allBookList = [];
-    
-    for (let i = 0; i < verseList.length; i++) {
-        let verseDict = decodeVerseCode(verseList[i], verseCount[i], word);
-        let bookNum = verseDict["bookNum"];
-        
-        if (dictOfDicts[bookNum] === undefined) {
-            dictOfDicts[bookNum] = [verseDict];
-            allBookList.push(bookNum);
-        } else {
-            dictOfDicts[bookNum].push(verseDict);
-        }
-    }
-    allBookList.sort((a, b) => a - b);
-    for (let j=0; j < allBookList.length; j++) {
-        let thisBookDictList = dictOfDicts[allBookList[j]];
-
-        let thisBookName = topBookList[allBookList[j] - 1];       
-
-        let verseAddressDict = {};
-        let verseCountDict = {};
-        let dbCodeDict = {};
-        
-        let allAddresses = [];
-        for (let k=0; k < thisBookDictList.length; k++) {
-            let thisVerseDict = thisBookDictList[k];
-            let thisVerseEdition = thisVerseDict["editionNum"];
-            let thisVerseAddress = thisVerseDict["addressNum"];
-            let thisVerseCount = thisVerseDict["verseCount"];
-            let dbVerseCode = thisVerseDict["dbVerseCode"];
-
-            if (verseAddressDict[thisVerseAddress] === undefined) {
-                verseAddressDict[thisVerseAddress] = [thisVerseEdition];
-                verseCountDict[thisVerseAddress] = [thisVerseCount];
-                dbCodeDict[thisVerseAddress] = dbVerseCode;
-                allAddresses.push(thisVerseAddress);
-            } else {
-                verseAddressDict[thisVerseAddress].push(thisVerseEdition);
-                verseCountDict[thisVerseAddress].push(thisVerseCount);
-            }
-        }
-
-        let bookString = "<span style='margin-left:4em; display:inline-block'><i>" + thisBookName + "</i> (";
-        let allVersesSpan = document.createElement("span");
-        let totalBookCount = 0;
-        allAddresses.sort();
-        for (let l=0; l < allAddresses.length; l++) {
-            let thisAddress = allAddresses[l];
-            if (thisAddress == undefined) {
-                console.log(allAddresses);
-                console.log("undefined address: " + word);
-                console.log(verseAddressDict);
-                console.log(verseCountDict);
-                console.log(thisBookDictList)
-            }
-
-            let thisEditionList = verseAddressDict[thisAddress];
-            let thisCountList = verseCountDict[thisAddress];
-            let thisDBCode = dbCodeDict[thisAddress];
-
-            let verseInfo = processVerseCite(thisAddress, thisEditionList, thisCountList, thisDBCode, thisBookName);
-
-            allVersesSpan.appendChild(verseInfo[0]);
-            totalBookCount += verseInfo[1];
-        }
-        bookString += totalBookCount.toString() + "): " + verseCiteString.slice(0, -2) + "</span><br>";
-        verseCodeText += bookString;
-    }
-    return verseCodeText;
-}
-*/
-
-
-//Do this tomorrow. As far as I can tell, we're going to have to go bottom-up. First get the verse cites and check if there are too many of them to display without a triangle; if so, add the triangle. Then do the same with books. Because we want this to be fairly flexible it is probably best to rewrite it as a function that just takes lists of stuff to make spans and divs out of and then adds triangles to the parent if need be.
 function appendToContainer(parentContainer, childContainer, useTriangle, triangleClickColor, alwaysAddBreak) {
-
     if (useTriangle) {
         let clickableTriangle = addClickableTriangle("gray", triangleClickColor, childContainer, true);
         parentContainer.appendChild(clickableTriangle);
@@ -625,12 +449,11 @@ function appendToContainer(parentContainer, childContainer, useTriangle, triangl
     } else if (alwaysAddBreak) {
         parentContainer.innerHTML += "<br>";
     }
-
     parentContainer.appendChild(childContainer);
 }
 
-function triangleSandwich(grandparentContainer, parentContainer, childContainer, useTriangle, triangleClickColor) {
-    appendToContainer(parentContainer, childContainer, useTriangle, triangleClickColor);
+function triangleSandwich(grandparentContainer, parentContainer, childContainer, useTriangle, triangleClickColor, alwaysAddBreak) {
+    appendToContainer(parentContainer, childContainer, useTriangle, triangleClickColor, alwaysAddBreak);
     grandparentContainer.appendChild(parentContainer);
 }
 
@@ -794,95 +617,6 @@ function sendSpanToCorrectPlace(span, word, wordTotalCount, useAlphabetical, spa
     }
 }
 
-
-/*
-//wordList comes presorted
-function processAllWordCites(wordList, dictOfDicts, sortAlphabetical, resultDiv) {
-    resultDiv.hidden = true;
-    let totalWords = wordList.length;
-    let totalTokens = 0;
-
-    let topDiv = document.getElementById("headline-container");
-    topDiv.innerHTML = "";
-
-    let topSpan = document.createElement("span");
-
-    let lastWordCount = 0;
-    let currentFirstLetter = "";
-    let wordsWithThisHeader = 0;
-
-    let headerToWordListDict = {};
-    let headerToTokenListDict = {};
-
-    for (let i=0; i < wordList.length; i++) {
-        let thisWord = wordList[i];
-        let wordCount = dictOfDicts[thisWord]["totalCount"];
-
-        if (sortAlphabetical) {
-            let cleanedFirstLetter = cleanDiacritics(thisWord[0]);
-            if (headerToWordListDict[cleanedFirstLetter] === undefined) 
-            {
-                headerToWordListDict[cleanedFirstLetter] = 0;
-                headerToTokenListDict[cleanedFirstLetter] = 0;
-            } 
-            headerToWordListDict[cleanedFirstLetter] += 1;
-            headerToTokenListDict[cleanedFirstLetter] += wordCount;
-        } else {
-            if (headerToWordListDict[wordCount] === undefined) {
-                headerToWordListDict[wordCount] = 0;
-                headerToTokenListDict[wordCount] = 0;
-            } 
-            headerToWordListDict[wordCount] += 1;
-            headerToTokenListDict[wordCount] += wordCount;
-        }
-    }
-
-
-    let outputDivDict = {};
-    for (let j=0; j < wordList.length; j++) {
-        let word = wordList[j];
-        let wordDict = dictOfDicts[word];
-        let totalCount = wordDict["totalCount"];
-        let allVerses = wordDict["allVerses"];
-        let allCounts = wordDict["allVerseCounts"];
-
-        totalTokens += totalCount;
-        let outputDiv = processWordCites(word, totalCount, allVerses, allCounts);
-
-        outputDiv.id = "word-" + word;
-        
-        let dictKey = sendSpanToCorrectPlace(outputDiv, word, totalCount, sortAlphabetical, outputDivDict);
-
-        let changeSection = changeSectionBool(sortAlphabetical, word, totalCount, currentFirstLetter, lastWordCount);
-
-        if (changeSection) {
-            let thisLetterDiv = document.createElement("div");
-            thisLetterDiv.id = "container-" + dictKey;
-
-            for (let i = 0; i < outputDivDict[dictKey].length; i++) {
-                thisLetterDiv.appendChild(outputDivDict[dictKey][i]);
-                thisLetterDiv.innerHTML += "<br>";
-            }
-
-            let updatedHeaderList = sectionHeader(sortAlphabetical, word, totalCount, currentFirstLetter, lastWordCount, resultDiv, wordsWithThisHeader, headerToWordListDict, headerToTokenListDict, thisLetterDiv);
-
-            lastWordCount = updatedHeaderList[0];
-            currentFirstLetter = updatedHeaderList[1];
-
-            wordsWithThisHeader = 0;
-        }
-        resultDiv.appendChild(thisLetterDiv);
-        wordsWithThisHeader += 1; 
-    }
-
-    topSpan.innerHTML = `Found <b><u>${totalTokens}</u></b> tokens, representing <b><u>${totalWords}</u></b> distinct words.`;
-    topSpan.style.fontSize = "32px";
-    topDiv.appendChild(topSpan);
-
-    resultDiv.hidden = false;
-}
-*/
-
 function getCountDictionaries(wordList, dictOfDicts, sortAlphabetical) {
     let allHeaders = [];
     let headerToWordListDict = {};
@@ -928,7 +662,9 @@ function getCountDictionaries(wordList, dictOfDicts, sortAlphabetical) {
     return [allHeaders, headerToWordListDict, headerToWordCountDict, headerToTokenCountDict, totalWords, totalTokens];
 }
 
+//Note: wordList should come presorted.
 function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
+    let resultDiv = document.getElementById("results-container");
     let totalWords = wordList.length;
     let totalTokens = 0;
 
@@ -980,12 +716,12 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
 
             thisWordDiv.innerHTML = `<b>${ligaturedWord}</b> (${totalCount}): `;
             
-            thisWordDiv.style = "indent: 4em; font-size: 16px;";
+            thisWordDiv.style.fontSize = "16px";
 
             let allBooksContainer = document.createElement("span");
             allBooksContainer.id = thisWord + "-books-span";
 
-            allBooksContainer.style = "indent: 4em;";
+            allBooksContainer.style.indent = "4em";
             
             let bookCountDict = {};
             for (let k=0; k < allBookNums.length; k++) {
@@ -1041,8 +777,7 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
                     let allEditionPrimes = [2, 3, 5, 7];
                     let thisVersePrimes = [];
                     let thisVerseCounts = [];
-                    
-
+                
                     //Turn this into a function later lol
                     let justOneEdition = true;
                     let everythingEqualsOne = true;
@@ -1082,7 +817,6 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
                         }    
                         suffix += ")"                  
                     }
-
                     let finalString = prefix + thisVerse + suffix;
                     allVerseTextList.push(finalString);
                 }
@@ -1097,14 +831,11 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
                         thisBookVerseCiteContainer.innerHTML += ", ";
                     }
                 }
-                appendToContainer(thisBookSpan, thisBookVerseCiteContainer, allVerseTextList.length > 30, "blue", false);
-                allBooksContainer.appendChild(thisBookSpan);
+                triangleSandwich(allBooksContainer, thisBookSpan,  thisBookVerseCiteContainer, allVerseTextList.length > 30, "blue", false);
             }
-            appendToContainer(thisWordDiv, allBooksContainer, allBookNums.length > 5, "blue", true);
-            headerResultsDiv.appendChild(thisWordDiv);
+            triangleSandwich(headerResultsDiv, thisWordDiv, allBooksContainer, allBookNums.length > 5, "blue", true);
         }
-        appendToContainer(thisHeaderDiv, headerResultsDiv, true, "blue", true);
-        document.getElementById("results-container").appendChild(thisHeaderDiv);
+        triangleSandwich(resultDiv, thisHeaderDiv, headerResultsDiv, true, "blue", true);
     }
     let totalWordCount = countData[4];
     let totalTokenCount = countData[5];
