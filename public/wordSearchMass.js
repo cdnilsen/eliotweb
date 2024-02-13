@@ -292,7 +292,7 @@ async function showVersesInBox(popupDiv, editionNum, dbCode) {
 }
 
 
-function addClickableTriangle(unclickedColor, clickedColor, showSpanList, addFollowingBreak) {  
+function addClickableTriangle(unclickedColor, clickedColor, spanContainer, addFollowingBreak) {  
     let followingBreak = ""
     if (addFollowingBreak) {
         followingBreak = "<br>";
@@ -314,9 +314,7 @@ function addClickableTriangle(unclickedColor, clickedColor, showSpanList, addFol
 
     clickableTriangle.addEventListener("click", function() {
         console.log("Clicked me!")
-        for (let i = 0; i < showSpanList.length; i++) {
-            showSpanList[i].hidden = !showSpanList[i].hidden;
-        }
+        spanContainer.hidden = !spanContainer.hidden;
         if (unClickedHTML.includes(clickableTriangle.innerHTML)) {
             clickableTriangle.style.color = clickedColor;
         } else {
@@ -629,19 +627,17 @@ function getVerseCodeSpan(verseList, verseCount, word) {
 
 
 //Do this tomorrow. As far as I can tell, we're going to have to go bottom-up. First get the verse cites and check if there are too many of them to display without a triangle; if so, add the triangle. Then do the same with books. Because we want this to be fairly flexible it is probably best to rewrite it as a function that just takes lists of stuff to make spans and divs out of and then adds triangles to the parent if need be.
-function appendToContainer(container, spanContainerList, useTriangle, triangleClickColor) {
+function appendToContainer(container, spanContainer, useTriangle, triangleClickColor) {
 
     if (useTriangle) {
-        let clickableTriangle = addClickableTriangle("gray", triangleClickColor, spanContainerList, true);
+        let clickableTriangle = addClickableTriangle("gray", triangleClickColor, spanContainer, true);
         container.appendChild(clickableTriangle);
     }
 
-    for (let i=0; i < spanContainerList.length; i++) {
-        if (useTriangle) {
-            spanContainerList[i].hidden = true;
-        }
-        container.appendChild(spanContainerList[i]);
+    if (useTriangle) {
+        spanContainer.hidden = true;
     }
+    container.appendChild(spanContainer);
 }
 
 
@@ -669,7 +665,7 @@ function processWordCites(word, totalCount, verseList, verseCountList) {
         }
     }
 
-    appendToContainer(wordDiv, [spanContainer], useTriangle, "blue");
+    appendToContainer(wordDiv, spanContainer, useTriangle, "blue");
 
     return wordDiv;
 }
@@ -742,7 +738,7 @@ function changeSectionBool (useAlphabetical, thisWord, thisWordCount, currentFir
     return changeHeader;
 }
 
-function sectionHeader(useAlphabetical, thisWord, thisWordCount, currentFirstLetter, lastWordCount, resultDiv, wordsWithThisHeader, headerToWordListDict, headerToTokenListDict, showSpanList) {
+function sectionHeader(useAlphabetical, thisWord, thisWordCount, currentFirstLetter, lastWordCount, resultDiv, wordsWithThisHeader, headerToWordListDict, headerToTokenListDict, childDiv) {
     let changeHeader = false;
     let tokenCount = 0;
     let wordCount = 0;
@@ -757,7 +753,7 @@ function sectionHeader(useAlphabetical, thisWord, thisWordCount, currentFirstLet
 
         firstLetterDiv.innerHTML = getHeaderText(wordCount, tokenCount, true, cleanedFirstLetter);
         
-        let clickableTriangle = addClickableTriangle("gray", "blue", showSpanList, true);
+        let clickableTriangle = addClickableTriangle("gray", "blue", childDiv, true);
 
         firstLetterDiv.appendChild(clickableTriangle);
         resultDiv.appendChild(firstLetterDiv);
@@ -771,7 +767,7 @@ function sectionHeader(useAlphabetical, thisWord, thisWordCount, currentFirstLet
 
         countDiv.innerHTML = getHeaderText(thisWordCount, tokenCount, false, thisWord[0]);
 
-        let clickableTriangle = addClickableTriangle("gray", "blue", showSpanList, true);
+        let clickableTriangle = addClickableTriangle("gray", "blue", childDiv, true);
 
         countDiv.appendChild(clickableTriangle);
 
@@ -864,7 +860,16 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical, resultDiv)
         let changeSection = changeSectionBool(sortAlphabetical, word, totalCount, currentFirstLetter, lastWordCount);
 
         if (changeSection) {
-            let updatedHeaderList = sectionHeader(sortAlphabetical, word, totalCount, currentFirstLetter, lastWordCount, resultDiv, wordsWithThisHeader, headerToWordListDict, headerToTokenListDict, outputDivDict[dictKey]);
+
+            let divContainer = document.createElement("div");
+            divContainer.id = "container-" + dictKey;
+
+            for (let i = 0; i < outputDivDict[dictKey].length; i++) {
+                divContainer.appendChild(outputDivDict[dictKey][i]);
+                divContainer.innerHTML += "<br>";
+            }
+
+            let updatedHeaderList = sectionHeader(sortAlphabetical, word, totalCount, currentFirstLetter, lastWordCount, resultDiv, wordsWithThisHeader, headerToWordListDict, headerToTokenListDict, divContainer);
 
             lastWordCount = updatedHeaderList[0];
             currentFirstLetter = updatedHeaderList[1];
