@@ -1002,21 +1002,8 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
                 
                 thisBookData.sort((a, b) => a["dbVerseCode"] - b["dbVerseCode"]
                 );
-                //console.log(thisBookData);
-
-                
-
                 let verseToStringDict = {};
-
-
-                /*Example of book data: {
-                    addressNum: 3003,
-                    bookNum: 66,
-                    dbVerseCode: 166003003,
-                    editionNum: 2,
-                    verseCount: 2
-                }*/
-
+               
                 let allVerses = [];
                 let redoneDictionaries = {};
                 let thisBookCount = 0;
@@ -1055,9 +1042,10 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
                     let allEditionPrimes = [2, 3, 5, 7];
                     let thisVersePrimes = [];
                     let thisVerseCounts = [];
-                    let pastOneVerse = false;
+                    
 
                     //Turn this into a function later lol
+                    let justOneEdition = true;
                     let everythingEqualsOne = true;
                     let allCountsEqual = true;
                     let mostRecentCount = 0;
@@ -1070,7 +1058,7 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
                                 everythingEqualsOne = false;
                             }
                             if (n != 0) {
-                                pastOneVerse = true;
+                                justOneEdition = false;
                                 if (thisCount != mostRecentCount) {
                                     allCountsEqual = false;
                                 }
@@ -1080,9 +1068,9 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
                     }
 
                     let suffix = "";
-                    if ((allCountsEqual || thisVersePrimes.length == 1) && everythingEqualsOne) {
+                    if ((allCountsEqual || justOneEdition) && everythingEqualsOne) {
                         suffix == "";
-                    } else if (allCountsEqual) {
+                    } else if (allCountsEqual || justOneEdition) {
                         suffix = "(" + mostRecentCount.toString() + ")";
                     } else {
                         for (let o=0; o < thisVersePrimes.length; o++) {   
