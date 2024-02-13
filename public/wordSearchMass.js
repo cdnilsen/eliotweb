@@ -719,6 +719,7 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
 
             let allBooksContainer = document.createElement("span");
             allBooksContainer.id = thisWord + "-books-container";
+            allBooksContainer.style.textIndent = "4em";
             
             let bookCountDict = {};
             for (let k=0; k < allBookNums.length; k++) {
@@ -741,8 +742,9 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
                 let verseCiteContainer = addVersesToBookSpan(verseTextList, thisWord, thisBookName);
 
                 triangleSandwich(allBooksContainer, thisBookSpan, verseCiteContainer, verseTextList.length > 30, "blue", false, true);
+
                 if (verseTextList.length > 1) {
-                    verseCiteContainer.innerHTML += `(${verseTextList.length} vv.)`;
+                    thisBookSpan.innerHTML += ` (${verseTextList.length} vv.)`;
                 }
             }
             triangleSandwich(headerResultsDiv, thisWordDiv, allBooksContainer, allBookNums.length > 5, "blue", true, false);
@@ -755,6 +757,40 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
     topDiv.style.fontSize = "30px";
     topDiv.innerHTML = `Found <b><u>${totalTokenCount}</u></b> tokens, representing <b><u>${totalWordCount}</u></b> distinct words.`;
 }
+
+function getRightWordList(sortAlphabetical, wordList, dictOfDicts) {
+    let newWordList = [];
+    if (sortAlphabetical) {
+        return alphabetizeWords(wordList);
+    } else {
+        let frequencyList = [];
+        let frequencyToWordDict = {};
+        for (let i = 0; i < wordList.length; i++) {
+            let thisWord = allWords[i];
+            let thisCount = dictOfDicts[thisWord]["totalCount"];
+
+            if (frequencyToWordDict[thisCount] === undefined) {
+                frequencyToWordDict[thisCount] = [thisWord];
+                frequencyList.push(thisCount);
+            } else {
+                frequencyToWordDict[thisCount].push(thisWord);
+            }
+        }
+
+        frequencyList.sort((a, b) => b - a);
+        
+        for (let j = 0; j < frequencyList.length; j++) {
+            let thisFrequency = frequencyList[j];
+            let thisWordList = frequencyToWordDict[thisFrequency];
+            thisWordList = alphabetizeWords(thisWordList);
+            for (let k = 0; k < thisWordList.length; k++) {
+                newWordList.push(thisWordList[k]);
+            }
+        }
+    }
+    return newWordList;
+}
+
 
 function getDictFromSearchOutput(searchOutput, resultDiv, sortAlphabetical, sortByBook) {
 
@@ -778,34 +814,7 @@ function getDictFromSearchOutput(searchOutput, resultDiv, sortAlphabetical, sort
         dictOfDicts[word] = processedDict;
     }
 
-    let newWordList = [];
-    
-    if (sortAlphabetical) {
-        newWordList = alphabetizeWords(allWords);
-    } else {
-        let frequencyList = [];
-        let frequencyToWordDict = {};
-        for (let i = 0; i < allWords.length; i++) {
-            let thisWord = allWords[i];
-            let thisCount = dictOfDicts[thisWord]["totalCount"];
-
-            if (frequencyToWordDict[thisCount] === undefined) {
-                frequencyToWordDict[thisCount] = [thisWord];
-                frequencyList.push(thisCount);
-            } else {
-                frequencyToWordDict[thisCount].push(thisWord);
-            }
-        }
-        frequencyList.sort((a, b) => b - a);
-        for (let j = 0; j < frequencyList.length; j++) {
-            let thisFrequency = frequencyList[j];
-            let thisWordList = frequencyToWordDict[thisFrequency];
-            thisWordList = alphabetizeWords(thisWordList);
-            for (let k = 0; k < thisWordList.length; k++) {
-                newWordList.push(thisWordList[k]);
-            }
-        }
-    }
+    let newWordList = getRightWordList(sortAlphabetical, allWords, dictOfDicts);
 
     processAllWordCites(newWordList, dictOfDicts, sortAlphabetical);
 }
