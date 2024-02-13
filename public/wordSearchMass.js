@@ -510,10 +510,10 @@ function getBookDivs(verseList, verseCount, word) {
         let thisBookString = "<i>" + thisBookName + "</i> ("
         thisBookString += thisBookTotalCount.toString() + "): ";
 
-        let thisBookDiv = document.createElement("div");
-        thisBookDiv.innerHTML = thisBookString;
-        thisBookDiv.style.marginLeft = "4em";
-        thisBookDiv.style.display = "inline-block";
+        let thisBookSpan = document.createElement("span");
+        thisBookSpan.innerHTML = thisBookString;
+        thisBookSpan.style.marginLeft = "4em";
+        thisBookSpan.style.display = "inline-block";
 
         let verseContainer = document.createElement("div");
         //HELL NO verseContainer.style.display = "inline-block";
@@ -525,7 +525,7 @@ function getBookDivs(verseList, verseCount, word) {
             }
         }
         hasTriangleList.push(allAddresses.length > 30);
-        allBookDivs.push(thisBookDiv);
+        allBookDivs.push(thisBookSpan);
         allVerseContainers.push(verseContainer);
     }
     return [allBookDivs, allVerseContainers, hasTriangleList]; 
