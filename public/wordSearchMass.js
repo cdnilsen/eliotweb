@@ -859,17 +859,15 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical, resultDiv)
         let changeSection = changeSectionBool(sortAlphabetical, word, totalCount, currentFirstLetter, lastWordCount);
 
         if (changeSection) {
-            /*
-            let divContainer = document.createElement("div");
+            let thisLetterDiv = document.createElement("div");
             divContainer.id = "container-" + dictKey;
 
             for (let i = 0; i < outputDivDict[dictKey].length; i++) {
                 divContainer.appendChild(outputDivDict[dictKey][i]);
                 divContainer.innerHTML += "<br>";
             }
-            */
 
-            let updatedHeaderList = sectionHeader(sortAlphabetical, word, totalCount, currentFirstLetter, lastWordCount, resultDiv, wordsWithThisHeader, headerToWordListDict, headerToTokenListDict, outputDiv);
+            let updatedHeaderList = sectionHeader(sortAlphabetical, word, totalCount, currentFirstLetter, lastWordCount, resultDiv, wordsWithThisHeader, headerToWordListDict, headerToTokenListDict, thisLetterDiv);
 
             lastWordCount = updatedHeaderList[0];
             currentFirstLetter = updatedHeaderList[1];
