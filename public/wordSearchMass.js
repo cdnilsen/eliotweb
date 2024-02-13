@@ -417,21 +417,21 @@ function processVerseCite(addressNum, editionList, countList, dbCode, thisBookNa
 
     let finalString = prefix + address + suffix;
 
-    let newSpan = document.createElement("span");
-    newSpan.classList.add("dotted-underline");
-    newSpan.innerHTML = finalString;
+    let verseDiv = document.createElement("div");
+    verseDiv.classList.add("dotted-underline");
+    verseDiv.innerHTML = finalString;
 
     let popupVerseBox = document.createElement("div");
     popupVerseBox.classList.add("popup-verse-box");
     popupVerseBox.hidden = true;
-    newSpan.appendChild(popupVerseBox);
+    verseDiv.appendChild(popupVerseBox);
 
-    newSpan.addEventListener("click", async function() {
+    verseDiv.addEventListener("click", async function() {
         console.log("Hello, you clicked on me!")
-        showVersesInBox(newSpan, popupVerseBox, verseLinkNum, dbCode);
+        showVersesInBox(verseDiv, popupVerseBox, verseLinkNum, dbCode);
     });
 
-    return [newSpan, totalCountVerse];
+    return [verseDiv, totalCountVerse];
 
 }
 
@@ -515,7 +515,7 @@ function getBookDivs(verseList, verseCount, word) {
         thisBookDiv.style.marginLeft = "4em";
         thisBookDiv.style.display = "inline-block";
 
-        let verseContainer = document.createElement("span");
+        let verseContainer = document.createElement("div");
         verseContainer.style.display = "inline-block";
 
         for (let i=0; i < allVerseSpanList.length; i++) {
