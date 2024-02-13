@@ -969,7 +969,6 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
             let thisWordDataDict = dictOfDicts[thisWord];
 
             let bookData = getBooks(thisWordDataDict["allVerses"], thisWordDataDict["allVerseCounts"], thisWord);
-            console.log(thisWord);
 
             let allBookNums = bookData[0];
             let allBookToVerseDict = bookData[1];
@@ -1071,17 +1070,17 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
                     if ((allCountsEqual || justOneEdition) && everythingEqualsOne) {
                         suffix == "";
                     } else if (allCountsEqual || justOneEdition) {
-                        suffix = "(" + mostRecentCount.toString() + ")";
+                        suffix = " (" + mostRecentCount.toString() + ")";
                     } else {
-                        for (let o=0; o < thisVersePrimes.length; o++) {   
-                            suffix = "(";
+                        suffix = " (";
+                        for (let o=0; o < thisVersePrimes.length; o++) {    
                             suffix += editionToSuperscriptDict[thisVersePrimes[o]];
                             suffix += thisVerseCounts[o].toString();
                             if (o != thisVersePrimes.length -1) {
                                 suffix += "/";
                             }
-                            suffix += ")"
-                        }                      
+                        }    
+                        suffix += ")"                  
                     }
 
                     let finalString = prefix + thisVerse + suffix;
