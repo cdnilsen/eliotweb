@@ -619,7 +619,6 @@ function processWordCites(word, totalCount, verseList, verseCountList) {
     let outputDiv = document.createElement('div');
     
     outputDiv.innerHTML = topString;
-    outputDiv.style.display = "inline-block";
     outputDiv.style.marginLeft = "4em";
     
     let useTopTriangle = allBookDivs.length > 5;
