@@ -369,25 +369,14 @@ function getCiteSuffix(editionList, countList) {
     }
 }
 
-//There is probably a more efficient way to do this
-function getAddressString(addressNum) {
-    let splitAddress = [];
-    //Necessary for the Psalms, where they may be no zero a 0 in the address. Spaghetti as hell so fix later
+function getAddressString(dbNum) {
+    let stringAddress = dbNum.toString().slice(3);
   
-    if (addressNum.toString().includes("0")) {
-        splitAddress = addressNum.toString().split("0");
-    } else {
-        return addressNum.toString().slice(0, 3) + ":" + (parseInt(addressNum.toString().slice(3, 6))).toString();
-    }
-        
+    let chapter = parseInt(stringAddress.slice(0, 3));
+    let verse = parseInt(stringAddress.slice(3));
 
-    let newAddressList = [];
-    for (let i = 0; i < splitAddress.length; i++) {
-        if (splitAddress[i] != "") {
-            newAddressList.push(splitAddress[i]);
-        }
-    }
-    return newAddressList.join(":");
+    let finalAddress = chapter.toString() + ":" + verse.toString();
+    return finalAddress;
 }
 
 function processVerseCite(addressNum, editionList, countList, dbCode, thisBookName) {
@@ -409,7 +398,7 @@ function processVerseCite(addressNum, editionList, countList, dbCode, thisBookNa
     }
     let prefix = editionToSuperscriptDict[editionNum];
 
-    let address = getAddressString(addressNum);
+    let address = getAddressString(dbNum);
 
     let suffix = getCiteSuffix(editionList, countList);
 
@@ -638,6 +627,11 @@ function appendToContainer(parentContainer, childContainer, useTriangle, triangl
         childContainer.hidden = true;
     }
     parentContainer.appendChild(childContainer);
+}
+
+function triangleSandwich(grandparentContainer, parentContainer, childContainer, useTriangle, triangleClickColor) {
+    appendToContainer(parentContainer, childContainer, useTriangle, triangleClickColor);
+    grandparentContainer.appendChild(parentContainer);
 }
 
 
@@ -980,8 +974,13 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
             let allBookNums = bookData[0];
             let allBookToVerseDict = bookData[1];
 
+            let totalCount = thisWordDataDict["totalCount"];
+            let ligaturedWord = word.split('8').join('ꝏ̄');
+
             let thisWordDiv = document.createElement("div");
-            thisWordDiv.innerHTML = "<b>" + thisWord + "</b> (" + thisWordDataDict["totalCount"] + "): ";
+
+            thisWordDiv.innerHTML = `<b>${ligaturedWord}</b> (${totalCount}):`;
+            
             thisWordDiv.style = "indent: 4em; font-size: 16px;";
 
             let thisWordDaughterSpan = document.createElement("span");
@@ -997,15 +996,49 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
                 thisBookSpan.innerHTML = "<i>" + thisBookName + "</i> (" + thisWordDataDict["totalCount"] + "): ";
 
                 let thisBookData = allBookToVerseDict[thisBookNum];
+                
+                thisBookData.sort((a, b) => a["dbVerseCode"] - b["dbVerseCode"]
+                );
                 console.log(thisBookData);
-                /*for (let l=0; l < thisBookData.length; l++) {
-                }*/
-
-                thisWordDaughterSpan.appendChild(thisBookSpan);
-
-
 
                 
+
+                let verseToStringDict = {};
+
+                    /* Example of book data:
+                        0
+                        : 
+                        {verseCount: 1, editionNum: 2, bookNum: 64, addressNum: 1003, dbVerseCode: 164001003}
+                        1
+                        : 
+                        {verseCount: 1, editionNum: 2, bookNum: 64, addressNum: 1007, dbVerseCode: 164001007}
+                        2
+                        : 
+                        {verseCount: 1, editionNum: 3, bookNum: 64, addressNum: 1007, dbVerseCode: 164001007}
+                        3
+                        : 
+                        {verseCount: 1, editionNum: 3, bookNum: 64, addressNum: 1008, dbVerseCode: 164001008}
+                        4
+                        : 
+                        {verseCount: 1, editionNum: 2, bookNum: 64, addressNum: 1010, dbVerseCode: 164001010}
+                        5
+                        : 
+                        {verseCount: 1, editionNum: 2, bookNum: 64, addressNum: 1008, dbVerseCode: 164001008}
+                        6
+                        : 
+                        {verseCount: 1, editionNum: 3, bookNum: 64, addressNum: 1010, dbVerseCode: 164001010}
+                        length
+                        : 
+                        7
+                        */
+                for (let l=0; l < thisBookData.length; l++) {
+                    let thisVerseData = thisBookData[l];
+                    let thisDBCode = thisVerseData["dbVerseCode"];
+                    let thisAddress = getAddressString(thisDBCode);
+
+                }
+
+                thisWordDaughterSpan.appendChild(thisBookSpan);
             }
 
             appendToContainer(thisWordDiv, thisWordDaughterSpan, allBookNums.length > 5, "blue");
