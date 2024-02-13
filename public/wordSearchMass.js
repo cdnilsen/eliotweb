@@ -454,58 +454,6 @@ function triangleSandwich(grandparentContainer, parentContainer, childContainer,
     }
 }
 
-
-function processWordCites(word, totalCount, verseList, verseCountList) {
-    let ligaturedWord = word.split('8').join('ꝏ̄');
-    let topString = `<b>${ligaturedWord}</b> (${totalCount}): `
-
-    let wordDiv = document.createElement("div");
-    wordDiv.innerHTML = topString;
-
-    let books = getBooks(verseList, verseCountList, word);
-    let bookList = books[0];
-
-    let useTriangle = bookList.length > 5;
-
-
-    let spanContainer = document.createElement("div");
-    let spanList = [];
-    for (let i=0; i < bookList.length; i++) {
-        let thisSpan = document.createElement("span");
-        thisSpan.innerHTML = bookList[i];
-        spanContainer.appendChild(thisSpan);
-        if (i != bookList.length - 1) {
-            spanContainer.innerHTML += ", ";
-        }
-    }
-
-    appendToContainer(wordDiv, spanContainer, useTriangle, "blue");
-
-    return wordDiv;
-}
-
-    /*
-    for (let i = 0; i < allBookDivs.length; i++) {
-        let thisBookDiv = allBookDivs[i];
-        if (allHasTriangle[i]) {
-            let clickableTriangle = addClickableTriangle("gray", "#FF0000", allVerseContainers[i], true);
-            thisBookDiv.appendChild(clickableTriangle);
-            allVerseContainers[i].hidden = true;
-            thisBookDiv.innerHTML += "<br>";
-        }
-        thisBookDiv.appendChild(allVerseContainers[i]);
-        thisBookDiv.innerHTML += "<br>";
-    }
-
-    
-
-    for (let i = 0; i < allBookDivs.length; i++) {
-        let thisBookDiv = allBookDivs[i];
-        topOutputSpan.appendChild(thisBookDiv);
-        console.log(thisBookDiv);
-    }
-    */
-
 function getHeaderText(wordCount, tokenCount, useToken, initialLetter) {
     if (initialLetter == "8") {
         initialLetter = "ꝏ̄";
@@ -536,84 +484,6 @@ function getHeaderText(wordCount, tokenCount, useToken, initialLetter) {
     }
 }
 
-function changeSectionBool (useAlphabetical, thisWord, thisWordCount, currentFirstLetter, lastWordCount) {
-    let changeHeader = false;
-    if (useAlphabetical) {
-        let cleanedFirstLetter = cleanDiacritics(thisWord[0]);
-        if (cleanedFirstLetter != currentFirstLetter) {
-            changeHeader = true;
-        }
-    }
-    else {
-        if (lastWordCount != thisWordCount) {
-            changeHeader = true;
-        }
-    }
-    return changeHeader;
-}
-
-function sectionHeader(useAlphabetical, thisWord, thisWordCount, currentFirstLetter, lastWordCount, resultDiv, wordsWithThisHeader, headerToWordListDict, headerToTokenListDict, childDiv) {
-    let changeHeader = false;
-    let tokenCount = 0;
-    let wordCount = 0;
-    let cleanedFirstLetter = cleanDiacritics(thisWord[0]);
-    //console.log(showSpanList);
-    if (useAlphabetical) {
-        wordCount = headerToWordListDict[cleanedFirstLetter];
-        tokenCount = headerToTokenListDict[cleanedFirstLetter];
-
-        let firstLetterDiv = document.createElement("div");
-        firstLetterDiv.style.fontSize = "24px";
-
-        firstLetterDiv.innerHTML = getHeaderText(wordCount, tokenCount, true, cleanedFirstLetter);
-        
-        let clickableTriangle = addClickableTriangle("gray", "blue", childDiv, true);
-
-        firstLetterDiv.appendChild(clickableTriangle);
-        resultDiv.appendChild(firstLetterDiv);
-        
-    } else {
-        wordCount = headerToWordListDict[thisWordCount];
-        tokenCount = headerToTokenListDict[thisWordCount];
-
-        let countDiv = document.createElement("div");
-        countDiv.style.fontSize = "24px";
-
-        countDiv.innerHTML = getHeaderText(thisWordCount, tokenCount, false, thisWord[0]);
-
-        let clickableTriangle = addClickableTriangle("gray", "blue", childDiv, true);
-
-        countDiv.appendChild(clickableTriangle);
-
-        resultDiv.appendChild(countDiv);
-    }
-
-    return [thisWordCount, cleanedFirstLetter];   
-}
-
-function sendSpanToCorrectPlace(span, word, wordTotalCount, useAlphabetical, spanDict) {
-    if (useAlphabetical) {
-        let key = cleanDiacritics(word[0]);
-        if (word[0] == "8") {
-            key = "ꝏ̄";
-        }
-        if (spanDict[key] === undefined) {
-            spanDict[key] = [span];
-        } else {
-            spanDict[key].push(span);
-        }
-        return key;
-    } else {
-        let key = wordTotalCount;
-        if (spanDict[key] === undefined) {
-            spanDict[key] = [span];
-        } else {
-            spanDict[key].push(span);
-        }
-        return key;
-    }
-}
-
 function getCountDictionaries(wordList, dictOfDicts, sortAlphabetical) {
     let allHeaders = [];
     let headerToWordListDict = {};
@@ -633,7 +503,6 @@ function getCountDictionaries(wordList, dictOfDicts, sortAlphabetical) {
         } else {
             myHeader = wordCount;
         }
-
         if (headerToWordListDict[myHeader] === undefined) {
             headerToWordListDict[myHeader] = [thisWord];
             headerToWordCountDict[myHeader] = 1;
@@ -649,13 +518,11 @@ function getCountDictionaries(wordList, dictOfDicts, sortAlphabetical) {
             totalTokens += wordCount;
         }
     }
-
     if (sortAlphabetical) {
         allHeaders = alphabetizeWords(allHeaders);
     } else {
         allHeaders.sort((a, b) => a - b);
     }
-
     return [allHeaders, headerToWordListDict, headerToWordCountDict, headerToTokenCountDict, totalWords, totalTokens];
 }
 
