@@ -525,6 +525,8 @@ function getBookDivs(verseList, verseCount, word) {
         hasTriangleList.push(allAddresses.length > 30);
         allBookDivs.push(thisBookSpan);
         allVerseContainers.push(verseContainer);
+        console.log(thisBookSpan);
+        console.log(verseContainer);
     }
     return [allBookDivs, allVerseContainers, hasTriangleList]; 
 }
@@ -615,7 +617,7 @@ function processWordCites(word, totalCount, verseList, verseCountList) {
     let allVerseContainers = bookVerseDivs[1];
     let allHasTriangle = bookVerseDivs[2];
     //console.log(allBookDivs)
-    console.log(allVerseContainers);
+    //console.log(allVerseContainers);
 
     let outputDiv = document.createElement('div');
     
