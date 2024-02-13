@@ -636,6 +636,7 @@ function addVersesToBookSpan(bookDataList, bookNameHTMLSpan, bookName, citeConta
             citeContainer.innerHTML += ", ";
         }
     }
+
     return verseTextList.length;
 }
 
@@ -714,11 +715,11 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
                 
                 thisBookData.sort((a, b) => a["dbVerseCode"] - b["dbVerseCode"]);
 
-                let citeContainer = document.createElement("span");
+                let verseCiteContainer = document.createElement("span");
 
-                let numVerses = addVersesToBookSpan(thisBookData, thisBookSpan, thisBookName, citeContainer);
+                let numVerses = addVersesToBookSpan(thisBookData, thisBookSpan, thisBookName, verseCiteContainer);
 
-                triangleSandwich(allBooksContainer, thisBookSpan, thisBookVerseCiteContainer, numVerses > 30, "blue", false, true);
+                triangleSandwich(allBooksContainer, thisBookSpan, verseCiteContainer, numVerses > 30, "blue", false, true);
             }
             triangleSandwich(headerResultsDiv, thisWordDiv, allBooksContainer, allBookNums.length > 5, "blue", true, true);
         }
