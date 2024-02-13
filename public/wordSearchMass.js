@@ -741,11 +741,11 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
 
                 let verseCiteContainer = addVersesToBookSpan(verseTextList, thisWord, thisBookName);
 
-                triangleSandwich(allBooksContainer, thisBookSpan, verseCiteContainer, verseTextList.length > 30, "blue", false, true);
-
                 if (verseTextList.length > 1) {
-                    thisBookSpan.innerHTML += ` (${verseTextList.length} vv.)`;
+                    verseCiteContainer.innerHTML += ` (${verseTextList.length} vv.)`;
                 }
+
+                triangleSandwich(allBooksContainer, thisBookSpan, verseCiteContainer, verseTextList.length > 30, "blue", false, true);
             }
             triangleSandwich(headerResultsDiv, thisWordDiv, allBooksContainer, allBookNums.length > 5, "blue", true, false);
         }
