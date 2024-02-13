@@ -450,11 +450,13 @@ function appendToContainer(parentContainer, childContainer, useTriangle, triangl
 
 //This should not be used as the last chain of a triangle sandwich (the last member of the chain has no triangle so you need to simply use appendToContainer.)
 function triangleSandwich(grandparentContainer, parentContainer, childContainer, useTriangle, triangleClickColor, breakBeforeChildren, breakAfterGrandparent) {
+    appendToContainer(parentContainer, childContainer, useTriangle, triangleClickColor, breakBeforeChildren);
+
     if (breakAfterGrandparent) {
         //grandparentContainer.innerHTML += "<br>";
         parentContainer.innerHTML = "<br>" + parentContainer.innerHTML;
     }
-    appendToContainer(parentContainer, childContainer, useTriangle, triangleClickColor, breakBeforeChildren);
+    
     grandparentContainer.appendChild(parentContainer);
 }
 
