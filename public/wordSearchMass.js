@@ -434,7 +434,7 @@ function processVerseCite(addressNum, editionList, countList, dbCode, thisBookNa
     return [verseDiv, totalCountVerse];
 
 }
-
+//This will have to be split up into multiple functions. First get the book divs and create triangles for the ones that need them. Then get the verse
 function getBookDivs(verseList, verseCount, word) {
     let allBookDivs = [];
 
@@ -625,9 +625,21 @@ function processWordCites(word, totalCount, verseList, verseCountList) {
     outputDiv.style.marginLeft = "4em";
     
     let useTopTriangle = allBookDivs.length > 5;
-    let topOutputSpan = document.createElement("span");
-    topOutputSpan.hidden = useTopTriangle;
 
+    if (useTopTriangle) {
+        let clickableTriangle = addClickableTriangle("gray", "blue", allBookDivs, false);
+        outputDiv.appendChild(clickableTriangle);
+        outputDiv.innerHTML += "<br>";
+    }
+
+    for (let i=0; i < allBookDivs.length; i++) {
+        let thisBookDiv = allBookDivs[i];
+        thisBookDiv.hidden = useTopTriangle;
+        outputDiv.appendChild(thisBookDiv);
+    }
+    return outputDiv;
+
+    /*
     for (let i = 0; i < allBookDivs.length; i++) {
         let thisBookDiv = allBookDivs[i];
         if (allHasTriangle[i]) {
@@ -640,21 +652,14 @@ function processWordCites(word, totalCount, verseList, verseCountList) {
         thisBookDiv.innerHTML += "<br>";
     }
 
-    if (useTopTriangle) {
-        let clickableTriangle = addClickableTriangle("gray", "blue", [topOutputSpan], false);
-        outputDiv.appendChild(clickableTriangle);
-        outputDiv.innerHTML += "<br>";
-    }
+    
 
     for (let i = 0; i < allBookDivs.length; i++) {
         let thisBookDiv = allBookDivs[i];
         topOutputSpan.appendChild(thisBookDiv);
         console.log(thisBookDiv);
     }
-
-    outputDiv.appendChild(topOutputSpan);
-    outputDiv.innerHTML += "<br>";
-
+    */
     return outputDiv;
 }
 
