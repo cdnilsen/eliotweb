@@ -545,7 +545,7 @@ function getBookDivs(verseList, verseCount, word) {
 
         let verseContainer = document.createElement("span");
         for (let i=0; i < allVerseSpanList.length; i++) {
-            verseContainer.innerHTML.appendChild(allVerseSpanList[i]);
+            verseContainer.appendChild(allVerseSpanList[i]);
             if (i != allVerseSpanList.length - 1) {
                 verseContainer.innerHTML += ", "
             }
