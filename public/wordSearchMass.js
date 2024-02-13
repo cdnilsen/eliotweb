@@ -532,7 +532,6 @@ function getSuffixData(dataDict) {
     let thisVerseCounts = [];
     let countsDiffer = false;
     let allCountsOne = true;
-
     let lastCount = 0;
 
     for (let i=0; i < 4; i++) {
@@ -596,6 +595,50 @@ function getVerseCiteSpans(verseList, dictOfDicts, bookName) {
     }
     return allVerseTextList;
 
+}
+
+function processBookData(bookDataList, bookHTMLSpan, bookName) {
+    let allVerses = [];
+    let redoneDictionaries = {};
+    let totalCount = 0;
+
+    for (let i=0; i < bookDataList.length; i++) {
+        let thisVerseData = bookDataList[i];
+        let thisDBCode = thisVerseData["dbVerseCode"];
+        let thisAddress = getAddressString(thisDBCode);
+        let thisEdition = thisVerseData["editionNum"];
+        let thisCount = thisVerseData["verseCount"];
+        totalCount += thisCount;
+
+        if (i == 0 || allVerses.slice(-1)[0] != thisAddress) {
+            allVerses.push(thisAddress);
+            redoneDictionaries[thisAddress] = {"allEditions": 1};
+        }
+
+        redoneDictionaries[thisAddress]["allEditions"] *= thisEdition;
+        redoneDictionaries[thisAddress][thisEdition] = thisCount;
+    }
+
+    bookHTMLSpan.innerHTML += totalCount.toString() + "): ";
+
+    return getVerseCiteSpans(allVerses, redoneDictionaries, BookName);
+
+}
+
+function addAllVersesToBookSpan(bookDataList, bookNameHTMLSpan, bookName) {
+    let citeContainer = document.createElement("span");
+    let verseTextList = processBookData(bookDataList, bookNameHTMLSpan, bookName);
+    
+    for (let i=0; i < verseTextList.length; i++) {
+        let thisVerseSpan = document.createElement("span");
+        thisVerseSpan.innerHTML = verseTextList[i];
+        thisVerseSpan.classList.add("dotted-underline");
+        citeContainer.appendChild(thisVerseSpan);
+        if (i != verseTextList.length - 1) {
+            citeContainer.innerHTML += ", ";
+        }
+    }
+    return citeContainer;
 }
 
 //Note: wordList should come presorted.
@@ -671,44 +714,10 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
 
                 let thisBookData = allBookToVerseDict[thisBookNum];
                 
-                thisBookData.sort((a, b) => a["dbVerseCode"] - b["dbVerseCode"]
-                );
-                let verseToStringDict = {};
-               
-                let allVerses = [];
-                let redoneDictionaries = {};
-                let thisBookCount = 0;
-                for (let l=0; l < thisBookData.length; l++) {
-                    let thisVerseData = thisBookData[l];
-                    let thisDBCode = thisVerseData["dbVerseCode"];
-                    let thisAddress = getAddressString(thisDBCode);
-                    let thisEdition = thisVerseData["editionNum"];
-                    let thisCount = thisVerseData["verseCount"];
-                    thisBookCount += thisCount;
+                thisBookData.sort((a, b) => a["dbVerseCode"] - b["dbVerseCode"]);
 
-                    if (l == 0 || allVerses.slice(-1)[0] != thisAddress) {
-                        allVerses.push(thisAddress);
-                        redoneDictionaries[thisAddress] = {"allEditions": 1};
-                    }
+                let thisBookVerseCiteContainer = addAllVersesToBookSpan(thisBookData, thisBookSpan, thisBookName);
 
-                    redoneDictionaries[thisAddress]["allEditions"] *= thisEdition;
-                    redoneDictionaries[thisAddress][thisEdition] = thisCount;
-                }
-
-                thisBookSpan.innerHTML += thisBookCount.toString() + "): ";
-
-                let allVerseTextList = getVerseCiteSpans(allVerses, redoneDictionaries, thisBookName);
-
-                let thisBookVerseCiteContainer = document.createElement("span");
-                for (let p=0; p < allVerseTextList.length; p++) {
-                    let thisVerseSpan = document.createElement("span");
-                    thisVerseSpan.innerHTML = allVerseTextList[p];
-                    thisVerseSpan.classList.add("dotted-underline");
-                    thisBookVerseCiteContainer.appendChild(thisVerseSpan);
-                    if (p != allVerseTextList.length - 1) {
-                        thisBookVerseCiteContainer.innerHTML += ", ";
-                    }
-                }
                 triangleSandwich(allBooksContainer, thisBookSpan,  thisBookVerseCiteContainer, allVerseTextList.length > 30, "blue", false, true);
             }
             triangleSandwich(headerResultsDiv, thisWordDiv, allBooksContainer, allBookNums.length > 5, "blue", true, true);
