@@ -627,6 +627,8 @@ function getVerseCodeSpan(verseList, verseCount, word) {
 }
 */
 
+
+//Do this tomorrow. As far as I can tell, we're going to have to go bottom-up. First get the verse cites and check if there are too many of them to display without a triangle; if so, add the triangle. Then do the same with books. Because we want this to be fairly flexible it is probably best to rewrite it as a function that just takes lists of stuff to make spans and divs out of and then adds triangles to the parent if need be.
 function processWordCites(word, totalCount, verseList, verseCountList) {
     let ligaturedWord = word.split('8').join('ꝏ̄');
     let topString = `<b>${ligaturedWord}</b> (${totalCount}): `
