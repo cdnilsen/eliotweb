@@ -700,13 +700,14 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
 
             let allBooksContainer = document.createElement("div");
             allBooksContainer.id = thisWord + "-books-div";
-            allBooksContainer.style.textIndent = "4em";
             
             let bookCountDict = {};
             for (let k=0; k < allBookNums.length; k++) {
                 let thisBookSpan = document.createElement("span");
                 let thisBookNum = allBookNums[k];
                 let thisBookName = topBookList[thisBookNum - 1];
+
+                thisBookSpan.style.textIndent = "4em";
 
                 thisBookSpan.id = "word-" + thisWord + "-book-" + thisBookName;
 
@@ -720,7 +721,7 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
 
                 let verseCiteContainer = addVersesToBookSpan(verseTextList, thisWord, thisBookName);
 
-                triangleSandwich(allBooksContainer, thisBookSpan, verseCiteContainer, verseTextList.length > 30, "blue", false, false);
+                triangleSandwich(allBooksContainer, thisBookSpan, verseCiteContainer, verseTextList.length > 30, "blue", true, false);
             }
             triangleSandwich(headerResultsDiv, thisWordDiv, allBooksContainer, allBookNums.length > 5, "blue", true, false);
         }
