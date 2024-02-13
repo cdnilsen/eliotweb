@@ -723,7 +723,7 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
             let allBooksContainer = document.createElement("span");
             allBooksContainer.id = thisWord + "-books-container";
             allBooksContainer.style.textIndent = "4em";
-            
+
             let bookCountDict = {};
             for (let k=0; k < allBookNums.length; k++) {
                 let thisBookSpan = document.createElement("span");
@@ -734,7 +734,7 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
 
                 thisBookSpan.innerHTML = "<i>" + thisBookName;
 
-                thisBookSpan.style.textIndent = "4em";
+                thisBookSpan.classList.add("textTab");
 
                 let thisBookData = allBookToVerseDict[thisBookNum];
                 
@@ -780,9 +780,7 @@ function getRightWordList(sortAlphabetical, wordList, dictOfDicts) {
                 frequencyToWordDict[thisCount].push(thisWord);
             }
         }
-
         frequencyList.sort((a, b) => b - a);
-        
         for (let j = 0; j < frequencyList.length; j++) {
             let thisFrequency = frequencyList[j];
             let thisWordList = frequencyToWordDict[thisFrequency];
