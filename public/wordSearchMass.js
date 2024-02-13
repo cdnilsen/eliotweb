@@ -997,6 +997,9 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
                 thisBookSpan.innerHTML = "<i>" + thisBookName + "</i> (" + thisWordDataDict["totalCount"] + "): ";
 
                 let thisBookData = allBookToVerseDict[thisBookNum];
+                console.log(thisBookData);
+                /*for (let l=0; l < thisBookData.length; l++) {
+                }*/
 
                 
             }
