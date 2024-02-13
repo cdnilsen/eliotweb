@@ -643,6 +643,7 @@ function processWordCites(word, totalCount, verseList, verseCountList) {
         outputDiv.appendChild(thisBookDiv);
         //outputDiv.innerHTML += "<br>";
         if (allHasTriangle[i]) {
+            allVerseContainers[i].hidden = true;
             outputDiv.innerHTML += "<br>";
         }
         outputDiv.appendChild(allVerseContainers[i]);
