@@ -448,11 +448,12 @@ function appendToContainer(parentContainer, childContainer, useTriangle, triangl
 
 //This should not be used as the last chain of a triangle sandwich (the last member of the chain has no triangle so you need to simply use appendToContainer.)
 function triangleSandwich(grandparentContainer, parentContainer, childContainer, useTriangle, triangleClickColor, breakBeforeChildren, breakAfterGrandparent) {
-    appendToContainer(parentContainer, childContainer, useTriangle, triangleClickColor, breakBeforeChildren);
-    
     if (breakAfterGrandparent) {
         grandparentContainer.innerHTML += "<br>";
     }
+
+    appendToContainer(parentContainer, childContainer, useTriangle, triangleClickColor, breakBeforeChildren);
+    
     grandparentContainer.appendChild(parentContainer);
 }
 
@@ -504,6 +505,7 @@ function getCountDictionaries(wordList, dictOfDicts, sortAlphabetical) {
             myHeader = cleanDiacritics(thisWord[0]);
         } else {
             myHeader = wordCount;
+            console.log(myHeader);
         }
         if (headerToWordListDict[myHeader] === undefined) {
             headerToWordListDict[myHeader] = [thisWord];
@@ -750,7 +752,7 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
             }
             triangleSandwich(headerResultsDiv, thisWordDiv, allBooksContainer, allBookNums.length > 5, "blue", true, true);
         }
-        triangleSandwich(resultDiv, thisHeaderDiv, headerResultsDiv, true, "blue", true, true);
+        triangleSandwich(resultDiv, thisHeaderDiv, headerResultsDiv, true, "blue", true, false);
     }
     let totalWordCount = countData[4];
     let totalTokenCount = countData[5];
