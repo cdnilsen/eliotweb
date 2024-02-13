@@ -516,13 +516,14 @@ function getBookDivs(verseList, verseCount, word) {
         thisBookDiv.style.display = "inline-block";
 
         let verseContainer = document.createElement("span");
+        verseContainer.style.display = "inline-block";
+
         for (let i=0; i < allVerseSpanList.length; i++) {
             verseContainer.appendChild(allVerseSpanList[i]);
             if (i != allVerseSpanList.length - 1) {
                 verseContainer.innerHTML += ", "
             }
         }
-
         hasTriangleList.push(allAddresses.length > 30);
         allBookDivs.push(thisBookDiv);
         allVerseContainers.push(verseContainer);
@@ -619,28 +620,37 @@ function processWordCites(word, totalCount, verseList, verseCountList) {
 
     let outputDiv = document.createElement('div');
     outputDiv.innerHTML = topString;
+    let useTopTriangle = allBookDivs.length > 5;
 
-    let useTriangle = allBookDivs.length > 5;
-    if (useTriangle) {
-        let clickableTriangle = addClickableTriangle("gray", "blue", allBookDivs, false);
-        outputDiv.appendChild(clickableTriangle);
+    for (let i = 0; i < allBookDivs.length; i++) {
+        let thisBookDiv = allBookDivs[i];
+        if (allHasTriangle[i]) {
+            let clickableTriangle = addClickableTriangle("gray", "#FF0000", [allVerseContainers[i]], true);
+            thisBookDiv.appendChild(clickableTriangle);
+            allVerseContainers[i].hidden = true;
+            thisBookDiv.innerHTML += "<br>";
+        }
+        thisBookDiv.appendChild(allVerseContainers[i]);
+        thisBookDiv.innerHTML += "<br>";
+        if (useTopTriangle) {
+            thisBookDiv.hidden = true;
+        }
     }
 
-    outputDiv.innerHTML += "<br>";
-    
+    if (useTopTriangle) {
+        let clickableTriangle = addClickableTriangle("gray", "blue", allBookDivs, false);
+        outputDiv.appendChild(clickableTriangle);
+        outputDiv.innerHTML += "<br>";
+    }
+
     for (let i = 0; i < allBookDivs.length; i++) {
         let thisBookDiv = allBookDivs[i];
         outputDiv.appendChild(thisBookDiv);
-        outputDiv.innerHTML += " ";
-        if (allHasTriangle[i]) {
-            let clickableTriangle = addClickableTriangle("gray", "#FF0000", [allVerseContainers[i]], true);
-            outputDiv.appendChild(clickableTriangle);
-            allVerseContainers[i].hidden = true;
-            outputDiv.innerHTML += "<br>";
-        }
-        outputDiv.appendChild(allVerseContainers[i]);
-        outputDiv.innerHTML += "<br>";
     }
+    
+
+    outputDiv.innerHTML += "<br>";
+
     return outputDiv;
 }
 
