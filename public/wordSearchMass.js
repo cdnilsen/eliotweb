@@ -440,10 +440,12 @@ function appendToContainer(parentContainer, childContainer, useTriangle, triangl
         parentContainer.innerHTML += "<br>";
     }
     childContainer.style.display = "inline-block";
+    
     if (useTriangle) {
+        childContainer.hidden = true;
+        console.log(childContainer);
         let clickableTriangle = addClickableTriangle("gray", triangleClickColor, childContainer, false);
         parentContainer.appendChild(clickableTriangle);
-        childContainer.hidden = true;
     } 
     parentContainer.appendChild(childContainer);
 }
