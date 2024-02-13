@@ -1001,6 +1001,10 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
                 /*for (let l=0; l < thisBookData.length; l++) {
                 }*/
 
+                thisWordDaughterSpan.appendChild(thisBookSpan);
+
+
+
                 
             }
 
