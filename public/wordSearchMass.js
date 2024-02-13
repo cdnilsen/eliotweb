@@ -750,7 +750,7 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
                 }
                 */
 
-                triangleSandwich(allBooksContainer, thisBookSpan, verseCiteContainer, verseTextList.length > 30, "red", false, true);
+                triangleSandwich(allBooksContainer, thisBookSpan, verseCiteContainer, verseTextList.length > 30, "red", false, allBookNums.length <= 5);
             }
             triangleSandwich(headerResultsDiv, thisWordDiv, allBooksContainer, allBookNums.length > 5, "#00FF50", true, allBookNums.length <= 5);
         }
