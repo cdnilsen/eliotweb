@@ -724,11 +724,11 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
             }
             triangleSandwich(headerResultsDiv, thisWordDiv, allBooksContainer, allBookNums.length > 5, "blue", true, true);
         }
-        
-        appendToContainer(thisHeaderDiv, headerResultsDiv, true, "blue", true);
-        resultDiv.appendChild(thisHeaderDiv);
 
-        //triangleSandwich(resultDiv, thisHeaderDiv, headerResultsDiv, true, "blue", true, true);
+        //appendToContainer(thisHeaderDiv, headerResultsDiv, true, "blue", true);
+        //resultDiv.appendChild(thisHeaderDiv);
+
+        triangleSandwich(resultDiv, thisHeaderDiv, headerResultsDiv, true, "blue", true, false);
         console.log(resultDiv.hidden);
         console.log(thisHeaderDiv.hidden);
         console.log(headerResultsDiv.hidden);
