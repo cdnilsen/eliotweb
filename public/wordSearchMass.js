@@ -979,13 +979,14 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
 
             let thisWordDiv = document.createElement("div");
 
-            thisWordDiv.innerHTML = `<b>${ligaturedWord}</b> (${totalCount}):`;
+            thisWordDiv.innerHTML = `<b>${ligaturedWord}</b> (${totalCount}): `;
             
             thisWordDiv.style = "indent: 4em; font-size: 16px;";
 
             let allBooksContainer = document.createElement("span");
             allBooksContainer.id = thisWord + "-books-span";
-
+            
+            let bookCountDict = {};
             for (let k=0; k < allBookNums.length; k++) {
                 let thisBookSpan = document.createElement("span");
 
@@ -993,7 +994,8 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
                 let thisBookName = topBookList[thisBookNum - 1];
 
                 thisBookSpan.id = "word-" + thisWord + "-book-" + thisBookName;
-                thisBookSpan.innerHTML = "<i>" + thisBookName + "</i> (" + thisWordDataDict["totalCount"] + "): ";
+                //thisBookSpan.innerHTML = "<i>" + thisBookName + "</i> (" + thisWordDataDict["totalCount"] + "): ";
+                thisBookSpan.innerHTML = "<i>" + thisBookName + "</i> ("
 
                 let thisBookData = allBookToVerseDict[thisBookNum];
                 
@@ -1032,7 +1034,7 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
                     redoneDictionaries[thisAddress][thisEdition] = thisCount;
                 }
 
-                for (let m=0; m < 5; m++) {
+                if (thisBookNum == 2) {
                     let thisVerse = allVerses[m];
                     console.log(thisVerse);
                     console.log(redoneDictionaries[thisVerse]);
