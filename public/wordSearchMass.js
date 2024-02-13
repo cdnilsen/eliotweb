@@ -622,6 +622,8 @@ function processWordCites(word, totalCount, verseList, verseCountList) {
     outputDiv.style.marginLeft = "4em";
     
     let useTopTriangle = allBookDivs.length > 5;
+    let topOutputSpan = document.createElement("span");
+    topOutputSpan.hidden = useTopTriangle;
 
     for (let i = 0; i < allBookDivs.length; i++) {
         let thisBookDiv = allBookDivs[i];
@@ -639,16 +641,18 @@ function processWordCites(word, totalCount, verseList, verseCountList) {
     }
 
     if (useTopTriangle) {
-        let clickableTriangle = addClickableTriangle("gray", "blue", allBookDivs, false);
+        let clickableTriangle = addClickableTriangle("gray", "blue", [topOutputSpan], false);
         outputDiv.appendChild(clickableTriangle);
         outputDiv.innerHTML += "<br>";
     }
 
     for (let i = 0; i < allBookDivs.length; i++) {
         let thisBookDiv = allBookDivs[i];
-        outputDiv.appendChild(thisBookDiv);
+        topOutputSpan.appendChild(thisBookDiv);
         console.log(thisBookDiv);
     }
+
+    outputDiv.appendChild(topOutputSpan);
     outputDiv.innerHTML += "<br>";
 
     return outputDiv;
