@@ -1080,7 +1080,7 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
                     }
 
                     let suffix = "";
-                    if (allCountsEqual && everythingEqualsOne) {
+                    if ((allCountsEqual || thisVersePrimes.length == 1) && everythingEqualsOne) {
                         suffix == "";
                     } else if (allCountsEqual) {
                         suffix = "(" + mostRecentCount.toString() + ")";
