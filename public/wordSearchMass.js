@@ -439,6 +439,7 @@ function appendToContainer(parentContainer, childContainer, useTriangle, triangl
     if (breakBeforeChildren) {
         parentContainer.innerHTML += "<br>";
     }
+    childContainer.style.display = "inline-block";
     if (useTriangle) {
         let clickableTriangle = addClickableTriangle("gray", triangleClickColor, childContainer, true);
         parentContainer.appendChild(clickableTriangle);
@@ -453,10 +454,8 @@ function triangleSandwich(grandparentContainer, parentContainer, childContainer,
         //grandparentContainer.innerHTML += "<br>";
         parentContainer.innerHTML = "<br>" + parentContainer.innerHTML;
     }
-
-    appendToContainer(parentContainer, childContainer, useTriangle, triangleClickColor, breakBeforeChildren);
-    
     grandparentContainer.appendChild(parentContainer);
+    appendToContainer(parentContainer, childContainer, useTriangle, triangleClickColor, breakBeforeChildren);
 }
 
 function getHeaderText(wordCount, tokenCount, useToken, initialLetter) {
