@@ -604,10 +604,17 @@ function processBookData(bookDataList, bookHTMLSpan, bookName) {
     let redoneDictionaries = {};
     let totalCount = 0;
 
+    let allAddresses = [];
+
     for (let i=0; i < bookDataList.length; i++) {
         let thisVerseData = bookDataList[i];
         let thisDBCode = thisVerseData["dbVerseCode"];
         let thisAddress = getAddressString(thisDBCode);
+
+        if (!allAddresses.includes(thisAddress)) {
+            allAddresses.push(thisAddress);
+        }
+
         let thisEdition = thisVerseData["editionNum"];
         let thisCount = thisVerseData["verseCount"];
         totalCount += thisCount;
@@ -620,6 +627,8 @@ function processBookData(bookDataList, bookHTMLSpan, bookName) {
         redoneDictionaries[thisAddress]["allEditions"] *= thisEdition;
         redoneDictionaries[thisAddress][thisEdition] = thisCount;
     }
+    console.log(allVerses);
+
     let verseCountString = allVerses.length.toString();
     let totalCountString = totalCount.toString();
     if (totalCount > 1) {
