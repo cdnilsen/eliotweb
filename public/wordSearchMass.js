@@ -621,11 +621,11 @@ function appendToContainer(parentContainer, childContainer, useTriangle, triangl
     if (useTriangle) {
         let clickableTriangle = addClickableTriangle("gray", triangleClickColor, childContainer, true);
         parentContainer.appendChild(clickableTriangle);
-    }
-
-    if (useTriangle) {
         childContainer.hidden = true;
+    } else {
+        parentContainer.innerHTML += "<br>";
     }
+    
     parentContainer.appendChild(childContainer);
 }
 
