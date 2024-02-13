@@ -526,6 +526,78 @@ function getCountDictionaries(wordList, dictOfDicts, sortAlphabetical) {
     return [allHeaders, headerToWordListDict, headerToWordCountDict, headerToTokenCountDict, totalWords, totalTokens];
 }
 
+function getSuffixData(dataDict) {
+    let allEditionPrimes = [2, 3, 5, 7];
+    let thisVerseCodes = [];
+    let thisVerseCounts = [];
+    let countsDiffer = false;
+    let allCountsOne = true;
+
+    let lastCount = 0;
+
+    for (let i=0; i < 4; i++) {
+        let p = allEditionPrimes[i];
+        if (dataDict[p] != undefined) {
+            let thisCount = dataDict[p];
+            let code = editionToSuperscriptDict[p];
+            thisVerseCodes.push(code);
+            thisVerseCounts.push(thisCount);
+            }
+        // 8)
+        countsDiffer = (countsDiffer && (thisCount == lastCount || i == 0));
+        lastCount = thisCount;
+        allCountsOne = allCountsOne && (thisCount == 1);
+    }
+
+    return {
+        "editions": thisVerseCodes,
+        "counts": thisVerseCounts,
+        "useSuffix": !allCountsOne,
+        "useSlash": countsDiffer
+    }
+}
+
+function getVerseSuffix(dataDict) {
+    let suffixDict = getSuffixData(dataDict);
+
+    let suffix = " (";
+    if (suffixDict["useSlash"]) {
+        for (let i=0; i < suffixDict["editions"].length; i++) {
+            suffix += suffixDict["counts"][i] + suffixDict["editions"][i];
+            if (i != suffixDict["editions"].length - 1) {
+                suffix += "/";
+            }
+        }
+        suffix += ")";
+        return suffix;
+    } else if (suffixDict["useSuffix"]) {
+        return suffix + suffixDict["counts"][0] + ")";
+    } else {
+        return "";
+    }
+}
+
+function getVerseCiteSpans(verseList, dictOfDicts, bookName) {
+    let allVerseTextList = [];
+    for (let i=0; i < verseList.length; i++) {
+        let verse = verseList[i];
+        let verseData = dictOfDicts[verse];
+        let editionNum = verseData["allEditions"];
+
+        if (bookName == "Genesis") {
+            editionNum *= 11;
+        } else if (bookName == "Psalms (prose)" || bookName == "John") {
+            editionNum *= 13;
+        }
+        let prefix = editionToSuperscriptDict[editionNum];
+        let suffix = getVerseSuffix(verseData);
+        let finalString = prefix + verse + suffix;
+        allVerseTextList.push(finalString);
+    }
+    return allVerseTextList;
+
+}
+
 //Note: wordList should come presorted.
 function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
     let resultDiv = document.getElementById("results-container");
@@ -594,7 +666,7 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
                 let thisBookName = topBookList[thisBookNum - 1];
 
                 thisBookSpan.id = "word-" + thisWord + "-book-" + thisBookName;
-                //thisBookSpan.innerHTML = "<i>" + thisBookName + "</i> (" + thisWordDataDict["totalCount"] + "): ";
+
                 thisBookSpan.innerHTML = "<i>" + thisBookName + "</i> ("
 
                 let thisBookData = allBookToVerseDict[thisBookNum];
@@ -625,65 +697,7 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
 
                 thisBookSpan.innerHTML += thisBookCount.toString() + "): ";
 
-                let allVerseTextList = [];
-                for (let m=0; m < allVerses.length; m++) {
-                    let thisVerse = allVerses[m];
-                    let thisVerseData = redoneDictionaries[thisVerse];
-
-                    let editionNum = thisVerseData["allEditions"];
-                    if (thisBookName == "Genesis") {
-                        editionNum *= 11;
-                    } else if (thisBookName == "Psalms (prose)" || thisBookName == "John") {
-                        editionNum *= 13;
-                    }
-                    let prefix = editionToSuperscriptDict[editionNum];
-
-                    let allEditionPrimes = [2, 3, 5, 7];
-                    let thisVersePrimes = [];
-                    let thisVerseCounts = [];
-                
-                    //Turn this into a function later lol
-                    let everythingEqualsOne = true;
-                    let allCountsEqual = true;
-                    let mostRecentCount = 0;
-                    for (let n=0; n < allEditionPrimes.length; n++) {
-                        if (thisVerseData[allEditionPrimes[n]] != undefined) {
-                            let thisCount = thisVerseData[allEditionPrimes[n]];
-                            thisVersePrimes.push(allEditionPrimes[n]);
-                            thisVerseCounts.push(thisCount);
-                            if (thisCount != 1) {
-                                everythingEqualsOne = false;
-                            }
-                            if (n != 0) {
-                                if (thisCount != mostRecentCount) {
-                                    allCountsEqual = false;
-                                }
-                            }
-                            mostRecentCount = thisCount;
-                        }
-                    }
-
-                    let justOneEdition = thisVersePrimes.length == 1;
-
-                    let suffix = "";
-                    if ((allCountsEqual || justOneEdition) && everythingEqualsOne) {
-                        suffix == "";
-                    } else if (allCountsEqual || justOneEdition) {
-                        suffix = " (" + mostRecentCount.toString() + ")";
-                    } else {
-                        suffix = " (";
-                        for (let o=0; o < thisVersePrimes.length; o++) {    
-                            suffix += editionToSuperscriptDict[thisVersePrimes[o]];
-                            suffix += thisVerseCounts[o].toString();
-                            if (o != thisVersePrimes.length -1) {
-                                suffix += "/";
-                            }
-                        }    
-                        suffix += ")"                  
-                    }
-                    let finalString = prefix + thisVerse + suffix;
-                    allVerseTextList.push(finalString);
-                }
+                let allVerseTextList = getVerseCiteSpans(allVerses, redoneDictionaries, thisBookName);
 
                 let thisBookVerseCiteContainer = document.createElement("span");
                 for (let p=0; p < allVerseTextList.length; p++) {
