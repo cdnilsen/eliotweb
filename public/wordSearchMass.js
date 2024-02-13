@@ -625,7 +625,7 @@ function appendToContainer(parentContainer, childContainer, useTriangle, triangl
     } else {
         parentContainer.innerHTML += "<br>";
     }
-    
+
     parentContainer.appendChild(childContainer);
 }
 
@@ -985,6 +985,8 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
 
             let allBooksContainer = document.createElement("span");
             allBooksContainer.id = thisWord + "-books-span";
+
+            allBooksContainer.style = "indent: 4em;";
             
             let bookCountDict = {};
             for (let k=0; k < allBookNums.length; k++) {
