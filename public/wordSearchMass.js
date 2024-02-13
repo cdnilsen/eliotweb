@@ -424,7 +424,7 @@ function processVerseCite(addressNum, editionList, countList, dbCode, thisBookNa
     let popupVerseBox = document.createElement("div");
     popupVerseBox.classList.add("popup-verse-box");
     popupVerseBox.hidden = true;
-    verseDiv.appendChild(popupVerseBox);
+    //verseDiv.appendChild(popupVerseBox);
 
     verseDiv.addEventListener("click", async function() {
         console.log("Hello, you clicked on me!")
