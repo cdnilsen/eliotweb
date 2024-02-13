@@ -441,7 +441,7 @@ function appendToContainer(parentContainer, childContainer, useTriangle, triangl
     }
     childContainer.style.display = "inline-block";
     if (useTriangle) {
-        let clickableTriangle = addClickableTriangle("gray", triangleClickColor, childContainer, true);
+        let clickableTriangle = addClickableTriangle("gray", triangleClickColor, childContainer, false);
         parentContainer.appendChild(clickableTriangle);
         childContainer.hidden = true;
     } 
