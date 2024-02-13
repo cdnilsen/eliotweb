@@ -748,12 +748,11 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
                     verseCiteContainer.innerHTML += ` (${verseTextList.length} vv.)`;
                 }
                 */
-
                 triangleSandwich(allBooksContainer, thisBookSpan, verseCiteContainer, verseTextList.length > 30, "red", false, false);
-                thisBookSpan.innerHTML += "<br>";
+                
             }
             triangleSandwich(headerResultsDiv, thisWordDiv, allBooksContainer, allBookNums.length > 5, "#00FF50", false, false);
-            allBooksContainer.innerHTML += "<br>";
+            
         }
         triangleSandwich(resultDiv, thisHeaderDiv, headerResultsDiv, true, "blue", false, false);
     }
