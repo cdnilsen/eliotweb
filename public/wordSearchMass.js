@@ -436,13 +436,14 @@ function addClickableTriangle(unclickedColor, clickedColor, childContainer, addF
 }
 
 function appendToContainer(parentContainer, childContainer, useTriangle, triangleClickColor, breakBeforeChildren) {
+    if (breakBeforeChildren) {
+        parentContainer.innerHTML += "<br>";
+    }
     if (useTriangle) {
         let clickableTriangle = addClickableTriangle("gray", triangleClickColor, childContainer, true);
         parentContainer.appendChild(clickableTriangle);
         childContainer.hidden = true;
-    } if (breakBeforeChildren) {
-        parentContainer.innerHTML += "<br>";
-    }
+    } 
     parentContainer.appendChild(childContainer);
 }
 
