@@ -435,26 +435,25 @@ function addClickableTriangle(unclickedColor, clickedColor, childContainer, addF
     return clickableTriangle;
 }
 
-function appendToContainer(parentContainer, childContainer, useTriangle, triangleClickColor, alwaysAddBreak) {
+function appendToContainer(parentContainer, childContainer, useTriangle, triangleClickColor, breakBeforeChildren) {
     if (useTriangle) {
         let clickableTriangle = addClickableTriangle("gray", triangleClickColor, childContainer, true);
         parentContainer.appendChild(clickableTriangle);
         childContainer.hidden = true;
-    } else if (alwaysAddBreak) {
+    } else if (breakBeforeChildren) {
         parentContainer.innerHTML += "<br>";
     }
     parentContainer.appendChild(childContainer);
 }
 
 //This should not be used as the last chain of a triangle sandwich (the last member of the chain has no triangle so you need to simply use appendToContainer.)
-function triangleSandwich(grandparentContainer, parentContainer, childContainer, useTriangle, triangleClickColor, breakAfterChild, breakAfterParent) {
-    appendToContainer(parentContainer, childContainer, useTriangle, triangleClickColor, breakAfterChild);
-
-    grandparentContainer.appendChild(parentContainer);
+function triangleSandwich(grandparentContainer, parentContainer, childContainer, useTriangle, triangleClickColor, breakBeforeChildren, breakAfterGrandparent) {
+    appendToContainer(parentContainer, childContainer, useTriangle, triangleClickColor, breakBeforeChildren);
     
-    if (breakAfterParent) {
+    if (breakAfterGrandparent) {
         grandparentContainer.innerHTML += "<br>";
     }
+    grandparentContainer.appendChild(parentContainer);
 }
 
 function getHeaderText(wordCount, tokenCount, useToken, initialLetter) {
@@ -749,9 +748,9 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
 
                 triangleSandwich(allBooksContainer, thisBookSpan, verseCiteContainer, verseTextList.length > 30, "blue", true, true);
             }
-            triangleSandwich(headerResultsDiv, thisWordDiv, allBooksContainer, allBookNums.length > 5, "blue", true, false);
+            triangleSandwich(headerResultsDiv, thisWordDiv, allBooksContainer, allBookNums.length > 5, "blue", true, true);
         }
-        triangleSandwich(resultDiv, thisHeaderDiv, headerResultsDiv, true, "blue", true, false);
+        triangleSandwich(resultDiv, thisHeaderDiv, headerResultsDiv, true, "blue", true, true);
     }
     let totalWordCount = countData[4];
     let totalTokenCount = countData[5];
