@@ -975,7 +975,7 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
             let allBookToVerseDict = bookData[1];
 
             let totalCount = thisWordDataDict["totalCount"];
-            let ligaturedWord = word.split('8').join('ꝏ̄');
+            let ligaturedWord = thisWord.split('8').join('ꝏ̄');
 
             let thisWordDiv = document.createElement("div");
 
@@ -1005,36 +1005,33 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
 
                 let verseToStringDict = {};
 
-                    /* Example of book data:
-                        0
-                        : 
-                        {verseCount: 1, editionNum: 2, bookNum: 64, addressNum: 1003, dbVerseCode: 164001003}
-                        1
-                        : 
-                        {verseCount: 1, editionNum: 2, bookNum: 64, addressNum: 1007, dbVerseCode: 164001007}
-                        2
-                        : 
-                        {verseCount: 1, editionNum: 3, bookNum: 64, addressNum: 1007, dbVerseCode: 164001007}
-                        3
-                        : 
-                        {verseCount: 1, editionNum: 3, bookNum: 64, addressNum: 1008, dbVerseCode: 164001008}
-                        4
-                        : 
-                        {verseCount: 1, editionNum: 2, bookNum: 64, addressNum: 1010, dbVerseCode: 164001010}
-                        5
-                        : 
-                        {verseCount: 1, editionNum: 2, bookNum: 64, addressNum: 1008, dbVerseCode: 164001008}
-                        6
-                        : 
-                        {verseCount: 1, editionNum: 3, bookNum: 64, addressNum: 1010, dbVerseCode: 164001010}
-                        length
-                        : 
-                        7
-                        */
+/*
+                Example of book data: {
+                    addressNum: 3003,
+                    bookNum: 66,
+                    dbVerseCode: 166003003,
+                    editionNum: 2,
+                    verseCount: 2
+                }
+
+
+                */
+
+                let allVerses = [];
+                let redoneDictionaries = {};
                 for (let l=0; l < thisBookData.length; l++) {
                     let thisVerseData = thisBookData[l];
                     let thisDBCode = thisVerseData["dbVerseCode"];
                     let thisAddress = getAddressString(thisDBCode);
+                    let thisEdition = thisVerseData["editionNum"];
+                    let thisCount = thisVerseData["verseCount"];
+
+                    if (l == 0 || allVerses[-1] != thisAddress) {
+                        allVerses.push(thisAddress);
+                        redoneDictionaries[thisAddress]["allEditions"] = 1;
+                    }
+                    redoneDictionaries[thisAddress]["allEditions"] *= thisEdition;
+                    redoneDictionaries[thisAddress][thisEdition] = thisCount;
 
                 }
 
