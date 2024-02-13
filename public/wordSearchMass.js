@@ -935,8 +935,6 @@ function getCountDictionaries(wordList, dictOfDicts, sortAlphabetical) {
 }
 
 function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
-    //console.log(dictOfDicts);
-    resultDiv.hidden = true;
     let totalWords = wordList.length;
     let totalTokens = 0;
 
