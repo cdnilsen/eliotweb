@@ -993,20 +993,13 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
 
                 thisBookSpan.id = "word-" + thisWord + "-book-" + thisBookName;
                 thisBookSpan.innerHTML = "<i>" + thisBookName + "</i> (" + thisWordDataDict["totalCount"] + "): ";
-                
+
                 let thisBookData = allBookToVerseDict[thisBookNum];
 
                 
             }
 
             appendToContainer(thisWordDiv, thisWordDaughterSpan, allBookNums.length > 5, "blue");
-
-            appendToContainer()
-
-
-
-
-
 
         }
         appendToContainer(thisHeaderDiv, headerResultsDiv, true, "blue");
