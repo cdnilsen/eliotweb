@@ -718,9 +718,13 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
             let thisWordDiv = document.createElement("div");
 
             if (totalCount > 1) {
-                thisWordDiv.innerHTML = `<b>${ligaturedWord}</b> (${totalCount}): <br>`;
+                thisWordDiv.innerHTML = `<b>${ligaturedWord}</b> (${totalCount}): `;
             } else {
-                thisWordDiv.innerHTML = `<b>${ligaturedWord}</b>: <br>`;
+                thisWordDiv.innerHTML = `<b>${ligaturedWord}</b>: `;
+            }
+
+            if (bookNums.length < 6) {
+                thisWordDiv.innerHTML += "<br>";
             }
             
             thisWordDiv.style.fontSize = "16px";
