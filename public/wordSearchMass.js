@@ -629,11 +629,23 @@ function getVerseCodeSpan(verseList, verseCount, word) {
 
 
 //Do this tomorrow. As far as I can tell, we're going to have to go bottom-up. First get the verse cites and check if there are too many of them to display without a triangle; if so, add the triangle. Then do the same with books. Because we want this to be fairly flexible it is probably best to rewrite it as a function that just takes lists of stuff to make spans and divs out of and then adds triangles to the parent if need be.
-function appendToContainer(container, spanList, useTriangle, triangleClickColor) {
+function appendToContainer(container, dataList, useTriangle, triangleClickColor) {
+
+    let spanList = [];
+    for (let i=0; i < dataList.length; i++) {
+        let thisSpan = document.createElement("span");
+        thisSpan.innerHTML = dataList[i];
+        if (useTriangle) {
+            thisSpan.hidden = true;
+        }
+        spanList.push(thisSpan);
+    }
+
     if (useTriangle) {
         let clickableTriangle = addClickableTriangle("gray", triangleClickColor, spanList, true);
         container.appendChild(clickableTriangle);
     }
+
     for (let i=0; i < spanList.length; i++) {
         if (useTriangle) {
             spanList[i].hidden = true;
