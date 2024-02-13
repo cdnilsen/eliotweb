@@ -984,8 +984,8 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
             
             thisWordDiv.style = "indent: 4em; font-size: 16px;";
 
-            let thisWordDaughterSpan = document.createElement("span");
-            thisWordDaughterSpan.id = thisWord + "-span";
+            let allBooksContainer = document.createElement("span");
+            allBooksContainer.id = thisWord + "-books-span";
 
             for (let k=0; k < allBookNums.length; k++) {
                 let thisBookSpan = document.createElement("span");
@@ -1038,11 +1038,11 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
                     console.log(thisVerse);
                     console.log(redoneDictionaries[thisVerse]);
                 }
-                thisWordDaughterSpan.appendChild(thisBookSpan);
-                thisWordDaughterSpan.innerHTML += "<br>";
+                allBooksContainer.appendChild(thisBookSpan);
+                allBooksContainer.innerHTML += "<br>";
             }
 
-            appendToContainer(thisWordDiv, thisWordDaughterSpan, allBookNums.length > 5, "blue");
+            appendToContainer(thisWordDiv, allBooksContainer, allBookNums.length > 5, "blue");
 
             headerResultsDiv.appendChild(thisWordDiv);
 
