@@ -752,9 +752,9 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
 
                 triangleSandwich(allBooksContainer, thisBookSpan, verseCiteContainer, verseTextList.length > 30, "red", false, true);
             }
-            triangleSandwich(headerResultsDiv, thisWordDiv, allBooksContainer, allBookNums.length > 5, "#00FF50", false, true);
+            triangleSandwich(headerResultsDiv, thisWordDiv, allBooksContainer, allBookNums.length > 5, "#00FF50", false, allBookNums.length <= 5);
         }
-        triangleSandwich(resultDiv, thisHeaderDiv, headerResultsDiv, true, "#blue", false, false);
+        triangleSandwich(resultDiv, thisHeaderDiv, headerResultsDiv, true, "blue", false, false);
     }
     let totalWordCount = countData[4];
     let totalTokenCount = countData[5];
