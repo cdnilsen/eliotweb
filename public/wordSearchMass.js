@@ -636,7 +636,7 @@ function addVersesToBookSpan(verseTextList, word, book) {
         thisVerseSpan.classList.add("dotted-underline");
         verseCiteContainer.appendChild(thisVerseSpan);
         if (i != verseTextList.length - 1) {
-            citeContainer.innerHTML += ", ";
+            verseCiteContainer.innerHTML += ", ";
         }
     }
 
