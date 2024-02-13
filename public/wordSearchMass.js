@@ -541,11 +541,10 @@ function getSuffixData(dataDict) {
             let code = editionToSuperscriptDict[p];
             thisVerseCodes.push(code);
             thisVerseCounts.push(thisCount);
-            }
-        // 8)
-        countsDiffer = (countsDiffer && (thisCount == lastCount || i == 0));
-        lastCount = thisCount;
-        allCountsOne = allCountsOne && (thisCount == 1);
+            countsDiffer = (countsDiffer && (thisCount == lastCount || i == 0));
+            lastCount = thisCount;
+            allCountsOne = allCountsOne && (thisCount == 1);
+        }
     }
 
     return {
