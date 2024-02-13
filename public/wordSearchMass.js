@@ -618,7 +618,7 @@ function getVerseCodeSpan(verseList, verseCount, word) {
 
 function processWordCites(word, totalCount, verseList, verseCountList) {
     let ligaturedWord = word.split('8').join('ꝏ̄');
-    let topString = `<b>${ligaturedWord}</b> (${totalCount}):`
+    let topString = `<b>${ligaturedWord}</b> (${totalCount}): `
 
     let bookVerseDivs = getBookDivs(verseList, verseCountList, word);
 
