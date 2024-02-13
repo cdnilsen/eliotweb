@@ -1025,7 +1025,7 @@ function processAllWordCites(wordList, dictOfDicts, sortAlphabetical) {
 
                     if (l == 0 || allVerses[-1] != thisAddress) {
                         allVerses.push(thisAddress);
-                        redoneDictionaries[thisAddress]["allEditions"] = 1;
+                        redoneDictionaries[thisAddress] = {"allEditions": 1};
                     }
 
                     redoneDictionaries[thisAddress]["allEditions"] *= thisEdition;
