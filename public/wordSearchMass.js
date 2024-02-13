@@ -629,18 +629,18 @@ function getVerseCodeSpan(verseList, verseCount, word) {
 
 
 //Do this tomorrow. As far as I can tell, we're going to have to go bottom-up. First get the verse cites and check if there are too many of them to display without a triangle; if so, add the triangle. Then do the same with books. Because we want this to be fairly flexible it is probably best to rewrite it as a function that just takes lists of stuff to make spans and divs out of and then adds triangles to the parent if need be.
-function appendToContainer(container, spanList, useTriangle, triangleClickColor) {
+function appendToContainer(container, spanContainerList, useTriangle, triangleClickColor) {
 
     if (useTriangle) {
-        let clickableTriangle = addClickableTriangle("gray", triangleClickColor, spanList, true);
+        let clickableTriangle = addClickableTriangle("gray", triangleClickColor, spanContainerList, true);
         container.appendChild(clickableTriangle);
     }
 
-    for (let i=0; i < spanList.length; i++) {
+    for (let i=0; i < spanContainerList.length; i++) {
         if (useTriangle) {
-            spanList[i].hidden = true;
+            spanContainerList[i].hidden = true;
         }
-        container.appendChild(spanList[i]);
+        container.appendChild(spanContainerList[i]);
     }
 }
 
@@ -657,17 +657,19 @@ function processWordCites(word, totalCount, verseList, verseCountList) {
 
     let useTriangle = bookList.length > 5;
 
+
+    let spanContainer = document.createElement("div");
     let spanList = [];
     for (let i=0; i < bookList.length; i++) {
         let thisSpan = document.createElement("span");
         thisSpan.innerHTML = bookList[i];
-        if (useTriangle) {
-            thisSpan.hidden = true;
+        spanContainer.appendChild(thisSpan);
+        if (i != bookList.length - 1) {
+            spanContainer.innerHTML += ", ";
         }
-        spanList.push(thisSpan);
     }
 
-    appendToContainer(wordDiv, spanList, useTriangle, "blue");
+    appendToContainer(wordDiv, [spanContainer], useTriangle, "blue");
 
     return wordDiv;
 }
