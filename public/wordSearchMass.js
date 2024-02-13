@@ -723,7 +723,7 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
                 thisWordDiv.innerHTML = `<b>${ligaturedWord}</b>: `;
             }
 
-            if (bookNums.length < 6) {
+            if (allBookNums.length < 6) {
                 thisWordDiv.innerHTML += "<br>";
             }
             
