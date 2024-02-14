@@ -813,8 +813,9 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
                     bookContainer.appendChild(thisBookSpan);
 
                     //thisWordDiv.appendChild(document.createElement("br"));
+                    bookContainer.appendChild(document.createElement("br"));
                 }
-                bookContainer.appendChild(document.createElement("br"));
+                
 
                 
 
