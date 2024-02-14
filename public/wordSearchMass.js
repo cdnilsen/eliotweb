@@ -456,6 +456,10 @@ function addChildToExistingTriangle(parentContainer, parentTriangle, childContai
 
 function appendChildTriangleOptional(useTriangle, parentContainer, childContainer, unclickedColor, clickedColor, addBreak=true, parentTriangle=undefined) {
     if (useTriangle) {
+        if (addBreak) {
+            let breakSpan = document.createElement('br');
+            parentContainer.appendChild(breakSpan);
+        }
         addChildToExistingTriangle(parentContainer, parentTriangle, childContainer, unclickedColor, clickedColor, addBreak);
         return parentTriangle;
     } else {
