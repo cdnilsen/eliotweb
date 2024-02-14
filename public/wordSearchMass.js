@@ -789,7 +789,7 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
                 if (verseTextList.length > 25) {
                     //verseCiteContainer.classList.add("textTab2");
 
-                    let bookTriangle = addTriangleToParent(thisBookSpan, "gray", "red", false);
+                    let bookTriangle = addTriangleToParent(thisBookSpan, "gray", "red", true);
 
                     addChildToExistingTriangle(thisBookSpan, bookTriangle, verseCiteContainer);
                 } else {
