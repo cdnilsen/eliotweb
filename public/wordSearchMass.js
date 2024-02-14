@@ -759,7 +759,7 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
             bookContainer.id = "word-" + thisWord + "-books";
 
             if (allBookNums.length > 5) {
-                wordTriangle = addTriangleToParent(thisWordDiv, "gray", "red", true);
+                wordTriangle = addTriangleToParent(thisWordDiv, "gray", "#00FF50", true);
                 addChildToExistingTriangle(thisWordDiv, wordTriangle, bookContainer);
             } else {
                 let breakSpan = document.createElement("br");
@@ -791,7 +791,7 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
                 //let bookTriangle = appendChildTriangleOptional(allBookNums.length > 5, thisWordDiv, thisBookSpan, "gray", "#00ff50", true, wordTriangle);
 
                 if (verseTextList.length > 25) {
-                    //verseCiteContainer.classList.add("textTab2");
+                    verseCiteContainer.classList.add("textTab2");
 
                     let bookTriangle = addTriangleToParent(thisBookSpan, "gray", "red", true);
 
@@ -800,14 +800,12 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
                     let breakSpan = document.createElement("br");
                     thisBookSpan.appendChild(breakSpan);
                 } else {
-                    //verseCiteContainer.display = "inline-block";
+                    verseCiteContainer.display = "inline-block";
                     thisBookSpan.appendChild(verseCiteContainer);
 
                     let thisBreakSpan = document.createElement("br");
                     thisBookSpan.appendChild(thisBreakSpan);
                 }
-
-                
 
                 if (allBookNums.length > 5) {
                     addChildToExistingTriangle(bookContainer, wordTriangle, thisBookSpan);
