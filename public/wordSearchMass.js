@@ -221,6 +221,14 @@ function processEngma(word) {
     return wordCopy;
 }
 
+function toggleCSS(elementProperty, option1, option2) {
+    if (elementProperty == option1) {
+        elementProperty = option2;
+    } else {
+        elementProperty = option1;
+    }
+}
+
 function cleanDiacritics(word) {
 
     let charReplacementDict = {
@@ -648,7 +656,8 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book) {
         });
 
         popupContainer.addEventListener("click", async function() {
-            popupContainer.visible = !popupContainer.visible;
+            toggleCSS(popupContainer.visible, true, false);
+            toggleCSS(popupContainer.opacity, 1, 0); 
         });
 
 
