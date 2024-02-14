@@ -460,10 +460,6 @@ function appendChildTriangleOptional(useTriangle, parentContainer, childContaine
         return parentTriangle;
     } else {
         parentContainer.appendChild(childContainer);
-        if (addBreak) {
-            let breakSpan = document.createElement('br');
-            parentContainer.appendChild(breakSpan);
-        }
         return undefined;
     }
 }
@@ -679,6 +675,8 @@ function addVersesToBookSpan(verseTextList, word, book) {
             if (verseTextList.length > 1) {
                 verseCiteContainer.innerHTML += ` (${verseTextList.length} vv.)`;
             }
+            let breakSpan = document.createElement("br");
+            verseCiteContainer.appendChild(breakSpan);
         }
     }
     return verseCiteContainer;
