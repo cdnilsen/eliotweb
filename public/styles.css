@@ -180,17 +180,6 @@ tbody {
     margin-left: 4em;
 }
 
-.popup-verse-box {
-    position: relative;
-    z-index: 1000;
-    background-color: #f9f9f9;
-    border: 1px solid #888;
-    width: 600px;
-    height: 300px;
-    overflow: auto;
-}
-
-
 li {
     text-align: center;
 }
@@ -235,10 +224,26 @@ button {
 }
 */
 
-.dotted-underline {
+.cite-span {
     text-decoration: underline;
     text-decoration-style: dotted;
     text-decoration-color: black;
+    cursor: pointer;
+}
+
+.popup-verse-box {
+    visibility: hidden;
+    position: relative;
+    z-index: 1000;
+    background-color: #f9f9f9;
+    border: 1px solid #888;
+    width: 600px;
+    height: 300px;
+    overflow: auto;
+}
+
+.popup-verse-box .show {
+    visibility: visible;
 }
   
 .ketiv {
@@ -268,4 +273,4 @@ button {
   
 .ketiv:hover .hover-tooltip {
     visibility: visible;
-  }
+}

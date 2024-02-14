@@ -273,9 +273,7 @@ function populateColumns(popupDiv, editionNum, allVerseList) {
 
 }
 
-//Address num probably not needed here
-async function showVersesInBox(popupDiv, dbCode) {
-
+async function showVersesInBox(popupContainer, dbCode) {
     console.log("Show verses in box was called!");
     let fetchString = "/fetchVerse/" + dbCode.toString();
     fetch(fetchString, {
@@ -284,18 +282,17 @@ async function showVersesInBox(popupDiv, dbCode) {
             "Content-type": "application/json; charset=UTF-8"
         }
     }).then(res => res.json()).then(res => {
-        //popupDiv.innerHTML = "";
+        popupContainer.innerHTML = "";
         let primeKeys = [2, 3, 5, 11, 13];
         console.log(res);
         for (let i = 0; i < primeKeys.length; i++) {
             let p = primeKeys[i];
             if (res[p] != "") {
-                popupDiv.innerHTML += editionToSuperscriptDict[p] + res[p];
+                popupContainer.innerHTML += editionToSuperscriptDict[p] + res[p];
             }
-            popupDiv.innerHTML += "<br>";
+            popupContainer.innerHTML += "<br>";
         }
-
-        popupDiv.hidden = false;
+        popupContainer.classList.toggle("show");
     });
 }
 
@@ -631,17 +628,15 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book) {
         let thisDBCode = dbCodeList[i];
         let thisVerseSpan = document.createElement("span");
         thisVerseSpan.innerHTML = verseTextList[i];
-        thisVerseSpan.classList.add("dotted-underline");
-        thisVerseSpan.style.cursor = "pointer";
+        thisVerseSpan.classList.add("cite-span");
+
+        let popupContainer = document.createElement("span");
+        popupContainer.classList.add("popup-verse-box");
+        thisVerseSpan.appendChild(popupContainer);
 
         thisVerseSpan.addEventListener("click", async function() {
-            console.log("Hello, you clicked on me!")
-            let popupDiv = document.createElement("div");
-            popupDiv.classList.add("popup-verse-box");
-            popupDiv.hidden = true;
-            thisVerseSpan.appendChild(popupDiv);
-
-            await showVersesInBox(popupDiv, thisDBCode);
+            console.log("Hello, you clicked on me!");
+            await showVersesInBox(popupDiv, popupContainer);
         });
 
 
