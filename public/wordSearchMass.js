@@ -160,8 +160,6 @@ let customAlphabetizationDict = {
     "y": 57,
     "z": 58
 };
-
-
 //Courtesy of stack exchange
 function makeComparer(order) {
     let ap = Array.prototype;
@@ -372,6 +370,7 @@ function processVerseCite(addressNum, editionList, countList, dbCode, thisBookNa
 
     let verseDiv = document.createElement("div");
     verseDiv.classList.add("dotted-underline");
+    verseDiv.hover = "pointer";
     verseDiv.innerHTML = finalString;
 
     let popupVerseBox = document.createElement("div");
@@ -542,10 +541,6 @@ function getCountDictionaries(wordList, dictOfDicts, sortAlphabetical) {
     if (sortAlphabetical) {
         allHeaders = alphabetizeWords(allHeaders);
     } else {
-
-        console.log(allHeaders.sort((a, b) => a - b));
-        console.log(allHeaders.sort((a, b) => b - a));
-
         allHeaders.sort((a, b) => b - a);
     }
     return [allHeaders, headerToWordListDict, headerToWordCountDict, headerToTokenCountDict, totalWords, totalTokens];
