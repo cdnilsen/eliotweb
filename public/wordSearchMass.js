@@ -646,6 +646,10 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book) {
             await showVersesInBox(popupContainer, thisDBCode);
         });
 
+        popupContainer.addEventListener("click", async function() {
+            popupContainer.visible = !popupContainer.visible;
+        });
+
 
 
         verseCiteContainer.appendChild(thisVerseSpan);
