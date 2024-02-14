@@ -801,6 +801,8 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
                 }
                 if (allBookNums.length > 5) {
                     addChildToExistingTriangle(thisWordDiv, wordTriangle, thisBookSpan);
+                } else {
+                    thisWordDiv.appendChild(thisBookSpan);
                 }
 
 
