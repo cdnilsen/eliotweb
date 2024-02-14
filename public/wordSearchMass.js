@@ -788,7 +788,7 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
                     bookTriangle = addTriangleToParent(thisBookSpan, "gray", "red", true);
                     addChildToExistingTriangle(thisBookSpan, bookTriangle, verseCiteContainer);
                 } else {
-                    verseCiteContainer.display = "inline-block";
+                    //verseCiteContainer.display = "inline-block";
                     thisBookSpan.appendChild(verseCiteContainer);
 
                     let thisBreakSpan = document.createElement("br");
