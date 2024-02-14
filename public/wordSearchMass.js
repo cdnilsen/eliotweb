@@ -406,7 +406,20 @@ function getBooks(verseList, verseCount, word) {
     allBooks.sort((a, b) => a - b);
     return [allBooks, dictOfDicts];
 }
-//Rewrite basically all of this tomorrow
+
+
+//Rewrite basically all of this tomorrow.
+
+
+
+/*
+Probably what needs to happen is this: pull all the words and create spans for them. Create a span for each *verse* given its editions and counts. Then add it to a span of appropriate size (chapter spans are probably a good idea). Then append that to a book div. Append the book div to a word div, and finally append that to a header div. Use a one-size-fits-all function to add triangles where appropriate.
+
+A reason this is preferable to the old way of doing things is that it allows for flexibility in how 
+*/
+
+
+/*
 function addClickableTriangle(unclickedColor, clickedColor, childContainer, addFollowingBreak) {  
     let followingBreak = ""
     if (addFollowingBreak) {
@@ -436,7 +449,7 @@ function addClickableTriangle(unclickedColor, clickedColor, childContainer, addF
             clickableTriangle.style.color = unclickedColor;
         }
         clickableTriangle.innerHTML = htmlToggleDict[clickableTriangle.innerHTML];
-        */
+        
     });
     return clickableTriangle;
 }
@@ -757,7 +770,7 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
                 if (verseTextList.length > 1) {
                     verseCiteContainer.innerHTML += ` (${verseTextList.length} vv.)`;
                 }
-                */
+                
                 triangleSandwich(allBooksContainer, thisBookSpan, verseCiteContainer, verseTextList.length > 30, "red", false, false);
                 
             }
@@ -850,7 +863,7 @@ async function seeAllWords(fetchString, resultDiv, sortAlphabetical, sortByBook)
         }
     }).catch(err => console.error(err))
 }
-
+*/
 document.getElementById("searchButton").addEventListener("click", async function() {
     let searchSetting = 1;
 
