@@ -638,7 +638,7 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book) {
 
         let popupContainer = document.createElement("span");
         popupContainer.classList.add("cite-span");
-        popupContainer.classList.add("click-tooltip");
+        popupContainer.classList.add("show-verse");
         thisVerseSpan.appendChild(popupContainer);
 
         thisVerseSpan.addEventListener("click", async function() {

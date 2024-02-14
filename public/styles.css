@@ -227,39 +227,42 @@ button {
 .cite-span {
     position: relative;
     display: inline-block;
-    border-bottom: 2px dotted black;
-    border-color: black;
     cursor: pointer;
+    text-decoration-style: dotted;
 }
 
-.cite-span .click-tooltip {
+.cite-span .show-verse {
     visibility: hidden;
-    width: 50px;
-    background-color: black;
+    width: 200px;
+    background-color: #000;
     color: #fff;
     text-align: center;
     border-radius: 6px;
-    padding: 5px 0;
-  
-    /* Position the tooltip */
-    position: relative;
-    z-index: auto;
-    bottom: 120%;
-    left: 0%;
-    margin-left: 0px;
+    padding: 5px 10px;
+    position: absolute;
+    z-index: 9999;
+    top: -150%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.cite-span:hover .show-verse {
+    visibility: visible;
+    opacity: 1;
+}
+
+.tooltip-content:focus {
+    outline: none;
+}
+
+.tooltip-content:not(:focus) {
+    visibility: hidden;
+    opacity: 0;
 }
 
 
-.popup-verse-box {
-    position: relative;
-    z-index: auto;
-    background-color: #f9f9f9;
-    border: 1px solid #888;
-    width: 600px;
-    height: 300px;
-    overflow: auto;
-}
-  
 .ketiv {
     position: relative;
     display: inline-block;
