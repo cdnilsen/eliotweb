@@ -234,7 +234,7 @@ button {
 .popup-verse-box {
     visibility: hidden;
     position: relative;
-    z-index: 1000;
+    z-index: auto;
     background-color: #f9f9f9;
     border: 1px solid #888;
     width: 600px;
