@@ -636,7 +636,7 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book) {
 
         thisVerseSpan.addEventListener("click", async function() {
             console.log("Hello, you clicked on me!");
-            await showVersesInBox(popupDiv, popupContainer);
+            await showVersesInBox(popupContainer, thisDBCode);
         });
 
 
