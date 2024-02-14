@@ -787,11 +787,11 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
                 //let bookTriangle = appendChildTriangleOptional(allBookNums.length > 5, thisWordDiv, thisBookSpan, "gray", "#00ff50", true, wordTriangle);
 
                 if (verseTextList.length > 25) {
-                    verseCiteContainer.classList.add("textTab2");
+                    //verseCiteContainer.classList.add("textTab2");
 
                     let bookTriangle = addTriangleToParent(thisBookSpan, "gray", "red", false);
 
-                    //addChildToExistingTriangle(thisBookSpan, bookTriangle, verseCiteContainer);
+                    addChildToExistingTriangle(thisBookSpan, bookTriangle, verseCiteContainer);
                 } else {
                     //verseCiteContainer.display = "inline-block";
                     thisBookSpan.appendChild(verseCiteContainer);
