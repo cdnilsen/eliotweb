@@ -643,7 +643,7 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book) {
         let thisVerseSpan = document.createElement("span");
         thisVerseSpan.innerHTML = verseTextList[i];
         thisVerseSpan.classList.add("cite-span");
-        thisVerseSpan.style.textDecoration = "dotted";
+        thisVerseSpan.style.textDecoration = "underline dotted";
 
         let popupContainer = document.createElement("span");
         popupContainer.classList.add("show-verse");
