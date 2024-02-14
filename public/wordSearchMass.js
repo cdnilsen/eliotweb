@@ -501,7 +501,7 @@ function getHeaderText(wordCount, tokenCount, sortAlphabetical, headerString) {
 
         return "<u><b><i>" + headerString + "</i></b></u> (" + wordCount.toString() + " " + wordOrWords + ", " + tokenCount.toString() + " total " + tokenOrTokens + ")";
     } else {
-        return "<u><i><b>" + headerString + "</b> tokens</i></u> ("  + wordCount.toString() + " " + wordOrWords + ")";
+        return "<u><i><b>" + headerString + "</b> " + tokenOrTokens + "</i></u> ("  + wordCount.toString() + " " + wordOrWords + ")";
     }
 }
 
@@ -523,8 +523,8 @@ function getCountDictionaries(wordList, dictOfDicts, sortAlphabetical) {
             myHeader = cleanDiacritics(thisWord[0]);
         } else {
             myHeader = wordCount;
-            console.log(myHeader);
         }
+
         if (headerToWordListDict[myHeader] === undefined) {
             headerToWordListDict[myHeader] = [thisWord];
             headerToWordCountDict[myHeader] = 1;
@@ -543,6 +543,10 @@ function getCountDictionaries(wordList, dictOfDicts, sortAlphabetical) {
     if (sortAlphabetical) {
         allHeaders = alphabetizeWords(allHeaders);
     } else {
+
+        console.log(allHeaders.sort((a, b) => a - b));
+        console.log(allHeaders.sort((a, b) => b - a));
+
         allHeaders.sort((a, b) => a - b);
     }
     return [allHeaders, headerToWordListDict, headerToWordCountDict, headerToTokenCountDict, totalWords, totalTokens];
