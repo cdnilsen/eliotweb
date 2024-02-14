@@ -153,8 +153,8 @@ function verseFetcher(queryRow: any, editionNumber: number) {
     return finalVerseDict;
 }
 
-export async function getVerseText(verseNumber: number, editionNumber: number)  {
-    let queryRows = await pool.query("SELECT * FROM all_verses WHERE id = $1::int", [verseNumber]);
+export async function getVerseText(dbCode: number, editionNumber: number)  {
+    let queryRows = await pool.query("SELECT * FROM all_verses WHERE id = $1::int", [dbCode]);
 
     return verseFetcher(queryRows.rows[0], editionNumber);
 }

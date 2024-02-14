@@ -141,7 +141,7 @@ app.put('/compareVerse/:verseID', wrapAsync(async (req, res) => {
         res.json(result);
     } catch (error) {
         console.error(error);
-        res.status(500).send('Internal Server Error in fetchVerse');
+        res.status(500).send('Internal Server Error in compareVerse');
     }
 }));
 
@@ -160,7 +160,7 @@ app.put('/compareChapter/:book/:chapter', wrapAsync(async (req, res) => {
         res.json(result);
     } catch (error) {
         console.error(error);
-        res.status(500).send('Internal Server Error in fetchVerse');
+        res.status(500).send('Internal Server Error in compareChapter');
     }
 }));
 
@@ -175,13 +175,11 @@ app.put('/runWordCounts', wrapAsync(async (req, res) => {
 }));
 
 
-app.get('/fetchVerse/:verseID/:editionNum', wrapAsync(async (req, res) => {
+app.get('/fetchVerse/:dbCode', wrapAsync(async (req, res) => {
     try {
-        let verseID: number = parseInt(req.params.verseID);
-        
-        let editionNum: number = parseInt(req.params.editionNum);
+        let dbCode: number = parseInt(req.params.dbCode);
 
-        let result = await getVerseText(verseID, editionNum);
+        let result = await getVerseText(dbCode, 30030);
         
         res.json(result);
     } catch (error) {

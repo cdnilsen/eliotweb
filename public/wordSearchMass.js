@@ -274,10 +274,10 @@ function populateColumns(popupDiv, editionNum, allVerseList) {
 }
 
 //Address num probably not needed here
-async function showVersesInBox(popupDiv, editionNum, dbCode) {
+async function showVersesInBox(popupDiv, dbCode) {
 
     console.log("Show verses in box was called!");
-    let fetchString = "/fetchVerse/" + dbCode.toString() + "/" + editionNum.toString();
+    let fetchString = "/fetchVerse/" + dbCode.toString();
     fetch(fetchString, {
         method: 'GET',
         headers: {
@@ -380,7 +380,7 @@ function processVerseCite(addressNum, editionList, countList, dbCode, thisBookNa
 
     verseDiv.addEventListener("click", async function() {
         console.log("Hello, you clicked on me!")
-        showVersesInBox(verseDiv, popupVerseBox, verseLinkNum, dbCode);
+        showVersesInBox(verseDiv, dbCode);
     });
 
     return [verseDiv, totalCountVerse];
@@ -657,15 +657,26 @@ function processBookData(bookDataList, bookHTMLSpan, bookName) {
     return getVerseCiteSpans(allVerses, redoneDictionaries, bookName);
 }
 
-function addVersesToContainer(verseTextList, word, book) {
+function addVersesToContainer(verseTextList, dbCodeList, word, book) {
     let verseCiteContainer = document.createElement("span");   
     verseCiteContainer.id = "word-" + word + "-book-" + book + "-cites";
     for (let i=0; i < verseTextList.length; i++) {
+        let thisDBCode = dbCodeList[i];
         let thisVerseSpan = document.createElement("span");
         thisVerseSpan.innerHTML = verseTextList[i];
         thisVerseSpan.classList.add("dotted-underline");
         thisVerseSpan.style.cursor = "pointer";
-        
+
+        thisVerseSpan.addEventListener("click", async function() {
+            console.log("Hello, you clicked on me!")
+            let popupDiv = document.createElement("div");
+            popupDiv.classList.add("popup-verse-box");
+            popupDiv.hidden = true;
+            thisVerseSpan.appendChild(popupDiv);
+
+            await showVersesInBox(popupDiv, thisDBCode);
+        });
+
 
 
         verseCiteContainer.appendChild(thisVerseSpan);
@@ -786,8 +797,13 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
                 let verseTextList = processBookData(thisBookData, thisBookSpan, thisBookName);
 
                 totalTokens += verseTextList.length;
+
+                let allDBCodes = [];
+                for (let l=0; l < thisBookData.length; l++) {
+                    allDBCodes.push(thisBookData[l]["dbVerseCode"]);
+                }
                 
-                let verseCiteContainer = addVersesToContainer(verseTextList, thisWord, thisBookName);
+                let verseCiteContainer = addVersesToContainer(verseTextList, allDBCodes, thisWord, thisBookName);
 
                 //let bookTriangle = appendChildTriangleOptional(allBookNums.length > 5, thisWordDiv, thisBookSpan, "gray", "#00ff50", true, wordTriangle);
 
