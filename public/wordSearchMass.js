@@ -779,6 +779,7 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
                 appendChildTriangleOptional(verseTextList.length > 25, thisBookSpan, verseCiteContainer, "gray", "red", false, bookTriangle);
             } 
         }
+        resultDiv.appendChild(thisHeaderDiv);
     }
     let totalWordCount = countData[4];
     let totalTokenCount = countData[5];
