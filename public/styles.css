@@ -235,6 +235,7 @@ button {
     visibility: hidden;
     width: 500px;
     background-color: #fff;
+    outline: 2px solid #000;
     text-align: center;
     padding: 5px 10px;
     position: absolute;
@@ -246,7 +247,7 @@ button {
     transition: opacity 0.3s ease-in-out;
 }
 
-.cite-span:hover .show-verse {
+.cite-span:click .show-verse {
     visibility: visible;
     opacity: 1;
 }
