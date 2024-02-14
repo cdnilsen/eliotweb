@@ -789,9 +789,10 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
                     addChildToExistingTriangle(thisBookSpan, bookTriangle, verseCiteContainer);
                 } else {
                     verseCiteContainer.display = "inline-block";
-                    //let thisBreakSpan = document.createElement("br");
-                    //thisBookSpan.appendChild(thisBreakSpan);
                     thisBookSpan.appendChild(verseCiteContainer);
+
+                    let thisBreakSpan = document.createElement("br");
+                    thisBookSpan.appendChild(thisBreakSpan);
                 }
                 if (allBookNums.length > 5) {
                     addChildToExistingTriangle(thisWordDiv, wordTriangle, thisBookSpan);
