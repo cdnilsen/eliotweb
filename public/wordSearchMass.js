@@ -807,7 +807,7 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
                     addChildToExistingTriangle(thisBookSpan, bookTriangle, verseCiteContainer);
 
                     addChildToExistingTriangle(thisBookSpan, bookTriangle, breakSpan2);
-                    breakSpan2.hidden = false;
+                    //breakSpan2.hidden = false;
                     
                 } else {
                     verseCiteContainer.display = "inline-block";
@@ -820,7 +820,7 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
 
                 if (allBookNums.length > 5) {
                     bookContainer.appendChild(document.createElement("br"));
-                    
+
                     addChildToExistingTriangle(bookContainer, wordTriangle, thisBookSpan);
                 } else {
                     bookContainer.appendChild(thisBookSpan);
