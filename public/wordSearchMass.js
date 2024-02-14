@@ -406,7 +406,7 @@ function getBooks(verseList, verseCount, word) {
     allBooks.sort((a, b) => a - b);
     return [allBooks, dictOfDicts];
 }
-
+//Rewrite basically all of this tomorrow
 function addClickableTriangle(unclickedColor, clickedColor, childContainer, addFollowingBreak) {  
     let followingBreak = ""
     if (addFollowingBreak) {
@@ -451,8 +451,8 @@ function appendToContainer(parentContainer, childContainer, useTriangle, triangl
         childContainer.hidden = true;
         console.log(childContainer);
         let clickableTriangle = addClickableTriangle("gray", triangleClickColor, childContainer, false);
-        clickableTriangle.appendChild(childContainer);
         parentContainer.appendChild(clickableTriangle);
+        parentContainer.appendChild(childContainer);
     } else {
         parentContainer.appendChild(childContainer);
     }
