@@ -769,9 +769,9 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
                 let bookTriangle = appendChildTriangleOptional(allBookNums.length > 5, thisWordDiv, thisBookSpan, "gray", "#00ff50", true, wordTriangle);
 
                 if (verseTextList.length > 25) {
-                    bookTriangle = addTriangleToParent(thisBookSpan, "gray", "red", false);
+                    bookTriangle = addTriangleToParent(thisBookSpan, "gray", "red", true);
                 }
-                let citeTriangle = appendChildTriangleOptional(verseTextList.length > 25, thisBookSpan, verseCiteContainer, "gray", "red", false, bookTriangle);
+                let citeTriangle = appendChildTriangleOptional(verseTextList.length > 25, thisBookSpan, verseCiteContainer, "gray", "red", true, bookTriangle);
             } 
         }
         resultDiv.appendChild(thisHeaderDiv);
