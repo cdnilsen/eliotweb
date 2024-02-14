@@ -663,7 +663,7 @@ function processBookData(bookDataList, bookHTMLSpan, bookName) {
 
 function addVersesToBookSpan(verseTextList, word, book) {
     let verseCiteContainer = document.createElement("span");   
-    verseCiteContainer.id = "word-" + word + "-book-" + book + "-cites";    
+    verseCiteContainer.id = "word-" + word + "-book-" + book + "-cites";
     for (let i=0; i < verseTextList.length; i++) {
         let thisVerseSpan = document.createElement("span");
         thisVerseSpan.innerHTML = verseTextList[i];
@@ -675,8 +675,8 @@ function addVersesToBookSpan(verseTextList, word, book) {
             if (verseTextList.length > 1) {
                 verseCiteContainer.innerHTML += ` (${verseTextList.length} vv.)`;
             }
-            let breakSpan = document.createElement("br");
-            verseCiteContainer.appendChild(breakSpan);
+            //let breakSpan = document.createElement("br");
+            //verseCiteContainer.appendChild(breakSpan);
         }
     }
     return verseCiteContainer;
@@ -764,6 +764,7 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
                 thisBookData.sort((a, b) => a["dbVerseCode"] - b["dbVerseCode"]);
 
                 thisBookSpan.innerHTML = "<i>" + thisBookName
+                thisBookSpan.classList.add("textTab");
                 let verseTextList = processBookData(thisBookData, thisBookSpan, thisBookName);
                 totalTokens += verseTextList.length;
                 let verseCiteContainer = addVersesToBookSpan(verseTextList, thisWord, thisBookName);
@@ -771,7 +772,10 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
                 let bookTriangle = appendChildTriangleOptional(allBookNums.length > 5, thisWordDiv, thisBookSpan, "gray", "#00ff50", true, wordTriangle);
 
                 if (verseTextList.length > 25) {
+                    verseCiteContainer.classList.add("textTab2");
                     bookTriangle = addTriangleToParent(thisBookSpan, "gray", "red", true);
+                } else {
+                    verseCiteContainer.display = "inline-block";
                 }
                 let citeTriangle = appendChildTriangleOptional(verseTextList.length > 25, thisBookSpan, verseCiteContainer, "gray", "red", true, bookTriangle);
             } 
