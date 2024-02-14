@@ -870,7 +870,7 @@ function getRightWordList(sortAlphabetical, wordList, dictOfDicts) {
                 frequencyToWordDict[thisCount].push(thisWord);
             }
         }
-        frequencyList.sort((a, b) => a - b);
+        frequencyList.sort((a, b) => b - a);
         for (let j = 0; j < frequencyList.length; j++) {
             let thisFrequency = frequencyList[j];
             let thisWordList = frequencyToWordDict[thisFrequency];
