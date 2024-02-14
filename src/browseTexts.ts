@@ -134,14 +134,13 @@ function verseFetcher(queryRow: any, editionNumber: number) {
         2: queryRow.first_edition_raw,
         3: queryRow.second_edition_raw,
         5: queryRow.other_edition_raw,
-        7: queryRow.other_edition_raw,
         11: queryRow.kjv,
         13: queryRow.grebrew
     };
 
     let finalVerseDict: StringToAnyDict = {};
 
-    let allTextNumbers: number[] = [2, 3, 5, 7, 11, 13];
+    let allTextNumbers: number[] = [2, 3, 5, 11, 13];
     for (let k = 0; k < allTextNumbers.length; k++) {
         let p = allTextNumbers[k];
         if ((editionNumber % p) == 0 && textDict[p] != null) {

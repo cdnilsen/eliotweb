@@ -179,7 +179,7 @@ app.get('/fetchVerse/:dbCode', wrapAsync(async (req, res) => {
     try {
         let dbCode: number = parseInt(req.params.dbCode);
 
-        let result = await getVerseText(dbCode, 30030);
+        let result = await getVerseText(dbCode, 4290);
         
         res.json(result);
     } catch (error) {

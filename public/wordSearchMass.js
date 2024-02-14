@@ -284,7 +284,17 @@ async function showVersesInBox(popupDiv, dbCode) {
             "Content-type": "application/json; charset=UTF-8"
         }
     }).then(res => res.json()).then(res => {
+
+        let primeKeys = [2, 3, 5, 11, 13];
         console.log(res);
+        for (let i = 0; i < primeKeys.length; i++) {
+            let p = primeKeys[i];
+            if (res[p] != "") {
+                popupDiv.innerHTML += editionToSuperscriptDict[p] + res[p];
+            }
+            popupDiv.innerHTML += "<br>";
+        }
+
         popupDiv.hidden = false;
     });
 }
@@ -343,49 +353,6 @@ function getAddressString(dbNum) {
     return finalAddress;
 }
 
-function processVerseCite(addressNum, editionList, countList, dbCode, thisBookName) {
-    let editionNum = 1;
-    let totalCountVerse = 0;
-    for (let i=0; i < editionList.length; i++) {
-        editionNum *= editionList[i];
-        totalCountVerse += countList[i];
-    }
-    //Once Greek and Hebrew are added, change this to 858 (= 2 * 3 * 11(KJV) * 13 (Grebew))
-    let verseLinkNum = 66;
-    // This gives a unique prime factorization of all the possibilities. E.g. an edition number of 6 should get no prefix (the book in question is only 1st/2nd edition and so 6 means it exists in both verses), but an edition number of 66 means that the word occurs in both of Eliot's editions of this verse but not Mayhew's (even though an edition of this verse by Mayhew exists).
-    if (thisBookName == "Genesis") {
-        verseLinkNum *= 7;
-        editionNum *= 11;
-    } else if (thisBookName == "Psalms (prose)" || thisBookName == "John") {
-        verseLinkNum *= 5;
-        editionNum *= 13;
-    }
-    let prefix = editionToSuperscriptDict[editionNum];
-
-    let address = getAddressString(dbNum);
-
-    let suffix = getCiteSuffix(editionList, countList);
-
-    let finalString = prefix + address + suffix;
-
-    let verseDiv = document.createElement("div");
-    verseDiv.classList.add("dotted-underline");
-    verseDiv.hover = "pointer";
-    verseDiv.innerHTML = finalString;
-
-    let popupVerseBox = document.createElement("div");
-    popupVerseBox.classList.add("popup-verse-box");
-    popupVerseBox.hidden = true;
-    //verseDiv.appendChild(popupVerseBox);
-
-    verseDiv.addEventListener("click", async function() {
-        console.log("Hello, you clicked on me!")
-        showVersesInBox(verseDiv, dbCode);
-    });
-
-    return [verseDiv, totalCountVerse];
-
-}
 
 function getBooks(verseList, verseCount, word) {
     let allBooks = [];
