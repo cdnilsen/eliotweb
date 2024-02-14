@@ -274,26 +274,32 @@ function populateColumns(popupDiv, editionNum, allVerseList) {
 }
 
 async function showVersesInBox(popupContainer, dbCode) {
-    console.log("Show verses in box was called!");
-    let fetchString = "/fetchVerse/" + dbCode.toString();
-    fetch(fetchString, {
-        method: 'GET',
-        headers: {
-            "Content-type": "application/json; charset=UTF-8"
-        }
-    }).then(res => res.json()).then(res => {
+    if (popupContainer.visible) {
         popupContainer.innerHTML = "";
-        let primeKeys = [2, 3, 5, 11, 13];
-        console.log(res);
-        for (let i = 0; i < primeKeys.length; i++) {
-            let p = primeKeys[i];
-            if (res[p] != "") {
-                popupContainer.innerHTML += editionToSuperscriptDict[p] + res[p];
+        popupContainer.visible = false;
+    }
+    else {
+        console.log("Show verses in box was called!");
+        let fetchString = "/fetchVerse/" + dbCode.toString();
+        fetch(fetchString, {
+            method: 'GET',
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
             }
-            popupContainer.innerHTML += "<br>";
-        }
-        popupContainer.visible = true;
-    });
+        }).then(res => res.json()).then(res => {
+            popupContainer.innerHTML = "";
+            let primeKeys = [2, 3, 5, 11, 13];
+            console.log(res);
+            for (let i = 0; i < primeKeys.length; i++) {
+                let p = primeKeys[i];
+                if (res[p] != "") {
+                    popupContainer.innerHTML += editionToSuperscriptDict[p] + res[p];
+                }
+                popupContainer.innerHTML += "<br>";
+            }
+            popupContainer.visible = true;
+        });
+    }
 }
 
 //Returns a dictionary with the info about this verse. Calls 'word' to debug position of Deuteronomy

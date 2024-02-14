@@ -249,9 +249,6 @@ button {
     margin-left: 0px;
 }
 
-.cite-span:click .click-tooltip {
-    visibility: visible;
-}
 
 .popup-verse-box {
     position: relative;
