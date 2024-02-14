@@ -657,7 +657,9 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book) {
         document.addEventListener("click", function(event) {
             //popupContainer.active = false;
             popupContainer.innerHTML = "";
-            popupContainer.classList.toggle('active');
+            if (popupContainer.classList.contains('active')) {
+                popupContainer.classList.toggle('active');
+            }
         });
 
         /*popupContainer.addEventListener("click", async function() {
