@@ -657,6 +657,7 @@ function processBookData(bookDataList, bookHTMLSpan, bookName) {
     } else {
         bookHTMLSpan.innerHTML += ":</i> ";
     }
+
     return getVerseCiteSpans(allVerses, redoneDictionaries, bookName);
 }
 
@@ -760,22 +761,16 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
                 
                 thisBookData.sort((a, b) => a["dbVerseCode"] - b["dbVerseCode"]);
 
+                thisBookSpan.innerHTML = "<i>" + thisBookName
                 let verseTextList = processBookData(thisBookData, thisBookSpan, thisBookName);
-
-                thisBookSpan.innerHTML = "<i>" + thisBookName + "</i> (";  
-
+                totalTokens += verseTextList.length;
                 let verseCiteContainer = addVersesToBookSpan(verseTextList, thisWord, thisBookName);
 
                 let bookTriangle = appendChildTriangleOptional(allBookNums.length > 5, thisWordDiv, thisBookSpan, "gray", "#00ff50", false, wordTriangle);
 
-                if (verseTextList.length > 30) {
+                if (verseTextList.length > 25) {
                     verseCiteContainer.classList.add("textTab2");
                 }
-                
-                if (verseTextList.length > 1) {
-                    verseCiteContainer.innerHTML += ` (${verseTextList.length} vv.)`;
-                }
-
                 appendChildTriangleOptional(verseTextList.length > 25, thisBookSpan, verseCiteContainer, "gray", "red", false, bookTriangle);
             } 
         }
