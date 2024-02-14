@@ -716,6 +716,9 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
 
     for (let i=0; i < allHeaders.length; i++) {
         let thisHeaderDiv = document.createElement("div");
+        if (allHeaders[i] == undefined) {
+            continue;
+        }
         let thisHeader = allHeaders[i].toString();
 
         let headerText = getHeaderText(headerToWordCountDict[thisHeader], headerToTokenCountDict[thisHeader], sortAlphabetical, thisHeader[0]);
