@@ -669,7 +669,7 @@ function processBookData(bookDataList, bookHTMLSpan, bookName) {
     return getVerseCiteSpans(allVerses, redoneDictionaries, bookName);
 }
 
-function addVersesToBookSpan(verseTextList, word, book) {
+function addVersesToContainer(verseTextList, word, book) {
     let verseCiteContainer = document.createElement("span");   
     verseCiteContainer.id = "word-" + word + "-book-" + book + "-cites";
     for (let i=0; i < verseTextList.length; i++) {
@@ -779,13 +779,14 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
                 let verseTextList = processBookData(thisBookData, thisBookSpan, thisBookName);
                 totalTokens += verseTextList.length;
                 
-                let verseCiteContainer = addVersesToBookSpan(verseTextList, thisWord, thisBookName);
+                let verseCiteContainer = addVersesToContainer(verseTextList, thisWord, thisBookName);
 
                 //let bookTriangle = appendChildTriangleOptional(allBookNums.length > 5, thisWordDiv, thisBookSpan, "gray", "#00ff50", true, wordTriangle);
 
                 if (verseTextList.length > 25) {
                     verseCiteContainer.classList.add("textTab2");
-                    bookTriangle = addTriangleToParent(thisBookSpan, "gray", "red", true);
+                    let bookTriangle = addTriangleToParent(thisBookSpan, "gray", "red", true);
+                    
                     addChildToExistingTriangle(thisBookSpan, bookTriangle, verseCiteContainer);
                 } else {
                     //verseCiteContainer.display = "inline-block";
