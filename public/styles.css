@@ -233,11 +233,9 @@ button {
 
 .cite-span .show-verse {
     visibility: hidden;
-    width: 200px;
-    background-color: #000;
-    color: #fff;
+    width: 500px;
+    background-color: #fff;
     text-align: center;
-    border-radius: 6px;
     padding: 5px 10px;
     position: absolute;
     z-index: 9999;
@@ -256,11 +254,12 @@ button {
 .tooltip-content:focus {
     outline: none;
 }
-
+/*
 .tooltip-content:not(:focus) {
     visibility: hidden;
     opacity: 0;
 }
+*/
 
 
 .ketiv {
