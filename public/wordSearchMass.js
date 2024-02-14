@@ -864,7 +864,9 @@ function getRightWordList(sortAlphabetical, wordList, dictOfDicts) {
         for (let i = 0; i < wordList.length; i++) {
             let thisWord = wordList[i];
             let thisCount = dictOfDicts[thisWord]["totalCount"];
-
+            if (thisCount == null) {
+                continue;
+            } 
             if (frequencyToWordDict[thisCount] === undefined) {
                 frequencyToWordDict[thisCount] = [thisWord];
                 frequencyList.push(thisCount);
@@ -872,7 +874,7 @@ function getRightWordList(sortAlphabetical, wordList, dictOfDicts) {
                 frequencyToWordDict[thisCount].push(thisWord);
             }
         }
-        frequencyList.sort((a, b) => a - b);
+        frequencyList.sort((a, b) => b - a);
         for (let j = 0; j < frequencyList.length; j++) {
             let thisFrequency = frequencyList[j];
             let thisWordList = frequencyToWordDict[thisFrequency];
