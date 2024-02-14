@@ -819,6 +819,8 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
                 }
 
                 if (allBookNums.length > 5) {
+                    bookContainer.appendChild(document.createElement("br"));
+                    
                     addChildToExistingTriangle(bookContainer, wordTriangle, thisBookSpan);
                 } else {
                     bookContainer.appendChild(thisBookSpan);
