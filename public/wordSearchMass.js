@@ -747,7 +747,7 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
             let wordTriangle = undefined;
 
             if (allBookNums.length > 5) {
-                wordTriangle = addTriangleToParent(thisWordDiv, "gray", "red", false);
+                wordTriangle = addTriangleToParent(thisWordDiv, "gray", "red", true);
             }
 
             for (let k=0; k < allBookNums.length; k++) {
