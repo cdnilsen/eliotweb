@@ -750,7 +750,6 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
             }
             
             thisWordDiv.style.fontSize = "16px";
-            addChildToExistingTriangle(thisHeaderDiv, headerTriangle, thisWordDiv);
 
             let numVerses = thisWordDataDict["allVerses"].length;
 
@@ -810,7 +809,8 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
 
 
                 //let citeTriangle = appendChildTriangleOptional(verseTextList.length > 25, thisBookSpan, verseCiteContainer, "gray", "red", true, bookTriangle);
-            } 
+            }
+            addChildToExistingTriangle(thisHeaderDiv, headerTriangle, thisWordDiv); 
         }
         resultDiv.appendChild(thisHeaderDiv);
     }
