@@ -243,8 +243,8 @@ button {
     z-index: 9999;
     top: -150%;
     left: -300%;
-    /*transform: translateX(-50%);
-    transition: opacity 0.3s ease-in-out;*/
+    transform: translateX(-50%);
+    /*transition: opacity 0.3s ease-in-out;*/
 }
 
 .show-verse.active {
