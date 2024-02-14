@@ -413,24 +413,30 @@ function addClickableTriangle(unclickedColor, clickedColor, childContainer, addF
         followingBreak = "<br>";
     }
     let clickableTriangle = document.createElement('span')
-    clickableTriangle.innerHTML = ' ▶' + followingBreak;
-    clickableTriangle.style.color = unclickedColor;
+    
     clickableTriangle.style.cursor = "pointer";
+    clickableTriangle.toggle = 'false';
     let htmlToggleDict = {
-        " ▶": " ▼",
-        " ▼": " ▶",
-        " ▶<br>": " ▼<br>",
-        " ▼<br>": " ▶<br>"
+        'true': " ▼",
+        'false': " ▶"
     }
-    let unClickedHTML = [" ▶", " ▶<br>"];
+    let colorToggleDict = {
+        'true': clickedColor,
+        'false': unclickedColor
+    }
+    clickableTriangle.innerHTML = htmlToggleDict[clickableTriangle.toggle] + followingBreak;
+    clickableTriangle.style.color = colorToggleDict[clickableTriangle.toggle];
+    
     clickableTriangle.addEventListener("click", function() {
         childContainer.hidden = !childContainer.hidden;
-        if (unClickedHTML.includes(clickableTriangle.innerHTML)) {
+        clickableTriangle.toggle = !clickableTriangle.toggle;
+        /*
             clickableTriangle.style.color = clickedColor;
         } else {
             clickableTriangle.style.color = unclickedColor;
         }
         clickableTriangle.innerHTML = htmlToggleDict[clickableTriangle.innerHTML];
+        */
     });
     return clickableTriangle;
 }
