@@ -456,14 +456,17 @@ function addChildToExistingTriangle(parentContainer, parentTriangle, childContai
 
 function appendChildTriangleOptional(useTriangle, parentContainer, childContainer, unclickedColor, clickedColor, addBreak=true, parentTriangle=undefined) {
     if (useTriangle) {
-        if (addBreak) {
-            let breakSpan = document.createElement('br');
-            parentContainer.appendChild(breakSpan);
+        if (parentTriangle == undefined) {
+            parentTriangle = addTriangleToParent(parentContainer, unclickedColor, clickedColor, addBreak);
         }
         addChildToExistingTriangle(parentContainer, parentTriangle, childContainer, unclickedColor, clickedColor, addBreak);
         return parentTriangle;
     } else {
         parentContainer.appendChild(childContainer);
+        if (addBreak) {
+            let breakSpan = document.createElement('br');
+            parentContainer.appendChild(breakSpan);
+        }
         return undefined;
     }
 }
