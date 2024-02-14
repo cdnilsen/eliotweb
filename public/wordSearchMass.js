@@ -806,7 +806,9 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
 
                     addChildToExistingTriangle(thisBookSpan, bookTriangle, verseCiteContainer);
 
-                    addChildToExistingTriangle(thisBookSpan, bookTriangle, breakSpan2);
+                    if (k > 0) {
+                        addChildToExistingTriangle(thisBookSpan, bookTriangle, breakSpan2);
+                    }
                     //breakSpan2.hidden = false;
                     
                 } else {
