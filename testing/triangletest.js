@@ -31,31 +31,69 @@ function joinContainers(parentContainer, childContainer, unclickedColor, clicked
 }
 
 
+function createTriangle(unclickedColor, clickedColor) {
+    let triangle = document.createElement('span');
+    triangle.name = "triangle";
+    triangle.innerHTML = " ▶";
+    triangle.style.color = unclickedColor;
+    triangle.style.cursor = "pointer";
+    triangle.addEventListener('click', function() {
+        if (triangle.innerHTML === " ▶") {
+            triangle.innerHTML = " ▼";
+            triangle.style.color = clickedColor;
+        } else {
+            triangle.innerHTML = " ▶";
+            triangle.style.color = unclickedColor;
+        }
+    });
+    return triangle;
+}
+
+function addTriangleToParent(parentContainer, unclickedColor, clickedColor, addBreak=true) {
+    let triangle = createTriangle(unclickedColor, clickedColor);
+    parentContainer.appendChild(triangle);
+    if (addBreak) {
+        let breakSpan = document.createElement('br');
+        parentContainer.appendChild(breakSpan);
+    }
+    return triangle;
+}
+
+function addChildWithTriangle(parentContainer, childContainer, unclickedColor, clickedColor, addBreak=true) {
+    let parentTriangle = addTriangleToParent(parentContainer, unclickedColor, clickedColor, addBreak);
+    parentContainer.appendChild(childContainer);
+    parentTriangle.addEventListener('click', function() {
+        childContainer.hidden = !childContainer.hidden;
+    });
+    childContainer.hidden = true;
+}
+
+function addChildrenWithTriangle(parentContainer, childrenContainers, unclickedColor, clickedColor, addBreak=true) {
+    let parentTriangle = addTriangleToParent(parentContainer, unclickedColor, clickedColor, addBreak);
+    childrenContainers.forEach(function(childContainer) {
+        parentContainer.appendChild(childContainer);
+        childContainer.hidden = true;
+    });
+
+    parentTriangle.addEventListener('click', function() {
+        childrenContainers.forEach(function(childContainer) {
+            childContainer.hidden = !childContainer.hidden;
+        });
+    });
+}
+
+
+
+
+
+
+
 document.getElementById('submit').addEventListener('click', function() {
     let testDiv = document.getElementById('test-div');
-    let topDivNames = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'];
-    let tier2Names= ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-    let tier3Names = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    let tier4Names = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
+    let childDiv = document.createElement('div');
 
-    let tier4Divs = [];
-    for (let i = 0; i < tier4Names.length; i++) {
-        let randomNum = Math.floor(Math.random() * 100);
-        let tier4Div = document.createElement('div');
-        tier4Div.innerHTML = tier3Names[i];
+    childDiv.innerHTML = "This is the child div";
 
-        let tier5Container = document.createElement('div');
-        for (let j = 0; j < randomNum; j++) {
-            let tier5Span = document.createElement('span');
-            tier5Span.innerHTML = j.toString();
-            tier5Span.style.color = "red";
-            
-            joinContainers(tier5Container, tier5Span, "gray", "#00FF50", randomNum > 20, false);
-        }
-        joinContainers(tier4Div, tier5Container, "gray", "blue", randomNum > 20, false);
-        
-        joinContainers(testDiv, tier4Div, "gray", "red", true, true);
-        
-    }
+    addChildWithTriangle(testDiv, childDiv, "black", "blue");
 
 });

@@ -418,64 +418,62 @@ Probably what needs to happen is this: pull all the words and create spans for t
 A reason this is preferable to the old way of doing things is that it allows for flexibility in how 
 */
 
-
-/*
-function addClickableTriangle(unclickedColor, clickedColor, childContainer, addFollowingBreak) {  
-    let followingBreak = ""
-    if (addFollowingBreak) {
-        followingBreak = "<br>";
-    }
-    let clickableTriangle = document.createElement('span')
-    
-    clickableTriangle.style.cursor = "pointer";
-    clickableTriangle.toggle = 'false';
-    let htmlToggleDict = {
-        'true': " ▼",
-        'false': " ▶"
-    }
-    let colorToggleDict = {
-        'true': clickedColor,
-        'false': unclickedColor
-    }
-    clickableTriangle.innerHTML = htmlToggleDict[clickableTriangle.toggle] + followingBreak;
-    clickableTriangle.style.color = colorToggleDict[clickableTriangle.toggle];
-    
-    clickableTriangle.addEventListener("click", function() {
-        childContainer.hidden = !childContainer.hidden;
-        clickableTriangle.toggle = !clickableTriangle.toggle;
-        /*
-            clickableTriangle.style.color = clickedColor;
+function createTriangle(unclickedColor, clickedColor) {
+    let triangle = document.createElement('span');
+    triangle.name = "triangle";
+    triangle.innerHTML = " ▶";
+    triangle.style.color = unclickedColor;
+    triangle.style.cursor = "pointer";
+    triangle.addEventListener('click', function() {
+        if (triangle.innerHTML === " ▶") {
+            triangle.innerHTML = " ▼";
+            triangle.style.color = clickedColor;
         } else {
-            clickableTriangle.style.color = unclickedColor;
+            triangle.innerHTML = " ▶";
+            triangle.style.color = unclickedColor;
         }
-        clickableTriangle.innerHTML = htmlToggleDict[clickableTriangle.innerHTML];
-        
     });
-    return clickableTriangle;
+    return triangle;
 }
 
-function appendToContainer(parentContainer, childContainer, useTriangle, triangleClickColor, breakBeforeChildren) {
-    if (breakBeforeChildren) {
-        parentContainer.innerHTML += "<br>";
+function addTriangleToParent(parentContainer, unclickedColor, clickedColor, addBreak=true) {
+    let triangle = createTriangle(unclickedColor, clickedColor);
+    parentContainer.appendChild(triangle);
+    if (addBreak) {
+        let breakSpan = document.createElement('br');
+        parentContainer.appendChild(breakSpan);
     }
-    childContainer.style.display = "inline-block";
-    
+    return triangle;
+}
+
+function addChildToExistingTriangle(parentContainer, parentTriangle, childContainer, unclickedColor, clickedColor) {
+    parentContainer.appendChild(childContainer);
+    childContainer.hidden = true;
+    parentTriangle.addEventListener('click', function() {
+        childContainer.hidden = !childContainer.hidden;
+    });
+}
+
+function appendChildTriangleOptional(useTriangle, parentContainer, childContainer, unclickedColor, clickedColor, addBreak=true) {
     if (useTriangle) {
-        childContainer.hidden = true;
-        console.log(childContainer);
-        let clickableTriangle = addClickableTriangle("gray", triangleClickColor, childContainer, false);
-        parentContainer.appendChild(clickableTriangle);
-        parentContainer.appendChild(childContainer);
+        addChildToExistingTriangle(parentContainer, childContainer, unclickedColor, clickedColor, addBreak);
     } else {
         parentContainer.appendChild(childContainer);
     }
 }
 
-//This should not be used as the last chain of a triangle sandwich (the last member of the chain has no triangle so you need to simply use appendToContainer.)
-function triangleSandwich(grandparentContainer, parentContainer, childContainer, useTriangle, triangleClickColor, breakBeforeChildren, breakAfterGrandparent) {
-    appendToContainer(parentContainer, childContainer, useTriangle, triangleClickColor, breakBeforeChildren);
-    
-    grandparentContainer.appendChild(parentContainer);
+function addChildrenWithTriangle(parentContainer, childrenContainers, unclickedColor, clickedColor, addBreak=true) {
+    let parentTriangle = addTriangleToParent(parentContainer, unclickedColor, clickedColor, addBreak);
+    childrenContainers.forEach(function(childContainer) {
+        parentContainer.appendChild(childContainer);
+        childContainer.hidden = true;
+    });
+
+    parentTriangle.addEventListener('click', function() {
+        childrenContainers.forEach(function(childContainer) {
+            childContainer.hidden = !childContainer.hidden;
+        });
+    });
 }
 
 function getHeaderText(wordCount, tokenCount, useToken, initialLetter) {
@@ -712,11 +710,10 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
         thisHeaderDiv.id = "header-" + thisHeader;
         thisHeaderDiv.innerHTML = headerText;
         thisHeaderDiv.style = "font-size: 24px;";
-    
-        let headerResultsDiv = document.createElement("div");
-        headerResultsDiv.id = "header-results-" + thisHeader;
 
         let wordList = headerToWordListDict[thisHeader];
+
+        let headerTriangle = addTriangleToParent(thisHeaderDiv, "gray", "blue", true);
         
         for (let j=0; j < wordList.length; j++) {
             let thisWord = wordList[j];
@@ -727,7 +724,6 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
             let allBookNums = bookData[0];
             let allBookToVerseDict = bookData[1];
 
-            let numVerses = thisWordDataDict["allVerses"].length;
 
             let totalCount = thisWordDataDict["totalCount"];
             let ligaturedWord = thisWord.split('8').join('ꝏ̄');
@@ -741,11 +737,10 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
             }
             
             thisWordDiv.style.fontSize = "16px";
+            addChildToExistingTriangle(thisHeaderDiv, headerTriangle, thisWordDiv, "gray", "red");
 
-            let allBooksContainer = document.createElement("span");
-            allBooksContainer.id = thisWord + "-books-container";
-            allBooksContainer.classList.add("textTab");
-            let bookCountDict = {};
+            let numVerses = thisWordDataDict["allVerses"].length;
+
             for (let k=0; k < allBookNums.length; k++) {
                 let thisBookSpan = document.createElement("span");
                 let thisBookNum = allBookNums[k];
@@ -753,31 +748,31 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
 
                 thisBookSpan.id = "word-" + thisWord + "-book-" + thisBookName;
 
-                thisBookSpan.innerHTML = "<i>" + thisBookName;
-
                 let thisBookData = allBookToVerseDict[thisBookNum];
                 
                 thisBookData.sort((a, b) => a["dbVerseCode"] - b["dbVerseCode"]);
 
                 let verseTextList = processBookData(thisBookData, thisBookSpan, thisBookName);
 
+                thisBookSpan.innerHTML = "<i>" + thisBookName + "</i> (";  
+
                 let verseCiteContainer = addVersesToBookSpan(verseTextList, thisWord, thisBookName);
+
+                appendChildTriangleOptional(allBookNums.length > 5, thisWordDiv, thisBookSpan, "gray", "red", false);
 
                 if (verseTextList.length > 30) {
                     verseCiteContainer.classList.add("textTab2");
                 }
-                /*
+                
                 if (verseTextList.length > 1) {
                     verseCiteContainer.innerHTML += ` (${verseTextList.length} vv.)`;
                 }
-                
-                triangleSandwich(allBooksContainer, thisBookSpan, verseCiteContainer, verseTextList.length > 30, "red", false, false);
+
+                appendChildTriangleOptional(verseTextList.length > 25, thisBookSpan, verseCiteContainer, "gray", "red", false);
                 
             }
-            triangleSandwich(headerResultsDiv, thisWordDiv, allBooksContainer, allBookNums.length > 5, "#00FF50", false, false);
             
         }
-        triangleSandwich(resultDiv, thisHeaderDiv, headerResultsDiv, true, "blue", false, false);
     }
     let totalWordCount = countData[4];
     let totalTokenCount = countData[5];
@@ -845,6 +840,7 @@ function getDictFromSearchOutput(searchOutput, resultDiv, sortAlphabetical, sort
     processAllWordCites(newWordList, dictOfDicts, sortAlphabetical);
 }
 
+
 async function seeAllWords(fetchString, resultDiv, sortAlphabetical, sortByBook) {
     resultDiv.innerHTML = "";
     fetch(fetchString, {
@@ -863,7 +859,7 @@ async function seeAllWords(fetchString, resultDiv, sortAlphabetical, sortByBook)
         }
     }).catch(err => console.error(err))
 }
-*/
+
 document.getElementById("searchButton").addEventListener("click", async function() {
     let searchSetting = 1;
 
