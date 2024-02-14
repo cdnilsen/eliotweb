@@ -775,8 +775,11 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
                 thisBookData.sort((a, b) => a["dbVerseCode"] - b["dbVerseCode"]);
 
                 thisBookSpan.innerHTML = "<i>" + thisBookName
+
                 thisBookSpan.classList.add("textTab");
+
                 let verseTextList = processBookData(thisBookData, thisBookSpan, thisBookName);
+
                 totalTokens += verseTextList.length;
                 
                 let verseCiteContainer = addVersesToContainer(verseTextList, thisWord, thisBookName);
@@ -785,9 +788,10 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
 
                 if (verseTextList.length > 25) {
                     verseCiteContainer.classList.add("textTab2");
+
                     let bookTriangle = addTriangleToParent(thisBookSpan, "gray", "red", false);
 
-                    addChildToExistingTriangle(thisBookSpan, bookTriangle, verseCiteContainer);
+                    //addChildToExistingTriangle(thisBookSpan, bookTriangle, verseCiteContainer);
                 } else {
                     //verseCiteContainer.display = "inline-block";
                     thisBookSpan.appendChild(verseCiteContainer);
