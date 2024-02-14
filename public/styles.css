@@ -225,14 +225,34 @@ button {
 */
 
 .cite-span {
-    text-decoration: underline;
-    text-decoration-style: dotted;
-    text-decoration-color: black;
-    cursor: pointer;
+    position: relative;
+    display: inline-block;
+    border-bottom: 2px dotted black;
+    border-color: black;
+}
+
+.cite-span .click-tooltip {
+    visibility: hidden;
+    width: 50px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+  
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    bottom: 120%;
+    left: 0%;
+    margin-left: 0px;
+}
+
+.cite-span:click .click-tooltip {
+    visibility: visible;
 }
 
 .popup-verse-box {
-    visibility: hidden;
     position: relative;
     z-index: auto;
     background-color: #f9f9f9;
