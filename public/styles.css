@@ -229,6 +229,7 @@ button {
     display: inline-block;
     border-bottom: 2px dotted black;
     border-color: black;
+    cursor: pointer;
 }
 
 .cite-span .click-tooltip {
@@ -241,8 +242,8 @@ button {
     padding: 5px 0;
   
     /* Position the tooltip */
-    position: absolute;
-    z-index: 1;
+    position: relative;
+    z-index: auto;
     bottom: 120%;
     left: 0%;
     margin-left: 0px;
