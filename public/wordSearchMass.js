@@ -473,6 +473,19 @@ function addChildrenWithTriangle(parentContainer, childrenContainers, unclickedC
     });
 }
 
+function rightPlural (count, singular, plural=undefined) {
+    if (count == undefined) {
+        count = 0;
+    }
+    if (count == 1) {
+        return singular;
+    } else if (plural == undefined) {
+        return singular + "s";
+    } else {
+        return plural;
+    }
+}
+
 function getHeaderText(wordCount, tokenCount, sortAlphabetical, headerString) {
 
     let useToken = sortAlphabetical;
@@ -480,25 +493,11 @@ function getHeaderText(wordCount, tokenCount, sortAlphabetical, headerString) {
         initialLetter = "ꝏ̄";
     }
 
-    if (wordCount == undefined) {
-        wordCount = 0;
-    }
+    let wordOrWords = rightPlural(wordCount, "word");
 
-    let wordOrWords = "words";
-    if (wordCount == 1) {
-        wordOrWords = "word";
-    }
+    let tokenOrTokens = rightPlural(tokenCount, "token");
 
     if (useToken) {
-        if (tokenCount == undefined) {
-            tokenCount = 0;
-        }
-
-        let tokenOrTokens = "tokens";
-        if (tokenCount == 1) {
-            tokenOrTokens = "token";
-        }
-
         return "<u><b><i>" + headerString + "</i></b></u> (" + wordCount.toString() + " " + wordOrWords + ", " + tokenCount.toString() + " total " + tokenOrTokens + ")";
     } else {
         return "<u><i><b>" + headerString + "</b> " + tokenOrTokens + "</i></u> ("  + wordCount.toString() + " " + wordOrWords + ")";
