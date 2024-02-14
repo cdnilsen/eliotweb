@@ -292,7 +292,7 @@ async function showVersesInBox(popupContainer, dbCode) {
             }
             popupContainer.innerHTML += "<br>";
         }
-        popupContainer.classList.toggle("show");
+        popupContainer.visible = true;
     });
 }
 
