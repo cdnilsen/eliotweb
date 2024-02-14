@@ -499,9 +499,9 @@ function getHeaderText(wordCount, tokenCount, sortAlphabetical, headerString) {
             tokenOrTokens = "token";
         }
 
-        return "<u><b><i>" + initialLetter + "</i></b></u> (" + wordCount.toString() + " " + wordOrWords + ", " + tokenCount.toString() + " total " + tokenOrTokens + ")";
+        return "<u><b><i>" + headerString + "</i></b></u> (" + wordCount.toString() + " " + wordOrWords + ", " + tokenCount.toString() + " total " + tokenOrTokens + ")";
     } else {
-        return "<u><i><b>" + initialLetter + "</b> tokens</i></u> ("  + wordCount.toString() + " " + wordOrWords + ")";
+        return "<u><i><b>" + headerString + "</b> tokens</i></u> ("  + wordCount.toString() + " " + wordOrWords + ")";
     }
 }
 
