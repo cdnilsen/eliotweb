@@ -784,6 +784,7 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
                 thisBookSpan.innerHTML = "<i>" + thisBookName
 
                 thisBookSpan.style.textIndent = "4em";
+                thisBookSpan.display = "inline-block";
 
                 let verseTextList = processBookData(thisBookData, thisBookSpan, thisBookName);
 
@@ -796,6 +797,7 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
                 if (verseTextList.length > 25) {
                     //verseCiteContainer.classList.add("textTab2");
                     verseCiteContainer.style.textIndent = "6em";
+                    verseCiteContainer.style.display = "inline-block";
 
                     
 
