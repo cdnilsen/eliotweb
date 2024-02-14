@@ -387,7 +387,6 @@ function processVerseCite(addressNum, editionList, countList, dbCode, thisBookNa
     return [verseDiv, totalCountVerse];
 
 }
-//This will have to be split up into multiple functions. First get the book divs and create triangles for the ones that need them. Then get the verse
 
 function getBooks(verseList, verseCount, word) {
     let allBooks = [];
@@ -406,17 +405,6 @@ function getBooks(verseList, verseCount, word) {
     allBooks.sort((a, b) => a - b);
     return [allBooks, dictOfDicts];
 }
-
-
-//Rewrite basically all of this tomorrow.
-
-
-
-/*
-Probably what needs to happen is this: pull all the words and create spans for them. Create a span for each *verse* given its editions and counts. Then add it to a span of appropriate size (chapter spans are probably a good idea). Then append that to a book div. Append the book div to a word div, and finally append that to a header div. Use a one-size-fits-all function to add triangles where appropriate.
-
-A reason this is preferable to the old way of doing things is that it allows for flexibility in how 
-*/
 
 function createTriangle(unclickedColor, clickedColor) {
     let triangle = document.createElement('span');
@@ -511,7 +499,7 @@ function getHeaderText(wordCount, tokenCount, useToken, initialLetter) {
 
         return "<u><b><i>" + initialLetter + "</i></b></u> (" + wordCount.toString() + " " + wordOrWords + ", " + tokenCount.toString() + " total " + tokenOrTokens + ")";
     } else {
-        return "<u><i><b>" + wordCount.toString() + "</b> tokens</i></u> ("  + wordCount.toString() + " " + wordOrWords + ")";
+        return "<u><i><b>" + initialLetter + "</b> tokens</i></u> ("  + wordCount.toString() + " " + wordOrWords + ")";
     }
 }
 
