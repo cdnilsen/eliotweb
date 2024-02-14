@@ -231,8 +231,7 @@ button {
     text-decoration-style: dotted;
 }
 
-.cite-span .show-verse {
-    visibility: hidden;
+.show-verse {
     width: 500px;
     background-color: #fff;
     outline: 2px solid #000;
@@ -243,7 +242,6 @@ button {
     top: -150%;
     left: 0%;
     transform: translateX(-50%);
-    opacity: 0;
     /*transition: opacity 0.3s ease-in-out;*/
 }
 /*

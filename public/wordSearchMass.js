@@ -282,9 +282,9 @@ function populateColumns(popupDiv, editionNum, allVerseList) {
 }
 
 async function showVersesInBox(popupContainer, dbCode) {
-    if (popupContainer.visible) {
+    if (popupContainer.active) {
         popupContainer.innerHTML = "";
-        popupContainer.visible = false;
+        popupContainer.classList.toggle('active');
     }
     else {
         console.log("Show verses in box was called!");
@@ -305,7 +305,7 @@ async function showVersesInBox(popupContainer, dbCode) {
                 }
                 popupContainer.innerHTML += "<br>";
             }
-            popupContainer.visible = true;
+            popupContainer.classList.toggle('active');
         });
     }
 }
@@ -646,7 +646,6 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book) {
         thisVerseSpan.style.textDecoration = "dotted";
 
         let popupContainer = document.createElement("span");
-        popupContainer.classList.add("cite-span");
         popupContainer.classList.add("show-verse");
         thisVerseSpan.appendChild(popupContainer);
 
@@ -655,11 +654,19 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book) {
             await showVersesInBox(popupContainer, thisDBCode);
         });
 
-        popupContainer.addEventListener("click", async function() {
+        document.addEventListener("click", function(event) {
+            if (popupContainer.active && event.target != popupContainer) {
+                popupContainer.active = false;
+                popupContainer.innerHTML = "";
+                popupContainer.classList.toggle('active');
+            }
+        });
+
+        /*popupContainer.addEventListener("click", async function() {
             toggleCSS(popupContainer.visible, true, false);
             toggleCSS(popupContainer.opacity, 1, 0); 
         });
-
+        */
 
 
         verseCiteContainer.appendChild(thisVerseSpan);
