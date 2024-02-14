@@ -284,7 +284,7 @@ async function showVersesInBox(popupDiv, dbCode) {
             "Content-type": "application/json; charset=UTF-8"
         }
     }).then(res => res.json()).then(res => {
-
+        //popupDiv.innerHTML = "";
         let primeKeys = [2, 3, 5, 11, 13];
         console.log(res);
         for (let i = 0; i < primeKeys.length; i++) {

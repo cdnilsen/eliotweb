@@ -181,9 +181,8 @@ tbody {
 }
 
 .popup-verse-box {
-    display: none;
     position: relative;
-    z-index: 1;
+    z-index: 1000;
     background-color: #f9f9f9;
     border: 1px solid #888;
     width: 600px;
