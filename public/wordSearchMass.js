@@ -783,8 +783,7 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
 
                 thisBookSpan.innerHTML = "<i>" + thisBookName
 
-                thisBookSpan.style.textIndent = "4em";
-                thisBookSpan.display = "inline-block";
+                thisBookSpan.classList.add("textTab2");
 
                 let verseTextList = processBookData(thisBookData, thisBookSpan, thisBookName);
 
