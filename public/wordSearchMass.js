@@ -816,6 +816,7 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
 
                     //thisWordDiv.appendChild(document.createElement("br"));
                 }
+                bookContainer.appendChild(document.createElement("br"));
 
                 
 
