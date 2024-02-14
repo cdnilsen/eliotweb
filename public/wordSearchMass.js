@@ -785,8 +785,8 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
 
                 if (verseTextList.length > 25) {
                     verseCiteContainer.classList.add("textTab2");
-                    let bookTriangle = addTriangleToParent(thisBookSpan, "gray", "red", true);
-                    
+                    let bookTriangle = addTriangleToParent(thisBookSpan, "gray", "red", false);
+
                     addChildToExistingTriangle(thisBookSpan, bookTriangle, verseCiteContainer);
                 } else {
                     //verseCiteContainer.display = "inline-block";
