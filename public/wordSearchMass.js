@@ -799,10 +799,16 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
 
                     
 
-                    let breakSpan = document.createElement("br");
+                    let breakSpan1 = document.createElement("br");
                     verseCiteContainer.appendChild(breakSpan);
 
+                    let breakSpan2 = document.createElement("br");
+
                     addChildToExistingTriangle(thisBookSpan, bookTriangle, verseCiteContainer);
+
+                    addChildToExistingTriangle(thisBookSpan, bookTriangle, breakSpan2);
+                    breakSpan2.hidden = false;
+                    
                 } else {
                     verseCiteContainer.display = "inline-block";
                     
