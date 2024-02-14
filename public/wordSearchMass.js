@@ -655,11 +655,9 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book) {
         });
 
         document.addEventListener("click", function(event) {
-            if (popupContainer.active && event.target != popupContainer) {
-                popupContainer.active = false;
-                popupContainer.innerHTML = "";
-                popupContainer.classList.toggle('active');
-            }
+            //popupContainer.active = false;
+            popupContainer.innerHTML = "";
+            popupContainer.classList.toggle('active');
         });
 
         /*popupContainer.addEventListener("click", async function() {
