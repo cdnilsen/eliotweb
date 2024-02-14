@@ -460,6 +460,10 @@ function appendChildTriangleOptional(useTriangle, parentContainer, childContaine
         return parentTriangle;
     } else {
         parentContainer.appendChild(childContainer);
+        if (addBreak) {
+            let breakSpan = document.createElement('br');
+            parentContainer.appendChild(breakSpan);
+        }
         return undefined;
     }
 }
