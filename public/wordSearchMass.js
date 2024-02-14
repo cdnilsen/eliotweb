@@ -282,7 +282,7 @@ function populateColumns(popupDiv, editionNum, allVerseList) {
 }
 
 async function showVersesInBox(popupContainer, dbCode) {
-    if (popupContainer.active) {
+    if (popupContainer.classList.contains('active')) {
         popupContainer.innerHTML = "";
         popupContainer.classList.toggle('active');
     }
