@@ -664,6 +664,10 @@ function addVersesToContainer(verseTextList, word, book) {
         let thisVerseSpan = document.createElement("span");
         thisVerseSpan.innerHTML = verseTextList[i];
         thisVerseSpan.classList.add("dotted-underline");
+        thisVerseSpan.style.cursor = "pointer";
+        
+
+
         verseCiteContainer.appendChild(thisVerseSpan);
         if (i != verseTextList.length - 1) {
             verseCiteContainer.innerHTML += ", ";
