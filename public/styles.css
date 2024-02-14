@@ -232,6 +232,8 @@ button {
 }
 
 .show-verse {
+    visibility: hidden;
+    opacity: 0;
     width: 500px;
     background-color: #fff;
     outline: 2px solid #000;
@@ -249,6 +251,8 @@ button {
     visibility: visible;
     opacity: 1;
 }
+
+
 /*
 .cite-span:hover .show-verse {
     visibility: visible;
