@@ -769,6 +769,12 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
 
                 thisBookSpan.id = "word-" + thisWord + "-book-" + thisBookName;
 
+                if (allBookNums.length > 5) {
+                    addChildToExistingTriangle(thisWordDiv, wordTriangle, thisBookSpan);
+                } else {
+                    thisWordDiv.appendChild(thisBookSpan);
+                }
+
                 let thisBookData = allBookToVerseDict[thisBookNum];
                 
                 thisBookData.sort((a, b) => a["dbVerseCode"] - b["dbVerseCode"]);
@@ -801,11 +807,8 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
                     let thisBreakSpan = document.createElement("br");
                     thisBookSpan.appendChild(thisBreakSpan);
                 }
-                if (allBookNums.length > 5) {
-                    addChildToExistingTriangle(thisWordDiv, wordTriangle, thisBookSpan);
-                } else {
-                    thisWordDiv.appendChild(thisBookSpan);
-                }
+
+                
 
 
                 //let citeTriangle = appendChildTriangleOptional(verseTextList.length > 25, thisBookSpan, verseCiteContainer, "gray", "red", true, bookTriangle);
