@@ -708,8 +708,14 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
             continue;
         }
         let thisHeader = allHeaders[i].toString();
+        let headerString = "";
+        if (sortAlphabetical) {
+            headerString = thisHeader[0];
+        } else {
+            headerString = thisHeader.toString();
+        }
 
-        let headerText = getHeaderText(headerToWordCountDict[thisHeader], headerToTokenCountDict[thisHeader], sortAlphabetical, thisHeader[0]);
+        let headerText = getHeaderText(headerToWordCountDict[thisHeader], headerToTokenCountDict[thisHeader], sortAlphabetical, headerString);
 
         thisHeaderDiv.id = "header-" + thisHeader;
         thisHeaderDiv.innerHTML = headerText;
