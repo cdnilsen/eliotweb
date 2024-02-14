@@ -247,7 +247,7 @@ button {
     transition: opacity 0.3s ease-in-out;
 }
 
-.cite-span:click .show-verse {
+.cite-span:hover .show-verse {
     visibility: visible;
     opacity: 1;
 }
