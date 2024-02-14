@@ -753,7 +753,7 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
 
             let numVerses = thisWordDataDict["allVerses"].length;
 
-            let wordTriangle = undefined;
+            let wordTriangle;
 
             if (allBookNums.length > 5) {
                 wordTriangle = addTriangleToParent(thisWordDiv, "gray", "red", true);
@@ -768,12 +768,6 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
                 let thisBookName = topBookList[thisBookNum - 1];
 
                 thisBookSpan.id = "word-" + thisWord + "-book-" + thisBookName;
-
-                if (allBookNums.length > 5) {
-                    addChildToExistingTriangle(thisWordDiv, wordTriangle, thisBookSpan);
-                } else {
-                    thisWordDiv.appendChild(thisBookSpan);
-                }
 
                 let thisBookData = allBookToVerseDict[thisBookNum];
                 
@@ -806,6 +800,14 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
 
                     let thisBreakSpan = document.createElement("br");
                     thisBookSpan.appendChild(thisBreakSpan);
+                }
+
+                if (allBookNums.length > 5) {
+                    addChildToExistingTriangle(thisWordDiv, wordTriangle, thisBookSpan);
+                } else {
+                    thisWordDiv.appendChild(thisBookSpan);
+
+                    thisWordDiv.appendChild(document.createElement("br"));
                 }
 
                 
