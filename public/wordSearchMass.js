@@ -806,9 +806,9 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
 
                     addChildToExistingTriangle(thisBookSpan, bookTriangle, verseCiteContainer);
 
-                    if (k > 0) {
-                        addChildToExistingTriangle(thisBookSpan, bookTriangle, breakSpan2);
-                    }
+                    
+                    addChildToExistingTriangle(thisBookSpan, bookTriangle, breakSpan2);
+                    
                     //breakSpan2.hidden = false;
                     
                 } else {
@@ -821,8 +821,9 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
                 }
 
                 if (allBookNums.length > 5) {
-                    bookContainer.appendChild(document.createElement("br"));
-
+                    if (k > 0) {
+                       bookContainer.appendChild(document.createElement("br"));
+                    }
                     addChildToExistingTriangle(bookContainer, wordTriangle, thisBookSpan);
                 } else {
                     bookContainer.appendChild(thisBookSpan);
