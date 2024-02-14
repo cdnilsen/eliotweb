@@ -664,6 +664,7 @@ function processBookData(bookDataList, bookHTMLSpan, bookName) {
     } else {
         bookHTMLSpan.innerHTML += ":</i> ";
     }
+    //bookHTMLSpan.innerHTML += "<br>";
 
     return getVerseCiteSpans(allVerses, redoneDictionaries, bookName);
 }
@@ -757,6 +758,9 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
 
             if (allBookNums.length > 5) {
                 wordTriangle = addTriangleToParent(thisWordDiv, "gray", "red", true);
+            } else {
+                let breakSpan = document.createElement("br");
+                thisWordDiv.appendChild(breakSpan);
             }
 
             for (let k=0; k < allBookNums.length; k++) {
