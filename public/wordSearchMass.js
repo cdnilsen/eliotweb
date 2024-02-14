@@ -800,7 +800,7 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
                     
 
                     let breakSpan1 = document.createElement("br");
-                    verseCiteContainer.appendChild(breakSpan);
+                    verseCiteContainer.appendChild(breakSpan1);
 
                     let breakSpan2 = document.createElement("br");
 
