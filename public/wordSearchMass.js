@@ -788,7 +788,12 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
                 } else {
                     verseCiteContainer.display = "inline-block";
                 }
-                let citeTriangle = appendChildTriangleOptional(verseTextList.length > 25, thisBookSpan, verseCiteContainer, "gray", "red", true, bookTriangle);
+                if (allBookNums.length > 5) {
+                    addChildToExistingTriangle(thisWordDiv, wordTriangle, thisBookSpan);
+                }
+
+
+                //let citeTriangle = appendChildTriangleOptional(verseTextList.length > 25, thisBookSpan, verseCiteContainer, "gray", "red", true, bookTriangle);
             } 
         }
         resultDiv.appendChild(thisHeaderDiv);
