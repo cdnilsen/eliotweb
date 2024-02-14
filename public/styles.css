@@ -244,6 +244,11 @@ button {
     transform: translateX(-50%);
     /*transition: opacity 0.3s ease-in-out;*/
 }
+
+.show-verse.active {
+    visibility: visible;
+    opacity: 1;
+}
 /*
 .cite-span:hover .show-verse {
     visibility: visible;
