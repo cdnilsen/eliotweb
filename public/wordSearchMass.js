@@ -446,7 +446,7 @@ function addTriangleToParent(parentContainer, unclickedColor, clickedColor, addB
     return triangle;
 }
 
-function addChildToExistingTriangle(parentContainer, parentTriangle, childContainer, unclickedColor, clickedColor) {
+function addChildToExistingTriangle(parentContainer, parentTriangle, childContainer) {
     parentContainer.appendChild(childContainer);
     childContainer.hidden = true;
     parentTriangle.addEventListener('click', function() {
@@ -454,11 +454,13 @@ function addChildToExistingTriangle(parentContainer, parentTriangle, childContai
     });
 }
 
-function appendChildTriangleOptional(useTriangle, parentContainer, childContainer, unclickedColor, clickedColor, addBreak=true) {
+function appendChildTriangleOptional(useTriangle, parentContainer, childContainer, unclickedColor, clickedColor, addBreak=true, parentTriangle=undefined) {
     if (useTriangle) {
-        addChildToExistingTriangle(parentContainer, childContainer, unclickedColor, clickedColor, addBreak);
+        addChildToExistingTriangle(parentContainer, parentTriangle, childContainer, unclickedColor, clickedColor, addBreak);
+        return parentTriangle;
     } else {
         parentContainer.appendChild(childContainer);
+        return undefined;
     }
 }
 
@@ -737,9 +739,15 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
             }
             
             thisWordDiv.style.fontSize = "16px";
-            addChildToExistingTriangle(thisHeaderDiv, headerTriangle, thisWordDiv, "gray", "red");
+            addChildToExistingTriangle(thisHeaderDiv, headerTriangle, thisWordDiv);
 
             let numVerses = thisWordDataDict["allVerses"].length;
+
+            let wordTriangle = undefined;
+
+            if (allBookNums.length > 5) {
+                wordTriangle = addTriangleToParent(thisWordDiv, "gray", "red", false);
+            }
 
             for (let k=0; k < allBookNums.length; k++) {
                 let thisBookSpan = document.createElement("span");
@@ -758,7 +766,7 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
 
                 let verseCiteContainer = addVersesToBookSpan(verseTextList, thisWord, thisBookName);
 
-                appendChildTriangleOptional(allBookNums.length > 5, thisWordDiv, thisBookSpan, "gray", "red", false);
+                let bookTriangle = appendChildTriangleOptional(allBookNums.length > 5, thisWordDiv, thisBookSpan, "gray", "#00ff50", false, wordTriangle);
 
                 if (verseTextList.length > 30) {
                     verseCiteContainer.classList.add("textTab2");
@@ -768,10 +776,8 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
                     verseCiteContainer.innerHTML += ` (${verseTextList.length} vv.)`;
                 }
 
-                appendChildTriangleOptional(verseTextList.length > 25, thisBookSpan, verseCiteContainer, "gray", "red", false);
-                
-            }
-            
+                appendChildTriangleOptional(verseTextList.length > 25, thisBookSpan, verseCiteContainer, "gray", "red", false, bookTriangle);
+            } 
         }
     }
     let totalWordCount = countData[4];
