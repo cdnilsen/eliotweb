@@ -546,7 +546,7 @@ function getCountDictionaries(wordList, dictOfDicts, sortAlphabetical) {
         console.log(allHeaders.sort((a, b) => a - b));
         console.log(allHeaders.sort((a, b) => b - a));
 
-        allHeaders.sort((a, b) => a - b);
+        allHeaders.sort((a, b) => b - a);
     }
     return [allHeaders, headerToWordListDict, headerToWordCountDict, headerToTokenCountDict, totalWords, totalTokens];
 }
