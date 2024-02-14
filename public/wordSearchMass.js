@@ -473,8 +473,10 @@ function addChildrenWithTriangle(parentContainer, childrenContainers, unclickedC
     });
 }
 
-function getHeaderText(wordCount, tokenCount, useToken, initialLetter) {
-    if (initialLetter == "8") {
+function getHeaderText(wordCount, tokenCount, sortAlphabetical, headerString) {
+
+    let useToken = sortAlphabetical;
+    if (headerString == "8" && sortAlphabetical) {
         initialLetter = "ꝏ̄";
     }
 
@@ -868,7 +870,7 @@ function getRightWordList(sortAlphabetical, wordList, dictOfDicts) {
                 frequencyToWordDict[thisCount].push(thisWord);
             }
         }
-        frequencyList.sort((a, b) => b - a);
+        frequencyList.sort((a, b) => a - b);
         for (let j = 0; j < frequencyList.length; j++) {
             let thisFrequency = frequencyList[j];
             let thisWordList = frequencyToWordDict[thisFrequency];
