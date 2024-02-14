@@ -778,13 +778,15 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
                 thisBookSpan.classList.add("textTab");
                 let verseTextList = processBookData(thisBookData, thisBookSpan, thisBookName);
                 totalTokens += verseTextList.length;
+                
                 let verseCiteContainer = addVersesToBookSpan(verseTextList, thisWord, thisBookName);
 
-                let bookTriangle = appendChildTriangleOptional(allBookNums.length > 5, thisWordDiv, thisBookSpan, "gray", "#00ff50", true, wordTriangle);
+                //let bookTriangle = appendChildTriangleOptional(allBookNums.length > 5, thisWordDiv, thisBookSpan, "gray", "#00ff50", true, wordTriangle);
 
                 if (verseTextList.length > 25) {
                     verseCiteContainer.classList.add("textTab2");
                     bookTriangle = addTriangleToParent(thisBookSpan, "gray", "red", true);
+                    addChildToExistingTriangle(thisBookSpan, bookTriangle, verseCiteContainer);
                 } else {
                     verseCiteContainer.display = "inline-block";
                 }
