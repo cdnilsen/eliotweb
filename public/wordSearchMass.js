@@ -793,18 +793,23 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical) {
                 if (verseTextList.length > 25) {
                     //verseCiteContainer.classList.add("textTab2");
 
+                    
+
                     let bookTriangle = addTriangleToParent(thisBookSpan, "gray", "red", true);
 
-                    addChildToExistingTriangle(thisBookSpan, bookTriangle, verseCiteContainer);
+                    
 
                     let breakSpan = document.createElement("br");
-                    thisBookSpan.appendChild(breakSpan);
+                    verseCiteContainer.appendChild(breakSpan);
+
+                    addChildToExistingTriangle(thisBookSpan, bookTriangle, verseCiteContainer);
                 } else {
                     verseCiteContainer.display = "inline-block";
-                    thisBookSpan.appendChild(verseCiteContainer);
+                    
 
                     let thisBreakSpan = document.createElement("br");
-                    thisBookSpan.appendChild(thisBreakSpan);
+                    verseCiteContainer.appendChild(thisBreakSpan);
+                    thisBookSpan.appendChild(verseCiteContainer);
                 }
 
                 if (allBookNums.length > 5) {
