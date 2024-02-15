@@ -242,7 +242,7 @@ button {
     position: absolute;
     z-index: 9999;
     top: -50%;
-    left: 100%;
+    left: 200%;
     transform: translateX(-50%);
     /*transition: opacity 0.3s ease-in-out;*/
 }
