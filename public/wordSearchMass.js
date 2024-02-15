@@ -298,7 +298,13 @@ async function showVersesInBox(popupContainer, dbCode) {
         for (let i = 0; i < primeKeys.length; i++) {
             let p = primeKeys[i];
             if (res[p] != "") {
-                popupContainer.innerHTML += editionToSuperscriptDict[p] + res[p];
+                if (p < 11) {
+                    res[p] = res[p].split("8").join("ꝏ̄");
+                    res[p].split("$").join(" ");
+                }
+                let thisVerseContainer = document.createElement('span');
+                thisVerseContainer.innerHTML = editionToSuperscriptDict[p] + res[p] + "<br>";
+                popupContainer.appendChild(thisVerseContainer);
             }
         }
         popupContainer.classList.toggle('active');
