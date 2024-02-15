@@ -666,7 +666,7 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book, topDiv) {
         
 
         verseCiteContainer.appendChild(thisVerseSpan);
-        thisVerseSpan.appendChild(popupContainer);
+        verseCiteContainer.appendChild(popupContainer);
         
         if (i != verseTextList.length - 1) {
             verseCiteContainer.innerHTML += ", ";
