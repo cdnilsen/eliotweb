@@ -669,10 +669,10 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book, topDiv) {
         thisVerseSpan.appendChild(popupContainer);
         
         if (i != verseTextList.length - 1) {
-            verseCiteContainer.innerHTML += ", ";
+            thisVerseSpan.innerHTML += ", ";
         } else {
             if (verseTextList.length > 1) {
-                verseCiteContainer.innerHTML += ` (${verseTextList.length} vv.)`;
+                thisVerseSpan.innerHTML += ` (${verseTextList.length} vv.)`;
             }
             //let breakSpan = document.createElement("br");
             //verseCiteContainer.appendChild(breakSpan);
