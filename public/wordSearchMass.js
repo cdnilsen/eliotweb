@@ -677,6 +677,7 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book, topDiv) {
             if (verseTextList.length > 1) {
                 let verseCountSpan = document.createElement("span");
                 verseCountSpan.innerHTML = ` (${verseTextList.length} vv.)`;
+                verseCountSpan.textDecoration = "none";
                 thisVerseSpan.appendChild(verseCountSpan);
             }
             //let breakSpan = document.createElement("br");
