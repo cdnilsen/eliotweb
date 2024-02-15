@@ -284,7 +284,6 @@ function populateColumns(popupDiv, editionNum, allVerseList) {
 
 async function showVersesInBox(popupContainer, dbCode) {
     popupContainer.innerHTML = "";
-    popupContainer.style.textDecoration = "underline dotted";
     popupContainer.classList.toggle('active');
     console.log("Show verses in box was called!");
     let fetchString = "/fetchVerse/" + dbCode.toString();
