@@ -648,15 +648,12 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book, topDiv) {
         let thisDBCode = dbCodeList[i];
         let thisVerseSpan = document.createElement("span");
 
-        let verseTextSpan = document.createElement("span");
-        verseTextSpan.innerHTML = verseTextList[i];
-        verseTextSpan.classList.add("cite-span");
-
-        thisVerseSpan.appendChild(verseTextSpan);
+        thisVerseSpan.innerHTML = verseTextList[i];
+        thisVerseSpan.style.textDecoration = "underline dot";
+        thisVerseSpan.classList.add("cite-span");
 
         let popupContainer = document.createElement("span");
         popupContainer.classList.add("show-verse");
-        
 
         thisVerseSpan.addEventListener("click", async function() {
             console.log("Hello, you clicked on me!");
