@@ -299,13 +299,16 @@ async function showVersesInBox(popupContainer, dbCode) {
         console.log(res);
         for (let i = 0; i < primeKeys.length; i++) {
             let p = primeKeys[i];
+            let thisVerseText = ""
             if (res[p] != "") {
                 if (p < 11) {
-                    res[p] = res[p].split("8").join("ꝏ̄");
-                    res[p].split("$").join(" ");
+                    thisVerseText = res[p].split("8").join("ꝏ̄");
+                    thisVerseText = thisVerseText.split("$").join(" ");
+                } else {
+                    thisVerseText = res[p];
                 }
                 let thisVerseContainer = document.createElement('span');
-                thisVerseContainer.innerHTML = editionToSuperscriptDict[p] + res[p] + "<br>";
+                thisVerseContainer.innerHTML = editionToSuperscriptDict[p] + thisVerseText + "<br>";
                 popupContainer.appendChild(thisVerseContainer);
             }
         }
