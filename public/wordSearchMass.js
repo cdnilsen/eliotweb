@@ -95,7 +95,7 @@ const editionToSuperscriptDict = {
     5: "<sup>M</sup>",
     6: "",
     7: "<sup>א</sup>",
-    11: "<sup>KJV</sup>
+    11: "<sup>KJV</sup>"
 }
 
 
