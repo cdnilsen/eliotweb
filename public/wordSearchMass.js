@@ -298,11 +298,15 @@ async function showVersesInBox(popupContainer, dbCode) {
         console.log(res);
         for (let i = 0; i < primeKeys.length; i++) {
             let p = primeKeys[i];
+            let thisVerseColumn = document.createElement('column');
+            let thiscolumnHeader = document.createElement('tr')
             let thisVerseText = ""
             if (res[p] != "") {
                 if (p < 11) {
                     thisVerseText = res[p].split("8").join("ꝏ̄");
                     thisVerseText = thisVerseText.split("$").join(" ");
+                    thisVerseText = thisVerseText.split("{").join("<i>");
+                    thisVerseText = thisVerseText.split("}").join("</i>");
                 } else {
                     thisVerseText = res[p];
                 }
