@@ -664,11 +664,11 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book, topDiv) {
             toggleCSS(popupContainer.opacity, 1, 0); 
         });
         */
-
-
         
-        thisVerseSpan.appendChild(popupContainer);
+
         verseCiteContainer.appendChild(thisVerseSpan);
+        verseCiteContainer.appendChild(popupContainer);
+        
         if (i != verseTextList.length - 1) {
             verseCiteContainer.innerHTML += ", ";
         } else {
