@@ -671,13 +671,13 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book, topDiv) {
         if (i != verseTextList.length - 1) {
             let commaSpan = document.createElement("span");
             commaSpan.innerHTML = ", ";
-            commaSpan.textDecoration = "none";
+            commaSpan.textDecoration = "underline none";
             thisVerseSpan.appendChild(commaSpan);
         } else {
             if (verseTextList.length > 1) {
                 let verseCountSpan = document.createElement("span");
                 verseCountSpan.innerHTML = ` (${verseTextList.length} vv.)`;
-                verseCountSpan.textDecoration = "none";
+                verseCountSpan.textDecoration = "underline none";
                 thisVerseSpan.appendChild(verseCountSpan);
             }
             //let breakSpan = document.createElement("br");
