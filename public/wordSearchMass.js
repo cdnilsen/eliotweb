@@ -632,7 +632,7 @@ function processBookData(bookDataList, bookHTMLSpan, bookName) {
     return getVerseCiteSpans(allVerses, redoneDictionaries, bookName);
 }
 
-function addVersesToContainer(verseTextList, dbCodeList, word, book) {
+function addVersesToContainer(verseTextList, dbCodeList, word, book, topDiv) {
     let verseCiteContainer = document.createElement("span");   
     verseCiteContainer.id = "word-" + word + "-book-" + book + "-cites";
     for (let i=0; i < verseTextList.length; i++) {
@@ -666,8 +666,9 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book) {
         */
 
 
-        verseCiteContainer.appendChild(thisVerseSpan);
+        
         thisVerseSpan.appendChild(popupContainer);
+        verseCiteContainer.appendChild(thisVerseSpan);
         if (i != verseTextList.length - 1) {
             verseCiteContainer.innerHTML += ", ";
         } else {
