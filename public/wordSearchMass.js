@@ -644,7 +644,7 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book) {
 
         let popupContainer = document.createElement("span");
         popupContainer.classList.add("show-verse");
-        thisVerseSpan.appendChild(popupContainer);
+        
 
         thisVerseSpan.addEventListener("click", async function() {
             console.log("Hello, you clicked on me!");
@@ -667,6 +667,7 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book) {
 
 
         verseCiteContainer.appendChild(thisVerseSpan);
+        thisVerseSpan.appendChild(popupContainer);
         if (i != verseTextList.length - 1) {
             verseCiteContainer.innerHTML += ", ";
         } else {
@@ -676,6 +677,7 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book) {
             //let breakSpan = document.createElement("br");
             //verseCiteContainer.appendChild(breakSpan);
         }
+
     }
     return verseCiteContainer;
 }
