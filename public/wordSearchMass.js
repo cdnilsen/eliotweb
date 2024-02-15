@@ -665,8 +665,8 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book, topDiv) {
         */
         
 
-        verseCiteContainer.appendChild(thisVerseSpan);
-        verseCiteContainer.appendChild(popupContainer);
+        
+        thisVerseSpan.appendChild(popupContainer);
         
         if (i != verseTextList.length - 1) {
             verseCiteContainer.innerHTML += ", ";
@@ -677,6 +677,7 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book, topDiv) {
             //let breakSpan = document.createElement("br");
             //verseCiteContainer.appendChild(breakSpan);
         }
+        verseCiteContainer.appendChild(thisVerseSpan);
 
     }
     return verseCiteContainer;
