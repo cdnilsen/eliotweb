@@ -679,7 +679,7 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book, topDiv) {
         
         if (i != verseTextList.length - 1) {
             let commaSpan = document.createElement("span");
-            commaSpan.innerHTML = ", ";
+            commaSpan.innerHTML = ",&nbsp;";
             commaSpan.textDecoration = "underline none";
             thisVerseSpan.appendChild(commaSpan);
         } else {
