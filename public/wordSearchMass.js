@@ -282,33 +282,30 @@ function populateColumns(popupDiv, editionNum, allVerseList) {
 }
 
 async function showVersesInBox(popupContainer, dbCode) {
-    if (popupContainer.classList.contains('active')) {
+    popupContainer.innerHTML = "";
+    popupContainer.classList.toggle('active');
+    console.log("Show verses in box was called!");
+    let fetchString = "/fetchVerse/" + dbCode.toString();
+    fetch(fetchString, {
+        method: 'GET',
+        headers: {
+            "Content-type": "application/json; charset=UTF-8"
+        }
+    }).then(res => res.json()).then(res => {
         popupContainer.innerHTML = "";
+        let primeKeys = [2, 3, 5, 11, 13];
+        console.log(res);
+        for (let i = 0; i < primeKeys.length; i++) {
+            let p = primeKeys[i];
+            if (res[p] != "") {
+                popupContainer.innerHTML += editionToSuperscriptDict[p] + res[p];
+            }
+            popupContainer.innerHTML += "<br>";
+        }
         popupContainer.classList.toggle('active');
-    }
-    else {
-        console.log("Show verses in box was called!");
-        let fetchString = "/fetchVerse/" + dbCode.toString();
-        fetch(fetchString, {
-            method: 'GET',
-            headers: {
-                "Content-type": "application/json; charset=UTF-8"
-            }
-        }).then(res => res.json()).then(res => {
-            popupContainer.innerHTML = "";
-            let primeKeys = [2, 3, 5, 11, 13];
-            console.log(res);
-            for (let i = 0; i < primeKeys.length; i++) {
-                let p = primeKeys[i];
-                if (res[p] != "") {
-                    popupContainer.innerHTML += editionToSuperscriptDict[p] + res[p];
-                }
-                popupContainer.innerHTML += "<br>";
-            }
-            popupContainer.classList.toggle('active');
-        });
-    }
+    });
 }
+
 
 //Returns a dictionary with the info about this verse. Calls 'word' to debug position of Deuteronomy
 function decodeVerseCode(verseCode, verseCount, word) {
