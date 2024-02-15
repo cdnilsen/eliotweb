@@ -300,7 +300,7 @@ async function showVersesInBox(popupContainer, dbCode) {
             if (res[p] != "") {
                 popupContainer.innerHTML += editionToSuperscriptDict[p] + res[p];
             }
-            popupContainer.innerHTML += "<br>";
+            popupContainer.appendChild(document.createElement("br"));
         }
         popupContainer.classList.toggle('active');
     });
