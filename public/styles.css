@@ -242,7 +242,7 @@ button {
     outline: 2px solid #000;
     text-align: center;
     padding: 5px 10px;
-    position: relative;
+    position: absolute;
     z-index: 9999;
     transform: translateX(-50%);
     /*transition: opacity 0.3s ease-in-out;*/
