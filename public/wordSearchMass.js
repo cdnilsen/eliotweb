@@ -322,7 +322,8 @@ function generateTable(headerList, verseTextList, activePrimeList, activeWord, l
         let thisHeader = document.createElement('th');
         thisHeader.innerHTML = headerList[i];
         thisHeader.style.textDecoration = "underline";
-        thisHeader
+        thisHeader.style.paddingLeft = "10px";
+        thisHeader.style.paddingRight = "10px";
         if (i > 0) {
             thisHeader.style.borderLeft = "1px solid rgba(255, 0, 0)";
         }
@@ -336,6 +337,8 @@ function generateTable(headerList, verseTextList, activePrimeList, activeWord, l
         thisData.innerHTML = processVerseText(verseTextList[j], p, activeWord, laxDiacritics);
         thisData.style.textAlign = "left";
         thisData.style.verticalAlign = "top";
+        thisData.style.paddingLeft = "10px";
+        thisData.style.paddingRight = "10px";
         if (j > 0) {
             thisData.style.borderLeft = "1px solid rgba(255, 0, 0, 0.4)";
         }
