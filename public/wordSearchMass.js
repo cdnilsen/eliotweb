@@ -718,6 +718,7 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book, topDiv, lax
     verseCiteContainer.id = "word-" + word + "-book-" + book + "-cites";
     for (let i=0; i < verseTextList.length; i++) {
         let thisDBCode = dbCodeList[i];
+
         let thisVerseSpan = document.createElement("span");
 
         thisVerseSpan.innerHTML = verseTextList[i];
@@ -749,23 +750,23 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book, topDiv, lax
 
         
         thisVerseSpan.appendChild(popupContainer);
-        
+        verseCiteContainer.appendChild(thisVerseSpan);
         if (i != verseTextList.length - 1) {
             let commaSpan = document.createElement("span");
             commaSpan.innerHTML = ",&nbsp;";
             commaSpan.textDecoration = "underline none";
-            thisVerseSpan.appendChild(commaSpan);
+            verseCiteContainer.appendChild(commaSpan);
         } else {
             if (verseTextList.length > 1) {
                 let verseCountSpan = document.createElement("span");
                 verseCountSpan.innerHTML = ` (${verseTextList.length} vv.)`;
                 verseCountSpan.textDecoration = "underline none";
-                thisVerseSpan.appendChild(verseCountSpan);
+                verseCiteContainer.appendChild(verseCountSpan);
             }
             //let breakSpan = document.createElement("br");
             //verseCiteContainer.appendChild(breakSpan);
         }
-        verseCiteContainer.appendChild(thisVerseSpan);
+        
 
     }
     return verseCiteContainer;
