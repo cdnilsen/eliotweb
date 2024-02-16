@@ -383,16 +383,17 @@ async function showVersesInBox(popupContainer, dbCode, book, activeWord, laxDiac
         let activeVerseTitles = [];
         let activeVerseText = [];
         let activePrimes = [];
+        let popupWidth = 0;
         for (let i = 0; i < primeKeys.length; i++) {
-            popupContainer.style.width += "230px";
             let p = primeKeys[i];
             if (res[p] != "") {
+                popupWidth += 230;
                 activeVerseTitles.push(headerList[i]);
                 activeVerseText.push(res[p]);
                 activePrimes.push(p);
-                console.log(res[p]);
             }
         }
+        popupContainer.style.width = popupWidth.toString() + "px";
         let table = generateTable(activeVerseTitles, activeVerseText, activePrimes, activeWord, laxDiacritics);
         popupContainer.appendChild(table);
         popupContainer.classList.toggle('active');
