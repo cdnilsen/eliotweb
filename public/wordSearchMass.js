@@ -286,7 +286,7 @@ function cleanMarks(word) {
 }
 
 function getTestWord(word, diacriticsLax=false) {
-    let cleanedWord = word.toLower();
+    let cleanedWord = word.toLowerCase();
     cleanedWord = cleanMarks(cleanedWord);
     if (diacriticsLax) {
         cleanedWord = cleanDiacritics(cleanedWord);
