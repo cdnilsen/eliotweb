@@ -234,7 +234,7 @@ button {
 .show-verse {
     visibility: hidden;
     opacity: 0;
-    bottom: calc(100% -40px); /* Place it below the triggering span with 10px offset */
+    bottom: calc(100% -60px); /* Place it below the triggering span with 10px offset */
     left: 50px; /* Set at least 50 pixels away from the left edge */
     padding: 10px;
     width: 600px;
