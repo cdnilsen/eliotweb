@@ -732,7 +732,8 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book, topDiv, lax
 
         let thisVerseSpan = document.createElement("span");
 
-        thisVerseSpan.innerHTML = verseTextList[i];
+        let thisVerseHTML = '<span style="text-decoration: underline dotted;">' + verseTextList[i] + "</span>"
+        thisVerseSpan.innerHTML = thisVerseHTML;
         thisVerseSpan.style.textDecoration = "underline dot";
         thisVerseSpan.classList.add("cite-span");
 
