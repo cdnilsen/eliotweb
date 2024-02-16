@@ -299,6 +299,18 @@ function generateTable(headerList, verseTextList) {
     return table;
 }
 
+function processVerseText(rawText, editionPrime) {
+    if (editionPrime < 11) {
+        rawText = rawText.split('8').join('ꝏ̄');
+        rawText = rawText.split('$').join(' ');
+        rawText = rawText.split('{').join('<i>');
+        rawText = rawText.split('}').join('</i>');
+    } else {
+        return rawText;
+    }
+
+}
+
 function getOtherEdition(book) {
     if (book == "Genesis") {
         return "Zeroth Edition"
@@ -325,7 +337,6 @@ async function showVersesInBox(popupContainer, dbCode, book) {
         let primeKeys = [2, 3, 5, 11, 13];
         let headerList = ["First Edition", "Second Edition", otherEdition, "KJV", "Greek/Hebrew"];
         console.log(res);
-        
         let activeVerseTitles = [];
         let activeVerseText = [];
         for (let i = 0; i < primeKeys.length; i++) {
@@ -333,6 +344,7 @@ async function showVersesInBox(popupContainer, dbCode, book) {
             if (res[p] != "") {
                 activeVerseTitles.push(headerList[i]);
                 activeVerseText.push(res[p]);
+                console.log(res[p]);
             }
         }
         let table = generateTable(activeVerseTitles, activeVerseText);
