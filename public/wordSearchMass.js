@@ -754,6 +754,10 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book, topDiv, lax
             popupContainer.innerHTML = "";
             if (popupContainer.classList.contains('active')) {
                 popupContainer.classList.toggle('active');
+
+                document.querySelectorAll('.cite-span').forEach(function(span) {
+                    span.style.color = "black";
+                });
             }
             //untoggle all blues later
             //thisVerseSpan.style.color = "black";
