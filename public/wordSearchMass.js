@@ -367,6 +367,7 @@ function getOtherEdition(book) {
 async function showVersesInBox(popupContainer, dbCode, book, activeWord, laxDiacritics) {
     let otherEdition = getOtherEdition(book);
     popupContainer.innerHTML = "";
+    popupContainer.style.color = "black";
     popupContainer.classList.toggle('active');
     console.log("Show verses in box was called!");
     let fetchString = "/fetchVerse/" + dbCode.toString();
