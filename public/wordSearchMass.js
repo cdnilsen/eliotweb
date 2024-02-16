@@ -278,11 +278,39 @@ function cleanDiacritics(word) {
     return processEngma(cleanedWord);
 }
 
-function populateColumns(popupDiv, editionNum, allVerseList) {
-
+function generateTable(headerList, verseTextList) {
+    let table = document.createElement('table');
+    let headerRow = document.createElement('tr');
+    for (let i = 0; i < headerList.length; i++) {
+        let thisHeader = document.createElement('th');
+        thisHeader.innerHTML = headerList[i];
+        headerRow.appendChild(thisHeader);
+    }
+    table.appendChild(headerRow);
+    for (let j = 0; j < verseTextList.length; j++) {
+        let thisRow = document.createElement('tr');
+        for (let k = 0; k < verseTextList[j].length; k++) {
+            let thisData = document.createElement('td');
+            thisData.innerHTML = verseTextList[j][k];
+            thisRow.appendChild(thisData);
+        }
+        table.appendChild(thisRow);
+    }
+    return table;
 }
 
-async function showVersesInBox(popupContainer, dbCode) {
+function getOtherEdition(book) {
+    if (book == "Genesis") {
+        return "Zeroth Edition"
+    } else if (book == "Psalms (prose)" || book == "John") {
+        return "Mayhew";
+    } else {
+        return "";
+    }
+}
+
+async function showVersesInBox(popupContainer, dbCode, book) {
+    let otherEdition = getOtherEdition(book);
     popupContainer.innerHTML = "";
     popupContainer.classList.toggle('active');
     console.log("Show verses in box was called!");
@@ -295,26 +323,20 @@ async function showVersesInBox(popupContainer, dbCode) {
     }).then(res => res.json()).then(res => {
         popupContainer.innerHTML = "";
         let primeKeys = [2, 3, 5, 11, 13];
+        let headerList = ["First Edition", "Second Edition", otherEdition, "KJV", "Greek/Hebrew"];
         console.log(res);
+        
+        let activeVerseTitles = [];
+        let activeVerseText = [];
         for (let i = 0; i < primeKeys.length; i++) {
             let p = primeKeys[i];
-            let thisVerseColumn = document.createElement('column');
-            let thiscolumnHeader = document.createElement('tr')
-            let thisVerseText = ""
             if (res[p] != "") {
-                if (p < 11) {
-                    thisVerseText = res[p].split("8").join("ꝏ̄");
-                    thisVerseText = thisVerseText.split("$").join(" ");
-                    thisVerseText = thisVerseText.split("{").join("<i>");
-                    thisVerseText = thisVerseText.split("}").join("</i>");
-                } else {
-                    thisVerseText = res[p];
-                }
-                let thisVerseContainer = document.createElement('span');
-                thisVerseContainer.innerHTML = editionToSuperscriptDict[p] + thisVerseText + "<br>";
-                popupContainer.appendChild(thisVerseContainer);
+                activeVerseTitles.push(headerList[i]);
+                activeVerseText.push(res[p]);
             }
         }
+        let table = generateTable(activeVerseTitles, activeVerseText);
+        popupContainer.appendChild(table);
         popupContainer.classList.toggle('active');
     });
 }
@@ -661,7 +683,7 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book, topDiv) {
 
         thisVerseSpan.addEventListener("click", async function() {
             console.log("Hello, you clicked on me!");
-            await showVersesInBox(popupContainer, thisDBCode);
+            await showVersesInBox(popupContainer, thisDBCode, book);
         });
 
         document.addEventListener("click", function(event) {
