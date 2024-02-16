@@ -287,15 +287,13 @@ function generateTable(headerList, verseTextList) {
         headerRow.appendChild(thisHeader);
     }
     table.appendChild(headerRow);
+    let thisRow = document.createElement('tr');
     for (let j = 0; j < verseTextList.length; j++) {
-        let thisRow = document.createElement('tr');
-        for (let k = 0; k < verseTextList[j].length; k++) {
-            let thisData = document.createElement('td');
-            thisData.innerHTML = verseTextList[j][k];
-            thisRow.appendChild(thisData);
-        }
-        table.appendChild(thisRow);
+        let thisData = document.createElement('td');
+        thisData.innerHTML = verseTextList[j];
+        thisRow.appendChild(thisData);
     }
+    table.appendChild(thisRow);
     return table;
 }
 
