@@ -278,7 +278,17 @@ function cleanDiacritics(word) {
     return processEngma(cleanedWord);
 }
 
-function generateTable(headerList, verseTextList) {
+function processVerseText(rawText, editionPrime) {
+    if (editionPrime < 11) {
+        rawText = rawText.split('8').join('ꝏ̄');
+        rawText = rawText.split('$').join(' ');
+        rawText = rawText.split('{').join('<i>');
+        rawText = rawText.split('}').join('</i>');
+    }
+    return rawText;
+}
+
+function generateTable(headerList, verseTextList, activePrimeList) {
     let table = document.createElement('table');
     let headerRow = document.createElement('tr');
     for (let i = 0; i < headerList.length; i++) {
@@ -292,8 +302,9 @@ function generateTable(headerList, verseTextList) {
     table.appendChild(headerRow);
     let thisRow = document.createElement('tr');
     for (let j = 0; j < verseTextList.length; j++) {
+        let p = activePrimeList[j];
         let thisData = document.createElement('td');
-        thisData.innerHTML = verseTextList[j];
+        thisData.innerHTML = processVerseText(verseTextList[j], p);
         thisData.style.textAlign = "left";
         if (j > 0) {
             thisData.style.borderLeft = "1px solid rgba(255, 0, 0, 0.4)";
@@ -303,18 +314,6 @@ function generateTable(headerList, verseTextList) {
     }
     table.appendChild(thisRow);
     return table;
-}
-
-function processVerseText(rawText, editionPrime) {
-    if (editionPrime < 11) {
-        rawText = rawText.split('8').join('ꝏ̄');
-        rawText = rawText.split('$').join(' ');
-        rawText = rawText.split('{').join('<i>');
-        rawText = rawText.split('}').join('</i>');
-    } else {
-        return rawText;
-    }
-
 }
 
 function getOtherEdition(book) {
@@ -345,15 +344,17 @@ async function showVersesInBox(popupContainer, dbCode, book) {
         console.log(res);
         let activeVerseTitles = [];
         let activeVerseText = [];
+        let activePrimes = [];
         for (let i = 0; i < primeKeys.length; i++) {
             let p = primeKeys[i];
             if (res[p] != "") {
                 activeVerseTitles.push(headerList[i]);
                 activeVerseText.push(res[p]);
+                activePrimes.push(p);
                 console.log(res[p]);
             }
         }
-        let table = generateTable(activeVerseTitles, activeVerseText);
+        let table = generateTable(activeVerseTitles, activeVerseText, activePrimes);
         popupContainer.appendChild(table);
         popupContainer.classList.toggle('active');
     });
