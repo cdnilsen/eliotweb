@@ -285,24 +285,29 @@ function cleanMarks(word) {
     return cleanedWord;
 }
 
-function highlightSearchedWord(testWord, text, diacriticsLax=false) {
-    if (diacriticsLax == false) {
-        return text.split(testWord).join('<span style="color:red; text-decoration:underline;">' + testWord + '</span>');
-    } else {
-        let textWordList = text.split(" ");
-        let finalWordList = [];
-        for (let i = 0; i < textWordList.length; i++) {
-            let thisWord = textWordList[i];
-            let cleanedWord = cleanDiacritics(thisWord);
-            if (cleanMarks(cleanedWord) == testWord) {
-                finalWordList.push('<span style="color:red; text-decoration:underline;">' + thisWord + '</span>');
-            } else {
-                finalWordList.push(thisWord);
-            }
-        }
-        return finalWordList.join(" ");
+function getTestWord(word, diacriticsLax=false) {
+    let cleanedWord = word.toLower();
+    cleanedWord = cleanMarks(cleanedWord);
+    if (diacriticsLax) {
+        cleanedWord = cleanDiacritics(cleanedWord);
     }
+    return cleanedWord;
 }
+
+function highlightSearchedWord(testWord, text, diacriticsLax=false) {
+    let textWordList = text.split(" ");
+    let finalWordList = [];
+    for (let i = 0; i < textWordList.length; i++) {
+        let thisWord = textWordList[i];
+        if (getTestWord(thisWord, diacriticsLax) == testWord) {
+            finalWordList.push('<span style="color:red; text-decoration:underline;">' + thisWord + '</span>');
+        } else {
+            finalWordList.push(thisWord);
+        }
+    }
+    return finalWordList.join(" ");
+}
+
 
 function processVerseText(rawText, editionPrime, activeWord, laxDiacritics=false) {
     if (editionPrime < 11) {
