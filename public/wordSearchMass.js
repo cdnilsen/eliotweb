@@ -450,7 +450,7 @@ function getAddressString(dbNum) {
     let verse = parseInt(stringAddress.slice(3));
 
     let finalAddress = chapter.toString() + ":" + verse.toString();
-    return finalAddress;
+    return '<span style="text-decoration: underline dotted;">' + finalAddress + '</span>'
 }
 
 
@@ -732,8 +732,7 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book, topDiv, lax
 
         let thisVerseSpan = document.createElement("span");
 
-        let thisVerseHTML = '<span style="text-decoration: underline dotted;">' + verseTextList[i] + "</span>"
-        thisVerseSpan.innerHTML = thisVerseHTML;
+        thisVerseSpan.innerHTML = verseTextList[i];
         thisVerseSpan.style.textDecoration = "underline dot";
         thisVerseSpan.classList.add("cite-span");
 
