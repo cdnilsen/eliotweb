@@ -755,6 +755,7 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book, topDiv, lax
             if (popupContainer.classList.contains('active')) {
                 popupContainer.classList.toggle('active');
             }
+            thisVerseSpan.style.color = "black";
         });
 
         /*popupContainer.addEventListener("click", async function() {
