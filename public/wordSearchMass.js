@@ -373,7 +373,7 @@ async function showVersesInBox(popupContainer, dbCode, book, activeWord, laxDiac
     }).then(res => res.json()).then(res => {
         popupContainer.innerHTML = "";
         let primeKeys = [2, 3, 5, 11, 13];
-        let headerList = ["First Edition", "Second Edition", otherEdition, "KJV", "Greek/Hebrew"];
+        let headerList = ["First Edition (α)", "Second Edition (β)", otherEdition, "KJV", "Greek/Hebrew"];
         console.log(res);
         let activeVerseTitles = [];
         let activeVerseText = [];
