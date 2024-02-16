@@ -284,6 +284,9 @@ function generateTable(headerList, verseTextList) {
     for (let i = 0; i < headerList.length; i++) {
         let thisHeader = document.createElement('th');
         thisHeader.innerHTML = headerList[i];
+        if (i > 0) {
+            thisHeader.style.borderLeft = "1px solid rgba(255, 0, 0)";
+        }
         headerRow.appendChild(thisHeader);
     }
     table.appendChild(headerRow);
@@ -291,6 +294,11 @@ function generateTable(headerList, verseTextList) {
     for (let j = 0; j < verseTextList.length; j++) {
         let thisData = document.createElement('td');
         thisData.innerHTML = verseTextList[j];
+        thisData.style.textAlign = "left";
+        if (j > 0) {
+            thisData.style.borderLeft = "1px solid rgba(255, 0, 0, 0.4)";
+        }
+
         thisRow.appendChild(thisData);
     }
     table.appendChild(thisRow);
