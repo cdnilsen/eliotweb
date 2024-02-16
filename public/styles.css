@@ -234,7 +234,7 @@ button {
 .show-verse {
     visibility: hidden;
     opacity: 0;
-    width: auto;
+    width: 600px;
     background-color: #fff;
     outline: 2px solid #000;
     text-align: center;
