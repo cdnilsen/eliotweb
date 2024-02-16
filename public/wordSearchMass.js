@@ -744,6 +744,7 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book, topDiv, lax
         thisVerseSpan.addEventListener("click", async function() {
             console.log("Hello, you clicked on me!");
             await showVersesInBox(popupContainer, thisDBCode, book, word, laxDiacritics);
+            thisVerseSpan.style.toggle('color: blue');
         });
 
         document.addEventListener("click", function(event) {
