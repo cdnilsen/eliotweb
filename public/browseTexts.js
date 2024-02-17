@@ -565,6 +565,9 @@ function revealCheckboxes(book) {
             } else {
                 numMassEditions += 1;
             }
+        } else {
+            editionContainerDict[p].hidden = true;
+            editionCheckboxDict[p].checked = false;
         }
     }
 
@@ -1655,7 +1658,7 @@ document.getElementById("submitBookQuery").addEventListener('click', async funct
     let useGrebrew = false;
 
     let showTextDifferences = document.getElementById("no_show").checked == false;
-    let markCasing = document.getElementById("include_casing").checked;
+    let markCasing = document.getElementById("include_casing").checked || document.getElementById("proofreading").checked;
     //let useKJV = document.getElementById("useKJV").checked;
     //let useGrebrew = document.getElementById("useGrebrew").checked;
     //let useRawText = document.getElementById("useRawText").checked;
