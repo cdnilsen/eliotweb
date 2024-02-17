@@ -1064,12 +1064,13 @@ async function seeAllWords(fetchString, resultDiv, sortAlphabetical, sortByBook,
         } else {
             getDictFromSearchOutput(res, resultDiv, sortAlphabetical, sortByBook, laxDiacritics);
         }
+        for (let i = 0; i < 25; i++) {
+            let breakSpan = document.createElement("br");
+            resultDiv.appendChild(breakSpan);
+        }
     }).catch(err => console.error(err))
 
-    for (let i = 0; i < 25; i++) {
-        let breakSpan = document.createElement("br");
-        resultDiv.appendChild(breakSpan);
-    }
+    
 }
 
 document.getElementById("searchButton").addEventListener("click", async function() {
