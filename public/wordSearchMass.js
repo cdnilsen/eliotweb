@@ -767,6 +767,7 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book, topDiv, lax
         let rightColumn = document.getElementById("results-col-2");
 
         thisVerseSpan.addEventListener("click", async function() {
+            rightColumn.innerHTML = "";
             let thisVerseSpanPosition = thisVerseSpan.getBoundingClientRect();
 
             let vertical = thisVerseSpanPosition.top;
