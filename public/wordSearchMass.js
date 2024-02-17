@@ -812,7 +812,7 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book, topDiv, lax
 
 //Note: wordList should come presorted.
 function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical, laxDiacritics) {
-    let resultDiv = document.getElementById("results-container");
+    let resultColumn = document.getElementById("results-col-1");
     let totalWords = allWordList.length;
     let totalTokens = 0;
 
@@ -976,7 +976,7 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical, laxDiac
             }
             addChildToExistingTriangle(thisHeaderDiv, headerTriangle, thisWordDiv); 
         }
-        resultDiv.appendChild(thisHeaderDiv);
+        resultColumn.appendChild(thisHeaderDiv);
     }
     let totalWordCount = countData[4];
     let totalTokenCount = countData[5];
