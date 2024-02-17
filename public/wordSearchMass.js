@@ -750,17 +750,16 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book, topDiv, lax
         });
 
         document.addEventListener("click", function(event) {
-            //popupContainer.active = false;
-            popupContainer.innerHTML = "";
-            if (popupContainer.classList.contains('active')) {
-                popupContainer.classList.toggle('active');
+            if (!event.target.classList.contains('cite-span')) {
+                popupContainer.innerHTML = "";
+                if (popupContainer.classList.contains('active')) {
+                    popupContainer.classList.toggle('active');
 
-                document.querySelectorAll('.cite-span').forEach(function(span) {
-                    span.style.color = "black";
-                });
+                    document.querySelectorAll('.cite-span').forEach(function(span) {
+                        span.style.color = "black";
+                    });
+                }
             }
-            //untoggle all blues later
-            //thisVerseSpan.style.color = "black";
         });
 
         /*popupContainer.addEventListener("click", async function() {
