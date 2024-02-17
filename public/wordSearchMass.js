@@ -755,9 +755,9 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book, topDiv, lax
                 if (popupContainer.classList.contains('active')) {
                     popupContainer.classList.toggle('active');
 
-                    document.querySelectorAll('.cite-span').forEach(function(span) {
+                    /*document.querySelectorAll('.cite-span').forEach(function(span) {
                         span.style.color = "black";
-                    });
+                    });*/
                 }
             }
         });
