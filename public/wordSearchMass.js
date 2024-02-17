@@ -1065,6 +1065,11 @@ async function seeAllWords(fetchString, resultDiv, sortAlphabetical, sortByBook,
             getDictFromSearchOutput(res, resultDiv, sortAlphabetical, sortByBook, laxDiacritics);
         }
     }).catch(err => console.error(err))
+
+    for (let i = 0; i < 25; i++) {
+        let breakSpan = document.createElement("br");
+        resultDiv.appendChild(breakSpan);
+    }
 }
 
 document.getElementById("searchButton").addEventListener("click", async function() {
@@ -1108,9 +1113,4 @@ document.getElementById("searchButton").addEventListener("click", async function
     let resultColumn = document.getElementById("results-col-1");
 
     await seeAllWords(fetchString, resultColumn, sortAlphabetical, sortByBook, laxDiacritics);
-
-    for (let i = 0; i < 25; i++) {
-        let breakSpan = document.createElement("br");
-        resultColumn.appendChild(breakSpan);
-    }
 });
