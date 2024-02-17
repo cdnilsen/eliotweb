@@ -1069,7 +1069,10 @@ async function seeAllWords(fetchString, resultDiv, sortAlphabetical, sortByBook,
             resultDiv.appendChild(breakSpan);
         }
     }).catch(err => console.error(err))
-
+    for (let i = 0; i < 25; i++) {
+        let breakSpan = document.createElement("br");
+        resultDiv.appendChild(breakSpan);
+    }
     
 }
 
