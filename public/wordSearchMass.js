@@ -416,7 +416,7 @@ async function showVersesInBox(popupContainer, dbCode, book, activeWord, laxDiac
         popupContainer.appendChild(table);
         popupContainer.classList.toggle('active');
     });
-    popupContainer.style.position = "relative";
+    popupContainer.style.position = "absolute";
     popupContainer.style.top = verticalCoord.toString() + "px";
     console.log(verticalCoord);
     popupContainer.style.left = "0%";
