@@ -788,6 +788,7 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book, topDiv, lax
 
         let rightColumn = document.getElementById("results-col-2");
         rightColumn.appendChild(popupContainer);
+        
         verseCiteContainer.appendChild(thisVerseSpan);
         if (i != verseTextList.length - 1) {
             let commaSpan = document.createElement("span");
@@ -804,8 +805,6 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book, topDiv, lax
             //let breakSpan = document.createElement("br");
             //verseCiteContainer.appendChild(breakSpan);
         }
-        
-
     }
     return verseCiteContainer;
 }
@@ -967,12 +966,6 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical, laxDiac
                     //thisWordDiv.appendChild(document.createElement("br"));
                     bookContainer.appendChild(document.createElement("br"));
                 }
-                
-
-                
-
-
-                //let citeTriangle = appendChildTriangleOptional(verseTextList.length > 25, thisBookSpan, verseCiteContainer, "gray", "red", true, bookTriangle);
             }
             addChildToExistingTriangle(thisHeaderDiv, headerTriangle, thisWordDiv); 
         }
