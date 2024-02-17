@@ -416,6 +416,7 @@ async function showVersesInBox(popupContainer, dbCode, book, activeWord, laxDiac
         popupContainer.appendChild(table);
         popupContainer.classList.toggle('active');
     });
+
     rightColumn.appendChild(popupContainer);
 }
 
@@ -770,7 +771,6 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book, topDiv, lax
         });
 
         document.addEventListener("click", function(event) {
-            rightColumn.innerHTML = "";
             if (!event.target.classList.contains('cite-span')) {
                 event.target.style.color = "black";
                 if (popupContainer.classList.contains('active')) {
