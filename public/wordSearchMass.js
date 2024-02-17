@@ -1109,4 +1109,8 @@ document.getElementById("searchButton").addEventListener("click", async function
 
     await seeAllWords(fetchString, resultColumn, sortAlphabetical, sortByBook, laxDiacritics);
 
+    for (let i = 0; i < 25; i++) {
+        let breakSpan = document.createElement("br");
+        resultColumn.appendChild(breakSpan);
+    }
 });
