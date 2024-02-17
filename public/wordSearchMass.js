@@ -405,7 +405,7 @@ async function showVersesInBox(popupContainer, dbCode, book, activeWord, laxDiac
         for (let i = 0; i < primeKeys.length; i++) {
             let p = primeKeys[i];
             if (res[p] != "") {
-                popupWidth += 230;
+                popupWidth += 165;
                 activeVerseTitles.push(headerList[i]);
                 activeVerseText.push(res[p]);
                 activePrimes.push(p);
