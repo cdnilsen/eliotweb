@@ -278,6 +278,19 @@ function cleanDiacritics(word) {
     return processEngma(cleanedWord);
 }
 
+function cleanPunctuation(word) {
+    let allChars = ['.', ',', '!', '?', ';', ':', '[', ']', '(', ')', '\'', '"', '{', '}'];
+    let cleanedWord = "";
+    for (let i = 0; i < word.length; i++) {
+        if (allChars.includes(word[i])) {
+            cleanedWord += "";
+        } else {
+            cleanedWord += word[i];
+        }
+    }
+    return cleanedWord;
+}
+
 function cleanMarks(word) {
     let cleanedWord = word.split('{').join('');
     cleanedWord = cleanedWord.split('}').join('');
@@ -285,9 +298,11 @@ function cleanMarks(word) {
     return cleanedWord;
 }
 
+//Write another function to actually get rid of punctuation marks etc.
+
 function getTestWord(word, diacriticsLax=false) {
     let cleanedWord = word.toLowerCase();
-    cleanedWord = cleanMarks(cleanedWord);
+    cleanedWord = cleanPunctuation(cleanedWord);
     if (diacriticsLax) {
         cleanedWord = cleanDiacritics(cleanedWord);
     }
@@ -299,7 +314,7 @@ function highlightSearchedWord(testWord, text, diacriticsLax=false) {
     let finalWordList = [];
     for (let i = 0; i < textWordList.length; i++) {
         let thisWord = textWordList[i];
-        if (getTestWord(thisWord, diacriticsLax) == cleanMarks(testWord)) {
+        if (getTestWord(thisWord, diacriticsLax) == testWord) {
             finalWordList.push('<span style="color:red; text-decoration:underline;">' + thisWord + '</span>');
         } else if (getTestWord(thisWord, true) == getTestWord(testWord, true)) {
             finalWordList.push('<span style="color:blue;">' + thisWord + '</span>');
