@@ -209,12 +209,12 @@ button {
 
 .leftColumn {
     float: left;
-    padding: 10px;
+    width: 50%;
 }
 
 .rightColumn {
     float: right;
-    padding: 10px;
+    width: 50%;
 }
 /*
 .hover-tooltip {
