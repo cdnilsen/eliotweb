@@ -381,7 +381,7 @@ function getOtherEdition(book) {
     }
 }
 
-async function showVersesInBox(popupContainer, dbCode, book, activeWord, laxDiacritics) {
+async function showVersesInBox(popupContainer, dbCode, book, activeWord, laxDiacritics, rightColumn) {
     let otherEdition = getOtherEdition(book);
     popupContainer.innerHTML = "";
     popupContainer.style.color = "black";
@@ -416,6 +416,7 @@ async function showVersesInBox(popupContainer, dbCode, book, activeWord, laxDiac
         popupContainer.appendChild(table);
         popupContainer.classList.toggle('active');
     });
+    rightColumn.appendChild(popupContainer);
 }
 
 
@@ -759,14 +760,17 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book, topDiv, lax
         let popupContainer = document.createElement("span");
         popupContainer.classList.add("show-verse");
 
+        let rightColumn = document.getElementById("results-col-2");
+
         thisVerseSpan.addEventListener("click", async function() {
             console.log("Hello, you clicked on me!");
-            await showVersesInBox(popupContainer, thisDBCode, book, word, laxDiacritics);
+            await showVersesInBox(popupContainer, thisDBCode, book, word, laxDiacritics, rightColumn);
             thisVerseSpan.style.color = "blue";
             thisVerseSpan.style.textDecoration = "bold";
         });
 
         document.addEventListener("click", function(event) {
+            rightColumn.innerHTML = "";
             if (!event.target.classList.contains('cite-span')) {
                 event.target.style.color = "black";
                 if (popupContainer.classList.contains('active')) {
@@ -784,11 +788,7 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book, topDiv, lax
             toggleCSS(popupContainer.opacity, 1, 0); 
         });
         */
-        
 
-        let rightColumn = document.getElementById("results-col-2");
-        rightColumn.appendChild(popupContainer);
-        
         verseCiteContainer.appendChild(thisVerseSpan);
         if (i != verseTextList.length - 1) {
             let commaSpan = document.createElement("span");

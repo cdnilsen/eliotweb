@@ -1189,7 +1189,7 @@ function smallCapsCompare(string1, string2) {
 }
 
 //This is always called, so why does it sometimes not compare verses?
-function compareVerses(verse1, verse2, chapterNum, verseNum, useCasing) {
+function compareVerses(verse1, verse2, chapterNum, verseNum, useCasing, proofreading) {
     //Will need to change how this works once verses are stored as lists rather than a single blob of text
     verse1 = verse1.split(" ").join("$");
     verse2 = verse2.split(" ").join("$");
@@ -1265,14 +1265,14 @@ function compareVerses(verse1, verse2, chapterNum, verseNum, useCasing) {
     return finalVerses;
 }
 
-function addVersesToDict(dict, chapterNum, verseNum, markCasing, editionNumber) {
+function addVersesToDict(dict, chapterNum, verseNum, markCasing, proofreading, editionNumber) {
 
     if (editionNumber % 6 == 0) {
 
         let firstEditionText = dict[2];
         let secondEditionText = dict[3];
 
-        let comparedVerseList = compareVerses(firstEditionText, secondEditionText, chapterNum, verseNum, markCasing);
+        let comparedVerseList = compareVerses(firstEditionText, secondEditionText, chapterNum, verseNum, markCasing, proofreading);
 
         if (dict[2].length <= comparedVerseList[0].length) {
             dict[2] = comparedVerseList[0];
@@ -1284,7 +1284,7 @@ function addVersesToDict(dict, chapterNum, verseNum, markCasing, editionNumber) 
 
     //The zeroth edition Genesis's differences are wrt the first edition, although the first edition's are still vs. the 2nd. Once the first- and zeroth-edition Geneses are done we can simplify much of this
     if (editionNumber % 14 == 0) {
-        let zerothComparedList = compareVerses(dict[7], dict[2], markCasing);
+        let zerothComparedList = compareVerses(dict[7], dict[2], markCasing, proofreading);
 
         if (dict[7].length <= zerothComparedList[0].length) {
             dict[7] = zerothComparedList[0];
@@ -1347,7 +1347,7 @@ function processFinalText(string, useRawText) {
     return string;
 }
 
-async function displayChapterText(book, chapter, useFirst, useSecond, useMayhew, useZeroth, useKJV, useGrebrew, showTextDifferences, markCasing, textContainer) {
+async function displayChapterText(book, chapter, useFirst, useSecond, useMayhew, useZeroth, useKJV, useGrebrew, showTextDifferences, markCasing, proofreading, textContainer) {
     let chapterNum = parseInt(chapter);
 
     textContainer.innerHTML = "";
@@ -1433,7 +1433,7 @@ async function displayChapterText(book, chapter, useFirst, useSecond, useMayhew,
 
             //Run comparisons if need be. Not for Mayhew at this time.
             if (showTextDifferences && canCompareEditions) {
-                addVersesToDict(verseTextDict, chapterNum, verseNum, markCasing, editionNumber);
+                addVersesToDict(verseTextDict, chapterNum, verseNum, markCasing, proofreading, editionNumber);
             }
 
             for (let k = 0; k < usefulPrimes.length; k++) {
@@ -1659,6 +1659,8 @@ document.getElementById("submitBookQuery").addEventListener('click', async funct
 
     let showTextDifferences = document.getElementById("no_show").checked == false;
     let markCasing = document.getElementById("include_casing").checked || document.getElementById("proofreading").checked;
+
+    let proofreadingMode = document.getElementById("proofreading").checked;
     //let useKJV = document.getElementById("useKJV").checked;
     //let useGrebrew = document.getElementById("useGrebrew").checked;
     //let useRawText = document.getElementById("useRawText").checked;
@@ -1667,6 +1669,6 @@ document.getElementById("submitBookQuery").addEventListener('click', async funct
 
     let columnContainer = document.getElementById("textColumns");
 
-    await displayChapterText(book, chapter, useFirst, useSecond, useMayhew, useZeroth, useKJV, useGrebrew, showTextDifferences, markCasing, columnContainer);
+    await displayChapterText(book, chapter, useFirst, useSecond, useMayhew, useZeroth, useKJV, useGrebrew, showTextDifferences, markCasing, proofreading, columnContainer);
 
 });
