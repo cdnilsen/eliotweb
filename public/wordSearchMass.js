@@ -405,7 +405,7 @@ async function showVersesInBox(popupContainer, dbCode, book, activeWord, laxDiac
         for (let i = 0; i < primeKeys.length; i++) {
             let p = primeKeys[i];
             if (res[p] != "") {
-                popupWidth += 165;
+                popupWidth += 200;
                 activeVerseTitles.push(headerList[i]);
                 activeVerseText.push(res[p]);
                 activePrimes.push(p);
@@ -416,7 +416,7 @@ async function showVersesInBox(popupContainer, dbCode, book, activeWord, laxDiac
         popupContainer.appendChild(table);
         popupContainer.classList.toggle('active');
     });
-    popupContainer.style.position = "absolute";
+    popupContainer.style.position = "relative";
     popupContainer.style.top = "50%";
     console.log(verticalCoord);
     popupContainer.style.left = "40%";
