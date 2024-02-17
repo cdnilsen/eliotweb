@@ -786,8 +786,8 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book, topDiv, lax
         */
         
 
-        
-        thisVerseSpan.appendChild(popupContainer);
+        let rightColumn = document.getElementById("results-col-2");
+        rightColumn.appendChild(popupContainer);
         verseCiteContainer.appendChild(thisVerseSpan);
         if (i != verseTextList.length - 1) {
             let commaSpan = document.createElement("span");
