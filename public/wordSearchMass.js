@@ -381,7 +381,7 @@ function getOtherEdition(book) {
     }
 }
 
-async function showVersesInBox(popupContainer, dbCode, book, activeWord, laxDiacritics, rightColumn) {
+async function showVersesInBox(popupContainer, dbCode, book, activeWord, laxDiacritics, rightColumn, verticalCoord) {
     let otherEdition = getOtherEdition(book);
     popupContainer.innerHTML = "";
     popupContainer.style.color = "black";
@@ -416,7 +416,8 @@ async function showVersesInBox(popupContainer, dbCode, book, activeWord, laxDiac
         popupContainer.appendChild(table);
         popupContainer.classList.toggle('active');
     });
-
+    popupContainer.style.position = "absolute";
+    popupContainer.style.top = verticalCoord.toString() + "px";
     rightColumn.appendChild(popupContainer);
 }
 
@@ -764,8 +765,12 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book, topDiv, lax
         let rightColumn = document.getElementById("results-col-2");
 
         thisVerseSpan.addEventListener("click", async function() {
+            let thisVerseSpanPosition = thisVerseSpan.getBoundingClientRect();
+
+            let vertical = thisVerseSpanPosition.top;
+
             console.log("Hello, you clicked on me!");
-            await showVersesInBox(popupContainer, thisDBCode, book, word, laxDiacritics, rightColumn);
+            await showVersesInBox(popupContainer, thisDBCode, book, word, laxDiacritics, rightColumn, vertical);
             thisVerseSpan.style.color = "blue";
             thisVerseSpan.style.textDecoration = "bold";
         });
