@@ -1105,7 +1105,7 @@ document.getElementById("searchButton").addEventListener("click", async function
    
     let fetchString = "/getWords/" + query + "/" + searchSetting.toString();
 
-    let resultDiv = document.getElementById("results-col-1");
+    let resultDiv = document.getElementById("results-container");
 
     await seeAllWords(fetchString, resultDiv, sortAlphabetical, sortByBook, laxDiacritics);
 });
