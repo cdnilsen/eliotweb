@@ -1102,7 +1102,8 @@ async function seeAllWords(fetchString, resultDiv, sortAlphabetical, sortByBook,
         }
     }).catch(err => console.error(err));   
 }
-let dummyContainer = document.getElementByID("dummy-container");
+
+let dummyContainer = document.getElementById("dummy-container");
 let otherVerseSpanList = [dummyContainer];
 document.getElementById("searchButton").addEventListener("click", async function() {
     let searchSetting = 1;
