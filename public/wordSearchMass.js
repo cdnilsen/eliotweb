@@ -773,7 +773,7 @@ function processBookData(bookDataList, bookHTMLSpan, bookName) {
     return getVerseCiteSpans(allVerses, redoneDictionaries, bookName);
 }
 
-function addVersesToContainer(verseTextList, dbCodeList, word, book, topDiv, laxDiacritics, otherVerseSpanList) {
+function addVersesToContainer(verseTextList, dbCodeList, word, book, topDiv, laxDiacritics) {
     let verseCiteContainer = document.createElement("span");   
     verseCiteContainer.id = "word-" + word + "-book-" + book + "-cites";
     verseCiteContainer.style.width = "40%";
@@ -849,7 +849,7 @@ document.addEventListener("click", function(event) {
 */
 
 //Note: wordList should come presorted.
-function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical, laxDiacritics, otherVerseSpanList) {
+function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical, laxDiacritics) {
     let resultDiv = document.getElementById("results-container");
     let totalWords = allWordList.length;
     let totalTokens = 0;
@@ -959,7 +959,7 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical, laxDiac
                     allDBCodes.push(thisBookData[l]["dbVerseCode"]);
                 }
                 
-                let verseCiteContainer = addVersesToContainer(verseTextList, allDBCodes, thisWord, thisBookName, laxDiacritics, otherVerseSpanList);
+                let verseCiteContainer = addVersesToContainer(verseTextList, allDBCodes, thisWord, thisBookName, laxDiacritics);
 
                 //let bookTriangle = appendChildTriangleOptional(allBookNums.length > 5, thisWordDiv, thisBookSpan, "gray", "#00ff50", true, wordTriangle);
 
@@ -1052,7 +1052,7 @@ function getRightWordList(sortAlphabetical, wordList, dictOfDicts) {
 }
 
 
-function getDictFromSearchOutput(searchOutput, resultDiv, sortAlphabetical, sortByBook, activeWord, laxDiacritics, otherVerseSpanList) {
+function getDictFromSearchOutput(searchOutput, resultDiv, sortAlphabetical, sortByBook, activeWord, laxDiacritics) {
 
     let allWords = [];
     let allTotalCounts = [];
@@ -1076,11 +1076,11 @@ function getDictFromSearchOutput(searchOutput, resultDiv, sortAlphabetical, sort
 
     let newWordList = getRightWordList(sortAlphabetical, allWords, dictOfDicts);
 
-    processAllWordCites(newWordList, dictOfDicts, sortAlphabetical, laxDiacritics, otherVerseSpanList);
+    processAllWordCites(newWordList, dictOfDicts, sortAlphabetical, laxDiacritics);
 }
 
 
-async function seeAllWords(fetchString, resultDiv, sortAlphabetical, sortByBook, laxDiacritics, otherVerseSpanList) {
+async function seeAllWords(fetchString, resultDiv, sortAlphabetical, sortByBook, laxDiacritics) {
     resultDiv.innerHTML = "";
     fetch(fetchString, {
         method: 'GET',
@@ -1094,7 +1094,7 @@ async function seeAllWords(fetchString, resultDiv, sortAlphabetical, sortByBook,
             wrongSpan.innerHTML = "No words found, and/or you tried to search for fewer than three letters (restricted for now to prevent overloading the server).";
             resultDiv.appendChild(wrongSpan);
         } else {
-            getDictFromSearchOutput(res, resultDiv, sortAlphabetical, sortByBook, laxDiacritics, otherVerseSpanList);
+            getDictFromSearchOutput(res, resultDiv, sortAlphabetical, sortByBook, laxDiacritics);
         }
         for (let i = 0; i < 25; i++) {
             let breakSpan = document.createElement("br");
@@ -1144,6 +1144,5 @@ document.getElementById("searchButton").addEventListener("click", async function
     let resultDiv = document.getElementById("results-container");
 
     let dummyContainer = document.getElementById("dummy-container");
-    let otherVerseSpanList = [dummyContainer];
-    await seeAllWords(fetchString, resultDiv, sortAlphabetical, sortByBook, laxDiacritics, otherVerseSpanList);
+    await seeAllWords(fetchString, resultDiv, sortAlphabetical, sortByBook, laxDiacritics);
 });
