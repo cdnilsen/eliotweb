@@ -790,11 +790,12 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book, topDiv, lax
         
         thisVerseSpan.addEventListener("click", async function() {
 
-            document.getElementsByClassName('show-verse').forEach(function(span) {
-                span.classList.toggle('active');
-                span.style.color = "black";
-            });
-            
+            let allVerseSpans = document.getElementsByClassName('show-verse');
+            for (let i = 0; i < allVerseSpans.length; i++) {
+                //allVerseSpans[i].classList.toggle('active');
+                allVerseSpans[i].style.color = "black";
+            }
+
             thisVerseSpan.classList.toggle('active');
             await showVersesInBox(popupContainer, thisDBCode, book, word, laxDiacritics);
             thisVerseSpan.style.color = "blue";
