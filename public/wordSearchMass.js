@@ -789,6 +789,12 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book, topDiv, lax
         let popupContainer = document.createElement("span");
         
         thisVerseSpan.addEventListener("click", async function() {
+
+            document.getElementsByClassName('show-verse').forEach(function(span) {
+                span.classList.toggle('active');
+                span.style.color = "black";
+            });
+            
             thisVerseSpan.classList.toggle('active');
             await showVersesInBox(popupContainer, thisDBCode, book, word, laxDiacritics);
             thisVerseSpan.style.color = "blue";
