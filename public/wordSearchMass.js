@@ -421,7 +421,7 @@ async function showVersesInBox(popupContainer, dbCode, book, activeWord, laxDiac
     console.log(verticalCoord);
     popupContainer.style.left = "10%";
     popupContainer.style.top = "100%";
-    popupContainer.display = "block";
+    popupContainer.display = "inline";
 
     let thisWordDiv = document.getElementById("headword-" + activeWord);
 
