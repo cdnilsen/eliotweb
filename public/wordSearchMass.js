@@ -443,7 +443,7 @@ async function showVersesInBox(popupContainer, dbCode, book, activeWord, laxDiac
     //console.log(verticalCoord);
     console.log("Table is " + popupContainer.offsetWidth + " wide (from showVersesInBox)");
     popupContainer.style.left = "10%";
-    popupContainer.style.top = "100%";
+    //popupContainer.style.top = "100%";
     popupContainer.display = "inline";
 
     let thisWordDiv = document.getElementById("headword-" + activeWord);
