@@ -445,6 +445,8 @@ async function showVersesInBox(popupContainer, dbCode, book, activeWord, laxDiac
 
     popupContainer.classList.add("show-verse");
     thisWordDiv.appendChild(popupContainer);
+
+    return popupContainer;
 }
 
 
@@ -789,18 +791,22 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book, topDiv, lax
         let popupContainer = document.createElement("span");
         
 
+        let activePopupContainer = popupContainer;
+        let activeVerseSpan = thisVerseSpan;
         thisVerseSpan.addEventListener("click", async function() {
-            await showVersesInBox(popupContainer, thisDBCode, book, word, laxDiacritics);
+            activePopupContainer = await showVersesInBox(popupContainer, thisDBCode, book, word, laxDiacritics);
             thisVerseSpan.style.color = "blue";
             thisVerseSpan.style.textDecoration = "bold";
+            activeVerseSpan = thisVerseSpan;
         });
 
         document.addEventListener("click", function(event) {
-            if (!event.target != popupContainer && !event.target != thisVerseSpan) {
-                //event.target.style.color = "black";
-                document.getElementsByClassName("cite-span").forEach(function(popup) {
-                    popup.style.color = "black";
-                });
+            if (!event.target != activePopupContainer && !event.target != thisVerseSpan) {
+                activePopupContainer.classList.toggle('active');
+                activePopupContainer.style.display = "none";
+
+                activeVerseSpan.style.color = "black";
+
                 if (popupContainer.classList.contains('active')) {
                     popupContainer.classList.toggle('active');
 
@@ -808,6 +814,8 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book, topDiv, lax
                         span.style.color = "black";
                     });*/
                 }
+
+                let mostRecentCiteSpan
             }
         });
 
