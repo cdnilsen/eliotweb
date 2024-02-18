@@ -405,6 +405,8 @@ async function showVersesInBox(popupContainer, dbCode, book, activeWord, laxDiac
     popupContainer.innerHTML = "";
     popupContainer.style.color = "black";
     popupContainer.classList.toggle('active');
+
+    let popupWidth = 0;
     let fetchString = "/fetchVerse/" + dbCode.toString();
     fetch(fetchString, {
         method: 'GET',
@@ -427,14 +429,13 @@ async function showVersesInBox(popupContainer, dbCode, book, activeWord, laxDiac
                 activePrimes.push(p);
             }
         }
-        let popupWidth = 0;
-        
         let table = generateTable(activeVerseTitles, activeVerseText, activePrimes, activeWord, popupWidth, laxDiacritics);
         popupContainer.appendChild(table);
         table.position = "absolute";
         popupContainer.classList.toggle('active');
     });
     popupContainer.style.left = "10%";
+    popupContainer.style.width = popupWidth.toString() + "px";
     popupContainer.display = "inline";
 
     let wordDivID = "word-" + activeWord + "-book-" + book + "-cites";
