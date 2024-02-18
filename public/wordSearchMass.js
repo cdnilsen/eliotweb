@@ -824,7 +824,7 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book, topDiv, lax
     }
     return verseCiteContainer;
 }
-
+/*
 document.addEventListener("click", function(event) {
     if (!event.target != mostRecentPopupContainer && !event.target != mostRecentVerseSpan) {
         mostRecentPopupContainer.classList.toggle('active');
@@ -835,12 +835,13 @@ document.addEventListener("click", function(event) {
         if (mostRecentPopupContainer.classList.contains('active')) {
             mostRecentPopupContainer.classList.toggle('active');
 
-            /*document.querySelectorAll('.cite-span').forEach(function(span) {
+            document.querySelectorAll('.cite-span').forEach(function(span) {
                 span.style.color = "black";
-            });*/
+            });
         }
     }
 });
+*/
 
 //Note: wordList should come presorted.
 function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical, laxDiacritics) {
