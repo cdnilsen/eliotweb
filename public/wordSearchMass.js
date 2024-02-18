@@ -443,6 +443,7 @@ async function showVersesInBox(popupContainer, dbCode, book, activeWord, laxDiac
     let thisWordDiv = document.getElementById(wordDivID);
     thisWordDiv.style.width = "40%";
 
+    popupContainer.classList.add("show-verse");
     thisWordDiv.appendChild(popupContainer);
 }
 
@@ -786,7 +787,7 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book, topDiv, lax
         thisVerseSpan.classList.add("cite-span");
 
         let popupContainer = document.createElement("span");
-        popupContainer.classList.add("show-verse");
+        
 
         thisVerseSpan.addEventListener("click", async function() {
             await showVersesInBox(popupContainer, thisDBCode, book, word, laxDiacritics);
