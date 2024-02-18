@@ -445,8 +445,6 @@ async function showVersesInBox(popupContainer, dbCode, book, activeWord, laxDiac
 
     popupContainer.classList.add("show-verse");
     thisWordDiv.appendChild(popupContainer);
-
-    return popupContainer;
 }
 
 
@@ -793,10 +791,10 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book, topDiv, lax
         let popupContainer = document.createElement("span");
         
         thisVerseSpan.addEventListener("click", async function() {
-            mostRecentPopupContainer = await showVersesInBox(popupContainer, thisDBCode, book, word, laxDiacritics);
+            await showVersesInBox(popupContainer, thisDBCode, book, word, laxDiacritics);
+            thisVerseSpan.classList.toggle('active');
             thisVerseSpan.style.color = "blue";
             thisVerseSpan.style.textDecoration = "bold";
-            mostRecentVerseSpan = thisVerseSpan;
         });
 
         /*popupContainer.addEventListener("click", async function() {
