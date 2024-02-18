@@ -419,7 +419,8 @@ async function showVersesInBox(popupContainer, dbCode, book, activeWord, laxDiac
     });
     popupContainer.style.position = "relative";
     console.log(verticalCoord);
-    popupContainer.style.right = "30%";
+    popupContainer.style.right = "60%";
+    popupContainer.style.top = "100%";
 
     let thisWordDiv = document.getElementById("headword-" + activeWord);
 
