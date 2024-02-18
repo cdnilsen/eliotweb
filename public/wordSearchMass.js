@@ -773,8 +773,7 @@ function processBookData(bookDataList, bookHTMLSpan, bookName) {
     return getVerseCiteSpans(allVerses, redoneDictionaries, bookName);
 }
 
-let mostRecentPopupContainer = undefined;
-let mostRecentVerseSpan = undefined;
+let otherVerseSpanList = [];
 function addVersesToContainer(verseTextList, dbCodeList, word, book, topDiv, laxDiacritics) {
     let verseCiteContainer = document.createElement("span");   
     verseCiteContainer.id = "word-" + word + "-book-" + book + "-cites";
@@ -791,10 +790,15 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book, topDiv, lax
         let popupContainer = document.createElement("span");
         
         thisVerseSpan.addEventListener("click", async function() {
+
+            for (let i=0; i < otherVerseSpanList.length; i++) {
+                otherVerseSpanList[i].style.color = "black";
+            }
             await showVersesInBox(popupContainer, thisDBCode, book, word, laxDiacritics);
             thisVerseSpan.classList.toggle('active');
             thisVerseSpan.style.color = "blue";
             thisVerseSpan.style.textDecoration = "bold";
+            otherVerseSpanList.push(thisVerseSpan);
         });
 
         /*popupContainer.addEventListener("click", async function() {
