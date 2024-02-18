@@ -347,7 +347,7 @@ function generateTable(headerList, verseTextList, activePrimeList, activeWord, f
                 thisColumnLongestWord = splitText[j].length;
             }
         }
-        let cellWidth = thisColumnLongestWord * 6;
+        let cellWidth = thisColumnLongestWord * 3;
         cellWidths.push(cellWidth);
         finalWidth += cellWidth;
         finalWidth += 6; //padding
@@ -432,7 +432,7 @@ async function showVersesInBox(popupContainer, dbCode, book, activeWord, laxDiac
         
         let table = generateTable(activeVerseTitles, activeVerseText, activePrimes, activeWord, popupWidth, laxDiacritics);
 
-        popupContainer.style.width = popupWidth.toString() + "px";
+        //popupContainer.style.width = popupWidth.toString() + "px";
         popupContainer.appendChild(table);
         table.position = "absolute";
         popupContainer.classList.toggle('active');
