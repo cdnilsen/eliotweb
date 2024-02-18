@@ -1050,7 +1050,7 @@ function getRightWordList(sortAlphabetical, wordList, dictOfDicts) {
 }
 
 
-function getDictFromSearchOutput(searchOutput, resultDiv, sortAlphabetical, sortByBook, activeWord, laxDiacritics) {
+function getDictFromSearchOutput(searchOutput, resultDiv, sortAlphabetical, sortByBook, activeWord, laxDiacritics, otherVerseSpanList) {
 
     let allWords = [];
     let allTotalCounts = [];
@@ -1092,7 +1092,7 @@ async function seeAllWords(fetchString, resultDiv, sortAlphabetical, sortByBook,
             wrongSpan.innerHTML = "No words found, and/or you tried to search for fewer than three letters (restricted for now to prevent overloading the server).";
             resultDiv.appendChild(wrongSpan);
         } else {
-            getDictFromSearchOutput(res, resultDiv, sortAlphabetical, sortByBook, laxDiacritics);
+            getDictFromSearchOutput(res, resultDiv, sortAlphabetical, sortByBook, laxDiacritics, otherVerseSpanList);
         }
         for (let i = 0; i < 25; i++) {
             let breakSpan = document.createElement("br");
