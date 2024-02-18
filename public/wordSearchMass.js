@@ -795,7 +795,7 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book, topDiv, lax
                 otherVerseSpanList[i].style.color = "black";
             }
             await showVersesInBox(popupContainer, thisDBCode, book, word, laxDiacritics);
-            thisVerseSpan.classList.toggle('active');
+            
             thisVerseSpan.style.color = "blue";
             thisVerseSpan.style.textDecoration = "bold";
             otherVerseSpanList.push(thisVerseSpan);
