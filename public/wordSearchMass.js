@@ -417,9 +417,13 @@ async function showVersesInBox(popupContainer, dbCode, book, activeWord, laxDiac
         table.position = "absolute";
         popupContainer.classList.toggle('active');
     });
-    popupContainer.style.position = "absolute";
+    popupContainer.style.position = "relative";
     console.log(verticalCoord);
-    popupContainer.style.right = "30%"; 
+    popupContainer.style.right = "30%";
+
+    let thisWordDiv = document.getElementById("headword-" + activeWord);
+
+    thisWordDiv.appendChild(popupContainer);
 }
 
 
@@ -883,6 +887,7 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical, laxDiac
             }
             
             thisWordDiv.style.fontSize = "16px";
+            thisWordDiv.id = "headword-" + thisWord;
 
             let numVerses = thisWordDataDict["allVerses"].length;
 
