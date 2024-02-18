@@ -337,11 +337,28 @@ function processVerseText(rawText, editionPrime, activeWord, laxDiacritics=false
     return rawText;
 }
 
-function generateTable(headerList, verseTextList, activePrimeList, activeWord, laxDiacritics=false) {
+function generateTable(headerList, verseTextList, activePrimeList, activeWord, finalWidth, laxDiacritics=false) {
+    let cellWidths = [];
+    for (let i = 0; i < verseTextList.length; i++) {
+        let thisColumnLongestWord= 0;
+        let splitText = verseTextList[i].split(" ");
+        for (let j = 0; j < splitText.length; j++) {
+            if (splitText[j].length > thisColumnLongestWord) {
+                thisColumnLongestWord = splitText[j].length;
+            }
+        }
+        let cellWidth = thisColumnLongestWord * 6;
+        cellWidths.push(cellWidth);
+        finalWidth += cellWidth;
+        finalWidth += 6; //padding
+    }
+
     let table = document.createElement('table');
     let headerRow = document.createElement('tr');
     for (let i = 0; i < headerList.length; i++) {
         let thisHeader = document.createElement('th');
+        thisHeader.style.width = cellWidths[i].toString() + "px";
+
         thisHeader.innerHTML = headerList[i];
         thisHeader.style.textDecoration = "underline";
         thisHeader.style.paddingLeft = "10px";
@@ -356,6 +373,8 @@ function generateTable(headerList, verseTextList, activePrimeList, activeWord, l
     for (let j = 0; j < verseTextList.length; j++) {
         let p = activePrimeList[j];
         let thisData = document.createElement('td');
+        thisData.style.width = cellWidths[j].toString() + "px";
+
         thisData.innerHTML = processVerseText(verseTextList[j], p, activeWord, laxDiacritics);
         thisData.style.textAlign = "left";
         thisData.style.verticalAlign = "top";
@@ -401,18 +420,19 @@ async function showVersesInBox(popupContainer, dbCode, book, activeWord, laxDiac
         let activeVerseTitles = [];
         let activeVerseText = [];
         let activePrimes = [];
-        let popupWidth = 0;
         for (let i = 0; i < primeKeys.length; i++) {
             let p = primeKeys[i];
             if (res[p] != "") {
-                popupWidth += 230;
                 activeVerseTitles.push(headerList[i]);
                 activeVerseText.push(res[p]);
                 activePrimes.push(p);
             }
         }
+        let popupWidth = 0;
+        
+        let table = generateTable(activeVerseTitles, activeVerseText, activePrimes, activeWord, popupWidth, laxDiacritics);
+
         popupContainer.style.width = popupWidth.toString() + "px";
-        let table = generateTable(activeVerseTitles, activeVerseText, activePrimes, activeWord, laxDiacritics);
         popupContainer.appendChild(table);
         table.position = "absolute";
         popupContainer.classList.toggle('active');
