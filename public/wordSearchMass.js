@@ -435,7 +435,7 @@ async function showVersesInBox(popupContainer, dbCode, book, activeWord, laxDiac
         popupContainer.classList.toggle('active');
     });
     popupContainer.style.left = "10%";
-    popupContainer.style.width = popupWidth.toString() + "px";
+    popupContainer.style.width = (popupWidth + 100).toString() + "px";
     popupContainer.display = "inline";
 
     let wordDivID = "word-" + activeWord + "-book-" + book + "-cites";
