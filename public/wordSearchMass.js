@@ -1103,8 +1103,6 @@ async function seeAllWords(fetchString, resultDiv, sortAlphabetical, sortByBook,
     }).catch(err => console.error(err));   
 }
 
-let dummyContainer = document.getElementById("dummy-container");
-let otherVerseSpanList = [dummyContainer];
 document.getElementById("searchButton").addEventListener("click", async function() {
     let searchSetting = 1;
 
@@ -1144,5 +1142,8 @@ document.getElementById("searchButton").addEventListener("click", async function
     let fetchString = "/getWords/" + query + "/" + searchSetting.toString();
 
     let resultDiv = document.getElementById("results-container");
+
+    let dummyContainer = document.getElementById("dummy-container");
+    let otherVerseSpanList = [dummyContainer];
     await seeAllWords(fetchString, resultDiv, sortAlphabetical, sortByBook, laxDiacritics, otherVerseSpanList);
 });
