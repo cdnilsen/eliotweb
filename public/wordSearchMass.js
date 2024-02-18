@@ -789,7 +789,7 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book, topDiv, lax
         let popupContainer = document.createElement("span");
         
         thisVerseSpan.addEventListener("click", async function() {
-            console.log(otherVerseSpanList.length);
+            console.log(otherVerseSpanList);
             /*
             for (let i=0; i < otherVerseSpanList.length; i++) {
                 otherVerseSpanList[i].style.color = "black";
