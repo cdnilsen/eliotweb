@@ -419,7 +419,7 @@ async function showVersesInBox(popupContainer, dbCode, book, activeWord, laxDiac
     let blankTable = document.createElement('table');
     let blankRow = document.createElement('tr');
     let blankCell = document.createElement('td');
-    blankCell.style.height = (verticalCoord - 20).toString() + "px";
+    blankCell.style.height = (verticalCoord - 100).toString() + "px";
     blankRow.appendChild(blankCell);
     blankTable.appendChild(blankRow);
     rightColumn.appendChild(blankTable);
