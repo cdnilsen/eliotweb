@@ -446,7 +446,7 @@ async function showVersesInBox(popupContainer, dbCode, book, activeWord, laxDiac
     //popupContainer.style.top = "100%";
     popupContainer.display = "inline";
 
-    let wordDivID = "word-" + activeWord + "-" + book + "-cites";
+    let wordDivID = "word-" + activeWord + "-book-" + book + "-cites";
     console.log(wordDivID);
     let thisWordDiv = document.getElementById(wordDivID);
 
