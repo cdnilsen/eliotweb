@@ -792,6 +792,7 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book, topDiv, lax
         thisVerseSpan.addEventListener("click", async function() {
             for (let i=0; i < otherVerseSpanList.length; i++) {
                 otherVerseSpanList[i].style.color = "black";
+                otherVerseSpanList[i].classList("active") = false;
             }
             thisVerseSpan.classList.toggle('active');
             await showVersesInBox(popupContainer, thisDBCode, book, word, laxDiacritics);
