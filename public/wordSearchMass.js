@@ -790,12 +790,11 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book, topDiv, lax
         
         thisVerseSpan.addEventListener("click", async function() {
             console.log(otherVerseSpanList);
-            /*
+            
             for (let i=0; i < otherVerseSpanList.length; i++) {
                 otherVerseSpanList[i].style.color = "black";
                 otherVerseSpanList[i].classList("active") = false;
             }
-            */
             thisVerseSpan.classList.toggle('active');
             await showVersesInBox(popupContainer, thisDBCode, book, word, laxDiacritics);
             thisVerseSpan.style.color = "blue";
@@ -1103,7 +1102,7 @@ async function seeAllWords(fetchString, resultDiv, sortAlphabetical, sortByBook,
         }
     }).catch(err => console.error(err));   
 }
-
+let otherVerseSpanList = [];
 document.getElementById("searchButton").addEventListener("click", async function() {
     let searchSetting = 1;
 
@@ -1143,6 +1142,5 @@ document.getElementById("searchButton").addEventListener("click", async function
     let fetchString = "/getWords/" + query + "/" + searchSetting.toString();
 
     let resultDiv = document.getElementById("results-container");
-    let otherVerseSpanList = [];
     await seeAllWords(fetchString, resultDiv, sortAlphabetical, sortByBook, laxDiacritics, otherVerseSpanList);
 });
