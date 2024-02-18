@@ -847,7 +847,7 @@ document.addEventListener("click", function(event) {
 */
 
 //Note: wordList should come presorted.
-function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical, laxDiacritics) {
+function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical, laxDiacritics, otherVerseSpanList) {
     let resultDiv = document.getElementById("results-container");
     let totalWords = allWordList.length;
     let totalTokens = 0;
@@ -956,7 +956,7 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical, laxDiac
                 for (let l=0; l < thisBookData.length; l++) {
                     allDBCodes.push(thisBookData[l]["dbVerseCode"]);
                 }
-                let otherVerseSpanList = [];
+                
                 let verseCiteContainer = addVersesToContainer(verseTextList, allDBCodes, thisWord, thisBookName, laxDiacritics, otherVerseSpanList);
 
                 //let bookTriangle = appendChildTriangleOptional(allBookNums.length > 5, thisWordDiv, thisBookSpan, "gray", "#00ff50", true, wordTriangle);
@@ -1074,11 +1074,11 @@ function getDictFromSearchOutput(searchOutput, resultDiv, sortAlphabetical, sort
 
     let newWordList = getRightWordList(sortAlphabetical, allWords, dictOfDicts);
 
-    processAllWordCites(newWordList, dictOfDicts, sortAlphabetical, laxDiacritics);
+    processAllWordCites(newWordList, dictOfDicts, sortAlphabetical, laxDiacritics, otherVerseSpanList);
 }
 
 
-async function seeAllWords(fetchString, resultDiv, sortAlphabetical, sortByBook, laxDiacritics) {
+async function seeAllWords(fetchString, resultDiv, sortAlphabetical, sortByBook, laxDiacritics, otherVerseSpanList) {
     resultDiv.innerHTML = "";
     fetch(fetchString, {
         method: 'GET',
@@ -1140,6 +1140,6 @@ document.getElementById("searchButton").addEventListener("click", async function
     let fetchString = "/getWords/" + query + "/" + searchSetting.toString();
 
     let resultDiv = document.getElementById("results-container");
-
-    await seeAllWords(fetchString, resultDiv, sortAlphabetical, sortByBook, laxDiacritics);
+    let otherVerseSpanList = [];
+    await seeAllWords(fetchString, resultDiv, sortAlphabetical, sortByBook, laxDiacritics, otherVerseSpanList);
 });
