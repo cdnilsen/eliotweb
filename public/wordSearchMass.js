@@ -387,8 +387,6 @@ function generateTable(headerList, verseTextList, activePrimeList, activeWord, f
         thisRow.appendChild(thisData);
     }
     table.appendChild(thisRow);
-
-    console.log("Table should be " +  finalWidth.toString() + " pixels wide (from generateTable)");
     return table;
 }
 
@@ -402,12 +400,11 @@ function getOtherEdition(book) {
     }
 }
 
-async function showVersesInBox(popupContainer, dbCode, book, activeWord, laxDiacritics, verticalCoord) {
+async function showVersesInBox(popupContainer, dbCode, book, activeWord, laxDiacritics=false) {
     let otherEdition = getOtherEdition(book);
     popupContainer.innerHTML = "";
     popupContainer.style.color = "black";
     popupContainer.classList.toggle('active');
-    console.log("Show verses in box was called!");
     let fetchString = "/fetchVerse/" + dbCode.toString();
     fetch(fetchString, {
         method: 'GET',
@@ -433,22 +430,17 @@ async function showVersesInBox(popupContainer, dbCode, book, activeWord, laxDiac
         let popupWidth = 0;
         
         let table = generateTable(activeVerseTitles, activeVerseText, activePrimes, activeWord, popupWidth, laxDiacritics);
-
-        //popupContainer.style.width = popupWidth.toString() + "px";
         popupContainer.appendChild(table);
         table.position = "absolute";
         popupContainer.classList.toggle('active');
     });
-    //popupContainer.style.position = "relative";
-    //console.log(verticalCoord);
-    console.log("Table is " + popupContainer.offsetWidth + " wide (from showVersesInBox)");
     popupContainer.style.left = "10%";
-    //popupContainer.style.top = "100%";
     popupContainer.display = "inline";
 
     let wordDivID = "word-" + activeWord + "-book-" + book + "-cites";
     console.log(wordDivID);
     let thisWordDiv = document.getElementById(wordDivID);
+    thisWordDiv.style.width = "40%";
 
     thisWordDiv.appendChild(popupContainer);
 }
@@ -796,11 +788,7 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book, topDiv, lax
         popupContainer.classList.add("show-verse");
 
         thisVerseSpan.addEventListener("click", async function() {
-            let thisVerseSpanPosition = thisVerseSpan.getBoundingClientRect();
-
-            let vertical = thisVerseSpanPosition.top;
-
-            await showVersesInBox(popupContainer, thisDBCode, book, word, laxDiacritics, vertical);
+            await showVersesInBox(popupContainer, thisDBCode, book, word, laxDiacritics);
             thisVerseSpan.style.color = "blue";
             thisVerseSpan.style.textDecoration = "bold";
         });
