@@ -801,6 +801,9 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book, topDiv, lax
             otherVerseSpanList.push(thisVerseSpan);
         });
 
+        console.log(popupContainer.opacity);
+        
+
         /*popupContainer.addEventListener("click", async function() {
             toggleCSS(popupContainer.visible, true, false);
             toggleCSS(popupContainer.opacity, 1, 0); 
