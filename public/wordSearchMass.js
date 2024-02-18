@@ -405,7 +405,7 @@ async function showVersesInBox(popupContainer, dbCode, book, activeWord, laxDiac
         for (let i = 0; i < primeKeys.length; i++) {
             let p = primeKeys[i];
             if (res[p] != "") {
-                popupWidth += 200;
+                popupWidth += 230;
                 activeVerseTitles.push(headerList[i]);
                 activeVerseText.push(res[p]);
                 activePrimes.push(p);
@@ -424,7 +424,7 @@ async function showVersesInBox(popupContainer, dbCode, book, activeWord, laxDiac
     blankTable.appendChild(blankRow);
     rightColumn.appendChild(blankTable);
 
-    popupContainer.style.position = "absolute";
+    popupContainer.style.position = "static";
     console.log(verticalCoord);
     popupContainer.style.right = "30%";
     rightColumn.appendChild(popupContainer);
