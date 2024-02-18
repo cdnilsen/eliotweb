@@ -773,8 +773,7 @@ function processBookData(bookDataList, bookHTMLSpan, bookName) {
     return getVerseCiteSpans(allVerses, redoneDictionaries, bookName);
 }
 
-let otherVerseSpanList = [];
-function addVersesToContainer(verseTextList, dbCodeList, word, book, topDiv, laxDiacritics) {
+function addVersesToContainer(verseTextList, dbCodeList, word, book, topDiv, laxDiacritics, otherVerseSpanList) {
     let verseCiteContainer = document.createElement("span");   
     verseCiteContainer.id = "word-" + word + "-book-" + book + "-cites";
     verseCiteContainer.style.width = "40%";
@@ -957,8 +956,8 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical, laxDiac
                 for (let l=0; l < thisBookData.length; l++) {
                     allDBCodes.push(thisBookData[l]["dbVerseCode"]);
                 }
-                
-                let verseCiteContainer = addVersesToContainer(verseTextList, allDBCodes, thisWord, thisBookName, laxDiacritics);
+                let otherVerseSpanList = [];
+                let verseCiteContainer = addVersesToContainer(verseTextList, allDBCodes, thisWord, thisBookName, laxDiacritics, otherVerseSpanList);
 
                 //let bookTriangle = appendChildTriangleOptional(allBookNums.length > 5, thisWordDiv, thisBookSpan, "gray", "#00ff50", true, wordTriangle);
 
