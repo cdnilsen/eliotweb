@@ -446,7 +446,7 @@ async function showVersesInBox(popupContainer, dbCode, book, activeWord, laxDiac
     //popupContainer.style.top = "100%";
     popupContainer.display = "inline";
 
-    let thisWordDiv = document.getElementById("headword-" + activeWord);
+    let thisWordDiv = document.getElementById("word-" + activeWord + "-" + book + "-cites");
 
     thisWordDiv.appendChild(popupContainer);
 }
@@ -798,7 +798,6 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book, topDiv, lax
 
             let vertical = thisVerseSpanPosition.top;
 
-            console.log("Hello, you clicked on me!");
             await showVersesInBox(popupContainer, thisDBCode, book, word, laxDiacritics, vertical);
             thisVerseSpan.style.color = "blue";
             thisVerseSpan.style.textDecoration = "bold";
