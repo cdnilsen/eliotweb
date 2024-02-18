@@ -795,7 +795,7 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book, topDiv, lax
         });
 
         document.addEventListener("click", function(event) {
-            if (!event.target.classList.contains('cite-span')) {
+            if (!event.target != popupContainer && !event.target != thisVerseSpan) {
                 //event.target.style.color = "black";
                 if (popupContainer.classList.contains('active')) {
                     popupContainer.classList.toggle('active');
