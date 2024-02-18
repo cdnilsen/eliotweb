@@ -387,6 +387,8 @@ function generateTable(headerList, verseTextList, activePrimeList, activeWord, f
         thisRow.appendChild(thisData);
     }
     table.appendChild(thisRow);
+
+    console.log("Table should be " +  finalWidth.toString() + " pixels wide (from generateTable)");
     return table;
 }
 
@@ -438,7 +440,8 @@ async function showVersesInBox(popupContainer, dbCode, book, activeWord, laxDiac
         popupContainer.classList.toggle('active');
     });
     popupContainer.style.position = "relative";
-    console.log(verticalCoord);
+    //console.log(verticalCoord);
+    console.log("Table is " + popupContainer.style.width + " wide (from showVersesInBox)");
     popupContainer.style.left = "10%";
     popupContainer.style.top = "100%";
     popupContainer.display = "inline";
