@@ -439,7 +439,7 @@ async function showVersesInBox(popupContainer, dbCode, book, activeWord, laxDiac
         table.position = "absolute";
         popupContainer.classList.toggle('active');
     });
-    popupContainer.style.position = "relative";
+    //popupContainer.style.position = "relative";
     //console.log(verticalCoord);
     console.log("Table is " + popupContainer.offsetWidth + " wide (from showVersesInBox)");
     popupContainer.style.left = "10%";
