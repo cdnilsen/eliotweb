@@ -381,7 +381,7 @@ function getOtherEdition(book) {
     }
 }
 
-async function showVersesInBox(popupContainer, dbCode, book, activeWord, laxDiacritics, leftColumn, verticalCoord) {
+async function showVersesInBox(popupContainer, dbCode, book, activeWord, laxDiacritics, rightColumn, verticalCoord) {
     let otherEdition = getOtherEdition(book);
     popupContainer.innerHTML = "";
     popupContainer.style.color = "black";
@@ -419,7 +419,7 @@ async function showVersesInBox(popupContainer, dbCode, book, activeWord, laxDiac
     popupContainer.style.position = "relative";
     console.log(verticalCoord);
     popupContainer.style.right = "30%";
-    leftColumn.appendChild(popupContainer);
+    rightColumn.appendChild(popupContainer);
 }
 
 
@@ -774,7 +774,7 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book, topDiv, lax
             let vertical = thisVerseSpanPosition.top;
 
             console.log("Hello, you clicked on me!");
-            await showVersesInBox(popupContainer, thisDBCode, book, word, laxDiacritics, leftColumn, vertical);
+            await showVersesInBox(popupContainer, thisDBCode, book, word, laxDiacritics, rightColumn, vertical);
             thisVerseSpan.style.color = "blue";
             thisVerseSpan.style.textDecoration = "bold";
         });
