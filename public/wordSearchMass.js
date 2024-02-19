@@ -791,12 +791,11 @@ function resetResults() {
         allVerseSpans[i].style.color = "black";
         allVerseSpans[i].style.fontWeight = "normal";
     }
-
+    
+    //Probably inefficient as it requires another check to the database. However, it looks like things work!
     let allPopups = document.getElementsByClassName('show-verse');
     for (let i = 0; i < allPopups.length; i++) {
         allPopups[i].remove();
-        //allPopups[i].classList.remove('active');
-        //allPopups[i].style.display = "none";
     }
 }
 
