@@ -839,11 +839,11 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book, topDiv, lax
 
 document.addEventListener("click", function(event) {
     let allPopups = document.getElementsByClassName('show-verse');
-    if (event.target.classList.contains('show-verse')) {
+    if (event.target.classList.contains('show-verse') || event.target.classList.contains('cite-span')) {
         return;
     } else {
         for (let i = 0; i < allPopups.length; i++) {
-            //allPopups[i].style.display = "none";
+            allPopups[i].style.display = "none";
         }
     }
 });
