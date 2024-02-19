@@ -792,6 +792,7 @@ function resetResults() {
 
     let allPopups = document.getElementsByClassName('show-verse');
     for (let i = 0; i < allPopups.length; i++) {
+        allPopups[i].classList.remove('active');
         allPopups[i].style.display = "none";
     }
 }
