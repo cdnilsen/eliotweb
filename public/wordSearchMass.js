@@ -404,6 +404,7 @@ function getOtherEdition(book) {
 }
 
 async function showVersesInBox(popupContainer, dbCode, book, activeWord, laxDiacritics=false) {
+    //why do we need to do this...?
     let allPopups = document.getElementsByClassName('show-verse');
     for (let i = 0; i < allPopups.length; i++) {
         allPopups[i].classList.toggle('active');
@@ -442,6 +443,7 @@ async function showVersesInBox(popupContainer, dbCode, book, activeWord, laxDiac
         popupContainer.style.width = (popupWidth + 100).toString() + "px";
         popupContainer.appendChild(table);
     });
+
     popupContainer.style.position = "absolute";
     popupContainer.style.left = "10%";
     popupContainer.display = "inline";
@@ -792,8 +794,9 @@ function resetResults() {
 
     let allPopups = document.getElementsByClassName('show-verse');
     for (let i = 0; i < allPopups.length; i++) {
-        allPopups[i].classList.remove('active');
-        allPopups[i].style.display = "none";
+        allPopups[i].remove();
+        //allPopups[i].classList.remove('active');
+        //allPopups[i].style.display = "none";
     }
 }
 
