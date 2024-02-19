@@ -347,7 +347,12 @@ function generateTable(headerList, verseTextList, activePrimeList, activeWord, f
                 thisColumnLongestWord = splitText[j].length;
             }
         }
-        let cellWidth = thisColumnLongestWord * 10;
+        let cellWidth = 0;
+        if (activePrimeList[i] < 11) {
+            cellWidth = thisColumnLongestWord * 10;
+        } else {
+            cellWidth = thisColumnLongestWord * 20;
+        }
         cellWidths.push(cellWidth);
         finalWidth += cellWidth;
         finalWidth += 6; //padding
