@@ -614,7 +614,7 @@ function getHeaderText(wordCount, tokenCount, sortAlphabetical, headerString) {
 
     let useToken = sortAlphabetical;
     if (headerString == "8" && sortAlphabetical) {
-        initialLetter = "ꝏ̄";
+        headerString = "ꝏ̄";
     }
 
     let wordOrWords = rightPlural(wordCount, "word");
