@@ -403,7 +403,6 @@ function getOtherEdition(book) {
 async function showVersesInBox(popupContainer, dbCode, book, activeWord, laxDiacritics=false) {
     let otherEdition = getOtherEdition(book);
     popupContainer.innerHTML = "";
-    popupContainer.style.color = "black";
     //popupContainer.classList.toggle('active');
 
     let popupWidth = 0;
@@ -438,6 +437,7 @@ async function showVersesInBox(popupContainer, dbCode, book, activeWord, laxDiac
     popupContainer.style.left = "10%";
     popupContainer.style.width = (popupWidth + 100).toString() + "px";
     popupContainer.display = "inline";
+    popupContainer.style.color = "black";
 
     let wordDivID = "word-" + activeWord + "-book-" + book + "-cites";
     console.log(wordDivID);
