@@ -841,6 +841,9 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book, topDiv, lax
 document.addEventListener("click", function(event) {
     let allPopups = document.getElementsByClassName('show-verse');
     console.log(event.target.classList);
+    if (event.target.classList.contains('verse-click')) {
+        console.log("Verse-click found");
+    }
     if (event.target.classList.contains('show-verse') || event.target.classList.contains('cite-span')) {
         return;
     } else {
