@@ -809,6 +809,11 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book, topDiv, lax
                 allVerseSpans[i].style.color = "black";
             }
 
+            let allPopups = document.getElementsByClassName('show-verse');
+            for (let i = 0; i < allPopups.length; i++) {
+                allPopups[i].classList.remove('active');
+            }
+
             thisVerseSpan.classList.toggle('active');
             await showVersesInBox(popupContainer, thisDBCode, book, word, laxDiacritics);
             thisVerseSpan.style.color = "blue";
