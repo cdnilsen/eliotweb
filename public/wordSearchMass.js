@@ -803,7 +803,6 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book, topDiv, lax
         let popupContainer = document.createElement("span");
         
         thisVerseSpan.addEventListener("click", async function() {
-
             let allVerseSpans = document.getElementsByClassName('cite-span');
             console.log(allVerseSpans.length);
             for (let i = 0; i < allVerseSpans.length; i++) {
@@ -811,7 +810,7 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book, topDiv, lax
                 allVerseSpans[i].style.color = "black";
             }
 
-            thisVerseSpan.classList.toggle('active');
+            thisVerseSpan.classList.remove('active');
             await showVersesInBox(popupContainer, thisDBCode, book, word, laxDiacritics);
             thisVerseSpan.style.color = "blue";
             thisVerseSpan.style.textDecoration = "bold";
@@ -844,24 +843,11 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book, topDiv, lax
     }
     return verseCiteContainer;
 }
-/*
+
 document.addEventListener("click", function(event) {
-    if (!event.target != mostRecentPopupContainer && !event.target != mostRecentVerseSpan) {
-        mostRecentPopupContainer.classList.toggle('active');
-        mostRecentPopupContainer.style.display = "none";
-
-        mostRecentVerseSpan.style.color = "black";
-
-        if (mostRecentPopupContainer.classList.contains('active')) {
-            mostRecentPopupContainer.classList.toggle('active');
-
-            document.querySelectorAll('.cite-span').forEach(function(span) {
-                span.style.color = "black";
-            });
-        }
-    }
+    let allVerseSpans = document.getElementsByClassName('cite-span');
 });
-*/
+
 
 //Note: wordList should come presorted.
 function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical, laxDiacritics) {
