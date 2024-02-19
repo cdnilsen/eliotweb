@@ -439,6 +439,7 @@ async function showVersesInBox(popupContainer, dbCode, book, activeWord, laxDiac
             }
         }
         let table = generateTable(activeVerseTitles, activeVerseText, activePrimes, activeWord, popupWidth, laxDiacritics);
+        console.log(popupWidth);
         popupContainer.style.width = (popupWidth + 100).toString() + "px";
         popupContainer.appendChild(table);
         //table.position = "absolute";
