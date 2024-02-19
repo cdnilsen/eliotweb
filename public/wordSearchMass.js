@@ -842,10 +842,7 @@ document.addEventListener("click", function(event) {
     if (event.target.classList.contains('verse-click') || event.target.classList.contains('cite-span')) {
         return;
     } else {
-        let allPopups = document.getElementsByClassName('show-verse');
-        for (let i = 0; i < allPopups.length; i++) {
-            allPopups[i].style.display = "none";
-        }
+        resetResults();
     }
 });
 
