@@ -404,7 +404,7 @@ async function showVersesInBox(popupContainer, dbCode, book, activeWord, laxDiac
     let otherEdition = getOtherEdition(book);
     popupContainer.innerHTML = "";
     popupContainer.style.color = "black";
-    popupContainer.classList.toggle('active');
+    //popupContainer.classList.toggle('active');
 
     let popupWidth = 0;
     let fetchString = "/fetchVerse/" + dbCode.toString();
