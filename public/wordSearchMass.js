@@ -791,6 +791,7 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book, topDiv, lax
         thisVerseSpan.addEventListener("click", async function() {
 
             let allVerseSpans = document.getElementsByClassName('show-verse');
+            console.log(allVerseSpans.length);
             for (let i = 0; i < allVerseSpans.length; i++) {
                 //allVerseSpans[i].classList.toggle('active');
                 allVerseSpans[i].style.color = "black";
