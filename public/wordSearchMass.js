@@ -338,6 +338,7 @@ function processVerseText(rawText, editionPrime, activeWord, laxDiacritics=false
 }
 
 function generateTable(headerList, verseTextList, activePrimeList, activeWord, finalWidth, laxDiacritics=false) {
+    let finalTableWidth = 0;
     let cellWidths = [];
     for (let i = 0; i < verseTextList.length; i++) {
         let thisColumnLongestWord= 0;
@@ -354,8 +355,8 @@ function generateTable(headerList, verseTextList, activePrimeList, activeWord, f
             cellWidth = thisColumnLongestWord * 21;
         }
         cellWidths.push(cellWidth);
-        finalWidth += cellWidth;
-        finalWidth += 6; //padding
+        finalTableWidth += cellWidth;
+        finalTableWidth += 6; //padding
     }
 
     let table = document.createElement('table');
@@ -392,6 +393,7 @@ function generateTable(headerList, verseTextList, activePrimeList, activeWord, f
         thisRow.appendChild(thisData);
     }
     table.appendChild(thisRow);
+    popWidth = finalTableWidth;
     return table;
 }
 
