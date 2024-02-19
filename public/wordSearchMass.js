@@ -349,9 +349,9 @@ function generateTable(headerList, verseTextList, activePrimeList, activeWord, f
         }
         let cellWidth = 0;
         if (activePrimeList[i] < 11) {
-            cellWidth = thisColumnLongestWord * 10;
+            cellWidth = thisColumnLongestWord * 15;
         } else {
-            cellWidth = thisColumnLongestWord * 20;
+            cellWidth = thisColumnLongestWord * 30;
         }
         cellWidths.push(cellWidth);
         finalWidth += cellWidth;
