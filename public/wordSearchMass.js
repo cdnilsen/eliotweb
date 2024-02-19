@@ -1105,14 +1105,7 @@ async function seeAllWords(fetchString, resultDiv, sortAlphabetical, sortByBook,
 }
 
 document.getElementById("searchButton").addEventListener("click", async function() {
-    let searchSetting = 1;
-
-    if (document.getElementById("searchMassachusett").checked) {
-        searchSetting *= 11;
-    }
-    if (document.getElementById("searchEnglish").checked) {
-        searchSetting *= 13;
-    }
+    let searchSetting = 11; //Change to 13 in the English search
 
     let otherSearchSetting = document.getElementById("searchWordDropdown").value;
 
