@@ -786,6 +786,19 @@ function processBookData(bookDataList, bookHTMLSpan, bookName) {
     return getVerseCiteSpans(allVerses, redoneDictionaries, bookName);
 }
 
+function resetResults() {
+    let allVerseSpans = document.getElementsByClassName('cite-span');
+    for (let i = 0; i < allVerseSpans.length; i++) {
+        allVerseSpans[i].classList.remove('active');
+        allVerseSpans[i].style.color = "black";
+    }
+
+    let allPopups = document.getElementsByClassName('show-verse');
+    for (let i = 0; i < allPopups.length; i++) {
+        allPopups[i].style.display = "none";
+    }
+}
+
 function addVersesToContainer(verseTextList, dbCodeList, word, book, topDiv, laxDiacritics) {
     let verseCiteContainer = document.createElement("span");   
     verseCiteContainer.id = "word-" + word + "-book-" + book + "-cites";
@@ -802,34 +815,13 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book, topDiv, lax
         let popupContainer = document.createElement("span");
         
         thisVerseSpan.addEventListener("click", async function() {
-            let allVerseSpans = document.getElementsByClassName('cite-span');
-            console.log(allVerseSpans.length);
-            for (let i = 0; i < allVerseSpans.length; i++) {
-                allVerseSpans[i].classList.remove('active');
-                allVerseSpans[i].style.color = "black";
-            }
-
-            let allPopups = document.getElementsByClassName('show-verse');
-            for (let i = 0; i < allPopups.length; i++) {
-                //allPopups[i].remove();
-                allPopups[i].style.display = "none";
-                //allPopups[i].classList.remove('active');
-                //allPopups[i].style.visibility = 'hidden';
-            }
+            resetResults();
 
             thisVerseSpan.classList.toggle('active');
             await showVersesInBox(popupContainer, thisDBCode, book, word, laxDiacritics);
             thisVerseSpan.style.color = "blue";
             thisVerseSpan.style.textDecoration = "bold";
         });
-
-        
-
-        /*popupContainer.addEventListener("click", async function() {
-            toggleCSS(popupContainer.visible, true, false);
-            toggleCSS(popupContainer.opacity, 1, 0); 
-        });
-        */
 
         verseCiteContainer.appendChild(thisVerseSpan);
         if (i != verseTextList.length - 1) {
@@ -844,15 +836,20 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book, topDiv, lax
                 verseCountSpan.textDecoration = "underline none";
                 verseCiteContainer.appendChild(verseCountSpan);
             }
-            //let breakSpan = document.createElement("br");
-            //verseCiteContainer.appendChild(breakSpan);
         }
     }
     return verseCiteContainer;
 }
 
 document.addEventListener("click", function(event) {
-    let allVerseSpans = document.getElementsByClassName('cite-span');
+    let allPopups = document.getElementsByClassName('show-verse');
+    if (event.target.classList.contains('show-verse')) {
+        return;
+    } else {
+        for (let i = 0; i < allPopups.length; i++) {
+            allPopups[i].style.display = "none";
+        }
+    }
 });
 
 
