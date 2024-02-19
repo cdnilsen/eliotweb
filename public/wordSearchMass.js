@@ -424,7 +424,6 @@ async function showVersesInBox(popupContainer, dbCode, book, activeWord, laxDiac
         popupContainer.innerHTML = "";
         let primeKeys = [2, 3, 5, 11, 13];
         let headerList = ["First Edition (α)", "Second Edition (β)", otherEdition, "KJV", "Greek/Hebrew"];
-        console.log(res);
         let activeVerseTitles = [];
         let activeVerseText = [];
         let activePrimes = [];
@@ -439,11 +438,9 @@ async function showVersesInBox(popupContainer, dbCode, book, activeWord, laxDiac
         let tableData = generateTable(activeVerseTitles, activeVerseText, activePrimes, activeWord, laxDiacritics);
         let table = tableData[0];
         let popupWidth = tableData[1];
-        console.log(popupWidth);
+
         popupContainer.style.width = (popupWidth + 100).toString() + "px";
         popupContainer.appendChild(table);
-        //table.position = "absolute";
-        //popupContainer.classList.toggle('active');
     });
     popupContainer.style.position = "absolute";
     popupContainer.style.left = "10%";
@@ -451,7 +448,6 @@ async function showVersesInBox(popupContainer, dbCode, book, activeWord, laxDiac
     popupContainer.style.color = "black";
 
     let wordDivID = "word-" + activeWord + "-book-" + book + "-cites";
-    console.log(wordDivID);
     let thisWordDiv = document.getElementById(wordDivID);
     thisWordDiv.style.width = "40%";
 
@@ -847,7 +843,7 @@ document.addEventListener("click", function(event) {
         return;
     } else {
         for (let i = 0; i < allPopups.length; i++) {
-            allPopups[i].style.display = "none";
+            //allPopups[i].style.display = "none";
         }
     }
 });
