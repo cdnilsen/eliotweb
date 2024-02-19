@@ -434,13 +434,13 @@ async function showVersesInBox(popupContainer, dbCode, book, activeWord, laxDiac
             }
         }
         let table = generateTable(activeVerseTitles, activeVerseText, activePrimes, activeWord, popupWidth, laxDiacritics);
+        popupContainer.style.width = (popupWidth + 100).toString() + "px";
         popupContainer.appendChild(table);
         table.position = "absolute";
         //popupContainer.classList.toggle('active');
     });
     popupContainer.style.position = "absolute";
     popupContainer.style.left = "10%";
-    popupContainer.style.width = (popupWidth + 100).toString() + "px";
     popupContainer.display = "inline";
     popupContainer.style.color = "black";
 
