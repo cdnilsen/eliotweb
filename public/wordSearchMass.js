@@ -508,7 +508,7 @@ function getAddressString(dbNum) {
     let verse = parseInt(stringAddress.slice(3));
 
     let finalAddress = chapter.toString() + ":" + verse.toString();
-    return '<span style="text-decoration: underline dotted;">' + finalAddress + '</span>'
+    return '<span class="verse-click" style="text-decoration: underline dotted;">' + finalAddress + '</span>'
 }
 
 
@@ -840,7 +840,7 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book, topDiv, lax
 
 document.addEventListener("click", function(event) {
     let allPopups = document.getElementsByClassName('show-verse');
-    console.log(event.target);
+    console.log(event.target.classList);
     if (event.target.classList.contains('show-verse') || event.target.classList.contains('cite-span')) {
         return;
     } else {
