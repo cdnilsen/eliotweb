@@ -840,7 +840,7 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book, topDiv, lax
 
 document.addEventListener("click", function(event) {
     let allPopups = document.getElementsByClassName('show-verse');
-    console.log(event.target.classList);
+    console.log(event.target);
     if (event.target.classList.contains('show-verse') || event.target.classList.contains('cite-span')) {
         return;
     } else {
