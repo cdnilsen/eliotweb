@@ -811,7 +811,8 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book, topDiv, lax
 
             let allPopups = document.getElementsByClassName('show-verse');
             for (let i = 0; i < allPopups.length; i++) {
-                allPopups[i].remove();
+                //allPopups[i].remove();
+                allPopups[i].style.display = "none";
                 //allPopups[i].classList.remove('active');
                 //allPopups[i].style.visibility = 'hidden';
             }
