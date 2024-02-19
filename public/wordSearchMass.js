@@ -787,6 +787,7 @@ function resetResults() {
     for (let i = 0; i < allVerseSpans.length; i++) {
         allVerseSpans[i].classList.remove('active');
         allVerseSpans[i].style.color = "black";
+        allVerseSpans[i].style.fontWeight = "normal";
     }
 
     let allPopups = document.getElementsByClassName('show-verse');
@@ -839,6 +840,7 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book, topDiv, lax
 
 document.addEventListener("click", function(event) {
     let allPopups = document.getElementsByClassName('show-verse');
+    console.log(event.target.classList);
     if (event.target.classList.contains('show-verse') || event.target.classList.contains('cite-span')) {
         return;
     } else {
