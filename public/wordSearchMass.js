@@ -415,7 +415,7 @@ async function showVersesInBox(popupContainer, dbCode, book, activeWord, laxDiac
     popupContainer.innerHTML = "";
     //popupContainer.classList.toggle('active');
 
-    let popupWidth = 0;
+    
     let fetchString = "/fetchVerse/" + dbCode.toString();
     fetch(fetchString, {
         method: 'GET',
@@ -438,6 +438,7 @@ async function showVersesInBox(popupContainer, dbCode, book, activeWord, laxDiac
                 activePrimes.push(p);
             }
         }
+        let popupWidth = 0;
         let table = generateTable(activeVerseTitles, activeVerseText, activePrimes, activeWord, popupWidth, laxDiacritics);
         console.log(popupWidth);
         popupContainer.style.width = (popupWidth + 100).toString() + "px";
