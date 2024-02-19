@@ -387,7 +387,6 @@ function generateTable(headerList, verseTextList, activePrimeList, activeWord, l
         if (j > 0) {
             thisData.style.borderLeft = "1px solid rgba(255, 0, 0, 0.4)";
         }
-
         thisRow.appendChild(thisData);
     }
     table.appendChild(thisRow);
