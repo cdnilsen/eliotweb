@@ -457,6 +457,7 @@ async function showVersesInBox(popupContainer, dbCode, book, activeWord, laxDiac
 
     popupContainer.classList.add("show-verse");
     popupContainer.classList.add("active");
+    popupContainer.style.display.removeProperty("none");
     thisWordDiv.appendChild(popupContainer);
 }
 
@@ -852,8 +853,7 @@ document.addEventListener("click", function(event) {
     }
 });
 
-
-//Note: wordList should come presorted.
+//Note: wordList comes presorted.
 function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical, laxDiacritics) {
     let resultDiv = document.getElementById("results-container");
     let totalWords = allWordList.length;
