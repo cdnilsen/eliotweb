@@ -69,7 +69,6 @@ const topBookList = [
     "Revelation"
 ];
 
-
 const editionToSuperscriptDict = {
     //Possible combinations in Genesis:
     22: "<sup>α</sup>",
@@ -97,7 +96,6 @@ const editionToSuperscriptDict = {
     7: "<sup>א</sup>",
     11: "<sup>KJV</sup>"
 }
-
 
 let customAlphabetizationDict = {
     "a": 0,
@@ -337,7 +335,7 @@ function processVerseText(rawText, editionPrime, activeWord, laxDiacritics=false
     return rawText;
 }
 
-function generateTable(headerList, verseTextList, activePrimeList, activeWord, finalWidth, laxDiacritics=false) {
+function generateTable(headerList, verseTextList, activePrimeList, activeWord, laxDiacritics=false) {
     let finalTableWidth = 0;
     let cellWidths = [];
     for (let i = 0; i < verseTextList.length; i++) {
@@ -393,8 +391,7 @@ function generateTable(headerList, verseTextList, activePrimeList, activeWord, f
         thisRow.appendChild(thisData);
     }
     table.appendChild(thisRow);
-    popWidth = finalTableWidth;
-    return table;
+    return [table, finalTableWidth];
 }
 
 function getOtherEdition(book) {
@@ -440,8 +437,9 @@ async function showVersesInBox(popupContainer, dbCode, book, activeWord, laxDiac
                 activePrimes.push(p);
             }
         }
-        let popupWidth = 0;
-        let table = generateTable(activeVerseTitles, activeVerseText, activePrimes, activeWord, popupWidth, laxDiacritics);
+        let tableData = generateTable(activeVerseTitles, activeVerseText, activePrimes, activeWord, laxDiacritics);
+        let table = tableData[0];
+        let popupWidth = tableData[1];
         console.log(popupWidth);
         popupContainer.style.width = (popupWidth + 100).toString() + "px";
         popupContainer.appendChild(table);
