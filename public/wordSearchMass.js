@@ -445,6 +445,7 @@ async function showVersesInBox(popupContainer, dbCode, book, activeWord, laxDiac
     thisWordDiv.style.width = "40%";
 
     popupContainer.classList.add("show-verse");
+    popupContainer.classList.add("active");
     thisWordDiv.appendChild(popupContainer);
 }
 
