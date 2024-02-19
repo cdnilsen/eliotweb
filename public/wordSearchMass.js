@@ -816,7 +816,7 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book, topDiv, lax
             thisVerseSpan.classList.toggle('active');
             await showVersesInBox(popupContainer, thisDBCode, book, word, laxDiacritics);
             thisVerseSpan.style.color = "blue";
-            thisVerseSpan.style.textDecoration = "bold";
+            thisVerseSpan.style.fontWeight = "bold";
         });
 
         verseCiteContainer.appendChild(thisVerseSpan);
