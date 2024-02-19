@@ -401,6 +401,11 @@ function getOtherEdition(book) {
 }
 
 async function showVersesInBox(popupContainer, dbCode, book, activeWord, laxDiacritics=false) {
+    let allPopups = document.getElementsByClassName('show-verse');
+    for (let i = 0; i < allPopups.length; i++) {
+        allPopups[i].classList.toggle('active');
+    }
+
     let otherEdition = getOtherEdition(book);
     popupContainer.innerHTML = "";
     //popupContainer.classList.toggle('active');
