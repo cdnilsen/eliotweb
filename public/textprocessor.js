@@ -517,6 +517,13 @@ function getKJVDictList(verseIDList, verseDict) {
         thisWordDict["verseCounts"] = wordToVerseCountDict[thisWord];
         thisWordDict["totalCount"] = wordToTotalCountDict[thisWord];
         finalDictList.push(thisWordDict);
+
+        console.log(typeof thisWordDict["word"]);
+        console.log(typeof thisWordDict["verseIDs"]);
+        console.log(typeof thisWordDict["verseIDs"][0]);
+        console.log(typeof thisWordDict["verseCounts"]);
+        console.log(typeof thisWordDict["verseCounts"][0]);
+        console.log(typeof thisWordDict["totalCount"]);
     }
     return finalDictList;
 }
