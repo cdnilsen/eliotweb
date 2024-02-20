@@ -448,7 +448,6 @@ async function sendADict(myDict, routeString) {
     }).then(res => res.json()).then(res => console.log(res)).catch(err => console.error(err));
 }
 
-
 async function sendRawJSON(book, edition, startChapter, endChapter, textLines) {
     let verseDict = await getRawVerseDict(book, startChapter, endChapter, textLines);
     let allKeyList = Object.keys(verseDict);

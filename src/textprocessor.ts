@@ -314,6 +314,7 @@ async function updateEdition(verseExists: boolean, verseID: string, verseText: s
 }
 
 async function verseUpdate(verseExists: boolean, verseID: string, verseText: string, edition: string, book: string) {
+    console.log("Edition: " + edition);
     let editionColumn = editionToColumnDict[edition];
     let wordListColumn = editionToWordListDict[edition];
     let wordCountColumn = editionToCountListDict[edition];
