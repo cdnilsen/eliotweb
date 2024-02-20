@@ -536,13 +536,22 @@ async function createKJVJSON(bookName) {
         console.log(verseDictList[i]);
     }
 
-    fetch('/updateKJV', {
-        method: 'POST',
-        body: JSON.stringify(verseDictList),
-        headers: {
-        "Content-type": "application/json; charset=UTF-8"
-        }
-    }).then(res => res.json()).then(res => console.log(res)).catch(err => console.error(err));
+    let allDictsLength = verseDictList.length;
+    let startingIndex = 0;
+    let endingIndex = 50;
+
+    while (startingIndex <= allDictsLength) {
+        let thisDictList = verseDictList.slice(startingIndex, endingIndex);
+        fetch('/updateKJV', {
+            method: 'POST',
+            body: JSON.stringify(thisDictList),
+            headers: {
+            "Content-type": "application/json; charset=UTF-8"
+            }
+        }).then(res => res.json()).then(res => console.log(res)).catch(err => console.error(err));
+        startingIndex += 50;
+        endingIndex += 50;
+    }
 }
 
 async function processText(whichBook, whichEdition, startChapter, endChapter, textLines) {
