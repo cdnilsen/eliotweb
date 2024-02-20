@@ -324,6 +324,10 @@ async function updateEdition(verseExists: boolean, verseID: string, verseText: s
     }
 }
 
+function sleep(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 async function updateKJVTable(wordList: string[], countList: number[], verseIDString: string) {
     let verseID = parseInt(verseIDString);
     for (let i = 0; i < wordList.length; i++) {
@@ -378,6 +382,7 @@ async function updateKJVTable(wordList: string[], countList: number[], verseIDSt
             console.log(word);
             await pool.query('INSERT INTO words_kjv(word, total_count, verses, verse_counts) VALUES($1, $2, $3, $4)', [word, count, [verseID], [count]]);
         }
+        await sleep(100);
     }
     return ("KJV for " + verseIDString + " updated");
 }
