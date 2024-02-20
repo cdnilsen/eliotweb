@@ -94,7 +94,8 @@ const editionToSuperscriptDict = {
     5: "<sup>M</sup>",
     6: "",
     7: "<sup>א</sup>",
-    11: "<sup>KJV</sup>"
+    11: "",
+    13: ""
 }
 //Courtesy of stack exchange
 function makeComparer(order) {
@@ -303,6 +304,7 @@ export function getBooks(verseList, verseCount, word) {
     let dictOfDicts = {};
     for (let i = 0; i < verseList.length; i++) {
         let thisVerseDict = decodeVerseCode(verseList[i], verseCount[i], word);
+        console.log(verseList[i]);
         let bookNum = thisVerseDict["bookNum"];
 
         if (dictOfDicts[bookNum] === undefined) {
@@ -381,8 +383,6 @@ function getVerseCiteSpans(verseList, dictOfDicts, bookName) {
         let verse = verseList[i];
         let verseData = dictOfDicts[verse];
         let editionNum = verseData["allEditions"];
-        console.log(editionNum);
-
         if (bookName == "Genesis") {
             editionNum *= 11;
         } else if (bookName == "Psalms (prose)" || bookName == "John") {
