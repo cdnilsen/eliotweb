@@ -348,8 +348,10 @@ async function verseUpdate(verseExists: boolean, verseID: string, verseText: str
         console.log(wordTextsAndCountDict);
     }
 
-    let outcome = await updateEdition(verseExists, verseID, verseText, edition, book, consoleAddress, editionColumn, wordListColumn, wordList, wordCountColumn,wordCountList, chapter, verse);
-    return outcome;
+    if (edition != "KJV") {
+        let outcome = await updateEdition(verseExists, verseID, verseText, edition, book, consoleAddress, editionColumn, wordListColumn, wordList, wordCountColumn,wordCountList, chapter, verse);
+        return outcome;
+    }
 }
 
 export async function processVerseJSON(rawJSON: any) {
