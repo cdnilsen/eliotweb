@@ -32,6 +32,8 @@ function zipTwoLists(list1: any[], list2: any[]): any {
 }
 
 function updateListsWithDictionary(list1: any[], list2: any[], dict: any): any {
+
+    list1.sort();
     let newList1: any[] = [];
     let newList2: any[] = [];
 
@@ -44,8 +46,6 @@ function updateListsWithDictionary(list1: any[], list2: any[], dict: any): any {
             newList2.push(list2[i]);
         }
     }
-    newList1.sort();
-    newList2.sort();
     return [newList1, newList2];
 }
 
@@ -54,10 +54,12 @@ function unzipDictionary(dict: any): any {
     let finalList2: any[] = [];
     for (let key in dict) {
         finalList1.push(key);
-        finalList2.push(dict[key]);
     }
     finalList1.sort();
-    finalList2.sort();
+
+    for (let i = 0; i < finalList1.length; i++) {
+        finalList2.push(dict[finalList1[i]]);
+    }
     return [finalList1, finalList2];
 }
 
