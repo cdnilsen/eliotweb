@@ -329,12 +329,8 @@ function sleep(ms: number) {
 }
 
 async function updateKJVWord(word: string, totalCount: number, verseIDs: string[], verseCounts: number[]) {
-
     let testID = verseIDs[0];
     let bookNum = testID.toString().slice(1, 3);
-
-    //console.log(verseIDs);
-
     let thisWordQuery = await pool.query('SELECT * FROM words_kjv WHERE word = $1', [word]);
 
     if (thisWordQuery.rows.length == 0) {
@@ -351,6 +347,8 @@ async function updateKJVWord(word: string, totalCount: number, verseIDs: string[
 
         for (let i = 0; i < verseIDs.length; i++) {
             if (!thisVerses.includes(verseIDs[i])) {
+                console.log(verseIDs[i].toString + " not in thisVerses");
+                console.log(thisVerses);
                 thisVerses.push(verseIDs[i]);
                 thisVerseCounts.push(verseCounts[i]);
             } else if (verseCounts[i] != thisVerseCounts[thisVerses.indexOf(verseIDs[i])]) {
@@ -381,11 +379,10 @@ export async function processKJVJSON(rawJSON: any) {
     for (let i = 0; i < rawJSON.length; i++) {
         let word = rawJSON[i].word;
         let verseIDs = rawJSON[i].verseIDs;
-        console.log(verseIDs);
         let verseCounts = rawJSON[i].verseCounts;
         let totalCount = rawJSON[i].totalCount;
 
-        //await updateKJVWord(word, totalCount, verseIDs, verseCounts);
+        await updateKJVWord(word, totalCount, verseIDs, verseCounts);
 
     }
     return "KJV JSON processed.";
