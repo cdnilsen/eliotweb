@@ -301,6 +301,7 @@ async function updateEdition(verseExists: boolean, verseID: string, verseText: s
     } else if (isMassachusett && !verseExists) {
         await pool.query('INSERT INTO all_verses(id, book, ' + editionColumn + ', ' + wordListColumn + ', ' + wordCountColumn + ', chapter, verse) VALUES($1, $2, $3, $4, $5, $6, $7)', [parseInt(verseID), book, verseText, wordList, wordCountList, chapter, verse]);
         return (consoleAddress + " inserted into database.")
+
     } else if (!isMassachusett && verseExists) {
         let queryText = "UPDATE all_verses SET " + editionColumn + " = $1 WHERE id = $2::int";
         await pool.query(queryText, [verseText, parseInt(verseID)])
@@ -312,12 +313,16 @@ async function updateEdition(verseExists: boolean, verseID: string, verseText: s
     }
 }
 
+async function updateKJVTable(wordDict: stringToIntDict) {
+
+}
+
 async function verseUpdate(verseExists: boolean, verseID: string, verseText: string, edition: string, book: string) {
     //console.log("Edition: " + edition);
     let editionColumn = editionToColumnDict[edition];
     let wordListColumn = editionToWordListDict[edition];
     let wordCountColumn = editionToCountListDict[edition];
-
+    console.log(verseID);
     let consoleAddress = "";
     let chapter = 0;
     let verse = 0;
@@ -351,6 +356,8 @@ async function verseUpdate(verseExists: boolean, verseID: string, verseText: str
     if (edition != "KJV") {
         let outcome = await updateEdition(verseExists, verseID, verseText, edition, book, consoleAddress, editionColumn, wordListColumn, wordList, wordCountColumn,wordCountList, chapter, verse);
         return outcome;
+    } else {
+        return "Processed KJV of " + book + " " + verseID;
     }
 }
 
