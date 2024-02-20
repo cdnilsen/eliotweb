@@ -481,7 +481,7 @@ async function createKJVJSON(bookName) {
     let wordToVerseCountDict = {};
     let wordToTotalCountDict = {};
 
-    let verseDict = getRawVerseDict(bookName, 1, bookToChapterDict[bookName], bookTextLines);
+    let verseDict = await getRawVerseDict(bookName, 1, bookToChapterDict[bookName], bookTextLines);
 
     let allVerseIDList = Object.keys(verseDict);
     allVerseIDList.sort();
