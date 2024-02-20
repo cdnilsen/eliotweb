@@ -299,11 +299,15 @@ function decodeVerseCode(verseCode, verseCount) {
 
 }
 
-export function getBooks(verseList, verseCount, word) {
+export function getBooks(verseList, verseCount, word, castVerses=false) {
     let allBooks = [];
     let dictOfDicts = {};
     for (let i = 0; i < verseList.length; i++) {
-        let thisVerseDict = decodeVerseCode(verseList[i], verseCount[i], word);
+        let thisVerse = verseList[i];
+        if (castVerses) {
+            thisVerse = verseList[i].toString();
+        }
+        let thisVerseDict = decodeVerseCode(thisVerse, verseCount[i], word);
         let bookNum = thisVerseDict["bookNum"];
 
         if (dictOfDicts[bookNum] === undefined) {
