@@ -1,3 +1,5 @@
+import { addTriangleToParent } from "./wordSearchFunctions.js";
+
 // Allows the user to search for matching words in the Massachusett texts and outputs a list of all their cites.
 const topBookList = [
     "Genesis",
@@ -528,34 +530,6 @@ function getBooks(verseList, verseCount, word) {
     }
     allBooks.sort((a, b) => a - b);
     return [allBooks, dictOfDicts];
-}
-
-function createTriangle(unclickedColor, clickedColor) {
-    let triangle = document.createElement('span');
-    triangle.name = "triangle";
-    triangle.innerHTML = " ▶";
-    triangle.style.color = unclickedColor;
-    triangle.style.cursor = "pointer";
-    triangle.addEventListener('click', function() {
-        if (triangle.innerHTML === " ▶") {
-            triangle.innerHTML = " ▼";
-            triangle.style.color = clickedColor;
-        } else {
-            triangle.innerHTML = " ▶";
-            triangle.style.color = unclickedColor;
-        }
-    });
-    return triangle;
-}
-
-function addTriangleToParent(parentContainer, unclickedColor, clickedColor, addBreak=true) {
-    let triangle = createTriangle(unclickedColor, clickedColor);
-    parentContainer.appendChild(triangle);
-    if (addBreak) {
-        let breakSpan = document.createElement('br');
-        parentContainer.appendChild(breakSpan);
-    }
-    return triangle;
 }
 
 function addChildToExistingTriangle(parentContainer, parentTriangle, childContainer) {

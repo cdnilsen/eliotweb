@@ -175,3 +175,57 @@ function generateTable(headerList, verseTextList, activePrimeList, activeWord, l
     table.appendChild(thisRow);
     return [table, finalTableWidth];
 }
+
+function checkIfWordMatches(fullWord, searchString, searchSetting) {
+    if (searchSetting == "exact") {
+        return (searchString == fullWord);
+    } else if (searchSetting == "contains") {
+        return (fullWord.includes(searchString));
+    } else if (searchSetting == "starts") {
+        return (fullWord.startsWith(searchString));
+    } else if (searchSetting == "ends") {
+        return (fullWord.endsWith(searchString));
+    }
+}
+
+async function getEnglishWordData(searchSetting, searchString) {
+    let englishDataFile = await fetch("./wordToVerseDict.txt");
+    let englishDataText = await englishDataFile.text();
+    let englishDataList = englishDataText.split("\n");
+
+    let matchingWordsList = [];
+    let matchingWordCounts = [];
+    let matchingWordVerses = [];
+    for (let i = 0; i < englishDataList.length; i++) {
+        let splitData = englishDataList[i].split(":");
+        let dataPart1 = splitData[0].split(" ");
+        let word = dataPart1[0];
+        if (checkIfWordMatches(word, searchString, searchSetting)) {
+            let totalCount = parseInt(dataPart1[1].slice(1, -1));
+            let verseCites = splitData[1].slice(2, -2).split(", ")
+
+            matchingWordsList.push(word);
+            matchingWordCounts.push(totalCount);
+
+            let thisWordVerses = [];
+            for (let j=0; j < verseCites.length; j++) {
+                let thisCiteInt = parseInt(verseCites[j]);
+                thisWordVerses.push(thisCiteInt);
+            }
+            matchingWordVerses.push(thisWordVerses);
+        }
+    }
+    return [matchingWordsList, matchingWordCounts, matchingWordVerses];
+}
+
+document.getElementById("searchButton").addEventListener("click", async function() {
+    let searchSetting = document.getElementById("searchWordDropdown").value;
+    let searchString = document.getElementById("search_bar").value;
+
+    let output = await getEnglishWordData(searchSetting, searchString.toLowerCase())
+    
+    let matchingWords = output[0];
+    let matchingCounts = output[1];
+    let matchingVerses = output[2];
+
+});
