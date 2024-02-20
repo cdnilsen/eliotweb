@@ -333,8 +333,8 @@ async function updateKJVTable(wordList: string[], countList: number[], verseIDSt
         let thisRow: any;
         try {
             let KJVTableWord = await pool.query('SELECT * FROM words_kjv WHERE word = $1', [word]);
-            hasWord = (KJVTableWord.rows.length > 0);
-            if (hasWord) {
+            if (KJVTableWord.rows.length > 0) {
+                hasWord = true;
                 thisRow = KJVTableWord.rows[0];
             }
         } catch (err) {
@@ -344,7 +344,7 @@ async function updateKJVTable(wordList: string[], countList: number[], verseIDSt
         if (hasWord) {
             let totalCount = thisRow.total_count;
             let oldVerseList = thisRow.verses;
-            let oldCountList = thisRow.verseCounts;
+            let oldCountList = thisRow.verse_counts;
 
             if (oldVerseList.includes(verseID)) {
                 let verseIndex = oldVerseList.indexOf(verseID);
