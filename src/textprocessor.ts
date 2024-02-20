@@ -23,6 +23,44 @@ type intToIntDict = {
     [key: number]: number
 }
 
+function zipTwoLists(list1: any[], list2: any[]): any {
+    let finalDict: any = {};
+    for (let i = 0; i < list1.length; i++) {
+        finalDict[list1[i]] = list2[i];
+    }
+    return finalDict;
+}
+
+function updateListsWithDictionary(list1: any[], list2: any[], dict: any): any {
+    let newList1: any[] = [];
+    let newList2: any[] = [];
+
+    for (let i=0; i < list1.length; i++) {
+        if (list1[i] in dict) {
+            newList1.push(list1[i]);
+            newList2.push(dict[list1[i]]);
+        } else {
+            newList1.push(list1[i]);
+            newList2.push(list2[i]);
+        }
+    }
+    newList1.sort();
+    newList2.sort();
+    return [newList1, newList2];
+}
+
+function unzipDictionary(dict: any): any {
+    let finalList1: any[] = [];
+    let finalList2: any[] = [];
+    for (let key in dict) {
+        finalList1.push(key);
+        finalList2.push(dict[key]);
+    }
+    finalList1.sort();
+    finalList2.sort();
+    return [finalList1, finalList2];
+}
+
 function getWordsInText(verseText: string): stringToIntDict {
     let finalWordList: string[] = [];
     let finalCountDict: stringToIntDict = {};
@@ -330,66 +368,35 @@ function sleep(ms: number) {
 
 async function updateKJVWord(word: string, totalCount: number, verseIDs: string[], verseCounts: number[]) {
     let testID = verseIDs[0];
-    let bookNum = testID.toString().slice(1, 3);
-    
-    
-    //console.log(word);
-    //console.log(verseIDs);
-    //console.log(verseCounts);
-    let thisWordQuery = await pool.query('SELECT * FROM words_kjv WHERE word = $1', [word]);
+    let bookNum = parseInt(testID.toString().slice(1, 3));
 
-    console.log(thisWordQuery.rows.length);
-    /*
-    if (thisWordQuery.rows.length == 0) {
-        await pool.query('INSERT INTO words_kjv(word, total_count, verses, verse_counts, books, book_counts) VALUES($1, $2, $3, $4, $5, $6)', [word, totalCount, verseIDs, verseCounts, [bookNum], [totalCount]]);
-    }
-    */
-
-    /*
+    let thisWordQuery = await pool.query('SELECT * FROM words_kjv WHERE word = $1', [word]);    
+    
     if (thisWordQuery.rows.length == 0) {
         await pool.query('INSERT INTO words_kjv(word, total_count, verses, verse_counts, books, book_counts) VALUES($1, $2, $3, $4, $5, $6)', [word, totalCount, verseIDs, verseCounts, [bookNum], [totalCount]]);
     } else {
         let thisRow = thisWordQuery.rows[0];
-        let thisTotalCount = thisRow.total_count;
-        let thisVerses = thisRow.verses;
-        let thisVerseCounts = thisRow.verse_counts;
-        let thisBooks = thisRow.books;
-        let thisBookCounts = thisRow.book_counts;
+        let thisRowTotalCount = thisRow.total_count;
+        let thisRowVerses = thisRow.verses;
+        let thisRowVerseCounts = thisRow.verse_counts;
+        let thisRowBooks = thisRow.books;
+        let thisRowBookCounts = thisRow.book_counts;
 
-        for (let i = 0; i < verseIDs.length; i++) {
-            let thisVerse = parseInt(verseIDs[i]);
-            let thisCount = verseCounts[i];
-            if (!thisVerses.includes(thisVerse)) {
-                console.log(thisVerse.toString() + " not in thisVerses");
-                thisVerses.push(thisVerse);
-                thisVerseCounts.push(thisCount);
+        let newVerseCountDict = zipTwoLists(verseIDs, verseCounts);
+        let newVerseLists = updateListsWithDictionary(thisRowVerses, thisRowVerseCounts, newVerseCountDict);
+        let newRowVerses = newVerseLists[0];
+        let newRowVerseCounts = newVerseLists[1];
 
 
+        let oldBookCountDict = zipTwoLists(thisRowBooks, thisRowBookCounts);
+        let newTotalCount = thisRowTotalCount - oldBookCountDict[bookNum] + totalCount;
+        oldBookCountDict[bookNum] = totalCount;
+        let newBookLists = unzipDictionary(oldBookCountDict);
+        let newRowBooks = newBookLists[0];
+        let newRowBookCounts = newBookLists[1];
 
-            } else if (thisCount != thisVerseCounts[thisVerses.indexOf(thisVerse)]) {
-                thisVerseCounts = updateList(thisVerseCounts, thisVerse, thisVerses.indexOf(thisVerse));
-            }
-        }
-
-        
-        if (!thisBooks.includes(bookNum)) {
-            thisTotalCount += totalCount;
-            thisBooks.push(bookNum);
-            thisBookCounts.push(totalCount);
-        } else {
-            let thisBookIndex = thisBooks.indexOf(bookNum);
-            let oldBookCount = thisBookCounts[thisBookIndex];
-            if (oldBookCount != totalCount) {
-                thisTotalCount -= oldBookCount;
-                thisTotalCount += totalCount;
-
-                thisBookCounts = updateList(thisBookCounts, totalCount, thisBookIndex);
-            }
-        }
-
-        await pool.query('UPDATE words_kjv SET total_count = $1, verses = $2, verse_counts = $3, books = $4, book_counts = $5 WHERE word = $6', [thisTotalCount, thisVerses, thisVerseCounts, thisBooks, thisBookCounts, word]);
+        await pool.query('UPDATE words_kjv SET total_count = $1, verses = $2, verse_counts = $3, books = $4, book_counts = $5 WHERE word = $6', [newTotalCount, newRowVerses, newRowVerseCounts, newRowBooks, newRowBookCounts, word]);
     }
-    */
 
     console.log("Updated KJV word: " + word + " in database.");
 }
