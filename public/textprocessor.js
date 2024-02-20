@@ -532,15 +532,9 @@ async function createKJVJSON(bookName) {
     allVerseIDList.sort();
 
     let verseDictList = getKJVDictList(allVerseIDList, verseDict);
-    for (let i = 0; i < verseDictList.length; i++) {
-        console.log(verseDictList[i]);
-    }
-
-    let allDictsLength = verseDictList.length;
     let startingIndex = 0;
     let endingIndex = 25;
-
-    while (startingIndex <= allDictsLength) {
+    while (startingIndex <= verseDictList.length) {
         let thisDictList = verseDictList.slice(startingIndex, endingIndex);
         fetch('/updateKJV', {
             method: 'POST',
