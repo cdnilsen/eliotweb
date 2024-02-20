@@ -238,10 +238,13 @@ app.get('/getWords/:searchString/:searchSetting', wrapAsync(async (req, res) => 
             outputDict["allVerseCounts"] = row.verse_counts;
             outputList.push(outputDict);
         }
-
         res.json(outputList);
     }
-    
+}));
+
+app.get('/getVerses', wrapAsync(async (req, res) => {
+    let query = await pool.query('SELECT * FROM all_verses');
+    res.json(query.rows);
 }));
 
 app.put('/words/:word/increment', wrapAsync(async (req, res) => {

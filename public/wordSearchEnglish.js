@@ -179,6 +179,319 @@ function generateTable(headerList, verseTextList, activePrimeList, activeWord, l
     return [table, finalTableWidth];
 }
 
+function getOtherEdition(book) {
+    if (book == "Genesis") {
+        return "Zeroth Edition"
+    } else if (book == "Psalms (prose)" || book == "John") {
+        return "Mayhew";
+    } else {
+        return "";
+    }
+}
+
+async function showVersesInBox(popupContainer, dbCode, book, activeWord, laxDiacritics=false) {
+    //why do we need to do this...?
+    let allPopups = document.getElementsByClassName('show-verse');
+    for (let i = 0; i < allPopups.length; i++) {
+        allPopups[i].classList.toggle('active');
+    }
+
+    let otherEdition = getOtherEdition(book);
+    popupContainer.innerHTML = "";
+    
+    let fetchString = "/fetchVerse/" + dbCode.toString();
+    fetch(fetchString, {
+        method: 'GET',
+        headers: {
+            "Content-type": "application/json; charset=UTF-8"
+        }
+    }).then(res => res.json()).then(res => {
+        popupContainer.innerHTML = "";
+        let primeKeys = [2, 3, 5, 11, 13];
+        let headerList = ["First Edition (α)", "Second Edition (β)", otherEdition, "KJV", "Greek/Hebrew"];
+        let activeVerseTitles = [];
+        let activeVerseText = [];
+        let activePrimes = [];
+        for (let i = 0; i < primeKeys.length; i++) {
+            let p = primeKeys[i];
+            if (res[p] != "") {
+                activeVerseTitles.push(headerList[i]);
+                activeVerseText.push(res[p]);
+                activePrimes.push(p);
+            }
+        }
+        let tableData = generateTable(activeVerseTitles, activeVerseText, activePrimes, activeWord, laxDiacritics);
+        let table = tableData[0];
+        let popupWidth = tableData[1];
+
+        popupContainer.style.width = (popupWidth + 100).toString() + "px";
+        popupContainer.appendChild(table);
+    });
+
+    popupContainer.style.position = "absolute";
+    popupContainer.style.left = "10%";
+    popupContainer.display = "inline";
+    popupContainer.style.color = "black";
+
+    let wordDivID = "word-" + activeWord + "-book-" + book + "-cites";
+    let thisWordDiv = document.getElementById(wordDivID);
+    thisWordDiv.style.width = "40%";
+
+    popupContainer.classList.add("show-verse");
+    popupContainer.classList.add("active");
+    thisWordDiv.appendChild(popupContainer);
+}
+
+function addVersesToContainer(verseTextList, dbCodeList, word, book, laxDiacritics) {
+    let verseCiteContainer = document.createElement("span");   
+    verseCiteContainer.id = "word-" + word + "-book-" + book + "-cites";
+    verseCiteContainer.style.width = "40%";
+    for (let i=0; i < verseTextList.length; i++) {
+        let thisDBCode = dbCodeList[i];
+
+        let thisVerseSpan = document.createElement("span");
+
+        thisVerseSpan.innerHTML = verseTextList[i];
+        thisVerseSpan.style.textDecoration = "underline dot";
+        thisVerseSpan.classList.add("cite-span");
+
+        let popupContainer = document.createElement("span");
+        
+        thisVerseSpan.addEventListener("click", async function() {
+            resetResults();
+
+            thisVerseSpan.classList.toggle('active');
+            await showVersesInBox(popupContainer, thisDBCode, book, word, laxDiacritics);
+            thisVerseSpan.style.color = "blue";
+            thisVerseSpan.style.fontWeight = "bold";
+        });
+
+        verseCiteContainer.appendChild(thisVerseSpan);
+        if (i != verseTextList.length - 1) {
+            let commaSpan = document.createElement("span");
+            commaSpan.innerHTML = ",&nbsp;";
+            commaSpan.textDecoration = "underline none";
+            verseCiteContainer.appendChild(commaSpan);
+        } else {
+            if (verseTextList.length > 1) {
+                let verseCountSpan = document.createElement("span");
+                verseCountSpan.innerHTML = ` (${verseTextList.length} vv.)`;
+                verseCountSpan.textDecoration = "underline none";
+                verseCiteContainer.appendChild(verseCountSpan);
+            }
+        }
+    }
+    return verseCiteContainer;
+}
+
+document.addEventListener("click", function(event) {
+    if (event.target.classList.contains('verse-click') || event.target.classList.contains('cite-span')) {
+        return;
+    } else {
+        resetResults();
+    }
+});
+
+function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical, laxDiacritics) {
+    let resultDiv = document.getElementById("results-container");
+    let totalTokens = 0;
+
+    let topDiv = document.getElementById("headline-container");
+    topDiv.innerHTML = "";
+
+    // wordList comes pre-sorted.
+    let countData = getCountDictionaries(allWordList, dictOfDicts, sortAlphabetical);
+
+    let allHeaders = countData[0];
+    let headerToWordListDict = countData[1];
+    let headerToWordCountDict = countData[2];
+    let headerToTokenCountDict = countData[3];
+
+    for (let i=0; i < allHeaders.length; i++) {
+        let thisHeaderDiv = document.createElement("div");
+        if (allHeaders[i] == undefined) {
+            continue;
+        }
+        let thisHeader = allHeaders[i].toString();
+        let headerString = "";
+        if (sortAlphabetical) {
+            headerString = thisHeader[0];
+        } else {
+            headerString = thisHeader.toString();
+        }
+
+        let headerText = getHeaderText(headerToWordCountDict[thisHeader], headerToTokenCountDict[thisHeader], sortAlphabetical, headerString);
+
+        thisHeaderDiv.id = "header-" + thisHeader;
+        thisHeaderDiv.innerHTML = headerText;
+        thisHeaderDiv.style = "font-size: 24px;";
+
+        let wordList = headerToWordListDict[thisHeader];
+
+        let headerTriangle = addTriangleToParent(thisHeaderDiv, "gray", "blue", true);
+        
+        for (let j=0; j < wordList.length; j++) {
+            let thisWord = wordList[j];
+            let thisWordDataDict = dictOfDicts[thisWord];
+
+            let bookData = getBooks(thisWordDataDict["allVerses"], thisWordDataDict["allVerseCounts"], thisWord);
+
+            let allBookNums = bookData[0];
+            let allBookToVerseDict = bookData[1];
+
+            let totalCount = thisWordDataDict["totalCount"];
+            let ligaturedWord = thisWord.split('8').join('ꝏ̄');
+
+            let thisWordDiv = document.createElement("div");
+
+            if (totalCount > 1) {
+                thisWordDiv.innerHTML = `<b>${ligaturedWord}</b> (${totalCount}): `;
+            } else {
+                thisWordDiv.innerHTML = `<b>${ligaturedWord}</b>: `;
+            }
+            
+            thisWordDiv.style.fontSize = "16px";
+            thisWordDiv.id = "headword-" + thisWord;
+
+            let wordTriangle;
+
+            let bookContainer = document.createElement("span");
+            bookContainer.id = "word-" + thisWord + "-books";
+
+            if (allBookNums.length > 5) {
+                wordTriangle = addTriangleToParent(thisWordDiv, "gray", "#00FF50", true);
+                addChildToExistingTriangle(thisWordDiv, wordTriangle, bookContainer);
+            } else {
+                let breakSpan = document.createElement("br");
+                thisWordDiv.appendChild(breakSpan);
+                thisWordDiv.appendChild(bookContainer);
+            }
+
+            for (let k=0; k < allBookNums.length; k++) {
+                let thisBookSpan = document.createElement("span");
+                let thisBookNum = allBookNums[k];
+                let thisBookName = topBookList[thisBookNum - 1];
+
+                thisBookSpan.id = "word-" + thisWord + "-book-" + thisBookName;
+
+                let thisBookData = allBookToVerseDict[thisBookNum];
+                
+                thisBookData.sort((a, b) => a["dbVerseCode"] - b["dbVerseCode"]);
+
+                thisBookSpan.innerHTML = "<i>" + thisBookName
+
+                thisBookSpan.classList.add("textTab2");
+
+                let verseTextList = processBookData(thisBookData, thisBookSpan, thisBookName);
+
+                totalTokens += verseTextList.length;
+
+                let allDBCodes = [];
+                for (let l=0; l < thisBookData.length; l++) {
+                    allDBCodes.push(thisBookData[l]["dbVerseCode"]);
+                }
+                
+                let verseCiteContainer = addVersesToContainer(verseTextList, allDBCodes, thisWord, thisBookName, laxDiacritics);
+
+                if (verseTextList.length > 25){                    
+
+                    let bookTriangle = addTriangleToParent(thisBookSpan, "gray", "red", true);
+
+                    let breakSpan1 = document.createElement("br");
+                    verseCiteContainer.appendChild(breakSpan1);
+
+                    let breakSpan2 = document.createElement("br");
+
+                    addChildToExistingTriangle(thisBookSpan, bookTriangle, verseCiteContainer);
+               
+                    addChildToExistingTriangle(thisBookSpan, bookTriangle, breakSpan2);
+                                        
+                } else {
+                    verseCiteContainer.display = "inline-block";
+                    
+                    let thisBreakSpan = document.createElement("br");
+                    verseCiteContainer.appendChild(thisBreakSpan);
+                    thisBookSpan.appendChild(verseCiteContainer);
+                }
+
+                if (allBookNums.length > 5) {
+                    if (k > 0) {
+                       bookContainer.appendChild(document.createElement("br"));
+                    }
+                    addChildToExistingTriangle(bookContainer, wordTriangle, thisBookSpan);
+                } else {
+                    bookContainer.appendChild(thisBookSpan);
+
+                    bookContainer.appendChild(document.createElement("br"));
+                }
+            }
+            addChildToExistingTriangle(thisHeaderDiv, headerTriangle, thisWordDiv); 
+        }
+        resultDiv.appendChild(thisHeaderDiv);
+    }
+    let totalWordCount = countData[4];
+    let totalTokenCount = countData[5];
+
+    topDiv.style.fontSize = "30px";
+    topDiv.innerHTML = `Found <b><u>${totalTokenCount}</u></b> tokens, representing <b><u>${totalWordCount}</u></b> distinct words.`;
+}
+
+function getRightWordList(sortAlphabetical, wordList, dictOfDicts) {
+    let newWordList = [];
+    if (sortAlphabetical) {
+        return wordList.sort();
+    } else {
+        let frequencyList = [];
+        let frequencyToWordDict = {};
+        for (let i = 0; i < wordList.length; i++) {
+            let thisWord = wordList[i];
+            let thisCount = dictOfDicts[thisWord]["totalCount"];
+            if (thisCount == null) {
+                continue;
+            } 
+            if (frequencyToWordDict[thisCount] === undefined) {
+                frequencyToWordDict[thisCount] = [thisWord];
+                frequencyList.push(thisCount);
+            } else {
+                frequencyToWordDict[thisCount].push(thisWord);
+            }
+        }
+        frequencyList.sort((a, b) => b - a);
+        for (let j = 0; j < frequencyList.length; j++) {
+            let thisFrequency = frequencyList[j];
+            let thisWordList = frequencyToWordDict[thisFrequency];
+            thisWordList = thisWordList.sort();
+            for (let k = 0; k < thisWordList.length; k++) {
+                newWordList.push(thisWordList[k]);
+            }
+        }
+    }
+    return newWordList;
+}
+
+function getDictFromSearchOutput(output, sortAlphabetical) {
+    let wordToVerseCitesDict = output[0];
+    let wordToTokensDict = output[1];
+
+    let allWords = Object.keys(wordToTokensDict);
+    let dictOfDicts = {};
+    for (let i = 0; i < allWords.length; i++) {
+        let word = allWords[i];
+        let totalCount = wordToTokensDict[word];
+        let allVerseList = wordToVerseCitesDict[word];
+
+        let processedDict = {};
+        processedDict["word"] = word;
+        processedDict["totalCount"] = totalCount;
+        processedDict["allVerses"] = allVerseList;
+        dictOfDicts[word] = processedDict;
+    }
+
+    let newWordList = getRightWordList(sortAlphabetical, allWords, dictOfDicts);
+
+    processAllWordCites(newWordList, dictOfDicts, sortAlphabetical, true);
+}
+
 function checkIfWordMatches(fullWord, searchString, searchSetting) {
     if (searchSetting == "exact") {
         return (searchString == fullWord);
@@ -218,7 +531,10 @@ async function getEnglishWordData(searchSetting, searchString) {
             matchingWordVerses.push(thisWordVerses);
         }
     }
-    return [matchingWordsList, matchingWordCounts, matchingWordVerses];
+
+    let wordToVerseCitesDict = zip(matchingWordsList, matchingWordVerses);
+    let wordToTokensDict = zip(matchingWordsList, matchingWordCounts);
+    return [wordToVerseCitesDict, wordToTokensDict];
 }
 
 document.getElementById("searchButton").addEventListener("click", async function() {
@@ -226,9 +542,14 @@ document.getElementById("searchButton").addEventListener("click", async function
     let searchString = document.getElementById("search_bar").value;
 
     let output = await getEnglishWordData(searchSetting, searchString.toLowerCase())
+
+    let sortAlphabetical = document.getElementById("sortAlph").checked;
     
-    let matchingWords = output[0];
-    let matchingCounts = output[1];
-    let matchingVerses = output[2];
+    let resultDiv = document.getElementById("results-container");
+    resultDiv.innerHTML = "";
+
+    getDictFromSearchOutput(output, sortAlphabetical);
+
+    
 
 });

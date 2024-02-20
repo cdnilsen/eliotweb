@@ -868,9 +868,7 @@ function getRightWordList(sortAlphabetical, wordList, dictOfDicts) {
 
 
 function getDictFromSearchOutput(searchOutput, sortAlphabetical, laxDiacritics) {
-
     let allWords = [];
-
     let dictOfDicts = {};
     for (let i = 0; i < searchOutput.length; i++) {
         let rawDict = searchOutput[i];
@@ -935,6 +933,7 @@ document.getElementById("searchButton").addEventListener("click", async function
     let laxDiacritics = false;
     if (document.getElementById("diacriticsLax").checked) {
         searchSetting *= 17;
+        console.log("Lax diacritics");
         query = cleanDiacritics(query);
         laxDiacritics = true;
     }
