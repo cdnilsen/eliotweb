@@ -1,4 +1,4 @@
-import { addTriangleToParent, topBookList, resetResults, getCountDictionaries, addChildToExistingTriangle, getHeaderText, getBooks, processBookData } from "./wordSearchFunctions.js";
+import { addTriangleToParent, topBookList, resetResults, getCountDictionaries, addChildToExistingTriangle, getHeaderText, getBooks, processBookData, alphabetizeWords } from "./wordSearchFunctions.js";
 
 // Allows the user to search for matching words in the Massachusett texts and outputs a list of all their cites.
 
@@ -28,41 +28,6 @@ const editionToSuperscriptDict = {
     6: "",
     7: "<sup>א</sup>",
     11: "<sup>KJV</sup>"
-}
-
-//Courtesy of stack exchange
-function makeComparer(order) {
-    let ap = Array.prototype;
-  
-    // mapping from character -> precedence
-    let orderMap = {},
-        max = order.length + 2;
-    ap.forEach.call(order, function(char, idx) {
-      orderMap[char] = idx + 1;
-    });
-  
-    function compareChars(l, r) {
-      let lOrder = orderMap[l] || max,
-          rOrder = orderMap[r] || max;
-  
-      return lOrder - rOrder;
-    }
-  
-    function compareStrings(l, r) {
-      let minLength = Math.min(l.length, r.length);
-      let result = ap.reduce.call(l.substring(0, minLength), function (prev, _, i) {
-          return prev || compareChars(l[i], r[i]);
-      }, 0);
-  
-      return result || (l.length - r.length);
-    }
-  
-    return compareStrings;
-}
-
-function alphabetizeWords(wordList) {
-    let compare = makeComparer("aáâàãāäbcdeéêèẽēëfghiíîìĩīïjklm̃nñŋoóôòõōö8pqrstuúûùũūüvwxyz");
-    return wordList.sort(compare);
 }
 
 function toggleCSS(elementProperty, option1, option2) {
@@ -329,21 +294,6 @@ async function showVersesInBox(popupContainer, dbCode, book, activeWord, laxDiac
 
 
 //Returns a dictionary with the info about this verse. Calls 'word' to debug position of Deuteronomy
-function decodeVerseCode(verseCode, verseCount) {
-    //Examples of verse codes: 225003010, 325003010, 219104022. The first digit is the edition number, the next two are the book number, the next three are the chapter number, and the last three are the verse number. Note that both verseCode and verseCount are lists of strings.
-    
-    let finalDict = {};
-    finalDict["verseCount"] = parseInt(verseCount);
-    finalDict["editionNum"] = parseInt(verseCode[0]);
-    finalDict["bookNum"] = parseInt(verseCode.slice(1, 3));
-
-    finalDict["addressNum"] = parseInt(verseCode.slice(3, 9));
-
-    finalDict["dbVerseCode"] = parseInt("1" + verseCode.toString().slice(1));
-    return finalDict;
-
-}
-
 function getCiteSuffix(editionList, countList) {
     let allCountsEqual = true;
     let allCountsOne = true
@@ -362,7 +312,7 @@ function getCiteSuffix(editionList, countList) {
     } else if (allCountsEqual) {
         return " (" + firstCount.toString() + ")"
     } else {
-        finalString = " (";
+        let finalString = " (";
         for (let j = 0; j < countList.length; j++) {
             finalString += editionToSuperscriptDict[editionList[j]];
             finalString += countList[j].toString();
@@ -371,7 +321,7 @@ function getCiteSuffix(editionList, countList) {
         return finalString.slice(0, -1) + ")";
     }
 }
-
+/*
 function appendChildTriangleOptional(useTriangle, parentContainer, childContainer, unclickedColor, clickedColor, addBreak=true, parentTriangle=undefined) {
     if (useTriangle) {
         if (parentTriangle == undefined) {
@@ -402,13 +352,7 @@ function addChildrenWithTriangle(parentContainer, childrenContainers, unclickedC
         });
     });
 }
-
-
-
-
-
-
-
+*/
 function addVersesToContainer(verseTextList, dbCodeList, word, book, laxDiacritics) {
     let verseCiteContainer = document.createElement("span");   
     verseCiteContainer.id = "word-" + word + "-book-" + book + "-cites";

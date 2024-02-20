@@ -68,6 +68,68 @@ export const topBookList = [
     "Revelation"
 ];
 
+const editionToSuperscriptDict = {
+    //Possible combinations in Genesis:
+    22: "<sup>α</sup>",
+    33: "<sup>β</sup>",
+    77: "<sup>א</sup>",
+    66: "<sup>αβ</sup>",
+    154: "<sup>αא</sup>",
+    231: "<sup>βא</sup>",
+    462: "",
+
+    //Possible combinations in John or the prose Psalms:
+    26: "<sup>α</sup>",
+    39: "<sup>β</sup>",
+    65: "<sup>M</sup>",
+    78: "<sup>αβ</sup>",
+    130: "<sup>αM</sup>",
+    195: "<sup>βM</sup>",
+    390: "",
+
+    //For all other books. 5 and 7 are needed for getting the right suffix but won't be called in the prefix.
+    2: "<sup>α</sup>",
+    3: "<sup>β</sup>",
+    5: "<sup>M</sup>",
+    6: "",
+    7: "<sup>א</sup>",
+    11: "<sup>KJV</sup>"
+}
+//Courtesy of stack exchange
+function makeComparer(order) {
+    let ap = Array.prototype;
+  
+    // mapping from character -> precedence
+    let orderMap = {},
+        max = order.length + 2;
+    ap.forEach.call(order, function(char, idx) {
+      orderMap[char] = idx + 1;
+    });
+  
+    function compareChars(l, r) {
+      let lOrder = orderMap[l] || max,
+          rOrder = orderMap[r] || max;
+  
+      return lOrder - rOrder;
+    }
+  
+    function compareStrings(l, r) {
+      let minLength = Math.min(l.length, r.length);
+      let result = ap.reduce.call(l.substring(0, minLength), function (prev, _, i) {
+          return prev || compareChars(l[i], r[i]);
+      }, 0);
+  
+      return result || (l.length - r.length);
+    }
+  
+    return compareStrings;
+}
+
+export function alphabetizeWords(wordList) {
+    let compare = makeComparer("aáâàãāäbcdeéêèẽēëfghiíîìĩīïjklm̃nñŋoóôòõōö8pqrstuúûùũūüvwxyz");
+    return wordList.sort(compare);
+}
+
 //This function is an attempt to deal with the macra and tildes that Eliot uses to represent a following nasal
 function processEngma(word) {
 
@@ -207,6 +269,21 @@ export function getHeaderText(wordCount, tokenCount, sortAlphabetical, headerStr
     } else {
         return "<u><i><b>" + headerString + "</b> " + tokenOrTokens + "</i></u> ("  + wordCount.toString() + " " + wordOrWords + ")";
     }
+}
+
+function decodeVerseCode(verseCode, verseCount) {
+    //Examples of verse codes: 225003010, 325003010, 219104022. The first digit is the edition number, the next two are the book number, the next three are the chapter number, and the last three are the verse number. Note that both verseCode and verseCount are lists of strings.
+    
+    let finalDict = {};
+    finalDict["verseCount"] = parseInt(verseCount);
+    finalDict["editionNum"] = parseInt(verseCode[0]);
+    finalDict["bookNum"] = parseInt(verseCode.slice(1, 3));
+
+    finalDict["addressNum"] = parseInt(verseCode.slice(3, 9));
+
+    finalDict["dbVerseCode"] = parseInt("1" + verseCode.toString().slice(1));
+    return finalDict;
+
 }
 
 export function getBooks(verseList, verseCount, word) {
