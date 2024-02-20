@@ -431,6 +431,8 @@ async function verseUpdate(verseExists: boolean, verseID: string, verseText: str
         return outcome;
     } else {
         let outcome = await updateKJVTable(wordList, wordCountList, verseID);
+        console.log(wordList);
+        console.log(wordCountList);
         return outcome;
     }
 }
