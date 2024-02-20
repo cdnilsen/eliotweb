@@ -1,4 +1,4 @@
-import { addTriangleToParent, topBookList, resetResults, getCountDictionaries, addChildToExistingTriangle, getHeaderText, getBooks, processBookData, alphabetizeWords } from "./wordSearchFunctions.js";
+import { addTriangleToParent, topBookList, resetResults, getCountDictionaries, addChildToExistingTriangle, getHeaderText, getBooks, processBookData, zip, alphabetizeWords, cleanDiacritics } from "./wordSearchFunctions.js";
 
 // Allows the user to search for matching words in the Massachusett texts and outputs a list of all their cites.
 
@@ -61,55 +61,6 @@ function processEngma(word) {
     wordCopy = wordCopy.split('ŋ').join('n');
 
     return wordCopy;
-}
-
-
-
-function cleanDiacritics(word) {
-    let charReplacementDict = {
-        "á": "a",
-        "é": "e",
-        "í": "i",
-        "ó": "o",
-        "ú": "u",
-        "à": "a",
-        "è": "e",
-        "ì": "i",
-        "ò": "o",
-        "ù": "u",
-        "â": "a",
-        "ê": "e",
-        "î": "i",
-        "ô": "o",
-        "û": "u",
-        "ä": "a",
-        "ë": "e",
-        "ï": "i",
-        "ö": "o",
-        "ü": "u",
-        "ã": "aN",
-        "õ": "oN",
-        "ñ": "nn",
-        "m̃": "mm",
-        "ũ": "uN",
-        "ẽ": "eN",
-        "ĩ": "iN",
-        "ā": "aN",
-        "ē": "eN",
-        "ī": "iN",
-        "ō": "oN",
-        "ū": "uN"
-    };
-
-    let cleanedWord = "";
-    for (let i = 0; i < word.length; i++) {
-        if (word[i] in charReplacementDict) {
-            cleanedWord += charReplacementDict[word[i]];
-        } else {
-            cleanedWord += word[i];
-        }
-    }
-    return processEngma(cleanedWord);
 }
 
 function cleanPunctuation(word) {

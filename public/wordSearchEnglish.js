@@ -1,74 +1,4 @@
-import { addTriangleToParent, topBookList, resetResults, getCountDictionaries, addChildToExistingTriangle, getHeaderText, getBooks, processBookData } from "./wordSearchFunctions.js";
-
-const topBookList = [
-    "Genesis",
-    "Exodus",
-    "Leviticus",
-    "Numbers",
-    "Deuteronomy",
-    "Joshua",
-    "Judges",
-    "Ruth",
-    "1 Samuel",
-    "2 Samuel",
-    "1 Kings",
-    "2 Kings",
-    "1 Chronicles",
-    "2 Chronicles",
-    "Ezra",
-    "Nehemiah",
-    "Esther",
-    "Job",
-    "Psalms (prose)",
-    //"Psalms (metrical)", Will require a separate process
-    "Proverbs",
-    "Ecclesiastes",
-    "Song of Songs",
-    "Isaiah",
-    "Jeremiah",
-    "Lamentations",
-    "Ezekiel",
-    "Daniel",
-    "Hosea",
-    "Joel",
-    "Amos",
-    "Obadiah",
-    "Jonah",
-    "Micah",
-    "Nahum",
-    "Habakkuk",
-    "Zephaniah",
-    "Haggai",
-    "Zechariah",
-    "Malachi", 
-    "Matthew",
-    "Mark",
-    "Luke",
-    "John",
-    "Acts",
-    "Romans",
-    "1 Corinthians",
-    "2 Corinthians",
-    "Galatians",
-    "Ephesians",
-    "Philippians",
-    "Colossians",
-    "1 Thessalonians",
-    "2 Thessalonians",
-    "1 Timothy",
-    "2 Timothy",
-    "Titus",
-    "Philemon",
-    "Hebrews",
-    "James",
-    "1 Peter",
-    "2 Peter",
-    "1 John",
-    "2 John",
-    "3 John",
-    "Jude",
-    "Revelation"
-];
+import { addTriangleToParent, topBookList, resetResults, getCountDictionaries, addChildToExistingTriangle, getHeaderText, getBooks, processBookData, zip, alphabetizeWords, cleanDiacritics } from "./wordSearchFunctions.js";
 
 function cleanPunctuation(word) {
     let allChars = ['.', ',', '!', '?', ';', ':', '[', ']', '(', ')', '\'', '"', '{', '}'];
@@ -290,24 +220,6 @@ document.addEventListener("click", function(event) {
         resetResults();
     }
 });
-
-function getBooks(verseList, verseCount, word) {
-    let allBooks = [];
-    let dictOfDicts = {};
-    for (let i = 0; i < verseList.length; i++) {
-        let thisVerseDict = decodeVerseCode(verseList[i], verseCount[i], word);
-        let bookNum = thisVerseDict["bookNum"];
-
-        if (dictOfDicts[bookNum] === undefined) {
-            dictOfDicts[bookNum] = [thisVerseDict];
-            allBooks.push(bookNum);
-        } else {
-            dictOfDicts[bookNum].push(thisVerseDict);
-        }
-    }
-    allBooks.sort((a, b) => a - b);
-    return [allBooks, dictOfDicts];
-}
 
 function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical, laxDiacritics) {
     let resultDiv = document.getElementById("results-container");

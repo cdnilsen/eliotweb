@@ -155,9 +155,7 @@ function processEngma(word) {
     return wordCopy;
 }
 
-
-
-function cleanDiacritics(word) {
+export function cleanDiacritics(word) {
     let charReplacementDict = {
         "á": "a",
         "é": "e",
