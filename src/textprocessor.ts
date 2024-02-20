@@ -333,9 +333,9 @@ async function updateKJVWord(word: string, count: number, verseIDs: string[], ve
     let testID = verseIDs[0];
     let bookNum = testID.toString().slice(1, 3);
 
-    let thisWordRow = await pool.query('SELECT * FROM kjv_words WHERE word = $1', [word]);
+    let thisWordQuery = await pool.query('SELECT * FROM words_kjv WHERE word = $1', [word]);
 
-    console.log("Found " + thisWordRow.rows.length.toString() + " rows for " + word + ".");
+    console.log("Found " + thisWordQuery.rows.length.toString() + " rows for " + word + ".");
 }
 
 export async function processKJVJSON(rawJSON: any) {
