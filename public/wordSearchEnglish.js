@@ -239,7 +239,7 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical, laxDiac
             headerString = thisHeader.toString();
         }
 
-        let headerText = getHeaderText(headerToWordCountDict[thisHeader], headerToTokenCountDict[thisHeader], sortAlphabetical, headerString);
+        let headerText = getHeaderText(headerToWordCountDict[thisHeader], headerToTokenCountDict[thisHeader].length.toString(), sortAlphabetical, headerString);
 
         thisHeaderDiv.id = "header-" + thisHeader;
         thisHeaderDiv.innerHTML = headerText;
