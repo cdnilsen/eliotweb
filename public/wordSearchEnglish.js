@@ -249,6 +249,7 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical, laxDiac
         for (let j=0; j < wordList.length; j++) {
             let thisWord = wordList[j];
             let thisWordDataDict = dictOfDicts[thisWord];
+            console.log(thisWordDataDict);
 
             let bookData = getBooks(thisWordDataDict["allVerses"], thisWordDataDict["allVerseCounts"], thisWord);
 

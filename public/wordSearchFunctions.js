@@ -386,6 +386,7 @@ function getVerseCiteSpans(verseList, dictOfDicts, bookName) {
         } else if (bookName == "Psalms (prose)" || bookName == "John") {
             editionNum *= 13;
         }
+        
         let prefix = editionToSuperscriptDict[editionNum];
         let suffix = getVerseSuffix(verseData);
         let finalString = prefix + verse + suffix;
