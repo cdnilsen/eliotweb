@@ -466,10 +466,27 @@ async function sendRawJSON(book, edition, startChapter, endChapter, textLines) {
     return allKeyList.length;
 }
 
+async function createKJVJSON(bookName) {
+    let book = await fetch('./texts/' + bookName + '.KJV.txt');
+    let bookText = await book.text();
+    let bookTextLines = bookText.split("\n");
+    let wordToVerseIDDict = {};
+    let wordToVerseCountDict = {};
+    let wordToTotalCountDict = {};
+}
+
 async function processText(whichBook, whichEdition, startChapter, endChapter, textLines) {
     console.log(whichEdition);
-    let numberOfVerses = await sendRawJSON(whichBook, whichEdition, startChapter, endChapter, textLines);
+    console.log(whichBook);
+    let numberOfVerses = 0;
+    if (whichEdition != "KJV") {
+    numberOfVerses = await sendRawJSON(whichBook, whichEdition, startChapter, endChapter, textLines);
     console.log("processText called from " + startChapter + "to " + endChapter + ".");
+    } else {
+    
+    
+    }
+
     return numberOfVerses;
 }
 
