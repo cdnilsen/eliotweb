@@ -416,57 +416,41 @@ function getDictFromSearchOutput(output, sortAlphabetical) {
     processAllWordCites(newWordList, dictOfDicts, sortAlphabetical, true);
 }
 
-function checkIfWordMatches(fullWord, searchString, searchSetting) {
+function checkIfWordMatches(word, searchString, searchSetting) {
     if (searchSetting == "exact") {
-        return (searchString == fullWord);
+        return (searchString == word);
     } else if (searchSetting == "contains") {
-        return (fullWord.includes(searchString));
+        return (word.includes(searchString));
     } else if (searchSetting == "starts") {
-        return (fullWord.startsWith(searchString));
+        return (word.startsWith(searchString));
     } else if (searchSetting == "ends") {
-        return (fullWord.endsWith(searchString));
+        return (word.endsWith(searchString));
     }
+}
+
+function getMatchingDicts(allArrays, searchString, searchSetting) {
+    let finalVerseDict = {};
+    let finalTokenDict = {};
+    for (let i=0; i < allArrays.length; i++) {
+        let thisDict = allArrays[i];
+        let fullWord = thisDict["word"];
+        if (checkIfWordMatches(fullWord, searchString, searchSetting)) {
+            finalVerseDict[fullWord] = thisDict["verses"];
+            finalTokenDict[fullWord] = thisDict["count"];
+        }
+    }
+    return [finalVerseDict, finalTokenDict];
 }
 
 async function getEnglishWordData(searchSetting, searchString) {
     let englishDataFile = await fetch("./KJV JSONs/words.json");
     let englishData = await englishDataFile.json();
-    //let englishDataList = englishData["data"];
-    console.log(englishData);
-    /*
-    for (let i = 0; i < englishDataList.length; i++) {
-        console.log(englishDataList[i]);
-    }
-    
-    let matchingWordsList = [];
-    let matchingWordCounts = [];
-    let matchingWordVerses = [];
-    for (let i = 0; i < englishDataList.length; i++) {
-        let splitData = englishDataList[i].split(":");
-        let dataPart1 = splitData[0].split(" ");
-        let word = dataPart1[0];
-        if (checkIfWordMatches(word, searchString, searchSetting)) {
-            let totalCount = parseInt(dataPart1[1].slice(1, -1));
-            let verseCites = splitData[1].slice(2, -1).split(", ")
 
-            matchingWordsList.push(word);
-            matchingWordCounts.push(totalCount);
-            
-            let thisWordVerses = [];
-            for (let j=0; j < verseCites.length; j++) {
-                let thisCiteInt = parseInt(verseCites[j]);
-                thisWordVerses.push(thisCiteInt);
-            }
-            
+    let allMatchingDicts = getMatchingDicts(englishData, searchString, searchSetting);
+    let wordVersesDict = allMatchingDicts[0];
+    let wordTokensDict = allMatchingDicts[0];
 
-            matchingWordVerses.push(verseCites);
-        }
-    }
-
-    let wordToVerseCitesDict = zip(matchingWordsList, matchingWordVerses);
-    let wordToTokensDict = zip(matchingWordsList, matchingWordCounts);
-    return [wordToVerseCitesDict, wordToTokensDict];
-    */
+    return [wordVersesDict, wordTokensDict];
 }
 
 document.getElementById("searchButton").addEventListener("click", async function() {
@@ -474,7 +458,7 @@ document.getElementById("searchButton").addEventListener("click", async function
     let searchString = document.getElementById("search_bar").value;
 
     let output = await getEnglishWordData(searchSetting, searchString.toLowerCase())
-    /*
+    
     let sortAlphabetical = document.getElementById("sortAlph").checked;
     
     let resultDiv = document.getElementById("results-container");
@@ -486,7 +470,5 @@ document.getElementById("searchButton").addEventListener("click", async function
         let breakSpan = document.createElement("br");
         resultDiv.appendChild(breakSpan);
     }
-    */
-    
 
 });
