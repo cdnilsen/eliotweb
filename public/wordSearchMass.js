@@ -1,4 +1,4 @@
-import { addTriangleToParent, topBookList } from "./wordSearchFunctions.js";
+import { addTriangleToParent, topBookList, resetResults } from "./wordSearchFunctions.js";
 
 // Allows the user to search for matching words in the Massachusett texts and outputs a list of all their cites.
 
@@ -621,21 +621,6 @@ function processBookData(bookDataList, bookHTMLSpan, bookName) {
     }
 
     return getVerseCiteSpans(allVerses, redoneDictionaries, bookName);
-}
-
-function resetResults() {
-    let allVerseSpans = document.getElementsByClassName('cite-span');
-    for (let i = 0; i < allVerseSpans.length; i++) {
-        allVerseSpans[i].classList.remove('active');
-        allVerseSpans[i].style.color = "black";
-        allVerseSpans[i].style.fontWeight = "normal";
-    }
-    
-    //Probably inefficient as it requires another check to the database. However, it looks like things work!
-    let allPopups = document.getElementsByClassName('show-verse');
-    for (let i = 0; i < allPopups.length; i++) {
-        allPopups[i].remove();
-    }
 }
 
 function addVersesToContainer(verseTextList, dbCodeList, word, book, laxDiacritics) {

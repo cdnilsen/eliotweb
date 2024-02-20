@@ -95,3 +95,26 @@ export function addTriangleToParent(parentContainer, unclickedColor, clickedColo
     }
     return triangle;
 }
+
+export function zip(list1, list2) {
+    let zipped = {};
+    for (let i = 0; i < list1.length; i++) {
+        zipped[list1[i]] = list2[i];
+    }
+    return zipped;
+}
+
+export function resetResults() {
+    let allVerseSpans = document.getElementsByClassName('cite-span');
+    for (let i = 0; i < allVerseSpans.length; i++) {
+        allVerseSpans[i].classList.remove('active');
+        allVerseSpans[i].style.color = "black";
+        allVerseSpans[i].style.fontWeight = "normal";
+    }
+    
+    //Probably inefficient as it requires another check to the database. However, it looks like things work!
+    let allPopups = document.getElementsByClassName('show-verse');
+    for (let i = 0; i < allPopups.length; i++) {
+        allPopups[i].remove();
+    }
+}
