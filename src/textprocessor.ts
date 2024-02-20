@@ -32,8 +32,6 @@ function zipTwoLists(list1: any[], list2: any[]): any {
 }
 
 function updateListsWithDictionary(list1: any[], list2: any[], dict: any): any {
-
-    list1.sort();
     let newList1: any[] = [];
     let newList2: any[] = [];
 
