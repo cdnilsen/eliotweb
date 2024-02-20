@@ -473,7 +473,6 @@ function cleanPunctuation(word) {
 }
 
 async function createKJVJSON(bookName) {
-
     let bookNum = bookNumberString(bookName);
     let book = await fetch('./texts/' + bookName + '.KJV.txt');
     let bookText = await book.text();
@@ -486,6 +485,7 @@ async function createKJVJSON(bookName) {
 
     let allVerseIDList = Object.keys(verseDict);
     allVerseIDList.sort();
+    console.log(allVerseIDList);
 
     for (let i = 0; i < allVerseIDList.length; i++) {
         let finalWordList = [];
@@ -493,6 +493,7 @@ async function createKJVJSON(bookName) {
         let verseID = allVerseIDList[i];
         let verseText = verseDict[verseID];
         let wordList = verseText.split(" ");
+        console.log(wordList);
         for (let j=0; j < wordList.length; j++) {
             let word = wordList[j];
             word = cleanPunctuation(word);
@@ -510,8 +511,6 @@ async function processText(whichBook, whichEdition, startChapter, endChapter, te
     console.log("processText called from " + startChapter + "to " + endChapter + ".");
     } else {
         await createKJVJSON(whichBook);
-    
-    
     }
 
     return numberOfVerses;
