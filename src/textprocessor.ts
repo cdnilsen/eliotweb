@@ -332,6 +332,8 @@ async function updateKJVTable(wordList: string[], countList: number[], verseIDSt
         let KJVTableWord = await pool.query('SELECT * FROM words_kjv WHERE word = $1', [word]);
         let hasWord = (KJVTableWord.rows.length > 0);
 
+        console.log(word + ":" + KJVTableWord.rows.length.toString());
+
         if (hasWord) {
             let thisRow = KJVTableWord.rows[0];
             let totalCount = thisRow.total_count;
@@ -393,13 +395,7 @@ async function verseUpdate(verseExists: boolean, verseID: string, verseText: str
     
     let wordList: string[] = [];
     let wordCountList: number[] = [];
-    if (edition == "First Edition" || edition == "Second Edition" || edition == "Mayhew" || edition == "Zeroth Edition") {
-        let wordTextsAndCountDict = getWordsInText(verseText);
-        wordList = Object.keys(wordTextsAndCountDict);
-        for (let i = 0; i < wordList.length; i++) {
-            wordCountList.push(wordTextsAndCountDict[wordList[i]]);
-        }
-    } else if (edition == "KJV") {
+    if (edition != "Grebrew") {
         let wordTextsAndCountDict = getWordsInText(verseText);
         wordList = Object.keys(wordTextsAndCountDict);
         for (let i = 0; i < wordList.length; i++) {
