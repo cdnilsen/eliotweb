@@ -32,6 +32,8 @@ function processVerseText(rawText, editionPrime, activeWord, laxDiacritics=false
         rawText = rawText.split('$').join(' ');
         rawText = rawText.split('{').join('<i>');
         rawText = rawText.split('}').join('</i>');
+    } else {
+        rawText = highlightSearchedWord(activeWord, rawText, laxDiacritics);
     }
     return rawText;
 }
