@@ -441,7 +441,7 @@ async function getEnglishWordData(searchSetting, searchString) {
         let word = dataPart1[0];
         if (checkIfWordMatches(word, searchString, searchSetting)) {
             let totalCount = parseInt(dataPart1[1].slice(1, -1));
-            let verseCites = splitData[1].slice(2, -2).split(", ")
+            let verseCites = splitData[1].slice(2, -1).split(", ")
 
             matchingWordsList.push(word);
             matchingWordCounts.push(totalCount);
