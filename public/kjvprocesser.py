@@ -237,10 +237,17 @@ for word in allWords:
     allWordDicts.append(thisWordDict)
 
 def createWordJSON(wordDictList):
-    wordJSON = open("wordJSON.json", "w")
-    for wordDict in wordDictList:
-        wordJSON.write(json.dumps(wordDict) + "\n")
+    wordJSON = open("./KJV JSONs/words.json", "w")
+    
+    jsonObject = json.dumps(wordDictList, indent = 2)
+    wordJSON.write(jsonObject)
     wordJSON.close()
+
+def createTextJSON(book):
+    bookText = open("./texts/" + book + ".KJV.txt", "r", encoding = "utf-8")
+    bookText = bookText.read()
+    bookText = bookText.split("\n")
+
 
 
 

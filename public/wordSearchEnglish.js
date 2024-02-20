@@ -429,10 +429,15 @@ function checkIfWordMatches(fullWord, searchString, searchSetting) {
 }
 
 async function getEnglishWordData(searchSetting, searchString) {
-    let englishDataFile = await fetch("./wordToVerseDict.txt");
-    let englishDataText = await englishDataFile.text();
-    let englishDataList = englishDataText.split("\n");
-
+    let englishDataFile = await fetch("./KJV JSONs/words.json");
+    let englishData = await englishDataFile.json();
+    let englishDataList = englishData["data"];
+    console.log(englishDataList);
+    /*
+    for (let i = 0; i < englishDataList.length; i++) {
+        console.log(englishDataList[i]);
+    }
+    
     let matchingWordsList = [];
     let matchingWordCounts = [];
     let matchingWordVerses = [];
@@ -446,13 +451,13 @@ async function getEnglishWordData(searchSetting, searchString) {
 
             matchingWordsList.push(word);
             matchingWordCounts.push(totalCount);
-            /*
+            
             let thisWordVerses = [];
             for (let j=0; j < verseCites.length; j++) {
                 let thisCiteInt = parseInt(verseCites[j]);
                 thisWordVerses.push(thisCiteInt);
             }
-            */
+            
 
             matchingWordVerses.push(verseCites);
         }
@@ -461,6 +466,7 @@ async function getEnglishWordData(searchSetting, searchString) {
     let wordToVerseCitesDict = zip(matchingWordsList, matchingWordVerses);
     let wordToTokensDict = zip(matchingWordsList, matchingWordCounts);
     return [wordToVerseCitesDict, wordToTokensDict];
+    */
 }
 
 document.getElementById("searchButton").addEventListener("click", async function() {
@@ -468,7 +474,7 @@ document.getElementById("searchButton").addEventListener("click", async function
     let searchString = document.getElementById("search_bar").value;
 
     let output = await getEnglishWordData(searchSetting, searchString.toLowerCase())
-
+    /*
     let sortAlphabetical = document.getElementById("sortAlph").checked;
     
     let resultDiv = document.getElementById("results-container");
@@ -480,7 +486,7 @@ document.getElementById("searchButton").addEventListener("click", async function
         let breakSpan = document.createElement("br");
         resultDiv.appendChild(breakSpan);
     }
-
+    */
     
 
 });
