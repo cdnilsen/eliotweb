@@ -480,7 +480,7 @@ function getKJVDictList(verseIDList, verseDict) {
     for (let i = 0; i < verseIDList.length; i++) {
         let verseWordList = [];
         let thisVerseWordToCountDict = {};
-        let verseID = parseNum(verseIDList[i]);
+        let verseID = parseInt(verseIDList[i]);
         let verseText = verseDict[verseID];
         let wordList = verseText.split(" ");
         for (let j=0; j < wordList.length; j++) {
