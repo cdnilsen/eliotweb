@@ -333,8 +333,10 @@ async function updateKJVTable(wordList: string[], countList: number[], verseIDSt
         let thisRow: any;
         try {
             let KJVTableWord = await pool.query('SELECT * FROM words_kjv WHERE word = $1', [word]);
-            thisRow = KJVTableWord.rows[0];
             hasWord = (KJVTableWord.rows.length > 0);
+            if (hasWord) {
+                thisRow = KJVTableWord.rows[0];
+            }
         } catch (err) {
             console.log(err);
         }
