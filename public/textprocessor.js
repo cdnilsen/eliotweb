@@ -466,6 +466,12 @@ async function sendRawJSON(book, edition, startChapter, endChapter, textLines) {
     return allKeyList.length;
 }
 
+function cleanPunctuation(word) {
+    let finalWord = word;
+    finalWord = finalWord.replace(/[.,\/#!%\^&\*?;:{}=\_`~()]/g, '');
+    return finalWord;
+}
+
 async function createKJVJSON(bookName) {
 
     let bookNum = bookNumberString(bookName);
@@ -478,7 +484,21 @@ async function createKJVJSON(bookName) {
 
     let verseDict = getRawVerseDict(bookName, 1, bookToChapterDict[bookName], bookTextLines);
 
-    console.log(verseDict);
+    let allVerseIDList = Object.keys(verseDict);
+    allVerseIDList.sort();
+
+    for (let i = 0; i < allVerseIDList.length; i++) {
+        let finalWordList = [];
+        let finalCountList = [];
+        let verseID = allVerseIDList[i];
+        let verseText = verseDict[verseID];
+        let wordList = verseText.split(" ");
+        for (let j=0; j < wordList.length; j++) {
+            let word = wordList[j];
+            word = cleanPunctuation(word);
+            console.log(word);
+        }
+    }
 }
 
 async function processText(whichBook, whichEdition, startChapter, endChapter, textLines) {
