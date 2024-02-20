@@ -489,6 +489,7 @@ async function processText(whichBook, whichEdition, startChapter, endChapter, te
     numberOfVerses = await sendRawJSON(whichBook, whichEdition, startChapter, endChapter, textLines);
     console.log("processText called from " + startChapter + "to " + endChapter + ".");
     } else {
+        createKJVJSON(whichBook);
     
     
     }
