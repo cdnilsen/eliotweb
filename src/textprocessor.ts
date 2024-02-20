@@ -328,6 +328,41 @@ function sleep(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+async function updateKJVWord(word: string, thisRow: any, verseID: number, count: number) {
+    let totalCount = thisRow.total_count;
+    let oldVerseList = thisRow.verses;
+    let oldCountList = thisRow.verse_counts;
+
+    if (oldVerseList.includes(verseID)) {
+        let verseIndex = oldVerseList.indexOf(verseID);
+        let oldCount = oldCountList[verseIndex];
+        let newTotalCount = totalCount - oldCount + count;
+        let newCountList = updateList(oldCountList, count, verseIndex);
+        await pool.query('UPDATE words_kjv SET total_count = $1, verse_counts = $2 WHERE word = $3', [newTotalCount, newCountList, word]);
+    } else {
+        let updatedVerseList = oldVerseList;
+        let updatedCountList = oldCountList;
+        //To be sorted later
+        updatedVerseList.push(verseID);
+        updatedCountList.push(count);
+
+        let idToCountDict: intToIntDict = {};
+        for (let j = 0; j < updatedVerseList.length; j++) {
+            idToCountDict[updatedVerseList[j]] = updatedCountList[j];
+        }
+
+        let newVerses = updatedVerseList.sort();
+
+        let finalCountList: number[] = [];
+        for (let k = 0; k < newVerses.length; k++) {
+            console.log(newVerses[k]);
+            finalCountList.push(idToCountDict[newVerses[k]]);
+        }
+        let newTotalCount = totalCount + count;
+        await pool.query('UPDATE words_kjv SET total_count = $1, verses = $2, verse_counts = $3 WHERE word = $4', [newTotalCount, newVerses, finalCountList, word]);
+    }
+}
+
 async function updateKJVTable(wordList: string[], countList: number[], verseIDString: string) {
     let verseID = parseInt(verseIDString);
     for (let i = 0; i < wordList.length; i++) {
@@ -346,41 +381,16 @@ async function updateKJVTable(wordList: string[], countList: number[], verseIDSt
         }
 
         if (hasWord) {
-            let totalCount = thisRow.total_count;
-            let oldVerseList = thisRow.verses;
-            let oldCountList = thisRow.verse_counts;
-
-            if (oldVerseList.includes(verseID)) {
-                let verseIndex = oldVerseList.indexOf(verseID);
-                let oldCount = oldCountList[verseIndex];
-                let newTotalCount = totalCount - oldCount + count;
-                let newCountList = updateList(oldCountList, count, verseIndex);
-                await pool.query('UPDATE words_kjv SET total_count = $1, verse_counts = $2 WHERE word = $3', [newTotalCount, newCountList, word]);
-            } else {
-                let updatedVerseList = oldVerseList;
-                let updatedCountList = oldCountList;
-                //To be sorted later
-                updatedVerseList.push(verseID);
-                updatedCountList.push(count);
-
-                let idToCountDict: intToIntDict = {};
-                for (let j = 0; j < updatedVerseList.length; j++) {
-                    idToCountDict[updatedVerseList[j]] = updatedCountList[j];
-                }
-
-                let newVerses = updatedVerseList.sort();
-
-                let finalCountList: number[] = [];
-                for (let k = 0; k < newVerses.length; k++) {
-                    console.log(newVerses[k]);
-                    finalCountList.push(idToCountDict[newVerses[k]]);
-                }
-                let newTotalCount = totalCount + count;
-                await pool.query('UPDATE words_kjv SET total_count = $1, verses = $2, verse_counts = $3 WHERE word = $4', [newTotalCount, newVerses, finalCountList, word]);
-            }
+            await updateKJVWord(word, thisRow, verseID, count);    
         } else {
             console.log(word);
-            await pool.query('INSERT INTO words_kjv(word, total_count, verses, verse_counts) VALUES($1, $2, $3, $4)', [word, count, [verseID], [count]]);
+            try {
+                await pool.query('INSERT INTO words_kjv(word, total_count, verses, verse_counts) VALUES($1, $2, $3, $4)', [word, count, [verseID], [count]]);
+            } catch (err) {
+                let thisRow = await pool.query('SELECT * FROM words_kjv WHERE word = $1', [word]);
+                updateKJVWord(word, thisRow.rows[0], verseID, count);
+                console.log(err);
+            }
         }
         await sleep(100);
     }
