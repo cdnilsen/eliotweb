@@ -1467,6 +1467,7 @@ async function displayChapterText(book, chapter, useFirst, useSecond, useMayhew,
 
 }
 
+/*
 async function getOneVerseText(book, chapter, verse, useFirst, useSecond, useMayhew, useZeroth, useKJV, useGrebrew, useRawText, textContainer, showTextDifferences, markCasing) {
     textContainer.innerHTML = "";
 
@@ -1507,6 +1508,7 @@ async function getOneVerseText(book, chapter, verse, useFirst, useSecond, useMay
         }
     }).catch(err => console.error(err));
 }
+*/
 
 function resetCheckboxes() {
     let allContainerList = [
@@ -1669,6 +1671,6 @@ document.getElementById("submitBookQuery").addEventListener('click', async funct
 
     let columnContainer = document.getElementById("textColumns");
 
-    await displayChapterText(book, chapter, useFirst, useSecond, useMayhew, useZeroth, useKJV, useGrebrew, showTextDifferences, markCasing, proofreading, columnContainer);
+    await displayChapterText(book, chapter, useFirst, useSecond, useMayhew, useZeroth, useKJV, useGrebrew, showTextDifferences, markCasing, proofreadingMode, columnContainer);
 
 });
