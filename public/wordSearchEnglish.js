@@ -242,6 +242,21 @@ async function showVersesInBox(popupContainer, dbCode, book, activeWord, laxDiac
     thisWordDiv.appendChild(popupContainer);
 }
 
+function resetResults() {
+    let allVerseSpans = document.getElementsByClassName('cite-span');
+    for (let i = 0; i < allVerseSpans.length; i++) {
+        allVerseSpans[i].classList.remove('active');
+        allVerseSpans[i].style.color = "black";
+        allVerseSpans[i].style.fontWeight = "normal";
+    }
+    
+    //Probably inefficient as it requires another check to the database. However, it looks like things work!
+    let allPopups = document.getElementsByClassName('show-verse');
+    for (let i = 0; i < allPopups.length; i++) {
+        allPopups[i].remove();
+    }
+}
+
 function addVersesToContainer(verseTextList, dbCodeList, word, book, laxDiacritics) {
     let verseCiteContainer = document.createElement("span");   
     verseCiteContainer.id = "word-" + word + "-book-" + book + "-cites";
@@ -549,7 +564,5 @@ document.getElementById("searchButton").addEventListener("click", async function
     resultDiv.innerHTML = "";
 
     getDictFromSearchOutput(output, sortAlphabetical);
-
-    
 
 });
