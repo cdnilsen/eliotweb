@@ -358,7 +358,7 @@ async function updateKJVTable(wordList: string[], countList: number[], verseIDSt
                 updatedCountList.push(count);
 
                 let idToCountDict: intToIntDict = {};
-                for (let j = 0; j < oldVerseList.length; j++) {
+                for (let j = 0; j < updatedVerseList.length; j++) {
                     idToCountDict[updatedVerseList[j]] = updatedCountList[j];
                 }
 
@@ -366,6 +366,7 @@ async function updateKJVTable(wordList: string[], countList: number[], verseIDSt
 
                 let finalCountList: number[] = [];
                 for (let k = 0; k < newVerses.length; k++) {
+                    console.log(newVerses[k]);
                     finalCountList.push(idToCountDict[newVerses[k]]);
                 }
                 let newTotalCount = totalCount + count;
