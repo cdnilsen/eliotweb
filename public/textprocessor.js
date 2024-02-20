@@ -467,6 +467,7 @@ async function sendRawJSON(book, edition, startChapter, endChapter, textLines) {
 }
 
 async function processText(whichBook, whichEdition, startChapter, endChapter, textLines) {
+    console.log(whichEdition);
     let numberOfVerses = await sendRawJSON(whichBook, whichEdition, startChapter, endChapter, textLines);
     console.log("processText called from " + startChapter + "to " + endChapter + ".");
     return numberOfVerses;
