@@ -358,12 +358,13 @@ async function updateKJVWord(word: string, totalCount: number, verseIDs: string[
             }
         }
 
-        let thisBookIndex = thisBooks.indexOf(bookNum);
+        
         if (!thisBooks.includes(bookNum)) {
             thisTotalCount += totalCount;
             thisBooks.push(bookNum);
             thisBookCounts.push(totalCount);
         } else {
+            let thisBookIndex = thisBooks.indexOf(bookNum);
             let oldBookCount = thisBookCounts[thisBookIndex];
             if (oldBookCount != totalCount) {
                 thisTotalCount -= oldBookCount;
