@@ -511,7 +511,7 @@ function getKJVDictList(verseIDList, verseDict) {
     let finalDictList = [];
     for (let i = 0; i < finalWordList.length; i++) {
         let thisWord = finalWordList[i];
-        let thisWordDict = [];
+        let thisWordDict = {};
         thisWordDict["word"] = thisWord;
         thisWordDict["verseIDs"] = wordToVerseIDDict[thisWord];
         thisWordDict["verseCounts"] = wordToVerseCountDict[thisWord];
