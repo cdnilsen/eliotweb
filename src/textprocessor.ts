@@ -368,6 +368,7 @@ async function updateKJVTable(wordList: string[], countList: number[], verseIDSt
                 await pool.query('UPDATE words_kjv SET total_count = $1, verses = $2, verse_counts = $3 WHERE word = $4', [newTotalCount, newVerses, finalCountList, word]);
             }
         } else {
+            console.log(word);
             await pool.query('INSERT INTO words_kjv(word, total_count, verses, verse_counts) VALUES($1, $2, $3, $4)', [word, count, [verseID], [count]]);
         }
     }
