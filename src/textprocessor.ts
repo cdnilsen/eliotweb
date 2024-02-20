@@ -343,7 +343,7 @@ async function updateKJVTable(wordList: string[], countList: number[], verseIDSt
                 let oldCount = oldCountList[verseIndex];
                 let newTotalCount = totalCount - oldCount + count;
                 let newCountList = updateList(oldCountList, count, verseIndex);
-                await pool.query('UPDATE words_kjv SET totalCount = $1, verseCounts = $2 WHERE word = $3', [newTotalCount, newCountList, word]);
+                await pool.query('UPDATE words_kjv SET total_count = $1, verse_counts = $2 WHERE word = $3', [newTotalCount, newCountList, word]);
             } else {
                 let updatedVerseList = oldVerseList;
                 let updatedCountList = oldCountList;
@@ -363,10 +363,10 @@ async function updateKJVTable(wordList: string[], countList: number[], verseIDSt
                     finalCountList.push(idToCountDict[newVerses[k]]);
                 }
                 let newTotalCount = totalCount + count;
-                await pool.query('UPDATE words_kjv SET totalCount = $1, verses = $2, verseCounts = $3 WHERE word = $4', [newTotalCount, newVerses, finalCountList, word]);
+                await pool.query('UPDATE words_kjv SET total_count = $1, verses = $2, verse_counts = $3 WHERE word = $4', [newTotalCount, newVerses, finalCountList, word]);
             }
         } else {
-            await pool.query('INSERT INTO words_kjv(word, totalCount, verses, verseCounts) VALUES($1, $2, $3, $4)', [word, count, [verseID], [count]]);
+            await pool.query('INSERT INTO words_kjv(word, total_count, verses, verse_counts) VALUES($1, $2, $3, $4)', [word, count, [verseID], [count]]);
         }
     }
     return ("KJV for " + verseIDString + " updated");
