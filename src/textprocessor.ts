@@ -341,6 +341,7 @@ async function updateKJVWord(word: string, totalCount: number, verseIDs: string[
         let thisRow = thisWordQuery.rows[0];
         let thisTotalCount = thisRow.total_count;
         let thisAddresses = thisRow.addresses;
+        console.log(thisAddresses);
         let thisVerseCounts = thisRow.verse_counts;
         let thisBooks = thisRow.books;
         let thisBookCounts = thisRow.bookCounts;
