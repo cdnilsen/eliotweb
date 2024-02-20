@@ -251,7 +251,6 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical, laxDiac
         for (let j=0; j < wordList.length; j++) {
             let thisWord = wordList[j];
             let thisWordDataDict = dictOfDicts[thisWord];
-            console.log(thisWordDataDict);
 
             let bookData = getBooks(thisWordDataDict["allVerses"], thisWordDataDict["allVerseCounts"], thisWord);
 
@@ -476,5 +475,12 @@ document.getElementById("searchButton").addEventListener("click", async function
     resultDiv.innerHTML = "";
 
     getDictFromSearchOutput(output, sortAlphabetical);
+
+    for (let i = 0; i < 25; i++) {
+        let breakSpan = document.createElement("br");
+        resultDiv.appendChild(breakSpan);
+    }
+
+    
 
 });

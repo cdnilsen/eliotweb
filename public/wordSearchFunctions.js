@@ -304,7 +304,6 @@ export function getBooks(verseList, verseCount, word) {
     let dictOfDicts = {};
     for (let i = 0; i < verseList.length; i++) {
         let thisVerseDict = decodeVerseCode(verseList[i], verseCount[i], word);
-        console.log(verseList[i]);
         let bookNum = thisVerseDict["bookNum"];
 
         if (dictOfDicts[bookNum] === undefined) {
