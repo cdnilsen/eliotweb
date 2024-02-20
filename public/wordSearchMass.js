@@ -183,7 +183,7 @@ function highlightSearchedWord(testWord, text, diacriticsLax=false) {
     let finalWordList = [];
     for (let i = 0; i < textWordList.length; i++) {
         let thisWord = textWordList[i];
-        if (getTestWord(thisWord, diacriticsLax) == testWord) {
+        if (getTestWord(thisWord, diacriticsLax) == getTestWord(testWord, diacriticsLax)) {
             finalWordList.push('<span style="color:red; text-decoration:underline;">' + thisWord + '</span>');
         } else if (getTestWord(thisWord, true) == getTestWord(testWord, true)) {
             finalWordList.push('<span style="color:blue;">' + thisWord + '</span>');
