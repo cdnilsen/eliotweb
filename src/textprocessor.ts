@@ -301,7 +301,6 @@ async function updateEdition(verseExists: boolean, verseID: string, verseText: s
     } else if (isMassachusett && !verseExists) {
         await pool.query('INSERT INTO all_verses(id, book, ' + editionColumn + ', ' + wordListColumn + ', ' + wordCountColumn + ', chapter, verse) VALUES($1, $2, $3, $4, $5, $6, $7)', [parseInt(verseID), book, verseText, wordList, wordCountList, chapter, verse]);
         return (consoleAddress + " inserted into database.")
-
     } else if (!isMassachusett && verseExists) {
         let queryText = "UPDATE all_verses SET " + editionColumn + " = $1 WHERE id = $2::int";
         await pool.query(queryText, [verseText, parseInt(verseID)])
@@ -314,7 +313,7 @@ async function updateEdition(verseExists: boolean, verseID: string, verseText: s
 }
 
 async function verseUpdate(verseExists: boolean, verseID: string, verseText: string, edition: string, book: string) {
-    console.log("Edition: " + edition);
+    //console.log("Edition: " + edition);
     let editionColumn = editionToColumnDict[edition];
     let wordListColumn = editionToWordListDict[edition];
     let wordCountColumn = editionToCountListDict[edition];
@@ -340,6 +339,13 @@ async function verseUpdate(verseExists: boolean, verseID: string, verseText: str
         for (let i = 0; i < wordList.length; i++) {
             wordCountList.push(wordTextsAndCountDict[wordList[i]]);
         }
+    } else if (edition == "KJV") {
+        let wordTextsAndCountDict = getWordsInText(verseText);
+        wordList = Object.keys(wordTextsAndCountDict);
+        for (let i = 0; i < wordList.length; i++) {
+            wordCountList.push(wordTextsAndCountDict[wordList[i]]);
+        }
+        console.log(wordTextsAndCountDict);
     }
 
     let outcome = await updateEdition(verseExists, verseID, verseText, edition, book, consoleAddress, editionColumn, wordListColumn, wordList, wordCountColumn,wordCountList, chapter, verse);
@@ -347,8 +353,7 @@ async function verseUpdate(verseExists: boolean, verseID: string, verseText: str
 }
 
 export async function processVerseJSON(rawJSON: any) {
-    let idNumber = rawJSON.id;
-    console.log(typeof idNumber);
+    let idNumber = rawJSON.id; //This is a string.
     let rawText = rawJSON.text;
     let book = rawJSON.book;
     let edition = rawJSON.edition;
