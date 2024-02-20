@@ -541,7 +541,7 @@ async function createKJVJSON(bookName) {
 
     let verseDictList = getKJVDictList(allVerseIDList, verseDict);
     let startingIndex = 0;
-    let endingIndex = 25;
+    let endingIndex = 1;
     while (startingIndex <= verseDictList.length) {
         let thisDictList = verseDictList.slice(startingIndex, endingIndex);
         fetch('/updateKJV', {
@@ -551,8 +551,8 @@ async function createKJVJSON(bookName) {
             "Content-type": "application/json; charset=UTF-8"
             }
         }).then(res => res.json()).then(res => console.log(res)).catch(err => console.error(err));
-        startingIndex += 25;
-        endingIndex += 25;
+        startingIndex += 1;
+        endingIndex += 1;
         sleep(250);
     }
 }
