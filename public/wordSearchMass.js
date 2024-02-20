@@ -1,4 +1,4 @@
-import { addTriangleToParent, topBookList, resetResults } from "./wordSearchFunctions.js";
+import { addTriangleToParent, topBookList, resetResults, getCountDictionaries } from "./wordSearchFunctions.js";
 
 // Allows the user to search for matching words in the Massachusett texts and outputs a list of all their cites.
 
@@ -469,49 +469,6 @@ function getHeaderText(wordCount, tokenCount, sortAlphabetical, headerString) {
     } else {
         return "<u><i><b>" + headerString + "</b> " + tokenOrTokens + "</i></u> ("  + wordCount.toString() + " " + wordOrWords + ")";
     }
-}
-
-function getCountDictionaries(wordList, dictOfDicts, sortAlphabetical) {
-    let allHeaders = [];
-    let headerToWordListDict = {};
-    let headerToWordCountDict = {};
-    let headerToTokenCountDict = {};
-    let totalWords = 0;
-    let totalTokens = 0;
-
-    for (let i=0; i < wordList.length; i++) {
-        let thisWord = wordList[i];
-        let wordCount = dictOfDicts[thisWord]["totalCount"];
-
-        let myHeader;
-
-        if (sortAlphabetical) {
-            myHeader = cleanDiacritics(thisWord[0]);
-        } else {
-            myHeader = wordCount;
-        }
-
-        if (headerToWordListDict[myHeader] === undefined) {
-            headerToWordListDict[myHeader] = [thisWord];
-            headerToWordCountDict[myHeader] = 1;
-            headerToTokenCountDict[myHeader] = wordCount;
-            allHeaders.push(myHeader);
-            totalWords += 1;
-            totalTokens += wordCount;
-        } else {
-            headerToWordListDict[myHeader].push(thisWord);
-            headerToWordCountDict[myHeader] += 1;
-            headerToTokenCountDict[myHeader] += wordCount;
-            totalWords += 1;
-            totalTokens += wordCount;
-        }
-    }
-    if (sortAlphabetical) {
-        allHeaders = alphabetizeWords(allHeaders);
-    } else {
-        allHeaders.sort((a, b) => b - a);
-    }
-    return [allHeaders, headerToWordListDict, headerToWordCountDict, headerToTokenCountDict, totalWords, totalTokens];
 }
 
 function getSuffixData(dataDict) {

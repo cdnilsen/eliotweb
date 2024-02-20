@@ -1,4 +1,4 @@
-import { addTriangleToParent, zip, resetResults } from "./wordSearchFunctions.js";
+import { addTriangleToParent, zip, resetResults, getCountDictionaries } from "./wordSearchFunctions.js";
 
 
 const topBookList = [
