@@ -467,12 +467,18 @@ async function sendRawJSON(book, edition, startChapter, endChapter, textLines) {
 }
 
 async function createKJVJSON(bookName) {
+
+    let bookNum = bookNumberString(bookName);
     let book = await fetch('./texts/' + bookName + '.KJV.txt');
     let bookText = await book.text();
     let bookTextLines = bookText.split("\n");
     let wordToVerseIDDict = {};
     let wordToVerseCountDict = {};
     let wordToTotalCountDict = {};
+
+    let verseDict = getRawVerseDict(bookName, 1, bookToChapterDict[bookName], bookTextLines);
+
+    console.log(verseDict);
 }
 
 async function processText(whichBook, whichEdition, startChapter, endChapter, textLines) {
@@ -769,7 +775,6 @@ function getRadioSelection() {
 
 async function callRadioFunction(whichAction) {
     if (whichAction == "processAText") {
-        //console.log("called addSelectionParameters");
         await processTextPopulateHTML();
     } else if (whichAction == "compareVerses") {
         await processTextComparisons();
@@ -813,6 +818,5 @@ document.getElementById('pickAction').addEventListener("click", async function()
     document.getElementById("text-container").innerHTML = "";
     document.getElementById("action-choices").innerHTML = "";
     let whichAction = getRadioSelection();
-    console.log(whichAction);
     await callRadioFunction(whichAction);
 });
