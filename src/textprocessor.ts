@@ -347,7 +347,7 @@ async function updateKJVWord(word: string, totalCount: number, verseIDs: string[
 
         for (let i = 0; i < verseIDs.length; i++) {
             if (!thisVerses.includes(verseIDs[i])) {
-                console.log(verseIDs[i].toString + " not in thisVerses");
+                console.log(verseIDs[i].toString() + " not in thisVerses");
                 console.log(thisVerses);
                 thisVerses.push(verseIDs[i]);
                 thisVerseCounts.push(verseCounts[i]);
