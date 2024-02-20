@@ -533,7 +533,7 @@ async function createKJVJSON(bookName) {
 
     let verseDictList = getKJVDictList(allVerseIDList, verseDict);
 
-    fetch('/addKJV', {
+    fetch('/updateKJV', {
         method: 'POST',
         body: JSON.stringify(verseDictList),
         headers: {
