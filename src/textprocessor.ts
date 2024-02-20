@@ -340,19 +340,19 @@ async function updateKJVWord(word: string, totalCount: number, verseIDs: string[
     } else {
         let thisRow = thisWordQuery.rows[0];
         let thisTotalCount = thisRow.total_count;
-        let thisAddresses = thisRow.addresses;
-        console.log(thisAddresses);
+        let thisVerses = thisRow.verses;
+        console.log(thisVerses);
         let thisVerseCounts = thisRow.verse_counts;
         let thisBooks = thisRow.books;
-        let thisBookCounts = thisRow.bookCounts;
+        let thisBookCounts = thisRow.book_counts;
 
 
         for (let i = 0; i < verseIDs.length; i++) {
-            if (!thisAddresses.includes(verseIDs[i])) {
-                thisAddresses.push(verseIDs[i]);
+            if (!thisVerses.includes(verseIDs[i])) {
+                thisVerses.push(verseIDs[i]);
                 thisVerseCounts.push(verseCounts[i]);
-            } else if (verseCounts[i] != thisVerseCounts[thisAddresses.indexOf(verseIDs[i])]) {
-                thisVerseCounts = updateList(thisVerseCounts, verseCounts[i], thisAddresses.indexOf(verseIDs[i]));
+            } else if (verseCounts[i] != thisVerseCounts[thisVerses.indexOf(verseIDs[i])]) {
+                thisVerseCounts = updateList(thisVerseCounts, verseCounts[i], thisVerses.indexOf(verseIDs[i]));
             }
         }
 
@@ -369,7 +369,7 @@ async function updateKJVWord(word: string, totalCount: number, verseIDs: string[
             thisBookCounts = updateList(thisBookCounts, totalCount, thisBookIndex);
         }
 
-        await pool.query('UPDATE words_kjv SET total_count = $1, verses = $2, verse_counts = $3, books = $4, book_counts = $5 WHERE word = $6', [thisTotalCount, thisAddresses, thisVerseCounts, thisBooks, thisBookCounts, word]);
+        await pool.query('UPDATE words_kjv SET total_count = $1, verses = $2, verse_counts = $3, books = $4, book_counts = $5 WHERE word = $6', [thisTotalCount, thisVerses, thisVerseCounts, thisBooks, thisBookCounts, word]);
     }
 
     console.log("Updated KJV word: " + word + " in database.");
