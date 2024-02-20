@@ -431,8 +431,8 @@ function checkIfWordMatches(fullWord, searchString, searchSetting) {
 async function getEnglishWordData(searchSetting, searchString) {
     let englishDataFile = await fetch("./KJV JSONs/words.json");
     let englishData = await englishDataFile.json();
-    let englishDataList = englishData["data"];
-    console.log(englishDataList);
+    //let englishDataList = englishData["data"];
+    console.log(englishData);
     /*
     for (let i = 0; i < englishDataList.length; i++) {
         console.log(englishDataList[i]);
