@@ -303,9 +303,11 @@ export function getBooks(verseList, verseCount, word, castVerses=false) {
     let allBooks = [];
     let dictOfDicts = {};
     for (let i = 0; i < verseList.length; i++) {
-        let thisVerse = verseList[i];
+        let thisVerse = "";
         if (castVerses) {
             thisVerse = verseList[i].toString();
+        } else {
+            thisVerse = verseList[i];
         }
         let thisVerseDict = decodeVerseCode(thisVerse, verseCount[i], word);
         let bookNum = thisVerseDict["bookNum"];
