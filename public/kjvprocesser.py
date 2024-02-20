@@ -1,3 +1,5 @@
+import json
+
 allBookList = [
     "Genesis",
     "Exodus",
@@ -186,8 +188,9 @@ def killPunctuationMarks(word):
     return newWord
 
 wordToVerseDict = {}
+wordToCountDict = {}
 
-def addBookWordsToDict(book, dict):
+def addBookWordsToDict(book, verseListDict, verseCountDict):
     allWords = [];
     try:
         bookFile = open("./texts/" + book + ".KJV.txt", "r", encoding = "utf-8")
@@ -203,11 +206,15 @@ def addBookWordsToDict(book, dict):
                 verseID = bookNumberString(book, address)                
                 for word in splitLine[1:]:
                     word = killPunctuationMarks(word)
-                    if word not in dict:
-                        dict[word] = [verseID]
+                    if word == "":
+                        continue
+                    if word not in verseListDict:
+                        verseListDict[word] = [verseID]
+                        wordToCountDict[word] = 1
                     else:
-                        if dict[word][-1] != verseID:
-                            dict[word].append(verseID)
+                        if verseListDict[word][-1] != verseID:
+                            verseListDict[word].append(verseID)
+                            wordToCountDict[word] += 1
                     if word not in allWords:
                         allWords.append(word)
         print(book + " has " + str(len(allWords)) + " unique words.")
@@ -216,11 +223,30 @@ def addBookWordsToDict(book, dict):
         print("Error with " + book)
     
 for book in allBookList:
-    if bookToFinishedDict[book]:
-        addBookWordsToDict(book, wordToVerseDict)
+    addBookWordsToDict(book, wordToVerseDict, wordToCountDict)
 
-#addBookWordsToDict("Genesis", wordToVerseDict)
+allWords = wordToVerseDict.keys()
+allWords = sorted(allWords)
 
+allWordDicts = []
+for word in allWords:
+    thisWordDict = {}
+    thisWordDict["word"] = word
+    thisWordDict["verses"] = wordToVerseDict[word]
+    thisWordDict["count"] = wordToCountDict[word]
+    allWordDicts.append(thisWordDict)
+
+def createWordJSON(wordDictList):
+    wordJSON = open("wordJSON.json", "w")
+    for wordDict in wordDictList:
+        wordJSON.write(json.dumps(wordDict) + "\n")
+    wordJSON.close()
+
+
+
+createWordJSON(allWordDicts)
+
+'''
 wordToVerseFile = open("wordToVerseDict.txt", "w")
 wordKeys = wordToVerseDict.keys()
 wordKeys = sorted(wordKeys)
@@ -228,4 +254,4 @@ wordKeys = sorted(wordKeys)
 for word in wordKeys:
     if (word != ""):
         wordToVerseFile.write(word + " (" + str(len(wordToVerseDict[word])) + "): " + str(wordToVerseDict[word]) + "\n")
-#print(len(wordToVerseDict["the"]))
+'''
