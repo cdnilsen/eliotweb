@@ -329,9 +329,13 @@ function sleep(ms: number) {
 }
 
 async function updateKJVWord(word: string, thisRow: any, verseID: number, count: number) {
-    console.log(word);
-    console.log(verseID);
-    console.log(count);
+    if (typeof verseID != "number") {
+        console.log("Verse ID is not a number");
+    }
+
+    if (typeof count != "number") {
+        console.log("Count is not a number");
+    }
 
     let totalCount = thisRow.total_count;
     let oldVerseList = thisRow.verses;
