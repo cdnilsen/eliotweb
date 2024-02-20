@@ -339,7 +339,6 @@ async function updateKJVWord(word: string, totalCount: number, verseIDs: string[
         let thisRow = thisWordQuery.rows[0];
         let thisTotalCount = thisRow.total_count;
         let thisVerses = thisRow.verses;
-        //console.log(thisVerses);
         let thisVerseCounts = thisRow.verse_counts;
         let thisBooks = thisRow.books;
         let thisBookCounts = thisRow.book_counts;
@@ -349,17 +348,18 @@ async function updateKJVWord(word: string, totalCount: number, verseIDs: string[
             let thisCount = verseCounts[i];
             if (!thisVerses.includes(thisVerse)) {
                 console.log(thisVerse.toString() + " not in thisVerses");
-                console.log(thisVerses);
                 thisVerses.push(thisVerse);
                 thisVerseCounts.push(thisCount);
-                console.log(thisVerses);
+
+
+
             } else if (thisCount != thisVerseCounts[thisVerses.indexOf(thisVerse)]) {
                 thisVerseCounts = updateList(thisVerseCounts, thisVerse, thisVerses.indexOf(thisVerse));
             }
         }
 
         let thisBookIndex = thisBooks.indexOf(bookNum);
-        if (thisBookIndex == -1) {
+        if (!thisBooks.includes(bookNum)) {
             thisTotalCount += totalCount;
             thisBooks.push(bookNum);
             thisBookCounts.push(totalCount);
