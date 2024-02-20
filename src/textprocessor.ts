@@ -377,7 +377,11 @@ async function updateKJVWord(word: string, thisRow: any, verseID: number, count:
 
 export async function processKJVJSON(rawJSON: any) {
     for (let i = 0; i < rawJSON.length; i++) {
-        console.log(rawJSON[i]);
+        let word = rawJSON[i].word;
+        let verseIDs = rawJSON[i].verseIDs;
+        console.log(word);
+        console.log(verseIDs);
+
     }
     return "KJV JSON processed.";
 }
