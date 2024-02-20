@@ -352,7 +352,7 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical, laxDiac
     let totalTokenCount = countData[5];
 
     topDiv.style.fontSize = "30px";
-    topDiv.innerHTML = `Found <b><u>${totalTokenCount}</u></b> tokens, representing <b><u>${totalWordCount}</u></b> distinct words.`;
+    topDiv.innerHTML = `Found <b><u>${totalTokens}</u></b> tokens, representing <b><u>${totalWordCount}</u></b> distinct words.`;
 }
 
 function getRightWordList(sortAlphabetical, wordList, dictOfDicts) {
