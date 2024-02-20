@@ -380,13 +380,14 @@ function getVerseCiteSpans(verseList, dictOfDicts, bookName) {
         let verse = verseList[i];
         let verseData = dictOfDicts[verse];
         let editionNum = verseData["allEditions"];
+        console.log(editionNum);
 
         if (bookName == "Genesis") {
             editionNum *= 11;
         } else if (bookName == "Psalms (prose)" || bookName == "John") {
             editionNum *= 13;
         }
-        
+
         let prefix = editionToSuperscriptDict[editionNum];
         let suffix = getVerseSuffix(verseData);
         let finalString = prefix + verse + suffix;
