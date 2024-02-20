@@ -444,13 +444,15 @@ async function getEnglishWordData(searchSetting, searchString) {
 
             matchingWordsList.push(word);
             matchingWordCounts.push(totalCount);
-
+            /*
             let thisWordVerses = [];
             for (let j=0; j < verseCites.length; j++) {
                 let thisCiteInt = parseInt(verseCites[j]);
                 thisWordVerses.push(thisCiteInt);
             }
-            matchingWordVerses.push(thisWordVerses);
+            */
+
+            matchingWordVerses.push(verseCites);
         }
     }
 
