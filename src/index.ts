@@ -4,7 +4,7 @@ import path from "path"
 import { default as pool } from './db'
 import { wrapAsync } from './utils'
 import { wordSearch } from './wordSearchMass'
-import { processVerseJSON, addComparedVerses, addComparedBook, addComparedChapter } from './textprocessor'
+import { processVerseJSON, processKJVJSON, addComparedVerses, addComparedBook, addComparedChapter } from './textprocessor'
 import { processBatchWordData, populateCorrespondences, getTotalWordCounts } from './processWords'
 import { getVerseText, getChapterText } from './browseTexts'
 
@@ -34,6 +34,16 @@ app.post('/addRaw', wrapAsync(async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error in addRaw');
+    }
+}));
+
+app.post('/updateKJV', wrapAsync(async (req, res) => {
+    try {
+        let returnValue = await processKJVJSON(req.body);
+        res.json(returnValue);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error in updateKJV');
     }
 }));
 

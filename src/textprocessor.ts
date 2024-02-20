@@ -375,38 +375,8 @@ async function updateKJVWord(word: string, thisRow: any, verseID: number, count:
     }
 }
 
-async function updateKJVTable(wordList: string[], countList: number[], verseIDString: string) {
-    let verseID = parseInt(verseIDString);
-    for (let i = 0; i < wordList.length; i++) {
-        let word = wordList[i];
-        let count = countList[i];
-        let hasWord = false;
-        let thisRow: any;
-        try {
-            let KJVTableWord = await pool.query('SELECT * FROM words_kjv WHERE word = $1', [word]);
-            if (KJVTableWord.rows.length > 0) {
-                hasWord = true;
-                thisRow = KJVTableWord.rows[0];
-            }
-        } catch (err) {
-            console.log(err);
-        }
-
-        if (hasWord) {
-            await updateKJVWord(word, thisRow, verseID, count);    
-        } else {
-            console.log(word);
-            try {
-                await pool.query('INSERT INTO words_kjv(word, total_count, verses, verse_counts) VALUES($1, $2, $3, $4)', [word, count, [verseID], [count]]);
-            } catch (err) {
-                let thisRow = await pool.query('SELECT * FROM words_kjv WHERE word = $1', [word]);
-                updateKJVWord(word, thisRow.rows[0], verseID, count);
-                console.log(err);
-            }
-        }
-        await sleep(100);
-    }
-    return ("KJV for " + verseIDString + " updated");
+export async function processKJVJSON(rawJSON: any) {
+    console.log(rawJSON);
 }
 
 async function verseUpdate(verseExists: boolean, verseID: string, verseText: string, edition: string, book: string) {
@@ -438,15 +408,8 @@ async function verseUpdate(verseExists: boolean, verseID: string, verseText: str
         }
     }
 
-    if (edition != "KJV") {
-        let outcome = await updateEdition(verseExists, verseID, verseText, edition, book, consoleAddress, editionColumn, wordListColumn, wordList, wordCountColumn,wordCountList, chapter, verse);
-        return outcome;
-    } else {
-        let outcome = await updateKJVTable(wordList, wordCountList, verseID);
-        //console.log(wordList);
-        //console.log(wordCountList);
-        return outcome;
-    }
+    let outcome = await updateEdition(verseExists, verseID, verseText, edition, book, consoleAddress, editionColumn, wordListColumn, wordList, wordCountColumn,wordCountList, chapter, verse);
+    return outcome;
 }
 
 export async function processVerseJSON(rawJSON: any) {

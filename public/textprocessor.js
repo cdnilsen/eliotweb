@@ -472,34 +472,74 @@ function cleanPunctuation(word) {
     return finalWord;
 }
 
-async function createKJVJSON(bookName) {
-    let bookNum = bookNumberString(bookName);
-    let book = await fetch('./texts/' + bookName + '.KJV.txt');
-    let bookText = await book.text();
-    let bookTextLines = bookText.split("\n");
+function getKJVDictList(verseIDList, verseDict) {
+    let finalWordList = [];
     let wordToVerseIDDict = {};
     let wordToVerseCountDict = {};
     let wordToTotalCountDict = {};
+    for (let i = 0; i < verseIDList.length; i++) {
+        let verseWordList = [];
+        let thisVerseWordToCountDict = {};
+        let verseID = verseIDList[i];
+        let verseText = verseDict[verseID];
+        let wordList = verseText.split(" ");
+        for (let j=0; j < wordList.length; j++) {
+            let word = wordList[j];
+            word = cleanPunctuation(word).toLowerCase();
+            if (verseWordList.includes(word)) {
+                thisVerseWordToCountDict[word] += 1;
+            } else {
+                verseWordList.push(word);
+                thisVerseWordToCountDict[word] = 1;
+            }
+        }
+        for (let k=0; k < verseWordList.length; k++) {
+            let word = verseWordList[k];
+            if (wordToVerseIDDict[word]) {
+                wordToVerseIDDict[word].push(verseID);
+                wordToVerseCountDict[word].push(thisVerseWordToCountDict[word]);
+                wordToTotalCountDict[word] += thisVerseWordToCountDict[word];
+            } else {
+                wordToVerseIDDict[word] = [verseID];
+                wordToVerseCountDict[word] = [thisVerseWordToCountDict[word]];
+                wordToTotalCountDict[word] = thisVerseWordToCountDict[word];
+            }
+            finalWordList.push(word);
+        }
+    }
+
+    let finalDictList = [];
+    for (let i = 0; i < finalWordList.length; i++) {
+        let thisWord = finalWordList[i];
+        let thisWordDict = [];
+        thisWordDict["word"] = thisWord;
+        thisWordDict["verseIDs"] = wordToVerseIDDict[thisWord];
+        thisWordDict["verseCounts"] = wordToVerseCountDict[thisWord];
+        thisWordDict["totalCount"] = wordToTotalCountDict[thisWord];
+        finalDictList.push(thisWordDict);
+    }
+    return finalDictList;
+}
+
+async function createKJVJSON(bookName) {
+    let book = await fetch('./texts/' + bookName + '.KJV.txt');
+    let bookText = await book.text();
+    let bookTextLines = bookText.split("\n");
 
     let verseDict = await getRawVerseDict(bookName, 1, bookToChapterDict[bookName], bookTextLines);
 
     let allVerseIDList = Object.keys(verseDict);
     allVerseIDList.sort();
-    console.log(allVerseIDList);
 
-    for (let i = 0; i < allVerseIDList.length; i++) {
-        let finalWordList = [];
-        let finalCountList = [];
-        let verseID = allVerseIDList[i];
-        let verseText = verseDict[verseID];
-        let wordList = verseText.split(" ");
-        console.log(wordList);
-        for (let j=0; j < wordList.length; j++) {
-            let word = wordList[j];
-            word = cleanPunctuation(word);
-            console.log(word);
+    let verseDictList = getKJVDictList(allVerseIDList, verseDict);
+
+    fetch('/addKJV', {
+        method: 'POST',
+        body: JSON.stringify(verseDictList),
+        headers: {
+        "Content-type": "application/json; charset=UTF-8"
         }
-    }
+    }).then(res => res.json()).then(res => console.log(res)).catch(err => console.error(err));
 }
 
 async function processText(whichBook, whichEdition, startChapter, endChapter, textLines) {
