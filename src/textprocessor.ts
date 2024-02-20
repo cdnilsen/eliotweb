@@ -336,7 +336,7 @@ async function updateKJVWord(word: string, totalCount: number, verseIDs: string[
     let thisWordQuery = await pool.query('SELECT * FROM words_kjv WHERE word = $1', [word]);
 
     if (thisWordQuery.rows.length == 0) {
-        await pool.query('INSERT INTO words_kjv(word, total_count, verses, verse_counts, books, book_counts) VALUES($1, $2, $3, $4, $5)', [word, totalCount, verseIDs, verseCounts, [bookNum], [totalCount]]);
+        await pool.query('INSERT INTO words_kjv(word, total_count, verses, verse_counts, books, book_counts) VALUES($1, $2, $3, $4, $5, $6)', [word, totalCount, verseIDs, verseCounts, [bookNum], [totalCount]]);
     } else {
         let thisRow = thisWordQuery.rows[0];
         let thisTotalCount = thisRow.total_count;
