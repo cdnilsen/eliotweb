@@ -155,6 +155,19 @@ function processEngma(word) {
     return wordCopy;
 }
 
+export function cleanPunctuation(word) {
+    let allChars = ['.', ',', '!', '?', ';', ':', '[', ']', '(', ')', '\'', '"', '{', '}'];
+    let cleanedWord = "";
+    for (let i = 0; i < word.length; i++) {
+        if (allChars.includes(word[i])) {
+            cleanedWord += "";
+        } else {
+            cleanedWord += word[i];
+        }
+    }
+    return cleanedWord;
+}
+
 export function cleanDiacritics(word) {
     let charReplacementDict = {
         "á": "a",

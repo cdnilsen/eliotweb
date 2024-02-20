@@ -1,4 +1,4 @@
-import { addTriangleToParent, topBookList, resetResults, getCountDictionaries, addChildToExistingTriangle, getHeaderText, getBooks, processBookData, zip, alphabetizeWords, cleanDiacritics } from "./wordSearchFunctions.js";
+import { addTriangleToParent, topBookList, resetResults, getCountDictionaries, addChildToExistingTriangle, getHeaderText, getBooks, processBookData, zip, alphabetizeWords, cleanDiacritics, cleanPunctuation } from "./wordSearchFunctions.js";
 
 // Allows the user to search for matching words in the Massachusett texts and outputs a list of all their cites.
 
@@ -61,19 +61,6 @@ function processEngma(word) {
     wordCopy = wordCopy.split('ŋ').join('n');
 
     return wordCopy;
-}
-
-function cleanPunctuation(word) {
-    let allChars = ['.', ',', '!', '?', ';', ':', '[', ']', '(', ')', '\'', '"', '{', '}'];
-    let cleanedWord = "";
-    for (let i = 0; i < word.length; i++) {
-        if (allChars.includes(word[i])) {
-            cleanedWord += "";
-        } else {
-            cleanedWord += word[i];
-        }
-    }
-    return cleanedWord;
 }
 
 function cleanMarks(word) {

@@ -1,17 +1,4 @@
-import { addTriangleToParent, topBookList, resetResults, getCountDictionaries, addChildToExistingTriangle, getHeaderText, getBooks, processBookData, zip, alphabetizeWords, cleanDiacritics } from "./wordSearchFunctions.js";
-
-function cleanPunctuation(word) {
-    let allChars = ['.', ',', '!', '?', ';', ':', '[', ']', '(', ')', '\'', '"', '{', '}'];
-    let cleanedWord = "";
-    for (let i = 0; i < word.length; i++) {
-        if (allChars.includes(word[i])) {
-            cleanedWord += "";
-        } else {
-            cleanedWord += word[i];
-        }
-    }
-    return cleanedWord;
-}
+import { addTriangleToParent, topBookList, resetResults, getCountDictionaries, addChildToExistingTriangle, getHeaderText, getBooks, processBookData, zip, alphabetizeWords, cleanDiacritics, cleanPunctuation } from "./wordSearchFunctions.js";
 
 function getTestWord(word, diacriticsLax=false) {
     let cleanedWord = word.toLowerCase();
@@ -409,10 +396,16 @@ function getDictFromSearchOutput(output, sortAlphabetical) {
         let totalCount = wordToTokensDict[word];
         let allVerseList = wordToVerseCitesDict[word];
 
+        let dummyVerseCountList = [];
+        for (let j = 0; j < allVerseList.length; j++) {
+            dummyVerseCountList.push(1);
+        }
+
         let processedDict = {};
         processedDict["word"] = word;
         processedDict["totalCount"] = totalCount;
         processedDict["allVerses"] = allVerseList;
+        processedDict["allVerseCounts"] = dummyVerseCountList;
         dictOfDicts[word] = processedDict;
     }
 
