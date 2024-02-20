@@ -403,54 +403,9 @@ function addChildrenWithTriangle(parentContainer, childrenContainers, unclickedC
     });
 }
 
-function getSuffixData(dataDict) {
-    let allEditionPrimes = [2, 3, 5, 7];
-    let thisVerseCodes = [];
-    let thisVerseCounts = [];
-    let countsDiffer = false;
-    let allCountsOne = true;
-    let lastCount = 0;
 
-    for (let i=0; i < 4; i++) {
-        let p = allEditionPrimes[i];
-        if (dataDict[p] != undefined) {
-            let thisCount = dataDict[p];
-            let code = editionToSuperscriptDict[p];
-            thisVerseCodes.push(code);
-            thisVerseCounts.push(thisCount);
-            countsDiffer = (countsDiffer && (thisCount == lastCount || i == 0));
-            lastCount = thisCount;
-            allCountsOne = allCountsOne && (thisCount == 1);
-        }
-    }
 
-    return {
-        "editions": thisVerseCodes,
-        "counts": thisVerseCounts,
-        "useSuffix": !allCountsOne,
-        "useSlash": countsDiffer
-    }
-}
 
-function getVerseSuffix(dataDict) {
-    let suffixDict = getSuffixData(dataDict);
-
-    let suffix = " (";
-    if (suffixDict["useSlash"]) {
-        for (let i=0; i < suffixDict["editions"].length; i++) {
-            suffix += suffixDict["counts"][i] + suffixDict["editions"][i];
-            if (i != suffixDict["editions"].length - 1) {
-                suffix += "/";
-            }
-        }
-        suffix += ")";
-        return suffix;
-    } else if (suffixDict["useSuffix"]) {
-        return suffix + suffixDict["counts"][0] + ")";
-    } else {
-        return "";
-    }
-}
 
 
 
