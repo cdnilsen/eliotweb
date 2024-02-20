@@ -65,6 +65,13 @@ function alphabetizeWords(wordList) {
     return wordList.sort(compare);
 }
 
+function toggleCSS(elementProperty, option1, option2) {
+    if (elementProperty == option1) {
+        elementProperty = option2;
+    } else {
+        elementProperty = option1;
+    }
+}
 
 //This function is an attempt to deal with the macra and tildes that Eliot uses to represent a following nasal
 function processEngma(word) {
@@ -91,16 +98,9 @@ function processEngma(word) {
     return wordCopy;
 }
 
-function toggleCSS(elementProperty, option1, option2) {
-    if (elementProperty == option1) {
-        elementProperty = option2;
-    } else {
-        elementProperty = option1;
-    }
-}
+
 
 function cleanDiacritics(word) {
-
     let charReplacementDict = {
         "á": "a",
         "é": "e",
