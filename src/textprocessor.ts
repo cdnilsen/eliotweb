@@ -352,6 +352,7 @@ async function updateKJVWord(word: string, totalCount: number, verseIDs: string[
                 console.log(thisVerses);
                 thisVerses.push(thisVerse);
                 thisVerseCounts.push(thisCount);
+                console.log(thisVerses);
             } else if (thisCount != thisVerseCounts[thisVerses.indexOf(thisVerse)]) {
                 thisVerseCounts = updateList(thisVerseCounts, thisVerse, thisVerses.indexOf(thisVerse));
             }
