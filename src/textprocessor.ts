@@ -331,8 +331,14 @@ function sleep(ms: number) {
 async function updateKJVWord(word: string, totalCount: number, verseIDs: string[], verseCounts: number[]) {
     let testID = verseIDs[0];
     let bookNum = testID.toString().slice(1, 3);
-    let thisWordQuery = await pool.query('SELECT * FROM words_kjv WHERE word = $1', [word]);
+    
+    
+    console.log(word);
+    console.log(verseIDs);
+    console.log(verseCounts);
+    //let thisWordQuery = await pool.query('SELECT * FROM words_kjv WHERE word = $1', [word]);
 
+    /*
     if (thisWordQuery.rows.length == 0) {
         await pool.query('INSERT INTO words_kjv(word, total_count, verses, verse_counts, books, book_counts) VALUES($1, $2, $3, $4, $5, $6)', [word, totalCount, verseIDs, verseCounts, [bookNum], [totalCount]]);
     } else {
@@ -376,6 +382,7 @@ async function updateKJVWord(word: string, totalCount: number, verseIDs: string[
 
         await pool.query('UPDATE words_kjv SET total_count = $1, verses = $2, verse_counts = $3, books = $4, book_counts = $5 WHERE word = $6', [thisTotalCount, thisVerses, thisVerseCounts, thisBooks, thisBookCounts, word]);
     }
+    */
 
     console.log("Updated KJV word: " + word + " in database.");
 }
