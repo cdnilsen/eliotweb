@@ -1,5 +1,4 @@
-import { addTriangleToParent, zip, resetResults, getCountDictionaries } from "./wordSearchFunctions.js";
-
+import { addTriangleToParent, topBookList, resetResults, getCountDictionaries, addChildToExistingTriangle, getHeaderText, getBooks, processBookData } from "./wordSearchFunctions.js";
 
 const topBookList = [
     "Genesis",
@@ -291,6 +290,24 @@ document.addEventListener("click", function(event) {
         resetResults();
     }
 });
+
+function getBooks(verseList, verseCount, word) {
+    let allBooks = [];
+    let dictOfDicts = {};
+    for (let i = 0; i < verseList.length; i++) {
+        let thisVerseDict = decodeVerseCode(verseList[i], verseCount[i], word);
+        let bookNum = thisVerseDict["bookNum"];
+
+        if (dictOfDicts[bookNum] === undefined) {
+            dictOfDicts[bookNum] = [thisVerseDict];
+            allBooks.push(bookNum);
+        } else {
+            dictOfDicts[bookNum].push(thisVerseDict);
+        }
+    }
+    allBooks.sort((a, b) => a - b);
+    return [allBooks, dictOfDicts];
+}
 
 function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical, laxDiacritics) {
     let resultDiv = document.getElementById("results-container");
