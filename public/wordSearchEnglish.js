@@ -1,3 +1,6 @@
+import { addTriangleToParent } from "./wordSearchFunctions.js";
+
+
 const topBookList = [
     "Genesis",
     "Exodus",
