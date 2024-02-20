@@ -350,7 +350,7 @@ async function verseUpdate(verseExists: boolean, verseID: string, verseText: str
         for (let i = 0; i < wordList.length; i++) {
             wordCountList.push(wordTextsAndCountDict[wordList[i]]);
         }
-        console.log(wordTextsAndCountDict);
+        //console.log(wordTextsAndCountDict);
     }
 
     if (edition != "KJV") {
