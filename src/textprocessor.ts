@@ -365,10 +365,12 @@ async function updateKJVWord(word: string, totalCount: number, verseIDs: string[
             thisBookCounts.push(totalCount);
         } else {
             let oldBookCount = thisBookCounts[thisBookIndex];
-            thisTotalCount -= oldBookCount;
-            thisTotalCount += totalCount;
+            if (oldBookCount != totalCount) {
+                thisTotalCount -= oldBookCount;
+                thisTotalCount += totalCount;
 
-            thisBookCounts = updateList(thisBookCounts, totalCount, thisBookIndex);
+                thisBookCounts = updateList(thisBookCounts, totalCount, thisBookIndex);
+            }
         }
 
         await pool.query('UPDATE words_kjv SET total_count = $1, verses = $2, verse_counts = $3, books = $4, book_counts = $5 WHERE word = $6', [thisTotalCount, thisVerses, thisVerseCounts, thisBooks, thisBookCounts, word]);
