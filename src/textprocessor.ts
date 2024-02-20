@@ -19,6 +19,10 @@ type stringToIntDict = {
     [key: string]: number
 }
 
+type intToIntDict = {
+    [key: number]: number
+}
+
 function getWordsInText(verseText: string): stringToIntDict {
     let finalWordList: string[] = [];
     let finalCountDict: stringToIntDict = {};
@@ -64,6 +68,13 @@ const editionToCountListDict: stringToStringDict = {
     "Second Edition": "word_counts_second_edition",
     "Mayhew": "word_counts_other_edition",
     "Zeroth Edition": "word_counts_other_edition"
+}
+
+function updateList(list: any[], item: any, index: number) {
+    let splitListBeginning = list.slice(0, index);
+    let splitListEnd = list.slice(index + 1);
+    let newList = splitListBeginning.concat(item, splitListEnd);
+    return newList;
 }
 
 function getVerseText(rawWordsList: string[]): string {
@@ -313,8 +324,52 @@ async function updateEdition(verseExists: boolean, verseID: string, verseText: s
     }
 }
 
-async function updateKJVTable(wordDict: stringToIntDict) {
+async function updateKJVTable(wordList: string[], countList: number[], verseIDString: string) {
+    let verseID = parseInt(verseIDString);
+    for (let i = 0; i < wordList.length; i++) {
+        let word = wordList[i];
+        let count = countList[i];
+        let KJVTableWord = await pool.query('SELECT * FROM words_kjv WHERE word = $1', [word]);
+        let hasWord = (KJVTableWord.rows.length > 0);
 
+        if (hasWord) {
+            let thisRow = KJVTableWord.rows[0];
+            let totalCount = thisRow.total_count;
+            let oldVerseList = thisRow.verses;
+            let oldCountList = thisRow.verseCounts;
+
+            if (oldVerseList.includes(verseID)) {
+                let verseIndex = oldVerseList.indexOf(verseID);
+                let oldCount = oldCountList[verseIndex];
+                let newTotalCount = totalCount - oldCount + count;
+                let newCountList = updateList(oldCountList, count, verseIndex);
+                await pool.query('UPDATE words_kjv SET total_count = $1, verse_counts = $2 WHERE word = $3', [newTotalCount, newCountList, word]);
+            } else {
+                let updatedVerseList = oldVerseList;
+                let updatedCountList = oldCountList;
+                //To be sorted later
+                updatedVerseList.push(verseID);
+                updatedCountList.push(count);
+
+                let idToCountDict: intToIntDict = {};
+                for (let j = 0; j < oldVerseList.length; j++) {
+                    idToCountDict[updatedVerseList[j]] = updatedCountList[j];
+                }
+
+                let newVerses = updatedVerseList.sort();
+
+                let finalCountList: number[] = [];
+                for (let k = 0; k < newVerses.length; k++) {
+                    finalCountList.push(idToCountDict[newVerses[k]]);
+                }
+                let newTotalCount = totalCount + count;
+                await pool.query('UPDATE words_kjv SET total_count = $1, verses = $2, verseCounts = $3 WHERE word = $4', [newTotalCount, newVerses, finalCountList, word]);
+            }
+        } else {
+            await pool.query('INSERT INTO words_kjv(word, total_count, verses, verseCounts) VALUES($1, $2, $3, $4)', [word, count, [verseID], [count]]);
+        }
+    }
+    return ("KJV for " + verseIDString + " updated");
 }
 
 async function verseUpdate(verseExists: boolean, verseID: string, verseText: string, edition: string, book: string) {
@@ -350,14 +405,14 @@ async function verseUpdate(verseExists: boolean, verseID: string, verseText: str
         for (let i = 0; i < wordList.length; i++) {
             wordCountList.push(wordTextsAndCountDict[wordList[i]]);
         }
-        //console.log(wordTextsAndCountDict);
     }
 
     if (edition != "KJV") {
         let outcome = await updateEdition(verseExists, verseID, verseText, edition, book, consoleAddress, editionColumn, wordListColumn, wordList, wordCountColumn,wordCountList, chapter, verse);
         return outcome;
     } else {
-        return "Processed KJV of " + book + " " + verseID;
+        let outcome = await updateKJVTable(wordList, wordCountList, verseID);
+        return outcome;
     }
 }
 
