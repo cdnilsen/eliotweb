@@ -336,7 +336,7 @@ async function updateKJVWord(word: string, totalCount: number, verseIDs: string[
     let thisWordQuery = await pool.query('SELECT * FROM words_kjv WHERE word = $1', [word]);
 
     if (thisWordQuery.rows.length == 0) {
-        await pool.query('INSERT INTO words_kjv(word, total_count, addresses, verse_counts, books, bookCounts) VALUES($1, $2, $3, $4, $5)', [word, totalCount, verseIDs, verseCounts, [bookNum], [totalCount]]);
+        await pool.query('INSERT INTO words_kjv(word, total_count, verses, verse_counts, books, book_counts) VALUES($1, $2, $3, $4, $5)', [word, totalCount, verseIDs, verseCounts, [bookNum], [totalCount]]);
     } else {
         let thisRow = thisWordQuery.rows[0];
         let thisTotalCount = thisRow.total_count;
@@ -368,7 +368,7 @@ async function updateKJVWord(word: string, totalCount: number, verseIDs: string[
             thisBookCounts = updateList(thisBookCounts, totalCount, thisBookIndex);
         }
 
-        await pool.query('UPDATE words_kjv SET total_count = $1, addresses = $2, verse_counts = $3, books = $4, bookCounts = $5 WHERE word = $6', [thisTotalCount, thisAddresses, thisVerseCounts, thisBooks, thisBookCounts, word]);
+        await pool.query('UPDATE words_kjv SET total_count = $1, verses = $2, verse_counts = $3, books = $4, book_counts = $5 WHERE word = $6', [thisTotalCount, thisAddresses, thisVerseCounts, thisBooks, thisBookCounts, word]);
     }
 
     console.log("Updated KJV word: " + word + " in database.");
