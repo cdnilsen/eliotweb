@@ -333,6 +333,8 @@ async function updateKJVWord(word: string, totalCount: number, verseIDs: string[
     let testID = verseIDs[0];
     let bookNum = testID.toString().slice(1, 3);
 
+    console.log(verseIDs);
+
     let thisWordQuery = await pool.query('SELECT * FROM words_kjv WHERE word = $1', [word]);
 
     if (thisWordQuery.rows.length == 0) {
