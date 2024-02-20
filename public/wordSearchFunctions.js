@@ -88,6 +88,7 @@ const editionToSuperscriptDict = {
     390: "",
 
     //For all other books. 5 and 7 are needed for getting the right suffix but won't be called in the prefix.
+    1: "", // for the KJV
     2: "<sup>α</sup>",
     3: "<sup>β</sup>",
     5: "<sup>M</sup>",
