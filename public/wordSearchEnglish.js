@@ -236,6 +236,7 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical, laxDiac
         if (sortAlphabetical) {
             headerString = thisHeader[0];
         } else {
+            console.log(thisHeader);
             headerString = thisHeader.toString();
         }
 
