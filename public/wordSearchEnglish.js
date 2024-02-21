@@ -452,6 +452,19 @@ async function getEnglishWordData(searchSetting, searchString) {
     return [wordVersesDict, wordTokensDict];
 }
 
+const pressEnter = new KeyboardEvent("keydown", {
+    key: "Enter",
+    code: "Enter",
+    which: 13,
+    keyCode: 13,
+    charCode: 13,
+    bubbles: true
+});
+
+
+
+document.getElementById("searchButton").dispatchEvent(pressEnter);
+
 document.getElementById("searchButton").addEventListener("click", async function() {
     let searchSetting = document.getElementById("searchWordDropdown").value;
     let searchString = document.getElementById("search_bar").value;
