@@ -311,7 +311,7 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical, laxDiac
                 let verseCiteContainer = addVersesToContainer(verseTextList, allDBCodes, thisWord, thisBookName, laxDiacritics);
 
                 if (verseTextList.length > 25){                    
-
+                    verseCiteContainer.style.display = "inline-block";
                     let bookTriangle = addTriangleToParent(thisBookSpan, "gray", "red", true);
 
                     let breakSpan1 = document.createElement("br");
