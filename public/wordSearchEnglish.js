@@ -200,10 +200,6 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book, laxDiacriti
             }
         }
     }
-    if (verseTextList.length > 25) {
-        verseCiteContainer.classList.add("textTab2")
-        
-    }
     return verseCiteContainer;
 }
 
@@ -315,7 +311,7 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical, laxDiac
                 
                 let verseCiteContainer = addVersesToContainer(verseTextList, allDBCodes, thisWord, thisBookName, laxDiacritics);
 
-                if (verseTextList.length > 25){                    
+                if (verseTextList.length > 25) {           
                     let bookTriangle = addTriangleToParent(thisBookSpan, "gray", "red", true);
 
                     let breakSpan1 = document.createElement("br");
