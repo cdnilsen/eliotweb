@@ -165,7 +165,7 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book, laxDiacriti
     verseCiteContainer.id = "word-" + word + "-book-" + book + "-cites";
     verseCiteContainer.style.width = "40%";
     if (verseTextList.length > 25) {
-        verseCiteContainer.classList.add("tabText2");
+        verseCiteContainer.classList.add("textTab2");
     }
     for (let i=0; i < verseTextList.length; i++) {
         let thisDBCode = dbCodeList[i];
