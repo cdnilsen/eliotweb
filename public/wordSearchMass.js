@@ -604,15 +604,6 @@ async function runSearch() {
 
 document.getElementById("searchButton").addEventListener("click", runSearch);
 
-const pressEnter = new KeyboardEvent("keydown", {
-    key: "Enter",
-    code: "Enter",
-    which: 13,
-    keyCode: 13,
-    charCode: 13,
-    bubbles: true
-});
-
 document.getElementById("search_bar").addEventListener("keydown", function(event) {
     if (event.key === "Enter") {
         runSearch();
