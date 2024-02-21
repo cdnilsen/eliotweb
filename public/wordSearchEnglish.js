@@ -164,10 +164,14 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book, laxDiacriti
     let verseCiteContainer = document.createElement("span");   
     verseCiteContainer.id = "word-" + word + "-book-" + book + "-cites";
     verseCiteContainer.style.width = "40%";
+    if (verseTextList.length > 25) {
+        verseCiteContainer.classList.add("tabText2");
+    }
     for (let i=0; i < verseTextList.length; i++) {
         let thisDBCode = dbCodeList[i];
 
         let thisVerseSpan = document.createElement("span");
+        
 
         thisVerseSpan.innerHTML = verseTextList[i];
         thisVerseSpan.style.textDecoration = "underline dot";
@@ -311,7 +315,6 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical, laxDiac
                 let verseCiteContainer = addVersesToContainer(verseTextList, allDBCodes, thisWord, thisBookName, laxDiacritics);
 
                 if (verseTextList.length > 25){                    
-                    verseCiteContainer.style.display = "inline-block";
                     let bookTriangle = addTriangleToParent(thisBookSpan, "gray", "red", true);
 
                     let breakSpan1 = document.createElement("br");
