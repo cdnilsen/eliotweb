@@ -164,9 +164,6 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book, laxDiacriti
     let verseCiteContainer = document.createElement("span");   
     verseCiteContainer.id = "word-" + word + "-book-" + book + "-cites";
     verseCiteContainer.style.width = "40%";
-    if (verseTextList.length > 25) {
-        verseCiteContainer.classList.add("textTab2");
-    }
     for (let i=0; i < verseTextList.length; i++) {
         let thisDBCode = dbCodeList[i];
 
@@ -202,6 +199,10 @@ function addVersesToContainer(verseTextList, dbCodeList, word, book, laxDiacriti
                 verseCiteContainer.appendChild(verseCountSpan);
             }
         }
+    }
+    if (verseTextList.length > 25) {
+        verseCiteContainer.classList.add("textTab2")
+        
     }
     return verseCiteContainer;
 }
@@ -353,7 +354,7 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical, laxDiac
     let totalTokenCount = countData[5];
 
     topDiv.style.fontSize = "30px";
-    topDiv.innerHTML = `Found <b><u>${totalTokens}</u></b> tokens, representing <b><u>${totalWordCount}</u></b> distinct words.`;
+    topDiv.innerHTML = `Found <b><u>${totalTokens}</u></b> verses, representing <b><u>${totalWordCount}</u></b> distinct words.`;
 }
 
 function getRightWordList(sortAlphabetical, wordList, dictOfDicts) {
