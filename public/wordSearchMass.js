@@ -566,7 +566,7 @@ async function seeAllWords(fetchString, resultDiv, sortAlphabetical, sortByBook,
     }).catch(err => console.error(err));
 }
 
-document.getElementById("searchButton").addEventListener("click", async function() {
+async function runSearch() {
     let searchSetting = 11; //Change to 13 in the English search
 
     let otherSearchSetting = document.getElementById("searchWordDropdown").value;
@@ -600,4 +600,21 @@ document.getElementById("searchButton").addEventListener("click", async function
     let resultDiv = document.getElementById("results-container");
 
     await seeAllWords(fetchString, resultDiv, sortAlphabetical, sortByBook, laxDiacritics);
+}
+
+document.getElementById("searchButton").addEventListener("click", runSearch);
+
+const pressEnter = new KeyboardEvent("keydown", {
+    key: "Enter",
+    code: "Enter",
+    which: 13,
+    keyCode: 13,
+    charCode: 13,
+    bubbles: true
+});
+
+document.getElementById("search_bar").addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+        runSearch();
+    }
 });
