@@ -219,7 +219,7 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical, laxDiac
 
     // wordList comes pre-sorted.
     let countData = getCountDictionaries(allWordList, dictOfDicts, sortAlphabetical);
-    
+
     let allHeaders = countData[0];
     let headerToWordListDict = countData[1];
     let headerToWordCountDict = countData[2];
@@ -257,8 +257,9 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical, laxDiac
             let allBookNums = bookData[0];
             let allBookToVerseDict = bookData[1];
 
-            let totalCount = thisWordDataDict["totalCount"];
+            let totalCount = thisWordDataDict["totalCount"].length.toString();
             console.log(thisWordDataDict["totalCount"]);
+            
             let ligaturedWord = thisWord.split('8').join('ꝏ̄');
 
             let thisWordDiv = document.createElement("div");
