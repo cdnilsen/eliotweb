@@ -259,16 +259,13 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical, laxDiac
 
             let totalCount = thisWordDataDict["totalCount"].length.toString();
             console.log(thisWordDataDict["totalCount"]);
-            
+
             let ligaturedWord = thisWord.split('8').join('ꝏ̄');
 
             let thisWordDiv = document.createElement("div");
 
-            if (totalCount > 1) {
-                thisWordDiv.innerHTML = `<b>${ligaturedWord}</b> (${totalCount}): `;
-            } else {
-                thisWordDiv.innerHTML = `<b>${ligaturedWord}</b>: `;
-            }
+            thisWordDiv.innerHTML = `<b>${ligaturedWord}</b> (${totalCount}): `;
+            
             
             thisWordDiv.style.fontSize = "16px";
             thisWordDiv.id = "headword-" + thisWord;
