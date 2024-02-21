@@ -461,11 +461,7 @@ const pressEnter = new KeyboardEvent("keydown", {
     bubbles: true
 });
 
-
-
-document.getElementById("searchButton").dispatchEvent(pressEnter);
-
-document.getElementById("searchButton").addEventListener("click", async function() {
+async function runSearch() {
     let searchSetting = document.getElementById("searchWordDropdown").value;
     let searchString = document.getElementById("search_bar").value;
 
@@ -482,5 +478,11 @@ document.getElementById("searchButton").addEventListener("click", async function
         let breakSpan = document.createElement("br");
         resultDiv.appendChild(breakSpan);
     }
+}
 
+document.getElementById("search_bar").addEventListener("keydown", function(event) {
+    if (event.key == "Enter") {
+        runSearch();
+    }
 });
+document.getElementById("searchButton").addEventListener("click", runSearch);
