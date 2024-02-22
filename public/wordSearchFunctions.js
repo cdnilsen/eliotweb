@@ -481,6 +481,8 @@ export function getCountDictionaries(wordList, dictOfDicts, sortAlphabetical) {
         let thisWord = wordList[i];
         let wordCount = dictOfDicts[thisWord]["totalCount"];
 
+        console.log(wordCount);
+
         let myHeader;
         console.log(thisWord[0]);
         console.log(dictOfDicts[thisWord])
