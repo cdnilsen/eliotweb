@@ -221,13 +221,7 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical, laxDiac
     // wordList comes pre-sorted.
     let countData = getCountDictionaries(allWordList, dictOfDicts, sortAlphabetical);
 
-    let allHeaders = 0;
-    if (sortAlphabetical) {
-        allHeaders = countData[0];
-    } else {
-        console.log(countData[0]);
-        allHeaders = countData[0].length;
-    }
+    let allHeaders = countData[0]
     let headerToWordListDict = countData[1];
     let headerToWordCountDict = countData[2];
     let headerToTokenCountDict = countData[3];
