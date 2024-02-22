@@ -237,7 +237,12 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical, laxDiac
         if (allHeaders[i] == undefined) {
             continue;
         }
-        let thisHeader = allHeaders[i].toString();
+        let thisHeader = "";
+        if (sortAlphabetical) {
+            thisHeader = allHeaders[i].toString();
+        } else {
+            thisHeader = allHeaders[i].length.toString();
+        }
         let headerString = "";
         if (sortAlphabetical) {
             headerString = thisHeader[0];
