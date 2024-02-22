@@ -489,6 +489,8 @@ export function getCountDictionaries(wordList, dictOfDicts, sortAlphabetical) {
             myHeader = wordCount;
         }
 
+        console.log(myHeader);
+
         if (headerToWordListDict[myHeader] === undefined) {
             headerToWordListDict[myHeader] = [thisWord];
             headerToWordCountDict[myHeader] = 1;
