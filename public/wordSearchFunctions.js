@@ -268,6 +268,10 @@ function rightPlural (count, singular, plural=undefined) {
 
 export function getHeaderText(wordCount, tokenCount, sortAlphabetical, headerString) {
 
+    console.log(wordCount);
+    console.log(tokenCount);
+    console.log(headerString);
+
     let useToken = sortAlphabetical;
     if (headerString == "8" && sortAlphabetical) {
         headerString = "ꝏ̄";
