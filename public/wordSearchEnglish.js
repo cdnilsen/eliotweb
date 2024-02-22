@@ -225,6 +225,7 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical, laxDiac
     if (sortAlphabetical) {
         allHeaders = countData[0];
     } else {
+        console.log(countData[0]);
         allHeaders = countData[0].length;
     }
     let headerToWordListDict = countData[1];
