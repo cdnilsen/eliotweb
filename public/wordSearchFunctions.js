@@ -482,11 +482,12 @@ export function getCountDictionaries(wordList, dictOfDicts, sortAlphabetical) {
         let wordCount = dictOfDicts[thisWord]["totalCount"];
 
         let myHeader;
-
+        console.log(thisWord[0]);
+        console.log(dictOfDicts[thisWord])
         if (sortAlphabetical) {
             myHeader = cleanDiacritics(thisWord[0]);
         } else {
-            myHeader = thisWord[0].length.toString();
+            myHeader = wordCount.toString();
         }
 
         console.log(myHeader);
