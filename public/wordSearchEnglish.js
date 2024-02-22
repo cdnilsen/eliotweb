@@ -260,7 +260,7 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical, laxDiac
             let allBookToVerseDict = bookData[1];
 
             let totalCount = thisWordDataDict["totalCount"].length.toString();
-            console.log(thisWordDataDict["totalCount"]);
+            //console.log(thisWordDataDict["totalCount"]);
 
             let ligaturedWord = thisWord.split('8').join('ꝏ̄');
 

@@ -542,7 +542,6 @@ function getDictFromSearchOutput(searchOutput, sortAlphabetical, laxDiacritics) 
     processAllWordCites(newWordList, dictOfDicts, sortAlphabetical, laxDiacritics);
 }
 
-
 async function seeAllWords(fetchString, resultDiv, sortAlphabetical, sortByBook, laxDiacritics) {
     resultDiv.innerHTML = "";
     fetch(fetchString, {
