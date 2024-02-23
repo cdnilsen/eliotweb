@@ -406,9 +406,8 @@ async function processBookWordTables(book: string, p: number, newWordList: strin
 
     await processOneBookWordTable(thisEditionID, newWordList, newCountDict, true);
 
-    
-
-
+    let noDiacriticsWordData = laxifyWordData(newWordList, newCountDict);
+    await processOneBookWordTable(thisEditionID, noDiacriticsWordData.laxWordList, noDiacriticsWordData.laxCountDict, false);
 }
 
 
