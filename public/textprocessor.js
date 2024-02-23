@@ -658,14 +658,16 @@ async function runEditionVocab(whichBook, whichEdition, myTextContainer) {
         "Content-type": "application/json; charset=UTF-8"
         }
     }).then(res => res.json()).then(res => {
-        /*for (let i = 0; i < res.length; i++) {
+        //console.log(res);
+    }).catch(err => console.error(err));
+    /*.then(res => res.json()).then(res => {
+        for (let i = 0; i < res.length; i++) {
             let thisText = res[i];
             let thisTextSpan = document.createElement('span');
             thisTextSpan.innerHTML = thisText + "<br>";
             myTextContainer.appendChild(thisTextSpan);
         }
         */
-    }).catch(err => console.log(err));    
 }
 
 async function createDropdownChain(includeEdition, includesKJV) {
@@ -793,7 +795,6 @@ async function createDropdownChain(includeEdition, includesKJV) {
                                 "Mayhew": "5",
                                 "Zeroth Edition": "7"
                             }
-                            console.log("Hello! You've called runEditionVocab!");
                             await runEditionVocab(whichBook, bookToPrimeDict[whichEdition], textContainerDiv);
                         }
                     });
