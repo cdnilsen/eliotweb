@@ -559,12 +559,9 @@ async function createKJVJSON(bookName) {
 
 async function processText(whichBook, whichEdition, startChapter, endChapter, textLines) {
     let numberOfVerses = 0;
-    if (whichEdition != "KJV") {
+    
     numberOfVerses = await sendRawJSON(whichBook, whichEdition, startChapter, endChapter, textLines);
     console.log("processText called from " + startChapter + "to " + endChapter + ".");
-    } else {
-        await createKJVJSON(whichBook);
-    }
 
     return numberOfVerses;
 }
