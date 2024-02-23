@@ -359,6 +359,10 @@ async function updateBookWordTable(editionID: string, removeWords: string[], add
         tableName = "book_words_diacritics";
     }
 
+    for (let i = 0; i < addWords.length; i++) {
+        console.log(addWords[i]);
+    }
+    /*
     for (let i = 0; i < removeWords.length; i++) {
         let thisWordID = editionID + "-" + removeWords[i];
         await pool.query("DELETE FROM " + tableName + " WHERE id = $1::text", [thisWordID]);
@@ -370,8 +374,9 @@ async function updateBookWordTable(editionID: string, removeWords: string[], add
         let thisCount = newWordCountDict[word];
         await pool.query("INSERT INTO " + tableName + "(id, word, text_id, total_count) VALUES ($1::text, $2::text, $3::text, $4::int)", [thisWordID, word, editionID, thisCount]);
     }
+    */
 
-    console.log("Removed " + removeWords.length.toString() + " words and added " + addWords.length.toString() + " words to " + editionID + " in " + tableName);
+    //console.log("Removed " + removeWords.length.toString() + " words and added " + addWords.length.toString() + " words to " + editionID + " in " + tableName);
 
 }
 
@@ -406,7 +411,7 @@ async function processBookWordTables(book: string, p: number, newWordList: strin
         7: "-Z"
     };
 
-    let thisEditionID = book + editionToIDDict[p];
+    let thisEditionID = book.toLowerCase() + editionToIDDict[p];
 
     await processOneBookWordTable(thisEditionID, newWordList, newCountDict, true);
 
@@ -458,6 +463,7 @@ export async function processWordsOneText(book: string, p: number) {
         let newWordsList: string[] = [];
         let newWordsToCountDict: stringToIntDict = {};
         let newCountsList: number[] = [];
+
         for (let j=0; j < splitText.length; j++) {
             let newWord = cleanDiacriticsEngmaMarking(splitText[j]);
             if (newWordsList.includes(newWord)) {
