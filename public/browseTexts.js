@@ -1,4 +1,4 @@
-import { PentateuchList, HistoricalBooksList, WisdomBooksList, MajorProphetsList, MinorProphetsList, gospelsList, restOfNTList, mishnaicList, bookToNumberDict, allBookList, bookToChapterDict, bookToChapterVerseDict, NTBookList, bookToActiveEditionsDict} from "./bookdata.js";
+import { PentateuchList, HistoricalBooksList, WisdomBooksList, MajorProphetsList, MinorProphetsList, gospelsList, restOfNTList, mishnaicList, bookToNumberDict, allBookList, bookToChapterDict, bookToChapterVerseDict, NTBookList, bookToActiveEditionsDict, psalmsWithVerseZero} from "./bookdata.js";
 
 let sectionToBooksDict = {
     "pentateuch": PentateuchList,
@@ -877,6 +877,9 @@ function processFinalText(string, useRawText) {
 }
 
 async function displayChapterText(book, chapter, useFirst, useSecond, useMayhew, useZeroth, useKJV, useGrebrew, showTextDifferences, markCasing, proofreading, textContainer) {
+    
+    console.log([book]);
+    console.log([chapter]);
     let chapterNum = parseInt(chapter);
 
     textContainer.innerHTML = "";
@@ -896,12 +899,7 @@ async function displayChapterText(book, chapter, useFirst, useSecond, useMayhew,
     
     let useRawText = !showTextDifferences && !markCasing;
 
-    let useRawString = ""
-    if (useRawText) {
-        useRawString = 'true';
-    } else {
-        useRawString = 'false';
-    }
+    let useRawString = useRawText.toString();
 
     let columnHeads = columnHeaderPopulator(useFirst, useSecond, useMayhew, useZeroth, useKJV, useGrebrew, book);
     let firstIndex = columnHeads[4][0];
@@ -971,6 +969,7 @@ async function displayChapterText(book, chapter, useFirst, useSecond, useMayhew,
                     let verseNumColumn = document.createElement('div');
                     verseNumColumn.classList.add("verseColumn");
                     verseNumColumn.style = 'grid-column: ' + (k + 1).toString() + '; text-align: center; font-weight: bold; font-size: 1.3em';
+                    
                     verseNumColumn.innerHTML = parseInt(chapter) + ':' + (j + 1).toString();
                     thisVerseRow.appendChild(verseNumColumn);
                     addedVerseNumber = true;
