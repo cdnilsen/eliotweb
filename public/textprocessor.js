@@ -455,7 +455,6 @@ function getProcessableEditions(rawBookList) {
         //finalBooks.push(book);
         if (n > 1) {
             finalBooks.push(book);
-            bookToEditionDict[book] = [""];
             for (let j = 0; j < primeList.length; j++) {
                 if (n % primeList[j] == 0) {
                     bookToEditionDict[book].push(editionNames[j]);
@@ -474,7 +473,7 @@ async function createDropdownChain(includeEdition, includesKJV) {
 
     selectSectionDiv.appendChild(whichSectionLabel);
 
-    let sectionNameList = ["Pentateuch", "Historical Books", "Wisdom Books", "Najor Prophets", "Minor Prophets", "Gospels", "Other New Testament"];
+    let sectionNameList = ["Pentateuch", "Historical Books", "Wisdom Books", "Major Prophets", "Minor Prophets", "Gospels", "Other New Testament"];
 
     let whichSectionDropdown = createDropdownFromList("which-section-dropdown", sectionNameList, true);
 
