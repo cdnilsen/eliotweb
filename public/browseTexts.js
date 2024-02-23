@@ -882,6 +882,9 @@ async function displayChapterText(book, chapter, useFirst, useSecond, useMayhew,
     console.log([chapter]);
     let chapterNum = parseInt(chapter);
 
+    //Ugly but one line. If the book in question is the prose Psalms and the chapter is one of the chapters that has a superscription, then this affects the verse number.
+    let verseAddition = Number(!psalmsWithVerseZero.includes(chapterNum) && book == "Psalms (prose)");
+
     textContainer.innerHTML = "";
 
     let editionNumber = getEditionCompositeNumber(useFirst, useSecond, useMayhew, useZeroth, useKJV, useGrebrew);
@@ -939,7 +942,7 @@ async function displayChapterText(book, chapter, useFirst, useSecond, useMayhew,
         }
 
         for (let j = 0; j < numOfVerses; j++) {
-            let verseNum = j + 1;
+            let verseNum = j + verseAddition;
             let verseTextDict = {};
         
             let thisVerseRow = document.createElement('div');
@@ -970,7 +973,7 @@ async function displayChapterText(book, chapter, useFirst, useSecond, useMayhew,
                     verseNumColumn.classList.add("verseColumn");
                     verseNumColumn.style = 'grid-column: ' + (k + 1).toString() + '; text-align: center; font-weight: bold; font-size: 1.3em';
                     
-                    verseNumColumn.innerHTML = parseInt(chapter) + ':' + (j + 1).toString();
+                    verseNumColumn.innerHTML = parseInt(chapter) + ':' + (verseNum).toString();
                     thisVerseRow.appendChild(verseNumColumn);
                     addedVerseNumber = true;
                     continue;
