@@ -167,7 +167,7 @@ async function showVersesInBox(popupContainer, dbCode, book, activeWord, laxDiac
     } else { 
         popupContainer.innerHTML = "";
         let activeVerseText = await fetchVerseText(book, dbCode);
-        let tableData = generateTable(["KJV"], activeVerseText, [11], activeWord, laxDiacritics);
+        let tableData = generateTable(["KJV"], [activeVerseText], [11], activeWord, laxDiacritics);
         console.log(tableData);
         let table = tableData[0];
         let popupWidth = tableData[1];
