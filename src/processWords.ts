@@ -352,6 +352,10 @@ async function getOldWordsInBook(editionID: string, diacriticsStrict: boolean): 
     return allWords;
 }
 
+async function updateBookWordTable(editionID: string, removeWords: string[], addWords: string[]) {
+
+}
+
 async function processOneBookWordTable(editionID: string, newWordList: string[], newCountDict: stringToIntDict, laxDiacritics: boolean) {
 
     let oldWords = await getOldWordsInBook(editionID, laxDiacritics);
@@ -367,10 +371,15 @@ async function processOneBookWordTable(editionID: string, newWordList: string[],
 
     let wordData = getIntersectionAndUnion(workingWordList, oldWords);
 
+    let addWords = wordData.list1Only;
+    let removeWords = wordData.list2Only;
+    let intersection = wordData.intersection;
+    console.log(intersection);
+
 
 }
 
-async function processBookWordTables(book: string, p: number, newWordList: string[], oldWordList: string[]) {
+async function processBookWordTables(book: string, p: number, newWordList: string[], newCountDict: stringToIntDict) {
     let editionToIDDict: intToStringDict = {
         2: "-a",
         3: "-b",
@@ -380,7 +389,7 @@ async function processBookWordTables(book: string, p: number, newWordList: strin
 
     let thisEditionID = book + editionToIDDict[p];
 
-    let oldWordsDiacritics = await getOldWordsInBook(thisEditionID, true);
+    await processOneBookWordTable(thisEditionID, newWordList, newCountDict, true);
 
 
 }
@@ -459,6 +468,8 @@ export async function processWordsOneText(book: string, p: number) {
             fixCountListDict[thisVerseID] = newCountsList;
         }
     }
+
+    processBookWordTables(book, p, newWordsText, newCountsTextDict);
 }
 
 export async function processBatchWordData(rawJSON: any) {
