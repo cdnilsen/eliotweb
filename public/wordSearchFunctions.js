@@ -276,7 +276,6 @@ export function getHeaderText(wordCount, tokenCount, sortAlphabetical, headerStr
     let wordOrWords = rightPlural(wordCount, "word");
 
     let tokenOrTokens = rightPlural(tokenCount, "token");
-    console.log(wordCount);
     if (useToken) {
         return "<u><b><i>" + headerString + "</i></b></u> (" + wordCount.toString() + " " + wordOrWords + ", " + tokenCount + " total " + tokenOrTokens + ")";
     } else {
@@ -476,7 +475,6 @@ export function resetResults() {
 }
 
 export function getCountDictionaries(wordList, dictOfDicts, sortAlphabetical) {
-    console.log(dictOfDicts);
     let allHeaders = [];
     let headerToWordListDict = {};
     let headerToWordCountDict = {};
@@ -486,7 +484,6 @@ export function getCountDictionaries(wordList, dictOfDicts, sortAlphabetical) {
 
     for (let i=0; i < wordList.length; i++) {
         let thisWord = wordList[i];
-        console.log(dictOfDicts[thisWord]["totalCount"]);
         let wordCount = 0;
 
         if (dictOfDicts[thisWord]["totalCount"] == null) {
