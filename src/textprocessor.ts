@@ -4,18 +4,12 @@ import path from "path"
 import { default as pool } from './db'
 import { wrapAsync } from './utils'
 
-import { stringToIntDict, stringToStringDict, stringToIntListDict, stringToStringListDict, intToStringDict, intToIntDict } from './functions'
+import { stringToIntDict, stringToStringDict, stringToIntListDict, stringToStringListDict, intToStringDict, intToIntDict, cleanPunctuation } from './functions'
 
 const app = express()
 const port = process.env.PORT;
 
 //Go through this file later and use the $1::int type enforcement on queries
-
-function cleanPunctuation(word: string): string {
-    let cleanWord = word.replace(/[.,\/#!%\^&\*?;:{}=\_`~()]/g, "");
-    cleanWord = cleanWord.replace('[', '').replace(']', '');
-    return cleanWord;
-}
 
 function zipTwoLists(list1: any[], list2: any[]): any {
     let finalDict: any = {};
@@ -410,7 +404,6 @@ async function verseUpdate(verseExists: boolean, verseID: string, verseText: str
     let editionColumn = editionToColumnDict[edition];
     let wordListColumn = editionToWordListDict[edition];
     let wordCountColumn = editionToCountListDict[edition];
-    console.log(verseID);
     let consoleAddress = "";
     let chapter = 0;
     let verse = 0;
