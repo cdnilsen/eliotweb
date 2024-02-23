@@ -155,7 +155,6 @@ async function showVersesInBox(popupContainer, dbCode, book, activeWord, laxDiac
                 }
             }
             let tableData = generateTable(activeVerseTitles, activeVerseText, activePrimes, activeWord, laxDiacritics);
-            console.log(tableData);
             let table = tableData[0];
             let popupWidth = tableData[1];
 

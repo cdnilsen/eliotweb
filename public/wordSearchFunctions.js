@@ -276,9 +276,9 @@ export function getHeaderText(wordCount, tokenCount, sortAlphabetical, headerStr
     let wordOrWords = rightPlural(wordCount, "word");
 
     let tokenOrTokens = rightPlural(tokenCount, "token");
-
+    console.log(wordCount);
     if (useToken) {
-        return "<u><b><i>" + headerString + "</i></b></u> (" + wordCount.toString() + " " + wordOrWords + ", " + tokenCount.toString() + " total " + tokenOrTokens + ")";
+        return "<u><b><i>" + headerString + "</i></b></u> (" + wordCount.toString() + " " + wordOrWords + ", " + tokenCount + " total " + tokenOrTokens + ")";
     } else {
         return "<u><i><b>" + headerString + "</b> " + tokenOrTokens + "</i></u> ("  + wordCount.toString() + " " + wordOrWords + ")";
     }
