@@ -189,13 +189,6 @@ async function cleanUpWordIndex(tableName: string, nukableWords: string[]) {
 
 }
 
-async function updateBookWordTables(textName: string, wordListDiacritics: string[], wordListNoDiacritics: string[]) {
-
-    let nukeWordsDiacritics = await processBookWordTable(textName, wordListDiacritics, 'book_words_diacritics');
-
-    let nukeWordsNoDiacritics = await processBookWordTable(textName, wordListNoDiacritics, 'book_words_no_diacritics'); 
-
-}
 
 async function getHapaxes(checkDiacritics: boolean) {
     let tableName = "words_diacritics";
@@ -360,7 +353,7 @@ async function updateBookWordTable(editionID: string, removeWords: string[], add
     for (let i = 0; i < addWords.length; i++) {
         console.log(addWords[i]);
     }
-    /*
+    
     for (let i = 0; i < removeWords.length; i++) {
         let thisWordID = editionID + "-" + removeWords[i];
         await pool.query("DELETE FROM " + tableName + " WHERE id = $1::text", [thisWordID]);
@@ -372,9 +365,9 @@ async function updateBookWordTable(editionID: string, removeWords: string[], add
         let thisCount = newWordCountDict[word];
         await pool.query("INSERT INTO " + tableName + "(id, word, text_id, total_count) VALUES ($1::text, $2::text, $3::text, $4::int)", [thisWordID, word, editionID, thisCount]);
     }
-    */
+    
 
-    //console.log("Removed " + removeWords.length.toString() + " words and added " + addWords.length.toString() + " words to " + editionID + " in " + tableName);
+    return ("Removed " + removeWords.length.toString() + " words and added " + addWords.length.toString() + " words to " + editionID + " in " + tableName);
 
 }
 
@@ -382,23 +375,13 @@ async function processOneBookWordTable(editionID: string, newWordList: string[],
 
     let oldWords = await getOldWordsInBook(editionID, laxDiacritics);
 
-    let workingWordList = newWordList;
-    let workingCountDict = newCountDict;
-    
-    if (laxDiacritics) {
-        let wordData = laxifyWordData(newWordList, newCountDict);
-        workingWordList = wordData.laxWordList;
-        workingCountDict = wordData.laxCountDict;
-    }
 
-    let wordData = getIntersectionAndUnion(workingWordList, oldWords);
+    let wordData = getIntersectionAndUnion(newWordList, oldWords);
 
     let addWords = wordData.list1Only;
     let removeWords = wordData.list2Only;
-    let intersection = wordData.intersection;
-    console.log(intersection);
 
-    await updateBookWordTable(editionID, removeWords, addWords, workingCountDict, laxDiacritics);
+    return await updateBookWordTable(editionID, removeWords, addWords, newCountDict, laxDiacritics);
 }
 
 async function processBookWordTables(book: string, p: number, newWordList: string[], newCountDict: stringToIntDict) {
@@ -411,11 +394,16 @@ async function processBookWordTables(book: string, p: number, newWordList: strin
 
     let thisEditionID = book.toLowerCase() + editionToIDDict[p];
 
-    await processOneBookWordTable(thisEditionID, newWordList, newCountDict, true);
+
+    let returnList: string[] = [];
+
+    returnList.push(await processOneBookWordTable(thisEditionID, newWordList, newCountDict, false));
 
     let noDiacriticsWordData = laxifyWordData(newWordList, newCountDict);
-    
-    await processOneBookWordTable(thisEditionID, noDiacriticsWordData.laxWordList, noDiacriticsWordData.laxCountDict, false);
+
+    returnList.push(await processOneBookWordTable(thisEditionID, noDiacriticsWordData.laxWordList, noDiacriticsWordData.laxCountDict, true));
+
+    return returnList;
 }
 
 
@@ -494,7 +482,7 @@ export async function processWordsOneText(book: string, p: number) {
         }
     }
 
-    processBookWordTables(book, p, newWordsText, newCountsTextDict);
+    return processBookWordTables(book, p, newWordsText, newCountsTextDict);
 }
 
 export async function processBatchWordData(rawJSON: any) {

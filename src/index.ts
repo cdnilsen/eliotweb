@@ -91,8 +91,9 @@ app.post('/processWordsBook/:book/:p', wrapAsync(async (req, res) => {
     try {
         let book: string = req.params.book;
         let p: number = parseInt(req.params.p);
-        await processWordsOneText(book, p);
-        res.json('done');
+        
+        let result = await processWordsOneText(book, p);
+        res.json(result);
 
     } catch (error) {
         console.error(error);
