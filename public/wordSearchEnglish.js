@@ -232,6 +232,7 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical, laxDiac
             continue;
         }
         let thisHeader = "";
+        console.log(allHeaders[i]);
         if (sortAlphabetical) {
             thisHeader = allHeaders[i].toString();
         } else {
