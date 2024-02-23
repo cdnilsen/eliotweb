@@ -2,26 +2,12 @@ import express from "express"
 import path from "path"
 
 import { default as pool } from './db'
+
+import { stringToIntDict, stringToStringDict, stringToIntListDict, stringToStringListDict, intToStringDict, intToIntDict, intToStringListDict, intToIntListDict, cleanDiacriticsEngmaMarking, getIntersectionAndUnion, laxifyWordData} from './functions'
 import { wrapAsync } from './utils'
 
 const app = express()
 const port = process.env.PORT
-
-type stringToStringDict = { 
-    [key: string]: string 
-};
-
-type stringToNumberDict = {
-    [key: string]: number
-};
-
-type stringToStringListDict = {
-    [key: string]: string[]
-};
-
-type stringToNumberListDict = {
-    [key: string]: number[]
-};
 
 const editionToWordListDict: stringToStringDict = {
     "First Edition": "words_first_edition",
@@ -45,81 +31,18 @@ const editionToNumDict: stringToStringDict = {
     "Zeroth Edition": "7"
 };
 
-//This function is an attempt to deal with the macra and tildes that Eliot uses to represent a following nasal
-function processEngma(word: string): string {
 
-    let wordCopy = word;
-    //These will need to be dealt with manually, but we'll need to do that later
-    if (word.endsWith('ŋ')) {
-        //let chapterString = chapter.toString();
-        //let verseString = verse.toString();
-        wordCopy = word.slice(0, -1);
-        wordCopy = wordCopy + "Ŋ";
+
+function zip(list1: any[], list2: any[]): any {
+    let zipped: any = {};
+    for (let i = 0; i < list1.length; i++) {
+        zipped[list1[i]] = list2[i];
     }
-    
-    let labialEngmaClusters: string[] = ['ŋb', 'ŋp', 'ŋm', 'ŋf'];
-
-    let replacementClusters: string[] = ['mb', 'mp', 'mm', 'mf'];
-
-    for (let i = 0; i < 4; i++) {
-        wordCopy = wordCopy.split(labialEngmaClusters[i]).join(replacementClusters[i]);
-    }
-
-    wordCopy = wordCopy.split('ŋ').join('n');
-
-    return wordCopy;
+    return zipped;
 }
 
-function cleanDiacriticsEngmaMarking(word: string): string {
-
-    let charReplacementDict: stringToStringDict = {
-        "á": "a",
-        "é": "e",
-        "í": "i",
-        "ó": "o",
-        "ú": "u",
-        "à": "a",
-        "è": "e",
-        "ì": "i",
-        "ò": "o",
-        "ù": "u",
-        "â": "a",
-        "ê": "e",
-        "î": "i",
-        "ô": "o",
-        "û": "u",
-        "ä": "a",
-        "ë": "e",
-        "ï": "i",
-        "ö": "o",
-        "ü": "u",
-        "ã": "aŋ",
-        "õ": "oŋ",
-        "ñ": "nn",
-        "m̃": "mm",
-        "ũ": "uŋ",
-        "ẽ": "eŋ",
-        "ĩ": "iŋ",
-        "ā": "aŋ",
-        "ē": "eŋ",
-        "ī": "iŋ",
-        "ō": "oŋ",
-        "ū": "uŋ"
-    };
-
-    let cleanedWord = "";
-    for (let i = 0; i < word.length; i++) {
-        if (word[i] in charReplacementDict) {
-            cleanedWord += charReplacementDict[word[i]];
-        } else {
-            cleanedWord += word[i];
-        }
-    }
-    return processEngma(cleanedWord);
-}
-
-function getWordCountDict(wordList: string[], countList: number[], keepDiacritics: boolean): stringToNumberDict {
-    let countDict: stringToNumberDict = {};
+function getWordCountDict(wordList: string[], countList: number[], keepDiacritics: boolean): stringToIntDict {
+    let countDict: stringToIntDict = {};
     for (let i = 0; i < wordList.length; i++) {
         let cleanedWord = "";
         if (!keepDiacritics) {
@@ -222,7 +145,7 @@ async function processWordInTable(word: string, verseID: number, count: number, 
     return consoleString;
 }
 
-async function appendWordDataOneTable(verseEditionID: number, countDict: stringToNumberDict, tableName: string) {
+async function appendWordDataOneTable(verseEditionID: number, countDict: stringToIntDict, tableName: string) {
     let allWords = Object.keys(countDict);
     let outputString = "";
     for (let i = 0; i < allWords.length; i++) {
@@ -290,7 +213,7 @@ async function getHapaxes(checkDiacritics: boolean) {
     return allHapaxList;
 }
 
-async function appendWordData(verseEditionID: number, diacriticCountDict: stringToNumberDict, noDiacriticCountDict: stringToNumberDict) {
+async function appendWordData(verseEditionID: number, diacriticCountDict: stringToIntDict, noDiacriticCountDict: stringToIntDict) {
     let outputString = await appendWordDataOneTable(verseEditionID, diacriticCountDict, "words_diacritics");
     await appendWordDataOneTable(verseEditionID, noDiacriticCountDict, "words_no_diacritics");
 
@@ -333,8 +256,8 @@ async function processOneVerseWordData(verseID: number) {
     }
 
     let activeVersesList: number[] = [];
-    let diacriticCountDictList: stringToNumberDict[] = [];
-    let noDiacriticWordDictList: stringToNumberDict[] = [];
+    let diacriticCountDictList: stringToIntDict[] = [];
+    let noDiacriticWordDictList: stringToIntDict[] = [];
 
     for (let i = 0; i < editionColumnList.length; i++) {
         let thisEditionWordList = editionColumnList[i];
@@ -408,43 +331,134 @@ export async function populateCorrespondences() {
             await pool.query('INSERT INTO words_no_diacritics (word, corresponding_words) VALUES ($1::text, $2::text[])', [noDiacriticWord, diacriticWordArray]);
         }
     }
-        
-        
-        
     return "Processed correspondences for " + allDiacriticsList.length.toString() + " words.";
+}
+
+async function getOldWordsInBook(editionID: string, diacriticsStrict: boolean): Promise<string[]> {
+
+    let tableName = "book_words_no_diacritics";
+    if (diacriticsStrict) {
+        tableName = "book_words_diacritics";
+    }
+    let queryDiacritics = await pool.query("SELECT * FROM " + tableName + " WHERE textID = $1::text", [editionID]);
+
+    let queryRows = queryDiacritics.rows;
+
+    let allWords: string[] = [];
+    for (let i = 0; i < queryRows.length; i++) {
+        let word = queryRows[i].word;
+        allWords.push(word);      
+    }
+    return allWords;
+}
+
+async function processOneBookWordTable(editionID: string, newWordList: string[], newCountDict: stringToIntDict, laxDiacritics: boolean) {
+
+    let oldWords = await getOldWordsInBook(editionID, laxDiacritics);
+
+    let workingWordList = newWordList;
+    let workingCountDict = newCountDict;
     
+    if (laxDiacritics) {
+        let wordData = laxifyWordData(newWordList, newCountDict);
+        workingWordList = wordData.laxWordList;
+        workingCountDict = wordData.laxCountDict;
+    }
+
+    let wordData = getIntersectionAndUnion(workingWordList, oldWords);
+
+
 }
 
-async function getOldWordsInBook(book: string) {
-    let finalDict: stringToStringListDict = {};
+async function processBookWordTables(book: string, p: number, newWordList: string[], oldWordList: string[]) {
+    let editionToIDDict: intToStringDict = {
+        2: "-a",
+        3: "-b",
+        5: "-M",
+        7: "-Z"
+    };
 
-    let queryDiacritics = await pool.query("SELECT * FROM book_words_diacritics WHERE book = $1::text", [book]);
+    let thisEditionID = book + editionToIDDict[p];
+
+    let oldWordsDiacritics = await getOldWordsInBook(thisEditionID, true);
+
+
 }
 
-export async function processWordsOneText(book: string, editionNum: number) {
 
-    let numToColumnDict: any = {
+export async function processWordsOneText(book: string, p: number) {
+
+    let numToColumnDict: intToStringDict = {
         2: "first_edition_raw",
         3: "second_edition_raw",
         5: "other_edition_raw",
         7: "other_edition_raw"
     };
 
+    let numToWordsDict: intToStringDict = {
+        2: "words_first_edition",
+        3: "words_second_edition",
+        5: "words_other_edition",
+        7: "words_other_edition"
+    };
+
+    let numToCountsDict: intToStringDict = {
+        2: "word_counts_first_edition",
+        3: "word_counts_second_edition",
+        5: "word_counts_other_edition",
+        7: "word_counts_other_edition"
+    }
+
     let allVerses: any = await pool.query("SELECT * FROM all_verses WHERE book = $1::text", [book]);
     let allRows = allVerses.rows;
 
-    let oldWordList = [];
-    let newWordList = [];
-    
+    let newWordsText: string[] = [];
+    let newCountsTextDict: stringToIntDict = {};
 
-    let allTexts: string[] = [];
+    let fixWordListDict: intToStringListDict = {};
+    let fixCountListDict: intToIntListDict = {};
     for (let i = 0; i < allRows.length; i++) {
         let thisRow = allRows[i];
-        let columnText = thisRow[numToColumnDict[editionNum]];
-        allTexts.push(columnText);
-    }
+        let thisVerseID = thisRow.id;
+        let columnText = thisRow[numToColumnDict[p]];
+        let oldWordsList = thisRow[numToWordsDict[p]];
+        let oldCountsList = thisRow[numToCountsDict[p]];
 
-    return allTexts;
+        let splitText = columnText.split(" ");
+
+        let newWordsList: string[] = [];
+        let newWordsToCountDict: stringToIntDict = {};
+        let newCountsList: number[] = [];
+        for (let j=0; j < splitText.length; j++) {
+            let newWord = cleanDiacriticsEngmaMarking(splitText[j]);
+            if (newWordsList.includes(newWord)) {
+                newWordsToCountDict[newWord] += 1;
+            } else {
+                newWordsList.push(newWord);
+                newWordsToCountDict[newWord] = 1;
+            }
+        }
+
+        for (let k = 0; k < newWordsList.length; k++) {
+            let word = newWordsList[k];
+            let count = newWordsToCountDict[word];
+            newCountsList.push(count);
+
+            if (!newWordsText.includes(word)) {
+                newWordsText.push(word);
+                newCountsTextDict[word] = count;
+            } else {
+                newCountsTextDict[word] += count;
+            }
+        }
+
+        if (oldWordsList != newWordsList) {
+            fixWordListDict[thisVerseID] = newWordsList;
+        }
+        if (oldCountsList != newCountsList) {
+            fixCountListDict[thisVerseID] = newCountsList;
+        }
+    }
 }
 
 export async function processBatchWordData(rawJSON: any) {

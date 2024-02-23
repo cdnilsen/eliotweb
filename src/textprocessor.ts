@@ -4,6 +4,8 @@ import path from "path"
 import { default as pool } from './db'
 import { wrapAsync } from './utils'
 
+import { stringToIntDict, stringToStringDict, stringToIntListDict, stringToStringListDict, intToStringDict, intToIntDict } from './functions'
+
 const app = express()
 const port = process.env.PORT;
 
@@ -13,14 +15,6 @@ function cleanPunctuation(word: string): string {
     let cleanWord = word.replace(/[.,\/#!%\^&\*?;:{}=\_`~()]/g, "");
     cleanWord = cleanWord.replace('[', '').replace(']', '');
     return cleanWord;
-}
-
-type stringToIntDict = {
-    [key: string]: number
-}
-
-type intToIntDict = {
-    [key: number]: number
 }
 
 function zipTwoLists(list1: any[], list2: any[]): any {
@@ -80,10 +74,7 @@ function getWordsInText(verseText: string): stringToIntDict {
     }
     return finalCountDict;
 }
-//Rename this string to string type or something
-type stringToStringDict = {
-    [key: string]: string
-}
+
 
 const editionToColumnDict: stringToStringDict = {
     "First Edition": "first_edition_raw",

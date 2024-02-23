@@ -87,11 +87,11 @@ app.post('/processWords', wrapAsync(async (req, res) => {
     }
 }));
 
-app.post('/processWordsBook/:book/:edition', wrapAsync(async (req, res) => {
+app.post('/processWordsBook/:book/:p', wrapAsync(async (req, res) => {
     try {
         let book: string = req.params.book;
-        let edition: number = parseInt(req.params.edition);
-        let result = await processWordsOneText(book, edition);
+        let p: number = parseInt(req.params.p);
+        let result = await processWordsOneText(book, p);
         res.json(result);
 
     } catch (error) {
