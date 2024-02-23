@@ -439,7 +439,7 @@ export const bookToActiveEditionsDict = {
     "Habakkuk": 6,
     "Zephaniah": 6,
     "Haggai": 6, 
-    "Zechariah": 6,
+    "Zechariah": 1,
     "Malachi": 1,
     "Matthew": 6,
     "Mark": 6, 
