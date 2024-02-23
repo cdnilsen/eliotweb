@@ -415,6 +415,38 @@ export async function populateCorrespondences() {
     
 }
 
+async function getOldWordsInBook(book: string) {
+    let finalDict: stringToStringListDict = {};
+
+    let queryDiacritics = await pool.query("SELECT * FROM book_words_diacritics WHERE book = $1::text", [book]);
+}
+
+export async function processWordsOneText(book: string, editionNum: number) {
+
+    let numToColumnDict: any = {
+        2: "first_edition_raw",
+        3: "second_edition_raw",
+        5: "other_edition_raw",
+        7: "other_edition_raw"
+    };
+
+    let allVerses: any = await pool.query("SELECT * FROM all_verses WHERE book = $1::text", [book]);
+    let allRows = allVerses.rows;
+
+    let oldWordList = [];
+    let newWordList = [];
+    
+
+    let allTexts: string[] = [];
+    for (let i = 0; i < allRows.length; i++) {
+        let thisRow = allRows[i];
+        let columnText = thisRow[numToColumnDict[editionNum]];
+        allTexts.push(columnText);
+    }
+
+    return allTexts;
+}
+
 export async function processBatchWordData(rawJSON: any) {
     let idList: string[] = Object.values(rawJSON);
     let outputStringList: string[] = [];

@@ -5,7 +5,7 @@ import { default as pool } from './db'
 import { wrapAsync } from './utils'
 import { wordSearch } from './wordSearchMass'
 import { processVerseJSON, processKJVJSON, addComparedVerses, addComparedBook, addComparedChapter } from './textprocessor'
-import { processBatchWordData, populateCorrespondences, getTotalWordCounts } from './processWords'
+import { processBatchWordData, processWordsOneText, populateCorrespondences, getTotalWordCounts } from './processWords'
 import { getVerseText, getChapterText } from './browseTexts'
 
 const app = express();
@@ -84,6 +84,19 @@ app.post('/processWords', wrapAsync(async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error in processWords');
+    }
+}));
+
+app.post('processWordsBook/:book/:edition', wrapAsync(async (req, res) => {
+    try {
+        let book: string = req.params.book;
+        let edition: number = parseInt(req.params.edition);
+        let result = await processWordsOneText(book, edition);
+        res.json(result);
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error in processWordsBook');
     }
 }));
 

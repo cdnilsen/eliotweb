@@ -226,11 +226,6 @@ const bookToChapterDict = {
 };
 
 /*
-
-
-
-
-
 document.getElementById('submit').addEventListener("click", async function() {
     document.getElementById("text-container").innerHTML = "";
     let whichBook = bookDropdown.value;
@@ -653,7 +648,27 @@ async function getBookIDList(book) {
     return bookIDList;
 }
 
-async function createDropdownChain(includeEdition) {
+async function runEditionVocab(whichBook, whichEdition, myTextContainer) {
+    document.getElementById("text-container").innerHTML = "";
+
+    fetch('/processWordsBook/' + whichBook + "/" + whichEdition, {
+        method: 'POST',
+        body: JSON.stringify({"dummy": 0}),
+        headers: {
+        "Content-type": "application/json; charset=UTF-8"
+        }
+    }).then(res => res.json()).then(res => {
+        for (let i = 0; i < res.length; i++) {
+            let thisText = res[i];
+            let thisTextSpan = document.createElement('span');
+            thisTextSpan.innerHTML = thisText + "<br>";
+            myTextContainer.appendChild(thisTextSpan);
+        }
+
+    }).catch(err => console.log(err));    
+}
+
+async function createDropdownChain(includeEdition, includesKJV) {
     let whichSectionLabel = document.createElement('span');
     whichSectionLabel.innerHTML = "Select a section of the Bible: ";
 
@@ -737,7 +752,9 @@ async function createDropdownChain(includeEdition) {
                     editionsList.push("Mayhew");
                 }
 
-                editionsList.push("KJV");
+                if (includesKJV) {
+                    editionsList.push("KJV");
+                }
 
                 //editionsList.push(originalLanguage);
 
@@ -767,7 +784,18 @@ async function createDropdownChain(includeEdition) {
                     submitButton.hidden = false;
                     submitButton.innerHTML = "<b>Submit</b>";
                     submitButton.addEventListener("click", async function() {
-                        await submitTextForProcessing(whichBook, whichEdition, textContainerDiv);
+                        if (includeEdition && includesKJV) {
+                            await submitTextForProcessing(whichBook, whichEdition, textContainerDiv);
+                        } else if (includeEdition) {
+                            let bookToPrimeDict = {
+                                "First Edition": "2",
+                                "Second Edition": "3",
+                                "Mayhew": "5",
+                                "Zeroth Edition": "7"
+                            }
+
+                            await runEditionVocab(whichBook, bookToPrimeDict[whichEdition], textContainerDiv);
+                        }
                     });
                 });
             });
@@ -827,11 +855,11 @@ async function createDropdownChain(includeEdition) {
 
 
 async function processTextPopulateHTML() {
-    await createDropdownChain(true);
+    await createDropdownChain(true, true);
 }
 
 async function processTextComparisons() {
-    await createDropdownChain(false);
+    await createDropdownChain(false, false);
 }
 
 function getRadioSelection() {
@@ -844,6 +872,10 @@ function getRadioSelection() {
     }
 }
 
+async function processWordsOneText() {
+    await createDropdownChain(true, false);
+}
+
 async function callRadioFunction(whichAction) {
     if (whichAction == "processAText") {
         await processTextPopulateHTML();
@@ -851,6 +883,8 @@ async function callRadioFunction(whichAction) {
         await processTextComparisons();
     } else if (whichAction == "runCorrespondences") {
         await runCorrespondences();
+    } else if (whichAction == "processWordsOneText") {
+        await processWordsOneText();
     }
 }
 
