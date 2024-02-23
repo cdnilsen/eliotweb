@@ -140,7 +140,7 @@
 12.4 Uttiyeug anoowohpanneg nashpe nenannunnonash pish nutomskosumun, nussissittoonunnonash nuttihenonash, howan wasantimameog?
 12.5 Wutche onkapunnannaonk matchekoooh, kah ummishannomooonganoo quenauwehikqunnitche, yeuyeu nutomohkem (noowau Jehovah) nuppon nanauwiyeuut wutch noh mamishanumont.
 12.6 Ukkuttoowongash Jehovah pahke kuttoowongash onatuh silver sabassumuk, ut ohkee sabassohsuonganit, nesausuk tahshit pahketeaumuk.
-12.7 Pish koowadchanoog, woi Jehovah, kenanaiheoog yeu wutch pometuonganit micheme.
+12.7 Pish koowadchanoog, woi Jehovah, kenanaiheoog yeu$wutch pometuonganit micheme.
 12.8 Matchetowog papomshaog nish noh ut, uhque matchetoowog ut kenugke wunnaumonauh wosketompaog tahshinnomuk.
 13.0
 13.1 TOhsohke pish koowananimeh (woi Jehovah) nagwutteaeu? tohsohke pish kupputtogkuhhumah kuskesuk.
@@ -1967,7 +1967,7 @@
 112.9 Chadchapunumup, unnunumauop matchekoooh; wussampweusseonk michemohteau; wuttaskon pish tashunumun nashpe quehtianittuonk.
 112.10 Matchetoo pish wunnamun, kah eskauontam; pish chuhquanussun, kah mohtuppaeu: ukkodtantamooonkanoo matchetooog pish wohkuhquoemoo.
 113.1 WAenomoohk Jehovah. Waenomuwak, woi kenau wuttinninnumoh Jehovah, waenotumoohk oowesuonk Jehovah.
-113.2 Wunnantamunnaj oowesuonk Jehovah, yeu wutch yoyatche kah micheme.
+113.2 Wunnantamunnaj oowesuonk Jehovah, yeu$wutch yoyatche kah micheme.
 113.3 Wutch adt pashpishont en na adt waiont, oowesuonk Jehovah woh waenotumun.
 113.4 Jehovah anuuhquaputam wame wuttohtimmoinneash, kah wussohsumooonk waape kesukquash.
 113.5 Howan aquinneunkquissit Jehovah num-Mannittoomun, noh quanuhquiit?
@@ -2000,7 +2000,7 @@
 115.15 Koonanumukoo Jehovah, noh kasehtunkup kesuk kah ohke.
 115.16 Kesukque kesukquash ootiheinneash Jehovah: qut ohke wuttununumauonaop wunnechonoouh wosketompaog.
 115.17 Napukig matta waenomoooog Jehovah, asuh matta pasuk nag womsitcheg en chequnniinneat.
-115.18 Qut nenawun pish noonanumomun Jehovah, yeu wutch yoyache kah micheme. Waenomoohk Jehovah.
+115.18 Qut nenawun pish noonanumomun Jehovah, yeu$wutch yoyache kah micheme. Waenomoohk Jehovah.
 116.1 NOOwomon Jehovah: newutche nootamup noowadtauohtunkquissuonk, {kah} noowehquttumooonkash
 116.2 Newutche nuttahchuissuttunkup, newaje pish wowehquttumauog toh sohke pomantam.
 116.3 Nuppooe nooantamooonkash noowenuhkunkqunnapash, chepiohkomukque uhquommomooonkash nuttohqunukqunapash: nummushkomup wuttamantamooonk kah nooantamooonk.
@@ -2243,7 +2243,7 @@
 121.5 Jehovah kunnanawehhukkoowaeninneum: Jehovah kuttuhqunnuhtom ut kuttunuhkounut.
 121.6 Nuppaz koowoske unnehhukkoo kesukkodae, asuh nahneposhad nuhkonae.
 121.7 Jehovah pish kunnanwehhuk wutch wame matchutut: pish nanawehhau kukketeahogkou.
-121.8 Jehovah pish nanawehteo kussohhamooonk, kah kuppetutteaonk, yeu wutch kah micheme.
+121.8 Jehovah pish nanawehteo kussohhamooonk, kah kuppetutteaonk, yeu$wutch kah micheme.
 122.0
 122.1 NOOwekontamup ne ashittit, petutteatuh wekut Jehovah.
 122.2 Nussettunonash pish ohtaash unnome koosquontamut, woi Jerusalem.
@@ -2270,7 +2270,7 @@
 124.8 Nuttanunumonteaonkanun ohteau oowesuonkanit Jehovah, noh ayukup kesuk kah ohke.
 125.0
 125.1 NAg pabahtanumoncheg Jehovah {pish} ogquinneunkquissuog Sione wadchu, {ne} matta woh ontahtanook, {qut} machemohtog.
-125.2 {Neane} wadchuash qunnupohtaash Jerusalem, Jehovah ne wuttine qunnupuhkouon ummissinninnumoh, yeu wutch yoyatche nux micheme.
+125.2 {Neane} wadchuash qunnupohtaash Jerusalem, Jehovah ne wuttine qunnupuhkouon ummissinninnumoh, yeu$wutch yoyatche nux micheme.
 125.3 Newutche uppogkomunkannoo matchetooog matta pish sepohtanoo wuttohtoonkanoowout sampwesitcheg: eshkont sampwesitcheg woh summogunumog wunnitcheganoowoash en matcheusseonkanit.
 125.4 Woi Jehovah wunne unneh {nag} wanetugik, kah nag sampwuttahhoncheg.
 125.5 Qut nag pohchacheg en wonke ummayeuout, Jehovah pish oowechuwunnuh nah anuhkotsicheg matcheusseonk: {qut} wunnohteaonk pish ohteau Israelut.
@@ -2315,7 +2315,7 @@
 131.0
 131.1 JEhovah, nuttah pehtuanumoomunnooh, asuh nuskesukquash pehtuompamukquadtunooash: asuh nooweakehtooo makakish, asuh wassome qunuhquohkish wutche nen.
 131.2 Wunnummuhkit nuttunniyeuwahhomp kah nummanunnehhomp nohhog neane oochinnunnahit mukkies wutch oohkasut: nukketeahogkou neaneyeuoo oochinnunae mukkiesit.
-131.3 Israel annoononch Jehovah, yeu wutch kah micheme.
+131.3 Israel annoononch Jehovah, yeu$wutch kah micheme.
 132.0
 132.1 JEhovah mehquanim David, {kah} wame wuttuhkuhpunnaonkash:
 132.2 Toh ane chachekemuhp Jehovah, kah quahshomuhp munnehkesue ummannittoomoh Jakob;
