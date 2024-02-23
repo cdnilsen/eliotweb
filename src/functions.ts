@@ -34,7 +34,7 @@ export type intToIntListDict = {
 
 export function cleanPunctuation(word: string): string {
     let finalWord = word;
-    finalWord = finalWord.replace(/[\[.,\/#!%\^&\*?;:{}=\_`~()\]]/g, '');
+    finalWord = finalWord.replace(/[\[.,\/#!%\^\*?;:{}=\_`~()\]]/g, '');
     return finalWord;
 }
 
