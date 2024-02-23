@@ -233,18 +233,9 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical, laxDiac
         }
         let thisHeader = "";
         console.log(allHeaders[i]);
-        if (sortAlphabetical) {
-            thisHeader = allHeaders[i].toString();
-        } else {
-            thisHeader = allHeaders[i].length.toString();
-        }
-        let headerString = "";
-        if (sortAlphabetical) {
-            headerString = thisHeader[0];
-        } else {
-            console.log(thisHeader);
-            headerString = thisHeader.toString();
-        }
+        thisHeader = allHeaders[i].toString();
+
+        let headerString = thisHeader;
 
         let headerText = getHeaderText(headerToWordCountDict[thisHeader], headerToTokenCountDict[thisHeader], sortAlphabetical, headerString);
 
