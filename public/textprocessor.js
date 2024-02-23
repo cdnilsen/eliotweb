@@ -1,229 +1,5 @@
+import { PentateuchList, HistoricalBooksList, WisdomBooksList, MajorProphetsList, MinorProphetsList, gospelsList, restOfNTList, mishnaicList, bookToNumberDict, allBookList, bookToChapterDict, bookToChapterVerseDict, NTBookList, bookToActiveEditionsDict, psalmsWithVerseZero} from "./bookdata.js";
 
-const allBookList = [
-    "Genesis",
-    "Exodus",
-    "Leviticus",
-    "Numbers",
-    "Deuteronomy",
-    "Joshua",
-    "Judges",
-    "Ruth",
-    "1 Samuel",
-    "2 Samuel",
-    "1 Kings",
-    "2 Kings",
-    "1 Chronicles",
-    "2 Chronicles",
-    "Ezra",
-    "Nehemiah",
-    "Esther",
-    "Job",
-    "Psalms (prose)",
-    //"Psalms (metrical)", Will require a separate process
-    "Proverbs",
-    "Ecclesiastes",
-    "Song of Songs",
-    "Isaiah",
-    "Jeremiah",
-    "Lamentations",
-    "Ezekiel",
-    "Daniel",
-    "Hosea",
-    "Joel",
-    "Amos",
-    "Obadiah",
-    "Jonah",
-    "Micah",
-    "Nahum",
-    "Habakkuk",
-    "Zephaniah",
-    "Haggai",
-    "Zechariah",
-    "Malachi", 
-    "Matthew",
-    "Mark",
-    "Luke",
-    "John",
-    "Acts",
-    "Romans",
-    "1 Corinthians",
-    "2 Corinthians",
-    "Galatians",
-    "Ephesians",
-    "Philippians",
-    "Colossians",
-    "1 Thessalonians",
-    "2 Thessalonians",
-    "1 Timothy",
-    "2 Timothy",
-    "Titus",
-    "Philemon",
-    "Hebrews",
-    "James",
-    "1 Peter",
-    "2 Peter",
-    "1 John",
-    "2 John",
-    "3 John",
-    "Jude",
-    "Revelation"
-];
-
-const pentateuchList = [
-    "Genesis",
-    "Exodus",
-    "Leviticus",
-    "Numbers",
-    "Deuteronomy"
-];
-
-const historicalList = [
-    "Joshua",
-    "Judges",
-    "Ruth",
-    "1 Samuel",
-    "2 Samuel",
-    "1 Kings",
-    "2 Kings",
-    "1 Chronicles",
-    "2 Chronicles",
-    "Ezra",
-    "Nehemiah",
-    "Esther"
-];
-
-const wisdomList = [
-    "Job",
-    "Psalms (prose)",
-    //"Psalms (metrical)", Will require a separate process
-    "Proverbs",
-    "Ecclesiastes",
-    "Song of Songs"
-];
-
-const prophetsList = [
-    "Isaiah",
-    "Jeremiah",
-    "Lamentations",
-    "Ezekiel",
-    "Daniel",
-    "Hosea",
-    "Joel",
-    "Amos",
-    "Obadiah",
-    "Jonah",
-    "Micah",
-    "Nahum",
-    "Habakkuk",
-    "Zephaniah",
-    "Haggai",
-    "Zechariah",
-    "Malachi"
-];
-
-const epistlesList = [
-    "Romans",
-    "1 Corinthians",
-    "2 Corinthians",
-    "Galatians",
-    "Ephesians",
-    "Philippians",
-    "Colossians",
-    "1 Thessalonians",
-    "2 Thessalonians",
-    "1 Timothy",
-    "2 Timothy",
-    "Titus",
-    "Philemon",
-    "Hebrews",
-    "James",
-    "1 Peter",
-    "2 Peter",
-    "1 John",
-    "2 John",
-    "3 John",
-    "Jude"
-]
-
-const otherNTList = [
-    "Matthew",
-    "Mark",
-    "Luke",
-    "John",
-    "Acts",
-    "Revelation"
-];
-
-const bookToChapterDict = {
-    "": 0,
-    "Genesis": 50,
-    "Exodus": 40,
-    "Leviticus": 27,
-    "Numbers": 36,
-    "Deuteronomy": 34,
-    "Joshua": 24,
-    "Judges": 21,
-    "Ruth": 4,
-    "1 Samuel": 31,
-    "2 Samuel": 24,
-    "1 Kings": 22,
-    "2 Kings": 25,
-    "1 Chronicles": 29,
-    "2 Chronicles": 36,
-    "Ezra": 10,
-    "Nehemiah": 13,
-    "Esther": 10,
-    "Job": 42,
-    "Psalms (prose)": 150,
-    "Psalms (metrical)": 150,
-    "Proverbs": 31,
-    "Ecclesiastes": 12,
-    "Song of Songs": 8,
-    "Isaiah": 66,
-    "Jeremiah": 52,
-    "Lamentations": 5,
-    "Ezekiel": 48,
-    "Daniel": 12,
-    "Hosea": 14,
-    "Joel": 3,
-    "Amos": 9,
-    "Obadiah": 1,
-    "Jonah": 4,
-    "Micah": 7,
-    "Nahum": 3,
-    "Habakkuk": 3,
-    "Zephaniah": 3,
-    "Haggai": 2,
-    "Zechariah": 14,
-    "Malachi": 4,
-    "Matthew": 28,
-    "Mark": 16,
-    "Luke": 24,
-    "John": 21,
-    "Acts": 28,
-    "Romans": 16,
-    "1 Corinthians": 16,
-    "2 Corinthians": 13,
-    "Galatians": 6,
-    "Ephesians": 6,
-    "Philippians": 4,
-    "Colossians": 4,
-    "1 Thessalonians": 5,
-    "2 Thessalonians": 3,
-    "1 Timothy": 6,
-    "2 Timothy": 4,
-    "Titus": 3,
-    "Philemon": 1,
-    "Hebrews": 13,
-    "James": 5,
-    "1 Peter": 5,
-    "2 Peter": 3,
-    "1 John": 5,
-    "2 John": 1,
-    "3 John": 1,
-    "Jude": 1,
-    "Revelation": 22
-};
 
 /*
 document.getElementById('submit').addEventListener("click", async function() {
@@ -667,13 +443,38 @@ async function runEditionVocab(whichBook, whichEdition, myTextContainer) {
     }).catch(err => console.error(err));
 }
 
+function getProcessableEditions(rawBookList) {
+    let primeList = [2, 3, 5, 7];
+    let editionNames = ["First Edition", "Second Edition", "Mayhew", "Zeroth Edition"];
+    let finalBooks = [];
+    let bookToEditionDict = {};
+
+    for (let i = 0; i < rawBookList.length; i++) {
+        let book = rawBookList[i];
+        let n = bookToActiveEditionsDict[book];
+        //finalBooks.push(book);
+        if (n > 1) {
+            finalBooks.push(book);
+            bookToEditionDict[book] = [""];
+            for (let j = 0; j < primeList.length; j++) {
+                if (n % primeList[j] == 0) {
+                    bookToEditionDict[book].push(editionNames[j]);
+                }
+            }
+        }
+        //Uncomment this to include KJV
+        //bookToEditionDict[book].push("KJV");
+    }
+    return [finalBooks, bookToEditionDict];
+}
+
 async function createDropdownChain(includeEdition, includesKJV) {
     let whichSectionLabel = document.createElement('span');
     whichSectionLabel.innerHTML = "Select a section of the Bible: ";
 
     selectSectionDiv.appendChild(whichSectionLabel);
 
-    let sectionNameList = ["Pentateuch", "Historical Books", "Wisdom Books", "Prophets", "New Testament (not epistles)", "New Testament (epistles)"];
+    let sectionNameList = ["Pentateuch", "Historical Books", "Wisdom Books", "Najor Prophets", "Minor Prophets", "Gospels", "Other New Testament"];
 
     let whichSectionDropdown = createDropdownFromList("which-section-dropdown", sectionNameList, true);
 
@@ -708,17 +509,23 @@ async function createDropdownChain(includeEdition, includesKJV) {
         selectBookDiv.appendChild(whichBookLabel);
 
         let sectionToBookListDict = {
-            "Pentateuch": pentateuchList,
-            "Historical Books": historicalList,
-            "Wisdom Books": wisdomList,
-            "Prophets": prophetsList,
-            "New Testament (not epistles)": otherNTList,
-            "New Testament (epistles)": epistlesList
+            "Pentateuch": PentateuchList,
+            "Historical Books": HistoricalBooksList,
+            "Wisdom Books": WisdomBooksList,
+            "Major Prophets": MajorProphetsList,
+            "Minor Prophets": MinorProphetsList,
+            "Gospels": gospelsList,
+            "Other New Testament": restOfNTList
         };
 
         let whichSection = whichSectionDropdown.value;
 
-        let bookList = sectionToBookListDict[whichSection];
+        let rawBookList = sectionToBookListDict[whichSection];
+
+        let processedBookData = getProcessableEditions(rawBookList);
+
+        let bookList = processedBookData[0];
+        let bookToEditionDict = processedBookData[1];
 
         addListToDropdown(selectBookDropdown, bookList, true);
 
@@ -743,17 +550,7 @@ async function createDropdownChain(includeEdition, includesKJV) {
                 submitButton.innerHTML = "";
                 submitButton.hidden = true;
             
-                let editionsList = ["First Edition", "Second Edition"];
-
-                if (selectBookDropdown.value == "Genesis") {
-                    editionsList.push("Zeroth Edition");
-                } else if (selectBookDropdown.value == "Psalms (prose)" || selectBookDropdown.value == "John") {
-                    editionsList.push("Mayhew");
-                }
-
-                if (includesKJV) {
-                    editionsList.push("KJV");
-                }
+                let editionsList = bookToEditionDict[selectBookDropdown.value];
 
                 //editionsList.push(originalLanguage);
 
