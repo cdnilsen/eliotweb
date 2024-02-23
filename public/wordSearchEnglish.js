@@ -111,7 +111,7 @@ function getOtherEdition(book) {
 
 async function fetchVerseText(book, dbCode) {
     let correctAddress = getVerseAddress(dbCode);
-    let bookFile = fetch("./texts/" + book + ".KJV.txt");
+    let bookFile = await fetch("./texts/" + book + ".KJV.txt");
     let bookText = await bookFile.text();
     let allVerses = bookText.split("\n");
 
