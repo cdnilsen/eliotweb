@@ -1,6 +1,6 @@
 import { addTriangleToParent, topBookList, resetResults, getCountDictionaries, addChildToExistingTriangle, getHeaderText, getBooks, processBookData, zip, alphabetizeWords, cleanDiacritics, cleanPunctuation, getVerseAddress } from "./wordSearchFunctions.js";
 
-import { bookToActiveEditionsDict } from "./browseTexts.js";
+import { bookToActiveEditionsDict } from "./bookdata.js";
 
 function getTestWord(word, diacriticsLax=false) {
     let cleanedWord = word.toLowerCase();
