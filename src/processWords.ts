@@ -375,7 +375,6 @@ async function processOneBookWordTable(editionID: string, newWordList: string[],
 
     let oldWords = await getOldWordsInBook(editionID, laxDiacritics);
 
-
     let wordData = getIntersectionAndUnion(newWordList, oldWords);
 
     let addWords = wordData.list1Only;
@@ -452,7 +451,7 @@ export async function processWordsOneText(book: string, p: number) {
         let newCountsList: number[] = [];
 
         for (let j=0; j < splitText.length; j++) {
-            let newWord = cleanPunctuation(splitText[j]);
+            let newWord = cleanPunctuation(splitText[j]).toLowerCase();
             if (newWordsList.includes(newWord)) {
                 newWordsToCountDict[newWord] += 1;
             } else {
