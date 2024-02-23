@@ -92,7 +92,7 @@ app.post('/processWordsBook/:book/:p', wrapAsync(async (req, res) => {
         let book: string = req.params.book;
         let p: number = parseInt(req.params.p);
         await processWordsOneText(book, p);
-        //res.json(result);
+        res.json('done');
 
     } catch (error) {
         console.error(error);
