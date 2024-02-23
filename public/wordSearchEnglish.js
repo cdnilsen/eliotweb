@@ -1,4 +1,4 @@
-import { addTriangleToParent, topBookList, resetResults, getCountDictionaries, addChildToExistingTriangle, getHeaderText, getBooks, processBookData, zip, alphabetizeWords, cleanDiacritics, cleanPunctuation } from "./wordSearchFunctions.js";
+import { addTriangleToParent, topBookList, resetResults, getCountDictionaries, addChildToExistingTriangle, getHeaderText, getBooks, processBookData, zip, alphabetizeWords, cleanDiacritics, cleanPunctuation, getVerseAddress } from "./wordSearchFunctions.js";
 
 function getTestWord(word, diacriticsLax=false) {
     let cleanedWord = word.toLowerCase();
@@ -107,6 +107,20 @@ function getOtherEdition(book) {
     }
 }
 
+async function fetchVerseText(book, dbCode) {
+    let correctAddress = getVerseAddress(dbCode);
+    let bookFile = fetch("./texts/" + book + ".KJV.txt");
+    let bookText = await bookFile.text();
+    let allVerses = bookText.split("\n");
+
+    for (let i = 0; i < allVerses.length; i++) {
+        let address = allVerses[i].split(" ")[0];
+        if (address == correctAddress) {
+            return allVerses[i].split(" ").slice(1).join(" ");
+        }
+    }
+}
+
 async function showVersesInBox(popupContainer, dbCode, book, activeWord, laxDiacritics=false) {
     //why do we need to do this...?
     let allPopups = document.getElementsByClassName('show-verse');
@@ -145,7 +159,18 @@ async function showVersesInBox(popupContainer, dbCode, book, activeWord, laxDiac
 
         popupContainer.style.width = (popupWidth + 100).toString() + "px";
         popupContainer.appendChild(table);
-    });
+    }).error(err => {
+        console.log(err);
+        popupContainer.innerHTML = "";
+        let activeVerseText = fetchVerseText(book, dbCode);
+        let tableData = generateTable(["KJV"], activeVerseText, [11], activeWord, laxDiacritics);
+        console.log(tableData);
+        let table = tableData[0];
+        let popupWidth = tableData[1];
+
+        popupContainer.style.width = (popupWidth + 100).toString() + "px";
+        popupContainer.appendChild(table);
+    }); 
 
     popupContainer.style.position = "absolute";
     popupContainer.style.left = "10%";

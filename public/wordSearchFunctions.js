@@ -284,6 +284,16 @@ export function getHeaderText(wordCount, tokenCount, sortAlphabetical, headerStr
     }
 }
 
+function getVerseAddress(dbCode) {
+    let stringAddress = dbCode.toString().slice(3);
+  
+    let chapter = parseInt(stringAddress.slice(0, 3));
+    let verse = parseInt(stringAddress.slice(3));
+
+    return chapter.toString() + "." + verse.toString();
+
+}
+
 function decodeVerseCode(verseCode, verseCount) {
     //Examples of verse codes: 225003010, 325003010, 219104022. The first digit is the edition number, the next two are the book number, the next three are the chapter number, and the last three are the verse number. Note that both verseCode and verseCount are lists of strings.
     
