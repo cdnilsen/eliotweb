@@ -487,6 +487,8 @@ export function getCountDictionaries(wordList, dictOfDicts, sortAlphabetical) {
         let wordCount = 0;
 
         if (dictOfDicts[thisWord]["totalCount"] == null) {
+            console.log(thisWord, dictOfDicts[thisWord])
+            continue;
             for (let j=0; j < dictOfDicts[thisWord]["allVerseCounts"].length; j++) {
                 wordCount += dictOfDicts[thisWord][j]["allVerseCounts"];
             }
