@@ -195,6 +195,7 @@ async function getHapaxes(checkDiacritics: boolean) {
     if (checkDiacritics == false) {
         tableName = "words_no_diacritics";
     }
+
     let query = await pool.query("SELECT * FROM " + tableName + " WHERE total_count = 1");
     let allHapaxList = [];
     let rows = query.rows;
@@ -325,11 +326,11 @@ export async function populateCorrespondences() {
     return "Processed correspondences for " + allDiacriticsList.length.toString() + " words.";
 }
 
-async function getOldWordsInBook(editionID: string, diacriticsStrict: boolean): Promise<string[]> {
+async function getOldWordsInBook(editionID: string, laxDiacritics: boolean): Promise<string[]> {
 
-    let tableName = "book_words_no_diacritics";
-    if (diacriticsStrict) {
-        tableName = "book_words_diacritics";
+    let tableName = "book_words_diacritics";
+    if (laxDiacritics) {
+        tableName = "book_words_no_diacritics";
     }
     let queryDiacritics = await pool.query("SELECT * FROM " + tableName + " WHERE text_id = $1::text", [editionID]);
 
@@ -372,6 +373,8 @@ async function updateBookWordTable(editionID: string, removeWords: string[], add
 }
 
 async function processOneBookWordTable(editionID: string, newWordList: string[], newCountDict: stringToIntDict, laxDiacritics: boolean) {
+
+    console.log(newWordList);
 
     let oldWords = await getOldWordsInBook(editionID, laxDiacritics);
 

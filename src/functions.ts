@@ -33,9 +33,7 @@ export type intToIntListDict = {
 };
 
 export function cleanPunctuation(word: string): string {
-    let finalWord = word;
-    finalWord = finalWord.replace(/[\[.,\/#!%\^\*?;:{}=\_`~()\]]/g, '');
-    return finalWord;
+    return word.replace(/[\[.,\/#!%\^\*?;:{}=\_`~()\]]/g, '');
 }
 
 //This function is an attempt to deal with the macra and tildes that Eliot uses to represent a following nasal
