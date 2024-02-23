@@ -368,7 +368,7 @@ async function updateBookWordTable(editionID: string, removeWords: string[], add
         let word = addWords[j];
         let thisWordID = editionID + "-" + word;
         let thisCount = newWordCountDict[word];
-        await pool.query("INSERT INTO " + tableName + "(id, word, text_id, total_count) VALUES ($1::text, $2::text)", [thisWordID, word, editionID, thisCount]);
+        await pool.query("INSERT INTO " + tableName + "(id, word, text_id, total_count) VALUES ($1::text, $2::text, $3::text, $4::int)", [thisWordID, word, editionID, thisCount]);
     }
 
     console.log("Removed " + removeWords.length.toString() + " words and added " + addWords.length.toString() + " words to " + editionID + " in " + tableName);
