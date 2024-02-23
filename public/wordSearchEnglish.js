@@ -232,7 +232,6 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical, laxDiac
             continue;
         }
         let thisHeader = "";
-        console.log(allHeaders[i]);
         thisHeader = allHeaders[i].toString();
 
         let headerString = thisHeader;
@@ -257,7 +256,6 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical, laxDiac
             let allBookToVerseDict = bookData[1];
 
             let totalCount = thisWordDataDict["totalCount"].length.toString();
-            //console.log(thisWordDataDict["totalCount"]);
 
             let ligaturedWord = thisWord.split('8').join('ꝏ̄');
 

@@ -268,10 +268,6 @@ function rightPlural (count, singular, plural=undefined) {
 
 export function getHeaderText(wordCount, tokenCount, sortAlphabetical, headerString) {
 
-    console.log(wordCount);
-    console.log(tokenCount);
-    console.log(headerString);
-
     let useToken = sortAlphabetical;
     if (headerString == "8" && sortAlphabetical) {
         headerString = "ꝏ̄";
@@ -479,21 +475,15 @@ export function getCountDictionaries(wordList, dictOfDicts, sortAlphabetical) {
 
     for (let i=0; i < wordList.length; i++) {
         let thisWord = wordList[i];
-        let wordCount = dictOfDicts[thisWord]["totalCount"];
-
-        console.log(wordCount);
+        let wordCount = dictOfDicts[thisWord]["totalCount"].length;
 
         let myHeader;
-        console.log(thisWord[0]);
-        console.log(dictOfDicts[thisWord])
-        wordCount = wordCount.length;
         if (sortAlphabetical) {
             myHeader = cleanDiacritics(thisWord[0]);
         } else {
             myHeader = wordCount;
         }
 
-        console.log(myHeader);
 
         if (headerToWordListDict[myHeader] === undefined) {
             headerToWordListDict[myHeader] = [thisWord];
