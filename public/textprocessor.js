@@ -650,7 +650,7 @@ async function getBookIDList(book) {
 
 async function runEditionVocab(whichBook, whichEdition, myTextContainer) {
     document.getElementById("text-container").innerHTML = "";
-
+    
     fetch('/processWordsBook/' + whichBook + "/" + whichEdition, {
         method: 'POST',
         body: JSON.stringify({"dummy": 0}),
@@ -793,7 +793,7 @@ async function createDropdownChain(includeEdition, includesKJV) {
                                 "Mayhew": "5",
                                 "Zeroth Edition": "7"
                             }
-
+                            console.log("Hello! You've called runEditionVocab!");
                             await runEditionVocab(whichBook, bookToPrimeDict[whichEdition], textContainerDiv);
                         }
                     });
