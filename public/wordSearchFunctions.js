@@ -489,7 +489,7 @@ export function getCountDictionaries(wordList, dictOfDicts, sortAlphabetical) {
         if (dictOfDicts[thisWord]["totalCount"] == null) {
             //console.log(thisWord, dictOfDicts[thisWord])
             for (let j=0; j < dictOfDicts[thisWord]["allVerseCounts"].length; j++) {
-                wordCount += dictOfDicts[thisWord][j]["allVerseCounts"][j];
+                wordCount += dictOfDicts[thisWord]["allVerseCounts"][j];
             }
         } else if (typeof dictOfDicts[thisWord]["totalCount"] === "number") {
             wordCount = dictOfDicts[thisWord]["totalCount"];
