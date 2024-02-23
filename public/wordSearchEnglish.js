@@ -166,7 +166,7 @@ async function showVersesInBox(popupContainer, dbCode, book, activeWord, laxDiac
         });
     } else { 
         popupContainer.innerHTML = "";
-        let activeVerseText = fetchVerseText(book, dbCode);
+        let activeVerseText = await fetchVerseText(book, dbCode);
         let tableData = generateTable(["KJV"], activeVerseText, [11], activeWord, laxDiacritics);
         console.log(tableData);
         let table = tableData[0];
