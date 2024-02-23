@@ -161,8 +161,6 @@ async function showVersesInBox(popupContainer, dbCode, book, activeWord, laxDiac
 
             popupContainer.style.width = (popupWidth + 100).toString() + "px";
             popupContainer.appendChild(table);
-        }).error(err => {
-            console.log(err);
         });
     } else { 
         popupContainer.innerHTML = "";
