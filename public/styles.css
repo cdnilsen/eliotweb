@@ -182,6 +182,10 @@ li {
     text-align: center;
 }
 
+ul.normal li {
+    text-align: left;
+}
+
 input[type="text"] {
     font-family: Gentium, serif;
     font-style: italic;
