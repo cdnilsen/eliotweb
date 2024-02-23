@@ -87,7 +87,7 @@ app.post('/processWords', wrapAsync(async (req, res) => {
     }
 }));
 
-app.post('processWordsBook/:book/:edition', wrapAsync(async (req, res) => {
+app.post('/processWordsBook/:book/:edition', wrapAsync(async (req, res) => {
     try {
         let book: string = req.params.book;
         let edition: number = parseInt(req.params.edition);
