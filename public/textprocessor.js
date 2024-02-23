@@ -658,6 +658,7 @@ async function runEditionVocab(whichBook, whichEdition, myTextContainer) {
         "Content-type": "application/json; charset=UTF-8"
         }
     }).then(res => res.json()).then(res => {
+        myTextContainer.innerHTML = "";
         for (let i = 0; i < res.length; i++) {
             let thisText = res[i];
             let thisTextSpan = document.createElement('span');

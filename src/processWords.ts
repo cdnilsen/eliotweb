@@ -351,10 +351,6 @@ async function updateBookWordTable(editionID: string, removeWords: string[], add
         tableName = "book_words_no_diacritics";
     }
 
-    for (let i = 0; i < addWords.length; i++) {
-        console.log(addWords[i]);
-    }
-    
     for (let i = 0; i < removeWords.length; i++) {
         let thisWordID = editionID + "-" + removeWords[i];
         await pool.query("DELETE FROM " + tableName + " WHERE id = $1::text", [thisWordID]);
@@ -373,8 +369,6 @@ async function updateBookWordTable(editionID: string, removeWords: string[], add
 }
 
 async function processOneBookWordTable(editionID: string, newWordList: string[], newCountDict: stringToIntDict, laxDiacritics: boolean) {
-
-    console.log(newWordList);
 
     let oldWords = await getOldWordsInBook(editionID, laxDiacritics);
 
@@ -446,9 +440,12 @@ export async function processWordsOneText(book: string, p: number) {
         let columnText = thisRow[numToColumnDict[p]];
         let oldWordsList = thisRow[numToWordsDict[p]];
         let oldCountsList = thisRow[numToCountsDict[p]];
-
-        let splitText = columnText.split(" ");
-
+        let splitText = [];
+        try {
+            splitText = columnText.split(" ");
+        } catch (error) {
+            console.log(thisVerseID.toString() + " failed to split text");
+        }
         let newWordsList: string[] = [];
         let newWordsToCountDict: stringToIntDict = {};
         let newCountsList: number[] = [];
