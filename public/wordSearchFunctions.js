@@ -487,7 +487,15 @@ export function getCountDictionaries(wordList, dictOfDicts, sortAlphabetical) {
     for (let i=0; i < wordList.length; i++) {
         let thisWord = wordList[i];
         console.log(dictOfDicts[thisWord]["totalCount"]);
-        let wordCount = dictOfDicts[thisWord]["totalCount"].length;
+        let wordCount = 0;
+
+        if (dictOfDicts[thisWord]["totalCount"] == null) {
+            console.log(dictOfDicts[thisWord]);
+        } else if (typeof dictOfDicts[thisWord]["totalCount"] === "number") {
+            wordCount = dictOfDicts[thisWord]["totalCount"];
+        } else {
+            wordCount = dictOfDicts[thisWord]["totalCount"].length;
+        }
 
         let myHeader;
         if (sortAlphabetical) {
