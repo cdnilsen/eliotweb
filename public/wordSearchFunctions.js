@@ -284,7 +284,7 @@ export function getHeaderText(wordCount, tokenCount, sortAlphabetical, headerStr
     }
 }
 
-function getVerseAddress(dbCode) {
+export function getVerseAddress(dbCode) {
     let stringAddress = dbCode.toString().slice(3);
   
     let chapter = parseInt(stringAddress.slice(0, 3));
