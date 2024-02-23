@@ -476,6 +476,7 @@ export function resetResults() {
 }
 
 export function getCountDictionaries(wordList, dictOfDicts, sortAlphabetical) {
+    console.log(dictOfDicts);
     let allHeaders = [];
     let headerToWordListDict = {};
     let headerToWordCountDict = {};
