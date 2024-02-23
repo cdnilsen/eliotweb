@@ -345,9 +345,9 @@ async function getOldWordsInBook(editionID: string, diacriticsStrict: boolean): 
 
 async function updateBookWordTable(editionID: string, removeWords: string[], addWords: string[], newWordCountDict: stringToIntDict, laxDiacritics: boolean) {
 
-    let tableName = "book_words_no_diacritics";
+    let tableName = "book_words_diacritics";
     if (laxDiacritics) {
-        tableName = "book_words_diacritics";
+        tableName = "book_words_no_diacritics";
     }
 
     for (let i = 0; i < addWords.length; i++) {
