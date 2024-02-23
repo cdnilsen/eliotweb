@@ -16,7 +16,7 @@
 2.10 Be wise now therefore, O ye kings: be instructed, ye judges of the earth.
 2.11 Serve the LORD with fear, and rejoice with trembling.
 2.12 Kiss the Son, lest he be angry, and ye perish from the way, when his wrath is kindled but a little. Blessed are all they that put their trust in him.
-3.0 A Psalm of David,
+3.0 A Psalm of David, when he fled from Absalom his son.
 3.1 Lord, how are they increased that trouble me! many are they that rise up against me.
 3.2 Many there be which say of my soul, There is no help for him in God. Selah.
 3.3 But thou, O LORD, art a shield for me; my glory, and the lifter up of mine head.
@@ -191,7 +191,7 @@
 17.13 Arise, O LORD, disappoint him, cast him down: deliver my soul from the wicked, which is thy sword:
 17.14 From men which are thy hand, O LORD, from men of the world, which have their portion in this life, and whose belly thou fillest with thy hid treasure: they are full of children, and leave the rest of their substance to their babes.
 17.15 As for me, I will behold thy face in righteousness: I shall be satisfied, when I awake, with thy likeness.
-18.0 To the chief Musician, A Psalm of David,
+18.0 To the chief Musician, A Psalm of David, the servant of the LORD, who spake unto the LORD the words of this song in the day that the LORD delivered him from the hand of all his enemies, and from the hand of Saul: And he said,
 18.1 I will love thee, O LORD, my strength.
 18.2 The LORD is my rock, and my fortress, and my deliverer; my God, my strength, in whom I will trust; my buckler, and the horn of my salvation, and my high tower.
 18.3 I will call upon the LORD, who is worthy to be praised: so shall I be saved from mine enemies.
@@ -582,7 +582,7 @@
 37.38 But the transgressors shall be destroyed together: the end of the wicked shall be cut off.
 37.39 But the salvation of the righteous is of the LORD: he is their strength in the time of trouble.
 37.40 And the LORD shall help them, and deliver them: he shall deliver them from the wicked, and save them, because they trust in him.
-38.0 A Psalm of David,
+38.0 A Psalm of David, to bring to remembrance.
 38.1 O lord, rebuke me not in thy wrath: neither chasten me in thy hot displeasure.
 38.2 For thine arrows stick fast in me, and thy hand presseth me sore.
 38.3 There is no soundness in my flesh because of thine anger; neither is there any rest in my bones because of my sin.
@@ -795,7 +795,7 @@
 50.21 These things hast thou done, and I kept silence; thou thoughtest that I was altogether such an one as thyself: but I will reprove thee, and set them in order before thine eyes.
 50.22 Now consider this, ye that forget God, lest I tear you in pieces, and there be none to deliver.
 50.23 Whoso offereth praise glorifieth me: and to him that ordereth his conversation aright will I shew the salvation of God.
-51.0 To the chief Musician, A Psalm of David,
+51.0 To the chief Musician, A Psalm of David, when Nathan the prophet came unto him, after he had gone in to Bathsheba.
 51.1 Have mercy upon me, O God, according to thy lovingkindness: according unto the multitude of thy tender mercies blot out my transgressions.
 51.2 Wash me throughly from mine iniquity, and cleanse me from my sin.
 51.3 For I acknowledge my transgressions: and my sin is ever before me.
@@ -955,7 +955,7 @@
 62.10 Trust not in oppression, and become not vain in robbery: if riches increase, set not your heart upon them.
 62.11 God hath spoken once; twice have I heard this; that power belongeth unto God.
 62.12 Also unto thee, O Lord, belongeth mercy: for thou renderest to every man according to his work.
-63.0 A Psalm of David,
+63.0 A Psalm of David, when he was in the wilderness of Judah.
 63.1 O God, thou art my God; early will I seek thee: my soul thirsteth for thee, my flesh longeth for thee in a dry and thirsty land, where no water is;
 63.2 To see thy power and thy glory, so as I have seen thee in the sanctuary.
 63.3 Because thy lovingkindness is better than life, my lips shall praise thee.
@@ -1554,7 +1554,7 @@
 91.14 Because he hath set his love upon me, therefore will I deliver him: I will set him on high, because he hath known my name.
 91.15 He shall call upon me, and I will answer him: I will be with him in trouble; I will deliver him, and honour him.
 91.16 With long life will I satisfy him, and shew him my salvation.
-92.0 A Psalm or Song for the sabbath day. 
+92.0 A Psalm or Song for the sabbath day.
 92.1 It is a good thing to give thanks unto the LORD, and to sing praises unto thy name, O most High:
 92.2 To shew forth thy lovingkindness in the morning, and thy faithfulness every night,
 92.3 Upon an instrument of ten strings, and upon the psaltery; upon the harp with a solemn sound.

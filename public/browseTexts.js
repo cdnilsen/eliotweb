@@ -877,9 +877,6 @@ function processFinalText(string, useRawText) {
 }
 
 async function displayChapterText(book, chapter, useFirst, useSecond, useMayhew, useZeroth, useKJV, useGrebrew, showTextDifferences, markCasing, proofreading, textContainer) {
-    
-    console.log([book]);
-    console.log([chapter]);
     let chapterNum = parseInt(chapter);
 
     //Ugly but one line. If the book in question is the prose Psalms and the chapter is one of the chapters that has a superscription, then this affects the verse number.
