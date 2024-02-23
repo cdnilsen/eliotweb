@@ -1,8 +1,8 @@
-kjvFile = open("./Psalms (prose) 2.KJV.txt", "r")
+firstEdLines = open("./Psalms (prose).First Edition.txt", "r", encoding="utf-8")
 
-kjvSplitLines = kjvFile.readlines()
+firstEdSplitLines = firstEdLines.readlines()
 allIntros = []
-for line in kjvSplitLines:
+for line in firstEdSplitLines:
     splitLine = line.split(" ")
     if splitLine[0].split(".")[-1] == "0":
         allIntros.append(splitLine[0])
