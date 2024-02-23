@@ -588,6 +588,7 @@ async function submitTextForProcessing(whichBook, whichEdition, myTextContainer)
         startChapter += 10;
         endChapter += 10;
         await sleep(1000);
+        console.log("Processed from chapter " + startChapter.toString() + " to " + endChapter.toString() + " of " + whichBook + " (" + whichEdition + ").");
     }
 
     let processedTextString = "Total verses processed: " + totalVersesProcessed.toString() + "\n";
