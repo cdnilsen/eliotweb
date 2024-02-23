@@ -1104,7 +1104,7 @@ function createNavButtons(currentChapter, isLastChapter, book) {
 
     if (currentChapter > 1) {
         var firstChapterButton = document.createElement("button");
-        firstChapterButton.innerHTML = "↞";
+        firstChapterButton.innerHTML = "↞ <i>First chapter</i>";
         firstChapterButton.id = "firstChapterButton";
 
         firstChapterButton.addEventListener("click", function() {
@@ -1113,7 +1113,7 @@ function createNavButtons(currentChapter, isLastChapter, book) {
         });
 
         var prevChapterButton = document.createElement("button");
-        prevChapterButton.innerHTML = "←";
+        prevChapterButton.innerHTML = "← <i>Previous chapter</i>";
         prevChapterButton.id = "prevChapterButton";
 
         prevChapterButton.addEventListener("click", function() {
@@ -1131,7 +1131,7 @@ function createNavButtons(currentChapter, isLastChapter, book) {
 
     if (! isLastChapter) {
         var nextChapterButton = document.createElement("button");
-        nextChapterButton.innerHTML = "→";
+        nextChapterButton.innerHTML = "<i>Next chapter</i> →";
         nextChapterButton.id = "nextChapterButton";
 
         nextChapterButton.addEventListener("click", function() {
@@ -1140,7 +1140,7 @@ function createNavButtons(currentChapter, isLastChapter, book) {
         });
         
         var lastChapterButton = document.createElement("button");
-        lastChapterButton.innerHTML = "↠";
+        lastChapterButton.innerHTML = "<i>Last chapter</i> ↠";
         lastChapterButton.id = "lastChapterButton";
 
         lastChapterButton.addEventListener("click", function() {
