@@ -3,7 +3,7 @@ import path from "path"
 
 import { default as pool } from './db'
 
-import { stringToIntDict, stringToStringDict, stringToIntListDict, stringToStringListDict, intToStringDict, intToIntDict, intToStringListDict, intToIntListDict, cleanDiacriticsEngmaMarking, getIntersectionAndUnion, laxifyWordData} from './functions'
+import { stringToIntDict, stringToStringDict, stringToIntListDict, stringToStringListDict, intToStringDict, intToIntDict, intToStringListDict, intToIntListDict, cleanDiacriticsEngmaMarking, getIntersectionAndUnion, laxifyWordData, cleanPunctuation} from './functions'
 import { wrapAsync } from './utils'
 
 const app = express()
@@ -44,11 +44,9 @@ function zip(list1: any[], list2: any[]): any {
 function getWordCountDict(wordList: string[], countList: number[], keepDiacritics: boolean): stringToIntDict {
     let countDict: stringToIntDict = {};
     for (let i = 0; i < wordList.length; i++) {
-        let cleanedWord = "";
+        let cleanedWord = cleanPunctuation(wordList[i]);
         if (!keepDiacritics) {
-            cleanedWord = cleanDiacriticsEngmaMarking(wordList[i]);
-        } else {
-            cleanedWord = wordList[i];
+            cleanedWord = cleanDiacriticsEngmaMarking(cleanedWord);
         }
         if (cleanedWord in countDict) {
             countDict[cleanedWord] += countList[i];
@@ -416,6 +414,7 @@ async function processBookWordTables(book: string, p: number, newWordList: strin
     await processOneBookWordTable(thisEditionID, newWordList, newCountDict, true);
 
     let noDiacriticsWordData = laxifyWordData(newWordList, newCountDict);
+    
     await processOneBookWordTable(thisEditionID, noDiacriticsWordData.laxWordList, noDiacriticsWordData.laxCountDict, false);
 }
 
@@ -465,7 +464,7 @@ export async function processWordsOneText(book: string, p: number) {
         let newCountsList: number[] = [];
 
         for (let j=0; j < splitText.length; j++) {
-            let newWord = cleanDiacriticsEngmaMarking(splitText[j]);
+            let newWord = cleanPunctuation(splitText[j]);
             if (newWordsList.includes(newWord)) {
                 newWordsToCountDict[newWord] += 1;
             } else {

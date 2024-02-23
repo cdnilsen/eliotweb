@@ -32,6 +32,12 @@ export type intToIntListDict = {
     [key: number]: number[]
 };
 
+export function cleanPunctuation(word: string): string {
+    let finalWord = word;
+    finalWord = finalWord.replace(/[.,\/#!%\^&\*?;:{}=\_`~()]/g, '');
+    return finalWord;
+}
+
 //This function is an attempt to deal with the macra and tildes that Eliot uses to represent a following nasal
 function processEngma(word: string): string {
 
