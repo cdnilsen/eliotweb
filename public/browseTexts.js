@@ -400,7 +400,7 @@ const bookToChapterVerseDict = {
 };
 
 //Needs to be updated manually.
-const bookToActiveEditionsDict = {
+export const bookToActiveEditionsDict = {
     "Genesis": 3,
     "Exodus": 6,
     "Leviticus": 6,

@@ -1,5 +1,7 @@
 import { addTriangleToParent, topBookList, resetResults, getCountDictionaries, addChildToExistingTriangle, getHeaderText, getBooks, processBookData, zip, alphabetizeWords, cleanDiacritics, cleanPunctuation, getVerseAddress } from "./wordSearchFunctions.js";
 
+import { bookToActiveEditionsDict } from "./browseTexts.js";
+
 function getTestWord(word, diacriticsLax=false) {
     let cleanedWord = word.toLowerCase();
     cleanedWord = cleanPunctuation(cleanedWord);
@@ -130,37 +132,39 @@ async function showVersesInBox(popupContainer, dbCode, book, activeWord, laxDiac
 
     let otherEdition = getOtherEdition(book);
     popupContainer.innerHTML = "";
-    
-    let fetchString = "/fetchVerse/" + dbCode.toString();
-    fetch(fetchString, {
-        method: 'GET',
-        headers: {
-            "Content-type": "application/json; charset=UTF-8"
-        }
-    }).then(res => res.json()).then(res => {
-        popupContainer.innerHTML = "";
-        let primeKeys = [2, 3, 5, 11, 13];
-        let headerList = ["First Edition (α)", "Second Edition (β)", otherEdition, "KJV", "Greek/Hebrew"];
-        let activeVerseTitles = [];
-        let activeVerseText = [];
-        let activePrimes = [];
-        for (let i = 0; i < primeKeys.length; i++) {
-            let p = primeKeys[i];
-            if (res[p] != "") {
-                activeVerseTitles.push(headerList[i]);
-                activeVerseText.push(res[p]);
-                activePrimes.push(p);
+    if (bookToActiveEditionsDict[book] > 1) {
+        let fetchString = "/fetchVerse/" + dbCode.toString();
+        fetch(fetchString, {
+            method: 'GET',
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
             }
-        }
-        let tableData = generateTable(activeVerseTitles, activeVerseText, activePrimes, activeWord, laxDiacritics);
-        console.log(tableData);
-        let table = tableData[0];
-        let popupWidth = tableData[1];
+        }).then(res => res.json()).then(res => {
+            popupContainer.innerHTML = "";
+            let primeKeys = [2, 3, 5, 11, 13];
+            let headerList = ["First Edition (α)", "Second Edition (β)", otherEdition, "KJV", "Greek/Hebrew"];
+            let activeVerseTitles = [];
+            let activeVerseText = [];
+            let activePrimes = [];
+            for (let i = 0; i < primeKeys.length; i++) {
+                let p = primeKeys[i];
+                if (res[p] != "") {
+                    activeVerseTitles.push(headerList[i]);
+                    activeVerseText.push(res[p]);
+                    activePrimes.push(p);
+                }
+            }
+            let tableData = generateTable(activeVerseTitles, activeVerseText, activePrimes, activeWord, laxDiacritics);
+            console.log(tableData);
+            let table = tableData[0];
+            let popupWidth = tableData[1];
 
-        popupContainer.style.width = (popupWidth + 100).toString() + "px";
-        popupContainer.appendChild(table);
-    }).error(err => {
-        console.log(err);
+            popupContainer.style.width = (popupWidth + 100).toString() + "px";
+            popupContainer.appendChild(table);
+        }).error(err => {
+            console.log(err);
+        });
+    } else { 
         popupContainer.innerHTML = "";
         let activeVerseText = fetchVerseText(book, dbCode);
         let tableData = generateTable(["KJV"], activeVerseText, [11], activeWord, laxDiacritics);
@@ -170,7 +174,7 @@ async function showVersesInBox(popupContainer, dbCode, book, activeWord, laxDiac
 
         popupContainer.style.width = (popupWidth + 100).toString() + "px";
         popupContainer.appendChild(table);
-    }); 
+    }
 
     popupContainer.style.position = "absolute";
     popupContainer.style.left = "10%";
