@@ -171,7 +171,7 @@ export function cleanPunctuation(word) {
 }
 
 export function formattingWithPunctuation(word, formatFunction) {
-    let allChars = ['.', ',', '!', '?', ';', ':', '[', ']', '(', ')', '\'', '"', '{', '}'];
+    let allChars = ['.', ',', '!', '?', ';', ':', '[', ']', '(', ')', '\'', '"']; //No curly braces
     if (word.slice(-1) in allChars){
         return formatFunction(word.slice(0, -1)) + word.slice(-1);
     } else {

@@ -1,4 +1,4 @@
-import { addTriangleToParent, topBookList, resetResults, getCountDictionaries, addChildToExistingTriangle, getHeaderText, getBooks, processBookData, zip, alphabetizeWords, cleanDiacritics, cleanPunctuation, getVerseAddress, getVerseCiteSpans } from "./wordSearchFunctions.js";
+import { addTriangleToParent, topBookList, resetResults, getCountDictionaries, addChildToExistingTriangle, getHeaderText, getBooks, processBookData, zip, alphabetizeWords, cleanDiacritics, cleanPunctuation, getVerseAddress, getVerseCiteSpans, formattingWithPunctuation } from "./wordSearchFunctions.js";
 
 import { bookToActiveEditionsDict } from "./bookdata.js";
 
@@ -11,15 +11,23 @@ function getTestWord(word, diacriticsLax=false) {
     return cleanedWord;
 }
 
+function highlightWordInRed(word) {
+    return '<span style="color:red; text-decoration:underline;">' + word + '</span>';
+}
+
+function highlightWordInBlue(word) {
+    return '<span style="color:blue; text-decoration:underline;">' + word + '</span>';
+}
+
 function highlightSearchedWord(testWord, text, diacriticsLax=false) {
     let textWordList = text.split(" ");
     let finalWordList = [];
     for (let i = 0; i < textWordList.length; i++) {
         let thisWord = textWordList[i];
         if (getTestWord(thisWord, diacriticsLax) == testWord) {
-            finalWordList.push('<span style="color:red; text-decoration:underline;">' + thisWord + '</span>');
+            finalWordList.push(formattingWithPunctuation(thisWord, highlightWordInRed));
         } else if (getTestWord(thisWord, true) == getTestWord(testWord, true)) {
-            finalWordList.push('<span style="color:blue;">' + thisWord + '</span>');
+            finalWordList.push(formattingWithPunctuation(thisWord, highlightWordInBlue));
         } else {
             finalWordList.push(thisWord);
         }
