@@ -880,7 +880,7 @@ async function displayChapterText(book, chapter, useFirst, useSecond, useMayhew,
     let chapterNum = parseInt(chapter);
 
     //Ugly but one line. If the book in question is the prose Psalms and the chapter is one of the chapters that has a superscription, then this affects the verse number.
-    let verseAddition = Number(!psalmsWithVerseZero.includes(chapterNum) && book == "Psalms (prose)");
+    let verseAddition = Number(!(psalmsWithVerseZero.includes(chapterNum) && book == "Psalms (prose)"));
 
     textContainer.innerHTML = "";
 
