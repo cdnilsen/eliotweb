@@ -1,4 +1,4 @@
-import { addTriangleToParent, topBookList, resetResults, getCountDictionaries, addChildToExistingTriangle, getHeaderText, getBooks, processBookData, zip, alphabetizeWords, cleanDiacritics, cleanPunctuation, getVerseCiteSpans } from "./wordSearchFunctions.js";
+import { addTriangleToParent, topBookList, resetResults, getCountDictionaries, addChildToExistingTriangle, getHeaderText, getBooks, processBookData, zip, alphabetizeWords, cleanDiacritics, cleanPunctuation, getVerseCiteSpans, highlightSearchedWord} from "./wordSearchFunctions.js";
 
 // Allows the user to search for matching words in the Massachusett texts and outputs a list of all their cites.
 
@@ -68,33 +68,6 @@ function cleanMarks(word) {
     cleanedWord = cleanedWord.split('}').join('');
     cleanedWord = cleanedWord.split('$').join(' ');
     return cleanedWord;
-}
-
-//Write another function to actually get rid of punctuation marks etc.
-
-function getTestWord(word, diacriticsLax=false) {
-    let cleanedWord = word.toLowerCase();
-    cleanedWord = cleanPunctuation(cleanedWord);
-    if (diacriticsLax) {
-        cleanedWord = cleanDiacritics(cleanedWord);
-    }
-    return cleanedWord;
-}
-
-function highlightSearchedWord(testWord, text, diacriticsLax=false) {
-    let textWordList = text.split(" ");
-    let finalWordList = [];
-    for (let i = 0; i < textWordList.length; i++) {
-        let thisWord = textWordList[i];
-        if (getTestWord(thisWord, diacriticsLax) == getTestWord(testWord, diacriticsLax)) {
-            finalWordList.push('<span style="color:red; text-decoration:underline;">' + thisWord + '</span>');
-        } else if (getTestWord(thisWord, true) == getTestWord(testWord, true)) {
-            finalWordList.push('<span style="color:blue;">' + thisWord + '</span>');
-        } else {
-            finalWordList.push(thisWord);
-        }
-    }
-    return finalWordList.join(" ");
 }
 
 

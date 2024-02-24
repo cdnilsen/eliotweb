@@ -170,13 +170,46 @@ export function cleanPunctuation(word) {
     return cleanedWord;
 }
 
-export function formattingWithPunctuation(word, formatFunction) {
+function formattingWithPunctuation(word, formatFunction) {
     let allChars = ['.', ',', '!', '?', ';', ':', '[', ']', '(', ')', '\'', '"']; //No curly braces
     if (allChars.includes(word.slice(-1))){
         return formatFunction(word.slice(0, -1)) + word.slice(-1);
     } else {
         return formatFunction(word);
     }
+}
+
+function highlightWordInRed(word) {
+    return '<span style="color:red; text-decoration:underline;">' + word + '</span>';
+}
+
+function highlightWordInBlue(word) {
+    return '<span style="color:blue; text-decoration:underline;">' + word + '</span>';
+}
+
+function getTestWord(word, diacriticsLax=false) {
+    let cleanedWord = word.toLowerCase();
+    cleanedWord = cleanPunctuation(cleanedWord);
+    if (diacriticsLax) {
+        cleanedWord = cleanDiacritics(cleanedWord);
+    }
+    return cleanedWord;
+}
+
+export function highlightSearchedWord(testWord, text, diacriticsLax=false) {
+    let textWordList = text.split(" ");
+    let finalWordList = [];
+    for (let i = 0; i < textWordList.length; i++) {
+        let thisWord = textWordList[i];
+        if (getTestWord(thisWord, diacriticsLax) == testWord) {
+            finalWordList.push(formattingWithPunctuation(thisWord, highlightWordInRed));
+        } else if (getTestWord(thisWord, true) == getTestWord(testWord, true)) {
+            finalWordList.push(formattingWithPunctuation(thisWord, highlightWordInBlue));
+        } else {
+            finalWordList.push(thisWord);
+        }
+    }
+    return finalWordList.join(" ");
 }
 
 export function cleanDiacritics(word) {

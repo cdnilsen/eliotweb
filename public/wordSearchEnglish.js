@@ -1,39 +1,10 @@
-import { addTriangleToParent, topBookList, resetResults, getCountDictionaries, addChildToExistingTriangle, getHeaderText, getBooks, processBookData, zip, alphabetizeWords, cleanDiacritics, cleanPunctuation, getVerseAddress, getVerseCiteSpans, formattingWithPunctuation } from "./wordSearchFunctions.js";
+import { addTriangleToParent, topBookList, resetResults, getCountDictionaries, addChildToExistingTriangle, getHeaderText, getBooks, processBookData, zip, alphabetizeWords, cleanDiacritics, cleanPunctuation, getVerseAddress, getVerseCiteSpans, highlightSearchedWord } from "./wordSearchFunctions.js";
 
 import { bookToActiveEditionsDict } from "./bookdata.js";
 
-function getTestWord(word, diacriticsLax=false) {
-    let cleanedWord = word.toLowerCase();
-    cleanedWord = cleanPunctuation(cleanedWord);
-    if (diacriticsLax) {
-        cleanedWord = cleanDiacritics(cleanedWord);
-    }
-    return cleanedWord;
-}
 
-function highlightWordInRed(word) {
-    return '<span style="color:red; text-decoration:underline;">' + word + '</span>';
-}
 
-function highlightWordInBlue(word) {
-    return '<span style="color:blue; text-decoration:underline;">' + word + '</span>';
-}
 
-function highlightSearchedWord(testWord, text, diacriticsLax=false) {
-    let textWordList = text.split(" ");
-    let finalWordList = [];
-    for (let i = 0; i < textWordList.length; i++) {
-        let thisWord = textWordList[i];
-        if (getTestWord(thisWord, diacriticsLax) == testWord) {
-            finalWordList.push(formattingWithPunctuation(thisWord, highlightWordInRed));
-        } else if (getTestWord(thisWord, true) == getTestWord(testWord, true)) {
-            finalWordList.push(formattingWithPunctuation(thisWord, highlightWordInBlue));
-        } else {
-            finalWordList.push(thisWord);
-        }
-    }
-    return finalWordList.join(" ");
-}
 
 function processVerseText(rawText, editionPrime, activeWord, laxDiacritics=false) {
     if (editionPrime < 11) {
