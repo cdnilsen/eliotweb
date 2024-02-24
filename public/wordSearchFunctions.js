@@ -418,7 +418,6 @@ function getVerseCiteSpans(verseList, dictOfDicts, bookName) {
         allVerseTextList.push(finalString);
     }
     return allVerseTextList;
-
 }
 
 export function processBookData(bookDataList, bookHTMLSpan, bookName) {
@@ -427,6 +426,7 @@ export function processBookData(bookDataList, bookHTMLSpan, bookName) {
     let totalCount = 0;
 
     let allAddresses = [];
+    let allDBCodes = [];
 
     for (let i=0; i < bookDataList.length; i++) {
         let thisVerseData = bookDataList[i];
@@ -435,6 +435,7 @@ export function processBookData(bookDataList, bookHTMLSpan, bookName) {
 
         if (!allAddresses.includes(thisAddress)) {
             allAddresses.push(thisAddress);
+            allDBCodes.push(thisDBCode);
         }
 
         let thisEdition = thisVerseData["editionNum"];
@@ -443,15 +444,16 @@ export function processBookData(bookDataList, bookHTMLSpan, bookName) {
 
         if (i == 0 || allVerses.slice(-1)[0] != thisAddress) {
             allVerses.push(thisAddress);
-            redoneDictionaries[thisAddress] = {"allEditions": 1};
+            redoneDictionaries[thisAddress] = {
+            "allEditions": 1,
+            "dbCode": thisDBCode            
+            };
         }
 
         redoneDictionaries[thisAddress]["allEditions"] *= thisEdition;
         redoneDictionaries[thisAddress][thisEdition] = thisCount;
     }
 
-    console.log(allAddresses);
-    console.log(redoneDictionaries);
     let totalCountString = totalCount.toString();
 
     if (totalCount > 1) {
@@ -461,7 +463,6 @@ export function processBookData(bookDataList, bookHTMLSpan, bookName) {
     }
 
     console.log(redoneDictionaries);
-
     return getVerseCiteSpans(allVerses, redoneDictionaries, bookName);
 }
 
