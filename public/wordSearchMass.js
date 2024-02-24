@@ -428,6 +428,7 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical, laxDiac
                 thisBookSpan.id = "word-" + thisWord + "-book-" + thisBookName;
 
                 let thisBookData = allBookToVerseDict[thisBookNum];
+                console.log(thisBookData);
                 
                 thisBookData.sort((a, b) => a["dbVerseCode"] - b["dbVerseCode"]);
 
