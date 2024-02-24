@@ -476,7 +476,7 @@ async function getEnglishWordData(searchSetting, searchString) {
 
 async function runSearch() {
     let searchSetting = document.getElementById("searchWordDropdown").value;
-    let searchString = document.getElementById("search_bar").value;
+    let searchString = document.getElementById("search_bar").value.trim();
 
     let output = await getEnglishWordData(searchSetting, searchString.toLowerCase())
     

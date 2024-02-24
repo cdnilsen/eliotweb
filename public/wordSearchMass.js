@@ -584,7 +584,7 @@ async function runSearch() {
         searchSetting *= 7;
     }
 
-    let query = document.getElementById("search_bar").value;
+    let query = document.getElementById("search_bar").value.trim();
 
     let laxDiacritics = false;
     if (document.getElementById("diacriticsLax").checked) {

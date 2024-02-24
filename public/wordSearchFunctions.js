@@ -432,7 +432,6 @@ export function processBookData(bookDataList, bookHTMLSpan, bookName) {
         let thisVerseData = bookDataList[i];
         let thisDBCode = thisVerseData["dbVerseCode"];
         let thisAddress = getAddressString(thisDBCode);
-        console.log(thisAddress);
 
         if (!allAddresses.includes(thisAddress)) {
             allAddresses.push(thisAddress);
@@ -450,6 +449,9 @@ export function processBookData(bookDataList, bookHTMLSpan, bookName) {
         redoneDictionaries[thisAddress]["allEditions"] *= thisEdition;
         redoneDictionaries[thisAddress][thisEdition] = thisCount;
     }
+
+    console.log(allAddresses);
+    console.log(redoneDictionaries);
     let totalCountString = totalCount.toString();
 
     if (totalCount > 1) {
