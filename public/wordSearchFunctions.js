@@ -432,6 +432,7 @@ export function processBookData(bookDataList, bookHTMLSpan, bookName) {
         let thisVerseData = bookDataList[i];
         let thisDBCode = thisVerseData["dbVerseCode"];
         let thisAddress = getAddressString(thisDBCode);
+        console.log(thisAddress);
 
         if (!allAddresses.includes(thisAddress)) {
             allAddresses.push(thisAddress);
