@@ -184,9 +184,16 @@ async function processBookWordTable(textName: string, wordList: string[], tableN
     return getRidOfWords;
 }
 
-async function cleanUpWordIndex(tableName: string, nukableWords: string[]) {
+async function cleanUpMainVocabTable(allVocabTableName: string, bookVocabTableName: string, nukableWords: string[]) {
+    
+    for (let i=0; i < nukableWords.length; i++) {
+        let nukeThisWord = nukableWords[i];
+        let stillInUseQuery = await pool.query("SELECT * FROM " + bookVocabTableName + " WHERE word = $1::text", [nukeThisWord]);
 
-
+        if (stillInUseQuery.rows.length == 0) {
+            await pool.query("DELETE FROM " + allVocabTableName + " WHERE word = $1::text", [nukeThisWord]);
+        }
+    }
 }
 
 
@@ -346,25 +353,31 @@ async function getOldWordsInBook(editionID: string, laxDiacritics: boolean): Pro
 
 async function updateBookWordTable(editionID: string, removeWords: string[], addWords: string[], newWordCountDict: stringToIntDict, laxDiacritics: boolean) {
 
-    let tableName = "book_words_diacritics";
+    let bookVocabTableName = "book_words_diacritics";
+    let allVocabTableName = "words_diacritics";
     if (laxDiacritics) {
-        tableName = "book_words_no_diacritics";
+        bookVocabTableName = "book_words_no_diacritics";
+        allVocabTableName = "words_no_diacritics";
     }
 
     for (let i = 0; i < removeWords.length; i++) {
         let thisWordID = editionID + "-" + removeWords[i];
-        await pool.query("DELETE FROM " + tableName + " WHERE id = $1::text", [thisWordID]);
+        await pool.query("DELETE FROM " + bookVocabTableName + " WHERE id = $1::text", [thisWordID]);
     }
+    
+    sleep(1000);
+
+    await cleanUpMainVocabTable(allVocabTableName, bookVocabTableName, removeWords);
 
     for (let j = 0; j < addWords.length; j++) {
         let word = addWords[j];
         let thisWordID = editionID + "-" + word;
         let thisCount = newWordCountDict[word];
-        await pool.query("INSERT INTO " + tableName + "(id, word, text_id, total_count) VALUES ($1::text, $2::text, $3::text, $4::int)", [thisWordID, word, editionID, thisCount]);
+        await pool.query("INSERT INTO " + bookVocabTableName + "(id, word, text_id, total_count) VALUES ($1::text, $2::text, $3::text, $4::int)", [thisWordID, word, editionID, thisCount]);
     }
     
 
-    return ("Removed " + removeWords.length.toString() + " words and added " + addWords.length.toString() + " words to " + editionID + " in " + tableName);
+    return ("Removed " + removeWords.length.toString() + " words and added " + addWords.length.toString() + " words to " + editionID + " in " + bookVocabTableName);
 
 }
 
@@ -494,10 +507,10 @@ export async function processBatchWordData(rawJSON: any) {
     
     return outputStringList;
 }
-/*
+
 function sleep(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms));
-}*/
+}
 
 async function getTotalCounts(tableName: string) {
     return ("did getTotalCounts in " + tableName);
