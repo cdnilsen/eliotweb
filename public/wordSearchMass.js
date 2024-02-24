@@ -1,4 +1,4 @@
-import { addTriangleToParent, topBookList, resetResults, getCountDictionaries, addChildToExistingTriangle, getHeaderText, getBooks, processBookData, zip, alphabetizeWords, cleanDiacritics, cleanPunctuation } from "./wordSearchFunctions.js";
+import { addTriangleToParent, topBookList, resetResults, getCountDictionaries, addChildToExistingTriangle, getHeaderText, getBooks, processBookData, zip, alphabetizeWords, cleanDiacritics, cleanPunctuation, getVerseCiteSpans } from "./wordSearchFunctions.js";
 
 // Allows the user to search for matching words in the Massachusett texts and outputs a list of all their cites.
 
@@ -436,18 +436,22 @@ function processAllWordCites(allWordList, dictOfDicts, sortAlphabetical, laxDiac
 
                 thisBookSpan.classList.add("textTab2");
 
-                let verseTextList = processBookData(thisBookData, thisBookSpan, thisBookName);
+                let verseTextDictionary = processBookData(thisBookData, thisBookSpan, thisBookName);
+
+                let verseTextList = verseTextDictionary["verseList"];
 
                 totalTokens += verseTextList.length;
 
+                let verseCiteSpans = getVerseCiteSpans(verseTextDictionary, thisBookName);
+
                 let allDBCodes = [];
-                for (let l=0; l < thisBookData.length; l++) {
-                    allDBCodes.push(thisBookData[l]["dbVerseCode"]);
+                for (let l=0; l < verseTextList.length; l++) {
+                    allDBCodes.push(verseTextDictionary[verseTextList[l]]["dbCode"]);
                 }
                 
-                let verseCiteContainer = addVersesToContainer(verseTextList, allDBCodes, thisWord, thisBookName, laxDiacritics);
+                let verseCiteContainer = addVersesToContainer(verseCiteSpans, allDBCodes, thisWord, thisBookName, laxDiacritics);
 
-                if (verseTextList.length > 25){                    
+                if (verseCiteSpans.length > 25){                    
 
                     let bookTriangle = addTriangleToParent(thisBookSpan, "gray", "red", true);
 

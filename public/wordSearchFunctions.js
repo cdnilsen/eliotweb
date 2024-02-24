@@ -400,8 +400,11 @@ function getVerseSuffix(dataDict) {
     }
 }
 
-function getVerseCiteSpans(verseList, dictOfDicts, bookName) {
+export function getVerseCiteSpans( dictOfDicts, bookName) {
+
+    let verseList = dictOfDicts["verseList"];
     let allVerseTextList = [];
+
     for (let i=0; i < verseList.length; i++) {
         let verse = verseList[i];
         let verseData = dictOfDicts[verse];
@@ -464,9 +467,7 @@ export function processBookData(bookDataList, bookHTMLSpan, bookName) {
 
     redoneDictionaries["verseList"] = allVerses;
 
-    //return redoneDictionaries;
-    console.log(redoneDictionaries);
-    return getVerseCiteSpans(allVerses, redoneDictionaries, bookName);
+    return redoneDictionaries;
 }
 
 export function zip(list1, list2) {
