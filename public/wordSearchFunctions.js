@@ -462,6 +462,9 @@ export function processBookData(bookDataList, bookHTMLSpan, bookName) {
         bookHTMLSpan.innerHTML += ":</i> ";
     }
 
+    redoneDictionaries["verseList"] = allVerses;
+
+    //return redoneDictionaries;
     console.log(redoneDictionaries);
     return getVerseCiteSpans(allVerses, redoneDictionaries, bookName);
 }
