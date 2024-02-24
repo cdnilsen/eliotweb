@@ -968,7 +968,7 @@ async function displayChapterText(book, chapter, useFirst, useSecond, useMayhew,
                 if (p == 43 && !addedVerseNumber) {
                     let verseNumColumn = document.createElement('div');
                     verseNumColumn.classList.add("verseColumn");
-                    verseNumColumn.style = 'grid-column: ' + (k + 1).toString() + '; text-align: center; font-weight: bold; font-size: 1.3em';
+                    verseNumColumn.style = 'grid-column: ' + (k + 1).toString() + '; text-align: center; font-weight: bold; font-size: 20px';
                     
                     verseNumColumn.innerHTML = parseInt(chapter) + ':' + (verseNum).toString();
                     thisVerseRow.appendChild(verseNumColumn);
@@ -982,7 +982,7 @@ async function displayChapterText(book, chapter, useFirst, useSecond, useMayhew,
                 } else {
                     thisVerseColumn.classList.add("verseColumn");
                 }
-                thisVerseColumn.style = "grid-column: " + (k + 1).toString() + ";";
+                thisVerseColumn.style = "grid-column: " + (k + 1).toString() + "; font-size: 16px;";
 
                 let thisVerseText = processFinalText(verseTextDict[p], useRawText);
 
