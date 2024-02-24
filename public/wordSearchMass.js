@@ -178,6 +178,7 @@ function getOtherEdition(book) {
 }
 
 async function showVersesInBox(popupContainer, dbCode, book, activeWord, laxDiacritics=false) {
+    console.log(dbCode);
     //why do we need to do this...?
     let allPopups = document.getElementsByClassName('show-verse');
     for (let i = 0; i < allPopups.length; i++) {
@@ -208,6 +209,7 @@ async function showVersesInBox(popupContainer, dbCode, book, activeWord, laxDiac
                 activePrimes.push(p);
             }
         }
+        //It sometimes seems to get the same verse multiple times...?
         console.log(activeVerseText);
         let tableData = generateTable(activeVerseTitles, activeVerseText, activePrimes, activeWord, laxDiacritics);
         let table = tableData[0];

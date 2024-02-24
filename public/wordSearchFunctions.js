@@ -170,6 +170,15 @@ export function cleanPunctuation(word) {
     return cleanedWord;
 }
 
+export function formattingWithPunctuation(word, formatFunction) {
+    let allChars = ['.', ',', '!', '?', ';', ':', '[', ']', '(', ')', '\'', '"', '{', '}'];
+    if (word.slice(-1) in allChars){
+        return formatFunction(word.slice(0, -1)) + word.slice(-1);
+    } else {
+        return formatFunction(word);
+    }
+}
+
 export function cleanDiacritics(word) {
     let charReplacementDict = {
         "á": "a",
