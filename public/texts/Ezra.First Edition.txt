@@ -68,142 +68,142 @@ E.Ezr.2.11: The children of Bebai, six hundred twenty and three.
 α.Ezr.2.12: Wunnaumonuh Azgad, nequt muttannonganogkussuog, neese pasuk88og, nesnehchagkussuog kah nesuog.
 E.Ezr.2.12: The children of Azgad, a thousand two hundred twenty and two.
 
-α.Ezr.2.13:
+α.Ezr.2.13: Wunnaumonuh Adonikam, nequtta tahshe pasuk88og, kah nequtta tahshinchagkussuog, kah nequtta tahsuog.
 E.Ezr.2.13: The children of Adonikam, six hundred sixty and six.
 
-α.Ezr.2.14:
+α.Ezr.2.14: Wunnaumonuh Bigvai, neese muttannonganogkussuog, napanna tahshinchagkussuog, kah nequtta tahsuog.
 E.Ezr.2.14: The children of Bigvai, two thousand fifty and six.
 
-α.Ezr.2.15:
+α.Ezr.2.15: Wunnaumonuh Adin, yaue pasuk88og, napanna tahshinchagkussuog kah yauog.
 E.Ezr.2.15: The children of Adin, four hundred fifty and four.
 
-α.Ezr.2.16:
+α.Ezr.2.16: Wunnaumonuh Ater wutch Hezekiah, pask8gun tahshinchag káh shwosuk tahsuog.
 E.Ezr.2.16: The children of Ater of Hezekiah, ninety and eight.
 
-α.Ezr.2.17:
+α.Ezr.2.17: Wunnaumonuh Bezai, nishwudt pasuk88og, kah nesnehchagkussuog kah nishuog.
 E.Ezr.2.17: The children of Bezai, three hundred twenty and three.
 
-α.Ezr.2.18:
+α.Ezr.2.18: Wunnaumonuh Jorah, nequt pasuk88og kah nabo nees8[o]g.
 E.Ezr.2.18: The children of Jorah, an hundred and twelve.
 
-α.Ezr.2.19:
+α.Ezr.2.19: Wunnaumonuh Hashum, neese pasuk88og kah nesnehchag kah nishuog.
 E.Ezr.2.19: The children of Hashum, two hundred twenty and three.
 
-α.Ezr.2.20:
+α.Ezr.2.20: Wunnaumonuh Gibbar, pask8gun tahshinchag kah napanna tahsuog.
 E.Ezr.2.20: The children of Gibbar, ninety and five.
 
-α.Ezr.2.21:
+α.Ezr.2.21: Wunnaumonuh Bethlehem, nequt pasuk88og nesnehchag kah nishuog.
 E.Ezr.2.21: The children of Bethlehem, an hundred twenty and three.
 
-α.Ezr.2.22:
+α.Ezr.2.22: Wunnaumonuh Netophah, napanna tahshinchag kah nequtta tahsuog.
 E.Ezr.2.22: The men of Netophah, fifty and six.
 
-α.Ezr.2.23:
+α.Ezr.2.23: Anathothe wosketompaog, nequt pasuk88og nesnehchag, kah shwosuk tahsuog.
 E.Ezr.2.23: The men of Anathoth, an hundred twenty and eight.
 
-α.Ezr.2.24:
+α.Ezr.2.24: Wunnaumonuh Azmaveth, yauunchage kah nesuog.
 E.Ezr.2.24: The children of Azmaveth, forty and two.
 
-α.Ezr.2.25:
+α.Ezr.2.25: Wunnaumonuh Kirjath-arim, Chephirah, kah Beeroth, nesausuk pasuk88og yauunchag kah nishuog.
 E.Ezr.2.25: The children of Kirjatharim, Chephirah, and Beeroth, seven hundred and forty and three.
 
-α.Ezr.2.26:
+α.Ezr.2.26: Wunnaumonuh Ramah kah Gaba, nequtta tahshe pasuk88og nesnehchag kah pasuk.
 E.Ezr.2.26: The children of Ramah and Gaba, six hundred twenty and one.
 
-α.Ezr.2.27:
+α.Ezr.2.27: Michmasse wosketompaog, nequt pasuk88og nesnehchag kah neesuog.
 E.Ezr.2.27: The men of Michmas, an hundred twenty and two.
 
-α.Ezr.2.28:
+α.Ezr.2.28: Bethelle kah Aie wosketompaog, neese pasuk88og nesnehchag kah nishuog.
 E.Ezr.2.28: The men of Bethel and Ai, two hundred twenty and three.
 
-α.Ezr.2.29:
+α.Ezr.2.29: Wunnaumonuh Nebo, napanna tahshinchage kah neesuog.
 E.Ezr.2.29: The children of Nebo, fifty and two.
 
-α.Ezr.2.30:
+α.Ezr.2.30: Wunnaumonuh Magbish, nequt pasuk88og napanna tahshinchag kah nequtta.
 E.Ezr.2.30: The children of Magbish, an hundred fifty and six.
 
-α.Ezr.2.31:
+α.Ezr.2.31: Wunnaumonuh onkatuk Elam, nequt muttannonganogkussuog neese pasuk88og napanna tahshinchag kah yauog.
 E.Ezr.2.31: The children of the other Elam, a thousand two hundred fifty and four.
 
-α.Ezr.2.32:
+α.Ezr.2.32: Wunnaumonuh Harim, nishwe pasuk88og, kah nesnehchagkussuog.
 E.Ezr.2.32: The children of Harim, three hundred and twenty.
 
-α.Ezr.2.33:
+α.Ezr.2.33: Wunnaumonuh Lod, Hadid, kah Ono, nesausuk tahshe pasuk88og nesnehchag kah napanna tahsuog.
 E.Ezr.2.33: The children of Lod, Hadid, and Ono, seven hundred twenty and five.
 
-α.Ezr.2.34:
+α.Ezr.2.34: Wunnaumonuh Jericho, nishwe pasuk88og yauunchage kah napanna tahsuog.
 E.Ezr.2.34: The children of Jericho, three hundred forty and five.
 
-α.Ezr.2.35:
+α.Ezr.2.35: Wunnaumonuh Senaah, nishwe muttannonganogkussuog nequtta tahshe pasuk88og kah nishwinchagkussuog.
 E.Ezr.2.35: The children of Senaah, three thousand and six hundred and thirty.
 
-α.Ezr.2.36:
+α.Ezr.2.36: Sephausuenuog, wunnaumonuh Jedajah, wutch wekit Jeshua, pask8gun tahshe pasuk88og, nesausuk tahshinchag kah nishuog.
 E.Ezr.2.36: The priests: the children of Jedaiah, of the house of Jeshua, nine hundred seventy and three.
 
-α.Ezr.2.37:
+α.Ezr.2.37: Wunnaumonuh Immer, nequt muttannonganog napanna tahshinchag kah neesuog.
 E.Ezr.2.37: The children of Immer, a thousand fifty and two.
 
-α.Ezr.2.38:
+α.Ezr.2.38: Wunnaumonuh Pashur, nequt muttannonganogkussuog neese pasuk88og yaue tahshinchag kah nesausuk tahsuog.
 E.Ezr.2.38: The children of Pashur, a thousand two hundred forty and seven.
 
-α.Ezr.2.39:
+α.Ezr.2.39: Wunnaumonuh Harim, nequt muttannonganogkussuog kah nabo nesausuk.
 E.Ezr.2.39: The children of Harim, a thousand and seventeen.
 
-α.Ezr.2.40:
+α.Ezr.2.40: Levitsog wunnaumonuh Jeshua, kah Kadmiel, wutch wunnaumonuh Hodaviah, nesausuk tahshinchag kah yauog.
 E.Ezr.2.40: The Levites: the children of Jeshua and Kadmiel, of the children of Hodaviah, seventy and four.
 
-α.Ezr.2.41:
+α.Ezr.2.41: Ket8hamauacheg, wunnaumonuh Asaph, nequt pasuk88og nesnehchag kah shwosuk tahsuog.
 E.Ezr.2.41: The singers: the children of Asaph, an hundred twenty and eight.
 
-α.Ezr.2.42:
+α.Ezr.2.42: Wunnaumonuh nanausquontamwaenuog, wunnaumonuh Shallum, wunnaumonuh Ater, wunnaumonuh Talmon, wunnaumonuh Akkub, wunnaumonuh Hatita, wunnaumonuh Shobai, wame, nequt pasuk88og nishwinchag kah pask8gun tahsuog.
 E.Ezr.2.42: The children of the porters: the children of Shallum, the children of Ater, the children of Talmon, the children of Akkub, the children of Hatita, the children of Shobai, in all an hundred thirty and nine.
 
-α.Ezr.2.43:
+α.Ezr.2.43: Nethinimsog, wunnaumonuh Ziha, wunnaumonuh Hasupha, wunnaumonuh Tabbaoth.
 E.Ezr.2.43: The Nethinims: the children of Ziha, the children of Hasupha, the children of Tabbaoth,
 
-α.Ezr.2.44:
+α.Ezr.2.44: Wunnaumonuh Keros, wunnaumonuh Siaha, wunnaumonuh Padon,
 E.Ezr.2.44: The children of Keros, the children of Siaha, the children of Padon,
 
-α.Ezr.2.45:
+α.Ezr.2.45: Wunnaumonuh Lebanah, wunnaumonuh Hagabah, wunnaumonuh Akkub,
 E.Ezr.2.45: The children of Lebanah, the children of Hagabah, the children of Akkub,
 
-α.Ezr.2.46:
+α.Ezr.2.46: Wunnaumonuh Hagab, wunnaumonuh Shalmai, wunnaumonuh Hanan,
 E.Ezr.2.46: The children of Hagab, the children of Shalmai, the children of Hanan,
 
-α.Ezr.2.47:
+α.Ezr.2.47: Wunnaumonuh Giddel, wunnaumonuh Gahar, wunnaumonuh Reajah,
 E.Ezr.2.47: The children of Giddel, the children of Gahar, the children of Reaiah,
 
-α.Ezr.2.48:
+α.Ezr.2.48: Wunnaumonuh Rezin, wunnaumonuh Nekoda, wunnaumonuh Gazzam,
 E.Ezr.2.48: The children of Rezin, the children of Nekoda, the children of Gazzam,
 
-α.Ezr.2.49:
+α.Ezr.2.49: Wunnaumonuh Uzza, wunnaumonuh Paseah, wunnaumonuh Besai,
 E.Ezr.2.49: The children of Uzza, the children of Paseah, the children of Besai,
 
-α.Ezr.2.50:
+α.Ezr.2.50: Wunnaumonuh Asnah, wunnaumonuh Mehanim, wunnaumonuh Nephusim,
 E.Ezr.2.50: The children of Asnah, the children of Mehunim, the children of Nephusim,
 
-α.Ezr.2.51:
+α.Ezr.2.51: Wunnaumonuh Bakbuk, wunnaumonuh Hakupha, wunnaumonuh Harhur,
 E.Ezr.2.51: The children of Bakbuk, the children of Hakupha, the children of Harhur,
 
-α.Ezr.2.52:
+α.Ezr.2.52: Wunnaumonuh Bazluth, wunnaumonuh Mehida, wunnaumonuh Harsha,
 E.Ezr.2.52: The children of Bazluth, the children of Mehida, the children of Harsha,
 
-α.Ezr.2.53:
+α.Ezr.2.53: Wunnaumonuh Barkos, wunnaumonuh Siseta, wunnaumonuh Thamah,
 E.Ezr.2.53: The children of Barkos, the children of Sisera, the children of Thamah,
 
-α.Ezr.2.54:
+α.Ezr.2.54: Wunnaumonuh Neziah, wunnaumonuh Hatipha.
 E.Ezr.2.54: The children of Neziah, the children of Hatipha.
 
-α.Ezr.2.55:
+α.Ezr.2.55: Wunnaumonuh wuttinneumoh Solomon, wunnaumonuh Sotai, wunnaumonuh Sophereth, wunnaumonuh Peruda.
 E.Ezr.2.55: The children of Solomon's servants: the children of Sotai, the children of Sophereth, the children of Peruda,
 
-α.Ezr.2.56:
+α.Ezr.2.56: Wunnaumonuh Jaalah, wunnaumonuh Darkon, wunnaumonuh Giddel.
 E.Ezr.2.56: The children of Jaalah, the children of Darkon, the children of Giddel,
 
-α.Ezr.2.57:
+α.Ezr.2.57: Wunnaumonuh Shephatiah, wunnaumonuh Hattil, wunnaumonuh Pochereth wutch Zebaim, wunnaumonuh Ami.
 E.Ezr.2.57: The children of Shephatiah, the children of Hattil, the children of Pochereth of Zebaim, the children of Ami.
 
-α.Ezr.2.58:
+α.Ezr.2.58: Wame Nethinimsog, wunnaumonuh wuttinneumoh Solomon, nishwe pasuk88og pask8gun tahshinchag kah nesuog.
 E.Ezr.2.58: All the Nethinims, and the children of Solomon's servants, were three hundred ninety and two.
 
 α.Ezr.2.59:
