@@ -415,7 +415,7 @@ export const bookToActiveEditionsDict = {
     "2 Kings": 1,
     "1 Chronicles": 1,
     "2 Chronicles": 1,
-    "Ezra": 1,
+    "Ezra": 2,
     "Nehemiah": 1,
     "Esther": 1,
     "Job": 2,
