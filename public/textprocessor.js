@@ -445,7 +445,7 @@ async function runEditionVocab(whichBook, whichEdition, myTextContainer) {
 
 function getProcessableEditions(rawBookList) {
     let primeList = [2, 3, 5, 7];
-    let editionNames = ["First Edition", "Second Edition", "Mayhew", "Zeroth Edition", "KJV"];
+    let editionNames = ["First Edition", "Second Edition", "Mayhew", "Zeroth Edition"];
     let finalBooks = [];
     let bookToEditionDict = {};
 
@@ -463,7 +463,7 @@ function getProcessableEditions(rawBookList) {
             }
         }
         //Uncomment this to include KJV
-        //bookToEditionDict[book].push("KJV");
+        bookToEditionDict[book].push("KJV");
     }
     return [finalBooks, bookToEditionDict];
 }
