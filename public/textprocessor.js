@@ -445,7 +445,7 @@ async function runEditionVocab(whichBook, whichEdition, myTextContainer) {
 
 function getProcessableEditions(rawBookList) {
     let primeList = [2, 3, 5, 7];
-    let editionNames = ["First Edition", "Second Edition", "Mayhew", "Zeroth Edition"];
+    let editionNames = ["First Edition", "Second Edition", "Mayhew", "Zeroth Edition", "KJV"];
     let finalBooks = [];
     let bookToEditionDict = {};
 
