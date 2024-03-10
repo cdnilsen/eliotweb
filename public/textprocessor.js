@@ -462,6 +462,8 @@ function getProcessableEditions(rawBookList) {
                 }
             }
         }
+        console.log(editionNames);
+        console.log(bookToEditionDict[book]);
         //Uncomment this to include KJV
         editionNames.push("KJV");
         bookToEditionDict[book].push("KJV");
