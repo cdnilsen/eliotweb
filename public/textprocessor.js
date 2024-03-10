@@ -453,11 +453,13 @@ function getProcessableEditions(rawBookList) {
         let book = rawBookList[i];
         let n = bookToActiveEditionsDict[book];
         //finalBooks.push(book);
+        console.log(book);
+        console.log(n);
         if (n > 1) {
             finalBooks.push(book);
             bookToEditionDict[book] = [];
-            console.log(book);
-            console.log(n);
+            //console.log(book);
+            //console.log(n);
             for (let j = 0; j < primeList.length; j++) {
                 if (n % primeList[j] == 0) {
                     bookToEditionDict[book].push(editionNames[j]);
