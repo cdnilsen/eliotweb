@@ -404,7 +404,7 @@ export const bookToActiveEditionsDict = {
     "Genesis": 3,
     "Exodus": 6,
     "Leviticus": 6,
-    "Numbers": 3,
+    "Numbers": 6,
     "Deuteronomy": 3,
     "Joshua": 3, 
     "Judges": 1,
