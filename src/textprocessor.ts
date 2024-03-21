@@ -9,8 +9,96 @@ import { stringToIntDict, stringToStringDict, stringToIntListDict, stringToStrin
 const app = express()
 const port = process.env.PORT;
 
-//Go through this file later and use the $1::int type enforcement on queries
 
+function killDiacritics(word: string): string {
+    let charReplacementDict: stringToStringDict = {
+        "á": "a",
+        "é": "e",
+        "í": "i",
+        "ó": "o",
+        "ú": "u",
+        "à": "a",
+        "è": "e",
+        "ì": "i",
+        "ò": "o",
+        "ù": "u",
+        "â": "a",
+        "ê": "e",
+        "î": "i",
+        "ô": "o",
+        "û": "u",
+        "ä": "a",
+        "ë": "e",
+        "ï": "i",
+        "ö": "o",
+        "ü": "u",
+        "ã": "a",
+        "õ": "o",
+        "ñ": "nn",
+        "m̃": "mm",
+        "ũ": "u",
+        "ẽ": "e",
+        "ĩ": "i",
+        "ā": "an",
+        "ē": "en",
+        "ī": "in",
+        "ō": "on",
+        "ū": "un"
+    }
+
+    let cleanedWord = "";
+    for (let i = 0; i < word.length; i++) {
+        if (word[i] in charReplacementDict) {
+            cleanedWord += charReplacementDict[word[i]];
+        } else {
+            cleanedWord += word[i];
+        }
+    }
+    return cleanedWord;
+}
+
+let editionToTextColumnDict: stringToStringDict = {
+    "2": "first_edition_text",
+    "3": "second_edition_text",
+    "5": "other_edition_text",
+    "7": "other_edition_text"
+};
+
+let editionToWordListDict: stringToStringDict = {
+    "2": "first_edition_words",
+    "3": "second_edition_words",
+    "5": "other_edition_words",
+    "7": "other_edition_words"
+};
+
+export async function addRawVerseText(dict: stringToStringDict) {
+    let verse: number = parseInt(dict['verseID']);
+    let edition: number = parseInt(dict['edition']);
+    let text: string = dict['text'];
+
+    let rawWords = text.split(" ");
+    let cleanedWords: string[] = [];
+
+    for (let i=0; i < rawWords.length; i++) {
+        let cleanedWord = cleanPunctuation(rawWords[i]);
+        cleanedWords.push(cleanedWord);
+    }
+
+    if (cleanedWords.length != rawWords.length) {
+        return "Punctuation error in verse " + dict['verseID'];
+    } else {
+        let rawColumn = editionToTextColumnDict[edition];
+        let wordsColumn = editionToWordListDict[edition];
+
+        let updateQuery = await pool.query('UPDATE all_verses SET ' + rawColumn + ' = $1, ' + wordsColumn + ' = $2 WHERE id = $3', [text, cleanedWords, verse]);
+
+        return "Verse " + dict['verseID'] + " updated in database.";
+    }
+
+}
+
+//Go through this file later and use the $1::int type enforcement on queries
+/*
 function zipTwoLists(list1: any[], list2: any[]): any {
     let finalDict: any = {};
     for (let i = 0; i < list1.length; i++) {
@@ -555,14 +643,14 @@ function getComparedVerses(string1: string, string2: string): stringToStringDict
 
             let lastCharSubstring1 = (testSubstring1[testSubstring1.length - 1] == "›")
             let lastCharSubstring2 = (testSubstring2[testSubstring2.length - 1] == "»")
-            */
+         
 
             substring1 = substring1.split("‹").join("Ƀ");
             substring1 = substring1.split("›").join("β");
 
             substring2 = substring2.split("«").join("Ƀ");
             substring2 = substring2.split("»").join("β");
-            /*
+           
             if (firstCharSubstring1) {
                 substring1 = "Ƀ" + substring1;
             }
@@ -578,22 +666,22 @@ function getComparedVerses(string1: string, string2: string): stringToStringDict
             if (lastCharSubstring2) {
                 substring2 += "β";
             }
-            */
+            
         } else {
-            /*
+            
             let firstCharSubstring1 = (testSubstring1[0] == "‹")
             let firstCharSubstring2 = (testSubstring2[0] == "«")
 
             let lastCharSubstring1 = (testSubstring1[testSubstring1.length - 1] == "›")
             let lastCharSubstring2 = (testSubstring2[testSubstring2.length - 1] == "»")
-            */
+           
 
             substring1 = substring1.split("‹").join("Ř");
             substring1 = substring1.split("›").join("ř");
 
             substring2 = substring2.split("«").join("Ř");
             substring2 = substring2.split("»").join("ř");
-            /*
+            
             if (firstCharSubstring1) {
                 substring1 = "Ř" + substring1;
             }
@@ -609,7 +697,7 @@ function getComparedVerses(string1: string, string2: string): stringToStringDict
             if (lastCharSubstring2) {
                 substring2 += "ř";
             }
-            */
+        
         }
         finalStringList1.push(substring1);
         finalStringList2.push(substring2);
@@ -717,4 +805,4 @@ export async function addComparedBook(book: string, sourceColumn1: string, sourc
     }
     return("Book " + book + " has been compared and updated.");
 }
-
+*/
