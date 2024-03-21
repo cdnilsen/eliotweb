@@ -93,7 +93,7 @@ async function addWordsToDatabase() {
     let allIDLength = allIDList.length;
 
     let startingIndex = 0;
-    let endingIndex = 50;
+    let endingIndex = 10;
 
     while (startingIndex <= allIDLength) {
         let myIDList = allIDList.slice(startingIndex, endingIndex); // works when logged
@@ -106,8 +106,9 @@ async function addWordsToDatabase() {
         }).then(res => res.json()).then(res => {
             console.log(res[0].toString() + " worked!");
         }).catch(err => console.log(err));
-        startingIndex += 50;
-        endingIndex += 50;
+        startingIndex += 10;
+        endingIndex += 10;
+        sleep(50);
     }
     let newSpan = document.createElement('span');
     newSpan.innerHTML = allIDLength.toString() + " verses processed.\n";
