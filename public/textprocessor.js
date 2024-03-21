@@ -87,6 +87,43 @@ document.getElementById('run_word_counts').addEventListener("click", async funct
 });
 */
 
+
+async function addWordsToDatabase() {
+    let allIDList = await getAllVerseIDs();
+    let allIDLength = allIDList.length;
+
+    let startingIndex = 0;
+    let endingIndex = 50;
+
+    while (startingIndex <= allIDLength) {
+        let myIDList = allIDList.slice(startingIndex, endingIndex); // works when logged
+        fetch('/processWords', {
+            method: 'POST',
+            body: JSON.stringify(myIDList),
+            headers: {
+            "Content-type": "application/json; charset=UTF-8"
+            }
+        }).then(res => res.json()).then(res => {
+            console.log(res[0].toString() + " worked!");
+        }).catch(err => console.log(err));
+        startingIndex += 50;
+        endingIndex += 50;
+    }
+    let newSpan = document.createElement('span');
+    newSpan.innerHTML = allIDLength.toString() + " verses processed.\n";
+
+    sleep(500);
+    fetch('/populateCorrespondences', {
+        method: 'PUT',
+        body: JSON.stringify({"dummy": 0}),
+        headers: {
+        "Content-type": "application/json; charset=UTF-8"
+        }
+    }).then(res => res.json()).then(res => console.log(res)).catch(err => console.error(err));
+    
+    document.getElementById("text-container").appendChild(newSpan);
+}
+
 async function getAllVerseIDs() {
     let allVerseIDs = await fetch("/getAllVerseIDs").then(res => res.json()).then(res => res).catch(err => console.error(err));
     console.log("Number of verse IDs: " + allVerseIDs.length.toString());
@@ -594,6 +631,7 @@ async function createDropdownChain(includeEdition, includesKJV) {
                                 "Zeroth Edition": "7"
                             }
                             await runEditionVocab(whichBook, bookToPrimeDict[whichEdition], textContainerDiv);
+                            await addWordsToDatabase();
                         }
                     });
                 });

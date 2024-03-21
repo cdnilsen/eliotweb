@@ -2,10 +2,6 @@ import { addTriangleToParent, topBookList, resetResults, getCountDictionaries, a
 
 import { bookToActiveEditionsDict } from "./bookdata.js";
 
-
-
-
-
 function processVerseText(rawText, editionPrime, activeWord, laxDiacritics=false) {
     if (editionPrime < 11) {
         rawText = highlightSearchedWord(activeWord, rawText, laxDiacritics);
