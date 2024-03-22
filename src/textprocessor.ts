@@ -71,32 +71,46 @@ let editionToWordListDict: stringToStringDict = {
     "7": "other_edition_words"
 };
 
+
 export async function addRawVerseText(dict: stringToStringDict) {
     let verse: number = parseInt(dict['verseID']);
-    let edition: number = parseInt(dict['edition']);
-    let text: string = dict['text'];
+    let query = await pool.query('SELECT * FROM all_verses WHERE id = $1', [verse]);
+    if (query.rows.length > 0) {
+        let edition: number = parseInt(dict['edition']);
+        let textColumn = editionToTextColumnDict[edition];
+        let wordListColumn = editionToWordListDict[edition];
+        let text = dict['text'];
 
-    let rawWords = text.split(" ");
-    let cleanedWords: string[] = [];
-
-    for (let i=0; i < rawWords.length; i++) {
-        let cleanedWord = cleanPunctuation(rawWords[i]);
-        cleanedWords.push(cleanedWord);
-    }
-
-    if (cleanedWords.length != rawWords.length) {
-        return "Punctuation error in verse " + dict['verseID'];
-    } else {
-        let rawColumn = editionToTextColumnDict[edition];
-        let wordsColumn = editionToWordListDict[edition];
-
-        let updateQuery = await pool.query('UPDATE all_verses SET ' + rawColumn + ' = $1, ' + wordsColumn + ' = $2 WHERE id = $3', [text, cleanedWords, verse]);
-
+        let cleanedWords: string[] = [];
+        let rawWords = text.split(" ");
+        for (let i = 0; i < rawWords.length; i++) {
+            let cleanedWord = cleanPunctuation(rawWords[i]);
+            cleanedWords.push(cleanedWord);
+        }
+        let updateQuery = await pool.query('UPDATE all_verses SET ' + textColumn + ' = $1, ' + wordListColumn + ' = $2 WHERE id = $3', [text, cleanedWords, verse]);
         return "Verse " + dict['verseID'] + " updated in database.";
+    } else {
+        let edition: number = parseInt(dict['edition']);
+        let text: string = dict['text'];
+        let book: string = dict['book'];
+        let chapter: number = parseInt(dict['chapter']);
+        let verseNum: number = parseInt(dict['verse']);
+
+        let cleanedWords: string[] = [];
+        let rawWords = text.split(" ");
+        for (let i = 0; i < rawWords.length; i++) {
+            let cleanedWord = cleanPunctuation(rawWords[i]);
+            cleanedWords.push(cleanedWord);
+        }
+
+        let textColumn = editionToTextColumnDict[edition];
+        let wordListColumn = editionToWordListDict[edition];
+
+        let updateQuery = await pool.query('INSERT INTO all_verses(id, book, ' + textColumn + ', ' + wordListColumn + ', chapter, verse) VALUES($1, $2, $3, $4, $5, $6)', [verse, book, text, cleanedWords, chapter, verseNum]);
+
+        return "Verse " + dict['verseID'] + " added to database.";
     }
-
 }
-
 //Go through this file later and use the $1::int type enforcement on queries
 /*
 function zipTwoLists(list1: any[], list2: any[]): any {

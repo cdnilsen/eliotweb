@@ -631,7 +631,7 @@ async function createDropdownChain(includeEdition, includesKJV) {
                                 "Mayhew": "5",
                                 "Zeroth Edition": "7"
                             }
-                            await runEditionVocab(whichBook, bookToPrimeDict[whichEdition], textContainerDiv);
+                            //await runEditionVocab(whichBook, bookToPrimeDict[whichEdition], textContainerDiv);
                             await addWordsToDatabase();
                         }
                     });
