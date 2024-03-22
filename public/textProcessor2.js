@@ -29,5 +29,4 @@ async function addRawVerse(book, text, edition) {
         },
         body: JSON.stringify({book: book, chapter: chapter, verse: verse, edition: edition, verseID: verseID, text: text})
     })
-
 }
