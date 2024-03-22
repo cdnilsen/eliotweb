@@ -25,8 +25,38 @@
         <input type="radio" name="action" id="runCorrespondences"  value="runCorrespondences">
             <label for="processAText">Rerun correspondences</label>
     </div>
+    <br>
+    <br>
+    <div>
+        Select a section to process:
+        <select id="bookSectionDropdown" name="bookSectionDropdown" style="padding-right:5px">
+            <option value="null"></option>
+            <option value="Pentateuch">Pentateuch</option>
+            <option value="Historical Books">Historical Books</option>
+            <option value="Poetical Books">Poetical Books</option>
+            <option value="Major Prophets">Major</option>
+            <option value="Minor Prophets">Minor Prophets</option>
+            <option value="Gospels">Gospels</option>
+            <option value="NTRest">Rest of the NT</option>
+            <option value="mishnaic">"Mishnaic" publications</option>
+        </select>
+    </div>
 
-    <button type="submit" id="pickAction">
+    <div>
+        Select a book to process:
+        <select id="bookDropdown" name="bookDropdown" style="padding-right:5px">
+            
+        </select>
+    </div>
+
+    <div>
+        Select an edition to process:
+        <select id="editionDropdown" name="editionDropdown" style="padding-right:5px">
+            
+        </select>
+    </div>
+
+    <button type="submit" id="submit">
         <span id="pickActionLegend"></span>
     </button>
 
@@ -66,7 +96,7 @@
     <button type="submit" id="run_word_counts">Get total word counts for all words</button>
     -->
 </body>
-<script type="module" src="textprocessor.js"></script>
+<script type="module" src="textProcessor2.js"></script>
 <script>
     function closeIt(){
         window.location.href = window.location.href.split("?")[0];
