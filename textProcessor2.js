@@ -1,5 +1,7 @@
 import { PentateuchList, HistoricalBooksList, WisdomBooksList, MajorProphetsList, MinorProphetsList, gospelsList, restOfNTList, mishnaicList, bookToNumberDict, allBookList, bookToChapterDict, bookToChapterVerseDict, NTBookList, bookToActiveEditionsDict, psalmsWithVerseZero} from "./bookdata.js";
 
+
+
 async function addRawVerse(book, text, edition) {
     let bookNumber = bookToNumberDict[book];
     let splitText = text.split(" ");
@@ -21,6 +23,8 @@ async function addRawVerse(book, text, edition) {
     }
 
     let verseID = edition + bookNumber + chapter + verse;
+
+    //console.log(verseID);
 
     fetch('/addRaw', {
         method: 'POST',
@@ -111,12 +115,17 @@ submitButton.addEventListener("click", async function() {
     let book = bookDropdown.value;
     let edition = editionDropdown.value;
     let editionNum = getEditionNum(edition);
-    let textName = ".texts/" + book + "." + edition + ".txt";
+    let textName = "./texts/" + book + "." + edition + ".txt";
+
+    console.log(textName);
 
     let text = await fetch(textName).then(response => response.text());
 
     let splitText = text.split("\n");
+    
     for (let i = 0; i < splitText.length; i++) {
+        //console.log(splitText[i]);
+        
         await addRawVerse(book, splitText[i], editionNum);
     }
 });

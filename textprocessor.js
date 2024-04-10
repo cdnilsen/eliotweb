@@ -715,6 +715,7 @@ async function processWordsOneText() {
 }
 
 async function callRadioFunction(whichAction) {
+    console.log(whichAction);
     if (whichAction == "processAText") {
         await processTextPopulateHTML();
     } else if (whichAction == "compareVerses") {
@@ -759,5 +760,6 @@ document.getElementById('pickAction').addEventListener("click", async function()
     document.getElementById("text-container").innerHTML = "";
     document.getElementById("action-choices").innerHTML = "";
     let whichAction = getRadioSelection();
+    console.log(whichAction);
     await callRadioFunction(whichAction);
 });

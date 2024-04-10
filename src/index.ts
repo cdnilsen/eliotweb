@@ -8,10 +8,12 @@ import { addRawVerseText } from './textprocessor'
 import { processBatchWordData, processWordsOneText, populateCorrespondences, getTotalWordCounts } from './processWords'
 import { getVerseText, getChapterText } from './browseTexts'
 
+//const express = require('express');
 const app = express();
-app.use(express.json());
-const port = process.env.PORT;
+const port = process.env.PORT || 8000; // Use your preferred port
 
+// Middleware to parse JSON bodies
+app.use(express.json());
 app.get('/dynamicContent', (req, res) => {
     res.send(`Hi! I'm some dynamic content! You loaded this page at millisecond ${new Date().getTime()} of the UNIX 年号.`)
 })
@@ -26,7 +28,8 @@ app.post('/test', wrapAsync(async (req, res) => {
 
 app.post('/addRaw', wrapAsync(async (req, res) => {
     try {
-        //console.log(req.body);
+        console.log("Hello!");
+        console.log(req.body);
         //res.json(req.body);
         let returnValue = await addRawVerseText(req.body);
         res.json(returnValue);
