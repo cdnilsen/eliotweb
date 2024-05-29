@@ -1,0 +1,22 @@
+body {
+    font-size: 20px;
+    direction: rtl;
+}
+
+.qereonly {
+    color: #a0a0a0;
+}
+
+.ketiv {
+    color: #ff0000;
+    border-bottom: 1px dotted #000;
+}
+
+.hapax {
+    color: blue;
+}
+
+.hapaxKetiv {
+    color: #ff00ff;
+    border-bottom: 1px dotted #000;
+}

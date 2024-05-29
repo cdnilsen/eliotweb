@@ -69,10 +69,10 @@ def getVerseNum(rawLine):
 
 
 def qereSpanLine(ketiv, qere, hapax, hasSofPasuk, hasMaqaf):
-    color = "red"
+    spanClass = "ketiv"
     if hapax:
-        color = "#FF00FF"
-    string = "<span title='" + qere + "'><span style='color:" + color + "'>" + ketiv + "</span></span>"
+        spanClass = "hapaxKetiv"
+    string = "<span title='" + qere + "'><span class='" + spanClass + "'>" + ketiv + "</span></span>"
     if hasSofPasuk:
         string = string + "׃"
 
@@ -82,7 +82,7 @@ def qereSpanLine(ketiv, qere, hapax, hasSofPasuk, hasMaqaf):
     return string
 
 def ketivOnlyLine(line):
-    newLine = '<span style="color:'
+    newLine = '<span class="'
     hasSofPasuk = False
     if line[-1] == "׃":
         hasSofPasuk = True
@@ -90,11 +90,11 @@ def ketivOnlyLine(line):
     if line.startswith("<hk"):
         ketivIsHapax = True
         ketiv = line.split("</hk>")[0].replace("<hk>", "")
-        newLine += '#ff00ff">'
+        newLine += 'hapaxKetiv">'
 
     else:
         ketiv = line.split("</k>")[0].replace("<k>", "")
-        newLine += 'red">'
+        newLine += 'ketiv">'
 
     newLine += ketiv
 
@@ -117,7 +117,7 @@ def qereOnlyLine(line):
         line = line.replace("׃", "")
         hasSofPasuk = True
 
-    line = '<span style="color:#747474">' + line + "</span>"
+    line = '<span class="qereonly">' + line + "</span>"
 
     if hasSofPasuk:
         line += "׃"
@@ -130,7 +130,7 @@ def qereOnlyLine(line):
 def qereKetivLineHTML(line):
     hasSofPasuk = False
     qere = ""
-    if "<q>" in line and "<k>" in line:
+    if "<q>" in line and ("<k>" in line or "<hk>" in line):
         qere = line.split("<q>")[1].replace("</q>", "")
     elif "<q>" in line:
         return qereOnlyLine(line)
@@ -170,7 +170,7 @@ def normalWordHTML(line):
         line = line.replace("׃", "")
 
     if isHapax:
-        line = '<span style="color:blue">' + line + "</span>"
+        line = '<span class="hapax">' + line + "</span>"
 
     if hasSofPasuk:
         line += "׃"
@@ -226,6 +226,7 @@ def createHTML(fileName):
 
     htmlPath = './Hebrew HTML/' + fileName.replace(".txt", '.html')
     with open(htmlPath, 'w', encoding = 'utf-8') as newFile:
+        newFile.write('<link rel="stylesheet" type="text/css" href="styles.css">\n<body>')
         for verse in verseNums:
             if verse not in verseTextDict:
                 print(verse)
@@ -233,6 +234,7 @@ def createHTML(fileName):
             else:
                 newFile.write(verseTextDict[verse])
                 newFile.write('<br>')
+        newFile.write('</body>')
 
 for file in allFiles:
     createHTML(file)
