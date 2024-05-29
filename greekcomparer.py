@@ -8,7 +8,7 @@ def gravesToAcutes(word):
     return word.lower()
         
 def stripWord(word):
-    punctuation = ".,;·()"
+    punctuation = ".,;·()!"
     for char in punctuation:
         word = word.replace(char, "")
     return gravesToAcutes(word)
@@ -38,5 +38,46 @@ def getCountDict(inputFile, outputFile):
         for word in allWords:
             output.write(word + " : " + str(dict[word]) + "\n")
 
-getCountDict('allGreekText.txt', 'concordanceCount.txt')
-    
+
+def getHapaxes():
+    hapaxLines = open('./nthapaxesraw.txt', 'r', encoding='utf-8').readlines()
+    allHapaxDict = {}
+    currentHapax = ""
+    for i in range(2, len(hapaxLines)):
+        line = hapaxLines[i].strip()
+        if i % 4 == 3:
+            currentHapax = line
+        elif i % 4 == 1:
+            allHapaxDict[currentHapax] = line
+    return allHapaxDict
+
+def getVerseDict():
+    NTLines = open("./allGreekText.txt", "r", encoding="utf-8").readlines()
+
+    allVerseDict = {}
+    currentBook = ""
+    for line in NTLines:
+        line = line.strip()
+        if line.startswith("=="):
+            currentBook = line.replace("==", "")
+        elif len(line) > 0:
+            splitLine = line.split(" ")
+            allVerseDict[currentBook + " " + splitLine[0]] = " ".join(splitLine[1:])
+    return allVerseDict
+
+hapaxDict = getHapaxes()
+
+hapaxList = list(hapaxDict.keys())
+verseDict = getVerseDict()
+
+hapaxesNotPresent = 0
+print(hapaxList[0])
+print(hapaxDict[hapaxList[0]])
+for hapax in hapaxList:
+    thisHapaxVerse = hapaxDict[hapax]
+    if hapax not in verseDict[thisHapaxVerse]:
+        print(hapax)
+        print(thisHapaxVerse)
+        hapaxesNotPresent += 1
+
+print(str(hapaxesNotPresent) + " hapaxes not in the text")    
