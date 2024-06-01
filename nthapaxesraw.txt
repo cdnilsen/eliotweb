@@ -827,7 +827,7 @@ Mark 13:34
 ἀποδιορίζω
 ἀποδιορίζοντες
 to divide
-Jude 19
+Jude 1:19
 ἀποθησαυρίζω
 ἀποθησαυρίζοντας
 store up, lay up
@@ -895,7 +895,7 @@ Romans 12:9
 ἀποτίνω
 ἀποτίσω
 pay damages
-Philemon 19
+Philemon 1:19
 ἀποτολμάω
 ἀποτολμᾷ
 be bold
@@ -931,7 +931,7 @@ impartially
 ἄπταιστος
 ἀπταίστους
 without stumbling
-Jude 24
+Jude 1:24
 ἀρά
 ἀρᾶς
 curse
@@ -1191,7 +1191,7 @@ Romans 3:12
 ἄχρηστος
 ἄχρηστον
 useless
-Philemon 11
+Philemon 1:11
 ἀψευδής
 ἀψευδὴς
 truthful
@@ -1415,7 +1415,7 @@ Acts 26:3
 γογγυστής
 γογγυσταὶ
 grumbler
-Jude 16
+Jude 1:16
 γόης
 γόητες
 imposter
@@ -1483,7 +1483,7 @@ Luke 14:28
 δεῖγμα
 δεῖγμα
 example
-Jude 7
+Jude 1:7
 δειλία
 δειλίας
 cowardice
@@ -2039,7 +2039,7 @@ come to one’s senses
 ἑκούσιος
 ἑκούσιον
 voluntary
-Philemon 14
+Philemon 1:14
 ἐκπερισσῶς
 ἐκπερισσῶς
 with great emphasis
@@ -2063,7 +2063,7 @@ Acts 21:26
 ἐκπορνεύω
 ἐκπορνεύσασαι
 indulge in debauchery
-Jude 7
+Jude 1:7
 ἐκπτύω
 ἐξεπτύσατε
 to disdain
@@ -2359,7 +2359,7 @@ celebrate a festival
 ἐπαγωνίζομαι
 ἐπαγωνίζεσθαι
 contend
-Jude 3
+Jude 1:3
 ἐπαθροίζω
 ἐπαθροιζομένων
 to increase
@@ -2395,7 +2395,7 @@ Acts 1:20
 ἐπαφρίζω
 ἐπαφρίζοντα
 to foam up
-Jude 13
+Jude 1:13
 ἐπειδήπερ
 Ἐπειδήπερ
 inasmuch as, since
@@ -3867,7 +3867,7 @@ parchment
 μεμψίμοιρος
 μεμψίμοιροι
 complaining about one’s lot
-Jude 16
+Jude 1:16
 μενοῦν
 μενοῦν
 rather
@@ -4303,7 +4303,7 @@ Luke 1:25
 ὀνίνημι
 ὀναίμην
 to enjoy
-Philemon 20
+Philemon 1:20
 ὁπλίζω
 ὁπλίσασθε
 to arm
@@ -4587,7 +4587,7 @@ Galatians 2:4
 παρεισδύω
 παρεισέδυσαν
 to slip in stealthily
-Jude 4
+Jude 1:4
 παρεισφέρω
 παρεισενέγκαντες
 to apply
@@ -4823,7 +4823,7 @@ to show oneself faithful; to be convinced
 πλανήτης
 πλανῆται
 wanderer, roamer
-Jude 13
+Jude 1:13
 πλάσμα
 πλάσμα
 that which is molded
@@ -5119,7 +5119,7 @@ Mark 6:53
 προσοφείλω
 προσοφείλεις
 to owe besides
-Philemon 19
+Philemon 1:19
 πρόσπεινος
 πρόσπεινος
 hungry
@@ -5499,7 +5499,7 @@ Acts 17:18
 σπιλάς
 σπιλάδες
 rock, a reef
-Jude 12
+Jude 1:12
 σπορά
 σπορᾶς
 seed
@@ -6271,7 +6271,7 @@ Romans 12:3
 ὑπέχω
 ὑπέχουσαι
 to undergo
-Jude 7
+Jude 1:7
 ὑποβάλλω
 ὑπέβαλον
 to instigate secretly
@@ -6371,7 +6371,7 @@ Acts 21:31
 φθινοπωρινός
 φθινοπωρινὰ
 belonging to late autumn
-Jude 12
+Jude 1:12
 φθονέω
 φθονοῦντες
 to envy
@@ -6423,7 +6423,7 @@ contentious
 φιλοπρωτεύω
 φιλοπρωτεύων
 to wish to be first
-3 John 9
+3 John 1:9
 φιλοσοφία
 φιλοσοφίας
 philosophy
@@ -6447,7 +6447,7 @@ Acts 28:7
 φλυαρέω
 φλυαρῶν
 talk nonsense
-3 John 10
+3 John 1:10
 φλύαρος
 φλύαροι
 gossipy
@@ -6507,7 +6507,7 @@ Matthew 23:5
 φυσικῶς
 φυσικῶς
 naturally
-Jude 10
+Jude 1:10
 φυσίωσις
 φυσιώσεις
 pride
@@ -6547,7 +6547,7 @@ Luke 19:43
 χάρτης
 χάρτου
 papyrus roll
-2 John 12
+2 John 1:12
 χάσμα
 χάσμα
 chasm

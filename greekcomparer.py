@@ -52,17 +52,15 @@ def getHapaxes():
     return allHapaxDict
 
 def getVerseDict():
-    NTLines = open("./allGreekText.txt", "r", encoding="utf-8").readlines()
+    NTLines = open("./greekText2.txt", "r", encoding="utf-8").readlines()
 
     allVerseDict = {}
     currentBook = ""
     for line in NTLines:
-        line = line.strip()
-        if line.startswith("=="):
-            currentBook = line.replace("==", "")
-        elif len(line) > 0:
-            splitLine = line.split(" ")
-            allVerseDict[currentBook + " " + splitLine[0]] = " ".join(splitLine[1:])
+        splitLine = line.split("}")
+        address = splitLine[0].replace("{", "")
+        splitVerse = splitLine[1].split(" ")
+        allVerseDict[address] = splitLine[1]
     return allVerseDict
 
 hapaxDict = getHapaxes()
@@ -70,14 +68,149 @@ hapaxDict = getHapaxes()
 hapaxList = list(hapaxDict.keys())
 verseDict = getVerseDict()
 
+def getTextHapaxes(text, hapaxList):
+    allLines = open(text, 'r', encoding='utf-8').readlines()
+    
+    allWords = []
+    wordDict = {}
+    for line in allLines:
+        line = line.strip()
+        splitLine = line.split("}")
+
+        address = splitLine[0].replace("{", "").strip()
+        verse = splitLine[1].strip()
+
+        for word in verse.split(" "):
+            cleanWord = stripWord(word)
+            if cleanWord in wordDict:
+                wordDict[cleanWord] += 1
+            else:
+                wordDict[cleanWord] = 1
+                allWords.append(cleanWord)
+    allWords.sort()
+
+    potentialHapaxes = []
+    for word in allWords:
+        if wordDict[word] == 1 and word not in hapaxList:
+            potentialHapaxes.append(word)
+
+    return len(potentialHapaxes)
+
+
+
+
+print(len(hapaxDict))
+print(len(verseDict))
 hapaxesNotPresent = 0
-print(hapaxList[0])
-print(hapaxDict[hapaxList[0]])
+outputFile = open("hapaxesNotOnList.txt", "w", encoding="utf-8")
 for hapax in hapaxList:
     thisHapaxVerse = hapaxDict[hapax]
-    if hapax not in verseDict[thisHapaxVerse]:
-        print(hapax)
-        print(thisHapaxVerse)
-        hapaxesNotPresent += 1
+    if gravesToAcutes(hapax) not in gravesToAcutes(verseDict[thisHapaxVerse]):
+        hapaxString = hapax + " (" + thisHapaxVerse + ")\n"
+        outputFile.write(hapaxString)
+        print(hapax + " not in " + thisHapaxVerse)
 
-print(str(hapaxesNotPresent) + " hapaxes not in the text")    
+def highlightHapaxes(hapaxList, hapaxDict, sourceText):
+    
+    outputFile = open("highlightedGreek.txt", 'w', encoding='utf-8')
+
+    sourceLines = open(sourceText, 'r', encoding='utf-8').readlines()
+
+    verseList = []
+    verseDict = {}
+    for line in sourceLines:
+        line = line.strip()
+        splitLine = line.split("}")
+
+        address = splitLine[0].replace("{", "").strip()
+        verse = splitLine[1].strip()
+        verseDict[address] = verse
+        verseList.append(address)
+
+    highlightedVerseDict = {}
+
+    strippedHapaxes = []
+    for hapax in hapaxList:
+        strippedHapaxes.append(stripWord(hapax))
+
+    unfoundHapaxes = []
+    for hapax in hapaxList:
+        hapaxAddress = hapaxDict[hapax]
+        hapaxVerse = verseDict[hapaxAddress]
+
+        highlightedVerse = ""
+        foundHapax = False
+        for word in hapaxVerse.split(" "):
+            if stripWord(word) == stripWord(hapax):
+                highlightedVerse += ('<span style="color:blue">' + word + '</span>')
+                foundHapax = True
+            elif stripWord(word) not in strippedHapaxes:
+                highlightedVerse += word
+            else:
+                highlightedVerse += ('<span style="color:blue">' + word + '</span>')
+                foundHapax = True
+            highlightedVerse += " "
+        if "<span" in highlightedVerse:
+            print(highlightedVerse.strip())
+        highlightedVerseDict[hapaxAddress] = highlightedVerse.strip()
+        if foundHapax == False:
+            unfoundHapaxes.append(hapax)
+
+    for address in verseList:
+        if address in highlightedVerseDict:
+            outputFile.writelines("{" + address + "} " + highlightedVerseDict[address] + "\n")
+        else:
+            outputFile.writelines( "{" + address + "} " + verseDict[address] + "\n")
+
+    return unfoundHapaxes
+
+unfoundHapaxes = highlightHapaxes(hapaxList, hapaxDict, 'greekText2.txt')
+
+
+bookNames = [
+    "Matthew",
+    "Mark",
+    "Luke",
+    "John",
+    "Acts",
+    "Romans",
+    "1 Corinthians",
+    "2 Corinthians",
+    "Galatians",
+    "Ephesians",
+    "Philippians",
+    "Colossians",
+    "1 Thessalonians",
+    "2 Thessalonians",
+    "1 Timothy",
+    "2 Timothy",
+    "Titus",
+    "Philemon",
+    "Hebrews",
+    "James",
+    "1 Peter",
+    "2 Peter",
+    "1 John",
+    "2 John",
+    "3 John",
+    "Jude",
+    "Revelation"
+]
+
+
+bookToHapaxDict = {}
+for hapax in unfoundHapaxes:
+    book = " ".join(hapaxDict[hapax].split(":")[0].split(" ")[0:-1])
+    if book not in bookNames:
+        print("Error with " + book)
+    if book not in bookToHapaxDict:
+        bookToHapaxDict[book] = [hapax + " (" + hapaxDict[hapax] + ")"]
+    else:
+        bookToHapaxDict[book].append(hapax + " (" + hapaxDict[hapax] + ")")
+
+unfoundHapaxesFile = open('./newHapaxesNotOnList.txt', 'w', encoding='utf-8')
+for book in bookNames:
+    if book in bookToHapaxDict:
+        hapaxString = ", ".join(bookToHapaxDict[book])
+        unfoundHapaxesFile.write(book + ": " + hapaxString + "\n")
+
