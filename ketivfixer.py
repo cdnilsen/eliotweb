@@ -233,15 +233,12 @@ def createHTML(fileName):
 
     htmlPath = './Hebrew HTML/' + fileName #fileName.replace(".txt", '.html')
     with open(htmlPath, 'w', encoding = 'utf-8') as newFile:
-        newFile.write('<link rel="stylesheet" type="text/css" href="styles.css">\n<body>')
         for verse in verseNums:
             if verse not in verseTextDict:
                 print(verse)
                 print(fileName)
             else:
-                newFile.write(verseTextDict[verse])
-                newFile.write('<br>')
-        newFile.write('</body>')
+                newFile.write("{" + verse + "} «" + verseTextDict[verse] + "\n")
 
 for file in allFiles:
     createHTML(file)
