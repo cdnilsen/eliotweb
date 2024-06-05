@@ -52,7 +52,7 @@ def createHTMLOld(fileName):
         originalLine = line
         line = line.split("{")[0]
         line = line.replace("</k><q>", "Ž")
-        line = line.replace("</hk><q>", "Ĥ")
+        line = line.replace("</hk><q>", "Ŝ")
         splitLine = line.split("</")
         lineEnd = splitLine[1].strip()
         if lineEnd not in allTags and lineEnd.replace("׃", "") not in allTags and originalLine not in exemptLines:
@@ -69,10 +69,10 @@ def getVerseNum(rawLine):
 
 
 def qereSpanLine(ketiv, qere, hapax, hasSofPasuk, hasMaqaf):
-    spanClass = "ketiv"
+    spanClass = "K"
     if hapax:
-        spanClass = "hapaxKetiv"
-    string = "<span title='" + qere + "'><span class='" + spanClass + "'>" + ketiv + "</span></span>"
+        spanClass = "HK"
+    string = "<span title='" + qere + "'><" + spanClass + ">" + ketiv + "</" + spanClass + "></span>"
     if hasSofPasuk:
         string = string + "׃"
 
@@ -82,31 +82,38 @@ def qereSpanLine(ketiv, qere, hapax, hasSofPasuk, hasMaqaf):
     return string
 
 def ketivOnlyLine(line):
-    newLine = '<span class="'
+    newLine = '<'
     hasSofPasuk = False
+    ketivIsHapax = False
     if line[-1] == "׃":
         hasSofPasuk = True
         ketiv = ketiv.replace("׃", "")
     if line.startswith("<hk"):
         ketivIsHapax = True
         ketiv = line.split("</hk>")[0].replace("<hk>", "")
-        newLine += 'hapaxKetiv">'
+        newLine += 'HK">'
 
     else:
         ketiv = line.split("</k>")[0].replace("<k>", "")
-        newLine += 'ketiv">'
+        newLine += 'K">'
 
     newLine += ketiv
 
-    if ketiv[-1] == "־":
-        newLine += "</span>"
-    elif hasSofPasuk:
-        newLine += "</span>׃"
+    endSpan = "<"
+    if ketivIsHapax:
+        endSpan += "/HK>"
     else:
-        newLine += "</span> "
+        endSpan += "/K>"
+    newLine += endSpan
+
+    if ketiv[-1] == "־":
+        return newLine
+    elif hasSofPasuk:
+        return newLine + "׃"
+    else:
+        return newLine + " "
 
 
-    return newLine
 
 def qereOnlyLine(line):
     hasSofPasuk = False
@@ -117,7 +124,7 @@ def qereOnlyLine(line):
         line = line.replace("׃", "")
         hasSofPasuk = True
 
-    line = '<span class="qereonly">' + line + "</span>"
+    line = '<Q>' + line + "</Q>"
 
     if hasSofPasuk:
         line += "׃"
@@ -170,7 +177,7 @@ def normalWordHTML(line):
         line = line.replace("׃", "")
 
     if isHapax:
-        line = '<span class="hapax">' + line + "</span>"
+        line = '<Ĥ>' + line + "</Ĥ>"
 
     if hasSofPasuk:
         line += "׃"
@@ -224,7 +231,7 @@ def createHTML(fileName):
         elif line != "<V>1:1</V>":
             print(line + " (" + fileName.replace(".txt", "") + " " + thisVerseNum + ")")
 
-    htmlPath = './Hebrew HTML/' + fileName.replace(".txt", '.html')
+    htmlPath = './Hebrew HTML/' + fileName #fileName.replace(".txt", '.html')
     with open(htmlPath, 'w', encoding = 'utf-8') as newFile:
         newFile.write('<link rel="stylesheet" type="text/css" href="styles.css">\n<body>')
         for verse in verseNums:
