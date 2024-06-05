@@ -230,6 +230,7 @@ def createHTML(fileName):
             thisVerseText += qereOnlyLine(line)
         elif line != "<V>1:1</V>":
             print(line + " (" + fileName.replace(".txt", "") + " " + thisVerseNum + ")")
+    verseTextDict[thisVerseNum] = thisVerseText
 
     htmlPath = './Hebrew HTML/' + fileName #fileName.replace(".txt", '.html')
     with open(htmlPath, 'w', encoding = 'utf-8') as newFile:
